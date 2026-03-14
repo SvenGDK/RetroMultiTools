@@ -14,11 +14,11 @@ A cross-platform desktop utility for managing, inspecting, and patching retro ga
 
 - [Downloads](#downloads)
 - [Platform Guides](#platform-guides)
+- [Documentation](#documentation)
 - [Features](#features)
 - [Supported Systems](#supported-systems)
 - [Localization](#localization)
 - [Building from Source](#building-from-source)
-- [Documentation](#documentation)
 - [License](#license)
 
 ## Downloads
@@ -42,6 +42,12 @@ Framework-dependent builds require the [.NET 8 Runtime](https://dotnet.microsoft
 - **Windows** — Install the [.NET 8 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0), extract the ZIP, and run `RetroMultiTools.exe`.
 - **Linux** — See [LINUX.md](LINUX.md) for required packages and step-by-step instructions.
 - **macOS** — See [macOS.md](macOS.md) for installation steps and Gatekeeper notes.
+
+## Documentation
+
+For detailed user guides and reference material, see the [full documentation](docs/README.md).
+
+- [ROM Browser & RetroArch Integration Guide](docs/features/rom-browser-guide.md) — step-by-step guide to browsing, managing, and launching ROMs with RetroArch
 
 ## Features
 
@@ -498,12 +504,6 @@ To run the application:
 ```bash
 dotnet run --project RetroMultiTools
 ```
-
-## Documentation
-
-For detailed user guides and reference material, see the [full documentation](docs/README.md).
-
-- [ROM Browser & RetroArch Integration Guide](docs/features/rom-browser-guide.md) — step-by-step guide to browsing, managing, and launching ROMs with RetroArch
 
 ## License
 
