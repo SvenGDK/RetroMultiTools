@@ -1,0 +1,116 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.RomBrowserView">
+    <DockPanel>
+        <!-- Toolbar -->
+        <StackPanel DockPanel.Dock="Top" Spacing="8" Margin="0,0,0,12">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button x:Name="BrowseFolderButton" Content="{Binding [Browser_SelectFolder], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseFolderButton_Click"
+                        Padding="12,6"/>
+                <TextBlock x:Name="FolderPathText" VerticalAlignment="Center"
+                           Foreground="#A6ADC8" Text="{Binding [Browser_NoFolderSelected], Source={x:Static loc:LocalizationManager.Instance}}" TextTrimming="CharacterEllipsis"
+                           MaxWidth="300"/>
+                <ComboBox x:Name="SystemFilterCombo" PlaceholderText="{Binding [Browser_FilterBySystem], Source={x:Static loc:LocalizationManager.Instance}}"
+                          SelectionChanged="SystemFilterCombo_SelectionChanged" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button x:Name="AddRomButton" Content="{Binding [Browser_AddRoms], Source={x:Static loc:LocalizationManager.Instance}}" Click="AddRomButton_Click"
+                        Padding="12,6" IsEnabled="False"/>
+                <Button x:Name="CopyRomButton" Content="{Binding [Browser_CopyTo], Source={x:Static loc:LocalizationManager.Instance}}" Click="CopyRomButton_Click"
+                        Padding="12,6" IsEnabled="False"/>
+                <Button x:Name="MoveRomButton" Content="{Binding [Browser_MoveTo], Source={x:Static loc:LocalizationManager.Instance}}" Click="MoveRomButton_Click"
+                        Padding="12,6" IsEnabled="False"/>
+                <Button x:Name="DeleteRomButton" Content="{Binding [Browser_Delete], Source={x:Static loc:LocalizationManager.Instance}}" Click="DeleteRomButton_Click"
+                        Padding="12,6" IsEnabled="False"/>
+                <Button x:Name="OrganizeButton" Content="{Binding [Browser_OrganizeRoms], Source={x:Static loc:LocalizationManager.Instance}}" Click="OrganizeButton_Click"
+                        Padding="12,6" IsEnabled="False"/>
+                <Button x:Name="SendToRemoteButton" Content="{Binding [Browser_SendToRemote], Source={x:Static loc:LocalizationManager.Instance}}" Click="SendToRemoteButton_Click"
+                        Padding="12,6" IsEnabled="False"/>
+                <Button x:Name="LaunchRetroArchButton" Content="{Binding [Browser_LaunchRetroArch], Source={x:Static loc:LocalizationManager.Instance}}" Click="LaunchRetroArchButton_Click"
+                        Padding="12,6" IsEnabled="False"/>
+                <CheckBox x:Name="ShowArtworkCheck" Content="{Binding [Browser_ShowArtwork], Source={x:Static loc:LocalizationManager.Instance}}"
+                          Foreground="#CDD6F4" IsChecked="False"
+                          IsCheckedChanged="ShowArtworkCheck_Changed"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Status Bar -->
+        <Border DockPanel.Dock="Bottom" Background="#181825" Padding="8,4">
+            <StackPanel Spacing="4">
+                <ProgressBar x:Name="ScanProgressBar" IsVisible="False" Minimum="0" Maximum="1"
+                             IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+                <TextBlock x:Name="StatusText" Foreground="#A6ADC8" FontSize="12" Text="{Binding [Common_Ready], Source={x:Static loc:LocalizationManager.Instance}}"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Content: ROM List + Artwork Panel -->
+        <Grid x:Name="ContentGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ROM List -->
+            <DataGrid x:Name="RomDataGrid" Grid.Column="0"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      CanUserReorderColumns="True"
+                      CanUserResizeColumns="True"
+                      GridLinesVisibility="Horizontal"
+                      Background="#1E1E2E"
+                      SelectionMode="Extended"
+                      SelectionChanged="RomDataGrid_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{Binding [Browser_ColFileName], Source={x:Static loc:LocalizationManager.Instance}}" Binding="{Binding FileName}" Width="*"/>
+                    <DataGridTextColumn Header="{Binding [Browser_ColSystem], Source={x:Static loc:LocalizationManager.Instance}}"    Binding="{Binding SystemName}" Width="225"/>
+                    <DataGridTextColumn Header="{Binding [Browser_ColSize], Source={x:Static loc:LocalizationManager.Instance}}"      Binding="{Binding FileSizeFormatted}" Width="100"/>
+                    <DataGridTextColumn Header="{Binding [Browser_ColValid], Source={x:Static loc:LocalizationManager.Instance}}"     Binding="{Binding IsValid}" Width="75"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Artwork Side Panel -->
+            <Border x:Name="ArtworkPanel" Grid.Column="1" Background="#181825" Padding="12"
+                    IsVisible="False" CornerRadius="6" Margin="8,0,0,0">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="{Binding [Browser_Artwork], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="14" FontWeight="SemiBold" Foreground="#CDD6F4"/>
+
+                        <TextBlock x:Name="ArtworkRomName" Foreground="#A6ADC8" FontSize="12"
+                                   TextWrapping="Wrap" Text="{Binding [Browser_SelectRomForArtwork], Source={x:Static loc:LocalizationManager.Instance}}"/>
+
+                        <!-- Box Art -->
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{Binding [Browser_BoxArt], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="11" Foreground="#6C7086"/>
+                            <Border Background="#11111B" CornerRadius="4" Padding="4"
+                                    MinHeight="120">
+                                <Image x:Name="BoxArtImage" Stretch="Uniform" MaxHeight="200"/>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Screenshot -->
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{Binding [Browser_Screenshot], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="11" Foreground="#6C7086"/>
+                            <Border Background="#11111B" CornerRadius="4" Padding="4"
+                                    MinHeight="120">
+                                <Image x:Name="SnapImage" Stretch="Uniform" MaxHeight="200"/>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Title Screen -->
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{Binding [Browser_TitleScreen], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="11" Foreground="#6C7086"/>
+                            <Border Background="#11111B" CornerRadius="4" Padding="4"
+                                    MinHeight="120">
+                                <Image x:Name="TitleScreenImage" Stretch="Uniform" MaxHeight="200"/>
+                            </Border>
+                        </StackPanel>
+
+                        <TextBlock x:Name="ArtworkStatusText" Foreground="#6C7086" FontSize="11"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </DockPanel>
+</UserControl>

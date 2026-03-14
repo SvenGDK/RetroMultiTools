@@ -1,0 +1,99 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.DatFilterView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="700" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [DatFilter_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [DatFilter_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- DAT File Selection -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [DatFilter_DatFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="DatFileTextBox" IsReadOnly="True"
+                         Watermark="{Binding [DatFilter_SelectDat], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseDat_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- DAT Info -->
+        <Border x:Name="DatInfoPanel" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="DatInfoText" Foreground="#A6ADC8" FontSize="12"/>
+        </Border>
+
+        <!-- Category Exclusions -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [DatFilter_Exclusions], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontWeight="SemiBold"/>
+            <WrapPanel Orientation="Horizontal">
+                <CheckBox x:Name="ExcludeDemos" Content="{Binding [DatFilter_Demos], Source={x:Static loc:LocalizationManager.Instance}}" IsChecked="True" Foreground="#CDD6F4" Margin="0,0,16,4"/>
+                <CheckBox x:Name="ExcludeBetas" Content="{Binding [DatFilter_Betas], Source={x:Static loc:LocalizationManager.Instance}}" IsChecked="True" Foreground="#CDD6F4" Margin="0,0,16,4"/>
+                <CheckBox x:Name="ExcludePrototypes" Content="{Binding [DatFilter_Prototypes], Source={x:Static loc:LocalizationManager.Instance}}" IsChecked="True" Foreground="#CDD6F4" Margin="0,0,16,4"/>
+                <CheckBox x:Name="ExcludeSamples" Content="{Binding [DatFilter_Samples], Source={x:Static loc:LocalizationManager.Instance}}" IsChecked="True" Foreground="#CDD6F4" Margin="0,0,16,4"/>
+                <CheckBox x:Name="ExcludeUnlicensed" Content="{Binding [DatFilter_Unlicensed], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" Margin="0,0,16,4"/>
+                <CheckBox x:Name="ExcludeBIOS" Content="{Binding [DatFilter_BIOS], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" Margin="0,0,16,4"/>
+                <CheckBox x:Name="ExcludeApplications" Content="{Binding [DatFilter_Applications], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" Margin="0,0,16,4"/>
+                <CheckBox x:Name="ExcludePirate" Content="{Binding [DatFilter_Pirate], Source={x:Static loc:LocalizationManager.Instance}}" IsChecked="True" Foreground="#CDD6F4" Margin="0,0,16,4"/>
+            </WrapPanel>
+        </StackPanel>
+
+        <!-- 1G1R -->
+        <StackPanel Spacing="4">
+            <CheckBox x:Name="Enable1G1R" Content="{Binding [DatFilter_Enable1G1R], Source={x:Static loc:LocalizationManager.Instance}}" IsChecked="True" Foreground="#CDD6F4" FontWeight="SemiBold"/>
+            <CheckBox x:Name="PreferRevisions" Content="{Binding [DatFilter_PreferRevisions], Source={x:Static loc:LocalizationManager.Instance}}" IsChecked="True" Foreground="#CDD6F4" Margin="24,0,0,0"/>
+        </StackPanel>
+
+        <!-- Region Priority -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [DatFilter_RegionPriority], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding [DatFilter_RegionHint], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#6C7086" FontSize="11"/>
+            <TextBox x:Name="RegionTextBox" Text="USA, Europe, Japan, World" Padding="8,6"
+                     Watermark="{Binding [DatFilter_DefaultRegions], Source={x:Static loc:LocalizationManager.Instance}}"/>
+        </StackPanel>
+
+        <!-- Language Priority -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [DatFilter_LanguagePriority], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding [DatFilter_LanguageHint], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#6C7086" FontSize="11"/>
+            <TextBox x:Name="LanguageTextBox" Text="En, Fr, De, Es, Ja" Padding="8,6"
+                     Watermark="{Binding [DatFilter_DefaultLanguages], Source={x:Static loc:LocalizationManager.Instance}}"/>
+        </StackPanel>
+
+        <!-- Filter + Export Buttons -->
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button x:Name="FilterButton" Content="{Binding [DatFilter_Filter], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="FilterButton_Click"
+                    Padding="16,10"
+                    IsEnabled="False"/>
+            <Button x:Name="ExportButton" Content="{Binding [DatFilter_Export], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="ExportButton_Click"
+                    Padding="16,10"
+                    IsVisible="False"/>
+        </StackPanel>
+
+        <!-- Progress -->
+        <StackPanel x:Name="ProgressPanel" IsVisible="False" Spacing="4">
+            <ProgressBar IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+            <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+        </StackPanel>
+
+        <!-- Status -->
+        <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="#CDD6F4"/>
+        </Border>
+
+        <!-- Results Preview -->
+        <Border x:Name="ResultsBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False" MaxHeight="300">
+            <ScrollViewer>
+                <TextBlock x:Name="ResultsText" Foreground="#A6ADC8" FontSize="12"
+                           FontFamily="Consolas,Courier New,monospace" TextWrapping="Wrap"/>
+            </ScrollViewer>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,85 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.BatchHasherView">
+    <DockPanel>
+        <!-- Top Controls -->
+        <StackPanel DockPanel.Dock="Top" Spacing="16" Margin="0,0,0,12">
+            <TextBlock Text="{Binding [BatchHash_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+            <TextBlock Text="{Binding [BatchHash_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                       Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+            <!-- Folder Selection -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{Binding [BatchHash_RomFolder], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBox x:Name="FolderPathTextBox" IsReadOnly="True"
+                             Watermark="{Binding [BatchHash_SelectFolder], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                    <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseFolder_Click"
+                            Margin="8,0,0,0" Padding="12,6"/>
+                </Grid>
+            </StackPanel>
+
+            <!-- Hash Options -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{Binding [BatchHash_Options], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+                <StackPanel Orientation="Horizontal" Spacing="16">
+                    <CheckBox x:Name="IncludeMd5" Content="{Binding [BatchHash_MD5], Source={x:Static loc:LocalizationManager.Instance}}" IsChecked="True" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="IncludeSha1" Content="{Binding [BatchHash_SHA1], Source={x:Static loc:LocalizationManager.Instance}}" IsChecked="True" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="IncludeSha256" Content="{Binding [BatchHash_SHA256], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button x:Name="HashButton" Content="{Binding [BatchHash_Hash], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="HashButton_Click"
+                        Padding="16,10"
+                        IsEnabled="False"/>
+                <Button x:Name="ExportButton" Content="{Binding [BatchHash_Export], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="ExportButton_Click"
+                        Padding="16,10"
+                        IsVisible="False"/>
+            </StackPanel>
+
+            <!-- Progress -->
+            <StackPanel x:Name="ProgressPanel" IsVisible="False" Spacing="4">
+                <ProgressBar IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+                <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+            </StackPanel>
+
+            <!-- Summary -->
+            <Border x:Name="SummaryPanel" Background="#181825" CornerRadius="6" Padding="12"
+                    IsVisible="False">
+                <TextBlock x:Name="SummaryText" Foreground="#CDD6F4" TextWrapping="Wrap" FontWeight="Bold"/>
+            </Border>
+        </StackPanel>
+
+        <!-- Results -->
+        <ScrollViewer>
+            <ItemsControl x:Name="ResultsList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="#181825" CornerRadius="6" Padding="12" Margin="0,0,0,8">
+                            <StackPanel Spacing="2">
+                                <TextBlock Text="{Binding FileName}" Foreground="#F9E2AF"
+                                           FontWeight="Bold" FontSize="13"/>
+                                <TextBlock Text="{Binding SizeDisplay}" Foreground="#6C7086" FontSize="11"/>
+                                <TextBlock Text="{Binding CRC32Display}" Foreground="#A6ADC8"
+                                           FontFamily="Consolas,Courier New,monospace" FontSize="12"/>
+                                <TextBlock Text="{Binding MD5Display}" Foreground="#A6ADC8"
+                                           FontFamily="Consolas,Courier New,monospace" FontSize="12"
+                                           IsVisible="{Binding HasMD5}"/>
+                                <TextBlock Text="{Binding SHA1Display}" Foreground="#A6ADC8"
+                                           FontFamily="Consolas,Courier New,monospace" FontSize="12"
+                                           IsVisible="{Binding HasSHA1}"/>
+                                <TextBlock Text="{Binding SHA256Display}" Foreground="#A6ADC8"
+                                           FontFamily="Consolas,Courier New,monospace" FontSize="12"
+                                           IsVisible="{Binding HasSHA256}"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

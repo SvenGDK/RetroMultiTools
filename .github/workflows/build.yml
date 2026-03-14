@@ -1,0 +1,259 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_NOLOGO: true
+  APP_VERSION: '1.0.0'
+
+jobs:
+  build-windows:
+    name: Windows ${{ matrix.arch }}
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x64, arm64]
+        include:
+          - arch: x64
+            inno_arch_allowed: x64compatible
+            inno_arch_mode: x64compatible
+          - arch: arm64
+            inno_arch_allowed: arm64
+            inno_arch_mode: arm64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Publish
+        run: dotnet publish RetroMultiTools -c Release -r win-${{ matrix.arch }} --self-contained -o publish
+
+      - name: Create ZIP (Portable)
+        run: Compress-Archive -Path publish\* -DestinationPath RetroMultiTools-win-${{ matrix.arch }}.zip
+
+      - name: Install Inno Setup
+        run: |
+          choco install innosetup -y --no-progress
+          echo "C:\Program Files (x86)\Inno Setup 6" | Out-File -FilePath $env:GITHUB_PATH -Append
+
+      - name: Create Installer
+        shell: pwsh
+        run: |
+          $iss = @"
+          [Setup]
+          AppName=Retro Multi Tools
+          AppVersion=${{ env.APP_VERSION }}
+          AppPublisher=SvenGDK
+          AppPublisherURL=https://github.com/SvenGDK/RetroMultiTools
+          DefaultDirName={autopf}\RetroMultiTools
+          DefaultGroupName=Retro Multi Tools
+          UninstallDisplayIcon={app}\RetroMultiTools.exe
+          OutputDir=installer
+          OutputBaseFilename=RetroMultiTools-win-${{ matrix.arch }}-Setup
+          Compression=lzma2
+          SolidCompression=yes
+          ArchitecturesAllowed=${{ matrix.inno_arch_allowed }}
+          ArchitecturesInstallIn64BitMode=${{ matrix.inno_arch_mode }}
+
+          [Files]
+          Source: "publish\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
+
+          [Icons]
+          Name: "{group}\Retro Multi Tools"; Filename: "{app}\RetroMultiTools.exe"
+          Name: "{group}\Uninstall Retro Multi Tools"; Filename: "{uninstallexe}"
+          "@
+          Set-Content -Path installer.iss -Value $iss -Encoding UTF8
+          ISCC installer.iss
+
+      - name: Upload ZIP (Portable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: RetroMultiTools-win-${{ matrix.arch }}-zip
+          path: RetroMultiTools-win-${{ matrix.arch }}.zip
+
+      - name: Upload Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: RetroMultiTools-win-${{ matrix.arch }}-installer
+          path: installer/RetroMultiTools-win-${{ matrix.arch }}-Setup.exe
+
+  build-linux:
+    name: Linux ${{ matrix.arch }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x64, arm64]
+        include:
+          - arch: x64
+            deb_arch: amd64
+          - arch: arm64
+            deb_arch: arm64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Publish
+        run: dotnet publish RetroMultiTools -c Release -r linux-${{ matrix.arch }} --self-contained -o publish
+
+      - name: Create ZIP (Portable)
+        run: |
+          cd publish
+          zip -r ../RetroMultiTools-linux-${{ matrix.arch }}.zip .
+
+      - name: Create DEB Installer
+        run: |
+          mkdir -p deb/DEBIAN
+          mkdir -p deb/usr/lib/retromultitools
+          mkdir -p deb/usr/bin
+          mkdir -p deb/usr/share/applications
+
+          cat > deb/DEBIAN/control << EOF
+          Package: retromultitools
+          Version: ${{ env.APP_VERSION }}
+          Architecture: ${{ matrix.deb_arch }}
+          Maintainer: SvenGDK
+          Homepage: https://github.com/SvenGDK/RetroMultiTools
+          Description: Retro Multi Tools
+           Multi platform utility for managing, inspecting, and patching retro game ROMs.
+          Section: utils
+          Priority: optional
+          EOF
+
+          cp -r publish/* deb/usr/lib/retromultitools/
+          chmod +x deb/usr/lib/retromultitools/RetroMultiTools
+
+          cat > deb/usr/bin/retromultitools << 'LAUNCHER'
+          #!/bin/bash
+          exec /usr/lib/retromultitools/RetroMultiTools "$@"
+          LAUNCHER
+          chmod +x deb/usr/bin/retromultitools
+
+          cat > deb/usr/share/applications/retromultitools.desktop << 'DESKTOP'
+          [Desktop Entry]
+          Name=Retro Multi Tools
+          Comment=Multi platform utility for managing, inspecting, and patching retro game ROMs
+          Exec=/usr/bin/retromultitools
+          Terminal=false
+          Type=Application
+          Categories=Utility;Game;
+          DESKTOP
+
+          dpkg-deb --root-owner-group --build deb RetroMultiTools-linux-${{ matrix.arch }}.deb
+
+      - name: Upload ZIP (Portable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: RetroMultiTools-linux-${{ matrix.arch }}-zip
+          path: RetroMultiTools-linux-${{ matrix.arch }}.zip
+
+      - name: Upload Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: RetroMultiTools-linux-${{ matrix.arch }}-installer
+          path: RetroMultiTools-linux-${{ matrix.arch }}.deb
+
+  build-macos:
+    name: macOS ${{ matrix.arch }}
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x64, arm64]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Publish
+        run: dotnet publish RetroMultiTools -c Release -r osx-${{ matrix.arch }} --self-contained -o publish
+
+      - name: Create ZIP (Portable)
+        run: |
+          cd publish
+          zip -r ../RetroMultiTools-osx-${{ matrix.arch }}.zip .
+
+      - name: Create PKG Installer
+        run: |
+          APP="RetroMultiTools.app"
+          mkdir -p "$APP/Contents/MacOS"
+          mkdir -p "$APP/Contents/Resources"
+
+          cp -r publish/* "$APP/Contents/MacOS/"
+          chmod +x "$APP/Contents/MacOS/RetroMultiTools"
+
+          cat > "$APP/Contents/Info.plist" << 'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>CFBundleName</key>
+            <string>Retro Multi Tools</string>
+            <key>CFBundleDisplayName</key>
+            <string>Retro Multi Tools</string>
+            <key>CFBundleIdentifier</key>
+            <string>com.svengdk.retromultitools</string>
+            <key>CFBundleVersion</key>
+            <string>1.0.0</string>
+            <key>CFBundleShortVersionString</key>
+            <string>1.0.0</string>
+            <key>CFBundleExecutable</key>
+            <string>RetroMultiTools</string>
+            <key>CFBundlePackageType</key>
+            <string>APPL</string>
+            <key>LSMinimumSystemVersion</key>
+            <string>10.15</string>
+            <key>NSHighResolutionCapable</key>
+            <true/>
+          </dict>
+          </plist>
+          PLIST
+
+          mkdir -p pkg-root/Applications
+          cp -r "$APP" pkg-root/Applications/
+
+          pkgbuild \
+            --root pkg-root \
+            --identifier com.svengdk.retromultitools \
+            --version ${{ env.APP_VERSION }} \
+            --install-location / \
+            RetroMultiTools-osx-${{ matrix.arch }}.pkg
+
+      - name: Upload ZIP (Portable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: RetroMultiTools-osx-${{ matrix.arch }}-zip
+          path: RetroMultiTools-osx-${{ matrix.arch }}.zip
+
+      - name: Upload Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: RetroMultiTools-osx-${{ matrix.arch }}-installer
+          path: RetroMultiTools-osx-${{ matrix.arch }}.pkg

@@ -1,0 +1,91 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.CheatCodeView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="600" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [CheatCode_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [CheatCode_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- System Selection -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [CheatCode_SystemFormat], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <ComboBox x:Name="SystemCombo" Width="350" HorizontalAlignment="Left"
+                      SelectedIndex="0">
+                <ComboBoxItem Content="{Binding [CheatCode_NesGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="NesGameGenie"/>
+                <ComboBoxItem Content="{Binding [CheatCode_SnesGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="SnesGameGenie"/>
+                <ComboBoxItem Content="{Binding [CheatCode_GbGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameBoyGameGenie"/>
+                <ComboBoxItem Content="{Binding [CheatCode_GenesisGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GenesisGameGenie"/>
+                <ComboBoxItem Content="{Binding [CheatCode_SnesPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="SnesProActionReplay"/>
+                <ComboBoxItem Content="{Binding [CheatCode_GenesisPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GenesisProActionReplay"/>
+                <ComboBoxItem Content="{Binding [CheatCode_GbPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameBoyProActionReplay"/>
+                <ComboBoxItem Content="{Binding [CheatCode_N64GS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="N64GameShark"/>
+                <ComboBoxItem Content="{Binding [CheatCode_GgGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameGearGameGenie"/>
+                <ComboBoxItem Content="{Binding [CheatCode_SmsPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="MasterSystemProActionReplay"/>
+                <ComboBoxItem Content="{Binding [CheatCode_GbaGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GbaGameShark"/>
+                <ComboBoxItem Content="{Binding [CheatCode_GbcGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameBoyColorGameGenie"/>
+                <ComboBoxItem Content="{Binding [CheatCode_GbcGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameBoyColorGameShark"/>
+                <ComboBoxItem Content="{Binding [CheatCode_32XPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Sega32XProActionReplay"/>
+                <ComboBoxItem Content="{Binding [CheatCode_SegaCDPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="SegaCDProActionReplay"/>
+                <ComboBoxItem Content="{Binding [CheatCode_PceRaw], Source={x:Static loc:LocalizationManager.Instance}}" Tag="PCEngineRaw"/>
+                <ComboBoxItem Content="{Binding [CheatCode_NgpGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="NeoGeoPocketGameShark"/>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Decode Section -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [CheatCode_DecodeSection], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBox x:Name="DecodeInputTextBox" Watermark="{Binding [CheatCode_EnterCode], Source={x:Static loc:LocalizationManager.Instance}}"
+                             Padding="8,6"/>
+                    <Button Grid.Column="1" Content="{Binding [Common_Decode], Source={x:Static loc:LocalizationManager.Instance}}" Click="DecodeButton_Click"
+                            Margin="8,0,0,0" Padding="12,6"/>
+                </Grid>
+                <Border x:Name="DecodeResultBorder" Background="#11111B" CornerRadius="4" Padding="8"
+                        IsVisible="False">
+                    <TextBlock x:Name="DecodeResultText" Foreground="#A6E3A1" FontFamily="Consolas,Courier New,monospace"
+                               TextWrapping="Wrap"/>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Encode Section -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [CheatCode_EncodeSection], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <StackPanel Spacing="2">
+                        <TextBlock Text="{Binding [CheatCode_AddressHex], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12"/>
+                        <TextBox x:Name="AddressTextBox" Watermark="{Binding [CheatCode_AddressWatermark], Source={x:Static loc:LocalizationManager.Instance}}" Width="120" Padding="8,6"/>
+                    </StackPanel>
+                    <StackPanel Spacing="2">
+                        <TextBlock Text="{Binding [CheatCode_ValueHex], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12"/>
+                        <TextBox x:Name="ValueTextBox" Watermark="{Binding [CheatCode_ValueWatermark], Source={x:Static loc:LocalizationManager.Instance}}" Width="80" Padding="8,6"/>
+                    </StackPanel>
+                    <StackPanel Spacing="2">
+                        <TextBlock Text="{Binding [CheatCode_CompareHex], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12"/>
+                        <TextBox x:Name="CompareTextBox" Watermark="{Binding [CheatCode_CompareWatermark], Source={x:Static loc:LocalizationManager.Instance}}" Width="80" Padding="8,6"/>
+                    </StackPanel>
+                    <StackPanel Spacing="2">
+                        <TextBlock Text=" " FontSize="12"/>
+                        <Button Content="{Binding [Common_Encode], Source={x:Static loc:LocalizationManager.Instance}}" Click="EncodeButton_Click" Padding="12,6"/>
+                    </StackPanel>
+                </StackPanel>
+                <Border x:Name="EncodeResultBorder" Background="#11111B" CornerRadius="4" Padding="8"
+                        IsVisible="False">
+                    <TextBlock x:Name="EncodeResultText" Foreground="#A6E3A1" FontFamily="Consolas,Courier New,monospace"
+                               TextWrapping="Wrap"/>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Error -->
+        <Border x:Name="ErrorBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="ErrorText" Foreground="#F38BA8" TextWrapping="Wrap"/>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

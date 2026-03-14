@@ -1,0 +1,80 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.MetadataScraperView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="600" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [MetaScraper_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [MetaScraper_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- Input Directory -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [MetaScraper_RomDir], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="InputDirTextBox" IsReadOnly="True"
+                         Watermark="{Binding [MetaScraper_SelectDir], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseInput_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Options -->
+        <StackPanel Spacing="4">
+            <CheckBox x:Name="IncludeChecksumsCheck" Content="{Binding [MetaScraper_IncludeChecksums], Source={x:Static loc:LocalizationManager.Instance}}"
+                      Foreground="#CDD6F4" IsChecked="True"/>
+        </StackPanel>
+
+        <!-- Output Format -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [MetaScraper_ExportFormat], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <RadioButton x:Name="CsvFormatRadio" Content="{Binding [MetaScraper_Csv], Source={x:Static loc:LocalizationManager.Instance}}"
+                             GroupName="MetadataScraperFormat"
+                             IsChecked="True" Foreground="#CDD6F4"
+                             IsCheckedChanged="FormatRadio_Checked"/>
+                <RadioButton x:Name="TextFormatRadio" Content="{Binding [MetaScraper_TextReport], Source={x:Static loc:LocalizationManager.Instance}}"
+                             GroupName="MetadataScraperFormat"
+                             Foreground="#CDD6F4"
+                             IsCheckedChanged="FormatRadio_Checked"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Output File -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [Common_OutputFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="OutputFileTextBox" Watermark="{Binding [MetaScraper_OutputPath], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseOutput_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Scrape Button -->
+        <Button x:Name="ScrapeButton" Content="{Binding [MetaScraper_Scrape], Source={x:Static loc:LocalizationManager.Instance}}"
+                Click="ScrapeButton_Click"
+                Padding="16,10" HorizontalAlignment="Left"
+                IsEnabled="False"/>
+
+        <!-- Progress -->
+        <StackPanel x:Name="ProgressPanel" IsVisible="False" Spacing="4">
+            <ProgressBar IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+            <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+        </StackPanel>
+
+        <!-- Status -->
+        <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="#CDD6F4"/>
+        </Border>
+
+        <!-- Summary -->
+        <Border x:Name="SummaryBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False" MaxHeight="200">
+            <ScrollViewer>
+                <TextBlock x:Name="SummaryText" Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap"/>
+            </ScrollViewer>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

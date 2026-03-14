@@ -1,0 +1,61 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.ChecksumCalculatorView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="700" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [Checksum_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+
+        <!-- File Selection -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [Checksum_RomFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="FilePathTextBox" IsReadOnly="True"
+                         Watermark="{Binding [Checksum_SelectFile], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseFile_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Calculate Button -->
+        <Button x:Name="CalculateButton" Content="{Binding [Checksum_Calculate], Source={x:Static loc:LocalizationManager.Instance}}"
+                Click="CalculateButton_Click"
+                Padding="16,10" HorizontalAlignment="Left"
+                IsEnabled="False"/>
+
+        <!-- Progress -->
+        <StackPanel x:Name="ProgressPanel" IsVisible="False" Spacing="4">
+            <ProgressBar IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+            <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+        </StackPanel>
+
+        <!-- Results -->
+        <Border x:Name="ResultPanel" Background="#181825" CornerRadius="6" Padding="16"
+                IsVisible="False">
+            <Grid ColumnDefinitions="100,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" >
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [Common_FileSize], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,8"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="FileSizeText" Foreground="#CDD6F4" Margin="0,0,0,8"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [Checksum_CRC32], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,8"/>
+                <SelectableTextBlock Grid.Row="1" Grid.Column="1" x:Name="Crc32Text" Foreground="#CDD6F4" Margin="0,0,0,8"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding [Checksum_MD5], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,8"/>
+                <SelectableTextBlock Grid.Row="2" Grid.Column="1" x:Name="Md5Text" Foreground="#CDD6F4" Margin="0,0,0,8"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding [Checksum_SHA1], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,8"/>
+                <SelectableTextBlock Grid.Row="3" Grid.Column="1" x:Name="Sha1Text" Foreground="#CDD6F4" Margin="0,0,0,8"/>
+
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding [Checksum_SHA256], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,0"/>
+                <SelectableTextBlock Grid.Row="4" Grid.Column="1" x:Name="Sha256Text" Foreground="#CDD6F4"
+                                     TextWrapping="Wrap"/>
+            </Grid>
+        </Border>
+
+        <!-- Status -->
+        <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="#CDD6F4"/>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

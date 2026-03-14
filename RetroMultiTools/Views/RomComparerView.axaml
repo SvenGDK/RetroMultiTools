@@ -1,0 +1,72 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.RomComparerView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="700" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [Comparer_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+
+        <!-- First File -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [Comparer_FirstFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="File1TextBox" IsReadOnly="True"
+                         Watermark="{Binding [Comparer_SelectFirst], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseFile1_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Second File -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [Comparer_SecondFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="File2TextBox" IsReadOnly="True"
+                         Watermark="{Binding [Comparer_SelectSecond], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseFile2_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Compare Button -->
+        <Button x:Name="CompareButton" Content="{Binding [Comparer_Compare], Source={x:Static loc:LocalizationManager.Instance}}"
+                Click="CompareButton_Click"
+                Padding="16,10" HorizontalAlignment="Left"
+                IsEnabled="False"/>
+
+        <!-- Progress -->
+        <StackPanel x:Name="ProgressPanel" IsVisible="False" Spacing="4">
+            <ProgressBar IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+            <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+        </StackPanel>
+
+        <!-- Results -->
+        <Border x:Name="ResultPanel" Background="#181825" CornerRadius="6" Padding="16"
+                IsVisible="False">
+            <StackPanel Spacing="8">
+                <TextBlock x:Name="MatchStatusText" FontSize="16" FontWeight="Bold"/>
+
+                <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [Comparer_FirstSize], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,6"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" x:Name="Size1Text" Foreground="#CDD6F4" Margin="0,0,0,6"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [Comparer_SecondSize], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,6"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" x:Name="Size2Text" Foreground="#CDD6F4" Margin="0,0,0,6"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding [Comparer_DifferingBytes], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,6"/>
+                    <TextBlock Grid.Row="2" Grid.Column="1" x:Name="DiffCountText" Foreground="#CDD6F4" Margin="0,0,0,6"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding [Comparer_FirstMismatch], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,0"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" x:Name="FirstMismatchText" Foreground="#CDD6F4"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Status -->
+        <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="#CDD6F4"/>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

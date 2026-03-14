@@ -1,0 +1,96 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+        x:Class="RetroMultiTools.Views.SendToRemoteWindow"
+        Title="{Binding [SendRemote_Title], Source={x:Static loc:LocalizationManager.Instance}}"
+        Width="520" Height="560"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Background="#1E1E2E">
+    <DockPanel Margin="16">
+
+        <!-- Header -->
+        <TextBlock DockPanel.Dock="Top" Text="{Binding [SendRemote_Title], Source={x:Static loc:LocalizationManager.Instance}}"
+                   FontSize="18" FontWeight="Bold" Foreground="#CDD6F4" Margin="0,0,0,12"/>
+
+        <!-- File info -->
+        <TextBlock x:Name="FileInfoText" DockPanel.Dock="Top" Foreground="#A6ADC8" FontSize="12"
+                   TextWrapping="Wrap" Margin="0,0,0,12"/>
+
+        <!-- Bottom buttons + progress -->
+        <StackPanel DockPanel.Dock="Bottom" Spacing="8">
+            <ProgressBar x:Name="TransferProgressBar" IsVisible="False" Minimum="0" Maximum="1"
+                         IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+            <TextBlock x:Name="StatusText" Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap"/>
+            <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" Margin="0,8,0,0">
+                <Button x:Name="SendButton" Content="{Binding [SendRemote_Send], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="SendButton_Click" Padding="16,6" FontWeight="SemiBold"/>
+                <Button x:Name="CancelButton" Content="{Binding [SendRemote_Cancel], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="CancelButton_Click" Padding="16,6"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Form -->
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="10">
+
+                <!-- Protocol -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{Binding [SendRemote_Protocol], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13"/>
+                    <ComboBox x:Name="ProtocolCombo" SelectedIndex="0" SelectionChanged="ProtocolCombo_SelectionChanged"
+                              HorizontalAlignment="Stretch">
+                        <ComboBoxItem Content="FTP" Tag="Ftp"/>
+                        <ComboBoxItem Content="SFTP" Tag="Sftp"/>
+                        <ComboBoxItem Content="WebDAV" Tag="WebDav"/>
+                        <ComboBoxItem Content="S3-Compatible" Tag="S3Compatible"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Host -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{Binding [SendRemote_Host], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13"/>
+                    <TextBox x:Name="HostTextBox" Watermark="{Binding [SendRemote_HostWatermark], Source={x:Static loc:LocalizationManager.Instance}}" HorizontalAlignment="Stretch"/>
+                </StackPanel>
+
+                <!-- Port -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{Binding [SendRemote_Port], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13"/>
+                    <TextBox x:Name="PortTextBox" Watermark="{Binding [SendRemote_PortWatermark], Source={x:Static loc:LocalizationManager.Instance}}" Width="120" HorizontalAlignment="Left"/>
+                </StackPanel>
+
+                <!-- FTP-specific: FTPS toggle -->
+                <CheckBox x:Name="UseFtpsCheck" Content="{Binding [SendRemote_UseFtps], Source={x:Static loc:LocalizationManager.Instance}}"
+                          Foreground="#CDD6F4" IsChecked="False"/>
+
+                <!-- Username / Password (for FTP, SFTP, WebDAV) -->
+                <StackPanel x:Name="CredentialsPanel" Spacing="4">
+                    <TextBlock Text="{Binding [SendRemote_Username], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13"/>
+                    <TextBox x:Name="UsernameTextBox" Watermark="{Binding [SendRemote_UsernameWatermark], Source={x:Static loc:LocalizationManager.Instance}}" HorizontalAlignment="Stretch"/>
+                    <TextBlock Text="{Binding [SendRemote_Password], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13" Margin="0,6,0,0"/>
+                    <TextBox x:Name="PasswordTextBox" Watermark="{Binding [SendRemote_PasswordWatermark], Source={x:Static loc:LocalizationManager.Instance}}" PasswordChar="●" HorizontalAlignment="Stretch"/>
+                </StackPanel>
+
+                <!-- S3-specific fields -->
+                <StackPanel x:Name="S3Panel" Spacing="4" IsVisible="False">
+                    <TextBlock Text="{Binding [SendRemote_BucketName], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13"/>
+                    <TextBox x:Name="BucketTextBox" Watermark="{Binding [SendRemote_BucketWatermark], Source={x:Static loc:LocalizationManager.Instance}}" HorizontalAlignment="Stretch"/>
+                    <TextBlock Text="{Binding [SendRemote_AccessKey], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13" Margin="0,6,0,0"/>
+                    <TextBox x:Name="AccessKeyTextBox" Watermark="{Binding [SendRemote_AccessKeyWatermark], Source={x:Static loc:LocalizationManager.Instance}}" HorizontalAlignment="Stretch"/>
+                    <TextBlock Text="{Binding [SendRemote_SecretKey], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13" Margin="0,6,0,0"/>
+                    <TextBox x:Name="SecretKeyTextBox" Watermark="{Binding [SendRemote_SecretWatermark], Source={x:Static loc:LocalizationManager.Instance}}" PasswordChar="●" HorizontalAlignment="Stretch"/>
+                    <TextBlock Text="{Binding [SendRemote_Region], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13" Margin="0,6,0,0"/>
+                    <TextBox x:Name="RegionTextBox" Watermark="{Binding [SendRemote_RegionWatermark], Source={x:Static loc:LocalizationManager.Instance}}" Text="us-east-1" HorizontalAlignment="Stretch"/>
+                    <TextBlock Text="{Binding [SendRemote_ServiceUrl], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13" Margin="0,6,0,0"/>
+                    <TextBox x:Name="ServiceUrlTextBox" Watermark="{Binding [SendRemote_ServiceUrlWatermark], Source={x:Static loc:LocalizationManager.Instance}}" HorizontalAlignment="Stretch"/>
+                </StackPanel>
+
+                <!-- Remote path -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{Binding [SendRemote_RemotePath], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13"/>
+                    <TextBox x:Name="RemotePathTextBox" Watermark="{Binding [SendRemote_RemotePathWatermark], Source={x:Static loc:LocalizationManager.Instance}}" Text="/" HorizontalAlignment="Stretch"/>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

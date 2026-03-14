@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.DuplicateFinderView">
+    <DockPanel>
+        <!-- Top Controls -->
+        <StackPanel DockPanel.Dock="Top" Spacing="16" Margin="0,0,0,12">
+            <TextBlock Text="{Binding [Duplicates_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+            <TextBlock Text="{Binding [Duplicates_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                       Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+            <!-- Folder Selection -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{Binding [Duplicates_RomFolder], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBox x:Name="FolderPathTextBox" IsReadOnly="True"
+                             Watermark="{Binding [Duplicates_SelectFolder], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                    <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseFolder_Click"
+                            Margin="8,0,0,0" Padding="12,6"/>
+                </Grid>
+            </StackPanel>
+
+            <Button x:Name="ScanButton" Content="{Binding [Duplicates_Find], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="ScanButton_Click"
+                    Padding="16,10" HorizontalAlignment="Left"
+                    IsEnabled="False"/>
+
+            <!-- Progress -->
+            <StackPanel x:Name="ProgressPanel" IsVisible="False" Spacing="4">
+                <ProgressBar IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+                <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+            </StackPanel>
+
+            <!-- Summary -->
+            <Border x:Name="SummaryPanel" Background="#181825" CornerRadius="6" Padding="12"
+                    IsVisible="False">
+                <TextBlock x:Name="SummaryText" Foreground="#CDD6F4" TextWrapping="Wrap" FontWeight="Bold"/>
+            </Border>
+        </StackPanel>
+
+        <!-- Results -->
+        <ScrollViewer>
+            <ItemsControl x:Name="DuplicateList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="#181825" CornerRadius="6" Padding="12" Margin="0,0,0,8">
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="{Binding Header}" Foreground="#F9E2AF"
+                                           FontWeight="Bold" FontSize="13"/>
+                                <ItemsControl ItemsSource="{Binding Files}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" Foreground="#A6ADC8"
+                                                       FontSize="12" Margin="12,2,0,0"
+                                                       TextTrimming="CharacterEllipsis"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,80 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.PatchCreatorView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="600" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [PatchCreator_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [PatchCreator_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- Original ROM -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [PatchCreator_OriginalRom], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="OriginalFileTextBox" IsReadOnly="True"
+                         Watermark="{Binding [PatchCreator_SelectOriginal], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseOriginal_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Modified ROM -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [PatchCreator_ModifiedRom], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="ModifiedFileTextBox" IsReadOnly="True"
+                         Watermark="{Binding [PatchCreator_SelectModified], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseModified_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Analysis -->
+        <Border x:Name="AnalysisPanel" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto">
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [PatchCreator_OriginalSize], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,6"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="OriginalSizeText" Foreground="#CDD6F4" Margin="0,0,0,6"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [PatchCreator_ModifiedSize], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,6"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="ModifiedSizeText" Foreground="#CDD6F4" Margin="0,0,0,6"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding [PatchCreator_DifferingBytes], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,6"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="DiffCountText" Foreground="#F9E2AF" FontWeight="Bold" Margin="0,0,0,6"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding [PatchCreator_PatchFormat], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,0"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" x:Name="FormatText" Foreground="#CDD6F4"/>
+            </Grid>
+        </Border>
+
+        <!-- Output File -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [Common_OutputFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="OutputFileTextBox" Watermark="{Binding [PatchCreator_OutputPath], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseOutput_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Create Button -->
+        <Button x:Name="CreateButton" Content="{Binding [PatchCreator_Create], Source={x:Static loc:LocalizationManager.Instance}}"
+                Click="CreateButton_Click"
+                Padding="16,10" HorizontalAlignment="Left"
+                IsEnabled="False"/>
+
+        <!-- Progress -->
+        <StackPanel x:Name="ProgressPanel" IsVisible="False" Spacing="4">
+            <ProgressBar IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+            <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+        </StackPanel>
+
+        <!-- Status -->
+        <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="#CDD6F4"/>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

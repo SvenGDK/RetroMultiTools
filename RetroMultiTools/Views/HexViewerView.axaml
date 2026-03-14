@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.HexViewerView">
+    <DockPanel>
+        <!-- Top Controls -->
+        <StackPanel DockPanel.Dock="Top" Spacing="12" Margin="0,0,0,12">
+            <TextBlock Text="{Binding [HexViewer_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+            <TextBlock Text="{Binding [HexViewer_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                       Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+            <!-- File Selection -->
+            <StackPanel Spacing="4">
+                <TextBlock Text="{Binding [Common_RomFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBox x:Name="FilePathTextBox" IsReadOnly="True"
+                             Watermark="{Binding [HexViewer_SelectFile], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                    <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseFile_Click"
+                            Margin="8,0,0,0" Padding="12,6"/>
+                </Grid>
+            </StackPanel>
+
+            <!-- File Info -->
+            <Border x:Name="InfoPanel" Background="#181825" CornerRadius="6" Padding="12"
+                    IsVisible="False">
+                <StackPanel Orientation="Horizontal" Spacing="24">
+                    <TextBlock x:Name="FileSizeText" Foreground="#A6ADC8" FontSize="12"/>
+                    <TextBlock x:Name="PageInfoText" Foreground="#A6ADC8" FontSize="12"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Navigation -->
+            <StackPanel x:Name="NavPanel" Orientation="Horizontal" Spacing="8" IsVisible="False">
+                <Button x:Name="FirstButton" Content="⏮" Click="FirstPage_Click" Padding="8,6"
+                        ToolTip.Tip="{Binding [HexViewer_FirstPage], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <Button x:Name="PrevButton" Content="◀" Click="PrevPage_Click" Padding="8,6"
+                        ToolTip.Tip="{Binding [HexViewer_PrevPage], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <TextBox x:Name="OffsetTextBox" Width="120" Watermark="{Binding [HexViewer_OffsetHex], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Content="{Binding [HexViewer_GoTo], Source={x:Static loc:LocalizationManager.Instance}}" Click="GoToOffset_Click" Padding="8,6"/>
+                <Button x:Name="NextButton" Content="▶" Click="NextPage_Click" Padding="8,6"
+                        ToolTip.Tip="{Binding [HexViewer_NextPage], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <Button x:Name="LastButton" Content="⏭" Click="LastPage_Click" Padding="8,6"
+                        ToolTip.Tip="{Binding [HexViewer_LastPage], Source={x:Static loc:LocalizationManager.Instance}}"/>
+            </StackPanel>
+
+            <!-- Search -->
+            <StackPanel x:Name="SearchPanel" Orientation="Horizontal" Spacing="8" IsVisible="False">
+                <TextBox x:Name="SearchTextBox" Width="200" Watermark="{Binding [HexViewer_SearchHex], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button x:Name="SearchButton" Content="{Binding [HexViewer_Search], Source={x:Static loc:LocalizationManager.Instance}}" Click="Search_Click" Padding="8,6"/>
+                <TextBlock x:Name="SearchResultText" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Hex Display -->
+        <Border Background="#11111B" CornerRadius="6" Padding="12">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="HexDisplay">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" FontFamily="Consolas,Courier New,monospace"
+                                       FontSize="13" Foreground="#CDD6F4" Margin="0,1"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,1452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Retro Multi Tools</value>
+  </data>
+  <data name="Nav_BrowseInspect" xml:space="preserve">
+    <value>탐색 및 검사</value>
+  </data>
+  <data name="Nav_PatchingConversion" xml:space="preserve">
+    <value>패치 및 변환</value>
+  </data>
+  <data name="Nav_AnalysisVerification" xml:space="preserve">
+    <value>분석 및 검증</value>
+  </data>
+  <data name="Nav_HeadersTrimming" xml:space="preserve">
+    <value>헤더 및 트리밍</value>
+  </data>
+  <data name="Nav_Utilities" xml:space="preserve">
+    <value>유틸리티</value>
+  </data>
+  <data name="Nav_RomBrowser" xml:space="preserve">
+    <value>ROM 브라우저</value>
+  </data>
+  <data name="Nav_RomInspector" xml:space="preserve">
+    <value>ROM 검사기</value>
+  </data>
+  <data name="Nav_RomPatcher" xml:space="preserve">
+    <value>ROM 패치</value>
+  </data>
+  <data name="Nav_N64Converter" xml:space="preserve">
+    <value>N64 변환기</value>
+  </data>
+  <data name="Nav_FormatConvert" xml:space="preserve">
+    <value>포맷 변환</value>
+  </data>
+  <data name="Nav_ChecksumCalc" xml:space="preserve">
+    <value>체크섬 계산</value>
+  </data>
+  <data name="Nav_RomComparer" xml:space="preserve">
+    <value>ROM 비교</value>
+  </data>
+  <data name="Nav_DatVerifier" xml:space="preserve">
+    <value>DAT 검증</value>
+  </data>
+  <data name="Nav_DumpVerifier" xml:space="preserve">
+    <value>덤프 검증</value>
+  </data>
+  <data name="Nav_DuplicateFinder" xml:space="preserve">
+    <value>중복 찾기</value>
+  </data>
+  <data name="Nav_HeaderExport" xml:space="preserve">
+    <value>헤더 내보내기</value>
+  </data>
+  <data name="Nav_SnesHeader" xml:space="preserve">
+    <value>SNES 헤더</value>
+  </data>
+  <data name="Nav_HeaderFixer" xml:space="preserve">
+    <value>헤더 수정</value>
+  </data>
+  <data name="Nav_RomTrimmer" xml:space="preserve">
+    <value>ROM 트리머</value>
+  </data>
+  <data name="Nav_CheatCodes" xml:space="preserve">
+    <value>치트 코드</value>
+  </data>
+  <data name="Nav_EmulatorConfig" xml:space="preserve">
+    <value>에뮬레이터 설정</value>
+  </data>
+  <data name="Nav_MetadataScraper" xml:space="preserve">
+    <value>메타데이터 추출</value>
+  </data>
+  <data name="Nav_Settings" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="Common_Browse" xml:space="preserve">
+    <value>찾아보기</value>
+  </data>
+  <data name="Common_Convert" xml:space="preserve">
+    <value>변환</value>
+  </data>
+  <data name="Common_Verify" xml:space="preserve">
+    <value>검증</value>
+  </data>
+  <data name="Common_Export" xml:space="preserve">
+    <value>내보내기</value>
+  </data>
+  <data name="Common_Decode" xml:space="preserve">
+    <value>디코드</value>
+  </data>
+  <data name="Common_Encode" xml:space="preserve">
+    <value>인코드</value>
+  </data>
+  <data name="Common_Ready" xml:space="preserve">
+    <value>준비됨</value>
+  </data>
+  <data name="Common_Mode" xml:space="preserve">
+    <value>모드:</value>
+  </data>
+  <data name="Common_SingleRom" xml:space="preserve">
+    <value>단일 ROM</value>
+  </data>
+  <data name="Common_BatchDirectory" xml:space="preserve">
+    <value>배치 (디렉토리)</value>
+  </data>
+  <data name="Common_RomFile" xml:space="preserve">
+    <value>ROM 파일:</value>
+  </data>
+  <data name="Common_OutputFile" xml:space="preserve">
+    <value>출력 파일:</value>
+  </data>
+  <data name="Common_OutputPath" xml:space="preserve">
+    <value>출력 경로...</value>
+  </data>
+  <data name="Common_SelectRomFile" xml:space="preserve">
+    <value>ROM 파일 선택...</value>
+  </data>
+  <data name="Common_FileSize" xml:space="preserve">
+    <value>파일 크기:</value>
+  </data>
+  <data name="Common_System" xml:space="preserve">
+    <value>시스템:</value>
+  </data>
+  <data name="Common_Valid" xml:space="preserve">
+    <value>유효:</value>
+  </data>
+  <data name="Common_Error" xml:space="preserve">
+    <value>오류:</value>
+  </data>
+  <data name="Browser_Title" xml:space="preserve">
+    <value>ROM 브라우저</value>
+  </data>
+  <data name="Browser_SelectFolder" xml:space="preserve">
+    <value>📁 폴더 선택</value>
+  </data>
+  <data name="Browser_NoFolderSelected" xml:space="preserve">
+    <value>폴더가 선택되지 않음</value>
+  </data>
+  <data name="Browser_FilterBySystem" xml:space="preserve">
+    <value>시스템별 필터</value>
+  </data>
+  <data name="Browser_AddRoms" xml:space="preserve">
+    <value>➕ ROM 추가</value>
+  </data>
+  <data name="Browser_CopyTo" xml:space="preserve">
+    <value>📋 복사...</value>
+  </data>
+  <data name="Browser_MoveTo" xml:space="preserve">
+    <value>📦 이동...</value>
+  </data>
+  <data name="Browser_Delete" xml:space="preserve">
+    <value>🗑 삭제</value>
+  </data>
+  <data name="Browser_OrganizeRoms" xml:space="preserve">
+    <value>🗂 ROM 정리</value>
+  </data>
+  <data name="Browser_ShowArtwork" xml:space="preserve">
+    <value>🖼 아트워크 표시</value>
+  </data>
+  <data name="Browser_ColFileName" xml:space="preserve">
+    <value>파일명</value>
+  </data>
+  <data name="Browser_ColSystem" xml:space="preserve">
+    <value>시스템</value>
+  </data>
+  <data name="Browser_ColSize" xml:space="preserve">
+    <value>크기</value>
+  </data>
+  <data name="Browser_ColValid" xml:space="preserve">
+    <value>유효</value>
+  </data>
+  <data name="Browser_Artwork" xml:space="preserve">
+    <value>아트워크</value>
+  </data>
+  <data name="Browser_SelectRomForArtwork" xml:space="preserve">
+    <value>ROM을 선택하여 아트워크 보기</value>
+  </data>
+  <data name="Browser_BoxArt" xml:space="preserve">
+    <value>박스 아트</value>
+  </data>
+  <data name="Browser_Screenshot" xml:space="preserve">
+    <value>스크린샷</value>
+  </data>
+  <data name="Browser_TitleScreen" xml:space="preserve">
+    <value>타이틀 화면</value>
+  </data>
+  <data name="Inspector_Title" xml:space="preserve">
+    <value>ROM 검사기</value>
+  </data>
+  <data name="Inspector_OpenFile" xml:space="preserve">
+    <value>📂 ROM 파일 열기</value>
+  </data>
+  <data name="Inspector_NoFileSelected" xml:space="preserve">
+    <value>파일이 선택되지 않음</value>
+  </data>
+  <data name="Inspector_Loading" xml:space="preserve">
+    <value>로딩 중...</value>
+  </data>
+  <data name="Inspector_Artwork" xml:space="preserve">
+    <value>아트워크</value>
+  </data>
+  <data name="Inspector_HeaderInfo" xml:space="preserve">
+    <value>헤더 정보</value>
+  </data>
+  <data name="Inspector_BoxArt" xml:space="preserve">
+    <value>박스 아트</value>
+  </data>
+  <data name="Inspector_Screenshot" xml:space="preserve">
+    <value>스크린샷</value>
+  </data>
+  <data name="Inspector_TitleScreen" xml:space="preserve">
+    <value>타이틀 화면</value>
+  </data>
+  <data name="Patcher_Title" xml:space="preserve">
+    <value>ROM 패치</value>
+  </data>
+  <data name="Patcher_SourceRom" xml:space="preserve">
+    <value>소스 ROM 파일:</value>
+  </data>
+  <data name="Patcher_PatchFile" xml:space="preserve">
+    <value>패치 파일 (.ips 또는 .bps):</value>
+  </data>
+  <data name="Patcher_SelectSourceRom" xml:space="preserve">
+    <value>소스 ROM 파일 선택...</value>
+  </data>
+  <data name="Patcher_SelectPatchFile" xml:space="preserve">
+    <value>패치 파일 선택...</value>
+  </data>
+  <data name="Patcher_OutputPath" xml:space="preserve">
+    <value>출력 파일 경로...</value>
+  </data>
+  <data name="Patcher_ApplyPatch" xml:space="preserve">
+    <value>⚡ 패치 적용</value>
+  </data>
+  <data name="N64Conv_Title" xml:space="preserve">
+    <value>N64 ROM 포맷 변환기</value>
+  </data>
+  <data name="N64Conv_Description" xml:space="preserve">
+    <value>N64 ROM 바이트 순서 변환: .z64 (빅 엔디안), .n64 (리틀 엔디안), .v64 (바이트 스왑).</value>
+  </data>
+  <data name="N64Conv_InputFile" xml:space="preserve">
+    <value>입력 ROM 파일:</value>
+  </data>
+  <data name="N64Conv_DetectedFormat" xml:space="preserve">
+    <value>감지된 포맷:</value>
+  </data>
+  <data name="N64Conv_TargetFormat" xml:space="preserve">
+    <value>대상 포맷:</value>
+  </data>
+  <data name="N64Conv_SelectFile" xml:space="preserve">
+    <value>N64 ROM 파일 선택...</value>
+  </data>
+  <data name="N64Conv_OutputPath" xml:space="preserve">
+    <value>출력 파일 경로...</value>
+  </data>
+  <data name="N64Conv_BigEndian" xml:space="preserve">
+    <value>빅 엔디안 (.z64)</value>
+  </data>
+  <data name="N64Conv_LittleEndian" xml:space="preserve">
+    <value>리틀 엔디안 (.n64)</value>
+  </data>
+  <data name="N64Conv_ByteSwapped" xml:space="preserve">
+    <value>바이트 스왑 (.v64)</value>
+  </data>
+  <data name="N64Conv_Convert" xml:space="preserve">
+    <value>🔄 변환</value>
+  </data>
+  <data name="FormatConv_Title" xml:space="preserve">
+    <value>ROM 포맷 변환기</value>
+  </data>
+  <data name="FormatConv_Description" xml:space="preserve">
+    <value>ROM 포맷 변환: 복사기 헤더 추가/제거, iNES 헤더 제거 또는 NES 헤더 바이트 수정.</value>
+  </data>
+  <data name="FormatConv_Conversion" xml:space="preserve">
+    <value>변환:</value>
+  </data>
+  <data name="FormatConv_Convert" xml:space="preserve">
+    <value>🔄 변환</value>
+  </data>
+  <data name="Checksum_Title" xml:space="preserve">
+    <value>체크섬 계산기</value>
+  </data>
+  <data name="Checksum_RomFile" xml:space="preserve">
+    <value>ROM / 파일:</value>
+  </data>
+  <data name="Checksum_SelectFile" xml:space="preserve">
+    <value>체크섬을 계산할 파일 선택...</value>
+  </data>
+  <data name="Checksum_Calculate" xml:space="preserve">
+    <value>🔢 체크섬 계산</value>
+  </data>
+  <data name="Checksum_CRC32" xml:space="preserve">
+    <value>CRC32:</value>
+  </data>
+  <data name="Checksum_MD5" xml:space="preserve">
+    <value>MD5:</value>
+  </data>
+  <data name="Checksum_SHA1" xml:space="preserve">
+    <value>SHA-1:</value>
+  </data>
+  <data name="Checksum_SHA256" xml:space="preserve">
+    <value>SHA-256:</value>
+  </data>
+  <data name="Comparer_Title" xml:space="preserve">
+    <value>ROM 비교</value>
+  </data>
+  <data name="Comparer_FirstFile" xml:space="preserve">
+    <value>첫 번째 파일:</value>
+  </data>
+  <data name="Comparer_SecondFile" xml:space="preserve">
+    <value>두 번째 파일:</value>
+  </data>
+  <data name="Comparer_SelectFirst" xml:space="preserve">
+    <value>첫 번째 ROM 파일 선택...</value>
+  </data>
+  <data name="Comparer_SelectSecond" xml:space="preserve">
+    <value>두 번째 ROM 파일 선택...</value>
+  </data>
+  <data name="Comparer_Compare" xml:space="preserve">
+    <value>🔍 파일 비교</value>
+  </data>
+  <data name="Comparer_FirstSize" xml:space="preserve">
+    <value>첫 번째 파일 크기:</value>
+  </data>
+  <data name="Comparer_SecondSize" xml:space="preserve">
+    <value>두 번째 파일 크기:</value>
+  </data>
+  <data name="Comparer_DifferingBytes" xml:space="preserve">
+    <value>다른 바이트:</value>
+  </data>
+  <data name="Comparer_FirstMismatch" xml:space="preserve">
+    <value>첫 번째 불일치:</value>
+  </data>
+  <data name="DatVerifier_Title" xml:space="preserve">
+    <value>ROM DAT 검증기</value>
+  </data>
+  <data name="DatVerifier_Description" xml:space="preserve">
+    <value>No-Intro 또는 TOSEC DAT 파일에 대해 ROM 파일을 검증하여 정품 미수정 덤프를 확인합니다.</value>
+  </data>
+  <data name="DatVerifier_DatFile" xml:space="preserve">
+    <value>DAT 파일:</value>
+  </data>
+  <data name="DatVerifier_SelectDat" xml:space="preserve">
+    <value>No-Intro 또는 TOSEC .dat 파일 선택...</value>
+  </data>
+  <data name="DatVerifier_Verify" xml:space="preserve">
+    <value>✅ 검증</value>
+  </data>
+  <data name="DumpVerifier_Title" xml:space="preserve">
+    <value>ROM 덤프 검증기</value>
+  </data>
+  <data name="DumpVerifier_Description" xml:space="preserve">
+    <value>오버덤프, 언더덤프, 빈 영역, 잘못된 헤더 및 기타 일반적인 문제를 감지하여 ROM 덤프 무결성을 확인합니다.</value>
+  </data>
+  <data name="DumpVerifier_VerifyDump" xml:space="preserve">
+    <value>🔍 덤프 검증</value>
+  </data>
+  <data name="Duplicates_Title" xml:space="preserve">
+    <value>중복 찾기</value>
+  </data>
+  <data name="Duplicates_Description" xml:space="preserve">
+    <value>CRC32 해시로 디렉토리에서 중복 ROM 파일을 스캔합니다.</value>
+  </data>
+  <data name="Duplicates_RomFolder" xml:space="preserve">
+    <value>ROM 폴더:</value>
+  </data>
+  <data name="Duplicates_SelectFolder" xml:space="preserve">
+    <value>중복을 찾을 폴더 선택...</value>
+  </data>
+  <data name="Duplicates_Find" xml:space="preserve">
+    <value>🔍 중복 찾기</value>
+  </data>
+  <data name="HeaderExport_Title" xml:space="preserve">
+    <value>ROM 헤더 내보내기</value>
+  </data>
+  <data name="HeaderExport_Description" xml:space="preserve">
+    <value>ROM 헤더 정보와 메타데이터를 텍스트 보고서 또는 CSV 파일로 내보냅니다.</value>
+  </data>
+  <data name="HeaderExport_ExportMode" xml:space="preserve">
+    <value>내보내기 모드:</value>
+  </data>
+  <data name="HeaderExport_OutputFormat" xml:space="preserve">
+    <value>출력 포맷:</value>
+  </data>
+  <data name="HeaderExport_TextReport" xml:space="preserve">
+    <value>텍스트 보고서 (.txt)</value>
+  </data>
+  <data name="HeaderExport_Csv" xml:space="preserve">
+    <value>CSV (.csv)</value>
+  </data>
+  <data name="HeaderExport_OutputPath" xml:space="preserve">
+    <value>출력 파일 경로...</value>
+  </data>
+  <data name="HeaderExport_Export" xml:space="preserve">
+    <value>📋 내보내기</value>
+  </data>
+  <data name="SnesHeader_Title" xml:space="preserve">
+    <value>SNES 복사기 헤더 도구</value>
+  </data>
+  <data name="SnesHeader_Description" xml:space="preserve">
+    <value>일부 SNES ROM 덤프에 있는 512바이트 복사기 헤더를 추가하거나 제거합니다.</value>
+  </data>
+  <data name="SnesHeader_RomFile" xml:space="preserve">
+    <value>SNES ROM 파일:</value>
+  </data>
+  <data name="SnesHeader_SelectFile" xml:space="preserve">
+    <value>SNES ROM 파일 (.smc, .sfc) 선택...</value>
+  </data>
+  <data name="SnesHeader_HeaderStatus" xml:space="preserve">
+    <value>헤더 상태:</value>
+  </data>
+  <data name="SnesHeader_OutputPath" xml:space="preserve">
+    <value>출력 파일 경로...</value>
+  </data>
+  <data name="SnesHeader_RemoveHeader" xml:space="preserve">
+    <value>✂ 헤더 제거</value>
+  </data>
+  <data name="SnesHeader_AddHeader" xml:space="preserve">
+    <value>➕ 헤더 추가</value>
+  </data>
+  <data name="HeaderFixer_Title" xml:space="preserve">
+    <value>배치 ROM 헤더 수정</value>
+  </data>
+  <data name="HeaderFixer_Description" xml:space="preserve">
+    <value>배치로 ROM 헤더 수정: SNES, Game Boy, GBA, Mega Drive/Genesis, SMS/Game Gear 내부 체크섬 재계산. NES 헤더 바이트도 정리.</value>
+  </data>
+  <data name="HeaderFixer_SelectFile" xml:space="preserve">
+    <value>Select a ROM file (.nes, .smc, .sfc, .gb, .gbc, .gba, .md, .gen, .sms, .gg, .z64, .n64, .v64, .a78, .lnx, .pce, .vb, .ngp, .j64, .mx1, .col, .sv)...</value>
+  </data>
+  <data name="HeaderFixer_FixHeaders" xml:space="preserve">
+    <value>🔧 헤더 수정</value>
+  </data>
+  <data name="Trimmer_Title" xml:space="preserve">
+    <value>ROM 트리머</value>
+  </data>
+  <data name="Trimmer_Description" xml:space="preserve">
+    <value>ROM 파일 끝의 패딩 바이트(0x00 / 0xFF)를 제거하여 파일 크기를 줄입니다.</value>
+  </data>
+  <data name="Trimmer_RomFile" xml:space="preserve">
+    <value>ROM 파일:</value>
+  </data>
+  <data name="Trimmer_SelectFile" xml:space="preserve">
+    <value>트리밍할 ROM 파일 선택...</value>
+  </data>
+  <data name="Trimmer_OriginalSize" xml:space="preserve">
+    <value>원본 크기:</value>
+  </data>
+  <data name="Trimmer_TrimmedSize" xml:space="preserve">
+    <value>트리밍 후 크기:</value>
+  </data>
+  <data name="Trimmer_Savings" xml:space="preserve">
+    <value>절약:</value>
+  </data>
+  <data name="Trimmer_OutputPath" xml:space="preserve">
+    <value>출력 파일 경로...</value>
+  </data>
+  <data name="Trimmer_TrimRom" xml:space="preserve">
+    <value>✂ ROM 트리밍</value>
+  </data>
+  <data name="CheatCode_Title" xml:space="preserve">
+    <value>치트 코드 변환기</value>
+  </data>
+  <data name="CheatCode_Description" xml:space="preserve">
+    <value>레트로 콘솔의 Game Genie 및 Pro Action Replay 치트 코드를 디코드하고 인코드합니다.</value>
+  </data>
+  <data name="CheatCode_SystemFormat" xml:space="preserve">
+    <value>시스템 / 코드 형식:</value>
+  </data>
+  <data name="CheatCode_NesGG" xml:space="preserve">
+    <value>NES Game Genie</value>
+  </data>
+  <data name="CheatCode_SnesGG" xml:space="preserve">
+    <value>SNES Game Genie</value>
+  </data>
+  <data name="CheatCode_GbGG" xml:space="preserve">
+    <value>Game Boy Game Genie</value>
+  </data>
+  <data name="CheatCode_GenesisGG" xml:space="preserve">
+    <value>Genesis Game Genie</value>
+  </data>
+  <data name="CheatCode_SnesPAR" xml:space="preserve">
+    <value>SNES Pro Action Replay</value>
+  </data>
+  <data name="CheatCode_GenesisPAR" xml:space="preserve">
+    <value>Genesis Pro Action Replay</value>
+  </data>
+  <data name="CheatCode_GbPAR" xml:space="preserve">
+    <value>Game Boy Pro Action Replay</value>
+  </data>
+  <data name="CheatCode_N64GS" xml:space="preserve">
+    <value>N64 GameShark</value>
+  </data>
+  <data name="CheatCode_GgGG" xml:space="preserve">
+    <value>Game Gear Game Genie</value>
+  </data>
+  <data name="CheatCode_SmsPAR" xml:space="preserve">
+    <value>Master System Pro Action Replay</value>
+  </data>
+  <data name="CheatCode_GbaGS" xml:space="preserve">
+    <value>GBA GameShark / Action Replay</value>
+  </data>
+  <data name="CheatCode_GbcGG" xml:space="preserve">
+    <value>Game Boy Color Game Genie</value>
+  </data>
+  <data name="CheatCode_GbcGS" xml:space="preserve">
+    <value>Game Boy Color GameShark</value>
+  </data>
+  <data name="CheatCode_32XPAR" xml:space="preserve">
+    <value>Sega 32X Pro Action Replay</value>
+  </data>
+  <data name="CheatCode_SegaCDPAR" xml:space="preserve">
+    <value>Sega CD Pro Action Replay</value>
+  </data>
+  <data name="CheatCode_PceRaw" xml:space="preserve">
+    <value>PC Engine Raw</value>
+  </data>
+  <data name="CheatCode_NgpGS" xml:space="preserve">
+    <value>Neo Geo Pocket GameShark</value>
+  </data>
+  <data name="CheatCode_DecodeSection" xml:space="preserve">
+    <value>치트 코드 디코드</value>
+  </data>
+  <data name="CheatCode_EncodeSection" xml:space="preserve">
+    <value>치트 코드로 인코드</value>
+  </data>
+  <data name="CheatCode_EnterCode" xml:space="preserve">
+    <value>치트 코드 입력 (예: SXIOPO)...</value>
+  </data>
+  <data name="CheatCode_AddressHex" xml:space="preserve">
+    <value>주소 (hex):</value>
+  </data>
+  <data name="CheatCode_ValueHex" xml:space="preserve">
+    <value>값 (hex):</value>
+  </data>
+  <data name="CheatCode_CompareHex" xml:space="preserve">
+    <value>비교값 (hex):</value>
+  </data>
+  <data name="CheatCode_AddressWatermark" xml:space="preserve">
+    <value>예: 8000</value>
+  </data>
+  <data name="CheatCode_ValueWatermark" xml:space="preserve">
+    <value>예: FF</value>
+  </data>
+  <data name="CheatCode_CompareWatermark" xml:space="preserve">
+    <value>선택사항</value>
+  </data>
+  <data name="EmuConfig_Title" xml:space="preserve">
+    <value>에뮬레이터 설정 생성기</value>
+  </data>
+  <data name="EmuConfig_Description" xml:space="preserve">
+    <value>인기 있는 레트로 게임 에뮬레이터의 설정 파일을 생성합니다.</value>
+  </data>
+  <data name="EmuConfig_Emulator" xml:space="preserve">
+    <value>에뮬레이터:</value>
+  </data>
+  <data name="EmuConfig_Directories" xml:space="preserve">
+    <value>디렉토리</value>
+  </data>
+  <data name="EmuConfig_Options" xml:space="preserve">
+    <value>옵션</value>
+  </data>
+  <data name="EmuConfig_RomDir" xml:space="preserve">
+    <value>ROM 디렉토리:</value>
+  </data>
+  <data name="EmuConfig_SaveDir" xml:space="preserve">
+    <value>저장 디렉토리:</value>
+  </data>
+  <data name="EmuConfig_StateDir" xml:space="preserve">
+    <value>세이브 스테이트 디렉토리:</value>
+  </data>
+  <data name="EmuConfig_RomDirWatermark" xml:space="preserve">
+    <value>ROM 폴더 경로...</value>
+  </data>
+  <data name="EmuConfig_SaveDirWatermark" xml:space="preserve">
+    <value>저장 폴더 경로...</value>
+  </data>
+  <data name="EmuConfig_StateDirWatermark" xml:space="preserve">
+    <value>세이브 스테이트 폴더 경로...</value>
+  </data>
+  <data name="EmuConfig_Fullscreen" xml:space="preserve">
+    <value>전체 화면</value>
+  </data>
+  <data name="EmuConfig_SmoothVideo" xml:space="preserve">
+    <value>부드러운 비디오</value>
+  </data>
+  <data name="EmuConfig_IntegerScaling" xml:space="preserve">
+    <value>정수 스케일링</value>
+  </data>
+  <data name="EmuConfig_EnableShaders" xml:space="preserve">
+    <value>셰이더 활성화</value>
+  </data>
+  <data name="EmuConfig_EnableRewind" xml:space="preserve">
+    <value>되감기 활성화</value>
+  </data>
+  <data name="EmuConfig_OutputFile" xml:space="preserve">
+    <value>출력 파일:</value>
+  </data>
+  <data name="EmuConfig_OutputWatermark" xml:space="preserve">
+    <value>설정 파일 경로...</value>
+  </data>
+  <data name="EmuConfig_Generate" xml:space="preserve">
+    <value>⚙ 설정 생성</value>
+  </data>
+  <data name="MetaScraper_Title" xml:space="preserve">
+    <value>대량 메타데이터 추출</value>
+  </data>
+  <data name="MetaScraper_Description" xml:space="preserve">
+    <value>ROM 파일에서 대량으로 메타데이터 추출 — 헤더, 체크섬, 제목, 지역 및 시스템 정보.</value>
+  </data>
+  <data name="MetaScraper_RomDir" xml:space="preserve">
+    <value>ROM 디렉토리:</value>
+  </data>
+  <data name="MetaScraper_SelectDir" xml:space="preserve">
+    <value>ROM 파일이 포함된 디렉토리 선택...</value>
+  </data>
+  <data name="MetaScraper_IncludeChecksums" xml:space="preserve">
+    <value>체크섬 포함 (CRC32, MD5, SHA-1)</value>
+  </data>
+  <data name="MetaScraper_ExportFormat" xml:space="preserve">
+    <value>내보내기 포맷:</value>
+  </data>
+  <data name="MetaScraper_Csv" xml:space="preserve">
+    <value>CSV (.csv)</value>
+  </data>
+  <data name="MetaScraper_TextReport" xml:space="preserve">
+    <value>텍스트 보고서 (.txt)</value>
+  </data>
+  <data name="MetaScraper_OutputPath" xml:space="preserve">
+    <value>출력 파일 경로...</value>
+  </data>
+  <data name="MetaScraper_Scrape" xml:space="preserve">
+    <value>📊 메타데이터 추출</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="Settings_Description" xml:space="preserve">
+    <value>애플리케이션 환경설정을 구성합니다.</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>언어:</value>
+  </data>
+  <data name="Settings_LanguageDescription" xml:space="preserve">
+    <value>애플리케이션의 표시 언어를 선택합니다. 변경 사항은 즉시 적용됩니다.</value>
+  </data>
+  <data name="Settings_RestartNote" xml:space="preserve">
+    <value>일부 대화 상자 텍스트는 애플리케이션을 재시작해야 할 수 있습니다.</value>
+  </data>
+  <data name="Nav_ZipExtractor" xml:space="preserve">
+    <value>ZIP 추출기</value>
+  </data>
+  <data name="Nav_SplitAssembler" xml:space="preserve">
+    <value>분할 조립기</value>
+  </data>
+  <data name="Nav_Decompressor" xml:space="preserve">
+    <value>압축 해제기</value>
+  </data>
+  <data name="Nav_SecurityAnalysis" xml:space="preserve">
+    <value>보안 분석</value>
+  </data>
+  <data name="ZipExtract_Title" xml:space="preserve">
+    <value>ZIP ROM 추출기</value>
+  </data>
+  <data name="ZipExtract_Description" xml:space="preserve">
+    <value>ZIP 아카이브에서 ROM 파일을 추출합니다. 단일 ZIP 또는 디렉토리에서 일괄 추출을 지원합니다.</value>
+  </data>
+  <data name="ZipExtract_SingleZip" xml:space="preserve">
+    <value>단일 ZIP</value>
+  </data>
+  <data name="ZipExtract_ZipFile" xml:space="preserve">
+    <value>ZIP 파일:</value>
+  </data>
+  <data name="ZipExtract_SelectZip" xml:space="preserve">
+    <value>ZIP 파일 선택...</value>
+  </data>
+  <data name="ZipExtract_OutputDir" xml:space="preserve">
+    <value>출력 디렉토리:</value>
+  </data>
+  <data name="ZipExtract_Extract" xml:space="preserve">
+    <value>ROM 추출</value>
+  </data>
+  <data name="SplitRom_Title" xml:space="preserve">
+    <value>분할 ROM 조립기</value>
+  </data>
+  <data name="SplitRom_Description" xml:space="preserve">
+    <value>분할된 ROM 파일(.001/.002, .part1/.part2, .z01/.z02)을 단일 파일로 재조립합니다.</value>
+  </data>
+  <data name="SplitRom_FirstPart" xml:space="preserve">
+    <value>첫 번째 분할 파일:</value>
+  </data>
+  <data name="SplitRom_SelectFirst" xml:space="preserve">
+    <value>첫 번째 분할 파일 선택...</value>
+  </data>
+  <data name="SplitRom_DetectedParts" xml:space="preserve">
+    <value>감지된 파트:</value>
+  </data>
+  <data name="SplitRom_Assemble" xml:space="preserve">
+    <value>ROM 조립</value>
+  </data>
+  <data name="Decompress_Title" xml:space="preserve">
+    <value>ROM 압축 해제기</value>
+  </data>
+  <data name="Decompress_Description" xml:space="preserve">
+    <value>GZip으로 압축된 ROM 파일을 해제합니다. 단일 파일 또는 일괄 해제를 지원합니다.</value>
+  </data>
+  <data name="Decompress_CompressedFile" xml:space="preserve">
+    <value>압축 파일:</value>
+  </data>
+  <data name="Decompress_SelectFile" xml:space="preserve">
+    <value>압축된 ROM 파일 선택...</value>
+  </data>
+  <data name="Decompress_Decompress" xml:space="preserve">
+    <value>압축 해제</value>
+  </data>
+  <data name="Security_Title" xml:space="preserve">
+    <value>보안 및 DRM 분석</value>
+  </data>
+  <data name="Security_Description" xml:space="preserve">
+    <value>ROM 파일의 보안 기능을 분석합니다. 지역 잠금, 복사 방지 메커니즘, 체크섬 무결성을 포함합니다.</value>
+  </data>
+  <data name="Security_Analyze" xml:space="preserve">
+    <value>ROM 분석</value>
+  </data>
+  <data name="Nav_RomRenamer" xml:space="preserve">
+    <value>ROM 이름변경</value>
+  </data>
+  <data name="Renamer_Title" xml:space="preserve">
+    <value>ROM 이름변경 도구</value>
+  </data>
+  <data name="Renamer_Description" xml:space="preserve">
+    <value>헤더에서 감지된 게임 제목, 지역 및 시스템 정보를 기반으로 ROM 파일의 이름을 변경합니다.</value>
+  </data>
+  <data name="Renamer_SelectFile" xml:space="preserve">
+    <value>이름을 변경할 ROM 파일 또는 폴더 선택...</value>
+  </data>
+  <data name="Renamer_Preview" xml:space="preserve">
+    <value>🔍 미리보기</value>
+  </data>
+  <data name="Renamer_Apply" xml:space="preserve">
+    <value>✔ 변경 적용</value>
+  </data>
+  <data name="Nav_PatchCreator" xml:space="preserve">
+    <value>패치 생성기</value>
+  </data>
+  <data name="PatchCreator_Title" xml:space="preserve">
+    <value>IPS 패치 생성기</value>
+  </data>
+  <data name="PatchCreator_Description" xml:space="preserve">
+    <value>원본 ROM과 수정된 버전을 비교하여 IPS 패치를 생성합니다.</value>
+  </data>
+  <data name="PatchCreator_OriginalRom" xml:space="preserve">
+    <value>원본 ROM:</value>
+  </data>
+  <data name="PatchCreator_ModifiedRom" xml:space="preserve">
+    <value>수정된 ROM:</value>
+  </data>
+  <data name="PatchCreator_SelectOriginal" xml:space="preserve">
+    <value>원본 ROM 선택...</value>
+  </data>
+  <data name="PatchCreator_SelectModified" xml:space="preserve">
+    <value>수정된 ROM 선택...</value>
+  </data>
+  <data name="PatchCreator_OriginalSize" xml:space="preserve">
+    <value>원본 크기:</value>
+  </data>
+  <data name="PatchCreator_ModifiedSize" xml:space="preserve">
+    <value>수정된 크기:</value>
+  </data>
+  <data name="PatchCreator_DifferingBytes" xml:space="preserve">
+    <value>다른 바이트:</value>
+  </data>
+  <data name="PatchCreator_PatchFormat" xml:space="preserve">
+    <value>패치 형식:</value>
+  </data>
+  <data name="PatchCreator_OutputPath" xml:space="preserve">
+    <value>출력 패치 파일 경로...</value>
+  </data>
+  <data name="PatchCreator_Create" xml:space="preserve">
+    <value>⚡ 패치 생성</value>
+  </data>
+  <data name="Nav_HexViewer" xml:space="preserve">
+    <value>Hex 뷰어</value>
+  </data>
+  <data name="HexViewer_Title" xml:space="preserve">
+    <value>16진수 뷰어</value>
+  </data>
+  <data name="HexViewer_Description" xml:space="preserve">
+    <value>ROM 파일 내용을 ASCII 사이드바와 함께 16진수로 봅니다. 바이트를 탐색하고 검색합니다.</value>
+  </data>
+  <data name="HexViewer_SelectFile" xml:space="preserve">
+    <value>Hex로 볼 파일 선택...</value>
+  </data>
+  <data name="HexViewer_OffsetHex" xml:space="preserve">
+    <value>오프셋 (hex)...</value>
+  </data>
+  <data name="HexViewer_GoTo" xml:space="preserve">
+    <value>이동</value>
+  </data>
+  <data name="HexViewer_SearchHex" xml:space="preserve">
+    <value>16진수 바이트 검색 (예: 4E45 53)...</value>
+  </data>
+  <data name="HexViewer_Search" xml:space="preserve">
+    <value>🔍 검색</value>
+  </data>
+  <data name="HexViewer_FirstPage" xml:space="preserve">
+    <value>첫 페이지</value>
+  </data>
+  <data name="HexViewer_PrevPage" xml:space="preserve">
+    <value>이전 페이지</value>
+  </data>
+  <data name="HexViewer_NextPage" xml:space="preserve">
+    <value>다음 페이지</value>
+  </data>
+  <data name="HexViewer_LastPage" xml:space="preserve">
+    <value>마지막 페이지</value>
+  </data>
+  <data name="Nav_SaveConverter" xml:space="preserve">
+    <value>세이브 변환</value>
+  </data>
+  <data name="SaveConv_Title" xml:space="preserve">
+    <value>세이브 파일 변환기</value>
+  </data>
+  <data name="SaveConv_Description" xml:space="preserve">
+    <value>세이브 파일 변환: 엔디안 교환, 2의 거듭제곱으로 패딩, 후행 바이트 제거, .sav와 .srm 간 변환.</value>
+  </data>
+  <data name="SaveConv_InputFile" xml:space="preserve">
+    <value>세이브 파일:</value>
+  </data>
+  <data name="SaveConv_SelectFile" xml:space="preserve">
+    <value>세이브 파일 선택 (.sav, .srm, .eep, .fla, .sra)...</value>
+  </data>
+  <data name="SaveConv_FileSize" xml:space="preserve">
+    <value>파일 크기:</value>
+  </data>
+  <data name="SaveConv_DetectedType" xml:space="preserve">
+    <value>감지된 유형:</value>
+  </data>
+  <data name="SaveConv_PowerOfTwo" xml:space="preserve">
+    <value>2의 거듭제곱:</value>
+  </data>
+  <data name="SaveConv_Conversion" xml:space="preserve">
+    <value>변환:</value>
+  </data>
+  <data name="SaveConv_SwapEndian16" xml:space="preserve">
+    <value>엔디안 교환 (16비트)</value>
+  </data>
+  <data name="SaveConv_SwapEndian32" xml:space="preserve">
+    <value>엔디안 교환 (32비트)</value>
+  </data>
+  <data name="SaveConv_PadPowerOfTwo" xml:space="preserve">
+    <value>2의 거듭제곱으로 패딩</value>
+  </data>
+  <data name="SaveConv_TrimZeros" xml:space="preserve">
+    <value>후행 0x00 제거</value>
+  </data>
+  <data name="SaveConv_TrimFF" xml:space="preserve">
+    <value>후행 0xFF 제거</value>
+  </data>
+  <data name="SaveConv_SrmToSav" xml:space="preserve">
+    <value>.srm → .sav</value>
+  </data>
+  <data name="SaveConv_SavToSrm" xml:space="preserve">
+    <value>.sav → .srm</value>
+  </data>
+  <data name="SaveConv_Convert" xml:space="preserve">
+    <value>🔄 세이브 변환</value>
+  </data>
+  <data name="Nav_BatchHasher" xml:space="preserve">
+    <value>배치 해시</value>
+  </data>
+  <data name="BatchHash_Title" xml:space="preserve">
+    <value>배치 ROM 해시 도구</value>
+  </data>
+  <data name="BatchHash_Description" xml:space="preserve">
+    <value>디렉토리의 모든 ROM 파일에 대한 체크섬을 계산합니다. CSV, SFV, MD5 또는 텍스트 보고서로 내보내기.</value>
+  </data>
+  <data name="BatchHash_RomFolder" xml:space="preserve">
+    <value>ROM 폴더:</value>
+  </data>
+  <data name="BatchHash_SelectFolder" xml:space="preserve">
+    <value>ROM 파일이 있는 폴더 선택...</value>
+  </data>
+  <data name="BatchHash_Options" xml:space="preserve">
+    <value>해시 알고리즘:</value>
+  </data>
+  <data name="BatchHash_Hash" xml:space="preserve">
+    <value>🔢 모든 파일 해시</value>
+  </data>
+  <data name="BatchHash_Export" xml:space="preserve">
+    <value>📋 결과 내보내기</value>
+  </data>
+  <data name="Nav_DatFilter" xml:space="preserve">
+    <value>DAT 필터</value>
+  </data>
+  <data name="DatFilter_Title" xml:space="preserve">
+    <value>DAT 파일 필터 (1G1R)</value>
+  </data>
+  <data name="DatFilter_Description" xml:space="preserve">
+    <value>No-Intro 및 Redump DAT 파일을 지역, 언어 및 카테고리로 필터링합니다. 1G1R(한 게임, 한 ROM) 중복 제거를 적용하여 각 게임의 최상의 버전만 유지합니다.</value>
+  </data>
+  <data name="DatFilter_DatFile" xml:space="preserve">
+    <value>DAT 파일:</value>
+  </data>
+  <data name="DatFilter_SelectDat" xml:space="preserve">
+    <value>No-Intro 또는 Redump .dat 파일을 선택하세요...</value>
+  </data>
+  <data name="DatFilter_Exclusions" xml:space="preserve">
+    <value>카테고리 제외:</value>
+  </data>
+  <data name="DatFilter_Demos" xml:space="preserve">
+    <value>데모</value>
+  </data>
+  <data name="DatFilter_Betas" xml:space="preserve">
+    <value>베타</value>
+  </data>
+  <data name="DatFilter_Prototypes" xml:space="preserve">
+    <value>프로토타입</value>
+  </data>
+  <data name="DatFilter_Samples" xml:space="preserve">
+    <value>샘플</value>
+  </data>
+  <data name="DatFilter_Unlicensed" xml:space="preserve">
+    <value>비인가</value>
+  </data>
+  <data name="DatFilter_BIOS" xml:space="preserve">
+    <value>BIOS</value>
+  </data>
+  <data name="DatFilter_Applications" xml:space="preserve">
+    <value>애플리케이션</value>
+  </data>
+  <data name="DatFilter_Pirate" xml:space="preserve">
+    <value>해적판</value>
+  </data>
+  <data name="DatFilter_Enable1G1R" xml:space="preserve">
+    <value>1G1R 활성화 (한 게임, 한 ROM)</value>
+  </data>
+  <data name="DatFilter_PreferRevisions" xml:space="preserve">
+    <value>높은 리비전 우선</value>
+  </data>
+  <data name="DatFilter_RegionPriority" xml:space="preserve">
+    <value>지역 우선순위:</value>
+  </data>
+  <data name="DatFilter_RegionHint" xml:space="preserve">
+    <value>쉼표로 구분, 높은 우선순위 먼저 (예: USA, Europe, Japan, World)</value>
+  </data>
+  <data name="DatFilter_LanguagePriority" xml:space="preserve">
+    <value>언어 우선순위:</value>
+  </data>
+  <data name="DatFilter_LanguageHint" xml:space="preserve">
+    <value>쉼표로 구분, 높은 우선순위 먼저 (예: En, Fr, De, Es, Ja)</value>
+  </data>
+  <data name="DatFilter_Filter" xml:space="preserve">
+    <value>🔍 필터</value>
+  </data>
+  <data name="DatFilter_Export" xml:space="preserve">
+    <value>📤 필터된 DAT 내보내기</value>
+  </data>
+  <data name="Browser_SendToRemote" xml:space="preserve">
+    <value>📤 원격 전송</value>
+  </data>
+  <data name="MameAuditor_Audit" xml:space="preserve">
+    <value>🔍 ROM 세트 감사</value>
+  </data>
+  <data name="MameAuditor_Description" xml:space="preserve">
+    <value>MAME XML 데이터베이스에 대해 MAME ROM 세트를 감사합니다. ZIP 패키지 ROM 세트의 완전성, 올바른 체크섬 및 파일 크기를 검증합니다.</value>
+  </data>
+  <data name="MameAuditor_RomDir" xml:space="preserve">
+    <value>ROM 디렉토리:</value>
+  </data>
+  <data name="MameAuditor_SelectRomDir" xml:space="preserve">
+    <value>MAME ROM ZIP이 포함된 디렉토리를 선택하세요...</value>
+  </data>
+  <data name="MameAuditor_SelectXml" xml:space="preserve">
+    <value>MAME XML 또는 DAT 파일 선택 (mame -listxml 출력)...</value>
+  </data>
+  <data name="MameAuditor_Title" xml:space="preserve">
+    <value>MAME ROM 세트 감사</value>
+  </data>
+  <data name="MameAuditor_XmlFile" xml:space="preserve">
+    <value>MAME XML 데이터베이스:</value>
+  </data>
+  <data name="MameChd_ChdFile" xml:space="preserve">
+    <value>CHD 파일:</value>
+  </data>
+  <data name="MameChd_Description" xml:space="preserve">
+    <value>MAME CHD (Compressed Hunks of Data) 파일 무결성을 검증합니다. SHA-1 체크섬, 압축 유형 및 논리적 크기를 포함한 CHD v3, v4, v5 헤더를 읽고 검증합니다.</value>
+  </data>
+  <data name="MameChd_SelectChd" xml:space="preserve">
+    <value>CHD 파일 선택...</value>
+  </data>
+  <data name="MameChd_SingleFile" xml:space="preserve">
+    <value>단일 CHD 파일</value>
+  </data>
+  <data name="MameChd_Title" xml:space="preserve">
+    <value>MAME CHD 검증기</value>
+  </data>
+  <data name="MameChd_Verify" xml:space="preserve">
+    <value>✅ CHD 검증</value>
+  </data>
+  <data name="Nav_Mame" xml:space="preserve">
+    <value>MAME</value>
+  </data>
+  <data name="Nav_MameAuditor" xml:space="preserve">
+    <value>ROM 세트 감사</value>
+  </data>
+  <data name="Nav_MameChd" xml:space="preserve">
+    <value>CHD 검증기</value>
+  </data>
+  <data name="SendRemote_AccessKey" xml:space="preserve">
+    <value>액세스 키:</value>
+  </data>
+  <data name="SendRemote_BucketName" xml:space="preserve">
+    <value>버킷 이름:</value>
+  </data>
+  <data name="SendRemote_Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="SendRemote_Host" xml:space="preserve">
+    <value>호스트:</value>
+  </data>
+  <data name="SendRemote_Password" xml:space="preserve">
+    <value>비밀번호:</value>
+  </data>
+  <data name="SendRemote_Port" xml:space="preserve">
+    <value>포트:</value>
+  </data>
+  <data name="SendRemote_Protocol" xml:space="preserve">
+    <value>프로토콜:</value>
+  </data>
+  <data name="SendRemote_Region" xml:space="preserve">
+    <value>리전:</value>
+  </data>
+  <data name="SendRemote_RemotePath" xml:space="preserve">
+    <value>원격 경로:</value>
+  </data>
+  <data name="SendRemote_SecretKey" xml:space="preserve">
+    <value>비밀 키:</value>
+  </data>
+  <data name="SendRemote_Send" xml:space="preserve">
+    <value>📤 전송</value>
+  </data>
+  <data name="SendRemote_ServiceUrl" xml:space="preserve">
+    <value>서비스 URL (선택 사항):</value>
+  </data>
+  <data name="SendRemote_Title" xml:space="preserve">
+    <value>ROM을 원격으로 전송</value>
+  </data>
+  <data name="SendRemote_UseFtps" xml:space="preserve">
+    <value>FTPS 사용 (TLS를 통한 FTP)</value>
+  </data>
+  <data name="SendRemote_Username" xml:space="preserve">
+    <value>사용자 이름:</value>
+  </data>
+  <data name="Browser_LaunchRetroArch" xml:space="preserve">
+    <value>🎮 실행</value>
+  </data>
+  <data name="Settings_RetroArchTitle" xml:space="preserve">
+    <value>RetroArch 통합</value>
+  </data>
+  <data name="Settings_RetroArchDescription" xml:space="preserve">
+    <value>ROM 브라우저에서 직접 ROM을 실행하도록 RetroArch를 구성합니다. 기존 설치를 찾거나 RetroArch를 다운로드할 수 있습니다.</value>
+  </data>
+  <data name="Settings_RetroArchPathPlaceholder" xml:space="preserve">
+    <value>RetroArch 실행 파일 경로...</value>
+  </data>
+  <data name="Settings_RetroArchBrowse" xml:space="preserve">
+    <value>찾아보기...</value>
+  </data>
+  <data name="Settings_RetroArchDetect" xml:space="preserve">
+    <value>자동 감지</value>
+  </data>
+  <data name="Settings_RetroArchDownload" xml:space="preserve">
+    <value>⬇️ RetroArch 다운로드</value>
+  </data>
+  <data name="Settings_RetroArchClear" xml:space="preserve">
+    <value>지우기</value>
+  </data>
+  <data name="Nav_MameRebuilder" xml:space="preserve">
+    <value>ROM Set Rebuilder</value>
+  </data>
+  <data name="Nav_MameDir2Dat" xml:space="preserve">
+    <value>Dir2Dat Creator</value>
+  </data>
+  <data name="Nav_MameSamples" xml:space="preserve">
+    <value>Sample Auditor</value>
+  </data>
+  <data name="MameRebuilder_Title" xml:space="preserve">
+    <value>MAME ROM Set Rebuilder</value>
+  </data>
+  <data name="MameRebuilder_Description" xml:space="preserve">
+    <value>Rebuild MAME ROM sets from scattered or loose ROM files. Indexes a source directory by CRC32 and creates properly structured ZIP archives matching the MAME database.</value>
+  </data>
+  <data name="MameRebuilder_XmlFile" xml:space="preserve">
+    <value>MAME XML Database:</value>
+  </data>
+  <data name="MameRebuilder_SelectXml" xml:space="preserve">
+    <value>Select a MAME XML or DAT file (from mame -listxml)...</value>
+  </data>
+  <data name="MameRebuilder_SourceDir" xml:space="preserve">
+    <value>Source Directory:</value>
+  </data>
+  <data name="MameRebuilder_SelectSourceDir" xml:space="preserve">
+    <value>Select the directory containing source ROM files...</value>
+  </data>
+  <data name="MameRebuilder_OutputDir" xml:space="preserve">
+    <value>Output Directory:</value>
+  </data>
+  <data name="MameRebuilder_SelectOutputDir" xml:space="preserve">
+    <value>Select the output directory for rebuilt ROM sets...</value>
+  </data>
+  <data name="MameRebuilder_Overwrite" xml:space="preserve">
+    <value>Overwrite existing ZIP files</value>
+  </data>
+  <data name="MameRebuilder_OnlyComplete" xml:space="preserve">
+    <value>Only rebuild complete sets</value>
+  </data>
+  <data name="MameRebuilder_Rebuild" xml:space="preserve">
+    <value>🔧 Rebuild ROM Sets</value>
+  </data>
+  <data name="MameDir2Dat_Title" xml:space="preserve">
+    <value>MAME Dir2Dat Creator</value>
+  </data>
+  <data name="MameDir2Dat_Description" xml:space="preserve">
+    <value>Create a DAT file from a directory of ROM files. Scans ZIP archives and loose files, computes checksums, and exports in Logiqx XML format compatible with CLRMamePro and other ROM managers.</value>
+  </data>
+  <data name="MameDir2Dat_RomDir" xml:space="preserve">
+    <value>ROM Directory:</value>
+  </data>
+  <data name="MameDir2Dat_SelectRomDir" xml:space="preserve">
+    <value>Select the directory containing ROM files...</value>
+  </data>
+  <data name="MameDir2Dat_DatName" xml:space="preserve">
+    <value>DAT Name:</value>
+  </data>
+  <data name="MameDir2Dat_DatDescription" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="MameDir2Dat_DatAuthor" xml:space="preserve">
+    <value>Author:</value>
+  </data>
+  <data name="MameDir2Dat_ComputeSHA1" xml:space="preserve">
+    <value>Compute SHA-1 checksums</value>
+  </data>
+  <data name="MameDir2Dat_ComputeMD5" xml:space="preserve">
+    <value>Compute MD5 checksums</value>
+  </data>
+  <data name="MameDir2Dat_IncludeLoose" xml:space="preserve">
+    <value>Include loose (non-ZIP) files</value>
+  </data>
+  <data name="MameDir2Dat_IncludeChd" xml:space="preserve">
+    <value>Include CHD disk images</value>
+  </data>
+  <data name="MameDir2Dat_Scan" xml:space="preserve">
+    <value>📂 Scan Directory</value>
+  </data>
+  <data name="MameDir2Dat_Export" xml:space="preserve">
+    <value>💾 Export DAT</value>
+  </data>
+  <data name="MameSamples_Title" xml:space="preserve">
+    <value>MAME Sample Auditor</value>
+  </data>
+  <data name="MameSamples_Description" xml:space="preserve">
+    <value>Audit MAME sample audio files against a MAME XML database. Verifies that sample ZIP archives contain the expected WAV files for each machine.</value>
+  </data>
+  <data name="MameSamples_XmlFile" xml:space="preserve">
+    <value>MAME XML Database:</value>
+  </data>
+  <data name="MameSamples_SelectXml" xml:space="preserve">
+    <value>Select a MAME XML or DAT file (from mame -listxml)...</value>
+  </data>
+  <data name="MameSamples_SampleDir" xml:space="preserve">
+    <value>Samples Directory:</value>
+  </data>
+  <data name="MameSamples_SelectSampleDir" xml:space="preserve">
+    <value>Select the directory containing MAME sample ZIPs...</value>
+  </data>
+  <data name="MameSamples_Audit" xml:space="preserve">
+    <value>🔍 Audit Samples</value>
+  </data>
+  <data name="EmuConfig_AudioSync" xml:space="preserve">
+    <value>Audio Sync</value>
+  </data>
+  <data name="EmuConfig_AudioVolume" xml:space="preserve">
+    <value>Audio Volume:</value>
+  </data>
+  <data name="EmuConfig_AutoSave" xml:space="preserve">
+    <value>Auto-Save State</value>
+  </data>
+  <data name="EmuConfig_CdImageCache" xml:space="preserve">
+    <value>CD Image Memory Cache</value>
+  </data>
+  <data name="EmuConfig_Cheats" xml:space="preserve">
+    <value>Enable Cheats</value>
+  </data>
+  <data name="EmuConfig_CounterFactor" xml:space="preserve">
+    <value>Counter Factor:</value>
+  </data>
+  <data name="EmuConfig_CpuCore" xml:space="preserve">
+    <value>CPU Core:</value>
+  </data>
+  <data name="EmuConfig_FastForwardSpeed" xml:space="preserve">
+    <value>Fast-Forward Speed:</value>
+  </data>
+  <data name="EmuConfig_MenuDriver" xml:space="preserve">
+    <value>Menu Driver:</value>
+  </data>
+  <data name="EmuConfig_NewPPU" xml:space="preserve">
+    <value>New PPU</value>
+  </data>
+  <data name="EmuConfig_Notifications" xml:space="preserve">
+    <value>Enable Notifications</value>
+  </data>
+  <data name="EmuConfig_Overclock" xml:space="preserve">
+    <value>Overclock CPU</value>
+  </data>
+  <data name="EmuConfig_PaletteOption" xml:space="preserve">
+    <value>Palette:</value>
+  </data>
+  <data name="EmuConfig_PerfectSync" xml:space="preserve">
+    <value>Perfect Sync</value>
+  </data>
+  <data name="EmuConfig_Phosphor" xml:space="preserve">
+    <value>Phosphor Effect</value>
+  </data>
+  <data name="EmuConfig_Region" xml:space="preserve">
+    <value>Region:</value>
+  </data>
+  <data name="EmuConfig_RemoveSpriteLimit" xml:space="preserve">
+    <value>Remove Sprite Limit</value>
+  </data>
+  <data name="EmuConfig_RunAheadFrames" xml:space="preserve">
+    <value>Run-Ahead Frames:</value>
+  </data>
+  <data name="EmuConfig_ScreenshotDir" xml:space="preserve">
+    <value>Screenshot Directory:</value>
+  </data>
+  <data name="EmuConfig_ScreenshotDirWatermark" xml:space="preserve">
+    <value>Path to screenshot directory...</value>
+  </data>
+  <data name="EmuConfig_ShowFPS" xml:space="preserve">
+    <value>Show FPS</value>
+  </data>
+  <data name="EmuConfig_SkipGameInfo" xml:space="preserve">
+    <value>Skip Game Info</value>
+  </data>
+  <data name="EmuConfig_SkipWarnings" xml:space="preserve">
+    <value>Skip Warnings</value>
+  </data>
+  <data name="EmuConfig_SpecificOptions" xml:space="preserve">
+    <value>Emulator-Specific Options</value>
+  </data>
+  <data name="EmuConfig_SuperFXOverclock" xml:space="preserve">
+    <value>SuperFX Overclock</value>
+  </data>
+  <data name="EmuConfig_ThreadedVideo" xml:space="preserve">
+    <value>Threaded Video</value>
+  </data>
+  <data name="EmuConfig_TurboSpeed" xml:space="preserve">
+    <value>Turbo Speed:</value>
+  </data>
+  <data name="EmuConfig_UseBios" xml:space="preserve">
+    <value>Use BIOS</value>
+  </data>
+  <data name="EmuConfig_VSync" xml:space="preserve">
+    <value>VSync</value>
+  </data>
+  <data name="EmuConfig_VideoDriver" xml:space="preserve">
+    <value>Video Driver:</value>
+  </data>
+  <data name="Settings_CancelDownload" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Settings_CheckCores" xml:space="preserve">
+    <value>Check Cores</value>
+  </data>
+  <data name="Settings_CoreDownloaderDescription" xml:space="preserve">
+    <value>Download and update RetroArch libretro cores. Click Check Cores to see installed status, then download any missing cores.</value>
+  </data>
+  <data name="Settings_CoreDownloaderTitle" xml:space="preserve">
+    <value>Core Downloader</value>
+  </data>
+  <data name="Settings_DownloadMissing" xml:space="preserve">
+    <value>Download Missing Cores</value>
+  </data>
+  <data name="BatchHash_MD5" xml:space="preserve">
+    <value>MD5</value>
+  </data>
+  <data name="BatchHash_SHA1" xml:space="preserve">
+    <value>SHA-1</value>
+  </data>
+  <data name="BatchHash_SHA256" xml:space="preserve">
+    <value>SHA-256</value>
+  </data>
+  <data name="SendRemote_HostWatermark" xml:space="preserve">
+    <value>예: ftp.example.com</value>
+  </data>
+  <data name="SendRemote_PortWatermark" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="SendRemote_UsernameWatermark" xml:space="preserve">
+    <value>사용자 이름</value>
+  </data>
+  <data name="SendRemote_PasswordWatermark" xml:space="preserve">
+    <value>비밀번호</value>
+  </data>
+  <data name="SendRemote_BucketWatermark" xml:space="preserve">
+    <value>my-bucket</value>
+  </data>
+  <data name="SendRemote_AccessKeyWatermark" xml:space="preserve">
+    <value>AKIA...</value>
+  </data>
+  <data name="SendRemote_SecretWatermark" xml:space="preserve">
+    <value>시크릿 키</value>
+  </data>
+  <data name="SendRemote_RegionWatermark" xml:space="preserve">
+    <value>us-east-1</value>
+  </data>
+  <data name="SendRemote_ServiceUrlWatermark" xml:space="preserve">
+    <value>https://s3.example.com (선택 사항)</value>
+  </data>
+  <data name="SendRemote_RemotePathWatermark" xml:space="preserve">
+    <value>/roms</value>
+  </data>
+  <data name="DatFilter_DefaultRegions" xml:space="preserve">
+    <value>USA, Europe, Japan, World</value>
+  </data>
+  <data name="DatFilter_DefaultLanguages" xml:space="preserve">
+    <value>En, Fr, De, Es, Ja</value>
+  </data>
+  <data name="MameDir2Dat_DefaultName" xml:space="preserve">
+    <value>Dir2Dat</value>
+  </data>
+  <data name="MameDir2Dat_DefaultDescription" xml:space="preserve">
+    <value>Retro Multi Tools로 생성됨</value>
+  </data>
+</root>

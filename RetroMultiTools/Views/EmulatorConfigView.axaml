@@ -1,0 +1,268 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.EmulatorConfigView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="600" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [EmuConfig_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [EmuConfig_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- Emulator Selection -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [EmuConfig_Emulator], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <ComboBox x:Name="EmulatorCombo" Width="350" HorizontalAlignment="Left"
+                      SelectedIndex="0" SelectionChanged="EmulatorCombo_SelectionChanged">
+                <ComboBoxItem Content="RetroArch" Tag="RetroArch"/>
+                <ComboBoxItem Content="Mesen (NES/SNES)" Tag="Mesen"/>
+                <ComboBoxItem Content="Snes9x (SNES)" Tag="Snes9x"/>
+                <ComboBoxItem Content="Project64 (N64)" Tag="Project64"/>
+                <ComboBoxItem Content="mGBA (Game Boy/GBA)" Tag="MGBA"/>
+                <ComboBoxItem Content="Kega Fusion (Sega)" Tag="KegaFusion"/>
+                <ComboBoxItem Content="Mednafen (Multi-system)" Tag="Mednafen"/>
+                <ComboBoxItem Content="Stella (Atari 2600)" Tag="Stella"/>
+                <ComboBoxItem Content="FCEUX (NES)" Tag="FCEUX"/>
+                <ComboBoxItem Content="MAME (Arcade)" Tag="MAME"/>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Directories -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [EmuConfig_Directories], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#CDD6F4"/>
+
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{Binding [EmuConfig_RomDir], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12"/>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBox x:Name="RomDirTextBox" Watermark="{Binding [EmuConfig_RomDirWatermark], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                        <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseRomDir_Click"
+                                Margin="8,0,0,0" Padding="12,6"/>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{Binding [EmuConfig_SaveDir], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12"/>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBox x:Name="SaveDirTextBox" Watermark="{Binding [EmuConfig_SaveDirWatermark], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                        <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseSaveDir_Click"
+                                Margin="8,0,0,0" Padding="12,6"/>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{Binding [EmuConfig_StateDir], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12"/>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBox x:Name="StateDirTextBox" Watermark="{Binding [EmuConfig_StateDirWatermark], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                        <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseStateDir_Click"
+                                Margin="8,0,0,0" Padding="12,6"/>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{Binding [EmuConfig_ScreenshotDir], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12"/>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBox x:Name="ScreenshotDirTextBox" Watermark="{Binding [EmuConfig_ScreenshotDirWatermark], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                        <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseScreenshotDir_Click"
+                                Margin="8,0,0,0" Padding="12,6"/>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Common Options -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [EmuConfig_Options], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <WrapPanel>
+                    <CheckBox x:Name="FullscreenCheck" Content="{Binding [EmuConfig_Fullscreen], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" Margin="0,0,16,4"/>
+                    <CheckBox x:Name="SmoothVideoCheck" Content="{Binding [EmuConfig_SmoothVideo], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" Margin="0,0,16,4"
+                              IsChecked="True"/>
+                    <CheckBox x:Name="IntegerScalingCheck" Content="{Binding [EmuConfig_IntegerScaling], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" Margin="0,0,16,4"
+                              IsChecked="True"/>
+                    <CheckBox x:Name="ShadersCheck" Content="{Binding [EmuConfig_EnableShaders], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" Margin="0,0,16,4"/>
+                    <CheckBox x:Name="RewindCheck" Content="{Binding [EmuConfig_EnableRewind], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" Margin="0,0,16,4"/>
+                    <CheckBox x:Name="VSyncCheck" Content="{Binding [EmuConfig_VSync], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" Margin="0,0,16,4"
+                              IsChecked="True"/>
+                    <CheckBox x:Name="ShowFPSCheck" Content="{Binding [EmuConfig_ShowFPS], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" Margin="0,0,16,4"/>
+                    <CheckBox x:Name="AutoSaveCheck" Content="{Binding [EmuConfig_AutoSave], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" Margin="0,0,16,4"/>
+                </WrapPanel>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="{Binding [EmuConfig_AudioVolume], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                    <Slider x:Name="AudioVolumeSlider" Minimum="0" Maximum="100" Value="100" Width="200"/>
+                    <TextBlock x:Name="AudioVolumeText" Text="100%" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Emulator-Specific Options -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [EmuConfig_SpecificOptions], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#CDD6F4"/>
+
+                <!-- RetroArch -->
+                <StackPanel x:Name="RetroArchOptionsPanel" IsVisible="False" Spacing="8">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_VideoDriver], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="VideoDriverCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="0">
+                            <ComboBoxItem Content="gl"/>
+                            <ComboBoxItem Content="glcore"/>
+                            <ComboBoxItem Content="vulkan"/>
+                            <ComboBoxItem Content="d3d11"/>
+                            <ComboBoxItem Content="d3d12"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_MenuDriver], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="MenuDriverCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="0">
+                            <ComboBoxItem Content="ozone"/>
+                            <ComboBoxItem Content="xmb"/>
+                            <ComboBoxItem Content="rgui"/>
+                            <ComboBoxItem Content="glui"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_RunAheadFrames], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <NumericUpDown x:Name="RunAheadFramesInput" Minimum="0" Maximum="5" Value="0" FormatString="0" Width="120"/>
+                    </StackPanel>
+                    <CheckBox x:Name="ThreadedVideoCheck" Content="{Binding [EmuConfig_ThreadedVideo], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="EnableNotificationsCheck" Content="{Binding [EmuConfig_Notifications], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" IsChecked="True"/>
+                    <CheckBox x:Name="EnableCheatsCheck" Content="{Binding [EmuConfig_Cheats], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                </StackPanel>
+
+                <!-- Mesen -->
+                <StackPanel x:Name="MesenOptionsPanel" IsVisible="False" Spacing="8">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_Region], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="MesenRegionCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="0">
+                            <ComboBoxItem Content="Auto"/>
+                            <ComboBoxItem Content="NTSC"/>
+                            <ComboBoxItem Content="PAL"/>
+                            <ComboBoxItem Content="Dendy"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <CheckBox x:Name="MesenRemoveSpriteLimitCheck" Content="{Binding [EmuConfig_RemoveSpriteLimit], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="MesenOverclockCheck" Content="{Binding [EmuConfig_Overclock], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                </StackPanel>
+
+                <!-- Snes9x -->
+                <StackPanel x:Name="Snes9xOptionsPanel" IsVisible="False" Spacing="8">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_Region], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="Snes9xRegionCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="0">
+                            <ComboBoxItem Content="Auto"/>
+                            <ComboBoxItem Content="NTSC"/>
+                            <ComboBoxItem Content="PAL"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_TurboSpeed], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <NumericUpDown x:Name="TurboSpeedInput" Minimum="1" Maximum="16" Value="2" FormatString="0" Width="120"/>
+                    </StackPanel>
+                    <CheckBox x:Name="SuperFXOverclockCheck" Content="{Binding [EmuConfig_SuperFXOverclock], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                </StackPanel>
+
+                <!-- Project64 -->
+                <StackPanel x:Name="Project64OptionsPanel" IsVisible="False" Spacing="8">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_CpuCore], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="CpuCoreCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="1">
+                            <ComboBoxItem Content="Interpreter"/>
+                            <ComboBoxItem Content="Recompiler"/>
+                            <ComboBoxItem Content="SyncCores"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_CounterFactor], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <NumericUpDown x:Name="CounterFactorInput" Minimum="1" Maximum="6" Value="2" FormatString="0" Width="120"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- mGBA -->
+                <StackPanel x:Name="MGBAOptionsPanel" IsVisible="False" Spacing="8">
+                    <CheckBox x:Name="AudioSyncCheck" Content="{Binding [EmuConfig_AudioSync], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" IsChecked="True"/>
+                    <CheckBox x:Name="UseBiosCheck" Content="{Binding [EmuConfig_UseBios], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" IsChecked="True"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_FastForwardSpeed], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <NumericUpDown x:Name="FastForwardSpeedInput" Minimum="2" Maximum="16" Value="4" FormatString="0" Width="120"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Kega Fusion -->
+                <StackPanel x:Name="KegaFusionOptionsPanel" IsVisible="False" Spacing="8">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_Region], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="KegaRegionCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="0">
+                            <ComboBoxItem Content="Auto"/>
+                            <ComboBoxItem Content="USA"/>
+                            <ComboBoxItem Content="Europe"/>
+                            <ComboBoxItem Content="Japan"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <CheckBox x:Name="PerfectSyncCheck" Content="{Binding [EmuConfig_PerfectSync], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                </StackPanel>
+
+                <!-- Mednafen -->
+                <StackPanel x:Name="MednafenOptionsPanel" IsVisible="False" Spacing="8">
+                    <CheckBox x:Name="CdImageMemoryCacheCheck" Content="{Binding [EmuConfig_CdImageCache], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                </StackPanel>
+
+                <!-- Stella -->
+                <StackPanel x:Name="StellaOptionsPanel" IsVisible="False" Spacing="8">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_PaletteOption], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="PaletteCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="0">
+                            <ComboBoxItem Content="standard"/>
+                            <ComboBoxItem Content="z26"/>
+                            <ComboBoxItem Content="user"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <CheckBox x:Name="PhosphorCheck" Content="{Binding [EmuConfig_Phosphor], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                </StackPanel>
+
+                <!-- FCEUX -->
+                <StackPanel x:Name="FCEUXOptionsPanel" IsVisible="False" Spacing="8">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_Region], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="FCEUXRegionCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="0">
+                            <ComboBoxItem Content="Auto"/>
+                            <ComboBoxItem Content="NTSC"/>
+                            <ComboBoxItem Content="PAL"/>
+                            <ComboBoxItem Content="Dendy"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <CheckBox x:Name="FCEUXRemoveSpriteLimitCheck" Content="{Binding [EmuConfig_RemoveSpriteLimit], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="NewPPUCheck" Content="{Binding [EmuConfig_NewPPU], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                </StackPanel>
+
+                <!-- MAME -->
+                <StackPanel x:Name="MAMEOptionsPanel" IsVisible="False" Spacing="8">
+                    <CheckBox x:Name="SkipGameInfoCheck" Content="{Binding [EmuConfig_SkipGameInfo], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="SkipWarningsCheck" Content="{Binding [EmuConfig_SkipWarnings], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="MAMEEnableCheatsCheck" Content="{Binding [EmuConfig_Cheats], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Output File -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [EmuConfig_OutputFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="OutputFileTextBox" Watermark="{Binding [EmuConfig_OutputWatermark], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseOutput_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Generate Button -->
+        <Button x:Name="GenerateButton" Content="{Binding [EmuConfig_Generate], Source={x:Static loc:LocalizationManager.Instance}}"
+                Click="GenerateButton_Click"
+                Padding="16,10" HorizontalAlignment="Left"/>
+
+        <!-- Status -->
+        <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="#CDD6F4"/>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

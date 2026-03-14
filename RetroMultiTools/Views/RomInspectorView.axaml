@@ -1,0 +1,86 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.RomInspectorView">
+    <DockPanel>
+        <!-- Top Controls -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+            <Button x:Name="OpenRomButton" Content="{Binding [Inspector_OpenFile], Source={x:Static loc:LocalizationManager.Instance}}" Click="OpenRomButton_Click" Padding="12,6"/>
+            <TextBlock x:Name="RomFilePathText" VerticalAlignment="Center"
+                       Foreground="#A6ADC8" Text="{Binding [Inspector_NoFileSelected], Source={x:Static loc:LocalizationManager.Instance}}" TextTrimming="CharacterEllipsis" MaxWidth="400"/>
+        </StackPanel>
+
+        <!-- Progress Section -->
+        <Border DockPanel.Dock="Top" x:Name="ProgressPanel" IsVisible="False" Margin="0,0,0,12">
+            <StackPanel Spacing="4">
+                <ProgressBar x:Name="LoadProgressBar" IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+                <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12" Text="{Binding [Inspector_Loading], Source={x:Static loc:LocalizationManager.Instance}}"/>
+            </StackPanel>
+        </Border>
+
+        <!-- ROM Info Panel -->
+        <Border DockPanel.Dock="Top" Background="#181825" CornerRadius="6" Padding="16" Margin="0,0,0,12">
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto">
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [Common_System], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,6"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="SystemNameText" Foreground="#CDD6F4" FontWeight="Bold" Margin="0,0,0,6"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [Common_FileSize], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,6"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="FileSizeText" Foreground="#CDD6F4" Margin="0,0,0,6"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding [Common_Valid], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,6"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="IsValidText" Foreground="#CDD6F4" Margin="0,0,0,6"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding [Common_Error], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,0"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" x:Name="ErrorMessageText" Foreground="#F38BA8" TextWrapping="Wrap"/>
+            </Grid>
+        </Border>
+
+        <!-- Artwork Section -->
+        <Border DockPanel.Dock="Top" x:Name="ArtworkPanel" IsVisible="False" Background="#181825"
+                CornerRadius="6" Padding="16" Margin="0,0,0,12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [Inspector_Artwork], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="Bold" Foreground="#CDD6F4"/>
+                <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center">
+                    <!-- Box Art -->
+                    <StackPanel Spacing="4" x:Name="BoxArtPanel" IsVisible="False">
+                        <TextBlock Text="{Binding [Inspector_BoxArt], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="11" HorizontalAlignment="Center"/>
+                        <Border Background="#11111B" CornerRadius="4" Padding="4">
+                            <Image x:Name="BoxArtImage" MaxHeight="180" MaxWidth="180" Stretch="Uniform"/>
+                        </Border>
+                    </StackPanel>
+                    <!-- Screenshot -->
+                    <StackPanel Spacing="4" x:Name="SnapPanel" IsVisible="False">
+                        <TextBlock Text="{Binding [Inspector_Screenshot], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="11" HorizontalAlignment="Center"/>
+                        <Border Background="#11111B" CornerRadius="4" Padding="4">
+                            <Image x:Name="SnapImage" MaxHeight="180" MaxWidth="240" Stretch="Uniform"/>
+                        </Border>
+                    </StackPanel>
+                    <!-- Title Screen -->
+                    <StackPanel Spacing="4" x:Name="TitleScreenPanel" IsVisible="False">
+                        <TextBlock Text="{Binding [Inspector_TitleScreen], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="11" HorizontalAlignment="Center"/>
+                        <Border Background="#11111B" CornerRadius="4" Padding="4">
+                            <Image x:Name="TitleScreenImage" MaxHeight="180" MaxWidth="240" Stretch="Uniform"/>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Header Fields -->
+        <TextBlock DockPanel.Dock="Top" Text="{Binding [Inspector_HeaderInfo], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="Bold"
+                   Foreground="#CDD6F4" Margin="0,0,0,8"/>
+
+        <ScrollViewer>
+            <ItemsControl x:Name="HeaderItemsControl">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="200,*" Margin="0,2">
+                            <TextBlock Grid.Column="0" Text="{Binding Key}" Foreground="#A6ADC8"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Value}" Foreground="#CDD6F4"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

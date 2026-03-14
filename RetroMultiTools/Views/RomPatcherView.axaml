@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.RomPatcherView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="600" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [Patcher_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+
+        <!-- Source ROM -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [Patcher_SourceRom], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="SourceRomTextBox" IsReadOnly="True"
+                         Watermark="{Binding [Patcher_SelectSourceRom], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseSourceRom_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Patch File -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [Patcher_PatchFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="PatchFileTextBox" IsReadOnly="True"
+                         Watermark="{Binding [Patcher_SelectPatchFile], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowsePatchFile_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Output File -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [Common_OutputFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="OutputFileTextBox" Watermark="{Binding [Patcher_OutputPath], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseOutputFile_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Apply Button -->
+        <Button x:Name="ApplyPatchButton" Content="{Binding [Patcher_ApplyPatch], Source={x:Static loc:LocalizationManager.Instance}}"
+                Click="ApplyPatchButton_Click"
+                Padding="16,10" HorizontalAlignment="Left"
+                IsEnabled="False"/>
+
+        <!-- Status -->
+        <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="PatchStatusText" TextWrapping="Wrap" Foreground="#CDD6F4"/>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>
