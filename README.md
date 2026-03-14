@@ -2,6 +2,8 @@
 
 # Retro Multi Tools
 
+<img src="Screenshot.png" width="75%">
+
 A cross-platform desktop utility for managing, inspecting, and patching retro game ROMs.
 
 [![License: BSD-2-Clause](https://img.shields.io/badge/License-BSD_2--Clause-blue.svg)](LICENSE)
