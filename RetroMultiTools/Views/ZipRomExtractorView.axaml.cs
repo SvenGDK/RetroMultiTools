@@ -1,11 +1,16 @@
 using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
 
 public partial class ZipRomExtractorView : UserControl
 {
+    private static readonly IBrush StatusErrorBrush = new SolidColorBrush(Color.Parse("#F38BA8"));
+    private static readonly IBrush StatusSuccessBrush = new SolidColorBrush(Color.Parse("#A6E3A1"));
+
     public ZipRomExtractorView()
     {
         InitializeComponent();
@@ -16,9 +21,14 @@ public partial class ZipRomExtractorView : UserControl
         if (InputLabel == null) return;
         if (sender is RadioButton rb && rb.IsChecked != true) return;
 
+        var loc = LocalizationManager.Instance;
         bool isBatch = sender == BatchModeRadio;
-        InputLabel.Text = isBatch ? "ZIP Directory:" : "ZIP File:";
-        InputPathTextBox.Watermark = isBatch ? "Select a directory of ZIP files..." : "Select a ZIP file...";
+        InputLabel.Text = isBatch
+            ? loc["ZipExtract_ZipDirectory"]
+            : loc["ZipExtract_ZipFile"];
+        InputPathTextBox.Watermark = isBatch
+            ? loc["ZipExtract_SelectZipDirectory"]
+            : loc["ZipExtract_SelectZip"];
         InputPathTextBox.Text = string.Empty;
         StatusBorder.IsVisible = false;
         ResultsBorder.IsVisible = false;
@@ -31,12 +41,12 @@ public partial class ZipRomExtractorView : UserControl
 
         if (isBatch)
         {
-            var path = await PickFolder("Select Directory of ZIP Files");
+            var path = await PickFolder(LocalizationManager.Instance["ZipExtract_SelectZipDir"]);
             if (path != null) InputPathTextBox.Text = path;
         }
         else
         {
-            var path = await PickFile("Select ZIP File",
+            var path = await PickFile(LocalizationManager.Instance["ZipExtract_SelectZipFile"],
             [
                 new FilePickerFileType("ZIP Archives") { Patterns = ["*.zip"] },
                 FilePickerFileTypes.All
@@ -58,19 +68,19 @@ public partial class ZipRomExtractorView : UserControl
             var entries = ZipRomExtractor.ListRoms(zipPath);
             if (entries.Count == 0)
             {
-                ResultsText.Text = "No ROM files found in this ZIP archive.";
+                ResultsText.Text = LocalizationManager.Instance["ZipExtract_NoRomsFound"];
             }
             else
             {
                 var sb = new System.Text.StringBuilder();
-                sb.AppendLine($"Found {entries.Count} ROM file(s):");
+                sb.AppendLine(string.Format(LocalizationManager.Instance["ZipExtract_FoundRoms"], entries.Count));
                 foreach (var entry in entries)
                     sb.AppendLine($"  {entry.Summary}");
                 ResultsText.Text = sb.ToString();
             }
             ResultsBorder.IsVisible = true;
         }
-        catch (IOException ex)
+        catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException)
         {
             ResultsText.Text = $"Unable to read ZIP file: {ex.Message}";
             ResultsBorder.IsVisible = true;
@@ -79,7 +89,7 @@ public partial class ZipRomExtractorView : UserControl
 
     private async void BrowseOutput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFolder("Select Output Directory");
+        var path = await PickFolder(LocalizationManager.Instance["ZipExtract_SelectOutputDir"]);
         if (path != null)
             OutputPathTextBox.Text = path;
         UpdateExtractButton();
@@ -98,7 +108,7 @@ public partial class ZipRomExtractorView : UserControl
 
         if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(output))
         {
-            ShowStatus("Please select input and output paths.", isError: true);
+            ShowStatus(LocalizationManager.Instance["ZipExtract_SelectInputOutput"], isError: true);
             return;
         }
 
@@ -119,15 +129,7 @@ public partial class ZipRomExtractorView : UserControl
 
             ShowStatus($"✔ Extraction complete!\n{result.Summary}", isError: false);
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (InvalidDataException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }
@@ -141,9 +143,7 @@ public partial class ZipRomExtractorView : UserControl
     private void ShowStatus(string message, bool isError)
     {
         StatusText.Text = message;
-        StatusText.Foreground = isError
-            ? new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#F38BA8"))
-            : new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#A6E3A1"));
+        StatusText.Foreground = isError ? StatusErrorBrush : StatusSuccessBrush;
         StatusBorder.IsVisible = true;
     }
 

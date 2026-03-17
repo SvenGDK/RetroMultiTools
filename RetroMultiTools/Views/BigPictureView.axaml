@@ -1,0 +1,325 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.BigPictureView"
+             Background="#11111B"
+             Focusable="True">
+    <DockPanel>
+        <!-- Top Bar -->
+        <Border DockPanel.Dock="Top" Background="#181825" Padding="24,12">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <!-- Title -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                    <PathIcon Width="28" Height="28" Foreground="#89B4FA"
+                              Data="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                    <TextBlock Text="{Binding [BigPicture_Title], Source={x:Static loc:LocalizationManager.Instance}}"
+                               FontSize="24" FontWeight="Bold" Foreground="#CDD6F4"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Search + Filter -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="12"
+                            HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox x:Name="SearchBox" Width="320"
+                             Watermark="{Binding [BigPicture_Search], Source={x:Static loc:LocalizationManager.Instance}}"
+                             FontSize="16" Padding="12,8"
+                             TextChanged="SearchBox_TextChanged"/>
+                    <ComboBox x:Name="SystemFilterCombo" Width="220" FontSize="14"
+                              PlaceholderText="{Binding [BigPicture_AllSystems], Source={x:Static loc:LocalizationManager.Instance}}"
+                              SelectionChanged="SystemFilterCombo_SelectionChanged"/>
+                    <ComboBox x:Name="SortCombo" Width="180" FontSize="14"
+                              SelectionChanged="SortCombo_SelectionChanged"/>
+                    <ToggleButton x:Name="FavoritesFilterButton" FontSize="14"
+                                  Padding="12,8"
+                                  IsCheckedChanged="FavoritesFilterButton_Changed">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="★" FontSize="16" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding [BigPicture_FavoritesOnly], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ToggleButton>
+                </StackPanel>
+
+                <!-- Actions -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                    <Button x:Name="RandomGameButton"
+                            Content="{Binding [BigPicture_Random], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="RandomGameButton_Click" Padding="16,8" FontSize="14"/>
+                    <Button x:Name="RescanButton"
+                            Content="{Binding [BigPicture_Rescan], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="RescanButton_Click" Padding="16,8" FontSize="14"/>
+                    <Button x:Name="BrowseFolderButton"
+                            Content="{Binding [BigPicture_SelectFolder], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="BrowseFolderButton_Click" Padding="16,8" FontSize="14"/>
+                    <Button x:Name="ExitBigPictureButton"
+                            Content="{Binding [BigPicture_Exit], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="ExitBigPictureButton_Click" Padding="16,8" FontSize="14"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Status Bar -->
+        <Border DockPanel.Dock="Bottom" Background="#181825" Padding="24,8">
+            <Grid ColumnDefinitions="*,Auto,Auto,Auto,Auto">
+                <StackPanel Grid.Column="0" Spacing="4">
+                    <ProgressBar x:Name="ScanProgressBar" IsVisible="False" Minimum="0" Maximum="1"
+                                 IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+                    <TextBlock x:Name="StatusText" Foreground="#A6ADC8" FontSize="13"
+                               Text="{Binding [BigPicture_Ready], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                </StackPanel>
+                <Border Grid.Column="1" Background="#313244" CornerRadius="4" Padding="10,4"
+                        Margin="12,0" VerticalAlignment="Center">
+                    <TextBlock x:Name="GamepadStatusText" Foreground="#A6ADC8" FontSize="12"
+                               FontWeight="SemiBold"/>
+                </Border>
+                <Border Grid.Column="2" Background="#313244" CornerRadius="4" Padding="10,4"
+                        Margin="12,0" VerticalAlignment="Center">
+                    <TextBlock x:Name="ZoomLevelText" Foreground="#A6ADC8" FontSize="12"
+                               FontWeight="SemiBold"/>
+                </Border>
+                <Border Grid.Column="3" Background="#313244" CornerRadius="4" Padding="10,4"
+                        Margin="12,0" VerticalAlignment="Center">
+                    <TextBlock x:Name="RomCountText" Foreground="#CDD6F4" FontSize="12"
+                               FontWeight="SemiBold"/>
+                </Border>
+                <TextBlock Grid.Column="4" x:Name="HintText" Foreground="#6C7086" FontSize="12"
+                           VerticalAlignment="Center"
+                           Text="{Binding [BigPicture_Hints], Source={x:Static loc:LocalizationManager.Instance}}"/>
+            </Grid>
+        </Border>
+
+        <!-- Main Content: Game Grid + Detail Panel -->
+        <Grid x:Name="MainContentGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Game Card Grid -->
+            <ScrollViewer x:Name="GameGridScroll" Grid.Column="0"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto"
+                          Padding="24,16">
+                <WrapPanel x:Name="GameCardsPanel" Orientation="Horizontal"
+                           HorizontalAlignment="Center"/>
+            </ScrollViewer>
+
+            <!-- Empty State -->
+            <StackPanel x:Name="EmptyState" Grid.Column="0"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Spacing="16" IsVisible="True">
+                <PathIcon Width="64" Height="64" Foreground="#45475A"
+                          Data="M1 3h6l2 2h10v12H1V3zm2 2v10h14V7H8.17L6.17 5H3z"/>
+                <TextBlock Text="{Binding [BigPicture_EmptyState], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontSize="18" Foreground="#6C7086"
+                           HorizontalAlignment="Center" TextWrapping="Wrap"
+                           TextAlignment="Center" MaxWidth="400"/>
+            </StackPanel>
+
+            <!-- Help Overlay (spans full grid) -->
+            <Border x:Name="HelpOverlay" Grid.ColumnSpan="2"
+                    Background="#DD11111B" IsVisible="False"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    Padding="0" ZIndex="10">
+                <Border Background="#1E1E2E" CornerRadius="12" Padding="40,32"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        MaxWidth="600" BorderBrush="#313244" BorderThickness="1">
+                    <StackPanel Spacing="20">
+                        <TextBlock x:Name="HelpOverlayTitle" FontSize="22" FontWeight="Bold"
+                                   Foreground="#CDD6F4" HorizontalAlignment="Center"/>
+                        <Border Background="#313244" Height="1" Margin="0,0,0,4"/>
+                        <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                            <!-- Header row -->
+                            <TextBlock Grid.Row="0" Grid.Column="0" x:Name="HelpKeyboardHeader"
+                                       Text="⌨ Keyboard" FontSize="13" Foreground="#89B4FA"
+                                       FontWeight="SemiBold" Margin="0,0,24,8"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" x:Name="HelpGamepadHeader"
+                                       Text="🎮 Controller" FontSize="13" Foreground="#F9E2AF"
+                                       FontWeight="SemiBold" Margin="24,0,0,8" IsVisible="False"/>
+
+                            <!-- Navigation -->
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="← → ↑ ↓" FontSize="14" Foreground="#89B4FA" FontWeight="SemiBold" Margin="0,4,24,4"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="HelpNav" FontSize="14" Foreground="#CDD6F4" Margin="0,4"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" x:Name="HelpGamepadNav"
+                                       Text="D-Pad / Left Stick" FontSize="13" Foreground="#F9E2AF" Margin="24,4,0,4" IsVisible="False"/>
+
+                            <!-- Launch -->
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Enter / Space" FontSize="14" Foreground="#89B4FA" FontWeight="SemiBold" Margin="0,4,24,4"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="HelpLaunch" FontSize="14" Foreground="#CDD6F4" Margin="0,4"/>
+                            <TextBlock Grid.Row="2" Grid.Column="2" x:Name="HelpGamepadLaunch"
+                                       Text="A" FontSize="13" Foreground="#F9E2AF" Margin="24,4,0,4" IsVisible="False"/>
+
+                            <!-- Favorite -->
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="F" FontSize="14" Foreground="#89B4FA" FontWeight="SemiBold" Margin="0,4,24,4"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" x:Name="HelpFav" FontSize="14" Foreground="#CDD6F4" Margin="0,4"/>
+                            <TextBlock Grid.Row="3" Grid.Column="2" x:Name="HelpGamepadFav"
+                                       Text="Y" FontSize="13" Foreground="#F9E2AF" Margin="24,4,0,4" IsVisible="False"/>
+
+                            <!-- Search -->
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Tab" FontSize="14" Foreground="#89B4FA" FontWeight="SemiBold" Margin="0,4,24,4"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1" x:Name="HelpSearch" FontSize="14" Foreground="#CDD6F4" Margin="0,4"/>
+                            <TextBlock Grid.Row="4" Grid.Column="2" x:Name="HelpGamepadSearch"
+                                       Text="X" FontSize="13" Foreground="#F9E2AF" Margin="24,4,0,4" IsVisible="False"/>
+
+                            <!-- Exit -->
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Escape / Backspace" FontSize="14" Foreground="#89B4FA" FontWeight="SemiBold" Margin="0,4,24,4"/>
+                            <TextBlock Grid.Row="5" Grid.Column="1" x:Name="HelpExit" FontSize="14" Foreground="#CDD6F4" Margin="0,4"/>
+                            <TextBlock Grid.Row="5" Grid.Column="2" x:Name="HelpGamepadExit"
+                                       Text="Guide" FontSize="13" Foreground="#F9E2AF" Margin="24,4,0,4" IsVisible="False"/>
+
+                            <!-- Home / End -->
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Home / End" FontSize="14" Foreground="#89B4FA" FontWeight="SemiBold" Margin="0,4,24,4"/>
+                            <TextBlock Grid.Row="6" Grid.Column="1" x:Name="HelpHomeEnd" FontSize="14" Foreground="#CDD6F4" Margin="0,4"/>
+                            <TextBlock Grid.Row="6" Grid.Column="2" x:Name="HelpGamepadHomeEnd"
+                                       Text="L3 / R3" FontSize="13" Foreground="#F9E2AF" Margin="24,4,0,4" IsVisible="False"/>
+
+                            <!-- Page navigation -->
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="Page Up / Page Down" FontSize="14" Foreground="#89B4FA" FontWeight="SemiBold" Margin="0,4,24,4"/>
+                            <TextBlock Grid.Row="7" Grid.Column="1" x:Name="HelpPage" FontSize="14" Foreground="#CDD6F4" Margin="0,4"/>
+                            <TextBlock Grid.Row="7" Grid.Column="2" x:Name="HelpGamepadPage"
+                                       Text="LB / RB" FontSize="13" Foreground="#F9E2AF" Margin="24,4,0,4" IsVisible="False"/>
+
+                            <!-- Zoom -->
+                            <TextBlock Grid.Row="8" Grid.Column="0" Text="+ / −" FontSize="14" Foreground="#89B4FA" FontWeight="SemiBold" Margin="0,4,24,4"/>
+                            <TextBlock Grid.Row="8" Grid.Column="1" x:Name="HelpZoom" FontSize="14" Foreground="#CDD6F4" Margin="0,4"/>
+                            <TextBlock Grid.Row="8" Grid.Column="2" x:Name="HelpGamepadZoom"
+                                       Text="Right Stick ↕" FontSize="13" Foreground="#F9E2AF" Margin="24,4,0,4" IsVisible="False"/>
+
+                            <!-- Help toggle -->
+                            <TextBlock Grid.Row="9" Grid.Column="0" Text="H / ?" FontSize="14" Foreground="#89B4FA" FontWeight="SemiBold" Margin="0,4,24,4"/>
+                            <TextBlock Grid.Row="9" Grid.Column="1" x:Name="HelpToggle" FontSize="14" Foreground="#CDD6F4" Margin="0,4"/>
+                            <TextBlock Grid.Row="9" Grid.Column="2" x:Name="HelpGamepadToggle"
+                                       Text="Start" FontSize="13" Foreground="#F9E2AF" Margin="24,4,0,4" IsVisible="False"/>
+
+                            <!-- ROM Info -->
+                            <TextBlock Grid.Row="10" Grid.Column="0" Text="I" FontSize="14" Foreground="#89B4FA" FontWeight="SemiBold" Margin="0,4,24,4"/>
+                            <TextBlock Grid.Row="10" Grid.Column="1" x:Name="HelpRomInfo" FontSize="14" Foreground="#CDD6F4" Margin="0,4"/>
+                            <TextBlock Grid.Row="10" Grid.Column="2" x:Name="HelpGamepadRomInfo"
+                                       Text="B" FontSize="13" Foreground="#F9E2AF" Margin="24,4,0,4" IsVisible="False"/>
+
+                            <!-- Random game -->
+                            <TextBlock Grid.Row="11" Grid.Column="0" Text="R" FontSize="14" Foreground="#89B4FA" FontWeight="SemiBold" Margin="0,4,24,4"/>
+                            <TextBlock Grid.Row="11" Grid.Column="1" x:Name="HelpRandom" FontSize="14" Foreground="#CDD6F4" Margin="0,4"/>
+                            <TextBlock Grid.Row="11" Grid.Column="2" x:Name="HelpGamepadRandom"
+                                       Text="Back" FontSize="13" Foreground="#F9E2AF" Margin="24,4,0,4" IsVisible="False"/>
+
+                            <Border Grid.Row="12" Grid.ColumnSpan="3" Background="#313244" Height="1" Margin="0,8"/>
+                            <TextBlock Grid.Row="13" Grid.ColumnSpan="3" x:Name="HelpDismiss"
+                                       FontSize="13" Foreground="#6C7086"
+                                       HorizontalAlignment="Center" Margin="0,4"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Border>
+
+            <!-- ROM Info Overlay (spans full grid) -->
+            <Border x:Name="RomInfoOverlay" Grid.ColumnSpan="2"
+                    Background="#DD11111B" IsVisible="False"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    Padding="0" ZIndex="10">
+                <Border Background="#1E1E2E" CornerRadius="12" Padding="40,32"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        MaxWidth="700" BorderBrush="#313244" BorderThickness="1">
+                    <StackPanel Spacing="16">
+                        <TextBlock x:Name="RomInfoOverlayTitle" FontSize="22" FontWeight="Bold"
+                                   Foreground="#CDD6F4" HorizontalAlignment="Center"/>
+                        <Border Background="#313244" Height="1" Margin="0,0,0,4"/>
+                        <ScrollViewer MaxHeight="480"
+                                      HorizontalScrollBarVisibility="Disabled"
+                                      VerticalScrollBarVisibility="Auto">
+                            <StackPanel Spacing="16">
+                                <!-- ROM Details Section -->
+                                <StackPanel x:Name="RomInfoDetailsSection" Spacing="4"/>
+                                <!-- Checksums Section -->
+                                <StackPanel x:Name="RomInfoChecksumsSection" Spacing="4"/>
+                                <!-- GoodTools Section -->
+                                <StackPanel x:Name="RomInfoGoodToolsSection" Spacing="4"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                        <Border Background="#313244" Height="1" Margin="0,4,0,0"/>
+                        <TextBlock x:Name="RomInfoDismiss"
+                                   FontSize="13" Foreground="#6C7086"
+                                   HorizontalAlignment="Center" Margin="0,4"/>
+                    </StackPanel>
+                </Border>
+            </Border>
+
+            <!-- Detail Side Panel -->
+            <Border x:Name="DetailPanel" Grid.Column="1" Background="#181825"
+                    Padding="20" IsVisible="False"
+                    CornerRadius="8,0,0,8" Margin="0">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
+                    <StackPanel Spacing="16">
+                        <!-- Game Title -->
+                        <TextBlock x:Name="DetailTitle" FontSize="20" FontWeight="Bold"
+                                   Foreground="#CDD6F4" TextWrapping="Wrap"/>
+
+                        <!-- System Badge + Favorite -->
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Border Background="#313244" CornerRadius="4" Padding="10,6"
+                                    HorizontalAlignment="Left">
+                                <TextBlock x:Name="DetailSystem" FontSize="14"
+                                           Foreground="#89B4FA" FontWeight="SemiBold"/>
+                            </Border>
+                            <Button x:Name="DetailFavoriteButton"
+                                    Click="FavoriteButton_Click"
+                                    Padding="10,6" FontSize="14" FontWeight="SemiBold"
+                                    Background="#313244" Foreground="#F9E2AF"
+                                    VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- File Info -->
+                        <StackPanel Spacing="4">
+                            <TextBlock x:Name="DetailSize" Foreground="#A6ADC8" FontSize="13"/>
+                            <TextBlock x:Name="DetailValid" Foreground="#A6ADC8" FontSize="13"/>
+                            <TextBlock x:Name="DetailPlayCount" Foreground="#A6ADC8" FontSize="13"/>
+                            <TextBlock x:Name="DetailFilePath" Foreground="#585B70" FontSize="11"
+                                       TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                                       MaxLines="2"/>
+                        </StackPanel>
+
+                        <!-- Box Art -->
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="{Binding [Browser_BoxArt], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontSize="12" Foreground="#6C7086"/>
+                            <Border Background="#11111B" CornerRadius="6" Padding="6" MinHeight="160">
+                                <Image x:Name="DetailBoxArt" Stretch="Uniform" MaxHeight="260"/>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Screenshot -->
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="{Binding [Browser_Screenshot], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontSize="12" Foreground="#6C7086"/>
+                            <Border Background="#11111B" CornerRadius="6" Padding="6" MinHeight="120">
+                                <Image x:Name="DetailScreenshot" Stretch="Uniform" MaxHeight="200"/>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Title Screen -->
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="{Binding [Browser_TitleScreen], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontSize="12" Foreground="#6C7086"/>
+                            <Border Background="#11111B" CornerRadius="6" Padding="6" MinHeight="120">
+                                <Image x:Name="DetailTitleScreen" Stretch="Uniform" MaxHeight="200"/>
+                            </Border>
+                        </StackPanel>
+
+                        <TextBlock x:Name="DetailArtworkStatus" Foreground="#6C7086"
+                                   FontSize="12" TextWrapping="Wrap"/>
+
+                        <!-- Launch Button -->
+                        <Button x:Name="DetailLaunchButton"
+                                Content="{Binding [BigPicture_Launch], Source={x:Static loc:LocalizationManager.Instance}}"
+                                Click="LaunchButton_Click"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                Padding="16,12" FontSize="16" FontWeight="SemiBold"
+                                Background="#89B4FA" Foreground="#1E1E2E"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </DockPanel>
+</UserControl>

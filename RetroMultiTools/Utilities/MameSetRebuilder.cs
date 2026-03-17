@@ -78,6 +78,30 @@ public static class MameSetRebuilder
             Directory.CreateDirectory(outputDirectory);
 
         var result = new RebuildResult();
+
+        if (options.Mode == RebuildMode.Merged)
+        {
+            await RebuildMergedAsync(machines, sourceIndex, outputDirectory, options, result, progress).ConfigureAwait(false);
+        }
+        else
+        {
+            await RebuildSplitOrNonMergedAsync(machines, sourceIndex, outputDirectory, options, result, progress).ConfigureAwait(false);
+        }
+
+        result.TotalMachines = machines.Count;
+        progress?.Report($"Done — {result.CompleteCount} complete, {result.PartialCount} partial, {result.FailedCount} failed, {result.SkippedCount} skipped.");
+
+        return result;
+    }
+
+    private static async Task RebuildSplitOrNonMergedAsync(
+        List<MameMachine> machines,
+        Dictionary<string, List<SourceRom>> sourceIndex,
+        string outputDirectory,
+        RebuildOptions options,
+        RebuildResult result,
+        IProgress<string>? progress)
+    {
         int processed = 0;
 
         foreach (var machine in machines)
@@ -86,9 +110,10 @@ public static class MameSetRebuilder
             if (processed % 50 == 0)
                 progress?.Report($"Processing {processed} of {machines.Count}: {machine.Name}...");
 
-            // Get the ROMs that need to be in this set
+            // Get the ROMs that need to be in this set based on mode
             var requiredRoms = machine.Roms
-                .Where(r => string.IsNullOrEmpty(r.Merge) && r.Status != "nodump" && !r.Optional)
+                .Where(r => r.Status != "nodump" && !r.Optional)
+                .Where(r => options.Mode == RebuildMode.NonMerged || string.IsNullOrEmpty(r.Merge))
                 .ToList();
 
             if (requiredRoms.Count == 0) continue;
@@ -128,44 +153,133 @@ public static class MameSetRebuilder
 
             bool success = await Task.Run(() => BuildZipFile(outputZip, foundRoms)).ConfigureAwait(false);
 
-            if (success)
+            RecordResult(result, machine, foundRoms.Count, missingRoms, success);
+        }
+    }
+
+    private static async Task RebuildMergedAsync(
+        List<MameMachine> machines,
+        Dictionary<string, List<SourceRom>> sourceIndex,
+        string outputDirectory,
+        RebuildOptions options,
+        RebuildResult result,
+        IProgress<string>? progress)
+    {
+        // Build lookup of machines by name for finding clones' parents
+        var machinesByName = new Dictionary<string, MameMachine>(StringComparer.OrdinalIgnoreCase);
+        foreach (var m in machines)
+            machinesByName[m.Name] = m;
+
+        // Identify parent machines (those with no cloneof attribute)
+        var parents = machines.Where(m => string.IsNullOrEmpty(m.CloneOf)).ToList();
+
+        // Group clones by their parent
+        var clonesByParent = machines
+            .Where(m => !string.IsNullOrEmpty(m.CloneOf))
+            .GroupBy(m => m.CloneOf, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(g => g.Key, g => g.ToList(), StringComparer.OrdinalIgnoreCase);
+
+        int processed = 0;
+
+        foreach (var parent in parents)
+        {
+            processed++;
+            if (processed % 50 == 0)
+                progress?.Report($"Processing {processed} of {parents.Count}: {parent.Name}...");
+
+            // Collect all ROMs: parent's own ROMs (all, ignoring merge) plus unique clone ROMs
+            var allRoms = new List<MameRom>();
+            var seenNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (var rom in parent.Roms.Where(r => r.Status != "nodump" && !r.Optional))
             {
-                if (missingRoms.Count == 0)
+                allRoms.Add(rom);
+                seenNames.Add(rom.Name);
+            }
+
+            // Add unique ROMs from clones
+            if (clonesByParent.TryGetValue(parent.Name, out var clones))
+            {
+                foreach (var clone in clones)
                 {
-                    result.CompleteCount++;
-                    result.RebuiltSets.Add(new RebuiltSetInfo
+                    foreach (var rom in clone.Roms.Where(r => r.Status != "nodump" && !r.Optional))
                     {
-                        MachineName = machine.Name,
-                        Description = machine.Description,
-                        IsComplete = true,
-                        RomsIncluded = foundRoms.Count,
-                        RomsMissing = 0
-                    });
+                        if (seenNames.Add(rom.Name))
+                            allRoms.Add(rom);
+                    }
+                }
+            }
+
+            if (allRoms.Count == 0) continue;
+
+            string outputZip = Path.Combine(outputDirectory, parent.Name + ".zip");
+
+            if (!options.OverwriteExisting && File.Exists(outputZip))
+            {
+                result.SkippedCount++;
+                continue;
+            }
+
+            var foundRoms = new List<(MameRom rom, SourceRom source)>();
+            var missingRoms = new List<MameRom>();
+
+            foreach (var rom in allRoms)
+            {
+                if (!string.IsNullOrEmpty(rom.CRC32) && sourceIndex.TryGetValue(rom.CRC32, out var sources))
+                {
+                    var match = sources.FirstOrDefault(s => rom.Size == 0 || s.Size == rom.Size) ?? sources[0];
+                    foundRoms.Add((rom, match));
                 }
                 else
                 {
-                    result.PartialCount++;
-                    result.RebuiltSets.Add(new RebuiltSetInfo
-                    {
-                        MachineName = machine.Name,
-                        Description = machine.Description,
-                        IsComplete = false,
-                        RomsIncluded = foundRoms.Count,
-                        RomsMissing = missingRoms.Count,
-                        MissingRomNames = missingRoms.Select(r => r.Name).ToList()
-                    });
+                    missingRoms.Add(rom);
                 }
+            }
+
+            if (foundRoms.Count == 0) continue;
+
+            if (options.OnlyComplete && missingRoms.Count > 0) continue;
+
+            bool success = await Task.Run(() => BuildZipFile(outputZip, foundRoms)).ConfigureAwait(false);
+
+            RecordResult(result, parent, foundRoms.Count, missingRoms, success);
+        }
+    }
+
+    private static void RecordResult(RebuildResult result, MameMachine machine, int romsIncluded, List<MameRom> missingRoms, bool success)
+    {
+        if (success)
+        {
+            if (missingRoms.Count == 0)
+            {
+                result.CompleteCount++;
+                result.RebuiltSets.Add(new RebuiltSetInfo
+                {
+                    MachineName = machine.Name,
+                    Description = machine.Description,
+                    IsComplete = true,
+                    RomsIncluded = romsIncluded,
+                    RomsMissing = 0
+                });
             }
             else
             {
-                result.FailedCount++;
+                result.PartialCount++;
+                result.RebuiltSets.Add(new RebuiltSetInfo
+                {
+                    MachineName = machine.Name,
+                    Description = machine.Description,
+                    IsComplete = false,
+                    RomsIncluded = romsIncluded,
+                    RomsMissing = missingRoms.Count,
+                    MissingRomNames = missingRoms.Select(r => r.Name).ToList()
+                });
             }
         }
-
-        result.TotalMachines = machines.Count;
-        progress?.Report($"Done — {result.CompleteCount} complete, {result.PartialCount} partial, {result.FailedCount} failed, {result.SkippedCount} skipped.");
-
-        return result;
+        else
+        {
+            result.FailedCount++;
+        }
     }
 
     private static void IndexZipContents(string zipPath, Dictionary<string, List<SourceRom>> index)
@@ -196,8 +310,7 @@ public static class MameSetRebuilder
                 list.Add(sourceRom);
             }
         }
-        catch (InvalidDataException) { }
-        catch (IOException) { }
+        catch (Exception ex) when (ex is InvalidDataException or IOException) { }
     }
 
     private static bool BuildZipFile(string outputZip, List<(MameRom rom, SourceRom source)> roms)
@@ -228,12 +341,7 @@ public static class MameSetRebuilder
             }
             return true;
         }
-        catch (IOException)
-        {
-            try { File.Delete(outputZip); } catch (IOException) { } catch (UnauthorizedAccessException) { }
-            return false;
-        }
-        catch (UnauthorizedAccessException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidDataException)
         {
             try { File.Delete(outputZip); } catch (IOException) { } catch (UnauthorizedAccessException) { }
             return false;
@@ -257,8 +365,7 @@ public static class MameSetRebuilder
 
             return (crc ^ 0xFFFFFFFF).ToString("X8");
         }
-        catch (IOException) { return ""; }
-        catch (UnauthorizedAccessException) { return ""; }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { return ""; }
     }
 
     private static readonly uint[] Crc32Table = GenerateCrc32Table();
@@ -287,10 +394,32 @@ public class SourceRom
     public string ZipEntryName { get; set; } = string.Empty;
 }
 
+public enum RebuildMode
+{
+    /// <summary>
+    /// Each machine ZIP contains only its own unique ROMs (no merge attribute).
+    /// Clones depend on their parent ZIP for shared ROMs.
+    /// </summary>
+    Split,
+
+    /// <summary>
+    /// Each machine ZIP contains ALL ROMs it needs, including those shared with the parent.
+    /// Every ZIP is self-contained.
+    /// </summary>
+    NonMerged,
+
+    /// <summary>
+    /// Only parent machines are built. The parent ZIP contains its own ROMs plus
+    /// all unique ROMs from its clones. No separate clone ZIPs are created.
+    /// </summary>
+    Merged
+}
+
 public class RebuildOptions
 {
     public bool OverwriteExisting { get; set; }
     public bool OnlyComplete { get; set; }
+    public RebuildMode Mode { get; set; } = RebuildMode.Split;
 }
 
 public class RebuiltSetInfo

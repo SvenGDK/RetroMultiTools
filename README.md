@@ -1,8 +1,11 @@
 <div align="center">
 
+<img src="Icon.png" width="128px">
+
 # Retro Multi Tools
 
-<img src="Screenshot.png" width="75%">
+<img src="/Screenshots/Screenshot.png" width="75%">
+<img src="/Screenshots/BigPictureMode.png" width="75%">
 
 A cross-platform desktop utility for managing, inspecting, and patching retro game ROMs.
 
@@ -27,6 +30,8 @@ A cross-platform desktop utility for managing, inspecting, and patching retro ga
 
 Download the latest release from the [Releases](https://github.com/SvenGDK/RetroMultiTools/releases) page.
 
+### Portable ZIPs
+
 | File | Description |
 |---|---|
 | `win-x64.zip` | Windows 64-bit (Intel/AMD) |
@@ -36,7 +41,22 @@ Download the latest release from the [Releases](https://github.com/SvenGDK/Retro
 | `osx-x64.zip` | macOS Intel |
 | `osx-arm64.zip` | macOS Apple Silicon |
 
-Self-contained builds (e.g. `win-x64-selfcontained.zip`) include the .NET runtime and do not require a separate installation.
+Self-contained portable ZIPs (e.g. `win-x64-Selfcontained.zip`) are also available for each platform and architecture.
+
+### Installers
+
+| File | Description |
+|---|---|
+| `win-x64-Installer.exe` | Windows 64-bit (Intel/AMD) |
+| `win-arm64-Installer.exe` | Windows ARM64 |
+| `linux-x64-Installer.deb` | Linux 64-bit (Intel/AMD) |
+| `linux-arm64-Installer.deb` | Linux ARM64 |
+| `osx-x64-Installer.pkg` | macOS Intel |
+| `osx-arm64-Installer.pkg` | macOS Apple Silicon |
+
+Self-contained installers (e.g. `win-x64-Selfcontained-Installer.exe`) are also available for each platform and architecture.
+
+Self-contained builds include the .NET runtime and do not require a separate installation.
 Framework-dependent builds require the [.NET 8 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0).
 
 ## Platform Guides
@@ -58,11 +78,13 @@ For detailed user guides and reference material, see the [full documentation](do
 <details>
 <summary><strong>ROM Browser</strong></summary>
 
-- Scan directories recursively for ROM files across 32 console and computer types
+- Scan directories recursively for ROM files across 46 console and computer types
 - Filter ROMs by system
 - Organize ROM collections into system-specific folders
-- View box art, screenshots, and title screens for selected ROMs
-- Send selected ROMs to remote targets via FTP, SFTP, WebDAV, or Amazon S3
+- View box art, screenshots, and title screens for selected ROMs (artwork is cached locally after the first download)
+- Send selected ROMs to remote targets via FTP, SFTP, WebDAV, Amazon S3, Google Drive, Dropbox, or OneDrive
+- Host and share ROMs on the local network via a built-in HTTP server
+- **Big Picture Mode** — fullscreen, controller-friendly ROM library browser with card-based grid, system filtering, search, sort, favorites, recently played tracking, artwork display, ROM Info overlay, grid zoom, keyboard shortcuts help overlay, play statistics, and RetroArch launching
 
 </details>
 
@@ -217,6 +239,9 @@ For detailed user guides and reference material, see the [full documentation](do
 
 - Scan directories recursively to find duplicate ROMs by CRC32 hash
 - Shows duplicate groups with file paths and wasted disk space
+- Delete duplicate files with a single click to free disk space (keeps the first copy in each group)
+- Confirmation prompt shows file count and estimated space savings before deletion
+- Both scanning and deletion support cancellation
 
 </details>
 
@@ -236,6 +261,15 @@ For detailed user guides and reference material, see the [full documentation](do
 - Identify copy protection mechanisms (10NES, CIC chips, TMSS, Nintendo logo checks, Lynx encryption, Atari 7800 digital signature, ColecoVision BIOS check, Intellivision EXEC handshake, Jaguar encrypted boot, MSX cartridge marker, Sega CD security ring)
 - Validate checksum integrity (SNES internal checksums, N64 CRC, Game Boy header checksums, GBA header checksums, Mega Drive internal checksums, iNES headers)
 - Single ROM or batch directory analysis
+
+</details>
+
+<details>
+<summary><strong>GoodTools Identifier</strong></summary>
+
+- Identify GoodTools labelling conventions (Country Codes, Standard Codes, and GoodGen-Specific Codes) from ROM filenames
+- Decode each code tag to its meaning (e.g., `[!]` = Verified Good Dump, `(U)` = USA)
+- Single ROM or batch directory processing
 
 </details>
 
@@ -279,6 +313,8 @@ For detailed user guides and reference material, see the [full documentation](do
   - MSX cartridge header validation
   - ColecoVision header validation
   - Watara Supervision header validation
+  - Nintendo DS header CRC16 recalculation
+  - Intellivision header validation
 - Single file or batch processing
 
 </details>
@@ -323,6 +359,12 @@ For detailed user guides and reference material, see the [full documentation](do
 - Decode and encode Game Boy Color GameShark codes
 - Decode and encode PC Engine raw cheat codes (address:value format)
 - Decode and encode Neo Geo Pocket GameShark codes
+- Decode and encode Nintendo DS Action Replay codes (16 code types)
+- Decode and encode Sega Saturn Action Replay codes
+- Decode and encode Sega Dreamcast CodeBreaker codes
+- Decode and encode Game Boy GameShark codes
+- Decode and encode Neo Geo raw cheat codes
+- Decode and encode PlayStation GameShark codes (18 code types)
 - Shows decoded address, value, and compare value components
 
 </details>
@@ -340,6 +382,60 @@ For detailed user guides and reference material, see the [full documentation](do
 ### Settings
 
 <details>
+<summary><strong>Big Picture Mode</strong></summary>
+
+- Fullscreen, controller-friendly ROM library browser designed for couch gaming
+- Card-based grid with color-coded system banners, box art thumbnails, and game information
+- Native **SDL2 gamepad support** — navigate, select, and launch ROMs with a game controller
+- System filter, text search, and six sort options (name, system, size, recently played)
+- **Favorites system** — mark ROMs as favorites with the **F** key or detail panel button, filter to show only favorites with the ★ toggle
+- **Recently played** — automatically tracks launched ROMs, sort by recently played to find recent games
+- **ROM Info overlay** — press **I** to view header details, checksums, and GoodTools codes for the selected ROM
+- **ROM count badge** — always-visible count in the status bar showing filtered and total ROM count
+- **Grid zoom** — press **+** / **−** to scale the card grid from 50% to 200%, persisted across sessions
+- **Keyboard shortcuts help** — press **H** or **?** to show a help overlay listing all keyboard shortcuts
+- **Play statistics** — tracks how many times each ROM has been launched; displayed in the detail panel
+- Detail panel with box art, screenshots, title screen artwork, favorite toggle, play count, file path, and system badge
+- **Random Game** button to jump to a random ROM (avoids re-selecting the same game) and **Rescan** button to refresh the folder
+- Launch ROMs directly with RetroArch from the detail panel
+- Keyboard navigation: arrow keys to browse, Enter/Space to launch, F to toggle favorite, I for ROM Info, +/− to zoom, H for help, Escape to exit or defocus search, Tab to search, Home/End, PageUp/PageDown
+- Fully localized status messages — all 20 languages supported
+- Toggle from the ROM Browser toolbar or configure auto-start in Settings
+- Minimizes to tray during gameplay and restores when the emulator exits
+
+</details>
+
+<details>
+<summary><strong>Native Menu</strong></summary>
+
+- Platform-native application menu for macOS and supported Linux desktops
+- Mirrors all sidebar navigation categories and items for keyboard-driven access
+- Includes File (Exit) and Help (Settings) menus
+
+</details>
+
+<details>
+<summary><strong>System Tray</strong></summary>
+
+- System tray icon with Show / Exit context menu
+- Automatically minimizes to the system tray when launching a ROM with RetroArch (configurable)
+- Automatically restores when the emulator process exits
+- Tray icon appears only while the window is minimized to the tray
+
+</details>
+
+<details>
+<summary><strong>Application Updates</strong></summary>
+
+- Automatically check for new versions on startup (configurable)
+- Download and install updates directly from the application
+- Progress reporting with cancel support during download
+- Falls back to opening the release page in a browser if no platform-specific asset is found
+- External updater process applies updates safely after the main application exits
+
+</details>
+
+<details>
 <summary><strong>RetroArch Core Downloader</strong></summary>
 
 - Auto-detect or manually configure the RetroArch executable path
@@ -347,6 +443,36 @@ For detailed user guides and reference material, see the [full documentation](do
 - Download all missing cores from the official RetroArch buildbot
 - Supports Windows, Linux, and macOS platforms
 - Download progress with cancel support
+
+</details>
+
+<details>
+<summary><strong>Controller Profiles</strong></summary>
+
+- Download and update SDL2 game controller profiles from the [SDL_GameControllerDB](https://github.com/gabomdq/SDL_GameControllerDB) repository
+- Enables automatic gamepad recognition for Big Picture Mode
+- Shows the number of controller mappings currently installed
+
+</details>
+
+<details>
+<summary><strong>SDL2 Gamepad Mapping Tool</strong></summary>
+
+- Create custom SDL2 controller mappings for unrecognized or unmapped game controllers
+- Step-by-step mapping wizard for all 21 standard SDL2 game controller elements (face buttons, D-pad, triggers, stick axes)
+- Save custom mappings permanently or copy to clipboard
+- Manage and delete saved custom mappings
+- Mappings are automatically applied at startup in Big Picture Mode
+
+</details>
+
+<details>
+<summary><strong>Discord Rich Presence</strong></summary>
+
+- Automatically updates your Discord status when launching a ROM via RetroArch
+- Shows the game being played and the system it runs on
+- Status is cleared when the emulator exits
+- Enable or disable in Settings
 
 </details>
 
@@ -360,6 +486,7 @@ For detailed user guides and reference material, see the [full documentation](do
 - Reports good, incomplete, and bad sets with detailed per-ROM status
 - Identifies clones and parent ROM relationships
 - Detects missing machines in ROM directory
+- Optional recursive subdirectory search
 
 </details>
 
@@ -378,8 +505,9 @@ For detailed user guides and reference material, see the [full documentation](do
 <summary><strong>ROM Set Rebuilder</strong></summary>
 
 - Rebuild MAME ROM sets from scattered or loose ROM files (similar to CLRMamePro Rebuilder)
-- Indexes source directory by CRC32 — supports both loose files and files inside ZIP archives
+- Indexes source directory recursively by CRC32 — supports both loose files and files inside ZIP archives
 - Creates properly structured ZIP archives matching the MAME XML database
+- Three rebuild modes: **Split** (clones reference parent), **Non-Merged** (each ZIP is self-contained), **Merged** (parent ZIP includes clone ROMs)
 - Option to rebuild only complete sets or include partial sets
 - Overwrite or skip existing ZIP files
 
@@ -405,6 +533,7 @@ For detailed user guides and reference material, see the [full documentation](do
 - Reports good, incomplete, and bad sample sets with missing file details
 - Handles shared sample sets (sampleof attribute)
 - Detects missing sample sets
+- Optional recursive subdirectory search
 
 </details>
 
@@ -415,6 +544,9 @@ For detailed user guides and reference material, see the [full documentation](do
 | Nintendo Entertainment System (NES) | `.nes` |
 | Super Nintendo (SNES) | `.smc`, `.sfc` |
 | Nintendo 64 | `.z64`, `.n64`, `.v64` |
+| Nintendo 64DD | `.ndd` |
+| Nintendo DS | `.nds` |
+| Nintendo 3DS | `.3ds`, `.cia` |
 | Game Boy | `.gb` |
 | Game Boy Color | `.gbc` |
 | Game Boy Advance | `.gba` |
@@ -427,25 +559,34 @@ For detailed user guides and reference material, see the [full documentation](do
 | Atari 2600 | `.a26` |
 | Atari 5200 | `.a52` |
 | Atari 7800 | `.a78` |
+| Atari 800 / XL / XE | `.atr`, `.xex`, `.car`, `.cas` |
 | Atari Jaguar | `.j64`, `.jag` |
 | Atari Lynx | `.lnx`, `.lyx` |
 | PC Engine / TurboGrafx-16 | `.pce`, `.tg16` |
+| SNK Neo Geo | `.neo` |
+| SNK Neo Geo CD | `.iso`, `.cue` |
 | SNK Neo Geo Pocket / Pocket Color | `.ngp`, `.ngc` |
 | Coleco ColecoVision | `.col`, `.cv` |
 | Mattel Intellivision | `.int` |
 | MSX | `.mx1` |
 | MSX2 | `.mx2` |
+| NEC PC-88 | `.d88`, `.t88` |
 | Amstrad CPC | `.dsk`, `.cdt`, `.sna` |
 | Oric / Atmos / TeleStrat | `.tap` |
 | Thomson MO5 | `.mo5`, `.k7`, `.fd` |
 | Watara Supervision | `.sv` |
 | Radio Shack Color Computer | `.ccc` |
 | Panasonic 3DO | `.3do`, `.iso`, `.cue` |
+| Philips CD-i | `.iso`, `.cue` |
 | Amiga CD32 | `.iso`, `.cue` |
 | Sega Saturn | `.iso`, `.cue` |
 | Sega Dreamcast | `.cdi`, `.gdi`, `.iso`, `.cue` |
 | Nintendo GameCube | `.gcm`, `.iso` |
 | Nintendo Wii | `.iso` |
+| Arcade (MAME) | `.zip` |
+| Fairchild Channel F | `.chf` |
+| Tiger Game Com | `.tgc` |
+| Memotech MTX | `.mtx`, `.run` |
 
 ### System Feature Coverage
 
@@ -454,6 +595,9 @@ For detailed user guides and reference material, see the [full documentation](do
 | NES | ✔ | ✔ | ✔ | ✔ | ✔ |
 | SNES | ✔ | ✔ | ✔ | ✔ | ✔ |
 | N64 | ✔ | ✔ | ✔ | ✔ | ✔ |
+| N64DD | ✔ | ✔ | ✔ | — | — |
+| Nintendo DS | ✔ | ✔ | ✔ | ✔ | ✔ |
+| Nintendo 3DS | ✔ | ✔ | ✔ | — | — |
 | Game Boy | ✔ | ✔ | ✔ | ✔ | ✔ |
 | Game Boy Color | ✔ | ✔ | ✔ | ✔ | ✔ |
 | Game Boy Advance | ✔ | ✔ | ✔ | ✔ | ✔ |
@@ -466,24 +610,33 @@ For detailed user guides and reference material, see the [full documentation](do
 | Atari 2600 | ✔ | ✔ | ✔ | — | — |
 | Atari 5200 | ✔ | ✔ | ✔ | — | — |
 | Atari 7800 | ✔ | ✔ | ✔ | — | ✔ |
+| Atari 800 | ✔ | ✔ | ✔ | — | — |
 | Atari Jaguar | ✔ | ✔ | ✔ | — | ✔ |
 | Atari Lynx | ✔ | ✔ | ✔ | — | ✔ |
 | PC Engine | ✔ | ✔ | ✔ | ✔ | ✔ |
+| Neo Geo | ✔ | ✔ | ✔ | ✔ | — |
+| Neo Geo CD | ✔ | ✔ | ✔ | — | — |
 | Neo Geo Pocket | ✔ | ✔ | ✔ | ✔ | ✔ |
 | ColecoVision | ✔ | ✔ | ✔ | — | ✔ |
-| Intellivision | ✔ | ✔ | ✔ | — | — |
+| Intellivision | ✔ | ✔ | ✔ | — | ✔ |
 | MSX / MSX2 | ✔ | ✔ | ✔ | — | ✔ |
+| NEC PC-88 | ✔ | ✔ | ✔ | — | — |
 | Amstrad CPC | ✔ | ✔ | ✔ | — | — |
 | Oric | ✔ | ✔ | ✔ | — | — |
 | Thomson MO5 | ✔ | ✔ | ✔ | — | — |
 | Watara Supervision | ✔ | ✔ | ✔ | — | ✔ |
 | Color Computer | ✔ | ✔ | ✔ | — | — |
 | Panasonic 3DO | ✔ | ✔ | ✔ | — | — |
+| Philips CD-i | ✔ | ✔ | ✔ | — | — |
 | Amiga CD32 | ✔ | ✔ | ✔ | — | — |
-| Sega Saturn | ✔ | ✔ | ✔ | — | — |
-| Sega Dreamcast | ✔ | ✔ | ✔ | — | — |
+| Sega Saturn | ✔ | ✔ | ✔ | ✔ | — |
+| Sega Dreamcast | ✔ | ✔ | ✔ | ✔ | — |
 | Nintendo GameCube | ✔ | ✔ | ✔ | — | — |
 | Nintendo Wii | ✔ | ✔ | ✔ | — | — |
+| Arcade (MAME) | — | — | — | — | — |
+| Fairchild Channel F | ✔ | ✔ | ✔ | — | — |
+| Tiger Game Com | ✔ | ✔ | ✔ | — | — |
+| Memotech MTX | ✔ | ✔ | ✔ | — | — |
 
 ## Localization
 
@@ -500,6 +653,13 @@ git clone https://github.com/SvenGDK/RetroMultiTools.git
 cd RetroMultiTools
 dotnet build
 ```
+
+The solution contains two projects:
+
+| Project | Description |
+|---|---|
+| `RetroMultiTools` | Main Avalonia desktop application |
+| `RetroMultiTools.Updater` | External updater console app — applies downloaded updates after the main application exits |
 
 To run the application:
 

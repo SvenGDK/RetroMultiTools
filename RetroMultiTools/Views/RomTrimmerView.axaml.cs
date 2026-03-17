@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -15,7 +16,7 @@ public partial class RomTrimmerView : UserControl
 
     private async void BrowseInput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select ROM File",
+        var path = await PickFile(LocalizationManager.Instance["Trimmer_SelectRomFile"],
         [
             new FilePickerFileType("ROM Files")
             {
@@ -62,7 +63,7 @@ public partial class RomTrimmerView : UserControl
             }
             else
             {
-                SavingsText.Text = "No padding found — file is already trimmed.";
+                SavingsText.Text = LocalizationManager.Instance["Trimmer_AlreadyTrimmed"];
                 SavingsText.Foreground = new Avalonia.Media.SolidColorBrush(
                     Avalonia.Media.Color.Parse("#F9E2AF"));
             }
@@ -73,7 +74,7 @@ public partial class RomTrimmerView : UserControl
         catch (IOException)
         {
             _analysis = null;
-            SavingsText.Text = "Unable to read file";
+            SavingsText.Text = LocalizationManager.Instance["Trimmer_UnableToRead"];
             AnalysisPanel.IsVisible = true;
             TrimButton.IsEnabled = false;
         }
@@ -96,7 +97,7 @@ public partial class RomTrimmerView : UserControl
 
         var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Save Trimmed ROM As",
+            Title = LocalizationManager.Instance["Trimmer_SaveAs"],
             SuggestedFileName = Path.GetFileName(OutputFileTextBox.Text ?? "trimmed_rom")
         });
 
@@ -111,13 +112,13 @@ public partial class RomTrimmerView : UserControl
 
         if (string.IsNullOrEmpty(input))
         {
-            ShowStatus("Please select an input ROM file.", isError: true);
+            ShowStatus(LocalizationManager.Instance["Trimmer_SelectInputFile"], isError: true);
             return;
         }
 
         if (string.IsNullOrEmpty(output))
         {
-            ShowStatus("Please specify an output file path.", isError: true);
+            ShowStatus(LocalizationManager.Instance["Trimmer_SelectOutputFile"], isError: true);
             return;
         }
 
@@ -131,11 +132,7 @@ public partial class RomTrimmerView : UserControl
             await RomTrimmer.TrimAsync(input, output, progress);
             ShowStatus($"✔ Trim complete!\nOutput: {output}\n{_analysis?.Summary ?? ""}", isError: false);
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }

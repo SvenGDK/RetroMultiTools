@@ -231,6 +231,12 @@
   <data name="Common_SelectRomFile" xml:space="preserve">
     <value>Seleccionar un archivo ROM...</value>
   </data>
+  <data name="Common_RomDirectory" xml:space="preserve">
+    <value>Directorio de ROM:</value>
+  </data>
+  <data name="Common_SelectRomDirectory" xml:space="preserve">
+    <value>Seleccionar directorio de ROM...</value>
+  </data>
   <data name="Common_FileSize" xml:space="preserve">
     <value>Tamaño de archivo:</value>
   </data>
@@ -242,6 +248,9 @@
   </data>
   <data name="Common_Error" xml:space="preserve">
     <value>Error:</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
   </data>
   <data name="Browser_Title" xml:space="preserve">
     <value>Explorador de ROM</value>
@@ -486,6 +495,12 @@
   <data name="Duplicates_Find" xml:space="preserve">
     <value>🔍 Buscar duplicados</value>
   </data>
+  <data name="Duplicates_DeleteDuplicates" xml:space="preserve">
+    <value>🗑️ Eliminar duplicados</value>
+  </data>
+  <data name="Duplicates_ConfirmDelete" xml:space="preserve">
+    <value>⚠️ Confirmar eliminación</value>
+  </data>
   <data name="HeaderExport_Title" xml:space="preserve">
     <value>Exportador de encabezados ROM</value>
   </data>
@@ -632,6 +647,24 @@
   </data>
   <data name="CheatCode_NgpGS" xml:space="preserve">
     <value>Neo Geo Pocket GameShark</value>
+  </data>
+  <data name="CheatCode_NdsAR" xml:space="preserve">
+    <value>Nintendo DS Action Replay</value>
+  </data>
+  <data name="CheatCode_SaturnAR" xml:space="preserve">
+    <value>Saturn Action Replay</value>
+  </data>
+  <data name="CheatCode_DcCB" xml:space="preserve">
+    <value>Dreamcast CodeBreaker</value>
+  </data>
+  <data name="CheatCode_GbGS" xml:space="preserve">
+    <value>Game Boy GameShark</value>
+  </data>
+  <data name="CheatCode_NeoGeoRaw" xml:space="preserve">
+    <value>Neo Geo Raw</value>
+  </data>
+  <data name="CheatCode_PsxGS" xml:space="preserve">
+    <value>PlayStation GameShark</value>
   </data>
   <data name="CheatCode_DecodeSection" xml:space="preserve">
     <value>Decodificar código de trucos</value>
@@ -794,6 +827,12 @@
   </data>
   <data name="ZipExtract_Extract" xml:space="preserve">
     <value>Extraer ROMs</value>
+  </data>
+  <data name="ZipExtract_ZipDirectory" xml:space="preserve">
+    <value>ZIP Directory:</value>
+  </data>
+  <data name="ZipExtract_SelectZipDirectory" xml:space="preserve">
+    <value>Select a directory of ZIP files...</value>
   </data>
   <data name="SplitRom_Title" xml:space="preserve">
     <value>Ensamblador de ROM divididas</value>
@@ -1077,6 +1116,9 @@
   <data name="MameAuditor_Audit" xml:space="preserve">
     <value>🔍 Auditar sets de ROM</value>
   </data>
+  <data name="MameAuditor_Recursive" xml:space="preserve">
+    <value>Buscar subdirectorios recursivamente</value>
+  </data>
   <data name="MameAuditor_Description" xml:space="preserve">
     <value>Auditar sets de ROM MAME contra una base de datos XML de MAME. Verifica los sets de ROM empaquetados en ZIP para completitud, sumas de verificación correctas y tamaños de archivo.</value>
   </data>
@@ -1233,6 +1275,18 @@
   <data name="MameRebuilder_Rebuild" xml:space="preserve">
     <value>🔧 Rebuild ROM Sets</value>
   </data>
+  <data name="MameRebuilder_Mode" xml:space="preserve">
+    <value>Modo de reconstrucción:</value>
+  </data>
+  <data name="MameRebuilder_ModeSplit" xml:space="preserve">
+    <value>Dividido (cada máquina tiene solo sus propias ROMs)</value>
+  </data>
+  <data name="MameRebuilder_ModeNonMerged" xml:space="preserve">
+    <value>No combinado (cada máquina tiene todas las ROMs que necesita)</value>
+  </data>
+  <data name="MameRebuilder_ModeMerged" xml:space="preserve">
+    <value>Combinado (las máquinas padre incluyen ROMs de clones)</value>
+  </data>
   <data name="MameDir2Dat_Title" xml:space="preserve">
     <value>MAME Dir2Dat Creator</value>
   </data>
@@ -1292,6 +1346,9 @@
   </data>
   <data name="MameSamples_Audit" xml:space="preserve">
     <value>🔍 Audit Samples</value>
+  </data>
+  <data name="MameSamples_Recursive" xml:space="preserve">
+    <value>Buscar subdirectorios recursivamente</value>
   </data>
   <data name="EmuConfig_AudioSync" xml:space="preserve">
     <value>Audio Sync</value>
@@ -1448,5 +1505,864 @@
   </data>
   <data name="MameDir2Dat_DefaultDescription" xml:space="preserve">
     <value>Generado por Retro Multi Tools</value>
+  </data>
+  <data name="Browser_SearchWatermark" xml:space="preserve">
+    <value>Buscar por nombre, sistema o tamaño...</value>
+  </data>
+  <data name="Browser_ContextLaunch" xml:space="preserve">
+    <value>🎮 Iniciar con RetroArch</value>
+  </data>
+  <data name="Browser_ContextCopy" xml:space="preserve">
+    <value>📋 Copiar a...</value>
+  </data>
+  <data name="Browser_ContextMove" xml:space="preserve">
+    <value>📁 Mover a...</value>
+  </data>
+  <data name="Browser_ContextSendTo" xml:space="preserve">
+    <value>📤 Enviar a remoto...</value>
+  </data>
+  <data name="Browser_ContextConvert" xml:space="preserve">
+    <value>🔄 Convertir formato</value>
+  </data>
+  <data name="Browser_ContextTrim" xml:space="preserve">
+    <value>✂️ Recortar ROM</value>
+  </data>
+  <data name="Browser_ContextExportHeader" xml:space="preserve">
+    <value>📄 Exportar encabezado</value>
+  </data>
+  <data name="Browser_ContextVerify" xml:space="preserve">
+    <value>✅ Verificar ROM</value>
+  </data>
+  <data name="Browser_ContextDelete" xml:space="preserve">
+    <value>🗑️ Eliminar</value>
+  </data>
+  <data name="SendRemote_OAuthToken" xml:space="preserve">
+    <value>Token de acceso OAuth</value>
+  </data>
+  <data name="SendRemote_OAuthTokenWatermark" xml:space="preserve">
+    <value>pegue su token de acceso aquí</value>
+  </data>
+  <data name="SendRemote_CloudFolderId" xml:space="preserve">
+    <value>ID de carpeta (Google Drive)</value>
+  </data>
+  <data name="SendRemote_CloudFolderIdWatermark" xml:space="preserve">
+    <value>root (o ID de carpeta específico)</value>
+  </data>
+  <data name="Discord_EnableRichPresence" xml:space="preserve">
+    <value>Habilitar Discord Rich Presence</value>
+  </data>
+<data name="Browser_HostShare" xml:space="preserve">
+    <value>🌐 Alojar &amp; Compartir</value>
+  </data>
+  <data name="Browser_ContextHostShare" xml:space="preserve">
+    <value>🌐 Alojar &amp; Compartir...</value>
+  </data>
+  <data name="HostShare_Title" xml:space="preserve">
+    <value>Alojar &amp; Compartir ROMs</value>
+  </data>
+  <data name="HostShare_Subtitle" xml:space="preserve">
+    <value>Inicie un servidor HTTP local para compartir ROMs con otros en su red.</value>
+  </data>
+  <data name="HostShare_Port" xml:space="preserve">
+    <value>Puerto:</value>
+  </data>
+  <data name="HostShare_PortWatermark" xml:space="preserve">
+    <value>8080</value>
+  </data>
+  <data name="HostShare_Start" xml:space="preserve">
+    <value>▶ Iniciar</value>
+  </data>
+  <data name="HostShare_Stop" xml:space="preserve">
+    <value>⏹ Detener</value>
+  </data>
+  <data name="HostShare_Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="HostShare_ShareUrls" xml:space="preserve">
+    <value>URL(s) para compartir:</value>
+  </data>
+  <data name="HostShare_CopyUrl" xml:space="preserve">
+    <value>📋 Copiar URL</value>
+  </data>
+  <data name="HostShare_ConnectionLog" xml:space="preserve">
+    <value>Registro de conexiones</value>
+  </data>
+  <data name="HostShare_PortInvalid" xml:space="preserve">
+    <value>El puerto debe estar entre 1 y 65535.</value>
+  </data>
+  <data name="HostShare_NoFilesToHost" xml:space="preserve">
+    <value>No hay archivos o directorio para alojar.</value>
+  </data>
+  <data name="HostShare_ServerRunning" xml:space="preserve">
+    <value>El servidor está en ejecución. Comparta la URL con otros en su red.</value>
+  </data>
+  <data name="HostShare_ServerStopped" xml:space="preserve">
+    <value>Servidor detenido.</value>
+  </data>
+  <data name="HostShare_UrlCopied" xml:space="preserve">
+    <value>URL copiada al portapapeles.</value>
+  </data>
+  <data name="HostShare_StartFailed" xml:space="preserve">
+    <value>No se pudo iniciar el servidor: {0}</value>
+  </data>
+  <data name="Settings_UpdateTitle" xml:space="preserve">
+    <value>Actualizaciones de la aplicación</value>
+  </data>
+  <data name="Settings_UpdateDescription" xml:space="preserve">
+    <value>Buscar nuevas versiones de Retro Multi Tools en las publicaciones de GitHub.</value>
+  </data>
+  <data name="Settings_UpdateAutoCheck" xml:space="preserve">
+    <value>Buscar actualizaciones automáticamente al iniciar</value>
+  </data>
+  <data name="Settings_UpdateCheckNow" xml:space="preserve">
+    <value>Buscar actualizaciones</value>
+  </data>
+  <data name="Settings_UpdateChecking" xml:space="preserve">
+    <value>Buscando actualizaciones…</value>
+  </data>
+  <data name="Settings_UpdateUpToDate" xml:space="preserve">
+    <value>✔ Está usando la última versión.</value>
+  </data>
+  <data name="Settings_UpdateAvailableTitle" xml:space="preserve">
+    <value>Actualización disponible</value>
+  </data>
+  <data name="Settings_UpdateAvailableMessage" xml:space="preserve">
+    <value>Hay una nueva versión disponible: {0} → {1}. ¿Desea visitar la página de descarga?</value>
+  </data>
+  <data name="Settings_UpdateDownload" xml:space="preserve">
+    <value>Descargar</value>
+  </data>
+  <data name="Settings_UpdateLater" xml:space="preserve">
+    <value>Más tarde</value>
+  </data>
+  <data name="Settings_UpdateCurrentVersion" xml:space="preserve">
+    <value>Versión actual: {0}</value>
+  </data>
+  <data name="Settings_UpdateNetworkError" xml:space="preserve">
+    <value>Error de red al buscar actualizaciones</value>
+  </data>
+  <data name="Settings_UpdateInstallNow" xml:space="preserve">
+    <value>Actualizar ahora</value>
+  </data>
+  <data name="Settings_UpdateDownloading" xml:space="preserve">
+    <value>Descargando actualización…</value>
+  </data>
+  <data name="Settings_UpdateDownloadingPercent" xml:space="preserve">
+    <value>Descargando actualización… {0}%</value>
+  </data>
+  <data name="Settings_UpdateInstalling" xml:space="preserve">
+    <value>Instalando actualización… La aplicación se reiniciará.</value>
+  </data>
+  <data name="Settings_UpdateDownloadError" xml:space="preserve">
+    <value>No se pudo descargar la actualización. Inténtelo de nuevo más tarde.</value>
+  </data>
+  <data name="Settings_UpdateInstallError" xml:space="preserve">
+    <value>No se pudo instalar la actualización. No se pudo iniciar el actualizador.</value>
+  </data>
+  <data name="Settings_UpdateCancelled" xml:space="preserve">
+    <value>Descarga de actualización cancelada.</value>
+  </data>
+  <data name="Menu_File" xml:space="preserve">
+    <value>Archivo</value>
+  </data>
+  <data name="Menu_Exit" xml:space="preserve">
+    <value>Salir</value>
+  </data>
+  <data name="Menu_Help" xml:space="preserve">
+    <value>Ayuda</value>
+  </data>
+  <data name="Tray_Show" xml:space="preserve">
+    <value>Mostrar</value>
+  </data>
+  <data name="Tray_Exit" xml:space="preserve">
+    <value>Salir</value>
+  </data>
+  <data name="Settings_MinimizeToTrayOnLaunch" xml:space="preserve">
+    <value>Minimizar a la bandeja al iniciar una ROM</value>
+  </data>
+
+  <data name="BigPicture_Title" xml:space="preserve">
+    <value>Modo Big Picture</value>
+  </data>
+  <data name="BigPicture_Search" xml:space="preserve">
+    <value>Buscar ROMs...</value>
+  </data>
+  <data name="BigPicture_AllSystems" xml:space="preserve">
+    <value>Todos los sistemas</value>
+  </data>
+  <data name="BigPicture_SelectFolder" xml:space="preserve">
+    <value>Seleccionar carpeta</value>
+  </data>
+  <data name="BigPicture_Exit" xml:space="preserve">
+    <value>Salir de Big Picture</value>
+  </data>
+  <data name="BigPicture_Ready" xml:space="preserve">
+    <value>Selecciona una carpeta para explorar tu biblioteca de ROMs.</value>
+  </data>
+  <data name="BigPicture_Hints" xml:space="preserve">
+    <value>Arrow Keys: Navigate | Enter: Launch | F: Favorite | R: Random | I: ROM Info | +/−: Zoom | H: Help | Esc: Exit</value>
+  </data>
+  <data name="BigPicture_HintsPad" xml:space="preserve">
+    <value>D-Pad: Navigate | A: Launch | Y: Favorite | Back: Random | B: ROM Info | Start: Help | Guide: Exit</value>
+  </data>
+  <data name="BigPicture_EmptyState" xml:space="preserve">
+    <value>Selecciona una carpeta de ROMs para explorar tu biblioteca en modo Big Picture.</value>
+  </data>
+  <data name="BigPicture_Launch" xml:space="preserve">
+    <value>Iniciar con RetroArch</value>
+  </data>
+  <data name="Browser_BigPictureMode" xml:space="preserve">
+    <value>Modo Big Picture</value>
+  </data>
+  <data name="Settings_BigPictureTitle" xml:space="preserve">
+    <value>Modo Big Picture</value>
+  </data>
+  <data name="Settings_BigPictureDescription" xml:space="preserve">
+    <value>Un modo de pantalla completa para explorar y ejecutar ROMs, compatible con mando.</value>
+  </data>
+  <data name="Settings_BigPictureAutoStart" xml:space="preserve">
+    <value>Iniciar automáticamente en modo Big Picture</value>
+  </data>
+  <data name="Settings_BigPictureFolderPlaceholder" xml:space="preserve">
+    <value>Carpeta de ROMs para modo Big Picture</value>
+  </data>
+  <data name="BigPicture_SortNameAsc" xml:space="preserve">
+    <value>Nombre (A–Z)</value>
+  </data>
+  <data name="BigPicture_SortNameDesc" xml:space="preserve">
+    <value>Nombre (Z–A)</value>
+  </data>
+  <data name="BigPicture_SortSystem" xml:space="preserve">
+    <value>Sistema</value>
+  </data>
+  <data name="BigPicture_SortSizeAsc" xml:space="preserve">
+    <value>Tamaño ↑</value>
+  </data>
+  <data name="BigPicture_SortSizeDesc" xml:space="preserve">
+    <value>Tamaño ↓</value>
+  </data>
+  <data name="BigPicture_Scanning" xml:space="preserve">
+    <value>Escaneando...</value>
+  </data>
+  <data name="BigPicture_ArtworkLoading" xml:space="preserve">
+    <value>Cargando carátula...</value>
+  </data>
+  <data name="BigPicture_ArtworkLoaded" xml:space="preserve">
+    <value>Carátula cargada.</value>
+  </data>
+  <data name="BigPicture_ArtworkNotFound" xml:space="preserve">
+    <value>No se encontró carátula.</value>
+  </data>
+  <data name="BigPicture_ValidRom" xml:space="preserve">
+    <value>✔ ROM válido</value>
+  </data>
+  <data name="BigPicture_InvalidRom" xml:space="preserve">
+    <value>✘ No válido o no reconocido</value>
+  </data>
+  <data name="BigPicture_SizeFormat" xml:space="preserve">
+    <value>Tamaño: {0}</value>
+  </data>
+  <data name="Browser_Organizing" xml:space="preserve">
+    <value>Organizando...</value>
+  </data>
+  <data name="Browser_ArtworkFailed" xml:space="preserve">
+    <value>Error al cargar la carátula.</value>
+  </data>
+  <data name="BigPicture_PreloadProgress" xml:space="preserve">
+    <value>Precargando arte: {0} de {1}</value>
+  </data>
+  <data name="BigPicture_PreloadComplete" xml:space="preserve">
+    <value>Arte precargado</value>
+  </data>
+  <data name="BigPicture_Random" xml:space="preserve">
+    <value>Juego aleatorio</value>
+  </data>
+  <data name="BigPicture_Rescan" xml:space="preserve">
+    <value>Reescanear</value>
+  </data>
+  <data name="BigPicture_FavoritesOnly" xml:space="preserve">
+    <value>Favoritos</value>
+  </data>
+  <data name="BigPicture_Favorite" xml:space="preserve">
+    <value>Favorito</value>
+  </data>
+  <data name="BigPicture_Unfavorite" xml:space="preserve">
+    <value>Quitar favorito</value>
+  </data>
+  <data name="BigPicture_SortRecentlyPlayed" xml:space="preserve">
+    <value>Jugados recientemente</value>
+  </data>
+  <data name="BigPicture_RomCount" xml:space="preserve">
+    <value>{0} ROMs</value>
+  </data>
+  <data name="BigPicture_RomCountFiltered" xml:space="preserve">
+    <value>{0} / {1} ROMs</value>
+  </data>
+  <data name="BigPicture_ZoomLevel" xml:space="preserve">
+    <value>Zoom: {0}%</value>
+  </data>
+  <data name="BigPicture_PlayCount" xml:space="preserve">
+    <value>Veces jugado: {0}</value>
+  </data>
+  <data name="BigPicture_HelpTitle" xml:space="preserve">
+    <value>Atajos de teclado</value>
+  </data>
+  <data name="BigPicture_HelpRandom" xml:space="preserve">
+    <value>Random game</value>
+  </data>
+  <data name="BigPicture_HelpNavigate" xml:space="preserve">
+    <value>Navegar entre tarjetas</value>
+  </data>
+  <data name="BigPicture_HelpLaunch" xml:space="preserve">
+    <value>Lanzar ROM seleccionada</value>
+  </data>
+  <data name="BigPicture_HelpFavorite" xml:space="preserve">
+    <value>Alternar favorito</value>
+  </data>
+  <data name="BigPicture_HelpSearch" xml:space="preserve">
+    <value>Enfocar caja de búsqueda</value>
+  </data>
+  <data name="BigPicture_HelpExit" xml:space="preserve">
+    <value>Salir del modo Big Picture</value>
+  </data>
+  <data name="BigPicture_HelpHomeEnd" xml:space="preserve">
+    <value>Ir a la primera / última tarjeta</value>
+  </data>
+  <data name="BigPicture_HelpPage" xml:space="preserve">
+    <value>Desplazar por página</value>
+  </data>
+  <data name="BigPicture_HelpZoom" xml:space="preserve">
+    <value>Acercar / Alejar</value>
+  </data>
+  <data name="BigPicture_HelpToggleHelp" xml:space="preserve">
+    <value>Mostrar / ocultar esta ayuda</value>
+  </data>
+  <data name="BigPicture_HelpDismiss" xml:space="preserve">
+    <value>Pulsa H, ? o Escape para cerrar</value>
+  </data>
+  <data name="BigPicture_GamepadConnected" xml:space="preserve">
+    <value>Mando conectado: {0}</value>
+  </data>
+  <data name="BigPicture_GamepadDisconnected" xml:space="preserve">
+    <value>Mando desconectado</value>
+  </data>
+  <data name="BigPicture_GamepadNone" xml:space="preserve">
+    <value>Sin mando</value>
+  </data>
+  <data name="BigPicture_LoadedRoms" xml:space="preserve">
+    <value>Se cargaron {0} ROM de {1}</value>
+  </data>
+  <data name="BigPicture_ScanError" xml:space="preserve">
+    <value>Error de escaneo: {0}</value>
+  </data>
+  <data name="BigPicture_FoundRoms" xml:space="preserve">
+    <value>Se encontraron {0} ROM en {1}</value>
+  </data>
+  <data name="BigPicture_ShowingFiltered" xml:space="preserve">
+    <value>Mostrando {0} de {1} ROM</value>
+  </data>
+  <data name="BigPicture_NetworkError" xml:space="preserve">
+    <value>Error de red: {0}</value>
+  </data>
+  <data name="BigPicture_ArtworkFailed" xml:space="preserve">
+    <value>Error al cargar la imagen: {0}</value>
+  </data>
+  <data name="BigPicture_SystemNotSupported" xml:space="preserve">
+    <value>El sistema '{0}' no es compatible con el inicio de RetroArch.</value>
+  </data>
+  <data name="BigPicture_LaunchingRom" xml:space="preserve">
+    <value>Iniciando {0} con {1}...</value>
+  </data>
+  <data name="BigPicture_SelectRomFolder" xml:space="preserve">
+    <value>Seleccionar carpeta de ROM</value>
+  </data>
+  <data name="Settings_ControllerProfilesTitle" xml:space="preserve">
+    <value>Perfiles de mando</value>
+  </data>
+  <data name="Settings_ControllerProfilesDescription" xml:space="preserve">
+    <value>Descarga o actualiza la base de datos comunitaria SDL (gamecontrollerdb.txt). Esto permite el reconocimiento automático de cientos de mandos en modo Big Picture y RetroArch.</value>
+  </data>
+  <data name="Settings_ControllerProfilesDownload" xml:space="preserve">
+    <value>Descargar / Actualizar perfiles</value>
+  </data>
+  <data name="Settings_ControllerProfilesDownloading" xml:space="preserve">
+    <value>Descargando perfiles de mando…</value>
+  </data>
+  <data name="Settings_ControllerProfilesInstalled" xml:space="preserve">
+    <value>Instalado: {0} perfil(es) de mando, última actualización {1}</value>
+  </data>
+  <data name="Settings_ControllerProfilesNotInstalled" xml:space="preserve">
+    <value>No hay perfiles de mando instalados. Haz clic en el botón de abajo para descargarlos.</value>
+  </data>
+  <data name="Settings_ControllerProfilesSuccess" xml:space="preserve">
+    <value>✔ {0} perfil(es) de mando actualizados en {1} ubicación(es).</value>
+  </data>
+  <data name="Settings_ControllerProfilesFailed" xml:space="preserve">
+    <value>✘ Error al descargar los perfiles de mando.</value>
+  </data>
+  <data name="Settings_GamepadToolOpen" xml:space="preserve">
+    <value>Open Gamepad Tool</value>
+  </data>
+  <data name="Settings_GamepadToolTitle" xml:space="preserve">
+    <value>SDL2 Gamepad Mapping Tool</value>
+  </data>
+  <data name="Settings_GamepadToolDescription" xml:space="preserve">
+    <value>Create or modify gamepad mappings for controllers that are not automatically recognised. Mappings are saved locally and applied automatically.</value>
+  </data>
+  <data name="Settings_GamepadToolSelectController" xml:space="preserve">
+    <value>Select Controller</value>
+  </data>
+  <data name="Settings_GamepadToolRefresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Settings_GamepadToolNoControllers" xml:space="preserve">
+    <value>No controllers detected. Connect a controller and click Refresh.</value>
+  </data>
+  <data name="Settings_GamepadToolMapping" xml:space="preserve">
+    <value>Mapping Wizard</value>
+  </data>
+  <data name="Settings_GamepadToolMappingHelp" xml:space="preserve">
+    <value>Click "Start Mapping" and follow the prompts to assign each button and axis. Press Skip to leave an element unmapped.</value>
+  </data>
+  <data name="Settings_GamepadToolStartMapping" xml:space="preserve">
+    <value>Start Mapping</value>
+  </data>
+  <data name="Settings_GamepadToolSkip" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="Settings_GamepadToolPressPrompt" xml:space="preserve">
+    <value>Press or move: {0}</value>
+  </data>
+  <data name="Settings_GamepadToolMappingComplete" xml:space="preserve">
+    <value>✔ Mapping complete — {0} of {1} elements mapped.</value>
+  </data>
+  <data name="Settings_GamepadToolResult" xml:space="preserve">
+    <value>Generated Mapping</value>
+  </data>
+  <data name="Settings_GamepadToolSave" xml:space="preserve">
+    <value>Save Mapping</value>
+  </data>
+  <data name="Settings_GamepadToolCopy" xml:space="preserve">
+    <value>Copy to Clipboard</value>
+  </data>
+  <data name="Settings_GamepadToolSaved" xml:space="preserve">
+    <value>✔ Mapping saved and applied.</value>
+  </data>
+  <data name="Settings_GamepadToolCustomMappings" xml:space="preserve">
+    <value>Custom Mappings</value>
+  </data>
+  <data name="Settings_GamepadToolNoCustomMappings" xml:space="preserve">
+    <value>No custom mappings saved yet.</value>
+  </data>
+  <data name="Settings_GamepadToolCustomMappingsCount" xml:space="preserve">
+    <value>{0} custom mapping(s) stored.</value>
+  </data>
+  <data name="Common_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Nav_GoodToolsIdentifier" xml:space="preserve">
+    <value>GoodTools Identifier</value>
+  </data>
+  <data name="GoodTools_Title" xml:space="preserve">
+    <value>GoodTools Identifier</value>
+  </data>
+  <data name="GoodTools_Description" xml:space="preserve">
+    <value>Identify GoodTools labelling conventions (Country Codes, Standard Codes, and GoodGen-Specific Codes) from ROM filenames. Supports single ROM or batch directory processing.</value>
+  </data>
+  <data name="GoodTools_Identify" xml:space="preserve">
+    <value>🔍 Identify Codes</value>
+  </data>
+  <data name="Browser_ColGoodToolsCodes" xml:space="preserve">
+    <value>GoodTools Codes</value>
+  </data>
+  <data name="BigPicture_HelpRomInfo" xml:space="preserve">
+    <value>Show ROM info for selected ROM</value>
+  </data>
+  <data name="BigPicture_RomInfoTitle" xml:space="preserve">
+    <value>ROM Information</value>
+  </data>
+  <data name="BigPicture_RomInfoDismiss" xml:space="preserve">
+    <value>Press I or Escape to close</value>
+  </data>
+  <data name="BigPicture_RomInfoDetails" xml:space="preserve">
+    <value>ROM Details</value>
+  </data>
+  <data name="BigPicture_RomInfoFileName" xml:space="preserve">
+    <value>File Name:</value>
+  </data>
+  <data name="BigPicture_RomInfoSystem" xml:space="preserve">
+    <value>System:</value>
+  </data>
+  <data name="BigPicture_RomInfoFileSize" xml:space="preserve">
+    <value>File Size:</value>
+  </data>
+  <data name="BigPicture_RomInfoStatus" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="BigPicture_RomInfoChecksums" xml:space="preserve">
+    <value>Checksums</value>
+  </data>
+  <data name="BigPicture_RomInfoComputing" xml:space="preserve">
+    <value>Computing…</value>
+  </data>
+  <data name="BigPicture_RomInfoChecksumError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="BigPicture_RomInfoGoodTools" xml:space="preserve">
+    <value>GoodTools Codes</value>
+  </data>
+  <data name="BigPicture_RomInfoNoGoodTools" xml:space="preserve">
+    <value>No GoodTools codes identified in the filename.</value>
+  </data>
+  <data name="BigPicture_RomInfoCountryCodes" xml:space="preserve">
+    <value>Country/Region Codes</value>
+  </data>
+  <data name="BigPicture_RomInfoStandardCodes" xml:space="preserve">
+    <value>Standard Codes</value>
+  </data>
+  <data name="BigPicture_RomInfoGoodGenCodes" xml:space="preserve">
+    <value>GoodGen-Specific Codes</value>
+  </data>
+  <data name="Cheat_DecodeError" xml:space="preserve">
+    <value>Decode error: {0}</value>
+  </data>
+  <data name="Cheat_EncodeError" xml:space="preserve">
+    <value>Encode error: {0}</value>
+  </data>
+  <data name="Cheat_EnterAddressValue" xml:space="preserve">
+    <value>Please enter both address and value in hexadecimal.</value>
+  </data>
+  <data name="Cheat_EnterCode" xml:space="preserve">
+    <value>Please enter a cheat code to decode.</value>
+  </data>
+  <data name="Cheat_InvalidHex" xml:space="preserve">
+    <value>Invalid hex values. Please enter valid hexadecimal numbers.</value>
+  </data>
+  <data name="Cheat_ValueOutOfRange" xml:space="preserve">
+    <value>Value out of range. Address should be 16/24-bit, Value should be 8-bit (00-FF).</value>
+  </data>
+  <data name="Comparer_Differ" xml:space="preserve">
+    <value>✘ Files differ</value>
+  </data>
+  <data name="Comparer_Identical" xml:space="preserve">
+    <value>✔ Files are identical</value>
+  </data>
+  <data name="Comparer_SelectBothFiles" xml:space="preserve">
+    <value>Please select both files.</value>
+  </data>
+  <data name="Comparer_SelectFirstFile" xml:space="preserve">
+    <value>Select First File</value>
+  </data>
+  <data name="Comparer_SelectSecondFile" xml:space="preserve">
+    <value>Select Second File</value>
+  </data>
+  <data name="Duplicate_ConfirmDelete" xml:space="preserve">
+    <value>⚠️ This will permanently delete {0} duplicate file(s) and free ~{1}. The first file in each group will be kept.</value>
+  </data>
+  <data name="Duplicate_DeletedFiles" xml:space="preserve">
+    <value>✔ Deleted {0} duplicate file(s), freed {1}.</value>
+  </data>
+  <data name="Duplicate_DeletionCancelled" xml:space="preserve">
+    <value>Deletion cancelled.</value>
+  </data>
+  <data name="Duplicate_FoundGroups" xml:space="preserve">
+    <value>Found {0} duplicate group(s). {1} wasted by duplicates.</value>
+  </data>
+  <data name="Duplicate_NoDuplicates" xml:space="preserve">
+    <value>No duplicates found.</value>
+  </data>
+  <data name="Duplicate_ScanCancelled" xml:space="preserve">
+    <value>Scan cancelled.</value>
+  </data>
+  <data name="Duplicate_SelectFolder" xml:space="preserve">
+    <value>Select ROM Folder to Scan</value>
+  </data>
+  <data name="Gamepad_CopiedToClipboard" xml:space="preserve">
+    <value>Mapping copied to clipboard.</value>
+  </data>
+  <data name="Gamepad_FailedToOpen" xml:space="preserve">
+    <value>Failed to open joystick for mapping.</value>
+  </data>
+  <data name="Gamepad_MappingCancelled" xml:space="preserve">
+    <value>Mapping cancelled.</value>
+  </data>
+  <data name="Gamepad_MappingRemoved" xml:space="preserve">
+    <value>Custom mapping removed.</value>
+  </data>
+  <data name="Gamepad_SdlInitFailed" xml:space="preserve">
+    <value>SDL2 could not be initialised. Gamepad mapping is unavailable.</value>
+  </data>
+  <data name="Gamepad_SdlNotAvailable" xml:space="preserve">
+    <value>SDL2 not available.</value>
+  </data>
+  <data name="Gamepad_SdlNotFound" xml:space="preserve">
+    <value>SDL2 library not found. Please install SDL2 on your system.</value>
+  </data>
+  <data name="Gamepad_SelectController" xml:space="preserve">
+    <value>Select a controller first.</value>
+  </data>
+  <data name="GoodTools_NoCodesFound" xml:space="preserve">
+    <value>The filename does not contain any recognized GoodTools labelling conventions.</value>
+  </data>
+  <data name="GoodTools_RomDirectory" xml:space="preserve">
+    <value>ROM Directory:</value>
+  </data>
+  <data name="GoodTools_RomFile" xml:space="preserve">
+    <value>ROM File:</value>
+  </data>
+  <data name="GoodTools_SelectFile" xml:space="preserve">
+    <value>Please select a ROM file or directory.</value>
+  </data>
+  <data name="GoodTools_SelectRomDir" xml:space="preserve">
+    <value>Select ROM Directory</value>
+  </data>
+  <data name="GoodTools_SelectRomDirectory" xml:space="preserve">
+    <value>Select a ROM directory...</value>
+  </data>
+  <data name="GoodTools_SelectRomFile" xml:space="preserve">
+    <value>Select a ROM file...</value>
+  </data>
+  <data name="GoodTools_SelectRomFileDialog" xml:space="preserve">
+    <value>Select ROM File</value>
+  </data>
+  <data name="Hex_EnterSearchBytes" xml:space="preserve">
+    <value>Enter hex bytes to search.</value>
+  </data>
+  <data name="Hex_InvalidHex" xml:space="preserve">
+    <value>Invalid hex string.</value>
+  </data>
+  <data name="Hex_NoMatches" xml:space="preserve">
+    <value>No matches found.</value>
+  </data>
+  <data name="Hex_Searching" xml:space="preserve">
+    <value>Searching...</value>
+  </data>
+  <data name="Hex_SelectFile" xml:space="preserve">
+    <value>Select File to View</value>
+  </data>
+  <data name="Inspector_Cancelled" xml:space="preserve">
+    <value>Operation cancelled.</value>
+  </data>
+  <data name="Inspector_DisplayingInfo" xml:space="preserve">
+    <value>Displaying ROM information...</value>
+  </data>
+  <data name="Inspector_DoneArtwork" xml:space="preserve">
+    <value>Done — artwork loaded.</value>
+  </data>
+  <data name="Inspector_DoneNoArtwork" xml:space="preserve">
+    <value>Done — no artwork found for this title.</value>
+  </data>
+  <data name="Inspector_FetchingArtwork" xml:space="preserve">
+    <value>Fetching artwork from database...</value>
+  </data>
+  <data name="Inspector_OpenRomFile" xml:space="preserve">
+    <value>Open ROM File</value>
+  </data>
+  <data name="Inspector_ReadingHeader" xml:space="preserve">
+    <value>Reading ROM header...</value>
+  </data>
+  <data name="Inspector_ValidNo" xml:space="preserve">
+    <value>✘ Invalid</value>
+  </data>
+  <data name="Inspector_ValidYes" xml:space="preserve">
+    <value>✔ Valid</value>
+  </data>
+  <data name="N64_SaveAs" xml:space="preserve">
+    <value>Save Converted ROM As</value>
+  </data>
+  <data name="N64_SelectInputFile" xml:space="preserve">
+    <value>Please select an input ROM file.</value>
+  </data>
+  <data name="N64_SelectOutputFile" xml:space="preserve">
+    <value>Please specify an output file path.</value>
+  </data>
+  <data name="N64_SelectRom" xml:space="preserve">
+    <value>Select N64 ROM</value>
+  </data>
+  <data name="N64_UnableToRead" xml:space="preserve">
+    <value>Unable to read file</value>
+  </data>
+  <data name="N64_UnknownFormat" xml:space="preserve">
+    <value>Unknown — not a recognized N64 ROM</value>
+  </data>
+  <data name="Send_AccessKeyRequired" xml:space="preserve">
+    <value>Access key is required.</value>
+  </data>
+  <data name="Send_BucketRequired" xml:space="preserve">
+    <value>Bucket name is required.</value>
+  </data>
+  <data name="Send_Cancelling" xml:space="preserve">
+    <value>Cancelling...</value>
+  </data>
+  <data name="Send_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Send_FailedFile" xml:space="preserve">
+    <value>Failed: {0} — {1}</value>
+  </data>
+  <data name="Send_FailedSuffix" xml:space="preserve">
+    <value>, {0} failed.</value>
+  </data>
+  <data name="Send_HostRequired" xml:space="preserve">
+    <value>Host is required.</value>
+  </data>
+  <data name="Send_InvalidPort" xml:space="preserve">
+    <value>Port must be between 1 and 65535.</value>
+  </data>
+  <data name="Send_OAuthRequired" xml:space="preserve">
+    <value>OAuth access token is required.</value>
+  </data>
+  <data name="Send_RomsSelected" xml:space="preserve">
+    <value>{0} ROM(s) selected — {1} total</value>
+  </data>
+  <data name="Send_SecretKeyRequired" xml:space="preserve">
+    <value>Secret key is required.</value>
+  </data>
+  <data name="Send_Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Send_SuccessSuffix" xml:space="preserve">
+    <value> successfully.</value>
+  </data>
+  <data name="Send_TransferCancelled" xml:space="preserve">
+    <value>Transfer cancelled. Sent {0} ROM(s){1}</value>
+  </data>
+  <data name="Send_TransferComplete" xml:space="preserve">
+    <value>Transfer complete. Sent {0} ROM(s){1}</value>
+  </data>
+  <data name="Send_UsernameRequired" xml:space="preserve">
+    <value>Username is required.</value>
+  </data>
+  <data name="Settings_CoresDownloadCancelled" xml:space="preserve">
+    <value>Download cancelled.</value>
+  </data>
+  <data name="Settings_CoresDownloadComplete" xml:space="preserve">
+    <value>✔ Download complete. {0} installed, {1} failed.</value>
+  </data>
+  <data name="Settings_CoresFound" xml:space="preserve">
+    <value>Found {0} core(s): {1} installed, {2} missing.</value>
+  </data>
+  <data name="Settings_CoresNetworkError" xml:space="preserve">
+    <value>✘ Network error: {0}</value>
+  </data>
+  <data name="Settings_Discord" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="Settings_RetroArchAutoDetected" xml:space="preserve">
+    <value>✔ RetroArch auto-detected.</value>
+  </data>
+  <data name="Settings_RetroArchAutoDetectedSaved" xml:space="preserve">
+    <value>✔ RetroArch auto-detected and saved.</value>
+  </data>
+  <data name="Settings_RetroArchCouldNotOpenBrowser" xml:space="preserve">
+    <value>Could not open browser. Please visit: {0}</value>
+  </data>
+  <data name="Settings_RetroArchDownloadPageOpened" xml:space="preserve">
+    <value>RetroArch download page opened. After installing, use Auto-Detect or Browse to configure the path.</value>
+  </data>
+  <data name="Settings_RetroArchFileNotFound" xml:space="preserve">
+    <value>✘ File not found at configured path.</value>
+  </data>
+  <data name="Settings_RetroArchFound" xml:space="preserve">
+    <value>✔ RetroArch found.</value>
+  </data>
+  <data name="Settings_RetroArchInvalidBundle" xml:space="preserve">
+    <value>✘ Selected .app bundle does not contain a valid RetroArch executable.</value>
+  </data>
+  <data name="Settings_RetroArchNotConfigured" xml:space="preserve">
+    <value>✘ RetroArch not found. Configure the path first.</value>
+  </data>
+  <data name="Settings_RetroArchNotFound" xml:space="preserve">
+    <value>✘ RetroArch not found. Please browse manually or download it.</value>
+  </data>
+  <data name="Settings_RetroArchNotSelectedFile" xml:space="preserve">
+    <value>✘ Selected file is not '{0}'.</value>
+  </data>
+  <data name="Settings_RetroArchPathCleared" xml:space="preserve">
+    <value>RetroArch path cleared.</value>
+  </data>
+  <data name="Settings_RetroArchPathSaved" xml:space="preserve">
+    <value>✔ RetroArch path saved.</value>
+  </data>
+  <data name="Settings_SelectRetroArchExecutable" xml:space="preserve">
+    <value>Select RetroArch Executable</value>
+  </data>
+  <data name="Settings_SelectRomFolderBigPicture" xml:space="preserve">
+    <value>Select ROM Folder for Big Picture Mode</value>
+  </data>
+  <data name="Settings_SystemTray" xml:space="preserve">
+    <value>System Tray</value>
+  </data>
+  <data name="SnesHeader_CopierDetected" xml:space="preserve">
+    <value>✔ Copier header detected (512 bytes)</value>
+  </data>
+  <data name="SnesHeader_NoCopier" xml:space="preserve">
+    <value>✘ No copier header present</value>
+  </data>
+  <data name="SnesHeader_SaveAs" xml:space="preserve">
+    <value>Save Output ROM As</value>
+  </data>
+  <data name="SnesHeader_SelectInputFile" xml:space="preserve">
+    <value>Please select an input ROM file.</value>
+  </data>
+  <data name="SnesHeader_SelectOutputFile" xml:space="preserve">
+    <value>Please specify an output file path.</value>
+  </data>
+  <data name="SnesHeader_SelectRom" xml:space="preserve">
+    <value>Select SNES ROM</value>
+  </data>
+  <data name="SnesHeader_UnableToRead" xml:space="preserve">
+    <value>Unable to read file</value>
+  </data>
+  <data name="Split_NoParts" xml:space="preserve">
+    <value>No split pattern detected for this file.</value>
+  </data>
+  <data name="Split_SaveAs" xml:space="preserve">
+    <value>Save Assembled ROM As</value>
+  </data>
+  <data name="Split_SelectFirstPart" xml:space="preserve">
+    <value>Select First Split Part</value>
+  </data>
+  <data name="Split_SelectInputFile" xml:space="preserve">
+    <value>Please select the first split part file.</value>
+  </data>
+  <data name="Split_SelectOutputFile" xml:space="preserve">
+    <value>Please specify an output file path.</value>
+  </data>
+  <data name="Trimmer_AlreadyTrimmed" xml:space="preserve">
+    <value>No padding found — file is already trimmed.</value>
+  </data>
+  <data name="Trimmer_SaveAs" xml:space="preserve">
+    <value>Save Trimmed ROM As</value>
+  </data>
+  <data name="Trimmer_SelectInputFile" xml:space="preserve">
+    <value>Please select an input ROM file.</value>
+  </data>
+  <data name="Trimmer_SelectOutputFile" xml:space="preserve">
+    <value>Please specify an output file path.</value>
+  </data>
+  <data name="Trimmer_SelectRomFile" xml:space="preserve">
+    <value>Select ROM File</value>
+  </data>
+  <data name="Trimmer_UnableToRead" xml:space="preserve">
+    <value>Unable to read file</value>
+  </data>
+  <data name="ZipExtract_FoundRoms" xml:space="preserve">
+    <value>Found {0} ROM file(s):</value>
+  </data>
+  <data name="ZipExtract_NoRomsFound" xml:space="preserve">
+    <value>No ROM files found in this ZIP archive.</value>
+  </data>
+  <data name="ZipExtract_SelectInputOutput" xml:space="preserve">
+    <value>Please select input and output paths.</value>
+  </data>
+  <data name="ZipExtract_SelectOutputDir" xml:space="preserve">
+    <value>Select Output Directory</value>
+  </data>
+  <data name="ZipExtract_SelectZipDir" xml:space="preserve">
+    <value>Select Directory of ZIP Files</value>
+  </data>
+  <data name="ZipExtract_SelectZipFile" xml:space="preserve">
+    <value>Select ZIP File</value>
   </data>
 </root>

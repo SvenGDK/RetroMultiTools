@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -13,7 +14,7 @@ public partial class RomComparerView : UserControl
 
     private async void BrowseFile1_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select First File");
+        var path = await PickFile(LocalizationManager.Instance["Comparer_SelectFirstFile"]);
         if (path == null) return;
         File1TextBox.Text = path;
         UpdateCompareButton();
@@ -21,7 +22,7 @@ public partial class RomComparerView : UserControl
 
     private async void BrowseFile2_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select Second File");
+        var path = await PickFile(LocalizationManager.Instance["Comparer_SelectSecondFile"]);
         if (path == null) return;
         File2TextBox.Text = path;
         UpdateCompareButton();
@@ -41,7 +42,7 @@ public partial class RomComparerView : UserControl
 
         if (string.IsNullOrEmpty(file1) || string.IsNullOrEmpty(file2))
         {
-            ShowStatus("Please select both files.", isError: true);
+            ShowStatus(LocalizationManager.Instance["Comparer_SelectBothFiles"], isError: true);
             return;
         }
 
@@ -57,13 +58,13 @@ public partial class RomComparerView : UserControl
 
             if (result.Identical)
             {
-                MatchStatusText.Text = "✔ Files are identical";
+                MatchStatusText.Text = LocalizationManager.Instance["Comparer_Identical"];
                 MatchStatusText.Foreground = new Avalonia.Media.SolidColorBrush(
                     Avalonia.Media.Color.Parse("#A6E3A1"));
             }
             else
             {
-                MatchStatusText.Text = "✘ Files differ";
+                MatchStatusText.Text = LocalizationManager.Instance["Comparer_Differ"];
                 MatchStatusText.Foreground = new Avalonia.Media.SolidColorBrush(
                     Avalonia.Media.Color.Parse("#F38BA8"));
             }
@@ -77,11 +78,7 @@ public partial class RomComparerView : UserControl
 
             ResultPanel.IsVisible = true;
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }

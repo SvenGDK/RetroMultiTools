@@ -37,5 +37,16 @@ public enum RomSystem
     SegaDreamcast,
     GameCube,
     Wii,
-    Arcade
+    Arcade,
+    Atari800,
+    NECPC88,
+    N64DD,
+    NintendoDS,
+    Nintendo3DS,
+    NeoGeo,
+    NeoGeoCD,
+    PhilipsCDi,
+    FairchildChannelF,
+    TigerGameCom,
+    MemotechMTX
 }

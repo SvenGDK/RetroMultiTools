@@ -124,15 +124,7 @@ public partial class MetadataScraperView : UserControl
             SummaryText.Text = summaryLines.ToString();
             SummaryBorder.IsVisible = true;
         }
-        catch (DirectoryNotFoundException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is DirectoryNotFoundException or IOException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }

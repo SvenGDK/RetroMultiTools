@@ -14,11 +14,18 @@ public static class RomRenamer
         ".a26", ".a52", ".a78", ".j64", ".jag",
         ".lnx", ".lyx",
         ".pce", ".tg16",
-        ".ngp", ".ngc",
+        ".ngp", ".ngc", ".neo",
         ".col", ".cv", ".int",
         ".mx1", ".mx2",
+        ".nds", ".ndd",
+        ".atr", ".xex", ".car", ".cas",
+        ".d88", ".t88",
+        ".dsk", ".cdt", ".sna",
+        ".tap",
+        ".mo5", ".k7", ".fd",
         ".sv", ".ccc",
         ".iso", ".cue", ".3do",
+        ".cdi", ".gdi",
         ".gcm"
     };
 
@@ -88,11 +95,7 @@ public static class RomRenamer
             File.Move(preview.OriginalPath, newPath);
             return new RenameResult { Success = true, NewPath = newPath };
         }
-        catch (IOException ex)
-        {
-            return new RenameResult { Success = false, Error = ex.Message };
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             return new RenameResult { Success = false, Error = ex.Message };
         }

@@ -13,6 +13,8 @@
                            MaxWidth="300"/>
                 <ComboBox x:Name="SystemFilterCombo" PlaceholderText="{Binding [Browser_FilterBySystem], Source={x:Static loc:LocalizationManager.Instance}}"
                           SelectionChanged="SystemFilterCombo_SelectionChanged" Width="200"/>
+                <TextBox x:Name="SearchTextBox" Watermark="{Binding [Browser_SearchWatermark], Source={x:Static loc:LocalizationManager.Instance}}"
+                         Width="255" TextChanged="SearchTextBox_TextChanged"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Spacing="8">
                 <Button x:Name="AddRomButton" Content="{Binding [Browser_AddRoms], Source={x:Static loc:LocalizationManager.Instance}}" Click="AddRomButton_Click"
@@ -27,11 +29,15 @@
                         Padding="12,6" IsEnabled="False"/>
                 <Button x:Name="SendToRemoteButton" Content="{Binding [Browser_SendToRemote], Source={x:Static loc:LocalizationManager.Instance}}" Click="SendToRemoteButton_Click"
                         Padding="12,6" IsEnabled="False"/>
+                <Button x:Name="HostShareButton" Content="{Binding [Browser_HostShare], Source={x:Static loc:LocalizationManager.Instance}}" Click="HostShareButton_Click"
+                        Padding="12,6" IsEnabled="False"/>
                 <Button x:Name="LaunchRetroArchButton" Content="{Binding [Browser_LaunchRetroArch], Source={x:Static loc:LocalizationManager.Instance}}" Click="LaunchRetroArchButton_Click"
                         Padding="12,6" IsEnabled="False"/>
                 <CheckBox x:Name="ShowArtworkCheck" Content="{Binding [Browser_ShowArtwork], Source={x:Static loc:LocalizationManager.Instance}}"
                           Foreground="#CDD6F4" IsChecked="False"
                           IsCheckedChanged="ShowArtworkCheck_Changed"/>
+                <Button x:Name="BigPictureModeButton" Content="{Binding [Browser_BigPictureMode], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="BigPictureModeButton_Click" Padding="12,6"/>
             </StackPanel>
         </StackPanel>
 
@@ -61,9 +67,34 @@
                       Background="#1E1E2E"
                       SelectionMode="Extended"
                       SelectionChanged="RomDataGrid_SelectionChanged">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="ContextLaunchItem" Header="{Binding [Browser_ContextLaunch], Source={x:Static loc:LocalizationManager.Instance}}" Click="ContextLaunch_Click"/>
+                        <Separator/>
+                        <MenuItem x:Name="ContextCopyItem" Header="{Binding [Browser_ContextCopy], Source={x:Static loc:LocalizationManager.Instance}}" Click="CopyRomButton_Click"/>
+                        <MenuItem x:Name="ContextMoveItem" Header="{Binding [Browser_ContextMove], Source={x:Static loc:LocalizationManager.Instance}}" Click="MoveRomButton_Click"/>
+                        <MenuItem x:Name="ContextSendToItem" Header="{Binding [Browser_ContextSendTo], Source={x:Static loc:LocalizationManager.Instance}}" Click="SendToRemoteButton_Click"/>
+                        <MenuItem x:Name="ContextHostShareItem" Header="{Binding [Browser_ContextHostShare], Source={x:Static loc:LocalizationManager.Instance}}" Click="HostShareSelectedButton_Click"/>
+                        <Separator/>
+                        <MenuItem x:Name="ContextConvertItem" Header="{Binding [Browser_ContextConvert], Source={x:Static loc:LocalizationManager.Instance}}" Click="ContextConvert_Click" IsVisible="False"/>
+                        <MenuItem x:Name="ContextTrimItem" Header="{Binding [Browser_ContextTrim], Source={x:Static loc:LocalizationManager.Instance}}" Click="ContextTrim_Click" IsVisible="False"/>
+                        <MenuItem x:Name="ContextExportHeaderItem" Header="{Binding [Browser_ContextExportHeader], Source={x:Static loc:LocalizationManager.Instance}}" Click="ContextExportHeader_Click" IsVisible="False"/>
+                        <MenuItem x:Name="ContextVerifyItem" Header="{Binding [Browser_ContextVerify], Source={x:Static loc:LocalizationManager.Instance}}" Click="ContextVerify_Click"/>
+                        <Separator/>
+                        <MenuItem x:Name="ContextDeleteItem" Header="{Binding [Browser_ContextDelete], Source={x:Static loc:LocalizationManager.Instance}}" Click="DeleteRomButton_Click"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{Binding [Browser_ColFileName], Source={x:Static loc:LocalizationManager.Instance}}" Binding="{Binding FileName}" Width="*"/>
                     <DataGridTextColumn Header="{Binding [Browser_ColSystem], Source={x:Static loc:LocalizationManager.Instance}}"    Binding="{Binding SystemName}" Width="225"/>
+                    <DataGridTemplateColumn Header="{Binding [Browser_ColGoodToolsCodes], Source={x:Static loc:LocalizationManager.Instance}}" Width="200">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding GoodToolsCodes}" ToolTip.Tip="{Binding GoodToolsCodesDescription}"
+                                           VerticalAlignment="Center" Padding="12,0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="{Binding [Browser_ColSize], Source={x:Static loc:LocalizationManager.Instance}}"      Binding="{Binding FileSizeFormatted}" Width="100"/>
                     <DataGridTextColumn Header="{Binding [Browser_ColValid], Source={x:Static loc:LocalizationManager.Instance}}"     Binding="{Binding IsValid}" Width="75"/>
                 </DataGrid.Columns>

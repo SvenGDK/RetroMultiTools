@@ -12,6 +12,14 @@ public static class RemoteTransferService
     private const int DefaultTimeoutSeconds = 30;
     private const long MaxFileSizeBytes = 2L * 1024 * 1024 * 1024; // 2 GB
 
+    private static readonly HttpClient _cloudHttpClient = new(new SocketsHttpHandler
+    {
+        PooledConnectionLifetime = TimeSpan.FromMinutes(10)
+    })
+    {
+        Timeout = TimeSpan.FromMinutes(30)
+    };
+
     public static async Task SendViaFtpAsync(
         string filePath,
         string host,
@@ -132,7 +140,7 @@ public static class RemoteTransferService
         // Ensure remote directory exists via MKCOL
         await EnsureWebDavDirectoryAsync(httpClient, baseUri, remotePath, cancellationToken).ConfigureAwait(false);
 
-        var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var content = new StreamContent(fileStream);
         content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
@@ -191,6 +199,148 @@ public static class RemoteTransferService
         };
 
         await transferUtility.UploadAsync(uploadRequest, cancellationToken).ConfigureAwait(false);
+
+        progress?.Report($"Uploaded {fileName} successfully.");
+    }
+
+    public static async Task SendViaGoogleDriveAsync(
+        string filePath,
+        string oauthToken,
+        string? folderId,
+        string remotePath,
+        IProgress<string>? progress,
+        CancellationToken cancellationToken)
+    {
+        ValidateFilePath(filePath);
+        if (string.IsNullOrWhiteSpace(oauthToken))
+            throw new ArgumentException("OAuth access token is required.", nameof(oauthToken));
+
+        string fileName = Path.GetFileName(filePath);
+        progress?.Report($"Uploading {fileName} to Google Drive...");
+
+        // Build metadata
+        string parentId = !string.IsNullOrWhiteSpace(folderId) ? folderId : "root";
+        string metadata = System.Text.Json.JsonSerializer.Serialize(new
+        {
+            name = fileName,
+            parents = new[] { parentId }
+        });
+
+        using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+        using var content = new MultipartContent("related");
+        var metadataPart = new StringContent(metadata, System.Text.Encoding.UTF8, "application/json");
+        content.Add(metadataPart);
+
+        var filePart = new StreamContent(fileStream);
+        filePart.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+        content.Add(filePart);
+
+        using var request = new HttpRequestMessage(HttpMethod.Post,
+            "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart")
+        {
+            Content = content
+        };
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", oauthToken);
+
+        using var response = await _cloudHttpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            string body = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+            throw new HttpRequestException(
+                $"Google Drive upload failed ({(int)response.StatusCode}): {body}");
+        }
+
+        progress?.Report($"Uploaded {fileName} successfully.");
+    }
+
+    public static async Task SendViaDropboxAsync(
+        string filePath,
+        string oauthToken,
+        string remotePath,
+        IProgress<string>? progress,
+        CancellationToken cancellationToken)
+    {
+        ValidateFilePath(filePath);
+        if (string.IsNullOrWhiteSpace(oauthToken))
+            throw new ArgumentException("OAuth access token is required.", nameof(oauthToken));
+
+        string fileName = Path.GetFileName(filePath);
+        string dropboxPath = CombineRemotePath(remotePath, fileName);
+        if (!dropboxPath.StartsWith('/'))
+            dropboxPath = "/" + dropboxPath;
+
+        progress?.Report($"Uploading {fileName} to Dropbox...");
+
+        string apiArg = System.Text.Json.JsonSerializer.Serialize(new
+        {
+            path = dropboxPath,
+            mode = "overwrite",
+            autorename = false,
+            mute = false
+        });
+
+        using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        using var content = new StreamContent(fileStream);
+        content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+
+        using var request = new HttpRequestMessage(HttpMethod.Post,
+            "https://content.dropboxapi.com/2/files/upload")
+        {
+            Content = content
+        };
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", oauthToken);
+        request.Headers.Add("Dropbox-API-Arg", apiArg);
+
+        using var response = await _cloudHttpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            string body = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+            throw new HttpRequestException(
+                $"Dropbox upload failed ({(int)response.StatusCode}): {body}");
+        }
+
+        progress?.Report($"Uploaded {fileName} successfully.");
+    }
+
+    public static async Task SendViaOneDriveAsync(
+        string filePath,
+        string oauthToken,
+        string remotePath,
+        IProgress<string>? progress,
+        CancellationToken cancellationToken)
+    {
+        ValidateFilePath(filePath);
+        if (string.IsNullOrWhiteSpace(oauthToken))
+            throw new ArgumentException("OAuth access token is required.", nameof(oauthToken));
+
+        string fileName = Path.GetFileName(filePath);
+        string oneDrivePath = CombineRemotePath(remotePath, fileName).TrimStart('/');
+
+        progress?.Report($"Uploading {fileName} to OneDrive...");
+
+        string uploadUrl = $"https://graph.microsoft.com/v1.0/me/drive/root:/{string.Join("/", oneDrivePath.Split('/').Select(Uri.EscapeDataString))}:/content";
+
+        using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        using var content = new StreamContent(fileStream);
+        content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+
+        using var request = new HttpRequestMessage(HttpMethod.Put, uploadUrl)
+        {
+            Content = content
+        };
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", oauthToken);
+
+        using var response = await _cloudHttpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            string body = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+            throw new HttpRequestException(
+                $"OneDrive upload failed ({(int)response.StatusCode}): {body}");
+        }
 
         progress?.Report($"Uploaded {fileName} successfully.");
     }

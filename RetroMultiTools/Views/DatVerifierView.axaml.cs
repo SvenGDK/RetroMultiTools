@@ -44,13 +44,7 @@ public partial class DatVerifierView : UserControl
             DatInfoText.Text = $"Loaded {_datEntries.Count} ROM entries from DAT file.";
             DatInfoPanel.IsVisible = true;
         }
-        catch (InvalidOperationException ex)
-        {
-            _datEntries = null;
-            DatInfoText.Text = $"Error loading DAT file: {ex.Message}";
-            DatInfoPanel.IsVisible = true;
-        }
-        catch (IOException ex)
+        catch (Exception ex) when (ex is InvalidOperationException or IOException)
         {
             _datEntries = null;
             DatInfoText.Text = $"Error loading DAT file: {ex.Message}";
@@ -173,11 +167,7 @@ public partial class DatVerifierView : UserControl
                 ShowStatus(message, isError: !result.IsVerified);
             }
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (InvalidOperationException ex)
+        catch (Exception ex) when (ex is IOException or InvalidOperationException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }

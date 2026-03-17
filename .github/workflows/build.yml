@@ -1,10 +1,6 @@
 name: Build
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -14,7 +10,8 @@ env:
   DOTNET_VERSION: '8.0.x'
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_NOLOGO: true
-  APP_VERSION: '1.0.0'
+  APP_VERSION: '2.0.0'
+  SDL2_VERSION: '2.30.12'
 
 jobs:
   build-windows:
@@ -41,11 +38,58 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Publish (Self-contained)
+        run: dotnet publish RetroMultiTools -c Release -r win-${{ matrix.arch }} --self-contained -o publish-sc
+
+      - name: Publish Updater (Self-contained)
+        run: dotnet publish RetroMultiTools.Updater -c Release -r win-${{ matrix.arch }} --self-contained -o publish-updater-sc
+
+      - name: Bundle Updater (Self-contained)
+        run: Copy-Item publish-updater-sc\RetroMultiTools.Updater.* publish-sc\
+
       - name: Publish
-        run: dotnet publish RetroMultiTools -c Release -r win-${{ matrix.arch }} --self-contained -o publish
+        run: dotnet publish RetroMultiTools -c Release -r win-${{ matrix.arch }} --no-self-contained -o publish
+
+      - name: Publish Updater
+        run: dotnet publish RetroMultiTools.Updater -c Release -r win-${{ matrix.arch }} --no-self-contained -o publish-updater
+
+      - name: Bundle Updater
+        run: Copy-Item publish-updater\RetroMultiTools.Updater.* publish\
+
+      - name: Download SDL2
+        shell: pwsh
+        run: |
+          if ("${{ matrix.arch }}" -eq "x64") {
+            $url = "https://github.com/libsdl-org/SDL/releases/download/release-${{ env.SDL2_VERSION }}/SDL2-devel-${{ env.SDL2_VERSION }}-VC.zip"
+            Invoke-WebRequest -Uri $url -OutFile sdl2-vc.zip
+            Expand-Archive -Path sdl2-vc.zip -DestinationPath sdl2-vc
+            Copy-Item "sdl2-vc\SDL2-${{ env.SDL2_VERSION }}\lib\x64\SDL2.dll" publish\
+            Copy-Item "sdl2-vc\SDL2-${{ env.SDL2_VERSION }}\lib\x64\SDL2.dll" publish-sc\
+          } else {
+            # ARM64: download prebuilt SDL2 from mmozeiko/build-sdl2
+            $release = Invoke-RestMethod -Uri "https://api.github.com/repos/mmozeiko/build-sdl2/releases/latest" -Headers @{ Authorization = "Bearer ${{ github.token }}" }
+            $asset = $release.assets | Where-Object { $_.name -like "SDL2-arm64-*.zip" }
+            if (-not $asset) { throw "SDL2 ARM64 asset not found in mmozeiko/build-sdl2 latest release" }
+            Invoke-WebRequest -Uri $asset.browser_download_url -OutFile sdl2-arm64.zip
+            Expand-Archive -Path sdl2-arm64.zip -DestinationPath sdl2-arm64
+            $sdl2dll = Get-ChildItem -Path sdl2-arm64 -Filter "SDL2.dll" -Recurse | Select-Object -First 1
+            if (-not $sdl2dll) { throw "SDL2.dll not found in downloaded archive" }
+            Copy-Item $sdl2dll.FullName publish\
+            Copy-Item $sdl2dll.FullName publish-sc\
+          }
+
+      - name: Download controller profiles
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt" -OutFile gamecontrollerdb.txt
+          Copy-Item gamecontrollerdb.txt publish\
+          Copy-Item gamecontrollerdb.txt publish-sc\
 
       - name: Create ZIP (Portable)
-        run: Compress-Archive -Path publish\* -DestinationPath RetroMultiTools-win-${{ matrix.arch }}.zip
+        run: Compress-Archive -Path publish\* -DestinationPath win-${{ matrix.arch }}.zip
+
+      - name: Create ZIP (Self-contained Portable)
+        run: Compress-Archive -Path publish-sc\* -DestinationPath win-${{ matrix.arch }}-Selfcontained.zip
 
       - name: Install Inno Setup
         run: |
@@ -65,7 +109,7 @@ jobs:
           DefaultGroupName=Retro Multi Tools
           UninstallDisplayIcon={app}\RetroMultiTools.exe
           OutputDir=installer
-          OutputBaseFilename=RetroMultiTools-win-${{ matrix.arch }}-Setup
+          OutputBaseFilename=win-${{ matrix.arch }}-Installer
           Compression=lzma2
           SolidCompression=yes
           ArchitecturesAllowed=${{ matrix.inno_arch_allowed }}
@@ -81,17 +125,58 @@ jobs:
           Set-Content -Path installer.iss -Value $iss -Encoding UTF8
           ISCC installer.iss
 
+      - name: Create Installer (Self-contained)
+        shell: pwsh
+        run: |
+          $iss = @"
+          [Setup]
+          AppName=Retro Multi Tools
+          AppVersion=${{ env.APP_VERSION }}
+          AppPublisher=SvenGDK
+          AppPublisherURL=https://github.com/SvenGDK/RetroMultiTools
+          DefaultDirName={autopf}\RetroMultiTools
+          DefaultGroupName=Retro Multi Tools
+          UninstallDisplayIcon={app}\RetroMultiTools.exe
+          OutputDir=installer-sc
+          OutputBaseFilename=win-${{ matrix.arch }}-Selfcontained-Installer
+          Compression=lzma2
+          SolidCompression=yes
+          ArchitecturesAllowed=${{ matrix.inno_arch_allowed }}
+          ArchitecturesInstallIn64BitMode=${{ matrix.inno_arch_mode }}
+
+          [Files]
+          Source: "publish-sc\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
+
+          [Icons]
+          Name: "{group}\Retro Multi Tools"; Filename: "{app}\RetroMultiTools.exe"
+          Name: "{group}\Uninstall Retro Multi Tools"; Filename: "{uninstallexe}"
+          "@
+          Set-Content -Path installer-sc.iss -Value $iss -Encoding UTF8
+          ISCC installer-sc.iss
+
       - name: Upload ZIP (Portable)
         uses: actions/upload-artifact@v4
         with:
-          name: RetroMultiTools-win-${{ matrix.arch }}-zip
-          path: RetroMultiTools-win-${{ matrix.arch }}.zip
+          name: win-${{ matrix.arch }}-zip
+          path: win-${{ matrix.arch }}.zip
+
+      - name: Upload ZIP (Self-contained Portable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-${{ matrix.arch }}-Selfcontained-zip
+          path: win-${{ matrix.arch }}-Selfcontained.zip
 
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
-          name: RetroMultiTools-win-${{ matrix.arch }}-installer
-          path: installer/RetroMultiTools-win-${{ matrix.arch }}-Setup.exe
+          name: win-${{ matrix.arch }}-installer
+          path: installer/win-${{ matrix.arch }}-Installer.exe
+
+      - name: Upload Installer (Self-contained)
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-${{ matrix.arch }}-Selfcontained-Installer
+          path: installer-sc/win-${{ matrix.arch }}-Selfcontained-Installer.exe
 
   build-linux:
     name: Linux ${{ matrix.arch }}
@@ -115,13 +200,66 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Publish (Self-contained)
+        run: dotnet publish RetroMultiTools -c Release -r linux-${{ matrix.arch }} --self-contained -o publish-sc
+
+      - name: Publish Updater (Self-contained)
+        run: dotnet publish RetroMultiTools.Updater -c Release -r linux-${{ matrix.arch }} --self-contained -o publish-updater-sc
+
+      - name: Bundle Updater (Self-contained)
+        run: cp publish-updater-sc/RetroMultiTools.Updater* publish-sc/
+
       - name: Publish
-        run: dotnet publish RetroMultiTools -c Release -r linux-${{ matrix.arch }} --self-contained -o publish
+        run: dotnet publish RetroMultiTools -c Release -r linux-${{ matrix.arch }} --no-self-contained -o publish
+
+      - name: Publish Updater
+        run: dotnet publish RetroMultiTools.Updater -c Release -r linux-${{ matrix.arch }} --no-self-contained -o publish-updater
+
+      - name: Bundle Updater
+        run: cp publish-updater/RetroMultiTools.Updater* publish/
+
+      - name: Install SDL2
+        run: |
+          if [ "${{ matrix.arch }}" = "x64" ]; then
+            sudo apt-get update -y
+            sudo apt-get install -y libsdl2-2.0-0
+            cp /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0 "$GITHUB_WORKSPACE/publish/"
+            cp /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0 "$GITHUB_WORKSPACE/publish-sc/"
+          else
+            # ARM64: cross-compile SDL2 from source
+            sudo apt-get update -y
+            sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+            curl -fsSL -o sdl2-src.tar.gz "https://github.com/libsdl-org/SDL/releases/download/release-${{ env.SDL2_VERSION }}/SDL2-${{ env.SDL2_VERSION }}.tar.gz"
+            tar xzf sdl2-src.tar.gz
+            cmake -S "SDL2-${{ env.SDL2_VERSION }}" -B sdl2-build \
+              -DCMAKE_SYSTEM_NAME=Linux \
+              -DCMAKE_SYSTEM_PROCESSOR=aarch64 \
+              -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc \
+              -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++ \
+              -DCMAKE_FIND_ROOT_PATH=/usr/aarch64-linux-gnu \
+              -DCMAKE_BUILD_TYPE=Release \
+              -DSDL_SHARED=ON \
+              -DSDL_STATIC=OFF
+            cmake --build sdl2-build --config Release --parallel
+            cp sdl2-build/libSDL2-2.0.so.0 "$GITHUB_WORKSPACE/publish/"
+            cp sdl2-build/libSDL2-2.0.so.0 "$GITHUB_WORKSPACE/publish-sc/"
+          fi
+
+      - name: Download controller profiles
+        run: |
+          curl -fsSL -o gamecontrollerdb.txt https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
+          cp gamecontrollerdb.txt publish/
+          cp gamecontrollerdb.txt publish-sc/
 
       - name: Create ZIP (Portable)
         run: |
           cd publish
-          zip -r ../RetroMultiTools-linux-${{ matrix.arch }}.zip .
+          zip -r ../linux-${{ matrix.arch }}.zip .
+
+      - name: Create ZIP (Self-contained Portable)
+        run: |
+          cd publish-sc
+          zip -r ../linux-${{ matrix.arch }}-Selfcontained.zip .
 
       - name: Create DEB Installer
         run: |
@@ -129,6 +267,7 @@ jobs:
           mkdir -p deb/usr/lib/retromultitools
           mkdir -p deb/usr/bin
           mkdir -p deb/usr/share/applications
+          mkdir -p deb/usr/share/icons/hicolor/512x512/apps
 
           cat > deb/DEBIAN/control << EOF
           Package: retromultitools
@@ -144,6 +283,9 @@ jobs:
 
           cp -r publish/* deb/usr/lib/retromultitools/
           chmod +x deb/usr/lib/retromultitools/RetroMultiTools
+          chmod +x deb/usr/lib/retromultitools/RetroMultiTools.Updater
+
+          cp Icon.png deb/usr/share/icons/hicolor/512x512/apps/retromultitools.png
 
           cat > deb/usr/bin/retromultitools << 'LAUNCHER'
           #!/bin/bash
@@ -156,24 +298,82 @@ jobs:
           Name=Retro Multi Tools
           Comment=Multi platform utility for managing, inspecting, and patching retro game ROMs
           Exec=/usr/bin/retromultitools
+          Icon=retromultitools
           Terminal=false
           Type=Application
           Categories=Utility;Game;
           DESKTOP
 
-          dpkg-deb --root-owner-group --build deb RetroMultiTools-linux-${{ matrix.arch }}.deb
+          dpkg-deb --root-owner-group --build deb linux-${{ matrix.arch }}-Installer.deb
+
+      - name: Create DEB Installer (Self-contained)
+        run: |
+          mkdir -p deb-sc/DEBIAN
+          mkdir -p deb-sc/usr/lib/retromultitools
+          mkdir -p deb-sc/usr/bin
+          mkdir -p deb-sc/usr/share/applications
+          mkdir -p deb-sc/usr/share/icons/hicolor/512x512/apps
+
+          cat > deb-sc/DEBIAN/control << EOF
+          Package: retromultitools
+          Version: ${{ env.APP_VERSION }}
+          Architecture: ${{ matrix.deb_arch }}
+          Maintainer: SvenGDK
+          Homepage: https://github.com/SvenGDK/RetroMultiTools
+          Description: Retro Multi Tools
+           Multi platform utility for managing, inspecting, and patching retro game ROMs.
+          Section: utils
+          Priority: optional
+          EOF
+
+          cp -r publish-sc/* deb-sc/usr/lib/retromultitools/
+          chmod +x deb-sc/usr/lib/retromultitools/RetroMultiTools
+          chmod +x deb-sc/usr/lib/retromultitools/RetroMultiTools.Updater
+
+          cp Icon.png deb-sc/usr/share/icons/hicolor/512x512/apps/retromultitools.png
+
+          cat > deb-sc/usr/bin/retromultitools << 'LAUNCHER'
+          #!/bin/bash
+          exec /usr/lib/retromultitools/RetroMultiTools "$@"
+          LAUNCHER
+          chmod +x deb-sc/usr/bin/retromultitools
+
+          cat > deb-sc/usr/share/applications/retromultitools.desktop << 'DESKTOP'
+          [Desktop Entry]
+          Name=Retro Multi Tools
+          Comment=Multi platform utility for managing, inspecting, and patching retro game ROMs
+          Exec=/usr/bin/retromultitools
+          Icon=retromultitools
+          Terminal=false
+          Type=Application
+          Categories=Utility;Game;
+          DESKTOP
+
+          dpkg-deb --root-owner-group --build deb-sc linux-${{ matrix.arch }}-Selfcontained-Installer.deb
 
       - name: Upload ZIP (Portable)
         uses: actions/upload-artifact@v4
         with:
-          name: RetroMultiTools-linux-${{ matrix.arch }}-zip
-          path: RetroMultiTools-linux-${{ matrix.arch }}.zip
+          name: linux-${{ matrix.arch }}-zip
+          path: linux-${{ matrix.arch }}.zip
+
+      - name: Upload ZIP (Self-contained Portable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}-Selfcontained-zip
+          path: linux-${{ matrix.arch }}-Selfcontained.zip
 
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
-          name: RetroMultiTools-linux-${{ matrix.arch }}-installer
-          path: RetroMultiTools-linux-${{ matrix.arch }}.deb
+          name: linux-${{ matrix.arch }}-installer
+          path: linux-${{ matrix.arch }}-Installer.deb
+
+      - name: Upload Installer (Self-contained)
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}-Selfcontained-Installer
+          path: linux-${{ matrix.arch }}-Selfcontained-Installer.deb
 
   build-macos:
     name: macOS ${{ matrix.arch }}
@@ -192,13 +392,63 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Publish (Self-contained)
+        run: dotnet publish RetroMultiTools -c Release -r osx-${{ matrix.arch }} --self-contained -o publish-sc
+
+      - name: Publish Updater (Self-contained)
+        run: dotnet publish RetroMultiTools.Updater -c Release -r osx-${{ matrix.arch }} --self-contained -o publish-updater-sc
+
+      - name: Bundle Updater (Self-contained)
+        run: cp publish-updater-sc/RetroMultiTools.Updater* publish-sc/
+
       - name: Publish
-        run: dotnet publish RetroMultiTools -c Release -r osx-${{ matrix.arch }} --self-contained -o publish
+        run: dotnet publish RetroMultiTools -c Release -r osx-${{ matrix.arch }} --no-self-contained -o publish
+
+      - name: Publish Updater
+        run: dotnet publish RetroMultiTools.Updater -c Release -r osx-${{ matrix.arch }} --no-self-contained -o publish-updater
+
+      - name: Bundle Updater
+        run: cp publish-updater/RetroMultiTools.Updater* publish/
+
+      - name: Download SDL2
+        run: |
+          curl -fsSL -o SDL2.dmg "https://github.com/libsdl-org/SDL/releases/download/release-${{ env.SDL2_VERSION }}/SDL2-${{ env.SDL2_VERSION }}.dmg"
+          hdiutil attach SDL2.dmg -mountpoint /Volumes/SDL2
+          cp /Volumes/SDL2/SDL2.framework/Versions/A/SDL2 publish/libSDL2.dylib
+          cp /Volumes/SDL2/SDL2.framework/Versions/A/SDL2 publish-sc/libSDL2.dylib
+          hdiutil detach /Volumes/SDL2
+
+      - name: Download controller profiles
+        run: |
+          curl -fsSL -o gamecontrollerdb.txt https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
+          cp gamecontrollerdb.txt publish/
+          cp gamecontrollerdb.txt publish-sc/
 
       - name: Create ZIP (Portable)
         run: |
           cd publish
-          zip -r ../RetroMultiTools-osx-${{ matrix.arch }}.zip .
+          zip -r ../osx-${{ matrix.arch }}.zip .
+
+      - name: Create ZIP (Self-contained Portable)
+        run: |
+          cd publish-sc
+          zip -r ../osx-${{ matrix.arch }}-Selfcontained.zip .
+
+      - name: Generate macOS icon
+        run: |
+          ICONSET="AppIcon.iconset"
+          mkdir -p "$ICONSET"
+          sips -z 16 16     Icon.png --out "$ICONSET/icon_16x16.png"      > /dev/null
+          sips -z 32 32     Icon.png --out "$ICONSET/icon_16x16@2x.png"   > /dev/null
+          sips -z 32 32     Icon.png --out "$ICONSET/icon_32x32.png"      > /dev/null
+          sips -z 64 64     Icon.png --out "$ICONSET/icon_32x32@2x.png"   > /dev/null
+          sips -z 128 128   Icon.png --out "$ICONSET/icon_128x128.png"    > /dev/null
+          sips -z 256 256   Icon.png --out "$ICONSET/icon_128x128@2x.png" > /dev/null
+          sips -z 256 256   Icon.png --out "$ICONSET/icon_256x256.png"    > /dev/null
+          sips -z 512 512   Icon.png --out "$ICONSET/icon_256x256@2x.png" > /dev/null
+          sips -z 512 512   Icon.png --out "$ICONSET/icon_512x512.png"    > /dev/null
+          iconutil -c icns "$ICONSET" -o AppIcon.icns
+          rm -rf "$ICONSET"
 
       - name: Create PKG Installer
         run: |
@@ -208,6 +458,8 @@ jobs:
 
           cp -r publish/* "$APP/Contents/MacOS/"
           chmod +x "$APP/Contents/MacOS/RetroMultiTools"
+          chmod +x "$APP/Contents/MacOS/RetroMultiTools.Updater"
+          cp AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 
           cat > "$APP/Contents/Info.plist" << 'PLIST'
           <?xml version="1.0" encoding="UTF-8"?>
@@ -221,11 +473,13 @@ jobs:
             <key>CFBundleIdentifier</key>
             <string>com.svengdk.retromultitools</string>
             <key>CFBundleVersion</key>
-            <string>1.0.0</string>
+            <string>${{ env.APP_VERSION }}</string>
             <key>CFBundleShortVersionString</key>
-            <string>1.0.0</string>
+            <string>${{ env.APP_VERSION }}</string>
             <key>CFBundleExecutable</key>
             <string>RetroMultiTools</string>
+            <key>CFBundleIconFile</key>
+            <string>AppIcon</string>
             <key>CFBundlePackageType</key>
             <string>APPL</string>
             <key>LSMinimumSystemVersion</key>
@@ -244,16 +498,78 @@ jobs:
             --identifier com.svengdk.retromultitools \
             --version ${{ env.APP_VERSION }} \
             --install-location / \
-            RetroMultiTools-osx-${{ matrix.arch }}.pkg
+            osx-${{ matrix.arch }}-Installer.pkg
+
+      - name: Create PKG Installer (Self-contained)
+        run: |
+          APP_SC="RetroMultiTools-SC.app"
+          mkdir -p "$APP_SC/Contents/MacOS"
+          mkdir -p "$APP_SC/Contents/Resources"
+
+          cp -r publish-sc/* "$APP_SC/Contents/MacOS/"
+          chmod +x "$APP_SC/Contents/MacOS/RetroMultiTools"
+          chmod +x "$APP_SC/Contents/MacOS/RetroMultiTools.Updater"
+          cp AppIcon.icns "$APP_SC/Contents/Resources/AppIcon.icns"
+
+          cat > "$APP_SC/Contents/Info.plist" << 'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>CFBundleName</key>
+            <string>Retro Multi Tools</string>
+            <key>CFBundleDisplayName</key>
+            <string>Retro Multi Tools</string>
+            <key>CFBundleIdentifier</key>
+            <string>com.svengdk.retromultitools</string>
+            <key>CFBundleVersion</key>
+            <string>${{ env.APP_VERSION }}</string>
+            <key>CFBundleShortVersionString</key>
+            <string>${{ env.APP_VERSION }}</string>
+            <key>CFBundleExecutable</key>
+            <string>RetroMultiTools</string>
+            <key>CFBundleIconFile</key>
+            <string>AppIcon</string>
+            <key>CFBundlePackageType</key>
+            <string>APPL</string>
+            <key>LSMinimumSystemVersion</key>
+            <string>10.15</string>
+            <key>NSHighResolutionCapable</key>
+            <true/>
+          </dict>
+          </plist>
+          PLIST
+
+          mkdir -p pkg-root-sc/Applications
+          cp -r "$APP_SC" pkg-root-sc/Applications/RetroMultiTools.app
+
+          pkgbuild \
+            --root pkg-root-sc \
+            --identifier com.svengdk.retromultitools \
+            --version ${{ env.APP_VERSION }} \
+            --install-location / \
+            osx-${{ matrix.arch }}-Selfcontained-Installer.pkg
 
       - name: Upload ZIP (Portable)
         uses: actions/upload-artifact@v4
         with:
-          name: RetroMultiTools-osx-${{ matrix.arch }}-zip
-          path: RetroMultiTools-osx-${{ matrix.arch }}.zip
+          name: osx-${{ matrix.arch }}-zip
+          path: osx-${{ matrix.arch }}.zip
+
+      - name: Upload ZIP (Self-contained Portable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: osx-${{ matrix.arch }}-Selfcontained-zip
+          path: osx-${{ matrix.arch }}-Selfcontained.zip
 
       - name: Upload Installer
         uses: actions/upload-artifact@v4
         with:
-          name: RetroMultiTools-osx-${{ matrix.arch }}-installer
-          path: RetroMultiTools-osx-${{ matrix.arch }}.pkg
+          name: osx-${{ matrix.arch }}-installer
+          path: osx-${{ matrix.arch }}-Installer.pkg
+
+      - name: Upload Installer (Self-contained)
+        uses: actions/upload-artifact@v4
+        with:
+          name: osx-${{ matrix.arch }}-Selfcontained-Installer
+          path: osx-${{ matrix.arch }}-Selfcontained-Installer.pkg

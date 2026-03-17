@@ -76,8 +76,8 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,2">
-                                        <TextBlock Text="{Binding StatusIcon}" FontSize="12" VerticalAlignment="Center" Width="20"/>
-                                        <TextBlock Text="{Binding CoreName}" Foreground="#CDD6F4" FontSize="12" VerticalAlignment="Center" Width="180"/>
+                                        <TextBlock Text="{Binding StatusIcon}" FontSize="12" VerticalAlignment="Center" MinWidth="20"/>
+                                        <TextBlock Text="{Binding CoreName}" Foreground="#CDD6F4" FontSize="12" VerticalAlignment="Center" MinWidth="140" TextTrimming="CharacterEllipsis"/>
                                         <TextBlock Text="{Binding DisplayName}" Foreground="#6C7086" FontSize="11" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </DataTemplate>
@@ -85,6 +85,98 @@
                         </ItemsControl>
                     </ScrollViewer>
                 </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Controller Profiles -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [Settings_ControllerProfilesTitle], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <TextBlock Text="{Binding [Settings_ControllerProfilesDescription], Source={x:Static loc:LocalizationManager.Instance}}"
+                           Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap"/>
+                <TextBlock x:Name="ControllerProfilesInfoText" Foreground="#6C7086" FontSize="11" TextWrapping="Wrap"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button x:Name="DownloadControllerProfilesButton"
+                            Content="{Binding [Settings_ControllerProfilesDownload], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="DownloadControllerProfilesButton_Click" Padding="12,6"/>
+                    <Button x:Name="OpenGamepadToolButton"
+                            Content="{Binding [Settings_GamepadToolOpen], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="OpenGamepadToolButton_Click" Padding="12,6"/>
+                </StackPanel>
+                <TextBlock x:Name="ControllerProfilesStatusText" Foreground="#A6ADC8" FontSize="11" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Discord Rich Presence -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [Settings_Discord], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <CheckBox x:Name="DiscordRichPresenceCheck"
+                          Content="{Binding [Discord_EnableRichPresence], Source={x:Static loc:LocalizationManager.Instance}}"
+                          Foreground="#CDD6F4"
+                          IsCheckedChanged="DiscordRichPresenceCheck_Changed"/>
+            </StackPanel>
+        </Border>
+
+        <!-- System Tray -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [Settings_SystemTray], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <CheckBox x:Name="MinimizeToTrayOnLaunchCheck"
+                          Content="{Binding [Settings_MinimizeToTrayOnLaunch], Source={x:Static loc:LocalizationManager.Instance}}"
+                          Foreground="#CDD6F4"
+                          IsCheckedChanged="MinimizeToTrayOnLaunchCheck_Changed"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Big Picture Mode -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [Settings_BigPictureTitle], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <TextBlock Text="{Binding [Settings_BigPictureDescription], Source={x:Static loc:LocalizationManager.Instance}}"
+                           Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap"/>
+                <CheckBox x:Name="StartInBigPictureModeCheck"
+                          Content="{Binding [Settings_BigPictureAutoStart], Source={x:Static loc:LocalizationManager.Instance}}"
+                          Foreground="#CDD6F4"
+                          IsCheckedChanged="StartInBigPictureModeCheck_Changed"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBox x:Name="BigPictureRomFolderTextBox" Width="300" IsReadOnly="True"
+                             Watermark="{Binding [Settings_BigPictureFolderPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <Button x:Name="BrowseBigPictureFolderButton"
+                            Content="{Binding [Settings_RetroArchBrowse], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="BrowseBigPictureFolderButton_Click" Padding="12,6"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Application Updates -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [Settings_UpdateTitle], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <TextBlock Text="{Binding [Settings_UpdateDescription], Source={x:Static loc:LocalizationManager.Instance}}"
+                           Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap"/>
+                <CheckBox x:Name="CheckForUpdatesOnStartupCheck"
+                          Content="{Binding [Settings_UpdateAutoCheck], Source={x:Static loc:LocalizationManager.Instance}}"
+                          Foreground="#CDD6F4"
+                          IsCheckedChanged="CheckForUpdatesOnStartupCheck_Changed"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button x:Name="CheckForUpdatesButton"
+                            Content="{Binding [Settings_UpdateCheckNow], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="CheckForUpdatesButton_Click" Padding="12,6"/>
+                    <Button x:Name="InstallUpdateButton"
+                            Content="{Binding [Settings_UpdateInstallNow], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="InstallUpdateButton_Click" Padding="12,6" IsVisible="False"/>
+                    <Button x:Name="CancelUpdateButton"
+                            Content="{Binding [Settings_CancelDownload], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="CancelUpdateButton_Click" Padding="12,6" IsVisible="False"/>
+                </StackPanel>
+                <ProgressBar x:Name="UpdateProgressBar" Minimum="0" Maximum="100"
+                             IsVisible="False" Height="6" Margin="0,4,0,0"/>
+                <TextBlock x:Name="UpdateStatusText" Foreground="#A6ADC8" FontSize="11" TextWrapping="Wrap"/>
+                <TextBlock x:Name="VersionText" Foreground="#6C7086" FontSize="11"/>
             </StackPanel>
         </Border>
     </StackPanel>

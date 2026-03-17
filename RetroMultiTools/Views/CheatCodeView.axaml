@@ -30,6 +30,12 @@
                 <ComboBoxItem Content="{Binding [CheatCode_SegaCDPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="SegaCDProActionReplay"/>
                 <ComboBoxItem Content="{Binding [CheatCode_PceRaw], Source={x:Static loc:LocalizationManager.Instance}}" Tag="PCEngineRaw"/>
                 <ComboBoxItem Content="{Binding [CheatCode_NgpGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="NeoGeoPocketGameShark"/>
+                <ComboBoxItem Content="{Binding [CheatCode_NdsAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="NdsActionReplay"/>
+                <ComboBoxItem Content="{Binding [CheatCode_SaturnAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="SaturnActionReplay"/>
+                <ComboBoxItem Content="{Binding [CheatCode_DcCB], Source={x:Static loc:LocalizationManager.Instance}}" Tag="DreamcastCodeBreaker"/>
+                <ComboBoxItem Content="{Binding [CheatCode_GbGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameBoyGameShark"/>
+                <ComboBoxItem Content="{Binding [CheatCode_NeoGeoRaw], Source={x:Static loc:LocalizationManager.Instance}}" Tag="NeoGeoRaw"/>
+                <ComboBoxItem Content="{Binding [CheatCode_PsxGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="PsxGameShark"/>
             </ComboBox>
         </StackPanel>
 

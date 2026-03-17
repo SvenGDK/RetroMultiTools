@@ -120,6 +120,16 @@ Scans directories recursively to identify duplicate ROM files.
 3. Files with matching checksums are grouped together.
 4. Results show duplicate groups, file paths, and total wasted disk space.
 
+### Deleting Duplicates
+
+After a scan finds duplicates, click **Delete Duplicates** to remove the extra copies:
+
+1. A confirmation prompt shows how many files will be deleted and how much space will be freed.
+2. The first file in each duplicate group is always kept; only the additional copies are deleted.
+3. Files that cannot be deleted (e.g. read-only or in use) are skipped with a warning.
+
+Both scanning and deletion can be cancelled at any time.
+
 ---
 
 ## Batch ROM Hasher
@@ -183,3 +193,29 @@ Region codes are extracted from headers for all supported systems.
 
 - **Single ROM** — analyze one file.
 - **Batch directory** — analyze all ROMs in a directory with a summary report.
+
+---
+
+## GoodTools Identifier
+
+Identifies [GoodTools](https://en.wikipedia.org/wiki/GoodTools) labelling conventions from ROM filenames. GoodTools codes are short tags embedded in the filename by ROM archival tools that indicate the ROM's country, language, version, and dump quality.
+
+### Supported Code Types
+
+| Type | Example | Description |
+|---|---|---|
+| **Country Codes** | `(U)`, `(E)`, `(J)` | Region / country of release |
+| **Standard Codes** | `[!]`, `[a]`, `[b]`, `[h]` | Dump quality indicators (verified good, alternate, bad, hack) |
+| **GoodGen-Specific Codes** | `(1)`, `(4)` | Genesis-specific variant numbering |
+
+### Modes
+
+- **Single ROM** — identify codes in a single ROM filename.
+- **Batch directory** — scan all ROMs in a directory and report which files contain GoodTools codes.
+
+### Usage
+
+1. Select **Single ROM** or **Batch Directory** mode.
+2. Browse for a ROM file or directory.
+3. Click **Identify Codes**.
+4. Results show each recognized code with its meaning (e.g., `[!]` = Verified Good Dump).

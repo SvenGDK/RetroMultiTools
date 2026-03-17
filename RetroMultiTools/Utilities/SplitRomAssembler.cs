@@ -53,6 +53,14 @@ public static class SplitRomAssembler
         if (parts.Count == 1)
             throw new InvalidOperationException("Only one part found. Nothing to reassemble.");
 
+        // Prevent data corruption if output path matches an input part
+        string fullOutput = Path.GetFullPath(outputPath);
+        foreach (var part in parts)
+        {
+            if (string.Equals(Path.GetFullPath(part), fullOutput, StringComparison.OrdinalIgnoreCase))
+                throw new InvalidOperationException("Output path cannot be one of the input part files.");
+        }
+
         progress?.Report($"Found {parts.Count} parts to reassemble...");
 
         string? outputDir = Path.GetDirectoryName(outputPath);
@@ -124,13 +132,14 @@ public static class SplitRomAssembler
         if (lastDot < 0) return [];
 
         string baseName = fileName[..lastDot];
+        var lookup = BuildCaseInsensitiveLookup(dir);
         var parts = new List<string>();
 
         for (int i = 1; i <= 999; i++)
         {
-            string partPath = Path.Combine(dir, $"{baseName}.part{i}");
-            if (File.Exists(partPath))
-                parts.Add(partPath);
+            string partName = $"{baseName}.part{i}";
+            if (lookup.TryGetValue(partName, out string? actualName))
+                parts.Add(Path.Combine(dir, actualName));
             else
                 break;
         }
@@ -142,23 +151,39 @@ public static class SplitRomAssembler
     {
         // e.g. "game.z01" -> base = "game"
         string baseName = fileName[..^4]; // remove ".z01" etc.
+        var lookup = BuildCaseInsensitiveLookup(dir);
         var parts = new List<string>();
 
         for (int i = 1; i <= 99; i++)
         {
-            string partPath = Path.Combine(dir, $"{baseName}.z{i:D2}");
-            if (File.Exists(partPath))
-                parts.Add(partPath);
+            string partName = $"{baseName}.z{i:D2}";
+            if (lookup.TryGetValue(partName, out string? actualName))
+                parts.Add(Path.Combine(dir, actualName));
             else
                 break;
         }
 
         // Also check for the final .zip part
-        string zipPath = Path.Combine(dir, $"{baseName}.zip");
-        if (File.Exists(zipPath))
-            parts.Add(zipPath);
+        string zipName = $"{baseName}.zip";
+        if (lookup.TryGetValue(zipName, out string? actualZipName))
+            parts.Add(Path.Combine(dir, actualZipName));
 
         return parts;
+    }
+
+    /// <summary>
+    /// Builds a case-insensitive lookup of file names in the given directory
+    /// to support case-sensitive file systems (e.g. Linux ext4).
+    /// </summary>
+    private static Dictionary<string, string> BuildCaseInsensitiveLookup(string dir)
+    {
+        var lookup = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (string filePath in Directory.EnumerateFiles(dir))
+        {
+            string name = Path.GetFileName(filePath);
+            lookup.TryAdd(name, name);
+        }
+        return lookup;
     }
 }
 

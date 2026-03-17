@@ -113,7 +113,7 @@ public static class HexViewer
                 bytesRead += carryOver;
             }
 
-            int searchLen = bytesRead - pattern.Length + 1;
+            int searchLen = Math.Max(0, bytesRead - pattern.Length + 1);
             for (int i = 0; i < searchLen && results.Count < maxResults; i++)
             {
                 bool match = true;

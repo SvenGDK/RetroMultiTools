@@ -106,12 +106,7 @@ public static class MameDir2Dat
             using var writer = new StreamWriter(outputPath, false, new UTF8Encoding(false));
             doc.Save(writer);
         }
-        catch (IOException)
-        {
-            try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
-            throw;
-        }
-        catch (UnauthorizedAccessException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
             throw;
@@ -211,8 +206,7 @@ public static class MameDir2Dat
 
             return game.Roms.Count > 0 ? game : null;
         }
-        catch (InvalidDataException) { return null; }
-        catch (IOException) { return null; }
+        catch (Exception ex) when (ex is InvalidDataException or IOException) { return null; }
     }
 
     private static Dir2DatGame? ScanLooseFile(string filePath, Dir2DatOptions options)
@@ -267,8 +261,7 @@ public static class MameDir2Dat
                 Roms = [rom]
             };
         }
-        catch (IOException) { return null; }
-        catch (UnauthorizedAccessException) { return null; }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { return null; }
     }
 
     private static Dir2DatDisk? ScanChdFile(string chdPath)

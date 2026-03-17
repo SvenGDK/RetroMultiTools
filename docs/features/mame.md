@@ -31,6 +31,12 @@ Audits MAME ROM sets against a MAME XML database for completeness and correctnes
 | **Incomplete** | Some ROMs present but others missing |
 | **Bad** | All ROMs missing or checksums do not match |
 
+### Options
+
+| Option | Description |
+|---|---|
+| **Search subdirectories recursively** | Scan ROM ZIPs in the selected directory and all its subdirectories |
+
 ### Additional Features
 
 - Identifies **clone / parent** ROM relationships.
@@ -41,7 +47,8 @@ Audits MAME ROM sets against a MAME XML database for completeness and correctnes
 
 1. Load a MAME XML database.
 2. Select the directory containing your ROM set ZIPs.
-3. Click **Audit** to scan all sets.
+3. Optionally enable **recursive search** to include subdirectories.
+4. Click **Audit** to scan all sets.
 
 ---
 
@@ -68,7 +75,7 @@ Verifies the integrity of CHD (Compressed Hunks of Data) files used by MAME for 
 ### Modes
 
 - **Single file** — verify one CHD file.
-- **Batch directory** — verify all `.chd` files in a directory.
+- **Batch directory** — verify all `.chd` files in a directory (searches recursively).
 
 ---
 
@@ -78,14 +85,23 @@ Rebuilds MAME ROM sets from scattered or loose ROM files into properly structure
 
 ### How It Works
 
-1. **Index** — the source directory is scanned and all files (loose and inside ZIPs) are indexed by CRC32.
+1. **Index** — the source directory is scanned recursively and all files (loose and inside ZIPs) are indexed by CRC32.
 2. **Match** — each machine's required ROMs are matched against the index.
 3. **Build** — for each machine with at least one matching ROM, a new ZIP archive is created in the output directory.
+
+### Rebuild Modes
+
+| Mode | Description |
+|---|---|
+| **Split** (default) | Each machine ZIP contains only its own unique ROMs. Clones depend on their parent ZIP for shared ROMs. |
+| **Non-Merged** | Each machine ZIP contains ALL ROMs it needs, including those shared with the parent. Every ZIP is self-contained. |
+| **Merged** | Only parent machine ZIPs are built. The parent ZIP includes its own ROMs plus all unique ROMs from its clones. No separate clone ZIPs are created. |
 
 ### Options
 
 | Option | Description |
 |---|---|
+| **Rebuild Mode** | Choose Split, Non-Merged, or Merged (see above) |
 | **Only complete** | Skip machines where any required ROM is missing |
 | **Overwrite existing** | Replace ZIP files that already exist in the output directory |
 
@@ -146,6 +162,19 @@ Audits MAME audio sample files against a MAME XML database.
 | **Incomplete** | Some samples present, others missing |
 | **Bad** | No required samples found, or the ZIP is corrupt |
 | **Unknown** | ZIP found but the machine is not in the database |
+
+### Options
+
+| Option | Description |
+|---|---|
+| **Search subdirectories recursively** | Scan sample ZIPs in the selected directory and all its subdirectories |
+
+### Usage
+
+1. Load a MAME XML database.
+2. Select the directory containing your sample ZIPs.
+3. Optionally enable **recursive search** to include subdirectories.
+4. Click **Audit** to scan all sample sets.
 
 ### Output
 

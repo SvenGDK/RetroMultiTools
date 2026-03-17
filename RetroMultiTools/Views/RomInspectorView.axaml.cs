@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Detection;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using RetroMultiTools.Services;
 
@@ -21,7 +22,7 @@ public partial class RomInspectorView : UserControl
 
         var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            Title = "Open ROM File",
+            Title = LocalizationManager.Instance["Inspector_OpenRomFile"],
             AllowMultiple = false,
             FileTypeFilter =
             [
@@ -61,14 +62,14 @@ public partial class RomInspectorView : UserControl
         try
         {
             // Step 1: Detect ROM
-            ProgressText.Text = "Reading ROM header...";
+            ProgressText.Text = LocalizationManager.Instance["Inspector_ReadingHeader"];
             var info = await Task.Run(() => RomDetector.Detect(path));
 
             // Step 2: Display ROM info
-            ProgressText.Text = "Displaying ROM information...";
+            ProgressText.Text = LocalizationManager.Instance["Inspector_DisplayingInfo"];
             SystemNameText.Text = info.SystemName;
             FileSizeText.Text = info.FileSizeFormatted;
-            IsValidText.Text = info.IsValid ? "✔ Valid" : "✘ Invalid";
+            IsValidText.Text = info.IsValid ? LocalizationManager.Instance["Inspector_ValidYes"] : LocalizationManager.Instance["Inspector_ValidNo"];
             IsValidText.Foreground = info.IsValid
                 ? new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#A6E3A1"))
                 : new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#F38BA8"));
@@ -79,7 +80,7 @@ public partial class RomInspectorView : UserControl
                 .ToList();
 
             // Step 3: Fetch artwork
-            ProgressText.Text = "Fetching artwork from database...";
+            ProgressText.Text = LocalizationManager.Instance["Inspector_FetchingArtwork"];
             var artProgress = new Progress<string>(msg => ProgressText.Text = msg);
             var artwork = await ArtworkService.FetchArtworkAsync(info, artProgress);
 
@@ -87,20 +88,16 @@ public partial class RomInspectorView : UserControl
             DisplayArtwork(artwork);
 
             ProgressText.Text = artwork.HasAnyArtwork
-                ? "Done — artwork loaded."
-                : "Done — no artwork found for this title.";
+                ? LocalizationManager.Instance["Inspector_DoneArtwork"]
+                : LocalizationManager.Instance["Inspector_DoneNoArtwork"];
         }
-        catch (IOException ex)
-        {
-            ProgressText.Text = $"Error: {ex.Message}";
-        }
-        catch (HttpRequestException ex)
+        catch (Exception ex) when (ex is IOException or HttpRequestException)
         {
             ProgressText.Text = $"Error: {ex.Message}";
         }
         catch (TaskCanceledException)
         {
-            ProgressText.Text = "Operation cancelled.";
+            ProgressText.Text = LocalizationManager.Instance["Inspector_Cancelled"];
         }
         catch (UnauthorizedAccessException ex)
         {

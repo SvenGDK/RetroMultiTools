@@ -30,13 +30,7 @@ public partial class MameSetRebuilderView : UserControl
             XmlInfoText.Text = $"Loaded {_machines.Count} machines from MAME database.";
             XmlInfoPanel.IsVisible = true;
         }
-        catch (InvalidOperationException ex)
-        {
-            _machines = null;
-            XmlInfoText.Text = $"Error loading MAME XML: {ex.Message}";
-            XmlInfoPanel.IsVisible = true;
-        }
-        catch (IOException ex)
+        catch (Exception ex) when (ex is InvalidOperationException or IOException)
         {
             _machines = null;
             XmlInfoText.Text = $"Error loading MAME XML: {ex.Message}";
@@ -98,10 +92,17 @@ public partial class MameSetRebuilderView : UserControl
             var sourceIndex = await MameSetRebuilder.IndexSourceDirectoryAsync(sourceDir, progress);
 
             // Step 2: Rebuild sets
+            var mode = ModeComboBox.SelectedIndex switch
+            {
+                1 => RebuildMode.NonMerged,
+                2 => RebuildMode.Merged,
+                _ => RebuildMode.Split
+            };
             var options = new RebuildOptions
             {
                 OverwriteExisting = OverwriteCheckBox.IsChecked == true,
-                OnlyComplete = OnlyCompleteCheckBox.IsChecked == true
+                OnlyComplete = OnlyCompleteCheckBox.IsChecked == true,
+                Mode = mode
             };
 
             var result = await MameSetRebuilder.RebuildAsync(_machines, sourceIndex, outputDir, options, progress);
@@ -130,15 +131,7 @@ public partial class MameSetRebuilderView : UserControl
             ResultsText.Text = lines.ToString();
             ResultsBorder.IsVisible = result.RebuiltSets.Count > 0;
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (InvalidOperationException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }

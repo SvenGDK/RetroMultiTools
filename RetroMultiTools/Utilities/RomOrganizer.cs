@@ -22,7 +22,10 @@ public static class RomOrganizer
         ".mo5", ".k7", ".fd",
         ".sv", ".ccc",
         ".3do", ".cdi", ".gdi",
-        ".chd", ".rvz", ".gcm"
+        ".chd", ".rvz", ".gcm",
+        ".chf",
+        ".tgc",
+        ".mtx", ".run"
     };
 
     public static List<RomInfo> ScanDirectory(string path, IProgress<string>? progress = null)
@@ -47,7 +50,7 @@ public static class RomOrganizer
         return results;
     }
 
-    public static OrganizeResult OrganizeBySystem(List<RomInfo> roms, string outputDir)
+    public static OrganizeResult OrganizeBySystem(List<RomInfo> roms, string outputDir, IProgress<string>? progress = null)
     {
         Directory.CreateDirectory(outputDir);
 
@@ -55,8 +58,10 @@ public static class RomOrganizer
         int skipped = 0;
         int failed = 0;
 
-        foreach (var rom in roms)
+        for (int i = 0; i < roms.Count; i++)
         {
+            var rom = roms[i];
+            progress?.Report($"Organizing {i + 1} of {roms.Count}: {rom.FileName}");
             try
             {
                 var systemFolder = Path.Combine(outputDir, SanitizeFolderName(rom.SystemName));
@@ -72,11 +77,7 @@ public static class RomOrganizer
                     skipped++;
                 }
             }
-            catch (IOException)
-            {
-                failed++;
-            }
-            catch (UnauthorizedAccessException)
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             {
                 failed++;
             }

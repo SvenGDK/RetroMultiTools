@@ -31,13 +31,7 @@ public partial class DatFilterView : UserControl
             DatInfoText.Text = $"Loaded {_datEntries.Count} ROM entries from DAT file.";
             DatInfoPanel.IsVisible = true;
         }
-        catch (InvalidOperationException ex)
-        {
-            _datEntries = null;
-            DatInfoText.Text = $"Error loading DAT file: {ex.Message}";
-            DatInfoPanel.IsVisible = true;
-        }
-        catch (IOException ex)
+        catch (Exception ex) when (ex is InvalidOperationException or IOException)
         {
             _datEntries = null;
             DatInfoText.Text = $"Error loading DAT file: {ex.Message}";
@@ -94,11 +88,7 @@ public partial class DatFilterView : UserControl
             ResultsBorder.IsVisible = true;
             ExportButton.IsVisible = filtered.Count > 0;
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (InvalidOperationException ex)
+        catch (Exception ex) when (ex is IOException or InvalidOperationException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }
@@ -139,11 +129,7 @@ public partial class DatFilterView : UserControl
                 $"Filtered by RetroMultiTools — {_filteredEntries.Count} entries", progress);
             ShowStatus($"✔ Exported {_filteredEntries.Count} entries to:\n{outputPath}", isError: false);
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Export error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Export error: {ex.Message}", isError: true);
         }

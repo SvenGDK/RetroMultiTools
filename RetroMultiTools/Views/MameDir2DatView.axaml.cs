@@ -73,15 +73,7 @@ public partial class MameDir2DatView : UserControl
             ResultsText.Text = lines.ToString();
             ResultsBorder.IsVisible = _scanResult.Games.Count > 0;
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (InvalidOperationException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }
@@ -125,11 +117,7 @@ public partial class MameDir2DatView : UserControl
             MameDir2Dat.ExportDat(_scanResult, file.Path.LocalPath, options);
             ShowStatus($"✔ DAT exported to: {file.Path.LocalPath}", isError: false);
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error exporting DAT: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Error exporting DAT: {ex.Message}", isError: true);
         }

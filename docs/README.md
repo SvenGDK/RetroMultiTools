@@ -16,15 +16,15 @@ Platform-specific guides: [Windows](../README.md#platform-guides) · [Linux](../
 
 | Document | Description |
 |---|---|
-| [Browsing & Inspection](features/browsing-and-inspection.md) | ROM Browser, ROM Inspector, Hex Viewer |
+| [Browsing & Inspection](features/browsing-and-inspection.md) | ROM Browser (including Big Picture Mode and Host & Share), ROM Inspector, Hex Viewer |
 | [ROM Browser & RetroArch Guide](features/rom-browser-guide.md) | Step-by-step guide to the ROM Browser and RetroArch integration |
 | [Patching](features/patching.md) | ROM Patcher (IPS/BPS), IPS Patch Creator |
 | [Conversion & Extraction](features/conversion-and-extraction.md) | N64 Converter, ROM Format Converter, Save File Converter, ZIP Extractor, Split ROM Assembler, ROM Decompressor |
-| [Verification & Analysis](features/verification-and-analysis.md) | Checksum Calculator, ROM Comparer, DAT Verifier, DAT Filter, Dump Verifier, Duplicate Finder, Batch ROM Hasher, Security & DRM Analysis |
+| [Verification & Analysis](features/verification-and-analysis.md) | Checksum Calculator, ROM Comparer, DAT Verifier, DAT Filter, Dump Verifier, Duplicate Finder, Batch ROM Hasher, Security & DRM Analysis, GoodTools Identifier |
 | [ROM Management](features/rom-management.md) | Header Export, SNES Header Tool, Batch Header Fixer, ROM Trimmer, ROM Renamer, Metadata Scraper |
 | [Cheats & Emulation](features/cheats-and-emulation.md) | Cheat Code Converter, Emulator Config Generator |
 | [MAME](features/mame.md) | ROM Set Auditor, CHD Verifier, ROM Set Rebuilder, Dir2Dat Creator, Sample Auditor |
-| [Settings & Integration](features/settings-and-integration.md) | RetroArch Core Downloader, Remote Transfer, Language settings |
+| [Settings & Integration](features/settings-and-integration.md) | Native Menu, System Tray, Application Updates, RetroArch Core Downloader, SDL2 Gamepad Mapping Tool, Remote Transfer, Host & Share, Language settings |
 
 ### Reference
 

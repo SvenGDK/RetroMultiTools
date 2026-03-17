@@ -24,6 +24,12 @@ Decodes and encodes cheat codes for retro gaming systems. Enter a code to decode
 | Sega CD | Pro Action Replay |
 | PC Engine | Raw address:value |
 | Neo Geo Pocket | GameShark |
+| Nintendo DS | Action Replay (16 code types) |
+| Sega Saturn | Action Replay |
+| Sega Dreamcast | CodeBreaker |
+| Game Boy | GameShark |
+| Neo Geo | Raw address:value |
+| PlayStation | GameShark (18 code types) |
 
 ### N64 GameShark Code Types
 

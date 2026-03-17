@@ -60,6 +60,8 @@ Fixes or recalculates ROM headers for all supported files in a directory.
 | MSX | Cartridge header validation |
 | ColecoVision | Header validation |
 | Watara Supervision | Header validation |
+| Nintendo DS | Header CRC16 recalculation |
+| Intellivision | Header validation |
 
 ### Usage
 

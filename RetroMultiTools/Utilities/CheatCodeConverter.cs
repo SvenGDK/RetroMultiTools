@@ -1,9 +1,10 @@
 namespace RetroMultiTools.Utilities;
 
 /// <summary>
-/// Encodes and decodes Game Genie, Pro Action Replay, and GameShark cheat codes
-/// for NES, SNES, Game Boy, Sega Genesis/Mega Drive, Game Gear, Master System,
-/// Sega CD, PC Engine, and Neo Geo Pocket systems.
+/// Encodes and decodes Game Genie, Pro Action Replay, GameShark, Action Replay, and CodeBreaker
+/// cheat codes for NES, SNES, Game Boy, Sega Genesis/Mega Drive, Game Gear, Master System,
+/// Sega CD, PC Engine, Neo Geo Pocket, Nintendo DS, Sega Saturn, Sega Dreamcast,
+/// Neo Geo, and PlayStation systems.
 /// </summary>
 public static class CheatCodeConverter
 {
@@ -25,7 +26,13 @@ public static class CheatCodeConverter
         Sega32XProActionReplay,
         SegaCDProActionReplay,
         PCEngineRaw,
-        NeoGeoPocketGameShark
+        NeoGeoPocketGameShark,
+        NdsActionReplay,
+        SaturnActionReplay,
+        DreamcastCodeBreaker,
+        GameBoyGameShark,
+        NeoGeoRaw,
+        PsxGameShark
     }
 
     public static string GetSystemName(CheatSystem system) => system switch
@@ -47,6 +54,12 @@ public static class CheatCodeConverter
         CheatSystem.SegaCDProActionReplay => "Sega CD Pro Action Replay",
         CheatSystem.PCEngineRaw => "PC Engine Raw",
         CheatSystem.NeoGeoPocketGameShark => "Neo Geo Pocket GameShark",
+        CheatSystem.NdsActionReplay => "Nintendo DS Action Replay",
+        CheatSystem.SaturnActionReplay => "Saturn Action Replay",
+        CheatSystem.DreamcastCodeBreaker => "Dreamcast CodeBreaker",
+        CheatSystem.GameBoyGameShark => "Game Boy GameShark",
+        CheatSystem.NeoGeoRaw => "Neo Geo Raw",
+        CheatSystem.PsxGameShark => "PlayStation GameShark",
         _ => system.ToString()
     };
 
@@ -88,6 +101,12 @@ public static class CheatCodeConverter
             CheatSystem.SegaCDProActionReplay => DecodeGenesisProActionReplay(code),
             CheatSystem.PCEngineRaw => DecodeRawAddressValue(code, "PC Engine raw cheat"),
             CheatSystem.NeoGeoPocketGameShark => DecodeRawAddressValue(code, "Neo Geo Pocket GameShark"),
+            CheatSystem.NdsActionReplay => DecodeNdsActionReplay(code),
+            CheatSystem.SaturnActionReplay => DecodeSaturnActionReplay(code),
+            CheatSystem.DreamcastCodeBreaker => DecodeDreamcastCodeBreaker(code),
+            CheatSystem.GameBoyGameShark => DecodeGameBoyGameShark(code),
+            CheatSystem.NeoGeoRaw => DecodeNeoGeoRaw(code),
+            CheatSystem.PsxGameShark => DecodePsxGameShark(code),
             _ => throw new InvalidOperationException($"Unsupported cheat system: {system}")
         };
     }
@@ -116,6 +135,12 @@ public static class CheatCodeConverter
             CheatSystem.SegaCDProActionReplay => EncodeGenesisProActionReplay(address, value),
             CheatSystem.PCEngineRaw => EncodeRawAddressValue(address, (byte)value),
             CheatSystem.NeoGeoPocketGameShark => EncodeRawAddressValue(address, (byte)value),
+            CheatSystem.NdsActionReplay => EncodeNdsActionReplay(address, value),
+            CheatSystem.SaturnActionReplay => EncodeSaturnActionReplay(address, value),
+            CheatSystem.DreamcastCodeBreaker => EncodeDreamcastCodeBreaker(address, value),
+            CheatSystem.GameBoyGameShark => EncodeGameBoyGameShark(address, (byte)value),
+            CheatSystem.NeoGeoRaw => EncodeNeoGeoRaw(address, value),
+            CheatSystem.PsxGameShark => EncodePsxGameShark(address, value),
             _ => throw new InvalidOperationException($"Unsupported cheat system: {system}")
         };
     }
@@ -616,6 +641,168 @@ public static class CheatCodeConverter
 
     #endregion
 
+    #region Nintendo DS Action Replay
+
+    private static CheatCodeResult DecodeNdsActionReplay(string code)
+    {
+        string clean = code.Replace(" ", "").Replace("-", "").Replace(":", "");
+        if (clean.Length != 16)
+            throw new ArgumentException("Nintendo DS Action Replay code must be 16 hex characters (XXXXXXXX YYYYYYYY).");
+
+        if (!IsHexString(clean))
+            throw new ArgumentException("Nintendo DS Action Replay code must contain only hex characters.");
+
+        // Format: TXXXXXXX YYYYYYYY
+        // T = code type nibble (upper 4 bits of first byte)
+        // XXXXXXX = 28-bit address offset
+        // YYYYYYYY = 32-bit value
+        uint firstWord = Convert.ToUInt32(clean[..8], 16);
+        uint secondWord = Convert.ToUInt32(clean[8..16], 16);
+
+        byte codeType = (byte)((firstWord >> 28) & 0xF);
+        uint address = firstWord & 0x0FFFFFFF;
+        ushort value = (ushort)(secondWord & 0xFFFF);
+
+        string typeName = codeType switch
+        {
+            0x0 => "32-bit Write",
+            0x1 => "16-bit Write",
+            0x2 => "8-bit Write",
+            0x3 => "If Less Than (32-bit)",
+            0x4 => "If Greater Than (32-bit)",
+            0x5 => "If Equal (32-bit)",
+            0x6 => "If Not Equal (32-bit)",
+            0x7 => "If Less Than (16-bit)",
+            0x8 => "If Greater Than (16-bit)",
+            0x9 => "If Equal (16-bit)",
+            0xA => "If Not Equal (16-bit)",
+            0xB => "Load Offset",
+            0xC => "Loop",
+            0xD => "Terminator/Special",
+            0xE => "Patch Code",
+            0xF => "Memory Copy",
+            _ => $"Type 0x{codeType:X1}"
+        };
+
+        return new CheatCodeResult
+        {
+            Address = address,
+            Value = value,
+            Description = $"Address: ${address:X7}, Value: ${secondWord:X8}, Type: {typeName} (0x{codeType:X1})"
+        };
+    }
+
+    private static string EncodeNdsActionReplay(uint address, ushort value)
+    {
+        // Default to type 0x2 (8-bit write) for values <= 0xFF, 0x1 (16-bit write) otherwise.
+        byte codeType = value > 0xFF ? (byte)0x1 : (byte)0x2;
+        uint firstWord = (uint)(codeType << 28) | (address & 0x0FFFFFFF);
+
+        return $"{firstWord:X8} {(uint)value:X8}";
+    }
+
+    #endregion
+
+    #region Sega Saturn Action Replay
+
+    private static CheatCodeResult DecodeSaturnActionReplay(string code)
+    {
+        string clean = code.Replace(" ", "").Replace("-", "").Replace(":", "");
+        if (clean.Length != 12)
+            throw new ArgumentException("Saturn Action Replay code must be 12 hex characters (TTAAAAAA VVVV).");
+
+        if (!IsHexString(clean))
+            throw new ArgumentException("Saturn Action Replay code must contain only hex characters.");
+
+        // Format: TTAAAAAA VVVV
+        // TT = code type (16 = 8-bit write, 36 = 16-bit write)
+        byte codeType = Convert.ToByte(clean[..2], 16);
+        uint address = Convert.ToUInt32(clean[2..8], 16);
+        ushort value = Convert.ToUInt16(clean[8..12], 16);
+
+        string typeName = codeType switch
+        {
+            0x16 => "Write 8-bit",
+            0x36 => "Write 16-bit",
+            0xD0 => "If Equal 16-bit",
+            0xD2 => "If Not Equal 16-bit",
+            0xD3 => "If Equal 8-bit",
+            0x10 => "Master Code",
+            _ => $"Type 0x{codeType:X2}"
+        };
+
+        return new CheatCodeResult
+        {
+            Address = address,
+            Value = value,
+            Description = $"Address: ${address:X6}, Value: ${value:X4}, Type: {typeName} (0x{codeType:X2})"
+        };
+    }
+
+    private static string EncodeSaturnActionReplay(uint address, ushort value)
+    {
+        // Default to type 0x36 (16-bit write) if value > 0xFF, 0x16 (8-bit write) otherwise.
+        byte codeType = value > 0xFF ? (byte)0x36 : (byte)0x16;
+
+        return $"{codeType:X2}{address & 0xFFFFFF:X6} {value:X4}";
+    }
+
+    #endregion
+
+    #region Sega Dreamcast CodeBreaker
+
+    private static CheatCodeResult DecodeDreamcastCodeBreaker(string code)
+    {
+        string clean = code.Replace(" ", "").Replace("-", "").Replace(":", "");
+        if (clean.Length != 16)
+            throw new ArgumentException("Dreamcast CodeBreaker code must be 16 hex characters (XXXXXXXX YYYYYYYY).");
+
+        if (!IsHexString(clean))
+            throw new ArgumentException("Dreamcast CodeBreaker code must contain only hex characters.");
+
+        // Format: TTAAAAAA VVVVVVVV
+        // TT = code type
+        // AAAAAA = 24-bit address
+        // VVVVVVVV = 32-bit value (lower bits used depending on type)
+        uint firstWord = Convert.ToUInt32(clean[..8], 16);
+        uint secondWord = Convert.ToUInt32(clean[8..16], 16);
+
+        byte codeType = (byte)((firstWord >> 24) & 0xFF);
+        uint address = firstWord & 0x00FFFFFF;
+        ushort value = (ushort)(secondWord & 0xFFFF);
+
+        string typeName = codeType switch
+        {
+            0x00 => "16-bit Write",
+            0x01 => "8-bit Write",
+            0x02 => "32-bit Write",
+            0x40 => "16-bit Write (Serial)",
+            0x80 => "8-bit Write (If Equal)",
+            0x81 => "16-bit Write (If Equal)",
+            0x82 => "8-bit Write (If Not Equal)",
+            0x83 => "16-bit Write (If Not Equal)",
+            _ => $"Type 0x{codeType:X2}"
+        };
+
+        return new CheatCodeResult
+        {
+            Address = address,
+            Value = value,
+            Description = $"Address: ${address:X6}, Value: ${secondWord:X8}, Type: {typeName} (0x{codeType:X2})"
+        };
+    }
+
+    private static string EncodeDreamcastCodeBreaker(uint address, ushort value)
+    {
+        // Default to type 0x01 (8-bit write) for values <= 0xFF, 0x00 (16-bit write) otherwise.
+        byte codeType = value > 0xFF ? (byte)0x00 : (byte)0x01;
+        uint firstWord = (uint)(codeType << 24) | (address & 0x00FFFFFF);
+
+        return $"{firstWord:X8} {(uint)value:X8}";
+    }
+
+    #endregion
+
     #region Raw Address:Value (PC Engine, Neo Geo Pocket)
 
     private static CheatCodeResult DecodeRawAddressValue(string code, string systemName)
@@ -642,6 +829,144 @@ public static class CheatCodeConverter
     private static string EncodeRawAddressValue(uint address, byte value)
     {
         return $"{address & 0xFFFFFF:X6}:{value:X2}";
+    }
+
+    #endregion
+
+    #region Game Boy GameShark
+
+    private static CheatCodeResult DecodeGameBoyGameShark(string code)
+    {
+        string clean = code.Replace(" ", "").Replace("-", "").Replace(":", "");
+        if (clean.Length != 8)
+            throw new ArgumentException("Game Boy GameShark code must be 8 hex characters (TTXXAAAA).");
+
+        if (!IsHexString(clean))
+            throw new ArgumentException("Game Boy GameShark code must contain only hex characters.");
+
+        // Format: ABCC (external bank + new data + address)
+        // Byte order: first byte = external RAM bank, second byte = new data,
+        // third+fourth bytes = address (little-endian)
+        byte bankType = Convert.ToByte(clean[..2], 16);
+        byte value = Convert.ToByte(clean[2..4], 16);
+        // Address is stored as two bytes in big-endian in the code, but represents a little-endian 16-bit address
+        byte addrLow = Convert.ToByte(clean[4..6], 16);
+        byte addrHigh = Convert.ToByte(clean[6..8], 16);
+        uint address = (uint)((addrHigh << 8) | addrLow);
+
+        string bankDesc = bankType == 0x01 ? "Bank type 01 (standard)" : $"Bank type 0x{bankType:X2}";
+
+        return new CheatCodeResult
+        {
+            Address = address,
+            Value = value,
+            Description = $"Address: ${address:X4}, Value: ${value:X2}, {bankDesc}"
+        };
+    }
+
+    private static string EncodeGameBoyGameShark(uint address, byte value)
+    {
+        // Default bank type 0x01
+        byte addrLow = (byte)(address & 0xFF);
+        byte addrHigh = (byte)((address >> 8) & 0xFF);
+        return $"01{value:X2}{addrLow:X2}{addrHigh:X2}";
+    }
+
+    #endregion
+
+    #region Neo Geo Raw
+
+    private static CheatCodeResult DecodeNeoGeoRaw(string code)
+    {
+        string clean = code.Replace(" ", "").Replace("-", "").Replace(":", "");
+        if (clean.Length != 12)
+            throw new ArgumentException("Neo Geo raw cheat code must be 12 hex characters (AAAAAAAA VVVV).");
+
+        if (!IsHexString(clean))
+            throw new ArgumentException("Neo Geo raw cheat code must contain only hex characters.");
+
+        // Format: AAAAAAAA VVVV (8-digit address + 4-digit 16-bit value)
+        // Neo Geo is a 68000-based platform supporting 16-bit writes
+        uint address = Convert.ToUInt32(clean[..8], 16);
+        ushort value = Convert.ToUInt16(clean[8..12], 16);
+
+        return new CheatCodeResult
+        {
+            Address = address,
+            Value = value,
+            Description = $"Address: ${address:X8}, Value: ${value:X4}"
+        };
+    }
+
+    private static string EncodeNeoGeoRaw(uint address, ushort value)
+    {
+        return $"{address:X8} {value:X4}";
+    }
+
+    #endregion
+
+    #region PlayStation GameShark
+
+    private static CheatCodeResult DecodePsxGameShark(string code)
+    {
+        string clean = code.Replace(" ", "").Replace("-", "").Replace(":", "");
+        if (clean.Length != 12 && clean.Length != 16)
+            throw new ArgumentException("PlayStation GameShark code must be 12 or 16 hex characters (TTAAAAAA VVVV or TTAAAAAA VVVVVVVV).");
+
+        if (!IsHexString(clean))
+            throw new ArgumentException("PlayStation GameShark code must contain only hex characters.");
+
+        // Format: TTAAAAAA VVVV (12 chars) or TTAAAAAA VVVVVVVV (16 chars)
+        // TT = code type
+        // AAAAAA = 24-bit address
+        // VVVV/VVVVVVVV = value
+        uint firstWord = Convert.ToUInt32(clean[..8], 16);
+        uint secondWord = clean.Length == 16
+            ? Convert.ToUInt32(clean[8..16], 16)
+            : Convert.ToUInt32(clean[8..12], 16);
+
+        byte codeType = (byte)((firstWord >> 24) & 0xFF);
+        uint address = firstWord & 0x00FFFFFF;
+        ushort value = (ushort)(secondWord & 0xFFFF);
+
+        string typeName = codeType switch
+        {
+            0x30 => "8-bit Constant Write",
+            0x80 => "16-bit Constant Write",
+            0x10 => "16-bit Increment",
+            0x11 => "16-bit Decrement",
+            0x20 => "8-bit Increment",
+            0x21 => "8-bit Decrement",
+            0x50 => "Repeat / Slide Code",
+            0xC0 => "Enable Code (Slow Mode)",
+            0xC1 => "Enable Code (Boot)",
+            0xC2 => "Hook Address",
+            0xD0 => "8-bit If Equal",
+            0xD1 => "16-bit If Equal",
+            0xD2 => "8-bit If Not Equal",
+            0xD3 => "16-bit If Not Equal",
+            0xE0 => "8-bit If Less Than",
+            0xE1 => "16-bit If Less Than",
+            0xE2 => "8-bit If Greater Than",
+            0xE3 => "16-bit If Greater Than",
+            _ => $"Type 0x{codeType:X2}"
+        };
+
+        return new CheatCodeResult
+        {
+            Address = address,
+            Value = value,
+            Description = $"Address: ${address:X6}, Value: ${value:X4}, Type: {typeName} (0x{codeType:X2})"
+        };
+    }
+
+    private static string EncodePsxGameShark(uint address, ushort value)
+    {
+        // Default to type 0x80 (16-bit write) if value > 0xFF, 0x30 (8-bit write) otherwise
+        byte codeType = value > 0xFF ? (byte)0x80 : (byte)0x30;
+        uint firstWord = (uint)(codeType << 24) | (address & 0x00FFFFFF);
+
+        return $"{firstWord:X8} {value:X4}";
     }
 
     #endregion

@@ -1,0 +1,145 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+        x:Class="RetroMultiTools.Views.GamepadMapperWindow"
+        Title="{Binding [Settings_GamepadToolTitle], Source={x:Static loc:LocalizationManager.Instance}}"
+        Width="680" Height="620"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Background="#1E1E2E">
+    <DockPanel Margin="16">
+
+        <!-- Header -->
+        <TextBlock DockPanel.Dock="Top"
+                   Text="{Binding [Settings_GamepadToolTitle], Source={x:Static loc:LocalizationManager.Instance}}"
+                   FontSize="18" FontWeight="Bold" Foreground="#CDD6F4" Margin="0,0,0,4"/>
+        <TextBlock DockPanel.Dock="Top"
+                   Text="{Binding [Settings_GamepadToolDescription], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap" Margin="0,0,0,12"/>
+
+        <!-- Bottom: buttons -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8"
+                    HorizontalAlignment="Right" Margin="0,8,0,0">
+            <Button x:Name="CloseButton"
+                    Content="{Binding [Common_Close], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="CloseButton_Click" Padding="16,6"/>
+        </StackPanel>
+
+        <!-- Main content -->
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="12">
+
+                <!-- Controller Selection -->
+                <Border Background="#181825" CornerRadius="6" Padding="12">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding [Settings_GamepadToolSelectController], Source={x:Static loc:LocalizationManager.Instance}}"
+                                   FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <ComboBox x:Name="ControllerCombo" Width="380" HorizontalAlignment="Left"
+                                      SelectionChanged="ControllerCombo_SelectionChanged"/>
+                            <Button x:Name="RefreshButton"
+                                    Content="{Binding [Settings_GamepadToolRefresh], Source={x:Static loc:LocalizationManager.Instance}}"
+                                    Click="RefreshButton_Click" Padding="12,6"/>
+                        </StackPanel>
+                        <TextBlock x:Name="ControllerInfoText" Foreground="#6C7086" FontSize="11"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Mapping Wizard -->
+                <Border Background="#181825" CornerRadius="6" Padding="12">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding [Settings_GamepadToolMapping], Source={x:Static loc:LocalizationManager.Instance}}"
+                                   FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                        <TextBlock Text="{Binding [Settings_GamepadToolMappingHelp], Source={x:Static loc:LocalizationManager.Instance}}"
+                                   Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap"/>
+
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button x:Name="StartMappingButton"
+                                    Content="{Binding [Settings_GamepadToolStartMapping], Source={x:Static loc:LocalizationManager.Instance}}"
+                                    Click="StartMappingButton_Click" Padding="12,6"/>
+                            <Button x:Name="SkipButton"
+                                    Content="{Binding [Settings_GamepadToolSkip], Source={x:Static loc:LocalizationManager.Instance}}"
+                                    Click="SkipButton_Click" Padding="12,6" IsVisible="False"/>
+                            <Button x:Name="CancelMappingButton"
+                                    Content="{Binding [Common_Cancel], Source={x:Static loc:LocalizationManager.Instance}}"
+                                    Click="CancelMappingButton_Click" Padding="12,6" IsVisible="False"/>
+                        </StackPanel>
+
+                        <!-- Current mapping step prompt -->
+                        <Border x:Name="MappingPromptPanel" Background="#11111B" CornerRadius="4"
+                                Padding="12" IsVisible="False">
+                            <StackPanel Spacing="6">
+                                <TextBlock x:Name="MappingStepText" Foreground="#89B4FA"
+                                           FontSize="14" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="MappingPromptText" Foreground="#CDD6F4"
+                                           FontSize="13" TextWrapping="Wrap"/>
+                                <TextBlock x:Name="MappingInputText" Foreground="#A6E3A1"
+                                           FontSize="12" FontFamily="Consolas, Courier New, monospace"/>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock x:Name="MappingStatusText" Foreground="#A6ADC8" FontSize="11"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Generated Mapping String -->
+                <Border x:Name="MappingResultPanel" Background="#181825" CornerRadius="6"
+                        Padding="12" IsVisible="False">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding [Settings_GamepadToolResult], Source={x:Static loc:LocalizationManager.Instance}}"
+                                   FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                        <Border Background="#11111B" CornerRadius="4" Padding="8">
+                            <SelectableTextBlock x:Name="MappingResultText" Foreground="#A6E3A1"
+                                                 FontSize="11"
+                                                 FontFamily="Consolas, Courier New, monospace"
+                                                 TextWrapping="Wrap"/>
+                        </Border>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button x:Name="SaveMappingButton"
+                                    Content="{Binding [Settings_GamepadToolSave], Source={x:Static loc:LocalizationManager.Instance}}"
+                                    Click="SaveMappingButton_Click" Padding="12,6"/>
+                            <Button x:Name="CopyMappingButton"
+                                    Content="{Binding [Settings_GamepadToolCopy], Source={x:Static loc:LocalizationManager.Instance}}"
+                                    Click="CopyMappingButton_Click" Padding="12,6"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Custom Mappings List -->
+                <Border Background="#181825" CornerRadius="6" Padding="12">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding [Settings_GamepadToolCustomMappings], Source={x:Static loc:LocalizationManager.Instance}}"
+                                   FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                        <TextBlock x:Name="CustomMappingsInfoText" Foreground="#6C7086" FontSize="11"
+                                   TextWrapping="Wrap"/>
+                        <Border Background="#11111B" CornerRadius="4" Padding="8" MaxHeight="180">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <ItemsControl x:Name="CustomMappingsList">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <DockPanel Margin="0,2">
+                                                <Button DockPanel.Dock="Right" Content="✘"
+                                                        Tag="{Binding Guid}"
+                                                        Click="DeleteMappingButton_Click"
+                                                        Padding="6,2" FontSize="11" Margin="8,0,0,0"/>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding Name}" Foreground="#CDD6F4"
+                                                               FontSize="12"/>
+                                                    <TextBlock Text="{Binding Details}" Foreground="#6C7086"
+                                                               FontSize="10"/>
+                                                </StackPanel>
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

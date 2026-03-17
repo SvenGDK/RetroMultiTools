@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using RetroMultiTools.Utilities;
 
@@ -21,7 +22,7 @@ public partial class SendToRemoteWindow : Window
         _romFiles = romFiles;
 
         long totalSize = _romFiles.Sum(r => r.FileSize);
-        FileInfoText.Text = $"{_romFiles.Count} ROM(s) selected — {FileUtils.FormatFileSize(totalSize)} total";
+        FileInfoText.Text = string.Format(LocalizationManager.Instance["Send_RomsSelected"], _romFiles.Count, FileUtils.FormatFileSize(totalSize));
         UpdateProtocolUI();
     }
 
@@ -36,11 +37,23 @@ public partial class SendToRemoteWindow : Window
 
         var protocol = ParseProtocol(selected.Tag?.ToString());
 
-        UseFtpsCheck.IsVisible = protocol == TransferProtocol.Ftp;
-        CredentialsPanel.IsVisible = protocol != TransferProtocol.S3Compatible;
-        S3Panel.IsVisible = protocol == TransferProtocol.S3Compatible;
+        bool isCloud = protocol is TransferProtocol.GoogleDrive
+                    or TransferProtocol.Dropbox
+                    or TransferProtocol.OneDrive;
 
-        PortTextBox.Watermark = RemoteTarget.DefaultPort(protocol).ToString();
+        HostPanel.IsVisible = !isCloud;
+        PortPanel.IsVisible = !isCloud;
+        UseFtpsCheck.IsVisible = protocol == TransferProtocol.Ftp;
+        CredentialsPanel.IsVisible = !isCloud && protocol != TransferProtocol.S3Compatible;
+        S3Panel.IsVisible = protocol == TransferProtocol.S3Compatible;
+        CloudPanel.IsVisible = isCloud;
+
+        // Google Drive uses folder ID; Dropbox/OneDrive use remote path only
+        CloudFolderIdLabel.IsVisible = protocol == TransferProtocol.GoogleDrive;
+        CloudFolderIdTextBox.IsVisible = protocol == TransferProtocol.GoogleDrive;
+
+        if (!isCloud)
+            PortTextBox.Watermark = RemoteTarget.DefaultPort(protocol).ToString();
     }
 
     private async void SendButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -56,7 +69,7 @@ public partial class SendToRemoteWindow : Window
         }
 
         SendButton.IsEnabled = false;
-        CancelButton.Content = "Stop";
+        CancelButton.Content = LocalizationManager.Instance["Send_Stop"];
         TransferProgressBar.IsVisible = true;
 
         _transferCts?.Dispose();
@@ -83,39 +96,29 @@ public partial class SendToRemoteWindow : Window
                 {
                     break;
                 }
-                catch (IOException ex)
+                catch (Exception ex) when (ex is IOException or HttpRequestException or InvalidOperationException)
                 {
                     failed++;
-                    StatusText.Text = $"Failed: {rom.FileName} — {ex.Message}";
-                }
-                catch (HttpRequestException ex)
-                {
-                    failed++;
-                    StatusText.Text = $"Failed: {rom.FileName} — {ex.Message}";
-                }
-                catch (InvalidOperationException ex)
-                {
-                    failed++;
-                    StatusText.Text = $"Failed: {rom.FileName} — {ex.Message}";
+                    StatusText.Text = string.Format(LocalizationManager.Instance["Send_FailedFile"], rom.FileName, ex.Message);
                 }
             }
 
             if (token.IsCancellationRequested)
             {
-                StatusText.Text = $"Transfer cancelled. Sent {sent} ROM(s)" +
-                                  (failed > 0 ? $", {failed} failed." : ".");
+                string suffix = failed > 0 ? string.Format(LocalizationManager.Instance["Send_FailedSuffix"], failed) : ".";
+                StatusText.Text = string.Format(LocalizationManager.Instance["Send_TransferCancelled"], sent, suffix);
             }
             else
             {
-                StatusText.Text = $"Transfer complete. Sent {sent} ROM(s)" +
-                                  (failed > 0 ? $", {failed} failed." : " successfully.");
+                string suffix = failed > 0 ? string.Format(LocalizationManager.Instance["Send_FailedSuffix"], failed) : LocalizationManager.Instance["Send_SuccessSuffix"];
+                StatusText.Text = string.Format(LocalizationManager.Instance["Send_TransferComplete"], sent, suffix);
             }
         }
         finally
         {
             TransferProgressBar.IsVisible = false;
             SendButton.IsEnabled = true;
-            CancelButton.Content = "Close";
+            CancelButton.Content = LocalizationManager.Instance["Send_Close"];
             _transferCts?.Dispose();
             _transferCts = null;
         }
@@ -126,7 +129,7 @@ public partial class SendToRemoteWindow : Window
         if (_transferCts != null)
         {
             _transferCts.Cancel();
-            StatusText.Text = "Cancelling...";
+            StatusText.Text = LocalizationManager.Instance["Send_Cancelling"];
         }
         else
         {
@@ -166,6 +169,24 @@ public partial class SendToRemoteWindow : Window
                     target.Region, target.ServiceUrl, target.RemotePath,
                     progress, cancellationToken);
                 break;
+
+            case TransferProtocol.GoogleDrive:
+                await RemoteTransferService.SendViaGoogleDriveAsync(
+                    filePath, target.OAuthToken, target.CloudFolderId,
+                    target.RemotePath, progress, cancellationToken);
+                break;
+
+            case TransferProtocol.Dropbox:
+                await RemoteTransferService.SendViaDropboxAsync(
+                    filePath, target.OAuthToken, target.RemotePath,
+                    progress, cancellationToken);
+                break;
+
+            case TransferProtocol.OneDrive:
+                await RemoteTransferService.SendViaOneDriveAsync(
+                    filePath, target.OAuthToken, target.RemotePath,
+                    progress, cancellationToken);
+                break;
         }
     }
 
@@ -187,7 +208,9 @@ public partial class SendToRemoteWindow : Window
             AccessKey = AccessKeyTextBox.Text?.Trim() ?? string.Empty,
             SecretKey = SecretKeyTextBox.Text ?? string.Empty,
             Region = RegionTextBox.Text?.Trim() ?? "us-east-1",
-            ServiceUrl = string.IsNullOrWhiteSpace(ServiceUrlTextBox.Text) ? null : ServiceUrlTextBox.Text.Trim()
+            ServiceUrl = string.IsNullOrWhiteSpace(ServiceUrlTextBox.Text) ? null : ServiceUrlTextBox.Text.Trim(),
+            OAuthToken = OAuthTokenTextBox.Text ?? string.Empty,
+            CloudFolderId = CloudFolderIdTextBox.Text?.Trim() ?? string.Empty
         };
     }
 
@@ -204,6 +227,9 @@ public partial class SendToRemoteWindow : Window
         "Sftp" => TransferProtocol.Sftp,
         "WebDav" => TransferProtocol.WebDav,
         "S3Compatible" => TransferProtocol.S3Compatible,
+        "GoogleDrive" => TransferProtocol.GoogleDrive,
+        "Dropbox" => TransferProtocol.Dropbox,
+        "OneDrive" => TransferProtocol.OneDrive,
         _ => TransferProtocol.Ftp
     };
 
@@ -212,22 +238,33 @@ public partial class SendToRemoteWindow : Window
         if (target.Protocol == TransferProtocol.S3Compatible)
         {
             if (string.IsNullOrWhiteSpace(target.BucketName))
-                return "Bucket name is required.";
+                return LocalizationManager.Instance["Send_BucketRequired"];
             if (string.IsNullOrWhiteSpace(target.AccessKey))
-                return "Access key is required.";
+                return LocalizationManager.Instance["Send_AccessKeyRequired"];
             if (string.IsNullOrWhiteSpace(target.SecretKey))
-                return "Secret key is required.";
+                return LocalizationManager.Instance["Send_SecretKeyRequired"];
+        }
+        else if (target.Protocol is TransferProtocol.GoogleDrive
+                 or TransferProtocol.Dropbox
+                 or TransferProtocol.OneDrive)
+        {
+            if (string.IsNullOrWhiteSpace(target.OAuthToken))
+                return LocalizationManager.Instance["Send_OAuthRequired"];
         }
         else
         {
             if (string.IsNullOrWhiteSpace(target.Host))
-                return "Host is required.";
+                return LocalizationManager.Instance["Send_HostRequired"];
             if (string.IsNullOrWhiteSpace(target.Username))
-                return "Username is required.";
+                return LocalizationManager.Instance["Send_UsernameRequired"];
         }
 
-        if (target.Port <= 0 || target.Port > 65535)
-            return "Port must be between 1 and 65535.";
+        bool isCloud = target.Protocol is TransferProtocol.GoogleDrive
+                    or TransferProtocol.Dropbox
+                    or TransferProtocol.OneDrive;
+
+        if (!isCloud && (target.Port <= 0 || target.Port > 65535))
+            return LocalizationManager.Instance["Send_InvalidPort"];
 
         return null;
     }

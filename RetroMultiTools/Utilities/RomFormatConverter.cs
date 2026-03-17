@@ -19,7 +19,10 @@ public static class RomFormatConverter
         ".sv", ".ccc",
         ".iso", ".cue", ".3do",
         ".cdi", ".gdi",
-        ".chd", ".rvz", ".gcm"
+        ".chd", ".rvz", ".gcm",
+        ".chf",
+        ".tgc",
+        ".mtx", ".run"
     };
 
     public enum ConversionType

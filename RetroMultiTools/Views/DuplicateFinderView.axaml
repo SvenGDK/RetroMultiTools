@@ -28,13 +28,40 @@
             <!-- Progress -->
             <StackPanel x:Name="ProgressPanel" IsVisible="False" Spacing="4">
                 <ProgressBar IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
-                <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+                    <Button x:Name="CancelButton" Grid.Column="1"
+                            Content="{Binding [Common_Cancel], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="CancelButton_Click"
+                            IsVisible="False" Padding="12,4" Margin="8,0,0,0"/>
+                </Grid>
             </StackPanel>
 
             <!-- Summary -->
             <Border x:Name="SummaryPanel" Background="#181825" CornerRadius="6" Padding="12"
                     IsVisible="False">
-                <TextBlock x:Name="SummaryText" Foreground="#CDD6F4" TextWrapping="Wrap" FontWeight="Bold"/>
+                <StackPanel Spacing="8">
+                    <TextBlock x:Name="SummaryText" Foreground="#CDD6F4" TextWrapping="Wrap" FontWeight="Bold"/>
+                    <StackPanel x:Name="DeletePanel" IsVisible="False" Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="DeleteButton"
+                                Content="{Binding [Duplicates_DeleteDuplicates], Source={x:Static loc:LocalizationManager.Instance}}"
+                                Click="DeleteButton_Click"
+                                Padding="12,6" Background="#45475A"/>
+                    </StackPanel>
+                    <StackPanel x:Name="ConfirmDeletePanel" IsVisible="False" Spacing="8">
+                        <TextBlock x:Name="ConfirmDeleteText" Foreground="#F38BA8" TextWrapping="Wrap" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button x:Name="ConfirmDeleteButton"
+                                    Content="{Binding [Duplicates_ConfirmDelete], Source={x:Static loc:LocalizationManager.Instance}}"
+                                    Click="ConfirmDelete_Click"
+                                    Padding="12,6" Background="#F38BA8" Foreground="#1E1E2E"/>
+                            <Button x:Name="CancelDeleteButton"
+                                    Content="{Binding [Common_Cancel], Source={x:Static loc:LocalizationManager.Instance}}"
+                                    Click="CancelDelete_Click"
+                                    Padding="12,6"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
             </Border>
         </StackPanel>
 

@@ -95,8 +95,7 @@ public sealed class LocalizationManager : INotifyPropertyChanged
                     return settings.Language;
             }
         }
-        catch (IOException) { }
-        catch (JsonException) { }
+        catch (Exception ex) when (ex is IOException or JsonException) { }
         return "en";
     }
 

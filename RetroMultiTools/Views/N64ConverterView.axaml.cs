@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -13,7 +14,7 @@ public partial class N64ConverterView : UserControl
 
     private async void BrowseInput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select N64 ROM",
+        var path = await PickFile(LocalizationManager.Instance["N64_SelectRom"],
         [
             new FilePickerFileType("N64 ROM Files") { Patterns = ["*.z64", "*.n64", "*.v64"] },
             FilePickerFileTypes.All
@@ -38,18 +39,13 @@ public partial class N64ConverterView : UserControl
             }
             else
             {
-                DetectedFormatText.Text = "Unknown — not a recognized N64 ROM";
+                DetectedFormatText.Text = LocalizationManager.Instance["N64_UnknownFormat"];
                 DetectedFormatPanel.IsVisible = true;
             }
         }
-        catch (IOException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            DetectedFormatText.Text = "Unable to read file";
-            DetectedFormatPanel.IsVisible = true;
-        }
-        catch (UnauthorizedAccessException)
-        {
-            DetectedFormatText.Text = "Unable to read file";
+            DetectedFormatText.Text = LocalizationManager.Instance["N64_UnableToRead"];
             DetectedFormatPanel.IsVisible = true;
         }
     }
@@ -97,7 +93,7 @@ public partial class N64ConverterView : UserControl
 
         var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Save Converted ROM As",
+            Title = LocalizationManager.Instance["N64_SaveAs"],
             SuggestedFileName = Path.GetFileName(OutputFileTextBox.Text ?? "converted.z64")
         });
 
@@ -112,13 +108,13 @@ public partial class N64ConverterView : UserControl
 
         if (string.IsNullOrEmpty(input))
         {
-            ShowStatus("Please select an input ROM file.", isError: true);
+            ShowStatus(LocalizationManager.Instance["N64_SelectInputFile"], isError: true);
             return;
         }
 
         if (string.IsNullOrEmpty(output))
         {
-            ShowStatus("Please specify an output file path.", isError: true);
+            ShowStatus(LocalizationManager.Instance["N64_SelectOutputFile"], isError: true);
             return;
         }
 
@@ -134,15 +130,7 @@ public partial class N64ConverterView : UserControl
 
             ShowStatus($"✔ Conversion complete!\nOutput: {output}", isError: false);
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (InvalidDataException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }

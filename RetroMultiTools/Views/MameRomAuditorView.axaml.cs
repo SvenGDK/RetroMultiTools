@@ -30,13 +30,7 @@ public partial class MameRomAuditorView : UserControl
             XmlInfoText.Text = $"Loaded {_machines.Count} machines from MAME database.";
             XmlInfoPanel.IsVisible = true;
         }
-        catch (InvalidOperationException ex)
-        {
-            _machines = null;
-            XmlInfoText.Text = $"Error loading MAME XML: {ex.Message}";
-            XmlInfoPanel.IsVisible = true;
-        }
-        catch (IOException ex)
+        catch (Exception ex) when (ex is InvalidOperationException or IOException)
         {
             _machines = null;
             XmlInfoText.Text = $"Error loading MAME XML: {ex.Message}";
@@ -84,7 +78,8 @@ public partial class MameRomAuditorView : UserControl
         {
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
 
-            var result = await MameRomAuditor.AuditDirectoryAsync(romDir, _machines, progress);
+            var result = await MameRomAuditor.AuditDirectoryAsync(romDir, _machines, progress,
+                searchRecursively: RecursiveCheckBox.IsChecked == true);
 
             ShowStatus($"✔ Audit complete!\n{result.Summary}", isError: false);
 
@@ -128,15 +123,7 @@ public partial class MameRomAuditorView : UserControl
             ResultsText.Text = lines.ToString();
             ResultsBorder.IsVisible = true;
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (InvalidOperationException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }

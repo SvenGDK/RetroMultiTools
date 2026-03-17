@@ -1,0 +1,74 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+        x:Class="RetroMultiTools.Views.HostRomsWindow"
+        Title="{Binding [HostShare_Title], Source={x:Static loc:LocalizationManager.Instance}}"
+        Width="560" Height="520"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Background="#1E1E2E">
+    <DockPanel Margin="16">
+
+        <!-- Header -->
+        <TextBlock DockPanel.Dock="Top" Text="{Binding [HostShare_Title], Source={x:Static loc:LocalizationManager.Instance}}"
+                   FontSize="18" FontWeight="Bold" Foreground="#CDD6F4" Margin="0,0,0,4"/>
+
+        <TextBlock DockPanel.Dock="Top" Text="{Binding [HostShare_Subtitle], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap" Margin="0,0,0,12"/>
+
+        <!-- Info -->
+        <TextBlock x:Name="FileInfoText" DockPanel.Dock="Top" Foreground="#A6ADC8" FontSize="12"
+                   TextWrapping="Wrap" Margin="0,0,0,12"/>
+
+        <!-- Bottom: buttons + status -->
+        <StackPanel DockPanel.Dock="Bottom" Spacing="8">
+            <TextBlock x:Name="StatusText" Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap"/>
+            <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" Margin="0,8,0,0">
+                <Button x:Name="StartStopButton" Content="{Binding [HostShare_Start], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="StartStopButton_Click" Padding="16,6" FontWeight="SemiBold"/>
+                <Button x:Name="CloseButton" Content="{Binding [HostShare_Close], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="CloseButton_Click" Padding="16,6"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Form -->
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="10">
+
+                <!-- Port -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{Binding [HostShare_Port], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13"/>
+                    <TextBox x:Name="PortTextBox" Watermark="{Binding [HostShare_PortWatermark], Source={x:Static loc:LocalizationManager.Instance}}"
+                             Text="8080" Width="120" HorizontalAlignment="Left"/>
+                </StackPanel>
+
+                <!-- URLs -->
+                <StackPanel x:Name="UrlPanel" Spacing="4" IsVisible="False">
+                    <TextBlock Text="{Binding [HostShare_ShareUrls], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13"/>
+                    <Border Background="#181825" CornerRadius="4" Padding="10">
+                        <StackPanel Spacing="4">
+                            <SelectableTextBlock x:Name="UrlsText" Foreground="#89B4FA" FontSize="13"
+                                                 FontFamily="Consolas, Courier New, monospace"
+                                                 TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+                    <Button x:Name="CopyUrlButton" Content="{Binding [HostShare_CopyUrl], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="CopyUrlButton_Click" Padding="12,4" FontSize="12"/>
+                </StackPanel>
+
+                <!-- Connection log -->
+                <StackPanel x:Name="LogPanel" Spacing="4" IsVisible="False">
+                    <TextBlock Text="{Binding [HostShare_ConnectionLog], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13"/>
+                    <Border Background="#181825" CornerRadius="4" Padding="8" MaxHeight="160">
+                        <ScrollViewer x:Name="LogScrollViewer" VerticalScrollBarVisibility="Auto">
+                            <TextBlock x:Name="LogText" Foreground="#A6ADC8" FontSize="11"
+                                       FontFamily="Consolas, Courier New, monospace"
+                                       TextWrapping="Wrap"/>
+                        </ScrollViewer>
+                    </Border>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

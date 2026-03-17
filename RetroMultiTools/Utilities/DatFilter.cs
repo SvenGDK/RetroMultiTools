@@ -273,7 +273,7 @@ public static partial class DatFilter
     private static int GetBestLanguageScore(GameInfo info, List<string> languagePriority)
     {
         if (info.Languages.Count == 0)
-            return 0;
+            return languagePriority.Count + 1;
 
         int bestIndex = int.MaxValue;
         foreach (string lang in info.Languages)

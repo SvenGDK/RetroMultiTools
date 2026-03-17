@@ -24,7 +24,8 @@ public static class DuplicateFinder
         ".chd", ".rvz", ".gcm"
     };
 
-    public static async Task<(List<DuplicateGroup> Groups, int TotalFilesScanned)> FindDuplicatesAsync(string directoryPath, IProgress<string>? progress = null)
+    public static async Task<(List<DuplicateGroup> Groups, int TotalFilesScanned)> FindDuplicatesAsync(
+        string directoryPath, IProgress<string>? progress = null, CancellationToken cancellationToken = default)
     {
         if (!Directory.Exists(directoryPath))
             throw new DirectoryNotFoundException($"Directory not found: {directoryPath}");
@@ -39,10 +40,12 @@ public static class DuplicateFinder
 
         for (int i = 0; i < files.Count; i++)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             var file = files[i];
             progress?.Report($"Hashing file {i + 1} of {files.Count}: {Path.GetFileName(file)}");
 
-            string crc = await Task.Run(() => ComputeCrc32(file)).ConfigureAwait(false);
+            string crc = await Task.Run(() => ComputeCrc32(file), cancellationToken).ConfigureAwait(false);
 
             if (!hashMap.TryGetValue(crc, out var list))
             {
@@ -82,6 +85,44 @@ public static class DuplicateFinder
             DuplicateGroups = groups.Count,
             WastedBytes = wastedBytes
         };
+    }
+
+    public static async Task<(int DeletedCount, long FreedBytes)> DeleteDuplicatesAsync(
+        List<DuplicateGroup> groups, IProgress<string>? progress = null, CancellationToken cancellationToken = default)
+    {
+        int deletedCount = 0;
+        long freedBytes = 0;
+
+        for (int g = 0; g < groups.Count; g++)
+        {
+            var group = groups[g];
+            // Keep the first file, delete the rest
+            for (int i = 1; i < group.FilePaths.Count; i++)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                var file = group.FilePaths[i];
+                progress?.Report($"Deleting duplicate {deletedCount + 1}: {Path.GetFileName(file)}");
+
+                try
+                {
+                    if (File.Exists(file))
+                    {
+                        long size = new FileInfo(file).Length;
+                        await Task.Run(() => File.Delete(file), cancellationToken).ConfigureAwait(false);
+                        freedBytes += size;
+                        deletedCount++;
+                    }
+                }
+                catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+                {
+                    progress?.Report($"Could not delete: {file} — {ex.Message}");
+                }
+            }
+        }
+
+        progress?.Report("Done.");
+        return (deletedCount, freedBytes);
     }
 
     private static string ComputeCrc32(string filePath)

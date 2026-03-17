@@ -43,17 +43,20 @@
                         <ComboBoxItem Content="SFTP" Tag="Sftp"/>
                         <ComboBoxItem Content="WebDAV" Tag="WebDav"/>
                         <ComboBoxItem Content="S3-Compatible" Tag="S3Compatible"/>
+                        <ComboBoxItem Content="Google Drive" Tag="GoogleDrive"/>
+                        <ComboBoxItem Content="Dropbox" Tag="Dropbox"/>
+                        <ComboBoxItem Content="OneDrive" Tag="OneDrive"/>
                     </ComboBox>
                 </StackPanel>
 
                 <!-- Host -->
-                <StackPanel Spacing="4">
+                <StackPanel x:Name="HostPanel" Spacing="4">
                     <TextBlock Text="{Binding [SendRemote_Host], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13"/>
                     <TextBox x:Name="HostTextBox" Watermark="{Binding [SendRemote_HostWatermark], Source={x:Static loc:LocalizationManager.Instance}}" HorizontalAlignment="Stretch"/>
                 </StackPanel>
 
                 <!-- Port -->
-                <StackPanel Spacing="4">
+                <StackPanel x:Name="PortPanel" Spacing="4">
                     <TextBlock Text="{Binding [SendRemote_Port], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13"/>
                     <TextBox x:Name="PortTextBox" Watermark="{Binding [SendRemote_PortWatermark], Source={x:Static loc:LocalizationManager.Instance}}" Width="120" HorizontalAlignment="Left"/>
                 </StackPanel>
@@ -82,6 +85,14 @@
                     <TextBox x:Name="RegionTextBox" Watermark="{Binding [SendRemote_RegionWatermark], Source={x:Static loc:LocalizationManager.Instance}}" Text="us-east-1" HorizontalAlignment="Stretch"/>
                     <TextBlock Text="{Binding [SendRemote_ServiceUrl], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13" Margin="0,6,0,0"/>
                     <TextBox x:Name="ServiceUrlTextBox" Watermark="{Binding [SendRemote_ServiceUrlWatermark], Source={x:Static loc:LocalizationManager.Instance}}" HorizontalAlignment="Stretch"/>
+                </StackPanel>
+
+                <!-- Cloud storage fields (Google Drive, Dropbox, OneDrive) -->
+                <StackPanel x:Name="CloudPanel" Spacing="4" IsVisible="False">
+                    <TextBlock Text="{Binding [SendRemote_OAuthToken], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13"/>
+                    <TextBox x:Name="OAuthTokenTextBox" Watermark="{Binding [SendRemote_OAuthTokenWatermark], Source={x:Static loc:LocalizationManager.Instance}}" PasswordChar="●" HorizontalAlignment="Stretch"/>
+                    <TextBlock x:Name="CloudFolderIdLabel" Text="{Binding [SendRemote_CloudFolderId], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" FontSize="13" Margin="0,6,0,0"/>
+                    <TextBox x:Name="CloudFolderIdTextBox" Watermark="{Binding [SendRemote_CloudFolderIdWatermark], Source={x:Static loc:LocalizationManager.Instance}}" HorizontalAlignment="Stretch"/>
                 </StackPanel>
 
                 <!-- Remote path -->

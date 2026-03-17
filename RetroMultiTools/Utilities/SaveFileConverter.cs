@@ -68,13 +68,13 @@ public static class SaveFileConverter
         try
         {
             await File.WriteAllBytesAsync(outputPath, result).ConfigureAwait(false);
+            progress?.Report("Done.");
         }
         catch
         {
             try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
             throw;
         }
-        progress?.Report("Done.");
     }
 
     private static byte[] SwapEndian16(byte[] data)

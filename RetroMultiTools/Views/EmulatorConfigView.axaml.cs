@@ -186,15 +186,7 @@ public partial class EmulatorConfigView : UserControl
 
             ShowStatus($"✔ Configuration generated!\nOutput: {output}", isError: false);
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (InvalidOperationException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }

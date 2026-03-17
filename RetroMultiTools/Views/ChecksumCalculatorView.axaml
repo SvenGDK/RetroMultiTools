@@ -32,7 +32,7 @@
         <!-- Results -->
         <Border x:Name="ResultPanel" Background="#181825" CornerRadius="6" Padding="16"
                 IsVisible="False">
-            <Grid ColumnDefinitions="100,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" >
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" >
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [Common_FileSize], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,8"/>
                 <TextBlock Grid.Row="0" Grid.Column="1" x:Name="FileSizeText" Foreground="#CDD6F4" Margin="0,0,0,8"/>
 

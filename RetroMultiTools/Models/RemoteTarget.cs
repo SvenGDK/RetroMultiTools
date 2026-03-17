@@ -5,7 +5,10 @@ public enum TransferProtocol
     Ftp,
     Sftp,
     WebDav,
-    S3Compatible
+    S3Compatible,
+    GoogleDrive,
+    Dropbox,
+    OneDrive
 }
 
 public class RemoteTarget
@@ -25,12 +28,19 @@ public class RemoteTarget
     public string Region { get; set; } = "us-east-1";
     public string? ServiceUrl { get; set; }
 
+    // Cloud storage (Google Drive, Dropbox, OneDrive)
+    public string OAuthToken { get; set; } = string.Empty;
+    public string CloudFolderId { get; set; } = string.Empty;
+
     public static int DefaultPort(TransferProtocol protocol) => protocol switch
     {
         TransferProtocol.Ftp => 21,
         TransferProtocol.Sftp => 22,
         TransferProtocol.WebDav => 443,
         TransferProtocol.S3Compatible => 443,
+        TransferProtocol.GoogleDrive => 443,
+        TransferProtocol.Dropbox => 443,
+        TransferProtocol.OneDrive => 443,
         _ => 0
     };
 }

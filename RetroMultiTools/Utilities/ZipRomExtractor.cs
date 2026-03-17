@@ -118,11 +118,7 @@ public static class ZipRomExtractor
                     extracted++;
                     totalBytes += entry.Length;
                 }
-                catch (IOException)
-                {
-                    skipped++;
-                }
-                catch (UnauthorizedAccessException)
+                catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
                 {
                     skipped++;
                 }
@@ -175,11 +171,7 @@ public static class ZipRomExtractor
                 totalSkipped += result.Skipped;
                 totalBytes += result.TotalBytes;
             }
-            catch (IOException)
-            {
-                totalSkipped++;
-            }
-            catch (InvalidDataException)
+            catch (Exception ex) when (ex is IOException or InvalidDataException)
             {
                 totalSkipped++;
             }

@@ -80,7 +80,8 @@ public static class MameSampleAuditor
     public static async Task<SampleAuditResult> AuditDirectoryAsync(
         string sampleDirectory,
         List<MameSampleSet> sampleSets,
-        IProgress<string>? progress = null)
+        IProgress<string>? progress = null,
+        bool searchRecursively = false)
     {
         if (!Directory.Exists(sampleDirectory))
             throw new DirectoryNotFoundException($"Sample directory not found: {sampleDirectory}");
@@ -96,7 +97,8 @@ public static class MameSampleAuditor
             sampleOfSets.TryAdd(s.SampleOf, s);
         }
 
-        var zipFiles = Directory.EnumerateFiles(sampleDirectory, "*.zip", SearchOption.TopDirectoryOnly).ToList();
+        var searchOption = searchRecursively ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+        var zipFiles = Directory.EnumerateFiles(sampleDirectory, "*.zip", searchOption).ToList();
 
         var results = new List<SampleSetAuditResult>();
         int goodCount = 0, badCount = 0, incompleteCount = 0;

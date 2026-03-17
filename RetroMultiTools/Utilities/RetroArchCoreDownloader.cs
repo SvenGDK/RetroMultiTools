@@ -91,32 +91,50 @@ public static class RetroArchCoreDownloader
 
         string coresDir = Path.Combine(retroArchDir, "cores");
 
-        // On Linux, RetroArch installed via package manager may not have a writable
-        // cores directory next to the executable; prefer the user config directory.
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && !Directory.Exists(coresDir))
+        // On macOS, RetroArch installed as .app bundle stores cores in
+        // ~/Library/Application Support/RetroArch/cores rather than inside the bundle.
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && !Directory.Exists(coresDir))
         {
             string userCoresDir = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                ".config", "retroarch", "cores");
+                "Library", "Application Support", "RetroArch", "cores");
 
             try
             {
                 Directory.CreateDirectory(userCoresDir);
                 return userCoresDir;
             }
-            catch (IOException) { }
-            catch (UnauthorizedAccessException) { }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
+        }
+
+        // On Linux, RetroArch installed via package manager may not have a writable
+        // cores directory next to the executable; prefer the user config directory.
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && !Directory.Exists(coresDir))
+        {
+            // For Flatpak installations, use the Flatpak-specific config path
+            bool isFlatpak = retroArchPath.EndsWith("org.libretro.RetroArch", StringComparison.Ordinal)
+                || retroArchPath.Contains("/flatpak/", StringComparison.Ordinal);
+            string userCoresDir = isFlatpak
+                ? Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                    ".var", "app", "org.libretro.RetroArch", "config", "retroarch", "cores")
+                : Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                    ".config", "retroarch", "cores");
+
+            try
+            {
+                Directory.CreateDirectory(userCoresDir);
+                return userCoresDir;
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
         }
 
         try
         {
             Directory.CreateDirectory(coresDir);
         }
-        catch (IOException)
-        {
-            return null;
-        }
-        catch (UnauthorizedAccessException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             return null;
         }

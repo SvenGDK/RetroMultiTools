@@ -18,7 +18,7 @@ public partial class BatchHeaderFixerView : UserControl
 
         bool isBatch = sender == BatchModeRadio;
         InputLabel.Text = isBatch ? "ROM Directory:" : "ROM File:";
-        InputPathTextBox.Watermark = isBatch ? "Select a ROM directory..." : "Select a ROM file (.nes, .smc, .sfc, .gb, .gbc, .gba, .md, .gen, .sms, .gg, .z64, .n64, .v64, .32x, .a78, .lnx, .pce, .tg16, .vb, .vboy, .ngp, .ngc, .j64, .jag, .mx1, .mx2, .col, .cv, .sv)...";
+        InputPathTextBox.Watermark = isBatch ? "Select a ROM directory..." : "Select a ROM file (.nes, .smc, .sfc, .gb, .gbc, .gba, .md, .gen, .sms, .gg, .z64, .n64, .v64, .32x, .a78, .lnx, .pce, .tg16, .vb, .vboy, .ngp, .ngc, .j64, .jag, .mx1, .mx2, .col, .cv, .sv, .nds, .int)...";
         OutputLabel.Text = isBatch ? "Output Directory:" : "Output File:";
         OutputPathTextBox.Watermark = isBatch ? "Output directory..." : "Output file path...";
         InputPathTextBox.Text = string.Empty;
@@ -42,7 +42,7 @@ public partial class BatchHeaderFixerView : UserControl
         {
             var path = await PickFile("Select ROM File",
             [
-                new FilePickerFileType("Supported ROM Files") { Patterns = ["*.nes", "*.smc", "*.sfc", "*.gb", "*.gbc", "*.gba", "*.md", "*.gen", "*.sms", "*.gg", "*.z64", "*.n64", "*.v64", "*.32x", "*.a78", "*.lnx", "*.pce", "*.tg16", "*.vb", "*.vboy", "*.ngp", "*.ngc", "*.j64", "*.jag", "*.mx1", "*.mx2", "*.col", "*.cv", "*.sv"] },
+                new FilePickerFileType("Supported ROM Files") { Patterns = ["*.nes", "*.smc", "*.sfc", "*.gb", "*.gbc", "*.gba", "*.md", "*.gen", "*.sms", "*.gg", "*.z64", "*.n64", "*.v64", "*.32x", "*.a78", "*.lnx", "*.pce", "*.tg16", "*.vb", "*.vboy", "*.ngp", "*.ngc", "*.j64", "*.jag", "*.mx1", "*.mx2", "*.col", "*.cv", "*.sv", "*.nds", "*.int"] },
                 FilePickerFileTypes.All
             ]);
             if (path == null) return;
@@ -139,11 +139,7 @@ public partial class BatchHeaderFixerView : UserControl
                 ShowStatus(resultMsg, isError: false);
             }
         }
-        catch (InvalidOperationException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (IOException ex)
+        catch (Exception ex) when (ex is InvalidOperationException or IOException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }

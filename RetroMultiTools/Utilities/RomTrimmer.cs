@@ -46,7 +46,10 @@ public static class RomTrimmer
         }
 
         // trimmedSize is lastNonPadding + 1 (the byte at lastNonPadding is kept)
-        // If all bytes are padding, trimmedSize = 0
+        // If all bytes are padding, keep the original file unchanged
+        if (lastNonPadding < 0)
+            return new TrimAnalysis { OriginalSize = fileSize, TrimmedSize = fileSize };
+
         long trimmedSize = lastNonPadding + 1;
 
         // Align to the nearest power-of-two boundary if reasonable

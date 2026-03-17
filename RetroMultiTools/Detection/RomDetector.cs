@@ -52,6 +52,21 @@ public static class RomDetector
         { ".cdi", RomSystem.SegaDreamcast },
         { ".gdi", RomSystem.SegaDreamcast },
         { ".gcm", RomSystem.GameCube },
+        { ".atr", RomSystem.Atari800 },
+        { ".xex", RomSystem.Atari800 },
+        { ".car", RomSystem.Atari800 },
+        { ".cas", RomSystem.Atari800 },
+        { ".d88", RomSystem.NECPC88 },
+        { ".t88", RomSystem.NECPC88 },
+        { ".ndd", RomSystem.N64DD },
+        { ".nds", RomSystem.NintendoDS },
+        { ".3ds", RomSystem.Nintendo3DS },
+        { ".cia", RomSystem.Nintendo3DS },
+        { ".neo", RomSystem.NeoGeo },
+        { ".chf", RomSystem.FairchildChannelF },
+        { ".tgc", RomSystem.TigerGameCom },
+        { ".mtx", RomSystem.MemotechMTX },
+        { ".run", RomSystem.MemotechMTX },
     };
 
     public static RomInfo Detect(string filePath)
@@ -106,12 +121,7 @@ public static class RomDetector
                 info.ErrorMessage = "Unrecognized file extension.";
             }
         }
-        catch (IOException ex)
-        {
-            info.IsValid = false;
-            info.ErrorMessage = ex.Message;
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             info.IsValid = false;
             info.ErrorMessage = ex.Message;
@@ -156,8 +166,7 @@ public static class RomDetector
                 }
             }
         }
-        catch (IOException) { }
-        catch (UnauthorizedAccessException) { }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
         return null;
     }
 
@@ -232,9 +241,24 @@ public static class RomDetector
                 if (header[0x1C] == 0xC2 && header[0x1D] == 0x33 && header[0x1E] == 0x9F && header[0x1F] == 0x3D)
                     return RomSystem.GameCube;
             }
+
+            // Check for Neo Geo CD: "NEO-GEO" marker in header area
+            if (read >= 0x100)
+            {
+                string neoBlock = System.Text.Encoding.ASCII.GetString(header, 0, Math.Min(read, 0x100));
+                if (neoBlock.Contains("NEO-GEO", StringComparison.Ordinal))
+                    return RomSystem.NeoGeoCD;
+            }
+
+            // Check for Philips CD-i: "CD-RTOS" marker in header area
+            if (read >= 0x50)
+            {
+                string cdiBlock = System.Text.Encoding.ASCII.GetString(header, 0, Math.Min(read, 0x50));
+                if (cdiBlock.Contains("CD-RTOS", StringComparison.Ordinal))
+                    return RomSystem.PhilipsCDi;
+            }
         }
-        catch (IOException) { }
-        catch (UnauthorizedAccessException) { }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
 
         return RomSystem.SegaCD; // fallback for unrecognized disc images
     }
@@ -265,12 +289,7 @@ public static class RomDetector
             info.SystemName = GetSystemDisplayName(RomSystem.Atari2600);
             info.IsValid = true;
         }
-        catch (IOException ex)
-        {
-            info.IsValid = false;
-            info.ErrorMessage = ex.Message;
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             info.IsValid = false;
             info.ErrorMessage = ex.Message;
@@ -384,17 +403,50 @@ public static class RomDetector
                 case RomSystem.Wii:
                     ParseWiiHeader(info, fs);
                     break;
+                case RomSystem.Atari800:
+                    ParseAtari800Header(info, header, read);
+                    break;
+                case RomSystem.NECPC88:
+                    ParseNECPC88Header(info, header, read);
+                    break;
+                case RomSystem.N64DD:
+                    ParseN64DDHeader(info, header, read);
+                    break;
+                case RomSystem.NintendoDS:
+                    ParseNintendoDSHeader(info, header, read);
+                    break;
+                case RomSystem.Nintendo3DS:
+                    ParseNintendo3DSHeader(info, header, read);
+                    break;
+                case RomSystem.NeoGeo:
+                    ParseNeoGeoHeader(info, header, read);
+                    break;
+                case RomSystem.NeoGeoCD:
+                    ParseNeoGeoCDHeader(info, fs);
+                    break;
+                case RomSystem.PhilipsCDi:
+                    ParsePhilipsCDiHeader(info, fs);
+                    break;
+                case RomSystem.FairchildChannelF:
+                    ParseFairchildChannelFHeader(info, header, read);
+                    break;
+                case RomSystem.TigerGameCom:
+                    ParseTigerGameComHeader(info, header, read);
+                    break;
+                case RomSystem.MemotechMTX:
+                    ParseMemotechMTXHeader(info, header, read);
+                    break;
+                case RomSystem.Arcade:
+                    // Arcade ROMs (MAME) are ZIP-based sets of chip dumps; no
+                    // single-file header format exists to parse.
+                    info.IsValid = true;
+                    break;
                 default:
                     info.IsValid = true;
                     break;
             }
         }
-        catch (IOException ex)
-        {
-            info.IsValid = false;
-            info.ErrorMessage = ex.Message;
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             info.IsValid = false;
             info.ErrorMessage = ex.Message;
@@ -1108,7 +1160,7 @@ public static class RomDetector
         {
             // Look for header after sync bytes (0x16 repeated, then 0x24)
             int headerStart = -1;
-            for (int i = 0; i < read - 9; i++)
+            for (int i = 0; i <= read - 9; i++)
             {
                 if (header[i] == 0x24)
                 {
@@ -1493,6 +1545,310 @@ public static class RomDetector
         info.IsValid = true;
     }
 
+    private static void ParseAtari800Header(RomInfo info, byte[] header, int read)
+    {
+        // Atari 8-bit cartridge (.car) header: 4-byte CART magic, 4-byte type, 4-byte checksum, 4-byte unused
+        // .atr disk image: 0x0296 magic word (little-endian) at offset 0x00
+        // .xex executable: variable structure
+        if (read >= 16 && header[0] == 0x43 && header[1] == 0x41 && header[2] == 0x52 && header[3] == 0x54) // "CART"
+        {
+            info.HeaderInfo["Format"] = "Atari Cartridge (CART)";
+            int cartType = (header[4] << 24) | (header[5] << 16) | (header[6] << 8) | header[7];
+            info.HeaderInfo["Cartridge Type"] = $"{cartType}";
+        }
+        else if (read >= 16 && header[0] == 0x96 && header[1] == 0x02)
+        {
+            info.HeaderInfo["Format"] = "Atari Disk Image (ATR)";
+            int sectorSize = header[4] | (header[5] << 8);
+            info.HeaderInfo["Sector Size"] = $"{sectorSize} bytes";
+        }
+        else
+        {
+            info.HeaderInfo["Format"] = "Atari 8-bit ROM";
+        }
+
+        info.IsValid = true;
+    }
+
+    private static void ParseNECPC88Header(RomInfo info, byte[] header, int read)
+    {
+        // D88 disk image format: title (17 bytes ASCII at offset 0), reserved, media type at 0x1B,
+        // write-protect flag at 0x1A, disk size at 0x1C (4 bytes little-endian)
+        if (read >= 0x20)
+        {
+            string title = System.Text.Encoding.ASCII.GetString(header, 0, 17).TrimEnd('\0', ' ');
+            if (!string.IsNullOrWhiteSpace(title))
+                info.HeaderInfo["Title"] = title;
+
+            byte mediaType = header[0x1B];
+            string media = mediaType switch
+            {
+                0x00 => "2D",
+                0x10 => "2DD",
+                0x20 => "2HD",
+                0x30 => "1D",
+                0x40 => "1DD",
+                _ => $"Unknown (0x{mediaType:X2})"
+            };
+            info.HeaderInfo["Media Type"] = media;
+
+            byte writeProtect = header[0x1A];
+            info.HeaderInfo["Write Protected"] = writeProtect == 0x10 ? "Yes" : "No";
+
+            info.HeaderInfo["Format"] = "D88 Disk Image";
+        }
+        else
+        {
+            info.HeaderInfo["Format"] = "PC-88 ROM";
+        }
+
+        info.IsValid = true;
+    }
+
+    private static void ParseN64DDHeader(RomInfo info, byte[] header, int read)
+    {
+        // N64 Disk Drive disk images (.ndd) — 64MB disk images
+        // The disk has a system area and user area; detect basic format info
+        if (read >= 0x20)
+        {
+            info.HeaderInfo["Format"] = "N64DD Disk Image";
+
+            // Check for retail disk format indicators
+            string idBlock = System.Text.Encoding.ASCII.GetString(header, 0, Math.Min(16, read)).TrimEnd('\0', ' ');
+            if (!string.IsNullOrWhiteSpace(idBlock))
+                info.HeaderInfo["Disk ID"] = idBlock;
+        }
+
+        info.IsValid = true;
+    }
+
+    private static void ParseNintendoDSHeader(RomInfo info, byte[] header, int read)
+    {
+        // Nintendo DS header: 0x00 = Game Title (12 bytes), 0x0C = Game Code (4 bytes),
+        // 0x10 = Maker Code (2 bytes), 0x12 = Unit Code, 0x1E = ROM Version
+        if (read < 0x80)
+        {
+            info.IsValid = true;
+            return;
+        }
+
+        string title = System.Text.Encoding.ASCII.GetString(header, 0x00, 12).TrimEnd('\0', ' ');
+        if (!string.IsNullOrWhiteSpace(title))
+            info.HeaderInfo["Title"] = title;
+
+        string gameCode = System.Text.Encoding.ASCII.GetString(header, 0x0C, 4).TrimEnd('\0', ' ');
+        if (!string.IsNullOrWhiteSpace(gameCode))
+            info.HeaderInfo["Game Code"] = gameCode;
+
+        string makerCode = System.Text.Encoding.ASCII.GetString(header, 0x10, 2).TrimEnd('\0', ' ');
+        if (!string.IsNullOrWhiteSpace(makerCode))
+            info.HeaderInfo["Maker Code"] = makerCode;
+
+        byte unitCode = header[0x12];
+        string unit = unitCode switch
+        {
+            0x00 => "Nintendo DS",
+            0x02 => "Nintendo DS + DSi Enhanced",
+            0x03 => "Nintendo DSi Only",
+            _ => $"Unknown (0x{unitCode:X2})"
+        };
+        info.HeaderInfo["Unit Code"] = unit;
+
+        info.HeaderInfo["ROM Version"] = $"{header[0x1E]}";
+
+        // Header CRC16 at 0x15E — covers bytes 0x00 through 0x15D
+        if (read >= 0x160)
+        {
+            ushort storedCrc = (ushort)(header[0x15E] | (header[0x15F] << 8));
+
+            // Calculate CRC-16/MODBUS over bytes 0x00-0x15D
+            ushort crc = 0xFFFF;
+            for (int i = 0; i < 0x15E; i++)
+            {
+                crc ^= header[i];
+                for (int j = 0; j < 8; j++)
+                    crc = (ushort)(((crc & 1) != 0) ? (crc >> 1) ^ 0xA001 : crc >> 1);
+            }
+
+            bool valid = storedCrc == crc;
+            info.HeaderInfo["Header CRC16"] = valid
+                ? $"0x{storedCrc:X4} (valid)"
+                : $"0x{storedCrc:X4} (invalid, expected 0x{crc:X4})";
+        }
+
+        info.HeaderInfo["Format"] = "Nintendo DS ROM";
+        info.IsValid = true;
+    }
+
+    private static void ParseNintendo3DSHeader(RomInfo info, byte[] header, int read)
+    {
+        // 3DS (.3ds) files use the NCSD format. The NCSD header starts at offset 0x100.
+        // .cia files are installable archives with a different structure.
+        if (read >= 0x110)
+        {
+            // Check for NCSD magic at 0x100
+            if (header[0x100] == 0x4E && header[0x101] == 0x43 && header[0x102] == 0x53 && header[0x103] == 0x44)
+            {
+                info.HeaderInfo["Format"] = "Nintendo 3DS (NCSD)";
+
+                // NCSD image size at 0x104 (in media units = 0x200 bytes)
+                if (read >= 0x108)
+                {
+                    long imageSize = (long)(header[0x104] | (header[0x105] << 8) |
+                                     (header[0x106] << 16) | (header[0x107] << 24)) * 0x200;
+                    if (imageSize > 0)
+                        info.HeaderInfo["Image Size"] = $"{imageSize / (1024 * 1024)} MB";
+                }
+
+                // Media ID at 0x108 (8 bytes)
+                if (read >= 0x110)
+                {
+                    long mediaId = header[0x108] | ((long)header[0x109] << 8) |
+                                   ((long)header[0x10A] << 16) | ((long)header[0x10B] << 24);
+                    if (mediaId != 0)
+                        info.HeaderInfo["Media ID"] = $"0x{mediaId:X8}";
+                }
+            }
+            else
+            {
+                info.HeaderInfo["Format"] = "Nintendo 3DS ROM";
+            }
+        }
+        else
+        {
+            info.HeaderInfo["Format"] = "Nintendo 3DS ROM";
+        }
+
+        info.IsValid = true;
+    }
+
+    private static void ParseNeoGeoHeader(RomInfo info, byte[] header, int read)
+    {
+        // Neo Geo .neo format: header contains system info, game name, and configuration
+        // The .neo format starts with "NEO" magic bytes followed by ROM size metadata
+        if (read >= 0x40)
+        {
+            // Check for NEO format magic
+            if (header[0] == 0x4E && header[1] == 0x45 && header[2] == 0x4F) // "NEO"
+            {
+                info.HeaderInfo["Format"] = "Neo Geo (.neo)";
+
+                // Byte 3: version
+                if (read >= 4)
+                    info.HeaderInfo["Version"] = $"{header[3]}";
+
+                // Bytes 4-7: P-ROM size (big-endian)
+                if (read >= 8)
+                {
+                    int promSize = (header[4] << 24) | (header[5] << 16) | (header[6] << 8) | header[7];
+                    if (promSize > 0)
+                        info.HeaderInfo["P-ROM Size"] = $"{promSize / 1024} KB";
+                }
+
+                // Bytes 8-11: S-ROM size (big-endian)
+                if (read >= 12)
+                {
+                    int sromSize = (header[8] << 24) | (header[9] << 16) | (header[10] << 8) | header[11];
+                    if (sromSize > 0)
+                        info.HeaderInfo["S-ROM Size"] = $"{sromSize / 1024} KB";
+                }
+            }
+            else
+            {
+                info.HeaderInfo["Format"] = "Neo Geo ROM";
+            }
+        }
+
+        info.IsValid = true;
+    }
+
+    private static void ParseNeoGeoCDHeader(RomInfo info, FileStream fs)
+    {
+        // Neo Geo CD disc image: "NEO-GEO" marker in header area
+        long fileLen = fs.Length;
+        if (fileLen < 0x100)
+        {
+            info.IsValid = true;
+            return;
+        }
+
+        byte[] header = new byte[0x200];
+        fs.Seek(0, SeekOrigin.Begin);
+        int read = fs.Read(header, 0, (int)Math.Min(header.Length, fileLen));
+
+        if (read >= 0x100)
+        {
+            string block = System.Text.Encoding.ASCII.GetString(header, 0, Math.Min(read, 0x100));
+            if (block.Contains("NEO-GEO", StringComparison.Ordinal))
+                info.HeaderInfo["Format"] = "Neo Geo CD Disc Image";
+            else
+                info.HeaderInfo["Format"] = "Neo Geo CD Image";
+        }
+
+        info.IsValid = true;
+    }
+
+    private static void ParsePhilipsCDiHeader(RomInfo info, FileStream fs)
+    {
+        // Philips CD-i disc image: "CD-RTOS" marker typically found in header
+        long fileLen = fs.Length;
+        if (fileLen < 0x100)
+        {
+            info.IsValid = true;
+            return;
+        }
+
+        byte[] header = new byte[0x200];
+        fs.Seek(0, SeekOrigin.Begin);
+        int read = fs.Read(header, 0, (int)Math.Min(header.Length, fileLen));
+
+        if (read >= 0x50)
+        {
+            string block = System.Text.Encoding.ASCII.GetString(header, 0, Math.Min(read, 0x50));
+            if (block.Contains("CD-RTOS", StringComparison.Ordinal))
+                info.HeaderInfo["Format"] = "Philips CD-i (CD-RTOS)";
+            else
+                info.HeaderInfo["Format"] = "Philips CD-i Image";
+        }
+
+        info.IsValid = true;
+    }
+
+    private static void ParseFairchildChannelFHeader(RomInfo info, byte[] header, int read)
+    {
+        // Fairchild Channel F cartridges are simple ROM dumps without a standard header.
+        // ROM sizes range from 2 KB to 64 KB.
+        if (read >= 2)
+        {
+            info.HeaderInfo["ROM Size"] = FileUtils.FormatFileSize(read);
+        }
+
+        info.IsValid = true;
+    }
+
+    private static void ParseTigerGameComHeader(RomInfo info, byte[] header, int read)
+    {
+        // Tiger Game Com ROMs are simple ROM dumps.
+        // Typical sizes are 256 KB to 2 MB.
+        if (read >= 2)
+        {
+            info.HeaderInfo["ROM Size"] = FileUtils.FormatFileSize(read);
+        }
+
+        info.IsValid = true;
+    }
+
+    private static void ParseMemotechMTXHeader(RomInfo info, byte[] header, int read)
+    {
+        // Memotech MTX .mtx/.run files. The .run format may start with a load address.
+        if (read >= 2)
+        {
+            info.HeaderInfo["ROM Size"] = FileUtils.FormatFileSize(read);
+        }
+
+        info.IsValid = true;
+    }
+
     public static string GetSystemDisplayName(RomSystem system) => system switch
     {
         RomSystem.NES => "Nintendo Entertainment System",
@@ -1530,6 +1886,17 @@ public static class RomDetector
         RomSystem.GameCube => "Nintendo GameCube",
         RomSystem.Wii => "Nintendo Wii",
         RomSystem.Arcade => "Arcade (MAME)",
+        RomSystem.Atari800 => "Atari 800 / XL / XE",
+        RomSystem.NECPC88 => "NEC PC-88",
+        RomSystem.N64DD => "Nintendo 64DD",
+        RomSystem.NintendoDS => "Nintendo DS",
+        RomSystem.Nintendo3DS => "Nintendo 3DS",
+        RomSystem.NeoGeo => "SNK Neo Geo",
+        RomSystem.NeoGeoCD => "SNK Neo Geo CD",
+        RomSystem.PhilipsCDi => "Philips CD-i",
+        RomSystem.FairchildChannelF => "Fairchild Channel F",
+        RomSystem.TigerGameCom => "Tiger Game Com",
+        RomSystem.MemotechMTX => "Memotech MTX",
         _ => "Unknown"
     };
 }

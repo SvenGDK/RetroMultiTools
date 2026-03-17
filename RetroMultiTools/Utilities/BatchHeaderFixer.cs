@@ -16,9 +16,9 @@ public static class BatchHeaderFixer
     /// <summary>
     /// Fixes ROM headers for all supported ROMs in a directory.
     /// Supports SNES, Game Boy/GBC, GBA, Mega Drive/Genesis, Sega 32X, and N64 checksum fixing,
-    /// SMS/Game Gear TMR SEGA checksum fixing, NES header cleanup, and header validation for
-    /// Atari 7800, Atari Lynx, PC Engine, Virtual Boy, Neo Geo Pocket, Atari Jaguar, MSX,
-    /// ColecoVision, and Watara Supervision.
+    /// SMS/Game Gear TMR SEGA checksum fixing, NES header cleanup, Nintendo DS header CRC16 fixing,
+    /// and header validation for Atari 7800, Atari Lynx, PC Engine, Virtual Boy, Neo Geo Pocket,
+    /// Atari Jaguar, MSX, ColecoVision, Intellivision, and Watara Supervision.
     /// </summary>
     public static async Task<BatchFixResult> FixDirectoryAsync(
         string inputDirectory,
@@ -48,7 +48,14 @@ public static class BatchHeaderFixer
             try
             {
                 string ext = Path.GetExtension(file).ToLowerInvariant();
-                string outputPath = Path.Combine(outputDirectory, fileName);
+
+                // Preserve subdirectory structure relative to input directory
+                string relativePath = Path.GetRelativePath(inputDirectory, file);
+                string outputPath = Path.Combine(outputDirectory, relativePath);
+                string? outputDir = Path.GetDirectoryName(outputPath);
+                if (!string.IsNullOrEmpty(outputDir))
+                    Directory.CreateDirectory(outputDir);
+
                 bool wasFixed;
 
                 if (ext is ".smc" or ".sfc")
@@ -85,6 +92,10 @@ public static class BatchHeaderFixer
                     wasFixed = await FixColecoVisionHeaderAsync(file, outputPath).ConfigureAwait(false);
                 else if (ext == ".sv")
                     wasFixed = await FixWataraSupervisionHeaderAsync(file, outputPath).ConfigureAwait(false);
+                else if (ext == ".nds")
+                    wasFixed = await FixNintendoDsHeaderAsync(file, outputPath).ConfigureAwait(false);
+                else if (ext == ".int")
+                    wasFixed = await FixIntellivisionHeaderAsync(file, outputPath).ConfigureAwait(false);
                 else
                 {
                     skipped++;
@@ -175,8 +186,12 @@ public static class BatchHeaderFixer
             wasFixed = await FixColecoVisionHeaderAsync(inputPath, outputPath).ConfigureAwait(false);
         else if (ext == ".sv")
             wasFixed = await FixWataraSupervisionHeaderAsync(inputPath, outputPath).ConfigureAwait(false);
+        else if (ext == ".nds")
+            wasFixed = await FixNintendoDsHeaderAsync(inputPath, outputPath).ConfigureAwait(false);
+        else if (ext == ".int")
+            wasFixed = await FixIntellivisionHeaderAsync(inputPath, outputPath).ConfigureAwait(false);
         else
-            throw new InvalidOperationException($"Unsupported file type: {ext}. Supported: .smc, .sfc, .nes, .gb, .gbc, .gba, .md, .gen, .32x, .sms, .gg, .z64, .n64, .v64, .a78, .lnx, .pce, .tg16, .vb, .vboy, .ngp, .ngc, .j64, .jag, .mx1, .mx2, .col, .cv, .sv");
+            throw new InvalidOperationException($"Unsupported file type: {ext}. Supported: .smc, .sfc, .nes, .gb, .gbc, .gba, .md, .gen, .32x, .sms, .gg, .z64, .n64, .v64, .a78, .lnx, .pce, .tg16, .vb, .vboy, .ngp, .ngc, .j64, .jag, .mx1, .mx2, .col, .cv, .sv, .nds, .int");
 
         string result = wasFixed
             ? $"✔ Header fixed and saved to: {outputPath}"
@@ -206,7 +221,9 @@ public static class BatchHeaderFixer
             or ".j64" or ".jag"
             or ".mx1" or ".mx2"
             or ".col" or ".cv"
-            or ".sv";
+            or ".sv"
+            or ".nds"
+            or ".int";
     }
 
     /// <summary>
@@ -253,10 +270,46 @@ public static class BatchHeaderFixer
             data[checksumOffset] = 0;
             data[checksumOffset + 1] = 0;
 
-            // Calculate new checksum (sum of all bytes in ROM data, excluding copier header)
+            // Calculate new checksum (sum of all bytes in ROM data, excluding copier header).
+            // For non-power-of-2 ROM sizes the SNES mirrors the excess portion to fill
+            // the next power-of-2 boundary, so we must sum the mirrored region multiple times.
             uint sum = 0;
-            for (int i = offset; i < data.Length; i++)
-                sum += data[i];
+            int romEnd = data.Length;
+
+            if (romSize == 0)
+                return false;
+
+            // Find the next power of 2 >= romSize
+            int po2 = 1;
+            while (po2 < romSize)
+                po2 <<= 1;
+
+            if (po2 == romSize)
+            {
+                // Power-of-2 size: simple sum of all bytes
+                for (int i = offset; i < romEnd; i++)
+                    sum += data[i];
+            }
+            else
+            {
+                // Non-power-of-2 (e.g. 3 MB, 6 MB, 1.5 MB):
+                // The base portion is the largest power-of-2 that fits.
+                int halfPo2 = po2 >> 1; // largest power-of-2 < romSize
+                int baseSize = halfPo2;
+                int excessSize = romSize - baseSize;
+
+                // Sum the base portion once
+                for (int i = offset; i < offset + baseSize; i++)
+                    sum += data[i];
+
+                // The excess portion is mirrored to fill from baseSize to po2.
+                // Number of times the excess must appear = (po2 - baseSize) / excessSize
+                int mirrorCount = (po2 - baseSize) / excessSize;
+                uint excessSum = 0;
+                for (int i = offset + baseSize; i < romEnd; i++)
+                    excessSum += data[i];
+                sum += excessSum * (uint)mirrorCount;
+            }
 
             ushort newChecksum = (ushort)(sum & 0xFFFF);
             ushort newComplement = (ushort)(newChecksum ^ 0xFFFF);
@@ -286,7 +339,10 @@ public static class BatchHeaderFixer
     }
 
     /// <summary>
-    /// Fixes NES header by cleaning unused bytes and verifying PRG/CHR sizes.
+    /// Fixes NES header by cleaning unused padding bytes and verifying PRG/CHR sizes.
+    /// iNES 1.0 layout: 0-3 = magic, 4 = PRG size, 5 = CHR size, 6-7 = flags,
+    /// 8 = PRG-RAM size, 9 = TV system, 10 = flags 10, 11-15 = zero padding.
+    /// Only bytes 11-15 are true padding; bytes 8-10 may contain valid data.
     /// </summary>
     private static async Task<bool> FixNesHeaderAsync(string inputPath, string outputPath)
     {
@@ -303,9 +359,10 @@ public static class BatchHeaderFixer
             if (isNes2)
                 return false;
 
-            // Check if bytes 8-15 contain garbage data
+            // Only check/clean bytes 11-15 which are true zero padding in iNES 1.0.
+            // Bytes 8 (PRG-RAM size), 9 (TV system), and 10 (flags) may hold valid data.
             bool hasDirtyBytes = false;
-            for (int i = 8; i < 16; i++)
+            for (int i = 11; i < 16; i++)
             {
                 if (data[i] != 0)
                 {
@@ -317,8 +374,8 @@ public static class BatchHeaderFixer
             if (!hasDirtyBytes)
                 return false;
 
-            // Clean dirty header bytes
-            for (int i = 8; i < 16; i++)
+            // Clean only the true padding bytes
+            for (int i = 11; i < 16; i++)
                 data[i] = 0;
 
             try
@@ -503,7 +560,8 @@ public static class BatchHeaderFixer
 
     /// <summary>
     /// Fixes Sega Master System / Game Gear TMR SEGA checksum.
-    /// The checksum covers bytes from 0x0000 up to the TMR SEGA header.
+    /// The checksum covers all bytes within the declared ROM size (determined by
+    /// the size nibble at header offset +0x0F), excluding the 16-byte TMR SEGA header.
     /// </summary>
     private static async Task<bool> FixSmsChecksumAsync(string inputPath, string outputPath)
     {
@@ -539,10 +597,44 @@ public static class BatchHeaderFixer
 
             ushort oldChecksum = (ushort)(data[checksumOffset] | (data[checksumOffset + 1] << 8));
 
-            // Calculate: 16-bit sum of all bytes from 0x0000 to headerOffset - 1
+            // Determine checksum range from the ROM size nibble in the header.
+            // The lower nibble of byte at headerOffset + 0x0F encodes the declared ROM size.
+            // The BIOS checksums all bytes within that range, excluding the 16-byte header.
+            int sizeNibble = data[headerOffset + 0x0F] & 0x0F;
+            int declaredEnd = sizeNibble switch
+            {
+                0xA => 0x2000,   // 8 KB
+                0xB => 0x4000,   // 16 KB
+                0xC => 0x8000,   // 32 KB
+                0xD => 0xC000,   // 48 KB
+                0xE => 0x10000,  // 64 KB
+                0xF => 0x20000,  // 128 KB
+                0x0 => 0x40000,  // 256 KB
+                0x1 => 0x80000,  // 512 KB
+                0x2 => 0x100000, // 1 MB
+                _ => data.Length // Unknown nibble: use actual file size
+            };
+
+            // Clamp to actual file size (ROM may be smaller than declared)
+            int checksumEnd = Math.Min(declaredEnd, data.Length);
+
+            // Calculate: sum all bytes from 0x0000 to checksumEnd, excluding the 16-byte TMR SEGA header.
+            // The header sits at headerOffset..headerOffset+15; all other bytes in the range are summed.
             uint sum = 0;
-            for (int i = 0; i < headerOffset; i++)
+            int headerEnd = headerOffset + 16;
+
+            // Sum bytes before the header
+            int beforeEnd = Math.Min(headerOffset, checksumEnd);
+            for (int i = 0; i < beforeEnd; i++)
                 sum += data[i];
+
+            // Sum bytes after the header (covers banked ROM data beyond 32KB)
+            if (headerEnd < checksumEnd)
+            {
+                for (int i = headerEnd; i < checksumEnd; i++)
+                    sum += data[i];
+            }
+
             ushort newChecksum = (ushort)(sum & 0xFFFF);
 
             bool needsFix = oldChecksum != newChecksum;
@@ -599,23 +691,34 @@ public static class BatchHeaderFixer
             // Checksum covers 1MB of ROM data starting after the 4KB boot code region
             for (int i = 0x1000; i < 0x101000; i += 4)
             {
-                uint word = (uint)((data[i] << 24) | (data[i + 1] << 16) | (data[i + 2] << 8) | data[i + 3]);
-                uint tmp = t1 + word;
-                if (tmp < t1) t4++;
-                t1 = tmp;
-                t2 ^= word;
-                t3 += word;
+                uint d = (uint)((data[i] << 24) | (data[i + 1] << 16) | (data[i + 2] << 8) | data[i + 3]);
 
-                if (t1 > word)
-                    t5 ^= (t1 ^ word);
+                // t6 accumulates the running sum; t4 counts carry overflows
+                if ((t6 + d) < t6) t4++;
+                t6 += d;
+
+                // t3 is a simple XOR accumulator
+                t3 ^= d;
+
+                // Rotate d left by (d & 31) bits.
+                // The shift==0 check avoids right-shifting by 32 which is undefined in C#.
+                int shift = (int)(d & 0x1F);
+                uint r = (shift == 0) ? d : (d << shift) | (d >> (32 - shift));
+
+                // t5 accumulates the rotated values
+                t5 += r;
+
+                // t2 conditionally XORs with the rotated value or (t6 ^ d)
+                if (t2 > d)
+                    t2 ^= r;
                 else
-                    t5 ^= t1 ^ ~word;
+                    t2 ^= t6 ^ d;
 
-                t6 += (word ^ t3);
+                t1 += (t5 ^ d);
             }
 
-            uint newCrc1 = t1 ^ t2 ^ t3;
-            uint newCrc2 = t4 ^ t5 ^ t6;
+            uint newCrc1 = t6 ^ t4 ^ t3;
+            uint newCrc2 = t5 ^ t2 ^ t1;
 
             bool needsFix = oldCrc1 != newCrc1 || oldCrc2 != newCrc2;
 
@@ -711,6 +814,8 @@ public static class BatchHeaderFixer
 
     /// <summary>
     /// Fixes Atari Lynx .lnx header by validating the LYNX magic and cleaning reserved bytes.
+    /// Header layout: 0-3 = "LYNX", 4-5 = page size bank 0, 6-7 = page size bank 1,
+    /// 8-9 = version, 10-41 = cart name, 42-57 = manufacturer, 58 = rotation, 59-63 = spare.
     /// </summary>
     private static async Task<bool> FixAtariLynxHeaderAsync(string inputPath, string outputPath)
     {
@@ -735,8 +840,11 @@ public static class BatchHeaderFixer
                 needsFix = true;
             }
 
-            // Clean reserved bytes (bytes 10-63 in the LYNX header after the defined fields)
-            for (int i = 10; i < 64; i++)
+            // Only clean the spare/reserved bytes at 59-63; do NOT touch:
+            // - bytes 10-41 (cart name)
+            // - bytes 42-57 (manufacturer name)
+            // - byte 58 (rotation flag)
+            for (int i = 59; i < 64; i++)
             {
                 if (data[i] != 0)
                 {
@@ -762,8 +870,9 @@ public static class BatchHeaderFixer
     }
 
     /// <summary>
-    /// Fixes PC Engine / TurboGrafx-16 ROM by removing or fixing the 512-byte copier header.
-    /// If a copier header is present and contains garbage data, it is cleaned.
+    /// Fixes PC Engine / TurboGrafx-16 ROM by stripping the 512-byte copier header if present.
+    /// The copier header is an artefact from old backup devices and is not part of the ROM data.
+    /// Stripping it produces a clean ROM that works correctly with modern emulators and flash carts.
     /// </summary>
     private static async Task<bool> FixPceHeaderAsync(string inputPath, string outputPath)
     {
@@ -783,30 +892,20 @@ public static class BatchHeaderFixer
                 return false;
             }
 
-            // Clean the 512-byte copier header (zero out garbage bytes)
-            bool needsFix = false;
-            for (int i = 0; i < 512; i++)
+            // Strip the 512-byte copier header by writing only the ROM data that follows it.
+            // Do NOT zero the header in-place — that leaves an invalid ROM with 512 garbage bytes.
+            try
             {
-                if (data[i] != 0)
-                {
-                    data[i] = 0;
-                    needsFix = true;
-                }
+                byte[] cleanRom = new byte[data.Length - 512];
+                Array.Copy(data, 512, cleanRom, 0, cleanRom.Length);
+                File.WriteAllBytes(outputPath, cleanRom);
             }
-
-            if (needsFix)
+            catch
             {
-                try
-                {
-                    File.WriteAllBytes(outputPath, data);
-                }
-                catch
-                {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
-                    throw;
-                }
+                try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                throw;
             }
-            return needsFix;
+            return true;
         }).ConfigureAwait(false);
     }
 
@@ -864,7 +963,10 @@ public static class BatchHeaderFixer
 
     /// <summary>
     /// Fixes Neo Geo Pocket ROM header by validating the copyright string and cleaning reserved bytes.
-    /// The NGP header starts at offset 0x00.
+    /// NGP header layout: 0x00-0x0F = "COPYRIGHT BY SNK", 0x10-0x13 = entry point,
+    /// 0x14-0x15 = catalog number, 0x16 = sub-catalog, 0x17 = system mode,
+    /// 0x18-0x23 = game name (12 bytes), 0x24-0x2F = reserved (must be 0x00).
+    /// Bytes 0x30+ are executable ROM code and must NOT be touched.
     /// </summary>
     private static async Task<bool> FixNeoGeoPocketHeaderAsync(string inputPath, string outputPath)
     {
@@ -873,7 +975,7 @@ public static class BatchHeaderFixer
         {
             byte[] data = File.ReadAllBytes(inputPath);
 
-            if (data.Length < 64)
+            if (data.Length < 0x30)
                 throw new InvalidOperationException("File is too small to be a valid Neo Geo Pocket ROM.");
 
             bool needsFix = false;
@@ -896,8 +998,9 @@ public static class BatchHeaderFixer
                 return false;
             }
 
-            // Reserved/padding bytes after the title (offset 0x30-0x3F should be 0x00)
-            for (int i = 0x30; i < 0x40 && i < data.Length; i++)
+            // Reserved bytes at offset 0x24-0x2F should be 0x00.
+            // Do NOT touch bytes at 0x30+ — those are executable ROM code.
+            for (int i = 0x24; i < 0x30 && i < data.Length; i++)
             {
                 if (data[i] != 0)
                 {
@@ -923,7 +1026,9 @@ public static class BatchHeaderFixer
     }
 
     /// <summary>
-    /// Fixes Atari Jaguar ROM header by validating and cleaning reserved bytes.
+    /// Validates Atari Jaguar ROM header.
+    /// The Jaguar boot region (0x400-0x47F) contains GPU/DSP initialization code and boot stub
+    /// data that is functional — there are no well-defined reserved bytes safe to zero.
     /// </summary>
     private static async Task<bool> FixAtariJaguarHeaderAsync(string inputPath, string outputPath)
     {
@@ -935,32 +1040,10 @@ public static class BatchHeaderFixer
             if (data.Length < 0x2000)
                 throw new InvalidOperationException("File is too small to be a valid Atari Jaguar ROM.");
 
-            bool needsFix = false;
-
-            // Jaguar ROM header at offset 0x400 contains game name and other fields
-            // Reserved bytes after the header info area (0x440-0x47F) should be 0x00
-            for (int i = 0x440; i < 0x480 && i < data.Length; i++)
-            {
-                if (data[i] != 0)
-                {
-                    data[i] = 0;
-                    needsFix = true;
-                }
-            }
-
-            if (needsFix)
-            {
-                try
-                {
-                    File.WriteAllBytes(outputPath, data);
-                }
-                catch
-                {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
-                    throw;
-                }
-            }
-            return needsFix;
+            // Jaguar ROM header area (0x400+) contains boot stub, GPU init code, and
+            // cartridge configuration. All bytes may be functional data; nothing safe to zero.
+            // Validation only — header is considered valid if file is large enough.
+            return false;
         }).ConfigureAwait(false);
     }
 
@@ -1013,7 +1096,9 @@ public static class BatchHeaderFixer
     }
 
     /// <summary>
-    /// Fixes ColecoVision cartridge ROM header by validating magic bytes and cleaning reserved bytes.
+    /// Validates ColecoVision cartridge ROM header by checking magic bytes.
+    /// The ColecoVision header (0x00-0x15) contains the magic, pointers, RST vectors, and NMI vector.
+    /// These are all functional data and must not be modified.
     /// </summary>
     private static async Task<bool> FixColecoVisionHeaderAsync(string inputPath, string outputPath)
     {
@@ -1025,7 +1110,7 @@ public static class BatchHeaderFixer
             if (data.Length < 16)
                 throw new InvalidOperationException("File is too small to be a valid ColecoVision ROM.");
 
-            // Check for magic bytes: 0xAA 0x55 or 0x55 0xAA at offset 0x00-0x01
+            // Validate magic bytes: 0xAA 0x55 or 0x55 0xAA at offset 0x00-0x01
             bool hasStandardMagic = (data[0] == 0xAA && data[1] == 0x55) || (data[0] == 0x55 && data[1] == 0xAA);
             if (!hasStandardMagic)
             {
@@ -1033,36 +1118,17 @@ public static class BatchHeaderFixer
                 return false;
             }
 
-            bool needsFix = false;
-
-            // Reserved bytes at offset 0x0A-0x0F should be 0x00
-            for (int i = 0x0A; i < 0x10 && i < data.Length; i++)
-            {
-                if (data[i] != 0)
-                {
-                    data[i] = 0;
-                    needsFix = true;
-                }
-            }
-
-            if (needsFix)
-            {
-                try
-                {
-                    File.WriteAllBytes(outputPath, data);
-                }
-                catch
-                {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
-                    throw;
-                }
-            }
-            return needsFix;
+            // ColecoVision header bytes 0x00-0x15 contain magic, sprite table pointers,
+            // start address, RST vectors (08h-38h), and NMI vector — all are functional data.
+            // Nothing to fix; header is valid.
+            return false;
         }).ConfigureAwait(false);
     }
 
     /// <summary>
-    /// Fixes Watara Supervision ROM header by validating and cleaning reserved bytes.
+    /// Validates Watara Supervision ROM header.
+    /// The Supervision header format is poorly documented and bytes in the header area
+    /// may contain bank-switching configuration or other functional data.
     /// </summary>
     private static async Task<bool> FixWataraSupervisionHeaderAsync(string inputPath, string outputPath)
     {
@@ -1074,32 +1140,10 @@ public static class BatchHeaderFixer
             if (data.Length < 64)
                 throw new InvalidOperationException("File is too small to be a valid Watara Supervision ROM.");
 
-            bool needsFix = false;
-
-            // Supervision ROM header occupies the first 0x20 (32) bytes.
-            // Reserved/padding bytes at offset 0x10-0x1F should be 0x00
-            for (int i = 0x10; i < 0x20 && i < data.Length; i++)
-            {
-                if (data[i] != 0)
-                {
-                    data[i] = 0;
-                    needsFix = true;
-                }
-            }
-
-            if (needsFix)
-            {
-                try
-                {
-                    File.WriteAllBytes(outputPath, data);
-                }
-                catch
-                {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
-                    throw;
-                }
-            }
-            return needsFix;
+            // Supervision header format is not well documented. Bytes 0x10-0x1F may contain
+            // bank-switching info, checksum data, or other functional fields.
+            // Validation only — header is considered valid if file is large enough.
+            return false;
         }).ConfigureAwait(false);
     }
 
@@ -1116,6 +1160,93 @@ public static class BatchHeaderFixer
                 printableCount++;
         }
         return printableCount >= 10; // At least ~half should be printable ASCII
+    }
+
+    /// <summary>
+    /// Fixes Nintendo DS ROM header CRC16 at 0x15E.
+    /// The CRC16 covers the header bytes 0x00 through 0x15D.
+    /// </summary>
+    private static async Task<bool> FixNintendoDsHeaderAsync(string inputPath, string outputPath)
+    {
+        ValidateFileSize(inputPath);
+        return await Task.Run(() =>
+        {
+            byte[] data = File.ReadAllBytes(inputPath);
+
+            if (data.Length < 0x200)
+                throw new InvalidOperationException("File is too small to be a valid Nintendo DS ROM.");
+
+            // Verify Nintendo logo data at 0xC0 (first 4 bytes should be 0x24FFAE51)
+            if (data[0xC0] != 0x24 || data[0xC1] != 0xFF || data[0xC2] != 0xAE || data[0xC3] != 0x51)
+                throw new InvalidOperationException("Not a valid Nintendo DS ROM file (missing Nintendo logo signature).");
+
+            // Read stored CRC16 at 0x15E (little-endian)
+            ushort oldCrc = (ushort)(data[0x15E] | (data[0x15F] << 8));
+
+            // Calculate CRC16 over header bytes 0x00-0x15D using CRC-16/MODBUS (used by NDS)
+            ushort newCrc = CalculateCrc16(data, 0, 0x15E);
+
+            bool needsFix = oldCrc != newCrc;
+
+            if (needsFix)
+            {
+                data[0x15E] = (byte)(newCrc & 0xFF);
+                data[0x15F] = (byte)((newCrc >> 8) & 0xFF);
+
+                try
+                {
+                    File.WriteAllBytes(outputPath, data);
+                }
+                catch
+                {
+                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                    throw;
+                }
+            }
+            return needsFix;
+        }).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Validates Intellivision cartridge ROM header.
+    /// Intellivision ROMs use 16-bit words and their header structure varies by cartridge.
+    /// Bytes in the header area may contain program data or interrupt vectors, so we only validate.
+    /// </summary>
+    private static async Task<bool> FixIntellivisionHeaderAsync(string inputPath, string outputPath)
+    {
+        ValidateFileSize(inputPath);
+        return await Task.Run(() =>
+        {
+            byte[] data = File.ReadAllBytes(inputPath);
+
+            if (data.Length < 0x50)
+                throw new InvalidOperationException("File is too small to be a valid Intellivision ROM.");
+
+            // Intellivision ROM header contains program segment descriptors and entry points.
+            // All bytes in the header area may be functional data; nothing safe to zero.
+            // Validation only — header is considered valid if file is large enough.
+            return false;
+        }).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// CRC-16/MODBUS calculation used by the Nintendo DS header.
+    /// </summary>
+    private static ushort CalculateCrc16(byte[] data, int offset, int length)
+    {
+        ushort crc = 0xFFFF;
+        for (int i = offset; i < offset + length && i < data.Length; i++)
+        {
+            crc ^= data[i];
+            for (int j = 0; j < 8; j++)
+            {
+                if ((crc & 1) != 0)
+                    crc = (ushort)((crc >> 1) ^ 0xA001);
+                else
+                    crc >>= 1;
+            }
+        }
+        return crc;
     }
 }
 

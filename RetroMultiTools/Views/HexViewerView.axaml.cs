@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -21,7 +22,7 @@ public partial class HexViewerView : UserControl
 
         var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            Title = "Select File to View",
+            Title = LocalizationManager.Instance["Hex_SelectFile"],
             AllowMultiple = false,
             FileTypeFilter = [FilePickerFileTypes.All]
         });
@@ -55,11 +56,7 @@ public partial class HexViewerView : UserControl
             NextButton.IsEnabled = _currentData.Offset + HexViewer.DefaultPageSize < _currentData.FileSize;
             LastButton.IsEnabled = _currentData.Offset + HexViewer.DefaultPageSize < _currentData.FileSize;
         }
-        catch (IOException ex)
-        {
-            HexDisplay.ItemsSource = new[] { $"Error: {ex.Message}" };
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             HexDisplay.ItemsSource = new[] { $"Error: {ex.Message}" };
         }
@@ -113,7 +110,7 @@ public partial class HexViewerView : UserControl
         string hex = SearchTextBox.Text?.Trim() ?? "";
         if (string.IsNullOrEmpty(hex))
         {
-            SearchResultText.Text = "Enter hex bytes to search.";
+            SearchResultText.Text = LocalizationManager.Instance["Hex_EnterSearchBytes"];
             return;
         }
 
@@ -123,7 +120,7 @@ public partial class HexViewerView : UserControl
             long startOffset = _currentData?.Offset ?? 0;
 
             SearchButton.IsEnabled = false;
-            SearchResultText.Text = "Searching...";
+            SearchResultText.Text = LocalizationManager.Instance["Hex_Searching"];
 
             var results = await Task.Run(() => HexViewer.SearchBytes(_currentFile, pattern, startOffset));
 
@@ -134,12 +131,12 @@ public partial class HexViewerView : UserControl
             }
             else
             {
-                SearchResultText.Text = "No matches found.";
+                SearchResultText.Text = LocalizationManager.Instance["Hex_NoMatches"];
             }
         }
         catch (FormatException)
         {
-            SearchResultText.Text = "Invalid hex string.";
+            SearchResultText.Text = LocalizationManager.Instance["Hex_InvalidHex"];
         }
         finally
         {

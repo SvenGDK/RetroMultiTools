@@ -212,11 +212,7 @@ public partial class RomFormatConverterView : UserControl
                 ShowStatus($"✔ Conversion complete!\nOutput: {output}", isError: false);
             }
         }
-        catch (InvalidOperationException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (IOException ex)
+        catch (Exception ex) when (ex is InvalidOperationException or IOException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }

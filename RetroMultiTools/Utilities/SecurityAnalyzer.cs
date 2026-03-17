@@ -27,7 +27,16 @@ public static class SecurityAnalyzer
         ".sv", ".ccc",
         ".iso", ".cue", ".3do",
         ".cdi", ".gdi",
-        ".chd", ".rvz", ".gcm"
+        ".chd", ".rvz", ".gcm",
+        ".atr", ".xex", ".car", ".cas",
+        ".d88", ".t88",
+        ".ndd",
+        ".nds",
+        ".3ds", ".cia",
+        ".neo",
+        ".chf",
+        ".tgc",
+        ".mtx", ".run"
     };
 
     /// <summary>
@@ -92,7 +101,7 @@ public static class SecurityAnalyzer
                 var result = await AnalyzeAsync(files[i], null).ConfigureAwait(false);
                 results.Add(result);
             }
-            catch (IOException ex)
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             {
                 results.Add(new SecurityAnalysisResult
                 {
@@ -347,6 +356,78 @@ public static class SecurityAnalyzer
                 {
                     Name = "Arcade Region",
                     Description = "Arcade boards typically have no hardware region lock; regional differences are implemented in software via DIP switch settings or separate ROM sets.",
+                    Category = FeatureCategory.RegionLock
+                });
+                break;
+
+            case RomSystem.Atari800:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Atari 800 Region",
+                    Description = "Atari 8-bit computers are region-free; NTSC and PAL differences are hardware-based, not enforced by software lockout.",
+                    Category = FeatureCategory.RegionLock
+                });
+                break;
+
+            case RomSystem.NECPC88:
+                features.Add(new SecurityFeature
+                {
+                    Name = "NEC PC-88 Region",
+                    Description = "NEC PC-88 was a Japan-only platform; no hardware region lock since the system was only released domestically.",
+                    Category = FeatureCategory.RegionLock
+                });
+                break;
+
+            case RomSystem.N64DD:
+                features.Add(new SecurityFeature
+                {
+                    Name = "N64DD Region",
+                    Description = "Nintendo 64DD uses region locking inherited from the N64 console via the CIC chip. The 64DD peripheral was only officially released in Japan.",
+                    Category = FeatureCategory.RegionLock
+                });
+                break;
+
+            case RomSystem.NintendoDS:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Nintendo DS Region",
+                    Description = "Nintendo DS is region-free for DS games; the hardware does not enforce region lockout on DS cartridges. DSi-enhanced titles may have region restrictions.",
+                    Category = FeatureCategory.RegionLock
+                });
+                break;
+
+            case RomSystem.Nintendo3DS:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Nintendo 3DS Region",
+                    Description = "Nintendo 3DS enforces hardware region locking; game cartridges and digital titles are locked to their region (Japan, North America, Europe, etc.).",
+                    Category = FeatureCategory.RegionLock
+                });
+                break;
+
+            case RomSystem.NeoGeo:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Neo Geo Region",
+                    Description = "SNK Neo Geo AES consoles use a BIOS-level region lock (Japan, USA, Europe). MVS arcade boards use regional BIOS variants.",
+                    Category = FeatureCategory.RegionLock
+                });
+                break;
+
+            case RomSystem.NeoGeoCD:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Neo Geo CD Region",
+                    Description = "Neo Geo CD enforces region locking via the console BIOS; discs are coded for Japan, USA, or Europe regions.",
+                    Category = FeatureCategory.RegionLock
+                });
+                break;
+
+            case RomSystem.PhilipsCDi:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Philips CD-i Region",
+                    Description = "Philips CD-i is region-free; the CD-i standard does not include region lockout mechanisms. PAL/NTSC differences are handled by the player hardware.",
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -607,6 +688,105 @@ public static class SecurityAnalyzer
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
+
+            case RomSystem.Atari800:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Atari 800 No Copy Protection",
+                    Description = "No ROM-level copy protection; original media used basic disk protection schemes.",
+                    Category = FeatureCategory.CopyProtection
+                });
+                break;
+
+            case RomSystem.NECPC88:
+                features.Add(new SecurityFeature
+                {
+                    Name = "NEC PC-88 No ROM Copy Protection",
+                    Description = "No ROM-level copy protection; original floppy disks used various disk protection schemes.",
+                    Category = FeatureCategory.CopyProtection
+                });
+                break;
+
+            case RomSystem.N64DD:
+                features.Add(new SecurityFeature
+                {
+                    Name = "N64DD Copy Protection",
+                    Description = "N64DD disks use the N64 CIC chip validation and proprietary magnetic disk format for copy protection.",
+                    Category = FeatureCategory.CopyProtection
+                });
+                break;
+
+            case RomSystem.NintendoDS:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Nintendo DS Encryption",
+                    Description = "Nintendo DS cartridges use encrypted secure area (Blowfish encryption) in the first 2 KB of ARM9 code, validated by the BIOS during boot.",
+                    Category = FeatureCategory.CopyProtection
+                });
+                break;
+
+            case RomSystem.Nintendo3DS:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Nintendo 3DS Encryption",
+                    Description = "Nintendo 3DS uses AES encryption for game content, RSA signatures for code verification, and a unique per-console key system for digital rights management.",
+                    Category = FeatureCategory.CopyProtection
+                });
+                break;
+
+            case RomSystem.NeoGeo:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Neo Geo Protection",
+                    Description = "Neo Geo AES/MVS cartridges use proprietary cartridge connectors and some later titles employ encrypted graphics data (C-ROM encryption) for copy protection.",
+                    Category = FeatureCategory.CopyProtection
+                });
+                break;
+
+            case RomSystem.NeoGeoCD:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Neo Geo CD Protection",
+                    Description = "Neo Geo CD uses the standard CD format with minimal copy protection; some titles check for specific disc characteristics.",
+                    Category = FeatureCategory.CopyProtection
+                });
+                break;
+
+            case RomSystem.PhilipsCDi:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Philips CD-i Protection",
+                    Description = "Philips CD-i uses the CD-RTOS operating system with minimal disc-level copy protection. The proprietary OS format provides basic protection.",
+                    Category = FeatureCategory.CopyProtection
+                });
+                break;
+
+            case RomSystem.FairchildChannelF:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Fairchild Channel F No Copy Protection",
+                    Description = "No copy protection. The Channel F uses simple ROM cartridges with no validation mechanism.",
+                    Category = FeatureCategory.CopyProtection
+                });
+                break;
+
+            case RomSystem.TigerGameCom:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Tiger Game Com No Copy Protection",
+                    Description = "No ROM-level copy protection. The Game Com uses simple ROM cartridges.",
+                    Category = FeatureCategory.CopyProtection
+                });
+                break;
+
+            case RomSystem.MemotechMTX:
+                features.Add(new SecurityFeature
+                {
+                    Name = "Memotech MTX No Copy Protection",
+                    Description = "No ROM-level copy protection. Software was distributed on cassette and cartridge without copy protection mechanisms.",
+                    Category = FeatureCategory.CopyProtection
+                });
+                break;
         }
     }
 
@@ -678,6 +858,87 @@ public static class SecurityAnalyzer
                 {
                     Name = "Mega Drive Internal Checksum",
                     Description = $"Internal checksum: {mdChecksum}. Some Mega Drive games validate this checksum at boot.",
+                    Category = FeatureCategory.ChecksumProtection
+                });
+            }
+        }
+
+        if (romInfo.System == RomSystem.SegaMasterSystem || romInfo.System == RomSystem.GameGear)
+        {
+            if (romInfo.HeaderInfo.TryGetValue("Checksum", out string? smsChecksum))
+            {
+                features.Add(new SecurityFeature
+                {
+                    Name = "SMS/Game Gear TMR SEGA Checksum",
+                    Description = $"TMR SEGA checksum: {smsChecksum}. Consoles with a BIOS validate this checksum before running the game.",
+                    Category = FeatureCategory.ChecksumProtection
+                });
+            }
+        }
+
+        if (romInfo.System == RomSystem.NintendoDS)
+        {
+            if (romInfo.HeaderInfo.TryGetValue("Header CRC16", out string? ndsCrc))
+            {
+                features.Add(new SecurityFeature
+                {
+                    Name = "Nintendo DS Header CRC16",
+                    Description = $"Header CRC16: {ndsCrc}. The DS firmware validates this CRC16 checksum (bytes 0x00-0x15D) before booting.",
+                    Category = FeatureCategory.ChecksumProtection
+                });
+            }
+        }
+
+        if (romInfo.System == RomSystem.Sega32X)
+        {
+            if (romInfo.HeaderInfo.TryGetValue("Checksum", out string? s32xChecksum))
+            {
+                features.Add(new SecurityFeature
+                {
+                    Name = "Sega 32X Internal Checksum",
+                    Description = $"Internal checksum: {s32xChecksum}. The 32X uses a Mega Drive-compatible checksum in the header.",
+                    Category = FeatureCategory.ChecksumProtection
+                });
+            }
+        }
+
+        if (romInfo.System == RomSystem.VirtualBoy)
+        {
+            features.Add(new SecurityFeature
+            {
+                Name = "Virtual Boy Header Integrity",
+                Description = romInfo.IsValid
+                    ? "Virtual Boy ROM header validated successfully."
+                    : "Virtual Boy ROM header validation failed — possible corruption.",
+                Category = FeatureCategory.ChecksumProtection
+            });
+        }
+
+        if (romInfo.System == RomSystem.AtariLynx)
+        {
+            if (romInfo.HeaderInfo.TryGetValue("Format", out string? lynxFmt))
+            {
+                features.Add(new SecurityFeature
+                {
+                    Name = "Atari Lynx Header Integrity",
+                    Description = lynxFmt.Contains("with header")
+                        ? "LYNX header present — contains ROM size and bank information required by the Lynx hardware."
+                        : "No LYNX header — headerless ROM dump. Some emulators may require the header for proper operation.",
+                    Category = FeatureCategory.ChecksumProtection
+                });
+            }
+        }
+
+        if (romInfo.System == RomSystem.Atari7800)
+        {
+            if (romInfo.HeaderInfo.TryGetValue("Signature", out string? a78Sig))
+            {
+                features.Add(new SecurityFeature
+                {
+                    Name = "Atari 7800 Header Signature",
+                    Description = a78Sig.Contains("ATARI7800")
+                        ? "ATARI7800 signature found — header contains encryption, controller, and TV-type information."
+                        : "Non-standard header signature — ROM may have a modified or missing header.",
                     Category = FeatureCategory.ChecksumProtection
                 });
             }

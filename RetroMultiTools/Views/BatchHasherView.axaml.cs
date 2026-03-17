@@ -71,12 +71,7 @@ public partial class BatchHasherView : UserControl
             SummaryPanel.IsVisible = true;
             ExportButton.IsVisible = _results.Count > 0;
         }
-        catch (IOException ex)
-        {
-            SummaryText.Text = $"✘ Error: {ex.Message}";
-            SummaryPanel.IsVisible = true;
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             SummaryText.Text = $"✘ Error: {ex.Message}";
             SummaryPanel.IsVisible = true;
@@ -126,11 +121,7 @@ public partial class BatchHasherView : UserControl
             await BatchHasher.ExportResultsAsync(_results, path, format);
             SummaryText.Text = $"✔ Exported to: {path}";
         }
-        catch (IOException ex)
-        {
-            SummaryText.Text = $"✘ Export error: {ex.Message}";
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             SummaryText.Text = $"✘ Export error: {ex.Message}";
         }

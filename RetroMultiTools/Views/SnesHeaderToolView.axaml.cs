@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -15,7 +16,7 @@ public partial class SnesHeaderToolView : UserControl
 
     private async void BrowseInput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select SNES ROM",
+        var path = await PickFile(LocalizationManager.Instance["SnesHeader_SelectRom"],
         [
             new FilePickerFileType("SNES ROM Files") { Patterns = ["*.smc", "*.sfc"] },
             FilePickerFileTypes.All
@@ -35,8 +36,8 @@ public partial class SnesHeaderToolView : UserControl
             long fileSize = new FileInfo(path).Length;
 
             HeaderStatusText.Text = _hasCopierHeader
-                ? "✔ Copier header detected (512 bytes)"
-                : "✘ No copier header present";
+                ? LocalizationManager.Instance["SnesHeader_CopierDetected"]
+                : LocalizationManager.Instance["SnesHeader_NoCopier"];
             HeaderStatusText.Foreground = _hasCopierHeader
                 ? new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#A6E3A1"))
                 : new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#F9E2AF"));
@@ -48,7 +49,7 @@ public partial class SnesHeaderToolView : UserControl
         }
         catch (IOException)
         {
-            HeaderStatusText.Text = "Unable to read file";
+            HeaderStatusText.Text = LocalizationManager.Instance["SnesHeader_UnableToRead"];
             HeaderStatusPanel.IsVisible = true;
             RemoveHeaderButton.IsEnabled = false;
             AddHeaderButton.IsEnabled = false;
@@ -73,7 +74,7 @@ public partial class SnesHeaderToolView : UserControl
 
         var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Save Output ROM As",
+            Title = LocalizationManager.Instance["SnesHeader_SaveAs"],
             SuggestedFileName = Path.GetFileName(OutputFileTextBox.Text ?? "output.sfc")
         });
 
@@ -104,13 +105,13 @@ public partial class SnesHeaderToolView : UserControl
 
         if (string.IsNullOrEmpty(input))
         {
-            ShowStatus("Please select an input ROM file.", isError: true);
+            ShowStatus(LocalizationManager.Instance["SnesHeader_SelectInputFile"], isError: true);
             return;
         }
 
         if (string.IsNullOrEmpty(output))
         {
-            ShowStatus("Please specify an output file path.", isError: true);
+            ShowStatus(LocalizationManager.Instance["SnesHeader_SelectOutputFile"], isError: true);
             return;
         }
 
@@ -125,15 +126,7 @@ public partial class SnesHeaderToolView : UserControl
             await action(input, output, progress);
             ShowStatus($"✔ Header {actionName} complete!\nOutput: {output}", isError: false);
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (InvalidOperationException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }

@@ -58,15 +58,7 @@ public partial class PatchCreatorView : UserControl
                 OutputFileTextBox.Text = Path.Combine(dir, name + ".ips");
             }
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error analyzing: {ex.Message}", isError: true);
-        }
-        catch (InvalidOperationException ex)
-        {
-            ShowStatus($"✘ Error analyzing: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Error analyzing: {ex.Message}", isError: true);
         }
@@ -114,15 +106,7 @@ public partial class PatchCreatorView : UserControl
             var patchSize = new FileInfo(output).Length;
             ShowStatus($"✔ IPS patch created!\nOutput: {output}\nPatch size: {FileUtils.FormatFileSize(patchSize)}", isError: false);
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (InvalidOperationException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }

@@ -52,6 +52,16 @@ public static class RetroArchLauncher
         { RomSystem.GameCube,         "dolphin" },
         { RomSystem.Wii,              "dolphin" },
         { RomSystem.Arcade,           "mame2003_plus" },
+        { RomSystem.Atari800,          "atari800" },
+        { RomSystem.NECPC88,           "quasi88" },
+        { RomSystem.N64DD,             "mupen64plus_next" },
+        { RomSystem.NintendoDS,        "melonds" },
+        { RomSystem.Nintendo3DS,       "citra" },
+        { RomSystem.NeoGeo,            "fbneo" },
+        { RomSystem.NeoGeoCD,          "neocd" },
+        { RomSystem.PhilipsCDi,        "same_cdi" },
+        { RomSystem.FairchildChannelF, "freechaf" },
+        { RomSystem.MemotechMTX,       "mame2003_plus" },
     };
 
     /// <summary>
@@ -90,12 +100,38 @@ public static class RetroArchLauncher
     {
         // Check user-configured path first
         string configured = AppSettings.Instance.RetroArchPath;
-        if (!string.IsNullOrEmpty(configured) && File.Exists(configured))
-            return configured;
+        if (!string.IsNullOrEmpty(configured))
+        {
+            string resolved = ResolveRetroArchPath(configured);
+            if (File.Exists(resolved))
+                return resolved;
+        }
 
         // Auto-detect from common install locations
         string? detected = DetectRetroArchPath();
         return detected ?? string.Empty;
+    }
+
+    /// <summary>
+    /// Resolves a user-provided RetroArch path to the actual executable.
+    /// On macOS, if the path points to a .app bundle, resolves to the executable inside it.
+    /// On other platforms, returns the path unchanged.
+    /// </summary>
+    public static string ResolveRetroArchPath(string path)
+    {
+        if (string.IsNullOrEmpty(path))
+            return path;
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) &&
+            path.EndsWith(".app", StringComparison.OrdinalIgnoreCase) &&
+            Directory.Exists(path))
+        {
+            string executable = Path.Combine(path, "Contents", "MacOS", "RetroArch");
+            if (File.Exists(executable))
+                return executable;
+        }
+
+        return path;
     }
 
     /// <summary>
@@ -125,17 +161,40 @@ public static class RetroArchLauncher
             var startInfo = new ProcessStartInfo
             {
                 FileName = isFlatpak ? "flatpak" : retroArchPath,
-                Arguments = isFlatpak
-                    ? $"run org.libretro.RetroArch -L \"{corePath}\" \"{romPath}\""
-                    : $"-L \"{corePath}\" \"{romPath}\"",
                 UseShellExecute = false,
             };
 
-            using var process = Process.Start(startInfo);
+            if (isFlatpak)
+            {
+                startInfo.ArgumentList.Add("run");
+                startInfo.ArgumentList.Add("org.libretro.RetroArch");
+                startInfo.ArgumentList.Add("-L");
+                startInfo.ArgumentList.Add(corePath);
+                startInfo.ArgumentList.Add(romPath);
+            }
+            else
+            {
+                startInfo.ArgumentList.Add("-L");
+                startInfo.ArgumentList.Add(corePath);
+                startInfo.ArgumentList.Add(romPath);
+            }
+
+            var process = Process.Start(startInfo);
             if (process == null)
                 return new LaunchResult(false, "Failed to start RetroArch process.");
 
-            return new LaunchResult(true, $"Launched with core: {GetCoreDisplayName(system)}");
+            try
+            {
+                // Update Discord Rich Presence with the current game
+                DiscordRichPresence.UpdatePresence(Path.GetFileName(romPath), system);
+
+                return new LaunchResult(true, $"Launched with core: {GetCoreDisplayName(system)}", process);
+            }
+            catch
+            {
+                process.Dispose();
+                throw;
+            }
         }
         catch (InvalidOperationException ex)
         {
@@ -284,6 +343,11 @@ public static class RetroArchLauncher
                 return path;
         }
 
+        // Try to find retroarch on the system PATH
+        string? pathFound = FindOnPath("retroarch");
+        if (pathFound != null)
+            return pathFound;
+
         // Try to find via user flatpak
         string flatpakPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
             ".local", "share", "flatpak", "exports", "bin", "org.libretro.RetroArch");
@@ -315,8 +379,7 @@ public static class RetroArchLauncher
                     return file;
                 }
             }
-            catch (IOException) { }
-            catch (UnauthorizedAccessException) { }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
         }
 
         return null;
@@ -338,6 +401,32 @@ public static class RetroArchLauncher
         {
             if (File.Exists(path))
                 return path;
+        }
+
+        // Try to find retroarch on the system PATH
+        return FindOnPath("retroarch");
+    }
+
+    /// <summary>
+    /// Searches the system PATH environment variable for the given executable name.
+    /// Returns the full path if found, or null otherwise.
+    /// </summary>
+    private static string? FindOnPath(string executableName)
+    {
+        string? pathEnv = Environment.GetEnvironmentVariable("PATH");
+        if (pathEnv == null)
+            return null;
+
+        char separator = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? ';' : ':';
+        string fileName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+            ? executableName + ".exe"
+            : executableName;
+
+        foreach (string dir in pathEnv.Split(separator, StringSplitOptions.RemoveEmptyEntries))
+        {
+            string fullPath = Path.Combine(dir, fileName);
+            if (File.Exists(fullPath))
+                return fullPath;
         }
         return null;
     }
@@ -394,9 +483,15 @@ public static class RetroArchLauncher
     /// <summary>
     /// Result of a RetroArch launch attempt.
     /// </summary>
-    public sealed class LaunchResult(bool success, string message)
+    public sealed class LaunchResult(bool success, string message, Process? process = null)
     {
         public bool Success { get; } = success;
         public string Message { get; } = message;
+
+        /// <summary>
+        /// The launched RetroArch process, if available.
+        /// Caller is responsible for disposing when no longer needed.
+        /// </summary>
+        public Process? Process { get; } = process;
     }
 }

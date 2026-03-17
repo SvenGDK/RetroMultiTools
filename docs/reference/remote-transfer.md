@@ -107,6 +107,78 @@ For S3-compatible services, set the **Service URL** to the provider's endpoint:
 
 ---
 
+## Google Drive
+
+Upload files to Google Drive using the Google Drive API v3.
+
+### Connection Parameters
+
+| Parameter | Required | Description |
+|---|---|---|
+| OAuth Access Token | Yes | A valid OAuth 2.0 access token with `drive.file` or `drive` scope |
+| Folder ID | No | Google Drive folder ID to upload into (default: `root` — the user's top-level My Drive) |
+| Remote Path | No | Not used directly; the folder ID determines the upload location |
+
+### Obtaining an OAuth Token
+
+Generate an access token through the [Google OAuth 2.0 Playground](https://developers.google.com/oauthplayground/) or your own OAuth application. The token must have the `https://www.googleapis.com/auth/drive.file` scope at minimum.
+
+### Implementation Notes
+
+- Uses the Google Drive REST API v3 multipart upload endpoint.
+- File metadata (name and parent folder) is sent alongside the file content in a single multipart request.
+- No additional NuGet packages are required; uploads use the built-in `HttpClient`.
+
+---
+
+## Dropbox
+
+Upload files to Dropbox using the Dropbox API v2.
+
+### Connection Parameters
+
+| Parameter | Required | Description |
+|---|---|---|
+| OAuth Access Token | Yes | A valid Dropbox OAuth 2.0 access token |
+| Remote Path | No | Upload directory path in Dropbox (default: `/`) |
+
+### Obtaining an OAuth Token
+
+Generate an access token from the [Dropbox App Console](https://www.dropbox.com/developers/apps) or use the Dropbox OAuth 2.0 flow.
+
+### Implementation Notes
+
+- Uses the Dropbox content upload endpoint (`https://content.dropboxapi.com/2/files/upload`).
+- Upload metadata is passed via the `Dropbox-API-Arg` HTTP header.
+- Existing files at the same path are overwritten.
+- No additional NuGet packages are required; uploads use the built-in `HttpClient`.
+
+---
+
+## OneDrive
+
+Upload files to Microsoft OneDrive using the Microsoft Graph API.
+
+### Connection Parameters
+
+| Parameter | Required | Description |
+|---|---|---|
+| OAuth Access Token | Yes | A valid Microsoft Graph OAuth 2.0 access token with `Files.ReadWrite` scope |
+| Remote Path | No | Upload path relative to the root of the user's OneDrive (default: `/`) |
+
+### Obtaining an OAuth Token
+
+Generate an access token through the [Microsoft Graph Explorer](https://developer.microsoft.com/graph/graph-explorer) or register an application in the [Azure Portal](https://portal.azure.com). The token must have the `Files.ReadWrite` permission.
+
+### Implementation Notes
+
+- Uses the Microsoft Graph API simple upload endpoint (`PUT /me/drive/root:/{path}:/content`).
+- Suitable for files up to the 2 GB limit. For larger files, the resumable upload session API would be required.
+- Existing files at the same path are overwritten.
+- No additional NuGet packages are required; uploads use the built-in `HttpClient`.
+
+---
+
 ## Common Limits
 
 | Setting | Value |

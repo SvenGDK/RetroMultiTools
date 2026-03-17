@@ -1,4 +1,5 @@
 using Avalonia;
+using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools;
 
@@ -27,6 +28,10 @@ class Program
                 Console.Error.WriteLine($"Fatal error: {ex}");
             }
             throw;
+        }
+        finally
+        {
+            DiscordRichPresence.Shutdown();
         }
     }
 

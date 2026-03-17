@@ -109,7 +109,8 @@ public static class MameRomAuditor
     public static async Task<MameAuditResult> AuditDirectoryAsync(
         string romDirectory,
         List<MameMachine> machines,
-        IProgress<string>? progress = null)
+        IProgress<string>? progress = null,
+        bool searchRecursively = false)
     {
         if (!Directory.Exists(romDirectory))
             throw new DirectoryNotFoundException($"ROM directory not found: {romDirectory}");
@@ -118,7 +119,8 @@ public static class MameRomAuditor
         foreach (var m in machines)
             machinesByName[m.Name] = m;
 
-        var zipFiles = Directory.EnumerateFiles(romDirectory, "*.zip", SearchOption.TopDirectoryOnly)
+        var searchOption = searchRecursively ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+        var zipFiles = Directory.EnumerateFiles(romDirectory, "*.zip", searchOption)
             .ToList();
 
         var results = new List<MachineAuditResult>();
@@ -155,12 +157,15 @@ public static class MameRomAuditor
         }
 
         // Find machines in the database that have no corresponding ZIP
+        var auditedNames = new HashSet<string>(
+            zipFiles.Select(z => Path.GetFileNameWithoutExtension(z)),
+            StringComparer.OrdinalIgnoreCase);
+
         var missingMachines = new List<string>();
         foreach (var machine in machines)
         {
             if (machine.IsBios) continue;
-            string expectedZip = Path.Combine(romDirectory, machine.Name + ".zip");
-            if (!File.Exists(expectedZip) && machine.Roms.Any(r => string.IsNullOrEmpty(r.Merge)))
+            if (!auditedNames.Contains(machine.Name) && machine.Roms.Any(r => string.IsNullOrEmpty(r.Merge)))
             {
                 // Only count as missing if it has non-merged ROMs (i.e., not purely inheriting)
                 missingMachines.Add(machine.Name);

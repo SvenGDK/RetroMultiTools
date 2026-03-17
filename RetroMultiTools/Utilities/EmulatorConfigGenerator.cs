@@ -461,7 +461,8 @@ public static class EmulatorConfigGenerator
         // Paths
         if (!string.IsNullOrEmpty(options.RomDirectory) ||
             !string.IsNullOrEmpty(options.SaveDirectory) ||
-            !string.IsNullOrEmpty(options.StateDirectory))
+            !string.IsNullOrEmpty(options.StateDirectory) ||
+            !string.IsNullOrEmpty(options.ScreenshotDirectory))
         {
             sb.AppendLine("; Paths");
             if (!string.IsNullOrEmpty(options.SaveDirectory))
@@ -619,7 +620,7 @@ public static class EmulatorConfigGenerator
         sb.AppendLine("numscreens                1");
         sb.AppendLine($"window                    {(options.Fullscreen ? "0" : "1")}");
         sb.AppendLine("maximize                  1");
-        sb.AppendLine($"waitvsync                 1");
+        sb.AppendLine($"waitvsync                 {BoolToInt(options.VSync)}");
         sb.AppendLine("syncrefresh               0");
         if (options.IntegerScaling)
             sb.AppendLine("unevenstretch             0");
@@ -660,7 +661,7 @@ public static class EmulatorConfigGenerator
         sb.AppendLine("#");
         sb.AppendLine("# CORE STATE/PLAYBACK OPTIONS");
         sb.AppendLine("#");
-        sb.AppendLine($"autosave                  0");
+        sb.AppendLine($"autosave                  {BoolToInt(options.AutoSaveState)}");
         sb.AppendLine($"rewind                    {BoolToInt(options.EnableRewind)}");
         sb.AppendLine("rewind_capacity           100");
         sb.AppendLine();

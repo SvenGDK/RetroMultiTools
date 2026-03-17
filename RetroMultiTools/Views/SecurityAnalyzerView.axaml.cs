@@ -1,11 +1,16 @@
 using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
 
 public partial class SecurityAnalyzerView : UserControl
 {
+    private static readonly IBrush StatusErrorBrush = new SolidColorBrush(Color.Parse("#F38BA8"));
+    private static readonly IBrush StatusSuccessBrush = new SolidColorBrush(Color.Parse("#A6E3A1"));
+
     public SecurityAnalyzerView()
     {
         InitializeComponent();
@@ -17,8 +22,12 @@ public partial class SecurityAnalyzerView : UserControl
         if (sender is RadioButton rb && rb.IsChecked != true) return;
 
         bool isBatch = sender == BatchModeRadio;
-        InputLabel.Text = isBatch ? "ROM Directory:" : "ROM File:";
-        InputPathTextBox.Watermark = isBatch ? "Select a ROM directory..." : "Select a ROM file...";
+        InputLabel.Text = isBatch
+            ? LocalizationManager.Instance["Common_RomDirectory"]
+            : LocalizationManager.Instance["Common_RomFile"];
+        InputPathTextBox.Watermark = isBatch
+            ? LocalizationManager.Instance["Common_SelectRomDirectory"]
+            : LocalizationManager.Instance["Common_SelectRomFile"];
         InputPathTextBox.Text = string.Empty;
         StatusBorder.IsVisible = false;
         ResultsBorder.IsVisible = false;
@@ -54,7 +63,17 @@ public partial class SecurityAnalyzerView : UserControl
                                        "*.mo5","*.k7","*.fd",
                                        "*.sv","*.ccc",
                                        "*.iso","*.cue","*.3do",
-                                       "*.chd","*.rvz","*.gcm" ]
+                                       "*.cdi","*.gdi",
+                                       "*.chd","*.rvz","*.gcm",
+                                       "*.atr","*.xex","*.car","*.cas",
+                                       "*.d88","*.t88",
+                                       "*.ndd",
+                                       "*.nds",
+                                       "*.3ds","*.cia",
+                                       "*.neo",
+                                       "*.chf",
+                                       "*.tgc",
+                                       "*.mtx","*.run" ]
                 },
                 FilePickerFileTypes.All
             ]);
@@ -152,11 +171,7 @@ public partial class SecurityAnalyzerView : UserControl
                 ResultsBorder.IsVisible = true;
             }
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }
@@ -170,9 +185,7 @@ public partial class SecurityAnalyzerView : UserControl
     private void ShowStatus(string message, bool isError)
     {
         StatusText.Text = message;
-        StatusText.Foreground = isError
-            ? new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#F38BA8"))
-            : new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#A6E3A1"));
+        StatusText.Foreground = isError ? StatusErrorBrush : StatusSuccessBrush;
         StatusBorder.IsVisible = true;
     }
 

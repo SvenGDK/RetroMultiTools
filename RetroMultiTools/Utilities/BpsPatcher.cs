@@ -137,6 +137,8 @@ public static class BpsPatcher
             result += (long)(b & 0x7F) << shift;
             if ((b & 0x80) != 0) break;
             shift += 7;
+            if (shift > 63)
+                throw new InvalidDataException("BPS variable-length integer is too large.");
             result += (long)1 << shift;
         }
         return result;

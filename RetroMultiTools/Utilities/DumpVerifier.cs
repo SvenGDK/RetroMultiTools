@@ -28,7 +28,16 @@ public static class DumpVerifier
         ".sv", ".ccc",
         ".iso", ".cue", ".3do",
         ".cdi", ".gdi",
-        ".chd", ".rvz", ".gcm"
+        ".chd", ".rvz", ".gcm",
+        ".atr", ".xex", ".car", ".cas",
+        ".d88", ".t88",
+        ".ndd",
+        ".nds",
+        ".3ds", ".cia",
+        ".neo",
+        ".chf",
+        ".tgc",
+        ".mtx", ".run"
     };
 
     /// <summary>
@@ -71,6 +80,17 @@ public static class DumpVerifier
         [RomSystem.GameCube] = [1459978240],
         [RomSystem.Wii] = [4699979776, 8511160320],
         [RomSystem.Arcade] = [262144, 524288, 1048576, 2097152, 4194304, 8388608, 16777216, 33554432],
+        [RomSystem.Atari800] = [8192, 16384, 32768, 65536, 131072],
+        [RomSystem.NECPC88] = [163840, 327680, 348160, 1261568],
+        [RomSystem.N64DD] = [67108864],
+        [RomSystem.NintendoDS] = [8388608, 16777216, 33554432, 67108864, 134217728, 268435456, 536870912],
+        [RomSystem.Nintendo3DS] = [268435456, 536870912, 1073741824, 2147483648, 4294967296, 8589934592],
+        [RomSystem.NeoGeo] = [1048576, 2097152, 4194304, 8388608, 16777216, 33554432, 67108864, 134217728, 268435456, 536870912],
+        [RomSystem.NeoGeoCD] = [681984000, 734003200, 746586112, 838860800],
+        [RomSystem.PhilipsCDi] = [681984000, 734003200, 746586112, 838860800],
+        [RomSystem.FairchildChannelF] = [2048, 4096, 6144, 8192, 16384, 32768, 65536],
+        [RomSystem.TigerGameCom] = [262144, 524288, 1048576, 2097152],
+        [RomSystem.MemotechMTX] = [2048, 4096, 8192, 16384, 32768],
     };
 
     /// <summary>
@@ -150,7 +170,7 @@ public static class DumpVerifier
                 var result = await VerifyAsync(files[i], null).ConfigureAwait(false);
                 results.Add(result);
             }
-            catch (IOException ex)
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             {
                 results.Add(new DumpVerificationResult
                 {
@@ -263,6 +283,16 @@ public static class DumpVerifier
                     else
                         isUniform = false;
                 }
+
+                // Early exit: if non-uniform bytes already exceed 1%, the ratio can't reach 0.99
+                if (!isUniform)
+                {
+                    long nonUniformBytes = totalBytes - uniformBytes;
+                    long remainingBytes = fs.Length - totalBytes;
+                    // Even if all remaining bytes match, check if ratio could still exceed 0.99
+                    if (nonUniformBytes > (totalBytes + remainingBytes) * 0.01)
+                        return;
+                }
             }
 
             if (isUniform && totalBytes > 0)
@@ -296,16 +326,92 @@ public static class DumpVerifier
                 issues.Add("SNES internal checksum does not match. Header may be corrupt.");
         }
 
+        if (romInfo.System == RomSystem.GameBoy || romInfo.System == RomSystem.GameBoyColor)
+        {
+            if (romInfo.HeaderInfo.TryGetValue("Header Checksum", out string? gbChecksum) &&
+                gbChecksum.Contains("invalid", StringComparison.OrdinalIgnoreCase))
+                issues.Add("Game Boy header checksum is invalid — ROM may be corrupt or modified.");
+        }
+
+        if (romInfo.System == RomSystem.N64)
+        {
+            if (!romInfo.HeaderInfo.ContainsKey("Title"))
+                issues.Add("N64 ROM is missing title in header — may not be a valid ROM.");
+        }
+
+        if (romInfo.System == RomSystem.MegaDrive)
+        {
+            if (romInfo.HeaderInfo.TryGetValue("System", out string? system) &&
+                !system.Contains("SEGA", StringComparison.OrdinalIgnoreCase))
+                issues.Add("Mega Drive ROM is missing SEGA identifier — may not be a valid ROM.");
+        }
+
         if (romInfo.System == RomSystem.GameBoyAdvance)
         {
             if (romInfo.HeaderInfo.TryGetValue("GBA Logo", out string? logo) && logo == "Invalid")
                 issues.Add("GBA header logo is invalid — ROM may not boot on hardware.");
         }
 
+        if (romInfo.System == RomSystem.NintendoDS)
+        {
+            if (romInfo.HeaderInfo.TryGetValue("Header CRC16", out string? ndsCrc) &&
+                ndsCrc.Contains("invalid", StringComparison.OrdinalIgnoreCase))
+                issues.Add("Nintendo DS header CRC16 is invalid — ROM header may be corrupt.");
+        }
+
         if (romInfo.System == RomSystem.ColecoVision)
         {
             if (romInfo.HeaderInfo.TryGetValue("Magic Bytes", out string? magic) && magic.StartsWith("Non-standard"))
                 issues.Add("ColecoVision magic bytes are non-standard — ROM may not be a valid ColecoVision cartridge.");
+        }
+
+        if (romInfo.System == RomSystem.SegaMasterSystem || romInfo.System == RomSystem.GameGear)
+        {
+            if (romInfo.HeaderInfo.TryGetValue("Header Checksum", out string? smsChecksum) &&
+                smsChecksum.Contains("invalid", StringComparison.OrdinalIgnoreCase))
+                issues.Add("SMS/Game Gear TMR SEGA header checksum is invalid — ROM may be corrupt.");
+        }
+
+        if (romInfo.System == RomSystem.Atari7800)
+        {
+            if (romInfo.HeaderInfo.TryGetValue("Signature", out string? sig) &&
+                !sig.Contains("ATARI7800", StringComparison.OrdinalIgnoreCase))
+                issues.Add("Atari 7800 ROM is missing ATARI7800 signature — may not have a valid header.");
+        }
+
+        if (romInfo.System == RomSystem.AtariLynx)
+        {
+            if (romInfo.HeaderInfo.TryGetValue("Format", out string? lynxFmt) &&
+                lynxFmt.Contains("without header", StringComparison.OrdinalIgnoreCase))
+                issues.Add("Atari Lynx ROM has no LYNX header — some emulators require the header for correct operation.");
+        }
+
+        if (romInfo.System == RomSystem.Sega32X)
+        {
+            if (romInfo.HeaderInfo.TryGetValue("System", out string? sys32x) &&
+                !sys32x.Contains("SEGA", StringComparison.OrdinalIgnoreCase))
+                issues.Add("Sega 32X ROM is missing SEGA identifier — may not be a valid ROM.");
+        }
+
+        if (romInfo.System == RomSystem.MSX || romInfo.System == RomSystem.MSX2)
+        {
+            if (romInfo.HeaderInfo.TryGetValue("Cartridge ID", out string? cartId) &&
+                cartId.Contains("Non-standard", StringComparison.OrdinalIgnoreCase))
+                issues.Add("MSX cartridge lacks standard \"AB\" signature — may not be a valid cartridge ROM.");
+        }
+
+        if (romInfo.System == RomSystem.VirtualBoy)
+        {
+            if (!romInfo.HeaderInfo.ContainsKey("Title"))
+                issues.Add("Virtual Boy ROM is missing title in header — may not be a valid ROM.");
+        }
+
+        if (romInfo.System == RomSystem.PCEngine)
+        {
+            // PC Engine ROMs with copier header (512 bytes) may cause issues
+            if (romInfo.HeaderInfo.TryGetValue("Format", out string? pceFmt) &&
+                pceFmt.Contains("copier header", StringComparison.OrdinalIgnoreCase))
+                issues.Add("PC Engine ROM has a copier header — this may cause compatibility issues with some emulators.");
         }
     }
 

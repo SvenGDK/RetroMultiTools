@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using RetroMultiTools.Services;
 using RetroMultiTools.Utilities;
@@ -17,13 +18,17 @@ public partial class RomBrowserView : UserControl
     {
         InitializeComponent();
         PopulateSystemFilter();
-        DetachedFromVisualTree += (_, _) => CancelArtworkLoading();
+        DetachedFromVisualTree += (_, _) =>
+        {
+            CancelArtworkLoading();
+            ClearArtworkImages();
+        };
     }
 
     private void PopulateSystemFilter()
     {
         SystemFilterCombo.Items.Clear();
-        SystemFilterCombo.Items.Add(new ComboBoxItem { Content = "All Systems", Tag = "all" });
+        SystemFilterCombo.Items.Add(new ComboBoxItem { Content = LocalizationManager.Instance["BigPicture_AllSystems"], Tag = "all" });
         foreach (RomSystem sys in Enum.GetValues<RomSystem>())
         {
             if (sys == RomSystem.Unknown) continue;
@@ -56,7 +61,7 @@ public partial class RomBrowserView : UserControl
 
     private async Task ScanCurrentFolder()
     {
-        StatusText.Text = "Scanning...";
+        StatusText.Text = LocalizationManager.Instance["BigPicture_Scanning"];
         ScanProgressBar.IsVisible = true;
         BrowseFolderButton.IsEnabled = false;
         ClearArtwork();
@@ -64,14 +69,20 @@ public partial class RomBrowserView : UserControl
         try
         {
             var progress = new Progress<string>(msg => StatusText.Text = msg);
-            _allRoms = await Task.Run(() => RomOrganizer.ScanDirectory(_currentFolder, progress));
+            _allRoms = await Task.Run(() =>
+            {
+                var roms = RomOrganizer.ScanDirectory(_currentFolder, progress);
+                foreach (var rom in roms)
+                {
+                    var gtResult = GoodToolsIdentifier.Identify(rom.FileName);
+                    rom.GoodToolsCodes = gtResult.GetSummary();
+                    if (gtResult.HasCodes)
+                        rom.GoodToolsCodesDescription = gtResult.GetDetailedDescription();
+                }
+                return roms;
+            });
         }
-        catch (IOException ex)
-        {
-            StatusText.Text = $"Scan error: {ex.Message}";
-            _allRoms = new();
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             StatusText.Text = $"Scan error: {ex.Message}";
             _allRoms = new();
@@ -93,26 +104,66 @@ public partial class RomBrowserView : UserControl
         ApplyFilter();
     }
 
+    private void SearchTextBox_TextChanged(object? sender, Avalonia.Controls.TextChangedEventArgs e)
+    {
+        ApplyFilter();
+    }
+
     private void ApplyFilter()
     {
+        IEnumerable<RomInfo> filtered = _allRoms;
+
         if (SystemFilterCombo.SelectedItem is ComboBoxItem item && item.Tag is RomSystem selectedSystem)
         {
-            RomDataGrid.ItemsSource = _allRoms.Where(r => r.System == selectedSystem).ToList();
+            filtered = filtered.Where(r => r.System == selectedSystem);
         }
-        else
+
+        string? searchText = SearchTextBox?.Text;
+        if (!string.IsNullOrWhiteSpace(searchText))
         {
-            RomDataGrid.ItemsSource = _allRoms;
+            string search = searchText.Trim();
+            filtered = filtered.Where(r =>
+                r.FileName.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                r.SystemName.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                r.GoodToolsCodes.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                r.FileSizeFormatted.Contains(search, StringComparison.OrdinalIgnoreCase));
         }
+
+        var result = filtered.ToList();
+        RomDataGrid.ItemsSource = result;
+
+        if (_allRoms.Count > 0 && result.Count != _allRoms.Count)
+            StatusText.Text = $"Showing {result.Count} of {_allRoms.Count} ROM(s).";
+        else if (_allRoms.Count > 0)
+            StatusText.Text = $"Found {_allRoms.Count} ROM(s).";
     }
 
     private void RomDataGrid_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         UpdateButtonStates();
+        UpdateContextMenuForSelection();
 
         if (ShowArtworkCheck.IsChecked == true && RomDataGrid.SelectedItem is RomInfo selectedRom)
         {
             _ = LoadArtworkAsync(selectedRom);
         }
+    }
+
+    private void UpdateContextMenuForSelection()
+    {
+        if (RomDataGrid.SelectedItem is not RomInfo selectedRom) return;
+
+        // Show system-specific context menu items
+        bool canConvert = selectedRom.System is RomSystem.N64 or RomSystem.SNES or RomSystem.NES;
+        bool canTrim = selectedRom.System is RomSystem.NES or RomSystem.SNES or RomSystem.N64
+                    or RomSystem.GameBoy or RomSystem.GameBoyColor or RomSystem.GameBoyAdvance;
+        bool canExportHeader = selectedRom.System is RomSystem.NES or RomSystem.SNES or RomSystem.N64
+                    or RomSystem.GameBoy or RomSystem.GameBoyColor or RomSystem.GameBoyAdvance
+                    or RomSystem.MegaDrive or RomSystem.SegaMasterSystem;
+
+        ContextConvertItem.IsVisible = canConvert;
+        ContextTrimItem.IsVisible = canTrim;
+        ContextExportHeaderItem.IsVisible = canExportHeader;
     }
 
     private void UpdateButtonStates()
@@ -126,6 +177,7 @@ public partial class RomBrowserView : UserControl
         MoveRomButton.IsEnabled = hasSelection;
         DeleteRomButton.IsEnabled = hasSelection;
         SendToRemoteButton.IsEnabled = hasSelection;
+        HostShareButton.IsEnabled = hasFolderSelected || hasSelection;
         LaunchRetroArchButton.IsEnabled = hasSelection;
         OrganizeButton.IsEnabled = hasRoms;
     }
@@ -155,7 +207,7 @@ public partial class RomBrowserView : UserControl
         var token = _artworkCts.Token;
 
         ArtworkRomName.Text = romInfo.FileName;
-        ArtworkStatusText.Text = "Loading artwork...";
+        ArtworkStatusText.Text = LocalizationManager.Instance["BigPicture_ArtworkLoading"];
         ClearArtworkImages();
 
         try
@@ -195,7 +247,7 @@ public partial class RomBrowserView : UserControl
         catch (Exception)
         {
             if (!token.IsCancellationRequested)
-                ArtworkStatusText.Text = "Failed to load artwork.";
+                ArtworkStatusText.Text = LocalizationManager.Instance["Browser_ArtworkFailed"];
         }
     }
 
@@ -209,11 +261,7 @@ public partial class RomBrowserView : UserControl
             using var stream = new MemoryStream(data);
             return new Bitmap(stream);
         }
-        catch (InvalidOperationException)
-        {
-            return null;
-        }
-        catch (IOException)
+        catch (Exception ex) when (ex is InvalidOperationException or IOException)
         {
             return null;
         }
@@ -228,7 +276,7 @@ public partial class RomBrowserView : UserControl
 
     private void ClearArtwork()
     {
-        ArtworkRomName.Text = "Select a ROM to view artwork";
+        ArtworkRomName.Text = LocalizationManager.Instance["Browser_SelectRomForArtwork"];
         ArtworkStatusText.Text = string.Empty;
         ClearArtworkImages();
     }
@@ -295,11 +343,7 @@ public partial class RomBrowserView : UserControl
                     added++;
                 }
             }
-            catch (IOException)
-            {
-                failed++;
-            }
-            catch (UnauthorizedAccessException)
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             {
                 failed++;
             }
@@ -327,11 +371,7 @@ public partial class RomBrowserView : UserControl
                 RomOrganizer.CopyRom(rom.FilePath, destFolder);
                 copied++;
             }
-            catch (IOException)
-            {
-                failed++;
-            }
-            catch (UnauthorizedAccessException)
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             {
                 failed++;
             }
@@ -358,11 +398,7 @@ public partial class RomBrowserView : UserControl
                 RomOrganizer.MoveRom(rom.FilePath, destFolder);
                 moved++;
             }
-            catch (IOException)
-            {
-                failed++;
-            }
-            catch (UnauthorizedAccessException)
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             {
                 failed++;
             }
@@ -389,11 +425,7 @@ public partial class RomBrowserView : UserControl
                 RomOrganizer.DeleteRom(rom.FilePath);
                 deleted++;
             }
-            catch (IOException)
-            {
-                failed++;
-            }
-            catch (UnauthorizedAccessException)
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             {
                 failed++;
             }
@@ -418,6 +450,52 @@ public partial class RomBrowserView : UserControl
         StatusText.Text = $"Launching {selectedRom.FileName} with {RetroArchLauncher.GetCoreDisplayName(selectedRom.System)}...";
         var result = RetroArchLauncher.Launch(selectedRom.FilePath, selectedRom.System);
         StatusText.Text = result.Message;
+
+        if (result.Success && result.Process != null)
+        {
+            if (AppSettings.Instance.MinimizeToTrayOnLaunch)
+            {
+                MinimizeToTrayAndRestoreOnExit(result.Process);
+            }
+            else
+            {
+                result.Process.Dispose();
+            }
+        }
+    }
+
+    private async void MinimizeToTrayAndRestoreOnExit(System.Diagnostics.Process process)
+    {
+        try
+        {
+            if (TopLevel.GetTopLevel(this) is MainWindow mainWindow)
+            {
+                mainWindow.MinimizeToTray();
+
+                await System.Threading.Tasks.Task.Run(() =>
+                {
+                    try
+                    {
+                        process.WaitForExit();
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        System.Diagnostics.Trace.WriteLine(
+                            $"[RomBrowser] Process monitoring ended: {ex.Message}");
+                    }
+                });
+
+                Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                {
+                    mainWindow.RestoreFromTray();
+                    DiscordRichPresence.ClearPresence();
+                });
+            }
+        }
+        finally
+        {
+            process.Dispose();
+        }
     }
 
     private async void OrganizeButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -435,7 +513,7 @@ public partial class RomBrowserView : UserControl
         if (folders.Count == 0) return;
 
         string outputDir = folders[0].Path.LocalPath;
-        StatusText.Text = "Organizing...";
+        StatusText.Text = LocalizationManager.Instance["Browser_Organizing"];
         OrganizeButton.IsEnabled = false;
 
         try
@@ -443,11 +521,7 @@ public partial class RomBrowserView : UserControl
             var result = await Task.Run(() => RomOrganizer.OrganizeBySystem(_allRoms, outputDir));
             StatusText.Text = $"Organized into {outputDir}: {result.Summary}";
         }
-        catch (IOException ex)
-        {
-            StatusText.Text = $"Organize error: {ex.Message}";
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             StatusText.Text = $"Organize error: {ex.Message}";
         }
@@ -467,6 +541,87 @@ public partial class RomBrowserView : UserControl
 
         var dialog = new SendToRemoteWindow(selectedRoms);
         await dialog.ShowDialog(parentWindow);
+    }
+
+    private async void HostShareButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        var topLevel = TopLevel.GetTopLevel(this);
+        if (topLevel is not Window parentWindow) return;
+
+        var selectedRoms = GetSelectedRoms();
+        HostRomsWindow dialog;
+
+        if (selectedRoms.Count > 0)
+        {
+            dialog = new HostRomsWindow(selectedRoms);
+        }
+        else if (!string.IsNullOrEmpty(_currentFolder))
+        {
+            dialog = new HostRomsWindow(_currentFolder);
+        }
+        else
+        {
+            return;
+        }
+
+        await dialog.ShowDialog(parentWindow);
+    }
+
+    private async void HostShareSelectedButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        var selectedRoms = GetSelectedRoms();
+        if (selectedRoms.Count == 0) return;
+
+        var topLevel = TopLevel.GetTopLevel(this);
+        if (topLevel is not Window parentWindow) return;
+
+        var dialog = new HostRomsWindow(selectedRoms);
+        await dialog.ShowDialog(parentWindow);
+    }
+
+    private void ContextLaunch_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        LaunchRetroArchButton_Click(sender, e);
+    }
+
+    private void ContextConvert_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (RomDataGrid.SelectedItem is not RomInfo selectedRom) return;
+
+        StatusText.Text = $"To convert {selectedRom.FileName}, use the ROM Format Converter tool.";
+    }
+
+    private void ContextTrim_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (RomDataGrid.SelectedItem is not RomInfo selectedRom) return;
+
+        StatusText.Text = $"To trim {selectedRom.FileName}, use the ROM Trimmer tool.";
+    }
+
+    private async void ContextExportHeader_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (RomDataGrid.SelectedItem is not RomInfo selectedRom) return;
+
+        var destFolder = await PickFolder("Select Output Folder for Header Export");
+        if (destFolder == null) return;
+
+        try
+        {
+            string outputPath = Path.Combine(destFolder, Path.GetFileNameWithoutExtension(selectedRom.FileName) + "_header.txt");
+            await RomHeaderExporter.ExportSingleAsync(selectedRom.FilePath, outputPath);
+            StatusText.Text = $"Header exported to {outputPath}";
+        }
+        catch (Exception ex) when (ex is IOException or InvalidOperationException)
+        {
+            StatusText.Text = $"Export error: {ex.Message}";
+        }
+    }
+
+    private void ContextVerify_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (RomDataGrid.SelectedItem is not RomInfo selectedRom) return;
+
+        StatusText.Text = $"To verify {selectedRom.FileName}, use the DAT Verifier or Dump Verifier tool.";
     }
 
     private List<RomInfo> GetSelectedRoms()
@@ -492,5 +647,13 @@ public partial class RomBrowserView : UserControl
         });
 
         return folders.Count > 0 ? folders[0].Path.LocalPath : null;
+    }
+
+    private void BigPictureModeButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (TopLevel.GetTopLevel(this) is MainWindow mainWindow)
+        {
+            mainWindow.EnterBigPictureMode(_currentFolder, _allRoms);
+        }
     }
 }

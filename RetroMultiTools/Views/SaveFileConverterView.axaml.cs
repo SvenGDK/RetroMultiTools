@@ -53,14 +53,7 @@ public partial class SaveFileConverterView : UserControl
             InfoPanel.IsVisible = true;
             ConvertButton.IsEnabled = true;
         }
-        catch (IOException ex)
-        {
-            _fileInfo = null;
-            InfoPanel.IsVisible = false;
-            ConvertButton.IsEnabled = false;
-            ShowStatus($"✘ Could not analyze file: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             _fileInfo = null;
             InfoPanel.IsVisible = false;
@@ -136,15 +129,7 @@ public partial class SaveFileConverterView : UserControl
             var outputInfo = new FileInfo(output);
             ShowStatus($"✔ Conversion complete!\nOutput: {output}\nSize: {FileUtils.FormatFileSize(outputInfo.Length)}", isError: false);
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (InvalidOperationException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }

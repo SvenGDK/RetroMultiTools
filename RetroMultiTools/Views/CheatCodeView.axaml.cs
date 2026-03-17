@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -26,7 +27,7 @@ public partial class CheatCodeView : UserControl
         string code = DecodeInputTextBox.Text?.Trim() ?? "";
         if (string.IsNullOrEmpty(code))
         {
-            ShowError("Please enter a cheat code to decode.");
+            ShowError(LocalizationManager.Instance["Cheat_EnterCode"]);
             return;
         }
 
@@ -44,7 +45,7 @@ public partial class CheatCodeView : UserControl
         }
         catch (ArgumentException ex)
         {
-            ShowError($"Decode error: {ex.Message}");
+            ShowError(string.Format(LocalizationManager.Instance["Cheat_DecodeError"], ex.Message));
             DecodeResultBorder.IsVisible = false;
         }
     }
@@ -57,7 +58,7 @@ public partial class CheatCodeView : UserControl
 
         if (string.IsNullOrEmpty(addressStr) || string.IsNullOrEmpty(valueStr))
         {
-            ShowError("Please enter both address and value in hexadecimal.");
+            ShowError(LocalizationManager.Instance["Cheat_EnterAddressValue"]);
             return;
         }
 
@@ -81,17 +82,17 @@ public partial class CheatCodeView : UserControl
         }
         catch (FormatException)
         {
-            ShowError("Invalid hex values. Please enter valid hexadecimal numbers.");
+            ShowError(LocalizationManager.Instance["Cheat_InvalidHex"]);
             EncodeResultBorder.IsVisible = false;
         }
         catch (OverflowException)
         {
-            ShowError("Value out of range. Address should be 16/24-bit, Value should be 8-bit (00-FF).");
+            ShowError(LocalizationManager.Instance["Cheat_ValueOutOfRange"]);
             EncodeResultBorder.IsVisible = false;
         }
         catch (ArgumentException ex)
         {
-            ShowError($"Encode error: {ex.Message}");
+            ShowError(string.Format(LocalizationManager.Instance["Cheat_EncodeError"], ex.Message));
             EncodeResultBorder.IsVisible = false;
         }
     }

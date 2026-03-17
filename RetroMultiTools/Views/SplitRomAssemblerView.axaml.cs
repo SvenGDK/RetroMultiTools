@@ -1,11 +1,16 @@
 using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
 
 public partial class SplitRomAssemblerView : UserControl
 {
+    private static readonly IBrush StatusErrorBrush = new SolidColorBrush(Color.Parse("#F38BA8"));
+    private static readonly IBrush StatusSuccessBrush = new SolidColorBrush(Color.Parse("#A6E3A1"));
+
     private List<string>? _detectedParts;
 
     public SplitRomAssemblerView()
@@ -15,7 +20,7 @@ public partial class SplitRomAssemblerView : UserControl
 
     private async void BrowseInput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select First Split Part",
+        var path = await PickFile(LocalizationManager.Instance["Split_SelectFirstPart"],
         [
             new FilePickerFileType("Split ROM Parts") { Patterns = ["*.001", "*.part1", "*.z01"] },
             FilePickerFileTypes.All
@@ -35,7 +40,7 @@ public partial class SplitRomAssemblerView : UserControl
 
             if (_detectedParts.Count == 0)
             {
-                PartsText.Text = "No split pattern detected for this file.";
+                PartsText.Text = LocalizationManager.Instance["Split_NoParts"];
                 PartsPanel.IsVisible = true;
                 AssembleButton.IsEnabled = false;
             }
@@ -55,7 +60,7 @@ public partial class SplitRomAssemblerView : UserControl
                 AssembleButton.IsEnabled = _detectedParts.Count > 1;
             }
         }
-        catch (IOException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             _detectedParts = null;
             PartsText.Text = $"Unable to read file: {ex.Message}";
@@ -85,7 +90,7 @@ public partial class SplitRomAssemblerView : UserControl
 
         var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Save Assembled ROM As",
+            Title = LocalizationManager.Instance["Split_SaveAs"],
             SuggestedFileName = Path.GetFileName(OutputFileTextBox.Text ?? "assembled_rom")
         });
 
@@ -100,13 +105,13 @@ public partial class SplitRomAssemblerView : UserControl
 
         if (string.IsNullOrEmpty(input))
         {
-            ShowStatus("Please select the first split part file.", isError: true);
+            ShowStatus(LocalizationManager.Instance["Split_SelectInputFile"], isError: true);
             return;
         }
 
         if (string.IsNullOrEmpty(output))
         {
-            ShowStatus("Please specify an output file path.", isError: true);
+            ShowStatus(LocalizationManager.Instance["Split_SelectOutputFile"], isError: true);
             return;
         }
 
@@ -120,15 +125,7 @@ public partial class SplitRomAssemblerView : UserControl
             var result = await SplitRomAssembler.AssembleAsync(input, output, progress);
             ShowStatus($"✔ Assembly complete!\n{result.Summary}\nOutput: {output}", isError: false);
         }
-        catch (IOException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (InvalidOperationException ex)
-        {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
             ShowStatus($"✘ Error: {ex.Message}", isError: true);
         }
@@ -142,9 +139,7 @@ public partial class SplitRomAssemblerView : UserControl
     private void ShowStatus(string message, bool isError)
     {
         StatusText.Text = message;
-        StatusText.Foreground = isError
-            ? new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#F38BA8"))
-            : new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#A6E3A1"));
+        StatusText.Foreground = isError ? StatusErrorBrush : StatusSuccessBrush;
         StatusBorder.IsVisible = true;
     }
 

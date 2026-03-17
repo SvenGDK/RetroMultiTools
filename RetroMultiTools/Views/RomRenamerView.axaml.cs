@@ -106,14 +106,7 @@ public partial class RomRenamerView : UserControl
             StatusBorder.IsVisible = true;
             ApplyButton.IsVisible = changeCount > 0;
         }
-        catch (IOException ex)
-        {
-            StatusText.Text = $"✘ Error: {ex.Message}";
-            StatusText.Foreground = new Avalonia.Media.SolidColorBrush(
-                Avalonia.Media.Color.Parse("#F38BA8"));
-            StatusBorder.IsVisible = true;
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             StatusText.Text = $"✘ Error: {ex.Message}";
             StatusText.Foreground = new Avalonia.Media.SolidColorBrush(
@@ -146,14 +139,7 @@ public partial class RomRenamerView : UserControl
             ApplyButton.IsVisible = false;
             PreviewList.ItemsSource = null;
         }
-        catch (IOException ex)
-        {
-            StatusText.Text = $"✘ Error: {ex.Message}";
-            StatusText.Foreground = new Avalonia.Media.SolidColorBrush(
-                Avalonia.Media.Color.Parse("#F38BA8"));
-            StatusBorder.IsVisible = true;
-        }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             StatusText.Text = $"✘ Error: {ex.Message}";
             StatusText.Foreground = new Avalonia.Media.SolidColorBrush(

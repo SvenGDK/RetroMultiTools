@@ -49,6 +49,14 @@
 
         <!-- Options -->
         <StackPanel Spacing="8">
+            <StackPanel Spacing="4">
+                <TextBlock Text="{Binding [MameRebuilder_Mode], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+                <ComboBox x:Name="ModeComboBox" SelectedIndex="0" MinWidth="200">
+                    <ComboBoxItem Content="{Binding [MameRebuilder_ModeSplit], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <ComboBoxItem Content="{Binding [MameRebuilder_ModeNonMerged], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <ComboBoxItem Content="{Binding [MameRebuilder_ModeMerged], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                </ComboBox>
+            </StackPanel>
             <CheckBox x:Name="OverwriteCheckBox" Foreground="#A6ADC8"
                       Content="{Binding [MameRebuilder_Overwrite], Source={x:Static loc:LocalizationManager.Instance}}"/>
             <CheckBox x:Name="OnlyCompleteCheckBox" Foreground="#A6ADC8"
