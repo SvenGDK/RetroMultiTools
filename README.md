@@ -7,7 +7,7 @@
 <img src="/Screenshots/Screenshot.png" width="75%">
 <img src="/Screenshots/BigPictureMode.png" width="75%">
 
-A cross-platform desktop utility for managing, inspecting, and patching retro game ROMs.
+A cross-platform desktop utility for managing, inspecting, modifying & launching retro game ROMs.
 
 [![License: BSD-2-Clause](https://img.shields.io/badge/License-BSD_2--Clause-blue.svg)](LICENSE)
 [![.NET](https://img.shields.io/badge/.NET-8.0-purple.svg)](https://dotnet.microsoft.com/download/dotnet/8.0)
