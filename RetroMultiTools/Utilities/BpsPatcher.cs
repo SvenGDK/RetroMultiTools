@@ -90,7 +90,10 @@ public static class BpsPatcher
                         if (targetPos + length > target.Length)
                             throw new InvalidDataException("SourceCopy extends beyond target buffer.");
                         for (long i = 0; i < length; i++)
-                            target[targetPos++] = sourcePos < source.Length ? source[sourcePos++] : (byte)0;
+                        {
+                            target[targetPos++] = sourcePos < source.Length ? source[sourcePos] : (byte)0;
+                            sourcePos++;
+                        }
                         break;
                     }
 

@@ -19,7 +19,13 @@ RetroMultiTools/
 │   ├── Resources/                 # Localization strings and assets
 │   ├── Services/                  # Application services
 │   ├── Utilities/                 # Core feature implementations
+│   │   ├── Analogue/              # Analogue device utilities (Pocket, Mega SG, 3D)
+│   │   ├── Mame/                  # MAME arcade utilities (auditor, CHD, rebuilder)
+│   │   └── RetroArch/             # RetroArch integration utilities (launcher, cores, playlists)
 │   └── Views/                     # UI views (AXAML + code-behind)
+│       ├── Analogue/              # Analogue device views
+│       ├── Mame/                  # MAME tool views
+│       └── RetroArch/             # RetroArch integration views
 ├── RetroMultiTools.Updater/       # External updater project (Console)
 │   └── Program.cs                 # Update extraction and relaunch logic
 ├── RetroMultiTools.slnx           # Solution file
@@ -74,6 +80,10 @@ Each utility is a `static class` containing the core logic for a feature. Utilit
 - Use `ConfigureAwait(false)` on all `await` expressions (they run off the UI thread).
 - Clean up partial output files on failure using a try-catch-delete pattern.
 
+Utilities are organized into subdirectories by category:
+
+#### Utilities/ (General)
+
 | File | Description |
 |---|---|
 | `AppUpdater.cs` | Checks GitHub Releases API for updates, downloads ZIPs, launches the external updater, and cleans up after updates |
@@ -82,7 +92,6 @@ Each utility is a `static class` containing the core logic for a feature. Utilit
 | `BpsPatcher.cs` | Applies BPS patches with full CRC32 validation of source, target, and patch data |
 | `CheatCodeConverter.cs` | Encodes and decodes cheat codes for Game Genie, Pro Action Replay, GameShark, CodeBreaker, and more |
 | `ChecksumCalculator.cs` | Computes CRC32, MD5, SHA-1, and SHA-256 checksums for individual ROM files |
-| `ControllerProfileDownloader.cs` | Downloads SDL2 game controller profile database from the SDL_GameControllerDB repository |
 | `DatFilter.cs` | Filters DAT file entries with category exclusion, region/language priority, and 1G1R deduplication |
 | `DatVerifier.cs` | Verifies ROM files against No-Intro and TOSEC DAT databases by CRC32, MD5, or SHA-1 |
 | `DiscordRichPresence.cs` | Discord Rich Presence integration via IPC pipe — shows current game activity |
@@ -94,17 +103,10 @@ Each utility is a `static class` containing the core logic for a feature. Utilit
 | `GoodToolsIdentifier.cs` | Identifies GoodTools labelling conventions (country, standard, and GoodGen codes) from ROM filenames |
 | `HexViewer.cs` | Reads and formats ROM file contents for hexadecimal display with page-based navigation |
 | `IpsPatcher.cs` | Applies IPS patches with RLE support and optional truncation |
-| `MameChdVerifier.cs` | Verifies MAME CHD file integrity (headers, checksums, compression metadata) |
-| `MameDir2Dat.cs` | Creates Logiqx XML DAT files from a directory of ROM ZIPs, loose files, and CHD disks |
-| `MameRomAuditor.cs` | Audits MAME ROM sets against a MAME XML database for completeness and CRC32 correctness |
-| `MameSampleAuditor.cs` | Audits MAME sample audio ZIPs for expected WAV files per machine |
-| `MameSetRebuilder.cs` | Rebuilds MAME ROM sets (split, non-merged, or merged) from scattered files |
 | `MetadataScraper.cs` | Scrapes header info, checksums, and system details from ROM files in bulk |
 | `N64FormatConverter.cs` | Converts between N64 ROM byte orders (.z64, .n64, .v64) |
 | `PatchCreator.cs` | Creates IPS patches by comparing original and modified ROM files |
 | `RemoteTransferService.cs` | Transfers files to remote targets via FTP, SFTP, WebDAV, Amazon S3, and cloud storage providers |
-| `RetroArchCoreDownloader.cs` | Downloads libretro cores from the official RetroArch buildbot |
-| `RetroArchLauncher.cs` | Launches ROMs with RetroArch and manages the emulator process lifecycle |
 | `RomComparer.cs` | Streaming byte-by-byte binary comparison of two ROM files |
 | `RomDecompressor.cs` | Decompresses GZip-compressed ROM files (.gz), single or batch |
 | `RomFormatConverter.cs` | Adds/removes copier headers, converts disc images to CHD or RVZ format |
@@ -118,6 +120,38 @@ Each utility is a `static class` containing the core logic for a feature. Utilit
 | `SnesHeaderTool.cs` | Detects, adds, and removes the 512-byte copier header from SNES ROM dumps |
 | `SplitRomAssembler.cs` | Reassembles split ROM files (.001/.002, .part1/.part2, .z01/.z02) into a single file |
 | `ZipRomExtractor.cs` | Extracts ROM files from ZIP archives, single or batch |
+
+#### Utilities/Analogue/
+
+| File | Description |
+|---|---|
+| `Analogue3DManager.cs` | Manages Analogue 3D N64 Game Pak settings on SD card |
+| `AnalogueFontGenerator.cs` | Generates 8×8 pixel fonts for Analogue Mega SG, NT, and Super NT |
+| `AnaloguePocketManager.cs` | Manages Analogue Pocket SD card operations (cores, saves, screenshots) |
+
+#### Utilities/Mame/
+
+| File | Description |
+|---|---|
+| `MameChdConverter.cs` | Converts MAME CHD (Compressed Hunks of Data) files between formats |
+| `MameChdVerifier.cs` | Verifies MAME CHD file integrity (headers, checksums, compression metadata) |
+| `MameDatEditor.cs` | Edits MAME DAT database files |
+| `MameDir2Dat.cs` | Creates Logiqx XML DAT files from a directory of ROM ZIPs, loose files, and CHD disks |
+| `MameLauncher.cs` | Launches standalone MAME emulator with ROM sets |
+| `MameRomAuditor.cs` | Audits MAME ROM sets against a MAME XML database for completeness and CRC32 correctness |
+| `MameSampleAuditor.cs` | Audits MAME sample audio ZIPs for expected WAV files per machine |
+| `MameSetRebuilder.cs` | Rebuilds MAME ROM sets (split, non-merged, or merged) from scattered files |
+
+#### Utilities/RetroArch/
+
+| File | Description |
+|---|---|
+| `ControllerProfileDownloader.cs` | Downloads SDL2 game controller profile database from the SDL_GameControllerDB repository |
+| `RetroAchievementsWriter.cs` | Creates and edits RetroAchievements definition files in RACache JSON format |
+| `RetroArchCoreDownloader.cs` | Downloads libretro cores from the official RetroArch buildbot |
+| `RetroArchLauncher.cs` | Launches ROMs with RetroArch and manages the emulator process lifecycle |
+| `RetroArchPlaylistCreator.cs` | Creates and edits RetroArch playlists (.lpl) with thumbnail downloading |
+| `RetroArchShortcutCreator.cs` | Creates OS-specific desktop shortcuts for launching ROMs via RetroArch |
 
 ### RetroMultiTools.Updater
 
@@ -141,6 +175,13 @@ Each feature has a pair of files:
 - `FeatureView.axaml` — XAML layout (Avalonia markup).
 - `FeatureView.axaml.cs` — code-behind with event handlers.
 
+Views are organized into subdirectories by category:
+
+- `Views/` — General ROM tool views (browser, inspector, patcher, checksum, etc.)
+- `Views/Analogue/` — Analogue device views (Pocket, Mega SG, NT/Super NT, 3D)
+- `Views/Mame/` — MAME tool views (auditor, CHD, rebuilder, Dir2Dat, etc.)
+- `Views/RetroArch/` — RetroArch integration views (playlists, shortcuts, achievements)
+
 Views handle:
 
 - File/folder picker dialogs
@@ -160,7 +201,7 @@ All user-facing text uses resource keys from `Strings.resx`. The `LocalizationMa
 
 ### Main Window
 
-`MainWindow.axaml` defines the sidebar navigation with 34 feature entries organized into categories (Browsing, Patching, Conversion, Verification, Management, Cheats, MAME, Settings). Clicking a menu item swaps the content area to the corresponding view. Three features open separate modal windows: `GamepadMapperWindow` (SDL2 gamepad mapping tool), `HostRomsWindow` (ROM hosting server), and `SendToRemoteWindow` (remote file transfer).
+`MainWindow.axaml` defines the sidebar navigation with 34+ feature entries organized into categories (Browse & Inspect, Patching & Conversion, Analysis & Verification, Headers & Trimming, Utilities, RetroArch, MAME, Analogue, Settings). Clicking a menu item swaps the content area to the corresponding view. Three features open separate modal windows: `GamepadMapperWindow` (SDL2 gamepad mapping tool), `HostRomsWindow` (ROM hosting server), and `SendToRemoteWindow` (remote file transfer).
 
 `MainWindow.axaml.cs` provides public methods for external control:
 

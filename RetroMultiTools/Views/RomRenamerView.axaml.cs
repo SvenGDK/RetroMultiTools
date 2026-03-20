@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Utilities;
 
@@ -6,6 +7,10 @@ namespace RetroMultiTools.Views;
 
 public partial class RomRenamerView : UserControl
 {
+    private static readonly IBrush StatusErrorBrush = new SolidColorBrush(Color.Parse("#F38BA8"));
+    private static readonly IBrush StatusSuccessBrush = new SolidColorBrush(Color.Parse("#A6E3A1"));
+    private static readonly IBrush StatusWarningBrush = new SolidColorBrush(Color.Parse("#F9E2AF"));
+
     private List<RenamePreview>? _previews;
 
     public RomRenamerView()
@@ -101,16 +106,14 @@ public partial class RomRenamerView : UserControl
             StatusText.Text = changeCount > 0
                 ? $"Preview: {changeCount} file(s) would be renamed out of {_previews.Count} scanned."
                 : "No files need renaming — all names already match headers.";
-            StatusText.Foreground = new Avalonia.Media.SolidColorBrush(
-                Avalonia.Media.Color.Parse(changeCount > 0 ? "#A6E3A1" : "#F9E2AF"));
+            StatusText.Foreground = changeCount > 0 ? StatusSuccessBrush : StatusWarningBrush;
             StatusBorder.IsVisible = true;
             ApplyButton.IsVisible = changeCount > 0;
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             StatusText.Text = $"✘ Error: {ex.Message}";
-            StatusText.Foreground = new Avalonia.Media.SolidColorBrush(
-                Avalonia.Media.Color.Parse("#F38BA8"));
+            StatusText.Foreground = StatusErrorBrush;
             StatusBorder.IsVisible = true;
         }
         finally
@@ -133,8 +136,7 @@ public partial class RomRenamerView : UserControl
             int renamed = await Task.Run(() => RomRenamer.ApplyBatchRename(_previews, progress));
 
             StatusText.Text = $"✔ Renamed {renamed} file(s) successfully.";
-            StatusText.Foreground = new Avalonia.Media.SolidColorBrush(
-                Avalonia.Media.Color.Parse("#A6E3A1"));
+            StatusText.Foreground = StatusSuccessBrush;
             StatusBorder.IsVisible = true;
             ApplyButton.IsVisible = false;
             PreviewList.ItemsSource = null;
@@ -142,8 +144,7 @@ public partial class RomRenamerView : UserControl
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             StatusText.Text = $"✘ Error: {ex.Message}";
-            StatusText.Foreground = new Avalonia.Media.SolidColorBrush(
-                Avalonia.Media.Color.Parse("#F38BA8"));
+            StatusText.Foreground = StatusErrorBrush;
             StatusBorder.IsVisible = true;
         }
         finally

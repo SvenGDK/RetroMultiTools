@@ -33,6 +33,8 @@
                         Padding="12,6" IsEnabled="False"/>
                 <Button x:Name="LaunchRetroArchButton" Content="{Binding [Browser_LaunchRetroArch], Source={x:Static loc:LocalizationManager.Instance}}" Click="LaunchRetroArchButton_Click"
                         Padding="12,6" IsEnabled="False"/>
+                <Button x:Name="LaunchMameButton" Content="{Binding [Browser_LaunchMame], Source={x:Static loc:LocalizationManager.Instance}}" Click="LaunchMameButton_Click"
+                        Padding="12,6" IsEnabled="False"/>
                 <CheckBox x:Name="ShowArtworkCheck" Content="{Binding [Browser_ShowArtwork], Source={x:Static loc:LocalizationManager.Instance}}"
                           Foreground="#CDD6F4" IsChecked="False"
                           IsCheckedChanged="ShowArtworkCheck_Changed"/>
@@ -70,6 +72,7 @@
                 <DataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem x:Name="ContextLaunchItem" Header="{Binding [Browser_ContextLaunch], Source={x:Static loc:LocalizationManager.Instance}}" Click="ContextLaunch_Click"/>
+                        <MenuItem x:Name="ContextLaunchMameItem" Header="{Binding [Browser_ContextLaunchMame], Source={x:Static loc:LocalizationManager.Instance}}" Click="ContextLaunchMame_Click"/>
                         <Separator/>
                         <MenuItem x:Name="ContextCopyItem" Header="{Binding [Browser_ContextCopy], Source={x:Static loc:LocalizationManager.Instance}}" Click="CopyRomButton_Click"/>
                         <MenuItem x:Name="ContextMoveItem" Header="{Binding [Browser_ContextMove], Source={x:Static loc:LocalizationManager.Instance}}" Click="MoveRomButton_Click"/>

@@ -1,0 +1,132 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.Mame.MameDatEditorView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="700" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [MameDatEditor_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [MameDatEditor_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- DAT File Selection -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [MameDatEditor_DatFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="DatFileTextBox" IsReadOnly="True"
+                         Watermark="{Binding [MameDatEditor_SelectDat], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseDat_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- DAT Info -->
+        <Border x:Name="DatInfoBorder" Background="#181825" CornerRadius="6" Padding="12" IsVisible="False">
+            <TextBlock x:Name="DatInfoText" Foreground="#A6ADC8" TextWrapping="Wrap"/>
+        </Border>
+
+        <!-- Header Editing Section -->
+        <Border x:Name="HeaderSection" Background="#181825" CornerRadius="6" Padding="12" IsVisible="False">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [MameDatEditor_HeaderSection], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="6">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [MameDatEditor_Name], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" VerticalAlignment="Center"/>
+                    <TextBox x:Name="HeaderNameTextBox" Grid.Row="0" Grid.Column="1" Padding="8,4"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [MameDatEditor_DescriptionField], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" VerticalAlignment="Center"/>
+                    <TextBox x:Name="HeaderDescTextBox" Grid.Row="1" Grid.Column="1" Padding="8,4"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding [MameDatEditor_Version], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" VerticalAlignment="Center"/>
+                    <TextBox x:Name="HeaderVersionTextBox" Grid.Row="2" Grid.Column="1" Padding="8,4"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding [MameDatEditor_Author], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" VerticalAlignment="Center"/>
+                    <TextBox x:Name="HeaderAuthorTextBox" Grid.Row="3" Grid.Column="1" Padding="8,4"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Search -->
+        <StackPanel x:Name="SearchSection" Spacing="4" IsVisible="False">
+            <TextBlock Text="{Binding [MameDatEditor_Search], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="SearchTextBox" Watermark="{Binding [MameDatEditor_SearchPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"
+                         Padding="8,6" KeyUp="SearchTextBox_KeyUp"/>
+                <Button Grid.Column="1" Content="{Binding [MameDatEditor_SearchButton], Source={x:Static loc:LocalizationManager.Instance}}" Click="SearchButton_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Game Actions -->
+        <StackPanel x:Name="GameActionsPanel" Orientation="Horizontal" Spacing="8" IsVisible="False">
+            <Button x:Name="AddGameButton" Content="{Binding [MameDatEditor_AddGame], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="AddGameButton_Click" Padding="12,6"/>
+            <Button x:Name="RemoveGameButton" Content="{Binding [MameDatEditor_RemoveGame], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="RemoveGameButton_Click" Padding="12,6" IsEnabled="False"/>
+        </StackPanel>
+
+        <!-- Game List -->
+        <Border x:Name="GameListBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False" MaxHeight="250">
+            <ScrollViewer>
+                <ListBox x:Name="GameListBox" SelectionChanged="GameListBox_SelectionChanged"
+                         Background="Transparent">
+                </ListBox>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Game Detail Editor -->
+        <Border x:Name="GameDetailBorder" Background="#1E1E2E" CornerRadius="6" Padding="12" IsVisible="False">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [MameDatEditor_GameDetails], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="6">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [MameDatEditor_GameName], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" VerticalAlignment="Center"/>
+                    <TextBox x:Name="GameNameTextBox" Grid.Row="0" Grid.Column="1" Padding="8,4"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [MameDatEditor_DescriptionField], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" VerticalAlignment="Center"/>
+                    <TextBox x:Name="GameDescTextBox" Grid.Row="1" Grid.Column="1" Padding="8,4"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding [MameDatEditor_Year], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" VerticalAlignment="Center"/>
+                    <TextBox x:Name="GameYearTextBox" Grid.Row="2" Grid.Column="1" Padding="8,4"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding [MameDatEditor_Manufacturer], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" VerticalAlignment="Center"/>
+                    <TextBox x:Name="GameMfgTextBox" Grid.Row="3" Grid.Column="1" Padding="8,4"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding [MameDatEditor_CloneOf], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" VerticalAlignment="Center"/>
+                    <TextBox x:Name="GameCloneOfTextBox" Grid.Row="4" Grid.Column="1" Padding="8,4"/>
+                </Grid>
+
+                <Button x:Name="ApplyGameButton" Content="{Binding [MameDatEditor_ApplyChanges], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="ApplyGameButton_Click" Padding="12,6" HorizontalAlignment="Left"/>
+
+                <!-- ROM List for selected game -->
+                <TextBlock Text="{Binding [MameDatEditor_RomList], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#CDD6F4" Margin="0,8,0,0"/>
+                <Border Background="#181825" CornerRadius="4" Padding="8" MaxHeight="200">
+                    <ScrollViewer>
+                        <TextBlock x:Name="RomListText" Foreground="#A6ADC8" FontSize="12"
+                                   FontFamily="Consolas,Courier New,monospace" TextWrapping="Wrap"/>
+                    </ScrollViewer>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Save Buttons -->
+        <StackPanel x:Name="SavePanel" Orientation="Horizontal" Spacing="8" IsVisible="False">
+            <Button x:Name="SaveButton" Content="{Binding [MameDatEditor_Save], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="SaveButton_Click" Padding="16,10"/>
+            <Button x:Name="SaveAsButton" Content="{Binding [MameDatEditor_SaveAs], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="SaveAsButton_Click" Padding="16,10"/>
+        </StackPanel>
+
+        <!-- Progress -->
+        <StackPanel x:Name="ProgressPanel" IsVisible="False" Spacing="4">
+            <ProgressBar IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+            <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+        </StackPanel>
+
+        <!-- Status -->
+        <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="#CDD6F4"/>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

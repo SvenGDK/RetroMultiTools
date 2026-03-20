@@ -38,6 +38,19 @@ public sealed class AppSettings
         }
     }
 
+    public string MamePath
+    {
+        get { lock (_lock) { return _data.MamePath ?? string.Empty; } }
+        set
+        {
+            lock (_lock)
+            {
+                _data.MamePath = value;
+                Save();
+            }
+        }
+    }
+
     public bool DiscordRichPresenceEnabled
     {
         get { lock (_lock) { return _data.DiscordRichPresenceEnabled; } }
@@ -300,6 +313,7 @@ public sealed class AppSettings
     private sealed class SettingsData
     {
         public string? RetroArchPath { get; set; }
+        public string? MamePath { get; set; }
         public bool DiscordRichPresenceEnabled { get; set; }
         public bool CheckForUpdatesOnStartup { get; set; } = true;
         public bool MinimizeToTrayOnLaunch { get; set; } = true;

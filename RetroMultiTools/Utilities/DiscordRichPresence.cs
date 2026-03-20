@@ -202,18 +202,29 @@ public static class DiscordRichPresence
                     ".", pipeName, System.IO.Pipes.PipeDirection.InOut,
                     System.IO.Pipes.PipeOptions.Asynchronous);
 
-                pipe.Connect(timeout: 1000);
-                _pipeStream = pipe;
+                try
+                {
+                    pipe.Connect(timeout: 1000);
+                    _pipeStream = pipe;
 
-                // Send handshake
-                var handshake = new { v = IpcVersion, client_id = ApplicationId };
-                SendPayload(0, handshake);
+                    // Send handshake
+                    var handshake = new { v = IpcVersion, client_id = ApplicationId };
+                    SendPayload(0, handshake);
 
-                // Read handshake response
-                ReadResponse();
+                    // Read handshake response
+                    ReadResponse();
 
-                _connected = true;
-                return;
+                    _connected = true;
+                    return;
+                }
+                catch
+                {
+                    // Dispose the pipe if handshake fails so the handle is not leaked.
+                    if (_pipeStream == pipe)
+                        _pipeStream = null;
+                    pipe.Dispose();
+                    throw;
+                }
             }
             catch (Exception ex) when (ex is TimeoutException or IOException or SocketException or InvalidOperationException) { continue; }
         }
@@ -221,47 +232,55 @@ public static class DiscordRichPresence
 
     private static void SendPayload(int opcode, object payload)
     {
-        if (_pipeStream == null || !_pipeStream.CanWrite)
-            return;
+        try
+        {
+            if (_pipeStream == null || !_pipeStream.CanWrite)
+                return;
 
-        string json = JsonSerializer.Serialize(payload);
-        byte[] jsonBytes = Encoding.UTF8.GetBytes(json);
+            string json = JsonSerializer.Serialize(payload);
+            byte[] jsonBytes = Encoding.UTF8.GetBytes(json);
 
-        byte[] header = new byte[8];
-        BitConverter.TryWriteBytes(header.AsSpan(0, 4), opcode);
-        BitConverter.TryWriteBytes(header.AsSpan(4, 4), jsonBytes.Length);
+            byte[] header = new byte[8];
+            BitConverter.TryWriteBytes(header.AsSpan(0, 4), opcode);
+            BitConverter.TryWriteBytes(header.AsSpan(4, 4), jsonBytes.Length);
 
-        _pipeStream.Write(header, 0, header.Length);
-        _pipeStream.Write(jsonBytes, 0, jsonBytes.Length);
-        _pipeStream.Flush();
+            _pipeStream.Write(header, 0, header.Length);
+            _pipeStream.Write(jsonBytes, 0, jsonBytes.Length);
+            _pipeStream.Flush();
+        }
+        catch (ObjectDisposedException) { }
     }
 
     private static void ReadResponse()
     {
-        if (_pipeStream == null || !_pipeStream.CanRead)
-            return;
-
-        byte[] header = new byte[8];
-        int bytesRead = 0;
-        while (bytesRead < 8)
+        try
         {
-            int read = _pipeStream.Read(header, bytesRead, 8 - bytesRead);
-            if (read == 0) break;
-            bytesRead += read;
+            if (_pipeStream == null || !_pipeStream.CanRead)
+                return;
+
+            byte[] header = new byte[8];
+            int bytesRead = 0;
+            while (bytesRead < 8)
+            {
+                int read = _pipeStream.Read(header, bytesRead, 8 - bytesRead);
+                if (read == 0) break;
+                bytesRead += read;
+            }
+
+            if (bytesRead < 8) return;
+
+            int length = BitConverter.ToInt32(header, 4);
+            if (length <= 0 || length > 65536) return;
+
+            byte[] body = new byte[length];
+            bytesRead = 0;
+            while (bytesRead < length)
+            {
+                int read = _pipeStream.Read(body, bytesRead, length - bytesRead);
+                if (read == 0) break;
+                bytesRead += read;
+            }
         }
-
-        if (bytesRead < 8) return;
-
-        int length = BitConverter.ToInt32(header, 4);
-        if (length <= 0 || length > 65536) return;
-
-        byte[] body = new byte[length];
-        bytesRead = 0;
-        while (bytesRead < length)
-        {
-            int read = _pipeStream.Read(body, bytesRead, length - bytesRead);
-            if (read == 0) break;
-            bytesRead += read;
-        }
+        catch (ObjectDisposedException) { }
     }
 }

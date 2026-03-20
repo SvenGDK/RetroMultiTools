@@ -170,8 +170,15 @@ public partial class HostRomsWindow : Window
         var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
         if (clipboard != null)
         {
-            await clipboard.SetTextAsync(firstUrl);
-            StatusText.Text = LocalizationManager.Instance["HostShare_UrlCopied"];
+            try
+            {
+                await clipboard.SetTextAsync(firstUrl);
+                StatusText.Text = LocalizationManager.Instance["HostShare_UrlCopied"];
+            }
+            catch (Exception)
+            {
+                // Clipboard access can fail on some platforms (e.g. Wayland without focus)
+            }
         }
     }
 

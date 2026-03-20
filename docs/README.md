@@ -2,43 +2,98 @@
 
 Welcome to the documentation for **Retro Multi Tools**, a cross-platform desktop utility for managing, inspecting, and patching retro game ROMs.
 
-## Quick Start
+---
 
-1. Download a release from the [Releases](https://github.com/SvenGDK/RetroMultiTools/releases) page.
-2. Install the [.NET 8 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) (unless you chose a self-contained build).
-3. Extract the archive and run the application.
+## Getting Started
 
-Platform-specific guides: [Windows](../README.md#platform-guides) · [Linux](../LINUX.md) · [macOS](../macOS.md)
-
-## Documentation Index
-
-### Features
+New to Retro Multi Tools? Start here.
 
 | Document | Description |
 |---|---|
-| [Browsing & Inspection](features/browsing-and-inspection.md) | ROM Browser (including Big Picture Mode and Host & Share), ROM Inspector, Hex Viewer |
-| [ROM Browser & RetroArch Guide](features/rom-browser-guide.md) | Step-by-step guide to the ROM Browser and RetroArch integration |
+| [Installation](getting-started/installation.md) | Download and install on Windows, Linux, or macOS |
+| [First Steps](getting-started/first-steps.md) | Quick walkthrough to get up and running |
+
+Platform-specific guides are also available at the repository root: [Windows](../README.md#platform-guides) · [Linux](../LINUX.md) · [macOS](../macOS.md)
+
+---
+
+## User Guides
+
+Step-by-step guides for key features.
+
+| Document | Description |
+|---|---|
+| [ROM Browser & RetroArch Guide](guides/rom-browser-guide.md) | Comprehensive guide to browsing, managing, and launching ROMs |
+| [Big Picture Mode](guides/big-picture-mode.md) | Fullscreen, controller-friendly ROM library interface |
+| [Remote Transfer & Sharing](guides/remote-transfer-guide.md) | Send ROMs to remote targets or share on the local network |
+
+---
+
+## Features
+
+Detailed documentation for every tool in the application.
+
+| Document | Description |
+|---|---|
+| [Browsing & Inspection](features/browsing-and-inspection.md) | ROM Browser, ROM Inspector, Hex Viewer |
 | [Patching](features/patching.md) | ROM Patcher (IPS/BPS), IPS Patch Creator |
 | [Conversion & Extraction](features/conversion-and-extraction.md) | N64 Converter, ROM Format Converter, Save File Converter, ZIP Extractor, Split ROM Assembler, ROM Decompressor |
 | [Verification & Analysis](features/verification-and-analysis.md) | Checksum Calculator, ROM Comparer, DAT Verifier, DAT Filter, Dump Verifier, Duplicate Finder, Batch ROM Hasher, Security & DRM Analysis, GoodTools Identifier |
 | [ROM Management](features/rom-management.md) | Header Export, SNES Header Tool, Batch Header Fixer, ROM Trimmer, ROM Renamer, Metadata Scraper |
 | [Cheats & Emulation](features/cheats-and-emulation.md) | Cheat Code Converter, Emulator Config Generator |
-| [MAME](features/mame.md) | ROM Set Auditor, CHD Verifier, ROM Set Rebuilder, Dir2Dat Creator, Sample Auditor |
-| [Settings & Integration](features/settings-and-integration.md) | Native Menu, System Tray, Application Updates, RetroArch Core Downloader, SDL2 Gamepad Mapping Tool, Remote Transfer, Host & Share, Language settings |
 
-### Reference
+---
 
-| Document | Description |
-|---|---|
-| [Supported Systems](reference/supported-systems.md) | Full list of supported consoles, computers, and file extensions |
-| [Cheat Code Reference](reference/cheat-codes.md) | Supported cheat code formats with examples |
-| [DAT File Formats](reference/dat-file-formats.md) | Supported DAT/XML formats for verification and filtering |
-| [Emulator Configurations](reference/emulator-configurations.md) | Supported emulators, options, and generated config formats |
-| [Remote Transfer Protocols](reference/remote-transfer.md) | FTP, SFTP, WebDAV, and S3 connection details |
+## Integrations
 
-### Development
+Setup and usage for third-party hardware and software.
 
 | Document | Description |
 |---|---|
-| [Building from Source](development/building.md) | Build instructions and requirements |
+| [RetroArch](integrations/retroarch.md) | Core management, playlists, shortcuts, achievements, Discord Rich Presence |
+| [MAME](integrations/mame.md) | ROM set auditor, CHD verifier, rebuilder, Dir2Dat, sample auditor |
+| [Analogue Hardware](integrations/analogue.md) | Pocket, Mega SG, NT / Super NT, 3D |
+
+---
+
+## Configuration
+
+Application settings and customization.
+
+| Document | Description |
+|---|---|
+| [Settings](configuration/settings.md) | Language, updates, system tray, native menu, controller profiles |
+| [Keyboard Shortcuts](configuration/keyboard-shortcuts.md) | All keyboard and controller shortcuts in one place |
+
+---
+
+## Reference
+
+Technical reference material for advanced users and developers.
+
+| Document | Description |
+|---|---|
+| [Supported Systems](reference/supported-systems.md) | Full list of 46 supported consoles, computers, and file extensions |
+| [Cheat Code Reference](reference/cheat-codes.md) | Supported cheat code formats with encoding details |
+| [DAT File Formats](reference/dat-file-formats.md) | Logiqx XML, MAME XML, No-Intro, TOSEC formats |
+| [Emulator Configurations](reference/emulator-configurations.md) | Generated config formats for 10 emulators |
+| [Remote Transfer Protocols](reference/remote-transfer.md) | FTP, SFTP, WebDAV, S3, and cloud storage protocol details |
+
+---
+
+## Development
+
+For contributors and developers.
+
+| Document | Description |
+|---|---|
+| [Building from Source](development/building.md) | Build instructions, requirements, and publish commands |
 | [Project Structure](development/project-structure.md) | Repository layout and architecture overview |
+
+---
+
+## Troubleshooting
+
+| Document | Description |
+|---|---|
+| [Troubleshooting & FAQ](troubleshooting.md) | Common issues and solutions for all platforms |

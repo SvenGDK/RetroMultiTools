@@ -13,29 +13,29 @@
             <TextBlock Text="{Binding [CheatCode_SystemFormat], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
             <ComboBox x:Name="SystemCombo" Width="350" HorizontalAlignment="Left"
                       SelectedIndex="0">
-                <ComboBoxItem Content="{Binding [CheatCode_NesGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="NesGameGenie"/>
-                <ComboBoxItem Content="{Binding [CheatCode_SnesGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="SnesGameGenie"/>
                 <ComboBoxItem Content="{Binding [CheatCode_GbGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameBoyGameGenie"/>
-                <ComboBoxItem Content="{Binding [CheatCode_GenesisGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GenesisGameGenie"/>
-                <ComboBoxItem Content="{Binding [CheatCode_SnesPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="SnesProActionReplay"/>
-                <ComboBoxItem Content="{Binding [CheatCode_GenesisPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GenesisProActionReplay"/>
+                <ComboBoxItem Content="{Binding [CheatCode_GbGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameBoyGameShark"/>
                 <ComboBoxItem Content="{Binding [CheatCode_GbPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameBoyProActionReplay"/>
-                <ComboBoxItem Content="{Binding [CheatCode_N64GS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="N64GameShark"/>
-                <ComboBoxItem Content="{Binding [CheatCode_GgGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameGearGameGenie"/>
-                <ComboBoxItem Content="{Binding [CheatCode_SmsPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="MasterSystemProActionReplay"/>
                 <ComboBoxItem Content="{Binding [CheatCode_GbaGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GbaGameShark"/>
                 <ComboBoxItem Content="{Binding [CheatCode_GbcGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameBoyColorGameGenie"/>
                 <ComboBoxItem Content="{Binding [CheatCode_GbcGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameBoyColorGameShark"/>
+                <ComboBoxItem Content="{Binding [CheatCode_GgGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameGearGameGenie"/>
+                <ComboBoxItem Content="{Binding [CheatCode_SmsPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="MasterSystemProActionReplay"/>
+                <ComboBoxItem Content="{Binding [CheatCode_N64GS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="N64GameShark"/>
+                <ComboBoxItem Content="{Binding [CheatCode_NdsAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="NdsActionReplay"/>
+                <ComboBoxItem Content="{Binding [CheatCode_NeoGeoRaw], Source={x:Static loc:LocalizationManager.Instance}}" Tag="NeoGeoRaw"/>
+                <ComboBoxItem Content="{Binding [CheatCode_NgpGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="NeoGeoPocketGameShark"/>
+                <ComboBoxItem Content="{Binding [CheatCode_NesGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="NesGameGenie"/>
+                <ComboBoxItem Content="{Binding [CheatCode_PceRaw], Source={x:Static loc:LocalizationManager.Instance}}" Tag="PCEngineRaw"/>
+                <ComboBoxItem Content="{Binding [CheatCode_PsxGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="PsxGameShark"/>
+                <ComboBoxItem Content="{Binding [CheatCode_DcCB], Source={x:Static loc:LocalizationManager.Instance}}" Tag="DreamcastCodeBreaker"/>
                 <ComboBoxItem Content="{Binding [CheatCode_32XPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Sega32XProActionReplay"/>
                 <ComboBoxItem Content="{Binding [CheatCode_SegaCDPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="SegaCDProActionReplay"/>
-                <ComboBoxItem Content="{Binding [CheatCode_PceRaw], Source={x:Static loc:LocalizationManager.Instance}}" Tag="PCEngineRaw"/>
-                <ComboBoxItem Content="{Binding [CheatCode_NgpGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="NeoGeoPocketGameShark"/>
-                <ComboBoxItem Content="{Binding [CheatCode_NdsAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="NdsActionReplay"/>
                 <ComboBoxItem Content="{Binding [CheatCode_SaturnAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="SaturnActionReplay"/>
-                <ComboBoxItem Content="{Binding [CheatCode_DcCB], Source={x:Static loc:LocalizationManager.Instance}}" Tag="DreamcastCodeBreaker"/>
-                <ComboBoxItem Content="{Binding [CheatCode_GbGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameBoyGameShark"/>
-                <ComboBoxItem Content="{Binding [CheatCode_NeoGeoRaw], Source={x:Static loc:LocalizationManager.Instance}}" Tag="NeoGeoRaw"/>
-                <ComboBoxItem Content="{Binding [CheatCode_PsxGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="PsxGameShark"/>
+                <ComboBoxItem Content="{Binding [CheatCode_GenesisGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GenesisGameGenie"/>
+                <ComboBoxItem Content="{Binding [CheatCode_GenesisPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GenesisProActionReplay"/>
+                <ComboBoxItem Content="{Binding [CheatCode_SnesGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="SnesGameGenie"/>
+                <ComboBoxItem Content="{Binding [CheatCode_SnesPAR], Source={x:Static loc:LocalizationManager.Instance}}" Tag="SnesProActionReplay"/>
             </ComboBox>
         </StackPanel>
 

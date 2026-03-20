@@ -1,0 +1,113 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.Analogue.Analogue3DView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="800" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [Analogue3D_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [Analogue3D_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- SD Card Path -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [Analogue3D_SdCardPath], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="SdCardPathTextBox" IsReadOnly="True"
+                         Watermark="{Binding [Analogue3D_SelectSdCard], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseSdCard_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Feature Buttons -->
+        <TextBlock Text="{Binding [Analogue3D_Features], Source={x:Static loc:LocalizationManager.Instance}}"
+                   FontSize="14" FontWeight="SemiBold" Foreground="#CDD6F4" Margin="0,8,0,0"/>
+
+        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button x:Name="ScanPaksButton" Content="{Binding [Analogue3D_ScanGamePaks], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="ScanPaks_Click" Padding="14,10" Margin="0,0,8,8" IsEnabled="False"/>
+            <Button x:Name="SetArtworkButton" Content="{Binding [Analogue3D_SetLabelArtwork], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="SetArtwork_Click" Padding="14,10" Margin="0,0,8,8" IsEnabled="False"/>
+        </WrapPanel>
+
+        <!-- Progress -->
+        <StackPanel x:Name="ProgressPanel" IsVisible="False" Spacing="4">
+            <ProgressBar IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+            <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+        </StackPanel>
+
+        <!-- Status -->
+        <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="#CDD6F4"/>
+        </Border>
+
+        <!-- Game Paks List -->
+        <Border x:Name="PaksBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False" MaxHeight="500">
+            <ScrollViewer>
+                <StackPanel x:Name="PaksPanel" Spacing="4"/>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Per-Game Settings Editor -->
+        <Border x:Name="SettingsEditorBorder" Background="#181825" CornerRadius="6" Padding="16"
+                IsVisible="False">
+            <StackPanel Spacing="12">
+                <TextBlock x:Name="SettingsGameNameText" FontSize="14" FontWeight="SemiBold" Foreground="#CDD6F4"/>
+
+                <TextBlock Text="{Binding [Analogue3D_DisplaySettings], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#89B4FA" FontSize="13"/>
+                <StackPanel Spacing="6">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [Analogue3D_Resolution], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Width="120" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="ResolutionCombo" Width="200" SelectedIndex="0">
+                            <ComboBoxItem Content="auto"/>
+                            <ComboBoxItem Content="240p"/>
+                            <ComboBoxItem Content="480i"/>
+                            <ComboBoxItem Content="480p"/>
+                            <ComboBoxItem Content="720p"/>
+                            <ComboBoxItem Content="1080p"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [Analogue3D_AspectRatio], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Width="120" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="AspectRatioCombo" Width="200" SelectedIndex="0">
+                            <ComboBoxItem Content="auto"/>
+                            <ComboBoxItem Content="4:3"/>
+                            <ComboBoxItem Content="16:9"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [Analogue3D_Smoothing], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Width="120" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="SmoothingCombo" Width="200" SelectedIndex="0">
+                            <ComboBoxItem Content="off"/>
+                            <ComboBoxItem Content="bilinear"/>
+                            <ComboBoxItem Content="crt"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <CheckBox x:Name="CropOverscanCheck" Content="{Binding [Analogue3D_CropOverscan], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                </StackPanel>
+
+                <TextBlock Text="{Binding [Analogue3D_HardwareSettings], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#89B4FA" FontSize="13" Margin="0,8,0,0"/>
+                <StackPanel Spacing="6">
+                    <CheckBox x:Name="ExpansionPakCheck" Content="{Binding [Analogue3D_ExpansionPak], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" IsChecked="True"/>
+                    <CheckBox x:Name="RumblePakCheck" Content="{Binding [Analogue3D_RumblePak], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" IsChecked="True"/>
+                    <CheckBox x:Name="CpuOverclockCheck" Content="{Binding [Analogue3D_CpuOverclock], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [Analogue3D_ControllerPak], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Width="120" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="ControllerPakCombo" Width="200" SelectedIndex="0">
+                            <ComboBoxItem Content="auto"/>
+                            <ComboBoxItem Content="memory"/>
+                            <ComboBoxItem Content="rumble"/>
+                            <ComboBoxItem Content="none"/>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button x:Name="SaveSettingsButton" Content="{Binding [Analogue3D_SaveSettings], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="SaveSettings_Click" Padding="14,10" Margin="0,8,0,0"/>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

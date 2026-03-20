@@ -1,0 +1,91 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.RetroArch.RetroArchShortcutView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="700" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [RAShortcut_Title], Source={x:Static loc:LocalizationManager.Instance}}"
+                   FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [RAShortcut_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- Shortcut Configuration -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [RAShortcut_Configuration], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+
+                <!-- Shortcut Name -->
+                <TextBox x:Name="ShortcutNameTextBox" Width="400"
+                         Watermark="{Binding [RAShortcut_NamePlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+
+                <!-- ROM File -->
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBox x:Name="RomPathTextBox" Width="350" IsReadOnly="True"
+                             Watermark="{Binding [RAShortcut_RomPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <Button x:Name="BrowseRomButton" Content="{Binding [Settings_RetroArchBrowse], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="BrowseRomButton_Click" Padding="12,6"/>
+                </StackPanel>
+
+                <!-- System Selection -->
+                <ComboBox x:Name="SystemCombo" Width="400"
+                          PlaceholderText="{Binding [RAShortcut_SelectSystem], Source={x:Static loc:LocalizationManager.Instance}}"
+                          SelectionChanged="SystemCombo_SelectionChanged"/>
+
+                <!-- Core Selection -->
+                <ComboBox x:Name="CoreCombo" Width="400"
+                          PlaceholderText="{Binding [RAShortcut_SelectCore], Source={x:Static loc:LocalizationManager.Instance}}"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Advanced Options -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [RAShortcut_Advanced], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+
+                <!-- Output Directory -->
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBox x:Name="OutputDirTextBox" Width="350" IsReadOnly="True"
+                             Watermark="{Binding [RAShortcut_OutputDirPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <Button x:Name="BrowseOutputDirButton" Content="{Binding [Settings_RetroArchBrowse], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="BrowseOutputDirButton_Click" Padding="12,6"/>
+                </StackPanel>
+
+                <!-- Icon Path -->
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBox x:Name="IconPathTextBox" Width="350" IsReadOnly="True"
+                             Watermark="{Binding [RAShortcut_IconPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <Button x:Name="BrowseIconButton" Content="{Binding [Settings_RetroArchBrowse], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="BrowseIconButton_Click" Padding="12,6"/>
+                </StackPanel>
+
+                <!-- RetroArch Path Override -->
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBox x:Name="RetroArchOverrideTextBox" Width="350" IsReadOnly="True"
+                             Watermark="{Binding [RAShortcut_RetroArchOverridePlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <Button x:Name="BrowseRetroArchOverrideButton" Content="{Binding [Settings_RetroArchBrowse], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="BrowseRetroArchOverrideButton_Click" Padding="12,6"/>
+                </StackPanel>
+
+                <!-- Fullscreen -->
+                <CheckBox x:Name="FullscreenCheckBox" Content="{Binding [RAShortcut_Fullscreen], Source={x:Static loc:LocalizationManager.Instance}}"
+                          Foreground="#CDD6F4"/>
+
+                <!-- Extra Arguments -->
+                <TextBox x:Name="ExtraArgsTextBox" Width="400"
+                         Watermark="{Binding [RAShortcut_ExtraArgsPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Create -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <Button x:Name="CreateShortcutButton" Content="{Binding [RAShortcut_Create], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="CreateShortcutButton_Click" Padding="12,6"/>
+                <TextBlock x:Name="StatusText" Foreground="#A6ADC8" FontSize="11" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

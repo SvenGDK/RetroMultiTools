@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Detection;
@@ -10,6 +11,8 @@ namespace RetroMultiTools.Views;
 
 public partial class RomInspectorView : UserControl
 {
+    private static readonly IBrush StatusErrorBrush = new SolidColorBrush(Color.Parse("#F38BA8"));
+    private static readonly IBrush StatusSuccessBrush = new SolidColorBrush(Color.Parse("#A6E3A1"));
     public RomInspectorView()
     {
         InitializeComponent();
@@ -70,9 +73,7 @@ public partial class RomInspectorView : UserControl
             SystemNameText.Text = info.SystemName;
             FileSizeText.Text = info.FileSizeFormatted;
             IsValidText.Text = info.IsValid ? LocalizationManager.Instance["Inspector_ValidYes"] : LocalizationManager.Instance["Inspector_ValidNo"];
-            IsValidText.Foreground = info.IsValid
-                ? new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#A6E3A1"))
-                : new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#F38BA8"));
+            IsValidText.Foreground = info.IsValid ? StatusSuccessBrush : StatusErrorBrush;
             ErrorMessageText.Text = info.ErrorMessage ?? string.Empty;
 
             HeaderItemsControl.ItemsSource = info.HeaderInfo

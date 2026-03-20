@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.Analogue.AnalogueNtSuperNtView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="700" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [AnalogueNtSuperNt_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [AnalogueNtSuperNt_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- SD Card Path -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [AnalogueNtSuperNt_SdCardPath], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="SdCardPathTextBox" IsReadOnly="True"
+                         Watermark="{Binding [AnalogueNtSuperNt_SelectSdCard], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseSdCard_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Font Generator Section -->
+        <TextBlock Text="{Binding [AnalogueNtSuperNt_FontGenerator], Source={x:Static loc:LocalizationManager.Instance}}"
+                   FontSize="14" FontWeight="SemiBold" Foreground="#CDD6F4" Margin="0,8,0,0"/>
+        <TextBlock Text="{Binding [AnalogueNtSuperNt_FontDescription], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap" FontSize="12"/>
+
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [AnalogueNtSuperNt_ConsoleTarget], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <RadioButton x:Name="NtRadio" Content="{Binding [AnalogueNtSuperNt_AnalogueNt], Source={x:Static loc:LocalizationManager.Instance}}" GroupName="ConsoleTarget"
+                             IsChecked="True" Foreground="#CDD6F4"/>
+                <RadioButton x:Name="SuperNtRadio" Content="{Binding [AnalogueNtSuperNt_SuperNt], Source={x:Static loc:LocalizationManager.Instance}}" GroupName="ConsoleTarget"
+                             Foreground="#CDD6F4"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [Analogue_FontSourceImage], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="FontImageTextBox" IsReadOnly="True"
+                         Watermark="{Binding [Analogue_FontSourceWatermark], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseFontImage_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <Button x:Name="GenerateFontButton" Content="{Binding [Analogue_GenerateFont], Source={x:Static loc:LocalizationManager.Instance}}"
+                Click="GenerateFont_Click" Padding="14,10" IsEnabled="False"/>
+
+        <!-- NES Header Repair Section -->
+        <TextBlock Text="{Binding [AnalogueNtSuperNt_NesHeaderRepair], Source={x:Static loc:LocalizationManager.Instance}}"
+                   FontSize="14" FontWeight="SemiBold" Foreground="#CDD6F4" Margin="0,12,0,0"/>
+        <TextBlock Text="{Binding [AnalogueNtSuperNt_HeaderDescription], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap" FontSize="12"/>
+
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [AnalogueNtSuperNt_NesRomFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="NesRomTextBox" IsReadOnly="True"
+                         Watermark="{Binding [AnalogueNtSuperNt_SelectNesRom], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseNesRom_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <Button x:Name="RepairHeaderButton" Content="{Binding [AnalogueNtSuperNt_RepairHeader], Source={x:Static loc:LocalizationManager.Instance}}"
+                Click="RepairHeader_Click" Padding="14,10" IsEnabled="False"/>
+
+        <!-- Progress -->
+        <StackPanel x:Name="ProgressPanel" IsVisible="False" Spacing="4">
+            <ProgressBar IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+            <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+        </StackPanel>
+
+        <!-- Status -->
+        <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="#CDD6F4"/>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

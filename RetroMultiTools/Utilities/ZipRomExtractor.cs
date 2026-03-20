@@ -24,7 +24,14 @@ public static class ZipRomExtractor
         ".mo5", ".k7", ".fd",
         ".sv", ".ccc",
         ".3do", ".cdi", ".gdi",
-        ".chd", ".rvz", ".gcm"
+        ".chd", ".rvz", ".gcm",
+        ".atr", ".xex", ".car", ".cas",
+        ".d88", ".t88",
+        ".ndd", ".nds", ".3ds", ".cia",
+        ".neo",
+        ".chf",
+        ".tgc",
+        ".mtx", ".run"
     };
 
     /// <summary>

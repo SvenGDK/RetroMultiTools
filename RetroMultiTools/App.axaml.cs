@@ -55,7 +55,7 @@ public partial class App : Application
 
             if (AppSettings.Instance.CheckForUpdatesOnStartup)
             {
-                CheckForUpdatesAsync(_mainWindow, desktop);
+                _ = CheckForUpdatesAsync(_mainWindow, desktop);
             }
         }
         base.OnFrameworkInitializationCompleted();
@@ -120,13 +120,28 @@ public partial class App : Application
             ("metascraper", loc["Nav_MetadataScraper"]),
             ("romrenamer", loc["Nav_RomRenamer"]));
 
+        // RetroArch
+        AddNavSubmenu(nativeMenu, loc["Nav_RetroArch"],
+            ("raintegration", loc["Nav_RetroArchIntegration"]),
+            ("raachievements", loc["Nav_RetroAchievementsWriter"]),
+            ("raplaylist", loc["Nav_RetroArchPlaylist"]),
+            ("rashortcut", loc["Nav_RetroArchShortcut"]));
+
         // MAME
         AddNavSubmenu(nativeMenu, loc["Nav_Mame"],
+            ("mameintegration", loc["Nav_MameIntegration"]),
             ("mameauditor", loc["Nav_MameAuditor"]),
             ("mamechd", loc["Nav_MameChd"]),
             ("mamerebuilder", loc["Nav_MameRebuilder"]),
             ("mamedir2dat", loc["Nav_MameDir2Dat"]),
             ("mamesamples", loc["Nav_MameSamples"]));
+
+        // Analogue
+        AddNavSubmenu(nativeMenu, loc["Nav_Analogue"],
+            ("analoguepocket", loc["Nav_AnaloguePocket"]),
+            ("analoguentsupernt", loc["Nav_AnalogueNtSuperNt"]),
+            ("analoguemegasg", loc["Nav_AnalogueMegaSg"]),
+            ("analogue3d", loc["Nav_Analogue3D"]));
 
         // Help menu with Settings
         var helpMenu = new NativeMenuItem(loc["Menu_Help"])
@@ -204,7 +219,7 @@ public partial class App : Application
 
     private const int UpdateCheckDelayMs = 2000;
 
-    private static async void CheckForUpdatesAsync(Window owner, IClassicDesktopStyleApplicationLifetime desktop)
+    private static async Task CheckForUpdatesAsync(Window owner, IClassicDesktopStyleApplicationLifetime desktop)
     {
         try
         {

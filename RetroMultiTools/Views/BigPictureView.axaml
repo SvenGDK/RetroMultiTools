@@ -317,6 +317,14 @@
                                 HorizontalContentAlignment="Center"
                                 Padding="16,12" FontSize="16" FontWeight="SemiBold"
                                 Background="#89B4FA" Foreground="#1E1E2E"/>
+                        <Button x:Name="DetailLaunchMameButton"
+                                Content="{Binding [BigPicture_LaunchMame], Source={x:Static loc:LocalizationManager.Instance}}"
+                                Click="LaunchMameButton_Click"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                Padding="16,12" FontSize="16" FontWeight="SemiBold"
+                                Background="#F9E2AF" Foreground="#1E1E2E"
+                                IsVisible="False"/>
                     </StackPanel>
                 </ScrollViewer>
             </Border>

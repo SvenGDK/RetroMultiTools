@@ -62,11 +62,12 @@ public sealed class LocalizationManager : INotifyPropertyChanged
         get => _culture;
         set
         {
+            ArgumentNullException.ThrowIfNull(value);
             if (_culture.Name == value.Name) return;
             _culture = value;
             CultureInfo.CurrentUICulture = value;
             SaveLanguagePreference(value.Name);
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item[]"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(""));
         }
     }
 

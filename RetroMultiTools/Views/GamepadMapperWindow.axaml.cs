@@ -458,8 +458,15 @@ public partial class GamepadMapperWindow : Window
         var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
         if (clipboard != null)
         {
-            await clipboard.SetTextAsync(text);
-            MappingStatusText.Text = LocalizationManager.Instance["Gamepad_CopiedToClipboard"];
+            try
+            {
+                await clipboard.SetTextAsync(text);
+                MappingStatusText.Text = LocalizationManager.Instance["Gamepad_CopiedToClipboard"];
+            }
+            catch (Exception)
+            {
+                // Clipboard access can fail on some platforms (e.g. Wayland without focus)
+            }
         }
     }
 
@@ -518,6 +525,11 @@ public partial class GamepadMapperWindow : Window
     {
         StopPolling();
         CloseActiveJoystick();
+
+        // Restart GamepadService polling that was paused in TryInitSdl()
+        // so Big Picture Mode gamepad support continues to work.
+        GamepadService.Instance.Initialise();
+
         base.OnClosing(e);
     }
 

@@ -5,6 +5,8 @@ using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using RetroMultiTools.Services;
 using RetroMultiTools.Utilities;
+using RetroMultiTools.Utilities.Mame;
+using RetroMultiTools.Utilities.RetroArch;
 
 namespace RetroMultiTools.Views;
 
@@ -160,10 +162,12 @@ public partial class RomBrowserView : UserControl
         bool canExportHeader = selectedRom.System is RomSystem.NES or RomSystem.SNES or RomSystem.N64
                     or RomSystem.GameBoy or RomSystem.GameBoyColor or RomSystem.GameBoyAdvance
                     or RomSystem.MegaDrive or RomSystem.SegaMasterSystem;
+        bool canLaunchMame = MameLauncher.IsSystemSupported(selectedRom.System);
 
         ContextConvertItem.IsVisible = canConvert;
         ContextTrimItem.IsVisible = canTrim;
         ContextExportHeaderItem.IsVisible = canExportHeader;
+        ContextLaunchMameItem.IsVisible = canLaunchMame;
     }
 
     private void UpdateButtonStates()
@@ -171,6 +175,7 @@ public partial class RomBrowserView : UserControl
         bool hasFolderSelected = !string.IsNullOrEmpty(_currentFolder);
         bool hasRoms = _allRoms.Count > 0;
         bool hasSelection = RomDataGrid.SelectedItems.Count > 0;
+        bool isArcadeSelected = RomDataGrid.SelectedItem is RomInfo rom && MameLauncher.IsSystemSupported(rom.System);
 
         AddRomButton.IsEnabled = hasFolderSelected;
         CopyRomButton.IsEnabled = hasSelection;
@@ -179,6 +184,7 @@ public partial class RomBrowserView : UserControl
         SendToRemoteButton.IsEnabled = hasSelection;
         HostShareButton.IsEnabled = hasFolderSelected || hasSelection;
         LaunchRetroArchButton.IsEnabled = hasSelection;
+        LaunchMameButton.IsEnabled = isArcadeSelected;
         OrganizeButton.IsEnabled = hasRoms;
     }
 
@@ -451,15 +457,62 @@ public partial class RomBrowserView : UserControl
         var result = RetroArchLauncher.Launch(selectedRom.FilePath, selectedRom.System);
         StatusText.Text = result.Message;
 
-        if (result.Success && result.Process != null)
+        if (result.Success)
         {
-            if (AppSettings.Instance.MinimizeToTrayOnLaunch)
+            AppSettings.Instance.RecordRecentlyPlayed(selectedRom.FilePath);
+            AppSettings.Instance.IncrementPlayCount(selectedRom.FilePath);
+
+            // Append BIOS notice for Neo Geo AES/MVS after successful launch
+            if (selectedRom.System == RomSystem.NeoGeo)
             {
-                MinimizeToTrayAndRestoreOnExit(result.Process);
+                StatusText.Text = result.Message + "  ·  " + LocalizationManager.Instance["Common_NeoGeoBiosNotice"];
             }
-            else
+
+            if (result.Process != null)
             {
-                result.Process.Dispose();
+                if (AppSettings.Instance.MinimizeToTrayOnLaunch)
+                {
+                    MinimizeToTrayAndRestoreOnExit(result.Process);
+                }
+                else
+                {
+                    result.Process.Dispose();
+                }
+            }
+        }
+    }
+
+    private void LaunchMameButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (RomDataGrid.SelectedItem is not RomInfo selectedRom) return;
+
+        if (!MameLauncher.IsSystemSupported(selectedRom.System))
+        {
+            StatusText.Text = string.Format(
+                LocalizationManager.Instance["Browser_MameSystemNotSupported"], selectedRom.SystemName);
+            return;
+        }
+
+        StatusText.Text = string.Format(
+            LocalizationManager.Instance["Browser_LaunchingMame"], selectedRom.FileName);
+        var result = MameLauncher.Launch(selectedRom.FilePath, selectedRom.System);
+        StatusText.Text = result.Message;
+
+        if (result.Success)
+        {
+            AppSettings.Instance.RecordRecentlyPlayed(selectedRom.FilePath);
+            AppSettings.Instance.IncrementPlayCount(selectedRom.FilePath);
+
+            if (result.Process != null)
+            {
+                if (AppSettings.Instance.MinimizeToTrayOnLaunch)
+                {
+                    MinimizeToTrayAndRestoreOnExit(result.Process);
+                }
+                else
+                {
+                    result.Process.Dispose();
+                }
             }
         }
     }
@@ -503,7 +556,13 @@ public partial class RomBrowserView : UserControl
         if (_allRoms.Count == 0) return;
 
         var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel == null) return;
+        if (topLevel is not Window parentWindow) return;
+
+        var modeDialog = new OrganizeModeWindow();
+        var moveChoice = await modeDialog.ShowDialog<bool?>(parentWindow);
+        if (moveChoice is null) return;
+
+        bool moveFiles = moveChoice.Value;
 
         var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
         {
@@ -518,8 +577,11 @@ public partial class RomBrowserView : UserControl
 
         try
         {
-            var result = await Task.Run(() => RomOrganizer.OrganizeBySystem(_allRoms, outputDir));
+            var result = await Task.Run(() => RomOrganizer.OrganizeBySystem(_allRoms, outputDir, moveFiles, systemFilter: null));
             StatusText.Text = $"Organized into {outputDir}: {result.Summary}";
+
+            if (moveFiles && result.Processed > 0)
+                await ScanCurrentFolder();
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
@@ -582,6 +644,11 @@ public partial class RomBrowserView : UserControl
     private void ContextLaunch_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         LaunchRetroArchButton_Click(sender, e);
+    }
+
+    private void ContextLaunchMame_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        LaunchMameButton_Click(sender, e);
     }
 
     private void ContextConvert_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

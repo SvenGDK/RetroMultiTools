@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Utilities;
 
@@ -6,6 +7,8 @@ namespace RetroMultiTools.Views;
 
 public partial class RomPatcherView : UserControl
 {
+    private static readonly IBrush StatusErrorBrush = new SolidColorBrush(Color.Parse("#F38BA8"));
+    private static readonly IBrush StatusSuccessBrush = new SolidColorBrush(Color.Parse("#A6E3A1"));
     public RomPatcherView()
     {
         InitializeComponent();
@@ -128,9 +131,7 @@ public partial class RomPatcherView : UserControl
     private void ShowStatus(string message, bool isError)
     {
         PatchStatusText.Text = message;
-        PatchStatusText.Foreground = isError
-            ? new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#F38BA8"))
-            : new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#A6E3A1"));
+        PatchStatusText.Foreground = isError ? StatusErrorBrush : StatusSuccessBrush;
         StatusBorder.IsVisible = true;
     }
 

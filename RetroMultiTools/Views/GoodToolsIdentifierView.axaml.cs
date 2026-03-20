@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
@@ -7,6 +8,8 @@ namespace RetroMultiTools.Views;
 
 public partial class GoodToolsIdentifierView : UserControl
 {
+    private static readonly IBrush StatusErrorBrush = new SolidColorBrush(Color.Parse("#F38BA8"));
+    private static readonly IBrush StatusSuccessBrush = new SolidColorBrush(Color.Parse("#A6E3A1"));
     public GoodToolsIdentifierView()
     {
         InitializeComponent();
@@ -151,9 +154,7 @@ public partial class GoodToolsIdentifierView : UserControl
     private void ShowStatus(string message, bool isError)
     {
         StatusText.Text = message;
-        StatusText.Foreground = isError
-            ? new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#F38BA8"))
-            : new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#A6E3A1"));
+        StatusText.Foreground = isError ? StatusErrorBrush : StatusSuccessBrush;
         StatusBorder.IsVisible = true;
     }
 

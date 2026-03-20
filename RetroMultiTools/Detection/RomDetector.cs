@@ -1,3 +1,4 @@
+using System.IO.Compression;
 using RetroMultiTools.Models;
 using RetroMultiTools.Utilities;
 
@@ -7,70 +8,112 @@ public static class RomDetector
 {
     private static readonly Dictionary<string, RomSystem> ExtensionMap = new(StringComparer.OrdinalIgnoreCase)
     {
-        { ".nes", RomSystem.NES },
-        { ".smc", RomSystem.SNES },
-        { ".sfc", RomSystem.SNES },
-        { ".z64", RomSystem.N64 },
-        { ".n64", RomSystem.N64 },
-        { ".v64", RomSystem.N64 },
-        { ".gb",  RomSystem.GameBoy },
-        { ".gbc", RomSystem.GameBoyColor },
-        { ".gba", RomSystem.GameBoyAdvance },
-        { ".vb",  RomSystem.VirtualBoy },
-        { ".vboy", RomSystem.VirtualBoy },
-        { ".sms", RomSystem.SegaMasterSystem },
-        { ".md",  RomSystem.MegaDrive },
-        { ".gen", RomSystem.MegaDrive },
-        { ".32x", RomSystem.Sega32X },
-        { ".gg",  RomSystem.GameGear },
-        { ".a26", RomSystem.Atari2600 },
-        { ".a52", RomSystem.Atari5200 },
-        { ".a78", RomSystem.Atari7800 },
-        { ".j64", RomSystem.AtariJaguar },
-        { ".jag", RomSystem.AtariJaguar },
-        { ".lnx", RomSystem.AtariLynx },
-        { ".lyx", RomSystem.AtariLynx },
-        { ".pce", RomSystem.PCEngine },
-        { ".tg16", RomSystem.PCEngine },
-        { ".ngp", RomSystem.NeoGeoPocket },
-        { ".ngc", RomSystem.NeoGeoPocket },
-        { ".col", RomSystem.ColecoVision },
-        { ".cv",  RomSystem.ColecoVision },
-        { ".int", RomSystem.Intellivision },
-        { ".mx1", RomSystem.MSX },
-        { ".mx2", RomSystem.MSX2 },
         { ".dsk", RomSystem.AmstradCPC }, // Note: .dsk is also used by MSX and Oric; defaults to Amstrad CPC
         { ".cdt", RomSystem.AmstradCPC },
         { ".sna", RomSystem.AmstradCPC },
-        { ".tap", RomSystem.Oric },
-        { ".mo5", RomSystem.ThomsonMO5 },
-        { ".k7",  RomSystem.ThomsonMO5 },
-        { ".fd",  RomSystem.ThomsonMO5 },
-        { ".sv",  RomSystem.WataraSupervision },
-        { ".ccc", RomSystem.ColorComputer },
-        { ".3do", RomSystem.Panasonic3DO },
-        { ".cdi", RomSystem.SegaDreamcast },
-        { ".gdi", RomSystem.SegaDreamcast },
-        { ".gcm", RomSystem.GameCube },
+        { ".a26", RomSystem.Atari2600 },
+        { ".a52", RomSystem.Atari5200 },
+        { ".a78", RomSystem.Atari7800 },
         { ".atr", RomSystem.Atari800 },
         { ".xex", RomSystem.Atari800 },
         { ".car", RomSystem.Atari800 },
         { ".cas", RomSystem.Atari800 },
-        { ".d88", RomSystem.NECPC88 },
-        { ".t88", RomSystem.NECPC88 },
-        { ".ndd", RomSystem.N64DD },
-        { ".nds", RomSystem.NintendoDS },
-        { ".3ds", RomSystem.Nintendo3DS },
-        { ".cia", RomSystem.Nintendo3DS },
-        { ".neo", RomSystem.NeoGeo },
+        { ".j64", RomSystem.AtariJaguar },
+        { ".jag", RomSystem.AtariJaguar },
+        { ".lnx", RomSystem.AtariLynx },
+        { ".lyx", RomSystem.AtariLynx },
+        { ".col", RomSystem.ColecoVision },
+        { ".cv",  RomSystem.ColecoVision },
+        { ".ccc", RomSystem.ColorComputer },
         { ".chf", RomSystem.FairchildChannelF },
-        { ".tgc", RomSystem.TigerGameCom },
+        { ".gb",  RomSystem.GameBoy },
+        { ".gba", RomSystem.GameBoyAdvance },
+        { ".gbc", RomSystem.GameBoyColor },
+        { ".gcm", RomSystem.GameCube },
+        { ".gg",  RomSystem.GameGear },
+        { ".int", RomSystem.Intellivision },
+        { ".md",  RomSystem.MegaDrive },
+        { ".gen", RomSystem.MegaDrive },
         { ".mtx", RomSystem.MemotechMTX },
         { ".run", RomSystem.MemotechMTX },
+        { ".mx1", RomSystem.MSX },
+        { ".mx2", RomSystem.MSX2 },
+        { ".z64", RomSystem.N64 },
+        { ".n64", RomSystem.N64 },
+        { ".v64", RomSystem.N64 },
+        { ".ndd", RomSystem.N64DD },
+        { ".d88", RomSystem.NECPC88 },
+        { ".t88", RomSystem.NECPC88 },
+        { ".neo", RomSystem.NeoGeo },
+        { ".ngp", RomSystem.NeoGeoPocket },
+        { ".ngc", RomSystem.NeoGeoPocket },
+        { ".nes", RomSystem.NES },
+        { ".3ds", RomSystem.Nintendo3DS },
+        { ".cia", RomSystem.Nintendo3DS },
+        { ".nds", RomSystem.NintendoDS },
+        { ".tap", RomSystem.Oric },
+        { ".3do", RomSystem.Panasonic3DO },
+        { ".pce", RomSystem.PCEngine },
+        { ".tg16", RomSystem.PCEngine },
+        { ".32x", RomSystem.Sega32X },
+        { ".cdi", RomSystem.SegaDreamcast },
+        { ".gdi", RomSystem.SegaDreamcast },
+        { ".sms", RomSystem.SegaMasterSystem },
+        { ".smc", RomSystem.SNES },
+        { ".sfc", RomSystem.SNES },
+        { ".mo5", RomSystem.ThomsonMO5 },
+        { ".k7",  RomSystem.ThomsonMO5 },
+        { ".fd",  RomSystem.ThomsonMO5 },
+        { ".tgc", RomSystem.TigerGameCom },
+        { ".vb",  RomSystem.VirtualBoy },
+        { ".vboy", RomSystem.VirtualBoy },
+        { ".sv",  RomSystem.WataraSupervision },
+    };
+
+    /// <summary>
+    /// File extensions that indicate non-ROM content inside a ZIP archive.
+    /// Used by <see cref="IsMameArcadeZip"/> to distinguish documentation, media,
+    /// executables, and source code from chip-dump files.
+    /// </summary>
+    private static readonly HashSet<string> NonRomExtensions = new(StringComparer.OrdinalIgnoreCase)
+    {
+        // Documents & metadata
+        ".txt", ".nfo", ".diz", ".md", ".log", ".pdf", ".doc", ".docx",
+        ".html", ".htm", ".xml", ".json", ".yaml", ".yml", ".csv",
+        // Images
+        ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".svg", ".ico", ".webp",
+        // Audio & video
+        ".mp3", ".wav", ".ogg", ".flac", ".avi", ".mp4", ".mkv", ".mov",
+        // Executables, libraries & scripts
+        ".exe", ".dll", ".bat", ".cmd", ".sh", ".py", ".pl", ".rb",
+        ".msi", ".dmg", ".deb", ".rpm", ".apk",
+        // Source code (common extensions that are short enough to be confused
+        // with chip-dump position identifiers)
+        ".c", ".h", ".cpp", ".hpp", ".cs", ".java", ".js", ".ts", ".go",
+        ".rs", ".swift", ".kt", ".s", ".asm", ".inc",
+        // Object, library & linker files
+        ".o", ".obj", ".lib", ".a", ".so", ".dylib", ".map", ".sym", ".lst",
+        // Configuration
+        ".cfg", ".ini", ".conf", ".properties", ".toml",
+        // Archives (nested)
+        ".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".xz",
+        // Temporary & backup files
+        ".bak", ".tmp", ".old",
     };
 
     public static RomInfo Detect(string filePath)
     {
+        if (string.IsNullOrWhiteSpace(filePath))
+        {
+            return new RomInfo
+            {
+                FilePath = filePath ?? "",
+                FileName = "",
+                IsValid = false,
+                ErrorMessage = "File path cannot be null or empty."
+            };
+        }
+
         var info = new RomInfo
         {
             FilePath = filePath,
@@ -91,6 +134,12 @@ public static class RomDetector
             info.FileSizeFormatted = FileUtils.FormatFileSize(fileInfo.Length);
 
             var ext = Path.GetExtension(filePath);
+
+            if (string.Equals(ext, ".zip", StringComparison.OrdinalIgnoreCase))
+            {
+                DetectZip(info, filePath);
+                return info;
+            }
 
             if (string.Equals(ext, ".bin", StringComparison.OrdinalIgnoreCase))
             {
@@ -263,37 +312,218 @@ public static class RomDetector
         return RomSystem.SegaCD; // fallback for unrecognized disc images
     }
 
+    /// <summary>
+    /// Checks whether the given header buffer contains the "SEGA" signature at
+    /// offset 0x100 or 0x101, which is present in all valid Mega Drive ROMs.
+    /// </summary>
+    private static bool HasMegaDriveSignature(byte[] header, int read)
+    {
+        if (read >= 0x104)
+        {
+            string marker = System.Text.Encoding.ASCII.GetString(header, 0x100, 4);
+            if (marker.StartsWith("SEGA", StringComparison.Ordinal))
+                return true;
+        }
+        if (read >= 0x105)
+        {
+            string marker = System.Text.Encoding.ASCII.GetString(header, 0x101, 4);
+            if (marker.StartsWith("SEGA", StringComparison.Ordinal))
+                return true;
+        }
+        return false;
+    }
+
     private static void DetectBin(RomInfo info, string filePath)
     {
         try
         {
             using var fs = File.OpenRead(filePath);
-            byte[] header = new byte[(int)Math.Min(512L, fs.Length)];
+            long fileLen = fs.Length;
+            // Read up to 32 KB to cover SMS/GG "TMR SEGA" markers at 0x7FF0
+            byte[] header = new byte[(int)Math.Min(0x8000L, fileLen)];
             int read = fs.Read(header, 0, header.Length);
 
-            if (read >= 0x110)
+            // Check for Sega Mega Drive: "SEGA" at offset 0x100 or 0x101
+            if (HasMegaDriveSignature(header, read))
             {
-                string segaMarkerAt0x100 = System.Text.Encoding.ASCII.GetString(header, 0x100, Math.Min(4, read - 0x100));
-                string segaMarkerAt0x101 = read >= 0x105 ? System.Text.Encoding.ASCII.GetString(header, 0x101, Math.Min(4, read - 0x101)) : "";
-                if (segaMarkerAt0x100.StartsWith("SEGA", StringComparison.Ordinal) || segaMarkerAt0x101.StartsWith("SEGA", StringComparison.Ordinal))
+                info.System = RomSystem.MegaDrive;
+                info.SystemName = GetSystemDisplayName(RomSystem.MegaDrive);
+                ParseMegaDriveHeader(info, header);
+                info.IsValid = true;
+                return;
+            }
+
+            // Check for Atari 7800: "ATARI7800" at offset 1
+            if (read >= 10)
+            {
+                string a78Magic = System.Text.Encoding.ASCII.GetString(header, 1, Math.Min(9, read - 1));
+                if (a78Magic.StartsWith("ATARI7800", StringComparison.Ordinal))
                 {
-                    info.System = RomSystem.MegaDrive;
-                    info.SystemName = GetSystemDisplayName(RomSystem.MegaDrive);
-                    ParseMegaDriveHeader(info, header);
+                    info.System = RomSystem.Atari7800;
+                    info.SystemName = GetSystemDisplayName(RomSystem.Atari7800);
+                    ParseAtari7800Header(info, header, read);
+                    return;
+                }
+            }
+
+            // Check for NES: iNES magic "NES\x1A" at offset 0
+            if (read >= 4 && header[0] == 0x4E && header[1] == 0x45 && header[2] == 0x53 && header[3] == 0x1A)
+            {
+                info.System = RomSystem.NES;
+                info.SystemName = GetSystemDisplayName(RomSystem.NES);
+                ParseNesHeader(info, header, read);
+                return;
+            }
+
+            // Check for Sega Master System / Game Gear: "TMR SEGA" marker
+            int[] smsOffsets = [0x7FF0, 0x3FF0, 0x1FF0];
+            foreach (int offset in smsOffsets)
+            {
+                if (offset + 8 > read) continue;
+                string smsMarker = System.Text.Encoding.ASCII.GetString(header, offset, 8);
+                if (smsMarker == "TMR SEGA")
+                {
+                    // Region code at offset+0x0F determines SMS vs Game Gear
+                    int regionByte = (offset + 0x0F < read) ? (header[offset + 0x0F] >> 4) & 0x0F : 0;
+                    if (regionByte >= 5 && regionByte <= 7)
+                    {
+                        info.System = RomSystem.GameGear;
+                        info.SystemName = GetSystemDisplayName(RomSystem.GameGear);
+                    }
+                    else
+                    {
+                        info.System = RomSystem.SegaMasterSystem;
+                        info.SystemName = GetSystemDisplayName(RomSystem.SegaMasterSystem);
+                    }
                     info.IsValid = true;
                     return;
                 }
             }
 
-            info.System = RomSystem.Atari2600;
-            info.SystemName = GetSystemDisplayName(RomSystem.Atari2600);
-            info.IsValid = true;
+            // Check for Atari Lynx: "LYNX" magic at offset 0
+            if (read >= 4 && header[0] == 0x4C && header[1] == 0x59 && header[2] == 0x4E && header[3] == 0x58)
+            {
+                info.System = RomSystem.AtariLynx;
+                info.SystemName = GetSystemDisplayName(RomSystem.AtariLynx);
+                ParseAtariLynxHeader(info, header, read);
+                return;
+            }
+
+            // No recognized system signature found
+            info.System = RomSystem.Unknown;
+            info.SystemName = GetSystemDisplayName(RomSystem.Unknown);
+            info.IsValid = false;
+            info.ErrorMessage = "No recognized ROM header signature found in .bin file.";
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             info.IsValid = false;
             info.ErrorMessage = ex.Message;
         }
+    }
+
+    /// <summary>
+    /// Detects the gaming system of a ROM stored inside a ZIP archive.
+    /// Performs a single pass through all entries: first checking for recognized
+    /// console/computer extensions, and simultaneously collecting MAME Arcade ROM
+    /// set heuristics (chip-dump file counts).  Falls back to Unknown when neither
+    /// strategy matches.
+    /// </summary>
+    private static void DetectZip(RomInfo info, string filePath)
+    {
+        try
+        {
+            using var archive = ZipFile.OpenRead(filePath);
+
+            int fileCount = 0;
+            int chipDumpCount = 0;
+
+            foreach (var entry in archive.Entries)
+            {
+                // Skip directory entries
+                if (string.IsNullOrEmpty(entry.Name))
+                    continue;
+
+                string ext = Path.GetExtension(entry.Name);
+
+                // Check for a recognized console/computer extension.
+                if (!string.IsNullOrEmpty(ext) && ExtensionMap.TryGetValue(ext, out var system))
+                {
+                    info.System = system;
+                    info.SystemName = GetSystemDisplayName(system);
+                    info.IsValid = true;
+                    return;
+                }
+
+                // --- MAME heuristic bookkeeping (single-pass) ---
+                fileCount++;
+
+                // Non-ROM support files (docs, images, executables, source code, etc.)
+                // don't count toward or against MAME detection.
+                if (!string.IsNullOrEmpty(ext) && NonRomExtensions.Contains(ext))
+                    continue;
+
+                // Recognised chip-dump patterns:
+                //  • No extension (bare filenames common in older sets)
+                //  • Short (1–8 character) alphanumeric extension representing a
+                //    board position, chip label, or generic dump type
+                //    Examples: .bin .rom .6e .7f .10e .u1 .p1 .a1 .c1 .v1 .m1
+                //             .mrom1 .fmem1 .srom1 .ic23
+                if (string.IsNullOrEmpty(ext))
+                {
+                    chipDumpCount++;
+                }
+                else
+                {
+                    ReadOnlySpan<char> bare = ext.AsSpan(1); // strip leading '.'
+                    if (bare.Length >= 1 && bare.Length <= 8 && IsAsciiAlphanumeric(bare))
+                        chipDumpCount++;
+                }
+            }
+
+            // No recognized console/computer extension found — check MAME heuristic.
+            // Must have at least 2 chip-dump files and they must represent the
+            // majority of entries in the archive.  Most real arcade boards have
+            // multiple ROM chips; requiring ≥ 2 avoids false positives from
+            // single-file ZIPs while covering the vast majority of MAME sets.
+            if (chipDumpCount >= 2 && chipDumpCount * 2 >= fileCount)
+            {
+                info.System = RomSystem.Arcade;
+                info.SystemName = GetSystemDisplayName(RomSystem.Arcade);
+                info.IsValid = true;
+                return;
+            }
+
+            // ZIP with no recognized ROM extensions — cannot determine system
+            info.System = RomSystem.Unknown;
+            info.SystemName = GetSystemDisplayName(RomSystem.Unknown);
+            info.IsValid = false;
+            info.ErrorMessage = "ZIP archive does not contain files with recognized ROM extensions.";
+        }
+        catch (InvalidDataException)
+        {
+            info.IsValid = false;
+            info.ErrorMessage = "Invalid or corrupted ZIP archive.";
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            info.IsValid = false;
+            info.ErrorMessage = ex.Message;
+        }
+    }
+
+    /// <summary>
+    /// Returns <see langword="true"/> if every character in the span is an
+    /// ASCII letter or digit (A-Z, a-z, 0-9).
+    /// </summary>
+    private static bool IsAsciiAlphanumeric(ReadOnlySpan<char> s)
+    {
+        foreach (char c in s)
+        {
+            if (!char.IsAsciiLetterOrDigit(c))
+                return false;
+        }
+        return true;
     }
 
     private static void ParseHeader(RomInfo info, string filePath)
@@ -306,14 +536,43 @@ public static class RomDetector
 
             switch (info.System)
             {
-                case RomSystem.NES:
-                    ParseNesHeader(info, header, read);
+                case RomSystem.AmigaCD32:
+                    ParseAmigaCD32Header(info, fs);
                     break;
-                case RomSystem.SNES:
-                    ParseSnesHeader(info, fs);
+                case RomSystem.AmstradCPC:
+                    ParseAmstradCpcHeader(info, fs);
                     break;
-                case RomSystem.N64:
-                    ParseN64Header(info, header, read);
+                case RomSystem.Arcade:
+                    // Arcade ROMs (MAME) are ZIP-based sets of chip dumps; no
+                    // single-file header format exists to parse.
+                    info.IsValid = true;
+                    break;
+                case RomSystem.Atari2600:
+                    ParseAtari2600Header(info, fs);
+                    break;
+                case RomSystem.Atari5200:
+                    ParseAtari5200Header(info, header, read);
+                    break;
+                case RomSystem.Atari7800:
+                    ParseAtari7800Header(info, header, read);
+                    break;
+                case RomSystem.Atari800:
+                    ParseAtari800Header(info, header, read);
+                    break;
+                case RomSystem.AtariJaguar:
+                    ParseAtariJaguarHeader(info, header, read);
+                    break;
+                case RomSystem.AtariLynx:
+                    ParseAtariLynxHeader(info, header, read);
+                    break;
+                case RomSystem.ColecoVision:
+                    ParseColecoVisionHeader(info, header, read);
+                    break;
+                case RomSystem.ColorComputer:
+                    ParseColorComputerHeader(info, header, read);
+                    break;
+                case RomSystem.FairchildChannelF:
+                    ParseFairchildChannelFHeader(info, header, read);
                     break;
                 case RomSystem.GameBoy:
                 case RomSystem.GameBoyColor:
@@ -322,101 +581,47 @@ public static class RomDetector
                 case RomSystem.GameBoyAdvance:
                     ParseGbaHeader(info, header, read);
                     break;
-                case RomSystem.VirtualBoy:
-                    ParseVirtualBoyHeader(info, fs);
+                case RomSystem.GameCube:
+                    ParseGameCubeHeader(info, fs);
                     break;
-                case RomSystem.SegaMasterSystem:
                 case RomSystem.GameGear:
+                case RomSystem.SegaMasterSystem:
                     ParseSmsGgHeader(info, fs);
-                    break;
-                case RomSystem.MegaDrive:
-                    ParseMegaDriveHeader(info, header);
-                    info.IsValid = true;
-                    break;
-                case RomSystem.Sega32X:
-                    ParseSega32XHeader(info, header, read);
-                    break;
-                case RomSystem.Atari7800:
-                    ParseAtari7800Header(info, header, read);
-                    break;
-                case RomSystem.AtariLynx:
-                    ParseAtariLynxHeader(info, header, read);
-                    break;
-                case RomSystem.PCEngine:
-                    ParsePceHeader(info, fs);
-                    break;
-                case RomSystem.NeoGeoPocket:
-                    ParseNeoGeoPocketHeader(info, header, read);
-                    break;
-                case RomSystem.ColecoVision:
-                    ParseColecoVisionHeader(info, header, read);
                     break;
                 case RomSystem.Intellivision:
                     ParseIntellivisionHeader(info, header, read);
                     break;
-                case RomSystem.Atari2600:
-                    ParseAtari2600Header(info, fs);
+                case RomSystem.MegaDrive:
+                    // Validate SEGA header signature to avoid misidentifying
+                    // non-ROM files (e.g. Markdown .md) as Mega Drive ROMs.
+                    if (HasMegaDriveSignature(header, read))
+                    {
+                        ParseMegaDriveHeader(info, header);
+                        info.IsValid = true;
+                    }
+                    else
+                    {
+                        info.System = RomSystem.Unknown;
+                        info.SystemName = GetSystemDisplayName(RomSystem.Unknown);
+                        info.IsValid = false;
+                        info.ErrorMessage = "File has a Mega Drive extension but no valid SEGA header signature.";
+                    }
                     break;
-                case RomSystem.Atari5200:
-                    ParseAtari5200Header(info, header, read);
-                    break;
-                case RomSystem.AtariJaguar:
-                    ParseAtariJaguarHeader(info, header, read);
-                    break;
-                case RomSystem.WataraSupervision:
-                    ParseWataraSupervisionHeader(info, fs);
+                case RomSystem.MemotechMTX:
+                    ParseMemotechMTXHeader(info, header, read);
                     break;
                 case RomSystem.MSX:
                 case RomSystem.MSX2:
                     ParseMsxHeader(info, header, read);
                     break;
-                case RomSystem.SegaCD:
-                    ParseSegaCdHeader(info, fs);
-                    break;
-                case RomSystem.AmstradCPC:
-                    ParseAmstradCpcHeader(info, fs);
-                    break;
-                case RomSystem.Oric:
-                    ParseOricHeader(info, header, read);
-                    break;
-                case RomSystem.ThomsonMO5:
-                    ParseThomsonMO5Header(info, header, read);
-                    break;
-                case RomSystem.ColorComputer:
-                    ParseColorComputerHeader(info, header, read);
-                    break;
-                case RomSystem.Panasonic3DO:
-                    ParsePanasonic3DOHeader(info, fs);
-                    break;
-                case RomSystem.AmigaCD32:
-                    ParseAmigaCD32Header(info, fs);
-                    break;
-                case RomSystem.SegaSaturn:
-                    ParseSegaSaturnHeader(info, fs);
-                    break;
-                case RomSystem.SegaDreamcast:
-                    ParseSegaDreamcastHeader(info, fs);
-                    break;
-                case RomSystem.GameCube:
-                    ParseGameCubeHeader(info, fs);
-                    break;
-                case RomSystem.Wii:
-                    ParseWiiHeader(info, fs);
-                    break;
-                case RomSystem.Atari800:
-                    ParseAtari800Header(info, header, read);
-                    break;
-                case RomSystem.NECPC88:
-                    ParseNECPC88Header(info, header, read);
+                case RomSystem.N64:
+                    ParseN64Header(info, header, read);
                     break;
                 case RomSystem.N64DD:
                     ParseN64DDHeader(info, header, read);
                     break;
-                case RomSystem.NintendoDS:
-                    ParseNintendoDSHeader(info, header, read);
-                    break;
-                case RomSystem.Nintendo3DS:
-                    ParseNintendo3DSHeader(info, header, read);
+                case RomSystem.NECPC88:
+                    ParseNECPC88Header(info, header, read);
                     break;
                 case RomSystem.NeoGeo:
                     ParseNeoGeoHeader(info, header, read);
@@ -424,22 +629,59 @@ public static class RomDetector
                 case RomSystem.NeoGeoCD:
                     ParseNeoGeoCDHeader(info, fs);
                     break;
+                case RomSystem.NeoGeoPocket:
+                    ParseNeoGeoPocketHeader(info, header, read);
+                    break;
+                case RomSystem.NES:
+                    ParseNesHeader(info, header, read);
+                    break;
+                case RomSystem.Nintendo3DS:
+                    ParseNintendo3DSHeader(info, header, read);
+                    break;
+                case RomSystem.NintendoDS:
+                    ParseNintendoDSHeader(info, header, read);
+                    break;
+                case RomSystem.Oric:
+                    ParseOricHeader(info, header, read);
+                    break;
+                case RomSystem.Panasonic3DO:
+                    ParsePanasonic3DOHeader(info, fs);
+                    break;
+                case RomSystem.PCEngine:
+                    ParsePceHeader(info, fs);
+                    break;
                 case RomSystem.PhilipsCDi:
                     ParsePhilipsCDiHeader(info, fs);
                     break;
-                case RomSystem.FairchildChannelF:
-                    ParseFairchildChannelFHeader(info, header, read);
+                case RomSystem.Sega32X:
+                    ParseSega32XHeader(info, header, read);
+                    break;
+                case RomSystem.SegaCD:
+                    ParseSegaCdHeader(info, fs);
+                    break;
+                case RomSystem.SegaDreamcast:
+                    ParseSegaDreamcastHeader(info, fs);
+                    break;
+                case RomSystem.SegaSaturn:
+                    ParseSegaSaturnHeader(info, fs);
+                    break;
+                case RomSystem.SNES:
+                    ParseSnesHeader(info, fs);
+                    break;
+                case RomSystem.ThomsonMO5:
+                    ParseThomsonMO5Header(info, header, read);
                     break;
                 case RomSystem.TigerGameCom:
                     ParseTigerGameComHeader(info, header, read);
                     break;
-                case RomSystem.MemotechMTX:
-                    ParseMemotechMTXHeader(info, header, read);
+                case RomSystem.VirtualBoy:
+                    ParseVirtualBoyHeader(info, fs);
                     break;
-                case RomSystem.Arcade:
-                    // Arcade ROMs (MAME) are ZIP-based sets of chip dumps; no
-                    // single-file header format exists to parse.
-                    info.IsValid = true;
+                case RomSystem.WataraSupervision:
+                    ParseWataraSupervisionHeader(info, fs);
+                    break;
+                case RomSystem.Wii:
+                    ParseWiiHeader(info, fs);
                     break;
                 default:
                     info.IsValid = true;
@@ -1229,7 +1471,7 @@ public static class RomDetector
             }
         }
 
-        info.HeaderInfo["ROM Size"] = FileUtils.FormatFileSize(read);
+        info.HeaderInfo["ROM Size"] = FileUtils.FormatFileSize(info.FileSize);
         info.IsValid = true;
     }
 
@@ -1245,7 +1487,7 @@ public static class RomDetector
             ushort startVector = (ushort)((startHi << 8) | startLo);
             info.HeaderInfo["Start Vector"] = $"0x{startVector:X4}";
 
-            info.HeaderInfo["ROM Size"] = FileUtils.FormatFileSize(read);
+            info.HeaderInfo["ROM Size"] = FileUtils.FormatFileSize(info.FileSize);
         }
 
         info.IsValid = true;
@@ -1325,7 +1567,7 @@ public static class RomDetector
 
         if (read >= 0x70)
         {
-            string title = System.Text.Encoding.ASCII.GetString(header, 0x60, Math.Min(16, read - 0x60)).TrimEnd('\0', ' ');
+            string title = System.Text.Encoding.ASCII.GetString(header, 0x60, Math.Min(112, read - 0x60)).TrimEnd('\0', ' ');
             if (!string.IsNullOrWhiteSpace(title))
                 info.HeaderInfo["Title"] = title;
         }
@@ -1820,7 +2062,7 @@ public static class RomDetector
         // ROM sizes range from 2 KB to 64 KB.
         if (read >= 2)
         {
-            info.HeaderInfo["ROM Size"] = FileUtils.FormatFileSize(read);
+            info.HeaderInfo["ROM Size"] = FileUtils.FormatFileSize(info.FileSize);
         }
 
         info.IsValid = true;
@@ -1832,7 +2074,7 @@ public static class RomDetector
         // Typical sizes are 256 KB to 2 MB.
         if (read >= 2)
         {
-            info.HeaderInfo["ROM Size"] = FileUtils.FormatFileSize(read);
+            info.HeaderInfo["ROM Size"] = FileUtils.FormatFileSize(info.FileSize);
         }
 
         info.IsValid = true;
@@ -1843,7 +2085,7 @@ public static class RomDetector
         // Memotech MTX .mtx/.run files. The .run format may start with a load address.
         if (read >= 2)
         {
-            info.HeaderInfo["ROM Size"] = FileUtils.FormatFileSize(read);
+            info.HeaderInfo["ROM Size"] = FileUtils.FormatFileSize(info.FileSize);
         }
 
         info.IsValid = true;
@@ -1851,52 +2093,52 @@ public static class RomDetector
 
     public static string GetSystemDisplayName(RomSystem system) => system switch
     {
-        RomSystem.NES => "Nintendo Entertainment System",
-        RomSystem.SNES => "Super Nintendo",
-        RomSystem.N64 => "Nintendo 64",
-        RomSystem.GameBoy => "Game Boy",
-        RomSystem.GameBoyColor => "Game Boy Color",
-        RomSystem.GameBoyAdvance => "Game Boy Advance",
-        RomSystem.VirtualBoy => "Nintendo Virtual Boy",
-        RomSystem.SegaMasterSystem => "Sega Master System",
-        RomSystem.MegaDrive => "Sega Mega Drive / Genesis",
-        RomSystem.SegaCD => "Sega CD",
-        RomSystem.Sega32X => "Sega 32X",
-        RomSystem.GameGear => "Sega Game Gear",
+        RomSystem.AmigaCD32 => "Amiga CD32",
+        RomSystem.AmstradCPC => "Amstrad CPC",
+        RomSystem.Arcade => "Arcade (MAME)",
         RomSystem.Atari2600 => "Atari 2600",
         RomSystem.Atari5200 => "Atari 5200",
         RomSystem.Atari7800 => "Atari 7800",
+        RomSystem.Atari800 => "Atari 800 / XL / XE",
         RomSystem.AtariJaguar => "Atari Jaguar",
         RomSystem.AtariLynx => "Atari Lynx",
-        RomSystem.PCEngine => "PC Engine / TurboGrafx-16",
-        RomSystem.NeoGeoPocket => "SNK Neo Geo Pocket / Pocket Color",
         RomSystem.ColecoVision => "Coleco ColecoVision",
+        RomSystem.ColorComputer => "Radio Shack Color Computer",
+        RomSystem.FairchildChannelF => "Fairchild Channel F",
+        RomSystem.GameBoy => "Game Boy",
+        RomSystem.GameBoyAdvance => "Game Boy Advance",
+        RomSystem.GameBoyColor => "Game Boy Color",
+        RomSystem.GameCube => "Nintendo GameCube",
+        RomSystem.GameGear => "Sega Game Gear",
         RomSystem.Intellivision => "Mattel Intellivision",
+        RomSystem.MegaDrive => "Sega Mega Drive / Genesis",
+        RomSystem.MemotechMTX => "Memotech MTX",
         RomSystem.MSX => "MSX",
         RomSystem.MSX2 => "MSX2",
-        RomSystem.AmstradCPC => "Amstrad CPC",
-        RomSystem.Oric => "Oric / Atmos / TeleStrat",
-        RomSystem.ThomsonMO5 => "Thomson MO5",
-        RomSystem.WataraSupervision => "Watara Supervision",
-        RomSystem.ColorComputer => "Radio Shack Color Computer",
-        RomSystem.Panasonic3DO => "Panasonic 3DO",
-        RomSystem.AmigaCD32 => "Amiga CD32",
-        RomSystem.SegaSaturn => "Sega Saturn",
-        RomSystem.SegaDreamcast => "Sega Dreamcast",
-        RomSystem.GameCube => "Nintendo GameCube",
-        RomSystem.Wii => "Nintendo Wii",
-        RomSystem.Arcade => "Arcade (MAME)",
-        RomSystem.Atari800 => "Atari 800 / XL / XE",
-        RomSystem.NECPC88 => "NEC PC-88",
+        RomSystem.N64 => "Nintendo 64",
         RomSystem.N64DD => "Nintendo 64DD",
-        RomSystem.NintendoDS => "Nintendo DS",
-        RomSystem.Nintendo3DS => "Nintendo 3DS",
+        RomSystem.NECPC88 => "NEC PC-88",
         RomSystem.NeoGeo => "SNK Neo Geo",
         RomSystem.NeoGeoCD => "SNK Neo Geo CD",
+        RomSystem.NeoGeoPocket => "SNK Neo Geo Pocket / Pocket Color",
+        RomSystem.NES => "Nintendo Entertainment System",
+        RomSystem.Nintendo3DS => "Nintendo 3DS",
+        RomSystem.NintendoDS => "Nintendo DS",
+        RomSystem.Oric => "Oric / Atmos / TeleStrat",
+        RomSystem.Panasonic3DO => "Panasonic 3DO",
+        RomSystem.PCEngine => "PC Engine / TurboGrafx-16",
         RomSystem.PhilipsCDi => "Philips CD-i",
-        RomSystem.FairchildChannelF => "Fairchild Channel F",
+        RomSystem.Sega32X => "Sega 32X",
+        RomSystem.SegaCD => "Sega CD",
+        RomSystem.SegaDreamcast => "Sega Dreamcast",
+        RomSystem.SegaMasterSystem => "Sega Master System",
+        RomSystem.SegaSaturn => "Sega Saturn",
+        RomSystem.SNES => "Super Nintendo",
+        RomSystem.ThomsonMO5 => "Thomson MO5",
         RomSystem.TigerGameCom => "Tiger Game Com",
-        RomSystem.MemotechMTX => "Memotech MTX",
+        RomSystem.VirtualBoy => "Nintendo Virtual Boy",
+        RomSystem.WataraSupervision => "Watara Supervision",
+        RomSystem.Wii => "Nintendo Wii",
         _ => "Unknown"
     };
 }

@@ -17,7 +17,7 @@ public static class SaveFileConverter
             throw new FileNotFoundException("Save file not found.", filePath);
 
         var info = new FileInfo(filePath);
-        string ext = info.Extension.ToLowerInvariant();
+        string ext = info.Extension;
         bool isPowerOfTwo = IsPowerOfTwo(info.Length);
         var format = FormatMap.GetValueOrDefault(ext, SaveFormat.Raw);
 
@@ -124,6 +124,7 @@ public static class SaveFileConverter
         int end = data.Length;
         while (end > 0 && data[end - 1] == padByte) end--;
         if (end == data.Length) return (byte[])data.Clone();
+        if (end == 0) return [];
 
         // Align to next power of two
         long aligned = 1;

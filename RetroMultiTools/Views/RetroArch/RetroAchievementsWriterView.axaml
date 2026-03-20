@@ -1,0 +1,103 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.RetroArch.RetroAchievementsWriterView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="700" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [RAAchievements_Title], Source={x:Static loc:LocalizationManager.Instance}}"
+                   FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [RAAchievements_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- Game Information -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [RAAchievements_GameInfo], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBox x:Name="GameTitleTextBox" Width="300"
+                             Watermark="{Binding [RAAchievements_GameTitlePlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <TextBox x:Name="GameIdTextBox" Width="100"
+                             Watermark="{Binding [RAAchievements_GameIdPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <ComboBox x:Name="ConsoleCombo" Width="300" PlaceholderText="{Binding [RAAchievements_SelectConsole], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Achievement Editor -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [RAAchievements_AchievementEditor], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBox x:Name="AchTitleTextBox" Width="250"
+                             Watermark="{Binding [RAAchievements_AchTitlePlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <TextBox x:Name="AchPointsTextBox" Width="80"
+                             Watermark="{Binding [RAAchievements_PointsPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <ComboBox x:Name="AchTypeCombo" Width="150" SelectedIndex="0"/>
+                </StackPanel>
+                <TextBox x:Name="AchDescriptionTextBox" Width="500"
+                         Watermark="{Binding [RAAchievements_DescriptionPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <TextBox x:Name="AchMemAddrTextBox" Width="500"
+                         Watermark="{Binding [RAAchievements_MemAddrPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBox x:Name="AchAuthorTextBox" Width="200"
+                             Watermark="{Binding [RAAchievements_AuthorPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <TextBox x:Name="AchBadgeTextBox" Width="150"
+                             Watermark="{Binding [RAAchievements_BadgePlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button x:Name="AddAchievementButton" Content="{Binding [RAAchievements_Add], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="AddAchievementButton_Click" Padding="12,6"/>
+                    <Button x:Name="RemoveAchievementButton" Content="{Binding [RAAchievements_Remove], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="RemoveAchievementButton_Click" Padding="12,6"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Achievement List -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [RAAchievements_AchievementList], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <Border Background="#11111B" CornerRadius="4" Padding="8" MaxHeight="300">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ListBox x:Name="AchievementListBox" Background="Transparent">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,2">
+                                        <TextBlock Text="{Binding Points}" Foreground="#F9E2AF" FontSize="12" VerticalAlignment="Center" MinWidth="30"/>
+                                        <TextBlock Text="{Binding Title}" Foreground="#CDD6F4" FontSize="12" VerticalAlignment="Center" MinWidth="200" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding Type}" Foreground="#6C7086" FontSize="11" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Actions -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button x:Name="NewSetButton" Content="{Binding [RAAchievements_NewSet], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="NewSetButton_Click" Padding="12,6"/>
+                    <Button x:Name="LoadButton" Content="{Binding [RAAchievements_Load], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="LoadButton_Click" Padding="12,6"/>
+                    <Button x:Name="SaveButton" Content="{Binding [RAAchievements_Save], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="SaveButton_Click" Padding="12,6"/>
+                    <Button x:Name="ExportTextButton" Content="{Binding [RAAchievements_ExportText], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="ExportTextButton_Click" Padding="12,6"/>
+                    <Button x:Name="ValidateButton" Content="{Binding [RAAchievements_Validate], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="ValidateButton_Click" Padding="12,6"/>
+                </StackPanel>
+                <TextBlock x:Name="StatusText" Foreground="#A6ADC8" FontSize="11" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

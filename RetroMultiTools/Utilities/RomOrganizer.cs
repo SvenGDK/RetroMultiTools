@@ -25,7 +25,8 @@ public static class RomOrganizer
         ".chd", ".rvz", ".gcm",
         ".chf",
         ".tgc",
-        ".mtx", ".run"
+        ".mtx", ".run",
+        ".zip"
     };
 
     public static List<RomInfo> ScanDirectory(string path, IProgress<string>? progress = null)
@@ -50,40 +51,57 @@ public static class RomOrganizer
         return results;
     }
 
+    /// <summary>
+    /// Organizes ROMs by system using copy mode with no system filter.
+    /// </summary>
     public static OrganizeResult OrganizeBySystem(List<RomInfo> roms, string outputDir, IProgress<string>? progress = null)
+        => OrganizeBySystem(roms, outputDir, moveFiles: false, systemFilter: null, progress);
+
+    public static OrganizeResult OrganizeBySystem(List<RomInfo> roms, string outputDir, bool moveFiles, RomSystem? systemFilter, IProgress<string>? progress = null)
     {
         Directory.CreateDirectory(outputDir);
 
-        int copied = 0;
+        IReadOnlyList<RomInfo> filtered = systemFilter.HasValue
+            ? roms.Where(r => r.System == systemFilter.Value).ToList()
+            : roms;
+
+        int processed = 0;
         int skipped = 0;
         int failed = 0;
+        string verb = moveFiles ? "Moving" : "Copying";
+        var createdFolders = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-        for (int i = 0; i < roms.Count; i++)
+        for (int i = 0; i < filtered.Count; i++)
         {
-            var rom = roms[i];
-            progress?.Report($"Organizing {i + 1} of {roms.Count}: {rom.FileName}");
+            var rom = filtered[i];
+            progress?.Report($"{verb} {i + 1} of {filtered.Count}: {rom.FileName}");
             try
             {
                 var systemFolder = Path.Combine(outputDir, SanitizeFolderName(rom.SystemName));
-                Directory.CreateDirectory(systemFolder);
+                if (createdFolders.Add(systemFolder))
+                    Directory.CreateDirectory(systemFolder);
+
                 var destPath = Path.Combine(systemFolder, rom.FileName);
                 if (!File.Exists(destPath))
                 {
-                    File.Copy(rom.FilePath, destPath);
-                    copied++;
+                    if (moveFiles)
+                        File.Move(rom.FilePath, destPath);
+                    else
+                        File.Copy(rom.FilePath, destPath);
+                    processed++;
                 }
                 else
                 {
                     skipped++;
                 }
             }
-            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or FileNotFoundException)
             {
                 failed++;
             }
         }
 
-        return new OrganizeResult { Copied = copied, Skipped = skipped, Failed = failed };
+        return new OrganizeResult { Processed = processed, Skipped = skipped, Failed = failed, UsedMove = moveFiles };
     }
 
     public static string GetSystemDisplayName(RomSystem system) =>
@@ -154,15 +172,17 @@ public static class RomOrganizer
 
 public class OrganizeResult
 {
-    public int Copied { get; set; }
+    public int Processed { get; set; }
     public int Skipped { get; set; }
     public int Failed { get; set; }
+    public bool UsedMove { get; set; }
 
     public string Summary
     {
         get
         {
-            var parts = new List<string> { $"{Copied} copied" };
+            string verb = UsedMove ? "moved" : "copied";
+            var parts = new List<string> { $"{Processed} {verb}" };
             if (Skipped > 0)
                 parts.Add($"{Skipped} skipped (already exist)");
             if (Failed > 0)

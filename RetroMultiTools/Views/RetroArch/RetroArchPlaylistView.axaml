@@ -1,0 +1,97 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.RetroArch.RetroArchPlaylistView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="700" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [RAPlaylist_Title], Source={x:Static loc:LocalizationManager.Instance}}"
+                   FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [RAPlaylist_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- Playlist Configuration -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [RAPlaylist_Configuration], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBox x:Name="RomDirectoryTextBox" Width="350" IsReadOnly="True"
+                             Watermark="{Binding [RAPlaylist_RomDirPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <Button x:Name="BrowseRomDirButton" Content="{Binding [Settings_RetroArchBrowse], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="BrowseRomDirButton_Click" Padding="12,6"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <ComboBox x:Name="SystemCombo" Width="350" PlaceholderText="{Binding [RAPlaylist_SelectSystem], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                </StackPanel>
+                <CheckBox x:Name="RecursiveCheckBox" Content="{Binding [RAPlaylist_ScanRecursive], Source={x:Static loc:LocalizationManager.Instance}}"
+                          Foreground="#CDD6F4"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Build / Load -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button x:Name="BuildPlaylistButton" Content="{Binding [RAPlaylist_Build], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="BuildPlaylistButton_Click" Padding="12,6"/>
+                    <Button x:Name="LoadPlaylistButton" Content="{Binding [RAPlaylist_Load], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="LoadPlaylistButton_Click" Padding="12,6"/>
+                    <Button x:Name="SavePlaylistButton" Content="{Binding [RAPlaylist_Save], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="SavePlaylistButton_Click" Padding="12,6"/>
+                </StackPanel>
+                <TextBlock x:Name="PlaylistStatusText" Foreground="#A6ADC8" FontSize="11" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Playlist Items -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [RAPlaylist_Items], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <Border Background="#11111B" CornerRadius="4" Padding="8" MaxHeight="300">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ListBox x:Name="PlaylistItemListBox" Background="Transparent">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,2">
+                                        <TextBlock Text="{Binding Label}" Foreground="#CDD6F4" FontSize="12" VerticalAlignment="Center" MinWidth="250" TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding DbName}" Foreground="#6C7086" FontSize="11" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ScrollViewer>
+                </Border>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button x:Name="RemoveItemButton" Content="{Binding [RAAchievements_Remove], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="RemoveItemButton_Click" Padding="12,6"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Thumbnail Download -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [RAPlaylist_Thumbnails], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <TextBlock Text="{Binding [RAPlaylist_ThumbnailsDescription], Source={x:Static loc:LocalizationManager.Instance}}"
+                           Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <CheckBox x:Name="BoxartCheckBox" Content="Boxarts" Foreground="#CDD6F4" IsChecked="True"/>
+                    <CheckBox x:Name="SnapsCheckBox" Content="Snaps" Foreground="#CDD6F4" IsChecked="True"/>
+                    <CheckBox x:Name="TitlesCheckBox" Content="Titles" Foreground="#CDD6F4"/>
+                </StackPanel>
+                <CheckBox x:Name="OverwriteCheckBox" Content="{Binding [RAPlaylist_OverwriteExisting], Source={x:Static loc:LocalizationManager.Instance}}"
+                          Foreground="#CDD6F4"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button x:Name="DownloadThumbnailsButton" Content="{Binding [RAPlaylist_DownloadThumbnails], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="DownloadThumbnailsButton_Click" Padding="12,6"/>
+                    <Button x:Name="CancelThumbnailsButton" Content="{Binding [Settings_CancelDownload], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="CancelThumbnailsButton_Click" Padding="12,6" IsVisible="False"/>
+                </StackPanel>
+                <TextBlock x:Name="ThumbnailStatusText" Foreground="#A6ADC8" FontSize="11" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

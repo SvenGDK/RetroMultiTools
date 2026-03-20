@@ -790,7 +790,7 @@
     <value>アプリケーションの表示言語を選択します。変更はすぐに適用されます。</value>
   </data>
   <data name="Settings_RestartNote" xml:space="preserve">
-    <value>一部のダイアログテキストはアプリケーションの再起動が必要な場合があります。</value>
+    <value>進行中のステータスメッセージは、次の操作まで以前の言語で表示される場合があります。</value>
   </data>
   <data name="Nav_ZipExtractor" xml:space="preserve">
     <value>ZIP抽出</value>
@@ -1239,6 +1239,141 @@
   <data name="Nav_MameSamples" xml:space="preserve">
     <value>Sample Auditor</value>
   </data>
+  <data name="Nav_MameChdConv" xml:space="preserve">
+    <value>CHD Converter</value>
+  </data>
+  <data name="Nav_MameDatEditor" xml:space="preserve">
+    <value>DAT Editor</value>
+  </data>
+  <data name="MameChdConv_Title" xml:space="preserve">
+    <value>MAME CHD Compressor / Decompressor</value>
+  </data>
+  <data name="MameChdConv_Description" xml:space="preserve">
+    <value>Compress disc images (CUE/BIN/ISO/GDI) to CHD format or decompress CHD files back to raw disc images. Requires chdman (part of MAME tools) to be installed and available in your system PATH.</value>
+  </data>
+  <data name="MameChdConv_Operation" xml:space="preserve">
+    <value>Operation:</value>
+  </data>
+  <data name="MameChdConv_Compress" xml:space="preserve">
+    <value>Compress to CHD</value>
+  </data>
+  <data name="MameChdConv_Decompress" xml:space="preserve">
+    <value>Decompress CHD</value>
+  </data>
+  <data name="MameChdConv_SingleFile" xml:space="preserve">
+    <value>Single File</value>
+  </data>
+  <data name="MameChdConv_InputFile" xml:space="preserve">
+    <value>Input File:</value>
+  </data>
+  <data name="MameChdConv_SelectInput" xml:space="preserve">
+    <value>Select an input file...</value>
+  </data>
+  <data name="MameChdConv_OutputFormat" xml:space="preserve">
+    <value>Output Format:</value>
+  </data>
+  <data name="MameChdConv_Convert" xml:space="preserve">
+    <value>🔄 Convert</value>
+  </data>
+  <data name="MameChdConv_DiscImageDir" xml:space="preserve">
+    <value>Disc Image Directory:</value>
+  </data>
+  <data name="MameChdConv_DiscImageFile" xml:space="preserve">
+    <value>Disc Image File:</value>
+  </data>
+  <data name="MameChdConv_SelectDiscDir" xml:space="preserve">
+    <value>Select a directory containing disc images...</value>
+  </data>
+  <data name="MameChdConv_SelectDiscFile" xml:space="preserve">
+    <value>Select a disc image file (CUE/BIN/ISO/GDI)...</value>
+  </data>
+  <data name="MameChdConv_ChdDir" xml:space="preserve">
+    <value>CHD Directory:</value>
+  </data>
+  <data name="MameChdConv_ChdFile" xml:space="preserve">
+    <value>CHD File:</value>
+  </data>
+  <data name="MameChdConv_SelectChdDir" xml:space="preserve">
+    <value>Select a directory containing CHD files...</value>
+  </data>
+  <data name="MameChdConv_SelectChdFile" xml:space="preserve">
+    <value>Select a CHD file...</value>
+  </data>
+  <data name="MameChdConv_OutputDir" xml:space="preserve">
+    <value>Output Directory:</value>
+  </data>
+  <data name="MameChdConv_OutputFile" xml:space="preserve">
+    <value>Output File:</value>
+  </data>
+  <data name="MameDatEditor_Title" xml:space="preserve">
+    <value>MAME DAT Editor</value>
+  </data>
+  <data name="MameDatEditor_Description" xml:space="preserve">
+    <value>Load, edit, and save MAME DAT files in Logiqx XML format. Modify header metadata, add or remove game entries, and edit game properties such as name, description, year, and manufacturer.</value>
+  </data>
+  <data name="MameDatEditor_DatFile" xml:space="preserve">
+    <value>DAT File:</value>
+  </data>
+  <data name="MameDatEditor_SelectDat" xml:space="preserve">
+    <value>Select a DAT or XML file to edit...</value>
+  </data>
+  <data name="MameDatEditor_HeaderSection" xml:space="preserve">
+    <value>📋 DAT Header</value>
+  </data>
+  <data name="MameDatEditor_Name" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="MameDatEditor_DescriptionField" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="MameDatEditor_Version" xml:space="preserve">
+    <value>Version:</value>
+  </data>
+  <data name="MameDatEditor_Author" xml:space="preserve">
+    <value>Author:</value>
+  </data>
+  <data name="MameDatEditor_Search" xml:space="preserve">
+    <value>Search Games:</value>
+  </data>
+  <data name="MameDatEditor_SearchPlaceholder" xml:space="preserve">
+    <value>Search by game name or description...</value>
+  </data>
+  <data name="MameDatEditor_SearchButton" xml:space="preserve">
+    <value>🔍 Search</value>
+  </data>
+  <data name="MameDatEditor_AddGame" xml:space="preserve">
+    <value>➕ Add Game</value>
+  </data>
+  <data name="MameDatEditor_RemoveGame" xml:space="preserve">
+    <value>🗑️ Remove Game</value>
+  </data>
+  <data name="MameDatEditor_GameDetails" xml:space="preserve">
+    <value>📦 Game Details</value>
+  </data>
+  <data name="MameDatEditor_GameName" xml:space="preserve">
+    <value>Game Name:</value>
+  </data>
+  <data name="MameDatEditor_Year" xml:space="preserve">
+    <value>Year:</value>
+  </data>
+  <data name="MameDatEditor_Manufacturer" xml:space="preserve">
+    <value>Manufacturer:</value>
+  </data>
+  <data name="MameDatEditor_CloneOf" xml:space="preserve">
+    <value>Clone Of:</value>
+  </data>
+  <data name="MameDatEditor_ApplyChanges" xml:space="preserve">
+    <value>✅ Apply Changes</value>
+  </data>
+  <data name="MameDatEditor_RomList" xml:space="preserve">
+    <value>ROMs &amp; Disks</value>
+  </data>
+  <data name="MameDatEditor_Save" xml:space="preserve">
+    <value>💾 Save</value>
+  </data>
+  <data name="MameDatEditor_SaveAs" xml:space="preserve">
+    <value>💾 Save As...</value>
+  </data>
   <data name="MameRebuilder_Title" xml:space="preserve">
     <value>MAME ROM Set Rebuilder</value>
   </data>
@@ -1436,6 +1571,57 @@
   </data>
   <data name="EmuConfig_VideoDriver" xml:space="preserve">
     <value>Video Driver:</value>
+  </data>
+  <data name="EmuConfig_AllowOpposingDirections" xml:space="preserve">
+    <value>Allow opposing directions</value>
+  </data>
+  <data name="EmuConfig_AudioDriver" xml:space="preserve">
+    <value>Audio Driver:</value>
+  </data>
+  <data name="EmuConfig_AudioSyncRA" xml:space="preserve">
+    <value>Audio sync</value>
+  </data>
+  <data name="EmuConfig_BlockInvalidVram" xml:space="preserve">
+    <value>Block invalid VRAM access</value>
+  </data>
+  <data name="EmuConfig_ConfigSaveOnExit" xml:space="preserve">
+    <value>Config save on exit</value>
+  </data>
+  <data name="EmuConfig_DisplaySpeed" xml:space="preserve">
+    <value>Display speed</value>
+  </data>
+  <data name="EmuConfig_DynamicRateControl" xml:space="preserve">
+    <value>Dynamic rate control</value>
+  </data>
+  <data name="EmuConfig_ExportToRetroArch" xml:space="preserve">
+    <value>📤 Export to RetroArch</value>
+  </data>
+  <data name="EmuConfig_FrameSkip" xml:space="preserve">
+    <value>Frame skip:</value>
+  </data>
+  <data name="EmuConfig_GameGenie" xml:space="preserve">
+    <value>Game Genie</value>
+  </data>
+  <data name="EmuConfig_InputDriver" xml:space="preserve">
+    <value>Input Driver:</value>
+  </data>
+  <data name="EmuConfig_MednafenVideoDriver" xml:space="preserve">
+    <value>Video Driver:</value>
+  </data>
+  <data name="EmuConfig_PauseOnUnfocus" xml:space="preserve">
+    <value>Pause on unfocus</value>
+  </data>
+  <data name="EmuConfig_SoundBufferSize" xml:space="preserve">
+    <value>Sound buffer size:</value>
+  </data>
+  <data name="EmuConfig_SoundQuality" xml:space="preserve">
+    <value>Sound quality:</value>
+  </data>
+  <data name="EmuConfig_SramAutoSave" xml:space="preserve">
+    <value>SRAM auto-save</value>
+  </data>
+  <data name="EmuConfig_TvEffects" xml:space="preserve">
+    <value>TV scanline effects:</value>
   </data>
   <data name="Settings_CancelDownload" xml:space="preserve">
     <value>Cancel</value>
@@ -2364,5 +2550,636 @@
   </data>
   <data name="ZipExtract_SelectZipFile" xml:space="preserve">
     <value>Select ZIP File</value>
+  </data>
+  <data name="Common_NeoGeoBiosNotice" xml:space="preserve">
+    <value>Note: Using the "AES" BIOS will start games in their console (home) versions. Using the "NEOGEO" (Universe BIOS or standard MVS) BIOS will boot games in their arcade versions.</value>
+  </data>
+  <data name="Settings_MameTitle" xml:space="preserve">
+    <value>MAME Integration</value>
+  </data>
+  <data name="Settings_MameDescription" xml:space="preserve">
+    <value>Configure standalone MAME to launch Arcade ROMs directly from the ROM Browser. You can browse for an existing installation or download MAME.</value>
+  </data>
+  <data name="Settings_MamePathPlaceholder" xml:space="preserve">
+    <value>Path to MAME executable...</value>
+  </data>
+  <data name="Settings_MameDownload" xml:space="preserve">
+    <value>⬇️ Download MAME</value>
+  </data>
+  <data name="Settings_MameFound" xml:space="preserve">
+    <value>✔ MAME executable found.</value>
+  </data>
+  <data name="Settings_MameFileNotFound" xml:space="preserve">
+    <value>✘ Configured MAME path does not exist.</value>
+  </data>
+  <data name="Settings_MameAutoDetected" xml:space="preserve">
+    <value>MAME auto-detected on this system.</value>
+  </data>
+  <data name="Settings_MamePathSaved" xml:space="preserve">
+    <value>✔ MAME path saved.</value>
+  </data>
+  <data name="Settings_MameInvalidBundle" xml:space="preserve">
+    <value>✘ Selected .app bundle does not contain a valid MAME executable.</value>
+  </data>
+  <data name="Settings_MameNotSelectedFile" xml:space="preserve">
+    <value>✘ Please select the MAME executable ({0}).</value>
+  </data>
+  <data name="Settings_MameAutoDetectedSaved" xml:space="preserve">
+    <value>✔ MAME auto-detected and saved.</value>
+  </data>
+  <data name="Settings_MameNotFound" xml:space="preserve">
+    <value>MAME was not found on this system. Please install MAME or browse to it manually.</value>
+  </data>
+  <data name="Settings_MameDownloadPageOpened" xml:space="preserve">
+    <value>MAME download page opened in browser.</value>
+  </data>
+  <data name="Settings_MameCouldNotOpenBrowser" xml:space="preserve">
+    <value>Could not open browser. Visit {0} to download MAME.</value>
+  </data>
+  <data name="Settings_MamePathCleared" xml:space="preserve">
+    <value>MAME path cleared.</value>
+  </data>
+  <data name="Settings_SelectMameExecutable" xml:space="preserve">
+    <value>Select MAME Executable</value>
+  </data>
+  <data name="Browser_LaunchMame" xml:space="preserve">
+    <value>🕹️ MAME</value>
+  </data>
+  <data name="Browser_ContextLaunchMame" xml:space="preserve">
+    <value>🕹️ Launch with MAME</value>
+  </data>
+  <data name="Browser_MameSystemNotSupported" xml:space="preserve">
+    <value>System '{0}' is not supported for MAME launch. MAME supports Arcade ROMs only.</value>
+  </data>
+  <data name="Browser_LaunchingMame" xml:space="preserve">
+    <value>Launching {0} with MAME...</value>
+  </data>
+  <data name="BigPicture_LaunchMame" xml:space="preserve">
+    <value>Launch with MAME</value>
+  </data>
+  <data name="Nav_RetroArch" xml:space="preserve">
+    <value>RetroArch</value>
+  </data>
+  <data name="Nav_RetroArchIntegration" xml:space="preserve">
+    <value>RetroArch Integration</value>
+  </data>
+  <data name="Nav_RetroAchievementsWriter" xml:space="preserve">
+    <value>Achievements Writer</value>
+  </data>
+  <data name="Nav_RetroArchPlaylist" xml:space="preserve">
+    <value>Playlist Utility</value>
+  </data>
+  <data name="Nav_RetroArchShortcut" xml:space="preserve">
+    <value>Shortcut Creator</value>
+  </data>
+  <data name="RAIntegration_Title" xml:space="preserve">
+    <value>RetroArch Integration</value>
+  </data>
+  <data name="RAIntegration_Description" xml:space="preserve">
+    <value>Configure RetroArch, manage cores, and download controller profiles.</value>
+  </data>
+  <data name="RAAchievements_Title" xml:space="preserve">
+    <value>RetroAchievements Writer</value>
+  </data>
+  <data name="RAAchievements_Description" xml:space="preserve">
+    <value>Create and edit achievement definition files compatible with RetroAchievements.org. Define memory conditions, point values, and achievement metadata for your favorite games.</value>
+  </data>
+  <data name="RAAchievements_GameInfo" xml:space="preserve">
+    <value>Game Information</value>
+  </data>
+  <data name="RAAchievements_GameTitlePlaceholder" xml:space="preserve">
+    <value>Game title</value>
+  </data>
+  <data name="RAAchievements_GameIdPlaceholder" xml:space="preserve">
+    <value>Game ID</value>
+  </data>
+  <data name="RAAchievements_SelectConsole" xml:space="preserve">
+    <value>Select console…</value>
+  </data>
+  <data name="RAAchievements_AchievementEditor" xml:space="preserve">
+    <value>Achievement Editor</value>
+  </data>
+  <data name="RAAchievements_AchTitlePlaceholder" xml:space="preserve">
+    <value>Achievement title</value>
+  </data>
+  <data name="RAAchievements_PointsPlaceholder" xml:space="preserve">
+    <value>Points (0–100)</value>
+  </data>
+  <data name="RAAchievements_DescriptionPlaceholder" xml:space="preserve">
+    <value>Achievement description</value>
+  </data>
+  <data name="RAAchievements_MemAddrPlaceholder" xml:space="preserve">
+    <value>Memory condition (e.g. 0xH0001=1)</value>
+  </data>
+  <data name="RAAchievements_AuthorPlaceholder" xml:space="preserve">
+    <value>Author (optional)</value>
+  </data>
+  <data name="RAAchievements_BadgePlaceholder" xml:space="preserve">
+    <value>Badge name (optional)</value>
+  </data>
+  <data name="RAAchievements_Add" xml:space="preserve">
+    <value>Add Achievement</value>
+  </data>
+  <data name="RAAchievements_Remove" xml:space="preserve">
+    <value>Remove Selected</value>
+  </data>
+  <data name="RAAchievements_AchievementList" xml:space="preserve">
+    <value>Achievements</value>
+  </data>
+  <data name="RAAchievements_NewSet" xml:space="preserve">
+    <value>New Set</value>
+  </data>
+  <data name="RAAchievements_Load" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="RAAchievements_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="RAAchievements_ExportText" xml:space="preserve">
+    <value>Export Text</value>
+  </data>
+  <data name="RAAchievements_Validate" xml:space="preserve">
+    <value>Validate</value>
+  </data>
+  <data name="RAAchievements_TitleRequired" xml:space="preserve">
+    <value>Achievement title is required.</value>
+  </data>
+  <data name="RAAchievements_InvalidPoints" xml:space="preserve">
+    <value>Points must be a number between 0 and 100.</value>
+  </data>
+  <data name="RAAchievements_MemAddrRequired" xml:space="preserve">
+    <value>Memory condition (MemAddr) is required.</value>
+  </data>
+  <data name="RAAchievements_AchievementAdded" xml:space="preserve">
+    <value>Achievement '{0}' added.</value>
+  </data>
+  <data name="RAAchievements_AchievementRemoved" xml:space="preserve">
+    <value>Achievement '{0}' removed.</value>
+  </data>
+  <data name="RAAchievements_SelectToRemove" xml:space="preserve">
+    <value>Select an achievement to remove.</value>
+  </data>
+  <data name="RAAchievements_NewSetCreated" xml:space="preserve">
+    <value>New achievement set created.</value>
+  </data>
+  <data name="RAAchievements_LoadTitle" xml:space="preserve">
+    <value>Load Achievement Set</value>
+  </data>
+  <data name="RAAchievements_Loaded" xml:space="preserve">
+    <value>Loaded {0} achievements.</value>
+  </data>
+  <data name="RAAchievements_LoadFailed" xml:space="preserve">
+    <value>Failed to load achievement set.</value>
+  </data>
+  <data name="RAAchievements_SaveTitle" xml:space="preserve">
+    <value>Save Achievement Set</value>
+  </data>
+  <data name="RAAchievements_Saved" xml:space="preserve">
+    <value>Saved {0} achievements.</value>
+  </data>
+  <data name="RAAchievements_ExportTitle" xml:space="preserve">
+    <value>Export Achievements as Text</value>
+  </data>
+  <data name="RAAchievements_Exported" xml:space="preserve">
+    <value>Achievements exported as text.</value>
+  </data>
+  <data name="RAAchievements_ValidationPassed" xml:space="preserve">
+    <value>✔ Validation passed — no issues found.</value>
+  </data>
+  <data name="RAPlaylist_Title" xml:space="preserve">
+    <value>RetroArch Playlist Utility</value>
+  </data>
+  <data name="RAPlaylist_Description" xml:space="preserve">
+    <value>Create RetroArch playlists (.lpl) from ROM directories and optionally download artwork thumbnails from the libretro-thumbnails server.</value>
+  </data>
+  <data name="RAPlaylist_Configuration" xml:space="preserve">
+    <value>Playlist Configuration</value>
+  </data>
+  <data name="RAPlaylist_RomDirPlaceholder" xml:space="preserve">
+    <value>ROM directory…</value>
+  </data>
+  <data name="RAPlaylist_SelectSystem" xml:space="preserve">
+    <value>Select system…</value>
+  </data>
+  <data name="RAPlaylist_ScanRecursive" xml:space="preserve">
+    <value>Scan subdirectories recursively</value>
+  </data>
+  <data name="RAPlaylist_Build" xml:space="preserve">
+    <value>Build Playlist</value>
+  </data>
+  <data name="RAPlaylist_Load" xml:space="preserve">
+    <value>Load Playlist</value>
+  </data>
+  <data name="RAPlaylist_Save" xml:space="preserve">
+    <value>Save Playlist</value>
+  </data>
+  <data name="RAPlaylist_Items" xml:space="preserve">
+    <value>Playlist Items</value>
+  </data>
+  <data name="RAPlaylist_Thumbnails" xml:space="preserve">
+    <value>Thumbnail Download</value>
+  </data>
+  <data name="RAPlaylist_ThumbnailsDescription" xml:space="preserve">
+    <value>Download box art, snaps, and title screen thumbnails for playlist entries from the libretro-thumbnails server.</value>
+  </data>
+  <data name="RAPlaylist_OverwriteExisting" xml:space="preserve">
+    <value>Overwrite existing thumbnails</value>
+  </data>
+  <data name="RAPlaylist_DownloadThumbnails" xml:space="preserve">
+    <value>Download Thumbnails</value>
+  </data>
+  <data name="RAPlaylist_SelectRomDir" xml:space="preserve">
+    <value>Select ROM Directory</value>
+  </data>
+  <data name="RAPlaylist_InvalidRomDir" xml:space="preserve">
+    <value>Please select a valid ROM directory.</value>
+  </data>
+  <data name="RAPlaylist_SelectSystemFirst" xml:space="preserve">
+    <value>Please select a system first.</value>
+  </data>
+  <data name="RAPlaylist_Built" xml:space="preserve">
+    <value>Playlist built: {0} entries.</value>
+  </data>
+  <data name="RAPlaylist_LoadTitle" xml:space="preserve">
+    <value>Load RetroArch Playlist</value>
+  </data>
+  <data name="RAPlaylist_Loaded" xml:space="preserve">
+    <value>Loaded playlist with {0} entries.</value>
+  </data>
+  <data name="RAPlaylist_LoadFailed" xml:space="preserve">
+    <value>Failed to load playlist file.</value>
+  </data>
+  <data name="RAPlaylist_NothingToSave" xml:space="preserve">
+    <value>No playlist to save. Build or load a playlist first.</value>
+  </data>
+  <data name="RAPlaylist_SaveTitle" xml:space="preserve">
+    <value>Save RetroArch Playlist</value>
+  </data>
+  <data name="RAPlaylist_Saved" xml:space="preserve">
+    <value>Playlist saved: {0} entries.</value>
+  </data>
+  <data name="RAPlaylist_ItemRemoved" xml:space="preserve">
+    <value>Item removed from playlist.</value>
+  </data>
+  <data name="RAPlaylist_NothingToDownload" xml:space="preserve">
+    <value>No playlist loaded. Build or load a playlist first.</value>
+  </data>
+  <data name="RAPlaylist_RetroArchNotConfigured" xml:space="preserve">
+    <value>RetroArch is not configured. Please set the RetroArch path in Settings.</value>
+  </data>
+  <data name="RAPlaylist_SelectCategories" xml:space="preserve">
+    <value>Please select at least one thumbnail category.</value>
+  </data>
+  <data name="RAPlaylist_ThumbnailsComplete" xml:space="preserve">
+    <value>Thumbnails: {0} downloaded, {1} failed, {2} skipped.</value>
+  </data>
+  <data name="RAPlaylist_ThumbnailsCancelled" xml:space="preserve">
+    <value>Thumbnail download cancelled.</value>
+  </data>
+  <data name="RAShortcut_Title" xml:space="preserve">
+    <value>RetroArch Shortcut Creator</value>
+  </data>
+  <data name="RAShortcut_Description" xml:space="preserve">
+    <value>Create desktop shortcuts that launch a ROM directly in RetroArch with a specified core. Supports Windows (.lnk), Linux (.desktop), and macOS (.command) formats.</value>
+  </data>
+  <data name="RAShortcut_Configuration" xml:space="preserve">
+    <value>Shortcut Configuration</value>
+  </data>
+  <data name="RAShortcut_NamePlaceholder" xml:space="preserve">
+    <value>Shortcut name (e.g. Super Mario World)</value>
+  </data>
+  <data name="RAShortcut_RomPlaceholder" xml:space="preserve">
+    <value>ROM file path…</value>
+  </data>
+  <data name="RAShortcut_SelectSystem" xml:space="preserve">
+    <value>Select system…</value>
+  </data>
+  <data name="RAShortcut_SelectCore" xml:space="preserve">
+    <value>Select core…</value>
+  </data>
+  <data name="RAShortcut_Advanced" xml:space="preserve">
+    <value>Advanced Options</value>
+  </data>
+  <data name="RAShortcut_OutputDirPlaceholder" xml:space="preserve">
+    <value>Output directory (default: Desktop)</value>
+  </data>
+  <data name="RAShortcut_IconPlaceholder" xml:space="preserve">
+    <value>Custom icon file (optional)</value>
+  </data>
+  <data name="RAShortcut_RetroArchOverridePlaceholder" xml:space="preserve">
+    <value>RetroArch path override (optional)</value>
+  </data>
+  <data name="RAShortcut_Fullscreen" xml:space="preserve">
+    <value>Start in fullscreen mode</value>
+  </data>
+  <data name="RAShortcut_ExtraArgsPlaceholder" xml:space="preserve">
+    <value>Extra RetroArch arguments (optional)</value>
+  </data>
+  <data name="RAShortcut_Create" xml:space="preserve">
+    <value>Create Shortcut</value>
+  </data>
+  <data name="RAShortcut_SelectRom" xml:space="preserve">
+    <value>Select ROM File</value>
+  </data>
+  <data name="RAShortcut_SelectOutputDir" xml:space="preserve">
+    <value>Select Output Directory</value>
+  </data>
+  <data name="RAShortcut_SelectIcon" xml:space="preserve">
+    <value>Select Icon File</value>
+  </data>
+  <data name="Nav_Analogue" xml:space="preserve">
+    <value>Analogue</value>
+  </data>
+  <data name="Nav_AnaloguePocket" xml:space="preserve">
+    <value>Pocket</value>
+  </data>
+  <data name="Nav_AnalogueNtSuperNt" xml:space="preserve">
+    <value>NT &amp; Super NT</value>
+  </data>
+  <data name="Nav_AnalogueMegaSg" xml:space="preserve">
+    <value>Mega SG</value>
+  </data>
+  <data name="Nav_Analogue3D" xml:space="preserve">
+    <value>3D</value>
+  </data>
+  <data name="AnaloguePocket_Title" xml:space="preserve">
+    <value>Analogue Pocket</value>
+  </data>
+  <data name="AnaloguePocket_Description" xml:space="preserve">
+    <value>Manage your Analogue Pocket: update openFPGA cores &amp; firmware, browse and install cores, export screenshots, backup saves, manage save states, export GB Camera photos, and more.</value>
+  </data>
+  <data name="AnaloguePocket_SdCardPath" xml:space="preserve">
+    <value>Pocket SD Card Path:</value>
+  </data>
+  <data name="AnaloguePocket_SelectSdCard" xml:space="preserve">
+    <value>Select the Analogue Pocket SD card root folder...</value>
+  </data>
+  <data name="AnaloguePocket_Features" xml:space="preserve">
+    <value>Features</value>
+  </data>
+  <data name="AnaloguePocket_UpdateCores" xml:space="preserve">
+    <value>Update Cores &amp; Firmware</value>
+  </data>
+  <data name="AnaloguePocket_BrowseCores" xml:space="preserve">
+    <value>Browse &amp; Install Cores</value>
+  </data>
+  <data name="AnaloguePocket_ExportScreenshots" xml:space="preserve">
+    <value>Export Screenshots</value>
+  </data>
+  <data name="AnaloguePocket_BackupSaves" xml:space="preserve">
+    <value>Backup &amp; Restore Saves</value>
+  </data>
+  <data name="AnaloguePocket_OpenGameFolders" xml:space="preserve">
+    <value>Open Game Folders</value>
+  </data>
+  <data name="AnaloguePocket_ManageSaveStates" xml:space="preserve">
+    <value>Manage Save States</value>
+  </data>
+  <data name="AnaloguePocket_ExportGbCamera" xml:space="preserve">
+    <value>Export GB Camera Photos</value>
+  </data>
+  <data name="AnaloguePocket_AutoCopyFiles" xml:space="preserve">
+    <value>Auto-Copy Files</value>
+  </data>
+  <data name="AnaloguePocket_LibraryImageGen" xml:space="preserve">
+    <value>Library Image Generator</value>
+  </data>
+  <data name="AnalogueNtSuperNt_Title" xml:space="preserve">
+    <value>Analogue NT &amp; Super NT</value>
+  </data>
+  <data name="AnalogueNtSuperNt_Description" xml:space="preserve">
+    <value>Tools for the Analogue NT and Super NT: generate custom fonts and repair NES ROM headers.</value>
+  </data>
+  <data name="AnalogueNtSuperNt_SdCardPath" xml:space="preserve">
+    <value>SD Card Path:</value>
+  </data>
+  <data name="AnalogueNtSuperNt_SelectSdCard" xml:space="preserve">
+    <value>Select the Analogue NT / Super NT SD card root folder...</value>
+  </data>
+  <data name="AnalogueNtSuperNt_Features" xml:space="preserve">
+    <value>Features</value>
+  </data>
+  <data name="AnalogueNtSuperNt_FontGenerator" xml:space="preserve">
+    <value>Font Generator</value>
+  </data>
+  <data name="AnalogueNtSuperNt_NesHeaderRepair" xml:space="preserve">
+    <value>NES Header Repair</value>
+  </data>
+  <data name="AnalogueMegaSg_Title" xml:space="preserve">
+    <value>Analogue Mega SG</value>
+  </data>
+  <data name="AnalogueMegaSg_Description" xml:space="preserve">
+    <value>Tools for the Analogue Mega SG: generate custom fonts and convert save game files.</value>
+  </data>
+  <data name="AnalogueMegaSg_SdCardPath" xml:space="preserve">
+    <value>SD Card Path:</value>
+  </data>
+  <data name="AnalogueMegaSg_SelectSdCard" xml:space="preserve">
+    <value>Select the Analogue Mega SG SD card root folder...</value>
+  </data>
+  <data name="AnalogueMegaSg_Features" xml:space="preserve">
+    <value>Features</value>
+  </data>
+  <data name="AnalogueMegaSg_FontGenerator" xml:space="preserve">
+    <value>Font Generator</value>
+  </data>
+  <data name="AnalogueMegaSg_SavesManager" xml:space="preserve">
+    <value>Saves-Manager</value>
+  </data>
+  <data name="Analogue3D_Title" xml:space="preserve">
+    <value>Analogue 3D</value>
+  </data>
+  <data name="Analogue3D_Description" xml:space="preserve">
+    <value>Manage your Analogue 3D: configure label artwork, per-game display and hardware settings, and manage Game Paks on the SD card.</value>
+  </data>
+  <data name="Analogue3D_SdCardPath" xml:space="preserve">
+    <value>SD Card Path:</value>
+  </data>
+  <data name="Analogue3D_SelectSdCard" xml:space="preserve">
+    <value>Select the Analogue 3D SD card root folder...</value>
+  </data>
+  <data name="Analogue3D_Features" xml:space="preserve">
+    <value>Features</value>
+  </data>
+  <data name="Analogue3D_ManageSettings" xml:space="preserve">
+    <value>Manage Settings &amp; Artwork</value>
+  </data>
+  <data name="Analogue3D_GamePakManagement" xml:space="preserve">
+    <value>Game Pak Management</value>
+  </data>
+
+  <data name="AnaloguePocket_RestoreSaves" xml:space="preserve">
+    <value>Restore Saves</value>
+  </data>
+  <data name="AnalogueNtSuperNt_FontDescription" xml:space="preserve">
+    <value>Generate a custom 8×8 font for the console menu. Use the built-in default or provide a 128×128 BMP image containing a 16×16 grid of characters.</value>
+  </data>
+  <data name="AnalogueNtSuperNt_ConsoleTarget" xml:space="preserve">
+    <value>Console Target:</value>
+  </data>
+  <data name="AnalogueNtSuperNt_AnalogueNt" xml:space="preserve">
+    <value>Analogue NT</value>
+  </data>
+  <data name="AnalogueNtSuperNt_SuperNt" xml:space="preserve">
+    <value>Super NT</value>
+  </data>
+  <data name="Analogue_FontSourceImage" xml:space="preserve">
+    <value>Font Source Image (optional):</value>
+  </data>
+  <data name="Analogue_FontSourceWatermark" xml:space="preserve">
+    <value>Leave empty to generate default font...</value>
+  </data>
+  <data name="Analogue_GenerateFont" xml:space="preserve">
+    <value>Generate Font</value>
+  </data>
+  <data name="AnalogueNtSuperNt_HeaderDescription" xml:space="preserve">
+    <value>Repair iNES ROM headers by cleaning invalid padding bytes (bytes 11–15). NES 2.0 headers are preserved and not modified.</value>
+  </data>
+  <data name="AnalogueNtSuperNt_NesRomFile" xml:space="preserve">
+    <value>NES ROM File:</value>
+  </data>
+  <data name="AnalogueNtSuperNt_SelectNesRom" xml:space="preserve">
+    <value>Select a .nes ROM file...</value>
+  </data>
+  <data name="AnalogueNtSuperNt_RepairHeader" xml:space="preserve">
+    <value>Repair Header</value>
+  </data>
+  <data name="AnalogueMegaSg_FontDescription" xml:space="preserve">
+    <value>Generate a custom 8×8 font for the Mega SG menu. Use the built-in default or provide a 128×128 BMP image containing a 16×16 grid of characters.</value>
+  </data>
+  <data name="AnalogueMegaSg_SavesDescription" xml:space="preserve">
+    <value>Convert save game files between different emulator and hardware formats (endian swap, padding, trimming).</value>
+  </data>
+  <data name="AnalogueMegaSg_SaveFile" xml:space="preserve">
+    <value>Save File:</value>
+  </data>
+  <data name="AnalogueMegaSg_SelectSaveFile" xml:space="preserve">
+    <value>Select a save file (.sav, .srm)...</value>
+  </data>
+  <data name="AnalogueMegaSg_FileSize" xml:space="preserve">
+    <value>File Size:</value>
+  </data>
+  <data name="AnalogueMegaSg_DetectedType" xml:space="preserve">
+    <value>Detected Type:</value>
+  </data>
+  <data name="AnalogueMegaSg_PowerOfTwo" xml:space="preserve">
+    <value>Power of Two:</value>
+  </data>
+  <data name="AnalogueMegaSg_Conversion" xml:space="preserve">
+    <value>Conversion:</value>
+  </data>
+  <data name="AnalogueMegaSg_ConvertSave" xml:space="preserve">
+    <value>Convert Save</value>
+  </data>
+  <data name="Analogue3D_ScanGamePaks" xml:space="preserve">
+    <value>Scan Game Paks</value>
+  </data>
+  <data name="Analogue3D_SetLabelArtwork" xml:space="preserve">
+    <value>Set Label Artwork</value>
+  </data>
+  <data name="Analogue3D_DisplaySettings" xml:space="preserve">
+    <value>Display Settings</value>
+  </data>
+  <data name="Analogue3D_Resolution" xml:space="preserve">
+    <value>Resolution:</value>
+  </data>
+  <data name="Analogue3D_AspectRatio" xml:space="preserve">
+    <value>Aspect Ratio:</value>
+  </data>
+  <data name="Analogue3D_Smoothing" xml:space="preserve">
+    <value>Smoothing:</value>
+  </data>
+  <data name="Analogue3D_CropOverscan" xml:space="preserve">
+    <value>Crop Overscan</value>
+  </data>
+  <data name="Analogue3D_HardwareSettings" xml:space="preserve">
+    <value>Hardware Settings</value>
+  </data>
+  <data name="Analogue3D_ExpansionPak" xml:space="preserve">
+    <value>Expansion Pak</value>
+  </data>
+  <data name="Analogue3D_RumblePak" xml:space="preserve">
+    <value>Rumble Pak</value>
+  </data>
+  <data name="Analogue3D_CpuOverclock" xml:space="preserve">
+    <value>CPU Overclock</value>
+  </data>
+  <data name="Analogue3D_ControllerPak" xml:space="preserve">
+    <value>Controller Pak:</value>
+  </data>
+  <data name="Analogue3D_SaveSettings" xml:space="preserve">
+    <value>Save Settings</value>
+  </data>
+  <data name="Nav_MameIntegration" xml:space="preserve">
+    <value>MAME Integration</value>
+  </data>
+  <data name="MameIntegration_Title" xml:space="preserve">
+    <value>MAME Integration</value>
+  </data>
+  <data name="MameIntegration_Description" xml:space="preserve">
+    <value>Configure MAME to launch Arcade ROMs directly from the ROM Browser.</value>
+  </data>
+  <data name="Settings_GamepadTitle" xml:space="preserve">
+    <value>Gamepad</value>
+  </data>
+  <data name="Settings_GamepadDescription" xml:space="preserve">
+    <value>Configure game controller input for Big Picture Mode. Requires SDL2.</value>
+  </data>
+  <data name="Settings_GamepadEnabled" xml:space="preserve">
+    <value>Enable gamepad input</value>
+  </data>
+  <data name="Settings_GamepadDeadZoneLabel" xml:space="preserve">
+    <value>Analog stick dead-zone</value>
+  </data>
+  <data name="Settings_BigPictureCardScaleLabel" xml:space="preserve">
+    <value>Card scale</value>
+  </data>
+  <data name="Nav_RomOrganizer" xml:space="preserve">
+    <value>ROM整理ツール</value>
+  </data>
+  <data name="Organize_CopyOption" xml:space="preserve">
+    <value>📋 ROMをコピー</value>
+  </data>
+  <data name="Organize_DialogDescription" xml:space="preserve">
+    <value>ROMをシステム別フォルダにコピーするか移動するかを選択してください。</value>
+  </data>
+  <data name="Organize_DialogTitle" xml:space="preserve">
+    <value>ROMを整理</value>
+  </data>
+  <data name="Organize_MoveOption" xml:space="preserve">
+    <value>📦 ROMを移動</value>
+  </data>
+  <data name="Organizer_CopyRoms" xml:space="preserve">
+    <value>ROMをコピー</value>
+  </data>
+  <data name="Organizer_Description" xml:space="preserve">
+    <value>フォルダをスキャンしてROMを検出し、システム別のサブフォルダに整理します。すべてのシステムまたは特定のシステムを選択し、ファイルのコピーまたは移動を選べます。</value>
+  </data>
+  <data name="Organizer_MoveRoms" xml:space="preserve">
+    <value>ROMを移動</value>
+  </data>
+  <data name="Organizer_Organize" xml:space="preserve">
+    <value>📁 ROMを整理</value>
+  </data>
+  <data name="Organizer_OutputFolder" xml:space="preserve">
+    <value>出力フォルダ</value>
+  </data>
+  <data name="Organizer_Scan" xml:space="preserve">
+    <value>�� ROMをスキャン</value>
+  </data>
+  <data name="Organizer_SelectOutput" xml:space="preserve">
+    <value>整理されたROMの保存先フォルダを選択...</value>
+  </data>
+  <data name="Organizer_SelectSource" xml:space="preserve">
+    <value>ROMを含むフォルダを選択...</value>
+  </data>
+  <data name="Organizer_SourceFolder" xml:space="preserve">
+    <value>ソースフォルダ</value>
+  </data>
+  <data name="Organizer_SystemFilter" xml:space="preserve">
+    <value>システムフィルタ</value>
+  </data>
+  <data name="Organizer_Title" xml:space="preserve">
+    <value>ROM整理ツール</value>
   </data>
 </root>

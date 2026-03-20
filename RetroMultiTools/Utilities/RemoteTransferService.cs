@@ -32,6 +32,10 @@ public static class RemoteTransferService
         CancellationToken cancellationToken)
     {
         ValidateFilePath(filePath);
+        ArgumentException.ThrowIfNullOrWhiteSpace(host);
+        if (port is <= 0 or > 65535)
+            throw new ArgumentOutOfRangeException(nameof(port), "Port must be between 1 and 65535.");
+        ArgumentException.ThrowIfNullOrWhiteSpace(remotePath);
 
         var config = new FtpConfig
         {
@@ -74,6 +78,10 @@ public static class RemoteTransferService
         CancellationToken cancellationToken)
     {
         ValidateFilePath(filePath);
+        ArgumentException.ThrowIfNullOrWhiteSpace(host);
+        if (port is <= 0 or > 65535)
+            throw new ArgumentOutOfRangeException(nameof(port), "Port must be between 1 and 65535.");
+        ArgumentException.ThrowIfNullOrWhiteSpace(remotePath);
 
         string fileName = Path.GetFileName(filePath);
         string remoteFilePath = CombineRemotePath(remotePath, fileName);
@@ -116,6 +124,10 @@ public static class RemoteTransferService
         CancellationToken cancellationToken)
     {
         ValidateFilePath(filePath);
+        ArgumentException.ThrowIfNullOrWhiteSpace(host);
+        if (port is <= 0 or > 65535)
+            throw new ArgumentOutOfRangeException(nameof(port), "Port must be between 1 and 65535.");
+        ArgumentException.ThrowIfNullOrWhiteSpace(remotePath);
 
         string fileName = Path.GetFileName(filePath);
         string remoteFilePath = CombineRemotePath(remotePath, fileName);
@@ -126,13 +138,13 @@ public static class RemoteTransferService
 
         progress?.Report($"Uploading {fileName} via WebDAV...");
 
-        var handler = new HttpClientHandler
+        using var handler = new HttpClientHandler
         {
             Credentials = new NetworkCredential(username, password),
             PreAuthenticate = true
         };
 
-        using var httpClient = new HttpClient(handler)
+        using var httpClient = new HttpClient(handler, disposeHandler: false)
         {
             Timeout = TimeSpan.FromMinutes(30)
         };

@@ -14,9 +14,9 @@
                 <TextBlock Text="{Binding [Common_Mode], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
                 <StackPanel Orientation="Horizontal" Spacing="12">
                     <RadioButton x:Name="SingleMode" Content="{Binding [Common_SingleRom], Source={x:Static loc:LocalizationManager.Instance}}"
-                                 IsChecked="True" Foreground="#CDD6F4"/>
+                                 GroupName="RomRenamerMode" IsChecked="True" Foreground="#CDD6F4"/>
                     <RadioButton x:Name="BatchMode" Content="{Binding [Common_BatchDirectory], Source={x:Static loc:LocalizationManager.Instance}}"
-                                 Foreground="#CDD6F4"/>
+                                 GroupName="RomRenamerMode" Foreground="#CDD6F4"/>
                 </StackPanel>
             </StackPanel>
 

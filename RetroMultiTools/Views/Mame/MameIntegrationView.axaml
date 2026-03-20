@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.Mame.MameIntegrationView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="600" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [MameIntegration_Title], Source={x:Static loc:LocalizationManager.Instance}}"
+                   FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [MameIntegration_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- MAME Configuration -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [Settings_MameTitle], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <TextBlock Text="{Binding [Settings_MameDescription], Source={x:Static loc:LocalizationManager.Instance}}"
+                           Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBox x:Name="MamePathTextBox" Width="300" IsReadOnly="True"
+                             Watermark="{Binding [Settings_MamePathPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <Button x:Name="BrowseMameButton" Content="{Binding [Settings_RetroArchBrowse], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="BrowseMameButton_Click" Padding="12,6"/>
+                    <Button x:Name="DetectMameButton" Content="{Binding [Settings_RetroArchDetect], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="DetectMameButton_Click" Padding="12,6"/>
+                </StackPanel>
+                <TextBlock x:Name="MameStatusText" Foreground="#A6ADC8" FontSize="11" TextWrapping="Wrap"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button x:Name="DownloadMameButton" Content="{Binding [Settings_MameDownload], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="DownloadMameButton_Click" Padding="12,6"/>
+                    <Button x:Name="ClearMameButton" Content="{Binding [Settings_RetroArchClear], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="ClearMameButton_Click" Padding="12,6"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

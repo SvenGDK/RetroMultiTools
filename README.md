@@ -7,7 +7,7 @@
 <img src="/Screenshots/Screenshot.png" width="75%">
 <img src="/Screenshots/BigPictureMode.png" width="75%">
 
-A cross-platform desktop utility for managing, inspecting, modifying & launching retro game ROMs.
+A cross-platform desktop utility for managing, inspecting, and patching retro game ROMs.
 
 [![License: BSD-2-Clause](https://img.shields.io/badge/License-BSD_2--Clause-blue.svg)](LICENSE)
 [![.NET](https://img.shields.io/badge/.NET-8.0-purple.svg)](https://dotnet.microsoft.com/download/dotnet/8.0)
@@ -69,7 +69,14 @@ Framework-dependent builds require the [.NET 8 Runtime](https://dotnet.microsoft
 
 For detailed user guides and reference material, see the [full documentation](docs/README.md).
 
-- [ROM Browser & RetroArch Integration Guide](docs/features/rom-browser-guide.md) — step-by-step guide to browsing, managing, and launching ROMs with RetroArch
+### Quick Links
+
+- **[Installation Guide](docs/getting-started/installation.md)** — download and install on Windows, Linux, or macOS
+- **[First Steps](docs/getting-started/first-steps.md)** — get up and running in minutes
+- **[ROM Browser Guide](docs/guides/rom-browser-guide.md)** — step-by-step guide to browsing, managing, and launching ROMs
+- **[Big Picture Mode](docs/guides/big-picture-mode.md)** — fullscreen, controller-friendly ROM library
+- **[Keyboard Shortcuts](docs/configuration/keyboard-shortcuts.md)** — all shortcuts in one place
+- **[Troubleshooting](docs/troubleshooting.md)** — common issues and solutions
 
 ## Features
 
@@ -441,7 +448,8 @@ For detailed user guides and reference material, see the [full documentation](do
 - Auto-detect or manually configure the RetroArch executable path
 - Scan for installed libretro cores and identify missing ones
 - Download all missing cores from the official RetroArch buildbot
-- Supports Windows, Linux, and macOS platforms
+- Supports Windows (x64), Linux (x64, ARM64), and macOS (Intel, Apple Silicon)
+- Handles Flatpak and Snap RetroArch installations on Linux
 - Download progress with cancel support
 
 </details>
@@ -537,106 +545,199 @@ For detailed user guides and reference material, see the [full documentation](do
 
 </details>
 
+### RetroArch
+
+<details>
+<summary><strong>RetroArch Playlist Creator</strong></summary>
+
+- Create RetroArch playlists (.lpl) from a directory of ROM files
+- Select from all supported systems with automatic database name mapping
+- Load and edit existing RetroArch playlists
+- Add or remove individual playlist entries
+- Download thumbnails (box art, snapshots, title screens) from the [Libretro Thumbnails](https://github.com/libretro-thumbnails) database
+- Selectable thumbnail categories with overwrite option
+- Save playlists in RetroArch's JSON .lpl format
+- Automatic playlist and thumbnail directory detection for Windows, Linux, and macOS
+
+</details>
+
+<details>
+<summary><strong>RetroArch Shortcut Creator</strong></summary>
+
+- Create desktop shortcuts that launch a ROM directly in RetroArch with a specific libretro core
+- Windows `.lnk` shortcuts (created via PowerShell), Linux `.desktop` files, macOS `.command` scripts
+- Select system and core from a dropdown of all available cores
+- Optional custom icon, fullscreen mode, and extra RetroArch arguments
+- Override RetroArch path per shortcut
+- Automatic core directory detection (including Flatpak, Snap, and Homebrew locations)
+- Shell-safe argument escaping on Linux and macOS
+
+</details>
+
+<details>
+<summary><strong>RetroAchievements Writer</strong></summary>
+
+- Create and edit achievement definition files compatible with [RetroAchievements.org](https://retroachievements.org)
+- Standard RACache local achievement JSON format for import into the RetroAchievements web toolkit
+- Add achievements with title, description, points, memory address conditions, type, author, and badge ID
+- Achievement types: Standard, Missable, Progression, Win Condition
+- Supports 78 console IDs (NES, SNES, N64, Mega Drive, Game Boy, PlayStation, and many more)
+- Validate achievement sets for completeness and correctness
+- Export as plain-text local format for RAIntegration / RALibretro
+- Load and save achievement sets as JSON files
+
+</details>
+
+### Analogue
+
+<details>
+<summary><strong>Analogue Pocket</strong></summary>
+
+- Browse and manage openFPGA cores installed on the Analogue Pocket SD card
+- Export Pocket screenshots (BMP) to a destination folder
+- Backup and restore save files with directory structure preserved
+- Manage and delete save states with multi-select and batch delete
+- Extract and export Game Boy Camera photos from `.sav` files as grayscale BMP images
+- Auto-copy files from a source folder to the Pocket SD card matching the directory structure
+- Generate placeholder library images for ROMs that don't have one (160×144 BMP with game name)
+- Browse game platform folders under Assets
+- SD card validation to verify correct Pocket directory structure
+
+</details>
+
+<details>
+<summary><strong>Analogue Mega SG</strong></summary>
+
+- Generate custom 8×8 pixel fonts for the Mega SG on-screen menu
+- Create fonts from a 128×128 BMP source image (16×16 grid of 8×8 characters) or use the built-in default font
+- Convert save files between formats with endianness swapping, power-of-two padding, and trailing byte trimming
+- Analyze save file type (EEPROM, SRAM, Flash) from file size
+- Convert between `.sav` and `.srm` save formats
+
+</details>
+
+<details>
+<summary><strong>Analogue NT / Super NT</strong></summary>
+
+- Generate custom 8×8 pixel fonts for the Analogue NT and Super NT on-screen menus
+- Create fonts from a 128×128 BMP source image or use the built-in default font
+- Repair NES ROM headers using a safe temp-file workflow (writes to temp file first, then replaces original)
+
+</details>
+
+<details>
+<summary><strong>Analogue 3D</strong></summary>
+
+- Manage N64 Game Pak ROMs on the Analogue 3D SD card
+- Scan and list all Game Paks with metadata (internal name, game code, file size)
+- Per-game display settings: resolution, aspect ratio, smoothing, crop overscan
+- Per-game hardware settings: Expansion Pak, Rumble Pak, CPU overclock, Controller Pak mode
+- Set or remove custom label artwork (PNG) for each Game Pak
+- Atomic settings writes (temp file + rename) to prevent SD card corruption
+- SD card validation to verify correct Analogue 3D directory structure
+
+</details>
+
 ## Supported Systems
 
 | System | Extensions |
 |---|---|
-| Nintendo Entertainment System (NES) | `.nes` |
-| Super Nintendo (SNES) | `.smc`, `.sfc` |
-| Nintendo 64 | `.z64`, `.n64`, `.v64` |
-| Nintendo 64DD | `.ndd` |
-| Nintendo DS | `.nds` |
-| Nintendo 3DS | `.3ds`, `.cia` |
-| Game Boy | `.gb` |
-| Game Boy Color | `.gbc` |
-| Game Boy Advance | `.gba` |
-| Nintendo Virtual Boy | `.vb`, `.vboy` |
-| Sega Master System | `.sms` |
-| Sega Mega Drive / Genesis | `.md`, `.gen`, `.bin` |
-| Sega CD | `.iso`, `.cue` |
-| Sega 32X | `.32x` |
-| Sega Game Gear | `.gg` |
+| Amiga CD32 | `.iso`, `.cue` |
+| Amstrad CPC | `.dsk`, `.cdt`, `.sna` |
+| Arcade (MAME) | `.zip` |
 | Atari 2600 | `.a26` |
 | Atari 5200 | `.a52` |
 | Atari 7800 | `.a78` |
 | Atari 800 / XL / XE | `.atr`, `.xex`, `.car`, `.cas` |
 | Atari Jaguar | `.j64`, `.jag` |
 | Atari Lynx | `.lnx`, `.lyx` |
-| PC Engine / TurboGrafx-16 | `.pce`, `.tg16` |
-| SNK Neo Geo | `.neo` |
-| SNK Neo Geo CD | `.iso`, `.cue` |
-| SNK Neo Geo Pocket / Pocket Color | `.ngp`, `.ngc` |
 | Coleco ColecoVision | `.col`, `.cv` |
+| Fairchild Channel F | `.chf` |
+| Game Boy | `.gb` |
+| Game Boy Advance | `.gba` |
+| Game Boy Color | `.gbc` |
 | Mattel Intellivision | `.int` |
+| Memotech MTX | `.mtx`, `.run` |
 | MSX | `.mx1` |
 | MSX2 | `.mx2` |
 | NEC PC-88 | `.d88`, `.t88` |
-| Amstrad CPC | `.dsk`, `.cdt`, `.sna` |
-| Oric / Atmos / TeleStrat | `.tap` |
-| Thomson MO5 | `.mo5`, `.k7`, `.fd` |
-| Watara Supervision | `.sv` |
-| Radio Shack Color Computer | `.ccc` |
-| Panasonic 3DO | `.3do`, `.iso`, `.cue` |
-| Philips CD-i | `.iso`, `.cue` |
-| Amiga CD32 | `.iso`, `.cue` |
-| Sega Saturn | `.iso`, `.cue` |
-| Sega Dreamcast | `.cdi`, `.gdi`, `.iso`, `.cue` |
+| Nintendo 3DS | `.3ds`, `.cia` |
+| Nintendo 64 | `.z64`, `.n64`, `.v64` |
+| Nintendo 64DD | `.ndd` |
+| Nintendo DS | `.nds` |
+| Nintendo Entertainment System (NES) | `.nes` |
 | Nintendo GameCube | `.gcm`, `.iso` |
+| Nintendo Virtual Boy | `.vb`, `.vboy` |
 | Nintendo Wii | `.iso` |
-| Arcade (MAME) | `.zip` |
-| Fairchild Channel F | `.chf` |
+| Oric / Atmos / TeleStrat | `.tap` |
+| Panasonic 3DO | `.3do`, `.iso`, `.cue` |
+| PC Engine / TurboGrafx-16 | `.pce`, `.tg16` |
+| Philips CD-i | `.iso`, `.cue` |
+| Radio Shack Color Computer | `.ccc` |
+| Sega 32X | `.32x` |
+| Sega CD | `.iso`, `.cue` |
+| Sega Dreamcast | `.cdi`, `.gdi`, `.iso`, `.cue` |
+| Sega Game Gear | `.gg` |
+| Sega Master System | `.sms` |
+| Sega Mega Drive / Genesis | `.md`, `.gen`, `.bin` |
+| Sega Saturn | `.iso`, `.cue` |
+| SNK Neo Geo | `.neo` |
+| SNK Neo Geo CD | `.iso`, `.cue` |
+| SNK Neo Geo Pocket / Pocket Color | `.ngp`, `.ngc` |
+| Super Nintendo (SNES) | `.smc`, `.sfc` |
+| Thomson MO5 | `.mo5`, `.k7`, `.fd` |
 | Tiger Game Com | `.tgc` |
-| Memotech MTX | `.mtx`, `.run` |
+| Watara Supervision | `.sv` |
 
 ### System Feature Coverage
 
 | System | Header Parsing | Security Analysis | Dump Verification | Cheat Codes | Header Fixing |
 |---|---|---|---|---|---|
-| NES | ✔ | ✔ | ✔ | ✔ | ✔ |
-| SNES | ✔ | ✔ | ✔ | ✔ | ✔ |
-| N64 | ✔ | ✔ | ✔ | ✔ | ✔ |
-| N64DD | ✔ | ✔ | ✔ | — | — |
-| Nintendo DS | ✔ | ✔ | ✔ | ✔ | ✔ |
-| Nintendo 3DS | ✔ | ✔ | ✔ | — | — |
-| Game Boy | ✔ | ✔ | ✔ | ✔ | ✔ |
-| Game Boy Color | ✔ | ✔ | ✔ | ✔ | ✔ |
-| Game Boy Advance | ✔ | ✔ | ✔ | ✔ | ✔ |
-| Virtual Boy | ✔ | ✔ | ✔ | — | ✔ |
-| Sega Master System | ✔ | ✔ | ✔ | ✔ | ✔ |
-| Mega Drive / Genesis | ✔ | ✔ | ✔ | ✔ | ✔ |
-| Sega CD | ✔ | ✔ | ✔ | ✔ | — |
-| Sega 32X | ✔ | ✔ | ✔ | ✔ | ✔ |
-| Sega Game Gear | ✔ | ✔ | ✔ | ✔ | ✔ |
+| Amiga CD32 | ✔ | ✔ | ✔ | — | — |
+| Amstrad CPC | ✔ | ✔ | ✔ | — | — |
+| Arcade (MAME) | — | — | — | — | — |
 | Atari 2600 | ✔ | ✔ | ✔ | — | — |
 | Atari 5200 | ✔ | ✔ | ✔ | — | — |
 | Atari 7800 | ✔ | ✔ | ✔ | — | ✔ |
 | Atari 800 | ✔ | ✔ | ✔ | — | — |
 | Atari Jaguar | ✔ | ✔ | ✔ | — | ✔ |
 | Atari Lynx | ✔ | ✔ | ✔ | — | ✔ |
-| PC Engine | ✔ | ✔ | ✔ | ✔ | ✔ |
+| ColecoVision | ✔ | ✔ | ✔ | — | ✔ |
+| Color Computer | ✔ | ✔ | ✔ | — | — |
+| Fairchild Channel F | ✔ | ✔ | ✔ | — | — |
+| Game Boy | ✔ | ✔ | ✔ | ✔ | ✔ |
+| Game Boy Advance | ✔ | ✔ | ✔ | ✔ | ✔ |
+| Game Boy Color | ✔ | ✔ | ✔ | ✔ | ✔ |
+| Intellivision | ✔ | ✔ | ✔ | — | ✔ |
+| Mega Drive / Genesis | ✔ | ✔ | ✔ | ✔ | ✔ |
+| Memotech MTX | ✔ | ✔ | ✔ | — | — |
+| MSX / MSX2 | ✔ | ✔ | ✔ | — | ✔ |
+| N64 | ✔ | ✔ | ✔ | ✔ | ✔ |
+| N64DD | ✔ | ✔ | ✔ | — | — |
+| NEC PC-88 | ✔ | ✔ | ✔ | — | — |
 | Neo Geo | ✔ | ✔ | ✔ | ✔ | — |
 | Neo Geo CD | ✔ | ✔ | ✔ | — | — |
 | Neo Geo Pocket | ✔ | ✔ | ✔ | ✔ | ✔ |
-| ColecoVision | ✔ | ✔ | ✔ | — | ✔ |
-| Intellivision | ✔ | ✔ | ✔ | — | ✔ |
-| MSX / MSX2 | ✔ | ✔ | ✔ | — | ✔ |
-| NEC PC-88 | ✔ | ✔ | ✔ | — | — |
-| Amstrad CPC | ✔ | ✔ | ✔ | — | — |
-| Oric | ✔ | ✔ | ✔ | — | — |
-| Thomson MO5 | ✔ | ✔ | ✔ | — | — |
-| Watara Supervision | ✔ | ✔ | ✔ | — | ✔ |
-| Color Computer | ✔ | ✔ | ✔ | — | — |
-| Panasonic 3DO | ✔ | ✔ | ✔ | — | — |
-| Philips CD-i | ✔ | ✔ | ✔ | — | — |
-| Amiga CD32 | ✔ | ✔ | ✔ | — | — |
-| Sega Saturn | ✔ | ✔ | ✔ | ✔ | — |
-| Sega Dreamcast | ✔ | ✔ | ✔ | ✔ | — |
+| NES | ✔ | ✔ | ✔ | ✔ | ✔ |
+| Nintendo 3DS | ✔ | ✔ | ✔ | — | — |
+| Nintendo DS | ✔ | ✔ | ✔ | ✔ | ✔ |
 | Nintendo GameCube | ✔ | ✔ | ✔ | — | — |
 | Nintendo Wii | ✔ | ✔ | ✔ | — | — |
-| Arcade (MAME) | — | — | — | — | — |
-| Fairchild Channel F | ✔ | ✔ | ✔ | — | — |
+| Oric | ✔ | ✔ | ✔ | — | — |
+| Panasonic 3DO | ✔ | ✔ | ✔ | — | — |
+| PC Engine | ✔ | ✔ | ✔ | ✔ | ✔ |
+| Philips CD-i | ✔ | ✔ | ✔ | — | — |
+| Sega 32X | ✔ | ✔ | ✔ | ✔ | ✔ |
+| Sega CD | ✔ | ✔ | ✔ | ✔ | — |
+| Sega Dreamcast | ✔ | ✔ | ✔ | ✔ | — |
+| Sega Game Gear | ✔ | ✔ | ✔ | ✔ | ✔ |
+| Sega Master System | ✔ | ✔ | ✔ | ✔ | ✔ |
+| Sega Saturn | ✔ | ✔ | ✔ | ✔ | — |
+| SNES | ✔ | ✔ | ✔ | ✔ | ✔ |
+| Thomson MO5 | ✔ | ✔ | ✔ | — | — |
 | Tiger Game Com | ✔ | ✔ | ✔ | — | — |
-| Memotech MTX | ✔ | ✔ | ✔ | — | — |
+| Virtual Boy | ✔ | ✔ | ✔ | — | ✔ |
+| Watara Supervision | ✔ | ✔ | ✔ | — | ✔ |
 
 ## Localization
 

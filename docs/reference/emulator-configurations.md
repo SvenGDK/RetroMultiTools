@@ -18,13 +18,19 @@ video_vsync = "true"
 video_smooth = "false"
 video_scale_integer = "true"
 video_shader_enable = "true"
+video_threaded = "true"
+audio_driver = "auto"
+audio_sync = "true"
+audio_volume = "0.0"
+input_driver = "auto"
 menu_driver = "ozone"
-audio_volume = "0.000000"
 rewind_enable = "true"
 run_ahead_enabled = "true"
 run_ahead_frames = "1"
-video_threaded = "true"
 notification_show_when_menu_is_alive = "true"
+cheats_enable = "false"
+config_save_on_exit = "true"
+pause_nonactive = "false"
 savefile_directory = "/path/to/saves"
 savestate_directory = "/path/to/states"
 screenshot_directory = "/path/to/screenshots"
@@ -34,8 +40,11 @@ rgui_browser_directory = "/path/to/roms"
 ### Notes
 
 - Audio volume is converted from 0–100% linear to dB (RetroArch uses a -80 to 0 dB range).
-- Video driver options: `gl`, `vulkan`, `d3d11`, `d3d12`, `sdl2`, `metal`.
+- Video driver options: `gl`, `glcore`, `vulkan`, `d3d11`, `d3d12`.
 - Menu driver options: `ozone`, `xmb`, `rgui`, `glui`.
+- Audio driver options: `auto`, `alsa`, `pulse`, `sdl2`, `wasapi`, `dsound`, `coreaudio`.
+- Input driver options: `auto`, `udev`, `sdl2`, `x`, `dinput`, `xinput`.
+- Use the **Export to RetroArch** button to write configuration directly to the detected RetroArch installation.
 
 ---
 
@@ -62,6 +71,7 @@ Mesen uses an XML configuration format.
     <Region>Auto</Region>
     <RemoveSpriteLimit>false</RemoveSpriteLimit>
     <Overclock>false</Overclock>
+    <EnableCheats>false</EnableCheats>
     <Rewind>true</Rewind>
   </Emulation>
 </Settings>
@@ -81,10 +91,29 @@ Snes9x uses a key-value format with section comments.
 
 ```ini
 # Snes9x Configuration
-Settings.Region = Auto
-Settings.TurboSpeed = 2
-Settings.SuperFXClockMultiplier = 100
-ROM.Directory = /path/to/roms
+[Display]
+FullScreen=TRUE
+Bilinear=TRUE
+VSync=TRUE
+IntegerScaling=TRUE
+
+[Sound]
+Enabled=TRUE
+Sync=TRUE
+Volume=100
+DynamicRateControl=FALSE
+
+[Emulation]
+Region=Auto
+TurboSpeed=2
+SuperFXOverclock=FALSE
+BlockInvalidVRAMAccess=TRUE
+EnableCheats=FALSE
+
+[Paths]
+RomDir=/path/to/roms
+SRAMDir=/path/to/saves
+SaveStateDir=/path/to/states
 ```
 
 ### Region Options
@@ -102,8 +131,22 @@ Project64 uses a key-value format.
 ```ini
 # Project64 Configuration
 [Settings]
-CPU Core = Recompiler
-Counter Factor = 2
+FullScreen=0
+
+[Display]
+AnisotropicFiltering=1
+ShowSpeed=0
+
+[Audio]
+Volume=100
+
+[CPU]
+Core=Recompiler
+CounterFactor=2
+
+[Options]
+AutoSaveState=0
+EnableCheats=0
 ```
 
 ### CPU Core Options
@@ -120,22 +163,39 @@ mGBA uses an INI format with sections.
 
 ```ini
 ; mGBA Configuration
-[ports.qt]
-fullscreen=1
-videoSync=1
+[display]
+fullscreen=0
+filter=1
+lockIntegerScaling=1
 
 [audio]
-sync=1
-volume=256
+mute=0
+audioSync=1
+volume=100
+
+[paths]
+roms=/path/to/roms
+saves=/path/to/saves
+states=/path/to/states
+screenshots=/path/to/screenshots
+
+[gb]
+useBios=1
 
 [gba]
 useBios=1
+
+[emulation]
+fastForwardSpeed=4
+cheats=0
+frameskip=0
+allowOpposingDirections=0
 ```
 
 ### Notes
 
-- Audio volume is mapped from 0–100% to mGBA's 0–256 range.
 - Fast-forward speed is a multiplier (e.g., `4` = 4× speed).
+- Frame skip controls the number of frames to skip (0 = none).
 
 ---
 
@@ -152,6 +212,17 @@ Fullscreen=1
 VSync=1
 Region=Auto
 PerfectSync=0
+
+[Audio]
+Volume=100
+
+[Options]
+SRAMAutoSave=1
+EnableCheats=0
+
+[Paths]
+ROMs=/path/to/roms
+SRAM=/path/to/saves
 ```
 
 ### Region Options
@@ -167,16 +238,20 @@ Mednafen uses a flat key-value format with system-prefixed keys.
 ### Generated Settings
 
 ```ini
-# Mednafen Configuration
-video.fs 1
+; Mednafen Configuration
 video.driver opengl
+video.fs 1
+video.glvsync 1
 sound.volume 100
+sound.rate 48000
+sound.buffer_time 32
+cheats 0
 cd.image_memcache 0
 
-# Per-system settings
-pce.scanlines 0
-lynx.rotateinput 1
-ngp.language english
+; Per-system settings
+pce.videoip 1
+lynx.videoip 1
+ngp.videoip 1
 ```
 
 ### Per-System Prefixes
@@ -208,12 +283,18 @@ Stella uses an INI format with sections.
 [Video]
 fullscreen = true
 vsync = true
+tv.filter = 1
+tv.scanlines = 0
 palette = standard
 phosphor = byrom
+showinfo = false
 
 [Audio]
 sound = true
 volume = 100
+
+[Input]
+cheat = false
 
 [Paths]
 romdir = /path/to/roms
@@ -237,9 +318,14 @@ FCEUX uses a key-value format with `SDL.` prefixed keys.
 SDL.Fullscreen = 1
 SDL.Sound = 1
 SDL.Sound.Volume = 100
+SDL.Sound.Quality = 1
+SDL.ShowFPS = 0
+SDL.AutoSaveState = 0
 SDL.Region = NTSC
 SDL.RemoveSpriteLimit = 0
 SDL.NewPPU = 0
+SDL.EnableCheats = 0
+SDL.GameGenie = 0
 ```
 
 ### Region Options

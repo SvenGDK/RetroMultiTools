@@ -19,7 +19,9 @@ class Program
                 "RetroMultiTools", "crash.log");
             try
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(logPath)!);
+                var logDir = Path.GetDirectoryName(logPath);
+                if (!string.IsNullOrEmpty(logDir))
+                    Directory.CreateDirectory(logDir);
                 File.WriteAllText(logPath,
                     $"[{DateTime.UtcNow:O}] Unhandled exception:\n{ex}\n");
             }

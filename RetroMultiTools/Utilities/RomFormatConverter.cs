@@ -75,9 +75,9 @@ public static class RomFormatConverter
         {
             using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 16);
             byte[] header = new byte[16];
-            fs.Read(header, 0, 16);
+            int read = fs.Read(header, 0, 16);
 
-            if (header[0] == 0x4E && header[1] == 0x45 && header[2] == 0x53 && header[3] == 0x1A)
+            if (read >= 4 && header[0] == 0x4E && header[1] == 0x45 && header[2] == 0x53 && header[3] == 0x1A)
             {
                 conversions.Add(ConversionType.NesToUnheadered);
                 conversions.Add(ConversionType.NesFixHeader);
@@ -360,7 +360,7 @@ public static class RomFormatConverter
         progress?.Report("Done.");
     }
 
-    private static string? FindTool(string toolName)
+    internal static string? FindTool(string toolName)
     {
         // Try to find the tool in the system PATH
         string fileName = OperatingSystem.IsWindows() ? toolName + ".exe" : toolName;
@@ -379,7 +379,7 @@ public static class RomFormatConverter
         return null;
     }
 
-    private static async Task RunExternalToolAsync(string toolPath, string arguments, IProgress<string>? progress)
+    internal static async Task RunExternalToolAsync(string toolPath, string arguments, IProgress<string>? progress)
     {
         var psi = new System.Diagnostics.ProcessStartInfo
         {

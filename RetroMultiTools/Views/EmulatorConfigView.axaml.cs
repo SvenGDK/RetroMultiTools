@@ -1,11 +1,16 @@
 using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Utilities;
+using RetroMultiTools.Utilities.RetroArch;
 
 namespace RetroMultiTools.Views;
 
 public partial class EmulatorConfigView : UserControl
 {
+    private static readonly IBrush ErrorBrush = new SolidColorBrush(Color.Parse("#F38BA8"));
+    private static readonly IBrush SuccessBrush = new SolidColorBrush(Color.Parse("#A6E3A1"));
+
     public EmulatorConfigView()
     {
         InitializeComponent();
@@ -43,6 +48,7 @@ public partial class EmulatorConfigView : UserControl
         StellaOptionsPanel.IsVisible = emulator == EmulatorConfigGenerator.Emulator.Stella;
         FCEUXOptionsPanel.IsVisible = emulator == EmulatorConfigGenerator.Emulator.FCEUX;
         MAMEOptionsPanel.IsVisible = emulator == EmulatorConfigGenerator.Emulator.MAME;
+        ExportToRetroArchButton.IsVisible = emulator == EmulatorConfigGenerator.Emulator.RetroArch;
     }
 
     private string GetSelectedRegion()
@@ -58,6 +64,21 @@ public partial class EmulatorConfigView : UserControl
         };
         return (regionCombo?.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "Auto";
     }
+
+    private bool GetEnableCheats(EmulatorConfigGenerator.Emulator emulator) => emulator switch
+    {
+        EmulatorConfigGenerator.Emulator.RetroArch => EnableCheatsCheck.IsChecked == true,
+        EmulatorConfigGenerator.Emulator.Mesen => MesenEnableCheatsCheck.IsChecked == true,
+        EmulatorConfigGenerator.Emulator.Snes9x => Snes9xEnableCheatsCheck.IsChecked == true,
+        EmulatorConfigGenerator.Emulator.Project64 => Project64EnableCheatsCheck.IsChecked == true,
+        EmulatorConfigGenerator.Emulator.MGBA => MGBAEnableCheatsCheck.IsChecked == true,
+        EmulatorConfigGenerator.Emulator.KegaFusion => KegaEnableCheatsCheck.IsChecked == true,
+        EmulatorConfigGenerator.Emulator.Mednafen => MednafenEnableCheatsCheck.IsChecked == true,
+        EmulatorConfigGenerator.Emulator.Stella => StellaEnableCheatsCheck.IsChecked == true,
+        EmulatorConfigGenerator.Emulator.FCEUX => FCEUXEnableCheatsCheck.IsChecked == true,
+        EmulatorConfigGenerator.Emulator.MAME => MAMEEnableCheatsCheck.IsChecked == true,
+        _ => false
+    };
 
     private async void BrowseRomDir_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
@@ -102,6 +123,81 @@ public partial class EmulatorConfigView : UserControl
             OutputFileTextBox.Text = file.Path.LocalPath;
     }
 
+    private EmulatorConfigOptions BuildOptions()
+    {
+        var emulator = GetSelectedEmulator();
+        return new EmulatorConfigOptions
+        {
+            Emulator = emulator,
+            RomDirectory = RomDirTextBox.Text ?? "",
+            SaveDirectory = SaveDirTextBox.Text ?? "",
+            StateDirectory = StateDirTextBox.Text ?? "",
+            ScreenshotDirectory = ScreenshotDirTextBox.Text ?? "",
+            Fullscreen = FullscreenCheck.IsChecked == true,
+            SmoothVideo = SmoothVideoCheck.IsChecked == true,
+            IntegerScaling = IntegerScalingCheck.IsChecked == true,
+            EnableShaders = ShadersCheck.IsChecked == true,
+            EnableRewind = RewindCheck.IsChecked == true,
+            VSync = VSyncCheck.IsChecked == true,
+            AudioVolume = (int)AudioVolumeSlider.Value,
+            ShowFPS = ShowFPSCheck.IsChecked == true,
+            AutoSaveState = AutoSaveCheck.IsChecked == true,
+            // RetroArch-specific
+            VideoDriver = (VideoDriverCombo.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "gl",
+            MenuDriver = (MenuDriverCombo.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "ozone",
+            AudioDriver = (AudioDriverCombo.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "auto",
+            InputDriver = (InputDriverCombo.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "auto",
+            RunAheadFrames = (int)(RunAheadFramesInput.Value ?? 0),
+            ThreadedVideo = ThreadedVideoCheck.IsChecked == true,
+            EnableNotifications = EnableNotificationsCheck.IsChecked == true,
+            AudioSyncRetroArch = AudioSyncRetroArchCheck.IsChecked == true,
+            ConfigSaveOnExit = ConfigSaveOnExitCheck.IsChecked == true,
+            PauseOnUnfocus = PauseOnUnfocusCheck.IsChecked == true,
+            // Cheats: read from the active emulator's panel
+            EnableCheats = GetEnableCheats(emulator),
+            // Region from the currently visible region combo
+            Region = GetSelectedRegion(),
+            // Sprite limit: only the visible panel's checkbox applies
+            RemoveSpriteLimit = emulator == EmulatorConfigGenerator.Emulator.FCEUX
+                ? FCEUXRemoveSpriteLimitCheck.IsChecked == true
+                : MesenRemoveSpriteLimitCheck.IsChecked == true,
+            Overclock = MesenOverclockCheck.IsChecked == true,
+            // Snes9x
+            TurboSpeed = (int)(TurboSpeedInput.Value ?? 2),
+            SuperFXOverclock = SuperFXOverclockCheck.IsChecked == true,
+            BlockInvalidVram = BlockInvalidVramCheck.IsChecked == true,
+            DynamicRateControl = DynamicRateControlCheck.IsChecked == true,
+            // Project64
+            CpuCore = (CpuCoreCombo.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "Recompiler",
+            CounterFactor = (int)(CounterFactorInput.Value ?? 2),
+            DisplaySpeed = DisplaySpeedCheck.IsChecked == true,
+            // mGBA
+            AudioSync = AudioSyncCheck.IsChecked == true,
+            UseBios = UseBiosCheck.IsChecked == true,
+            FastForwardSpeed = (int)(FastForwardSpeedInput.Value ?? 4),
+            FrameSkip = (int)(FrameSkipInput.Value ?? 0),
+            AllowOpposingDirections = AllowOpposingDirectionsCheck.IsChecked == true,
+            // Stella
+            Palette = (PaletteCombo.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "standard",
+            Phosphor = PhosphorCheck.IsChecked == true,
+            TvEffects = (int)(TvEffectsInput.Value ?? 0),
+            // MAME
+            SkipGameInfo = SkipGameInfoCheck.IsChecked == true,
+            SkipWarnings = SkipWarningsCheck.IsChecked == true,
+            // Mednafen
+            CdImageMemoryCache = CdImageMemoryCacheCheck.IsChecked == true,
+            SoundBufferSize = (int)(SoundBufferSizeInput.Value ?? 32),
+            MednafenVideoDriver = (MednafenVideoDriverCombo.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "opengl",
+            // Kega Fusion
+            PerfectSync = PerfectSyncCheck.IsChecked == true,
+            SramAutoSave = SramAutoSaveCheck.IsChecked == true,
+            // FCEUX
+            NewPPU = NewPPUCheck.IsChecked == true,
+            SoundQuality = (int)(SoundQualityInput.Value ?? 1),
+            GameGenie = GameGenieCheck.IsChecked == true,
+        };
+    }
+
     private async void GenerateButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         string output = OutputFileTextBox.Text ?? "";
@@ -111,8 +207,9 @@ public partial class EmulatorConfigView : UserControl
             var emulator = GetSelectedEmulator();
             string ext = EmulatorConfigGenerator.GetConfigExtension(emulator);
             string name = EmulatorConfigGenerator.GetEmulatorName(emulator).Replace(" ", "_").Replace("/", "_");
-            string dir = !string.IsNullOrEmpty(RomDirTextBox.Text)
-                ? Path.GetDirectoryName(RomDirTextBox.Text) ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            string romDir = RomDirTextBox.Text ?? "";
+            string dir = !string.IsNullOrEmpty(romDir) && Directory.Exists(romDir)
+                ? romDir
                 : Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             output = Path.Combine(dir, $"{name}_config{ext}");
             OutputFileTextBox.Text = output;
@@ -123,64 +220,7 @@ public partial class EmulatorConfigView : UserControl
 
         try
         {
-            var emulator = GetSelectedEmulator();
-            var options = new EmulatorConfigOptions
-            {
-                Emulator = emulator,
-                RomDirectory = RomDirTextBox.Text ?? "",
-                SaveDirectory = SaveDirTextBox.Text ?? "",
-                StateDirectory = StateDirTextBox.Text ?? "",
-                ScreenshotDirectory = ScreenshotDirTextBox.Text ?? "",
-                Fullscreen = FullscreenCheck.IsChecked == true,
-                SmoothVideo = SmoothVideoCheck.IsChecked == true,
-                IntegerScaling = IntegerScalingCheck.IsChecked == true,
-                EnableShaders = ShadersCheck.IsChecked == true,
-                EnableRewind = RewindCheck.IsChecked == true,
-                VSync = VSyncCheck.IsChecked == true,
-                AudioVolume = (int)AudioVolumeSlider.Value,
-                ShowFPS = ShowFPSCheck.IsChecked == true,
-                AutoSaveState = AutoSaveCheck.IsChecked == true,
-                // RetroArch-specific
-                VideoDriver = (VideoDriverCombo.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "gl",
-                MenuDriver = (MenuDriverCombo.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "ozone",
-                RunAheadFrames = (int)(RunAheadFramesInput.Value ?? 0),
-                ThreadedVideo = ThreadedVideoCheck.IsChecked == true,
-                EnableNotifications = EnableNotificationsCheck.IsChecked == true,
-                // Cheats: only the visible panel's checkbox applies to the selected emulator
-                EnableCheats = emulator == EmulatorConfigGenerator.Emulator.MAME
-                    ? MAMEEnableCheatsCheck.IsChecked == true
-                    : EnableCheatsCheck.IsChecked == true,
-                // Region from the currently visible region combo
-                Region = GetSelectedRegion(),
-                // Sprite limit: only the visible panel's checkbox applies to the selected emulator
-                RemoveSpriteLimit = emulator == EmulatorConfigGenerator.Emulator.FCEUX
-                    ? FCEUXRemoveSpriteLimitCheck.IsChecked == true
-                    : MesenRemoveSpriteLimitCheck.IsChecked == true,
-                Overclock = MesenOverclockCheck.IsChecked == true,
-                // Snes9x
-                TurboSpeed = (int)(TurboSpeedInput.Value ?? 2),
-                SuperFXOverclock = SuperFXOverclockCheck.IsChecked == true,
-                // Project64
-                CpuCore = (CpuCoreCombo.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "Recompiler",
-                CounterFactor = (int)(CounterFactorInput.Value ?? 2),
-                // mGBA
-                AudioSync = AudioSyncCheck.IsChecked == true,
-                UseBios = UseBiosCheck.IsChecked == true,
-                FastForwardSpeed = (int)(FastForwardSpeedInput.Value ?? 4),
-                // Stella
-                Palette = (PaletteCombo.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "standard",
-                Phosphor = PhosphorCheck.IsChecked == true,
-                // MAME
-                SkipGameInfo = SkipGameInfoCheck.IsChecked == true,
-                SkipWarnings = SkipWarningsCheck.IsChecked == true,
-                // Mednafen
-                CdImageMemoryCache = CdImageMemoryCacheCheck.IsChecked == true,
-                // Kega Fusion
-                PerfectSync = PerfectSyncCheck.IsChecked == true,
-                // FCEUX
-                NewPPU = NewPPUCheck.IsChecked == true,
-            };
-
+            var options = BuildOptions();
             var progress = new Progress<string>(msg => StatusText.Text = msg);
             await EmulatorConfigGenerator.GenerateAsync(options, output, progress);
 
@@ -196,12 +236,39 @@ public partial class EmulatorConfigView : UserControl
         }
     }
 
+    private async void ExportToRetroArch_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        ExportToRetroArchButton.IsEnabled = false;
+
+        try
+        {
+            string? configPath = RetroArchLauncher.GetRetroArchConfigFilePath();
+            if (configPath == null)
+            {
+                ShowStatus("✘ Could not detect RetroArch config directory.\nAutomatic detection failed. Please configure the RetroArch path in Settings first, or ensure RetroArch is installed in a standard location.", isError: true);
+                return;
+            }
+
+            var options = BuildOptions();
+            var progress = new Progress<string>(msg => StatusText.Text = msg);
+            await EmulatorConfigGenerator.GenerateAsync(options, configPath, progress);
+
+            ShowStatus($"✔ Configuration exported to RetroArch!\nPath: {configPath}", isError: false);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException)
+        {
+            ShowStatus($"✘ Error exporting to RetroArch: {ex.Message}", isError: true);
+        }
+        finally
+        {
+            ExportToRetroArchButton.IsEnabled = true;
+        }
+    }
+
     private void ShowStatus(string message, bool isError)
     {
         StatusText.Text = message;
-        StatusText.Foreground = isError
-            ? new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#F38BA8"))
-            : new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#A6E3A1"));
+        StatusText.Foreground = isError ? ErrorBrush : SuccessBrush;
         StatusBorder.IsVisible = true;
     }
 

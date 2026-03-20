@@ -1,0 +1,91 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.Mame.MameChdConverterView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="700" HorizontalAlignment="Left">
+        <TextBlock Text="{Binding [MameChdConv_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [MameChdConv_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- Operation Selection -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [MameChdConv_Operation], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <RadioButton x:Name="CompressRadio" Content="{Binding [MameChdConv_Compress], Source={x:Static loc:LocalizationManager.Instance}}"
+                             GroupName="ChdConvOperation"
+                             IsChecked="True" Foreground="#CDD6F4"
+                             IsCheckedChanged="OperationRadio_Checked"/>
+                <RadioButton x:Name="DecompressRadio" Content="{Binding [MameChdConv_Decompress], Source={x:Static loc:LocalizationManager.Instance}}"
+                             GroupName="ChdConvOperation"
+                             Foreground="#CDD6F4"
+                             IsCheckedChanged="OperationRadio_Checked"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Mode Selection -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [Common_Mode], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <RadioButton x:Name="SingleModeRadio" Content="{Binding [MameChdConv_SingleFile], Source={x:Static loc:LocalizationManager.Instance}}"
+                             GroupName="ChdConvMode"
+                             IsChecked="True" Foreground="#CDD6F4"
+                             IsCheckedChanged="ModeRadio_Checked"/>
+                <RadioButton x:Name="BatchModeRadio" Content="{Binding [Common_BatchDirectory], Source={x:Static loc:LocalizationManager.Instance}}"
+                             GroupName="ChdConvMode"
+                             Foreground="#CDD6F4"
+                             IsCheckedChanged="ModeRadio_Checked"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Input Selection -->
+        <StackPanel Spacing="4">
+            <TextBlock x:Name="InputLabel" Text="{Binding [MameChdConv_InputFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="InputTextBox" IsReadOnly="True"
+                         Watermark="{Binding [MameChdConv_SelectInput], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseInput_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Output Selection -->
+        <StackPanel Spacing="4">
+            <TextBlock x:Name="OutputLabel" Text="{Binding [Common_OutputFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="OutputTextBox" Watermark="{Binding [Common_OutputPath], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseOutput_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Decompress Output Format -->
+        <StackPanel x:Name="OutputFormatPanel" Spacing="4" IsVisible="False">
+            <TextBlock Text="{Binding [MameChdConv_OutputFormat], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <ComboBox x:Name="OutputFormatCombo" SelectedIndex="0" MinWidth="200">
+                <ComboBoxItem Content="BIN (Raw binary)"/>
+                <ComboBoxItem Content="CUE/BIN (CD image)"/>
+                <ComboBoxItem Content="GDI (GD-ROM image)"/>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Convert Button -->
+        <Button x:Name="ConvertButton" Content="{Binding [MameChdConv_Convert], Source={x:Static loc:LocalizationManager.Instance}}"
+                Click="ConvertButton_Click"
+                Padding="16,10" HorizontalAlignment="Left"
+                IsEnabled="False"/>
+
+        <!-- Progress -->
+        <StackPanel x:Name="ProgressPanel" IsVisible="False" Spacing="4">
+            <ProgressBar IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+            <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+        </StackPanel>
+
+        <!-- Status -->
+        <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="#CDD6F4"/>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

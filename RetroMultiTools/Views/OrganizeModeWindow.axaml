@@ -1,0 +1,33 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+        x:Class="RetroMultiTools.Views.OrganizeModeWindow"
+        Title="{Binding [Organize_DialogTitle], Source={x:Static loc:LocalizationManager.Instance}}"
+        Width="380" Height="220"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Background="#1E1E2E">
+    <DockPanel Margin="16">
+
+        <!-- Header -->
+        <TextBlock DockPanel.Dock="Top" Text="{Binding [Organize_DialogTitle], Source={x:Static loc:LocalizationManager.Instance}}"
+                   FontSize="18" FontWeight="Bold" Foreground="#CDD6F4" Margin="0,0,0,8"/>
+        <TextBlock DockPanel.Dock="Top" Text="{Binding [Organize_DialogDescription], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap" Margin="0,0,0,16"/>
+
+        <!-- Buttons -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+            <Button Content="{Binding [Common_Cancel], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="CancelButton_Click" Padding="16,8"/>
+        </StackPanel>
+
+        <!-- Mode Selection -->
+        <StackPanel Spacing="8" VerticalAlignment="Center">
+            <Button x:Name="CopyButton" Click="CopyButton_Click" Padding="16,10" HorizontalAlignment="Stretch"
+                    Content="{Binding [Organize_CopyOption], Source={x:Static loc:LocalizationManager.Instance}}"/>
+            <Button x:Name="MoveButton" Click="MoveButton_Click" Padding="16,10" HorizontalAlignment="Stretch"
+                    Content="{Binding [Organize_MoveOption], Source={x:Static loc:LocalizationManager.Instance}}"/>
+        </StackPanel>
+
+    </DockPanel>
+</Window>

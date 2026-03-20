@@ -4,7 +4,7 @@ namespace RetroMultiTools.Utilities;
 
 /// <summary>
 /// Generates emulator configuration files for popular retro gaming emulators.
-/// Supports RetroArch, Mesen, Snes9x, Project64, mGBA, Kega Fusion, Mednafen, Stella, and FCEUX.
+/// Supports RetroArch, Mesen, Snes9x, Project64, mGBA, Kega Fusion, Mednafen, Stella, FCEUX, and MAME.
 /// </summary>
 public static class EmulatorConfigGenerator
 {
@@ -82,6 +82,10 @@ public static class EmulatorConfigGenerator
 
         try
         {
+            string? dir = Path.GetDirectoryName(outputPath);
+            if (!string.IsNullOrEmpty(dir))
+                Directory.CreateDirectory(dir);
+
             await File.WriteAllTextAsync(outputPath, config).ConfigureAwait(false);
         }
         catch
@@ -108,8 +112,7 @@ public static class EmulatorConfigGenerator
         sb.AppendLine($"video_vsync = \"{options.VSync.ToString().ToLowerInvariant()}\"");
         sb.AppendLine($"video_driver = \"{options.VideoDriver}\"");
         sb.AppendLine($"video_threaded = \"{options.ThreadedVideo.ToString().ToLowerInvariant()}\"");
-        if (options.IntegerScaling)
-            sb.AppendLine("video_scale_integer = \"true\"");
+        sb.AppendLine($"video_scale_integer = \"{options.IntegerScaling.ToString().ToLowerInvariant()}\"");
         if (!options.Fullscreen)
             sb.AppendLine("video_scale = \"3\""); // 3× native resolution for windowed mode
         sb.AppendLine("video_msg_pos_x = \"0.05\"");
@@ -120,6 +123,9 @@ public static class EmulatorConfigGenerator
         // Audio settings
         sb.AppendLine("# Audio");
         sb.AppendLine($"audio_enable = \"true\"");
+        if (options.AudioDriver != "auto")
+            sb.AppendLine($"audio_driver = \"{options.AudioDriver}\"");
+        sb.AppendLine($"audio_sync = \"{options.AudioSyncRetroArch.ToString().ToLowerInvariant()}\"");
         // RetroArch uses a -80 to 0 dB scale; convert 0-100% linear volume to dB
         double retroArchVolumeDb = (options.AudioVolume * 80.0 / 100.0) - 80.0;
         sb.AppendLine($"audio_volume = \"{retroArchVolumeDb:F1}\"");
@@ -128,6 +134,8 @@ public static class EmulatorConfigGenerator
 
         // Input settings
         sb.AppendLine("# Input");
+        if (options.InputDriver != "auto")
+            sb.AppendLine($"input_driver = \"{options.InputDriver}\"");
         sb.AppendLine($"input_autodetect_enable = \"true\"");
         sb.AppendLine("input_menu_toggle_gamepad_combo = \"2\"");
         sb.AppendLine();
@@ -136,19 +144,19 @@ public static class EmulatorConfigGenerator
         sb.AppendLine("# Paths");
         if (!string.IsNullOrEmpty(options.RomDirectory))
         {
-            string romDir = options.RomDirectory.Replace("\\", "/");
+            string romDir = NormalizePath(options.RomDirectory);
             sb.AppendLine($"rgui_browser_directory = \"{romDir}\"");
             sb.AppendLine($"content_directory = \"{romDir}\"");
         }
 
         if (!string.IsNullOrEmpty(options.SaveDirectory))
-            sb.AppendLine($"savefile_directory = \"{options.SaveDirectory.Replace("\\", "/")}\"");
+            sb.AppendLine($"savefile_directory = \"{NormalizePath(options.SaveDirectory)}\"");
 
         if (!string.IsNullOrEmpty(options.StateDirectory))
-            sb.AppendLine($"savestate_directory = \"{options.StateDirectory.Replace("\\", "/")}\"");
+            sb.AppendLine($"savestate_directory = \"{NormalizePath(options.StateDirectory)}\"");
 
         if (!string.IsNullOrEmpty(options.ScreenshotDirectory))
-            sb.AppendLine($"screenshot_directory = \"{options.ScreenshotDirectory.Replace("\\", "/")}\"");
+            sb.AppendLine($"screenshot_directory = \"{NormalizePath(options.ScreenshotDirectory)}\"");
 
         sb.AppendLine();
 
@@ -163,6 +171,8 @@ public static class EmulatorConfigGenerator
         sb.AppendLine($"fps_show = \"{options.ShowFPS.ToString().ToLowerInvariant()}\"");
         sb.AppendLine($"notification_show_when_menu_is_alive = \"{options.EnableNotifications.ToString().ToLowerInvariant()}\"");
         sb.AppendLine($"cheats_enable = \"{options.EnableCheats.ToString().ToLowerInvariant()}\"");
+        sb.AppendLine($"config_save_on_exit = \"{options.ConfigSaveOnExit.ToString().ToLowerInvariant()}\"");
+        sb.AppendLine($"pause_nonactive = \"{options.PauseOnUnfocus.ToString().ToLowerInvariant()}\"");
 
         // Latency reduction
         sb.AppendLine();
@@ -195,6 +205,7 @@ public static class EmulatorConfigGenerator
         sb.AppendLine($"    <Region>{EscapeXml(options.Region)}</Region>");
         sb.AppendLine($"    <RemoveSpriteLimit>{(options.RemoveSpriteLimit ? "true" : "false")}</RemoveSpriteLimit>");
         sb.AppendLine($"    <Overclock>{(options.Overclock ? "true" : "false")}</Overclock>");
+        sb.AppendLine($"    <EnableCheats>{(options.EnableCheats ? "true" : "false")}</EnableCheats>");
         sb.AppendLine("  </Emulation>");
         sb.AppendLine("  <Preferences>");
 
@@ -203,6 +214,9 @@ public static class EmulatorConfigGenerator
 
         if (!string.IsNullOrEmpty(options.SaveDirectory))
             sb.AppendLine($"    <SaveFolder>{EscapeXml(options.SaveDirectory)}</SaveFolder>");
+
+        if (!string.IsNullOrEmpty(options.StateDirectory))
+            sb.AppendLine($"    <SaveStateFolder>{EscapeXml(options.StateDirectory)}</SaveStateFolder>");
 
         if (!string.IsNullOrEmpty(options.ScreenshotDirectory))
             sb.AppendLine($"    <ScreenshotFolder>{EscapeXml(options.ScreenshotDirectory)}</ScreenshotFolder>");
@@ -233,12 +247,15 @@ public static class EmulatorConfigGenerator
         sb.AppendLine("Enabled=TRUE");
         sb.AppendLine("Sync=TRUE");
         sb.AppendLine($"Volume={options.AudioVolume}");
+        sb.AppendLine($"DynamicRateControl={options.DynamicRateControl.ToString().ToUpperInvariant()}");
         sb.AppendLine();
 
         sb.AppendLine("[Emulation]");
         sb.AppendLine($"Region={options.Region}");
         sb.AppendLine($"TurboSpeed={options.TurboSpeed}");
         sb.AppendLine($"SuperFXOverclock={options.SuperFXOverclock.ToString().ToUpperInvariant()}");
+        sb.AppendLine($"BlockInvalidVRAMAccess={options.BlockInvalidVram.ToString().ToUpperInvariant()}");
+        sb.AppendLine($"EnableCheats={options.EnableCheats.ToString().ToUpperInvariant()}");
         sb.AppendLine();
 
         sb.AppendLine("[Paths]");
@@ -265,6 +282,7 @@ public static class EmulatorConfigGenerator
 
         sb.AppendLine("[Display]");
         sb.AppendLine($"AnisotropicFiltering={BoolToInt(options.SmoothVideo)}");
+        sb.AppendLine($"ShowSpeed={BoolToInt(options.DisplaySpeed)}");
         sb.AppendLine();
 
         sb.AppendLine("[Audio]");
@@ -278,6 +296,7 @@ public static class EmulatorConfigGenerator
 
         sb.AppendLine("[Options]");
         sb.AppendLine($"AutoSaveState={BoolToInt(options.AutoSaveState)}");
+        sb.AppendLine($"EnableCheats={BoolToInt(options.EnableCheats)}");
         sb.AppendLine();
 
         sb.AppendLine("[Directories]");
@@ -329,6 +348,9 @@ public static class EmulatorConfigGenerator
         sb.AppendLine();
         sb.AppendLine("[emulation]");
         sb.AppendLine($"fastForwardSpeed={options.FastForwardSpeed}");
+        sb.AppendLine($"cheats={BoolToInt(options.EnableCheats)}");
+        sb.AppendLine($"frameskip={options.FrameSkip}");
+        sb.AppendLine($"allowOpposingDirections={BoolToInt(options.AllowOpposingDirections)}");
 
         return sb.ToString();
     }
@@ -352,6 +374,11 @@ public static class EmulatorConfigGenerator
         sb.AppendLine($"Volume={options.AudioVolume}");
         sb.AppendLine();
 
+        sb.AppendLine("[Options]");
+        sb.AppendLine($"SRAMAutoSave={BoolToInt(options.SramAutoSave)}");
+        sb.AppendLine($"EnableCheats={BoolToInt(options.EnableCheats)}");
+        sb.AppendLine();
+
         sb.AppendLine("[Paths]");
         if (!string.IsNullOrEmpty(options.RomDirectory))
             sb.AppendLine($"ROMs={options.RomDirectory}");
@@ -371,6 +398,7 @@ public static class EmulatorConfigGenerator
 
         // Video settings
         sb.AppendLine("; Video");
+        sb.AppendLine($"video.driver {options.MednafenVideoDriver}");
         sb.AppendLine($"video.fs {BoolToInt(options.Fullscreen)}");
         sb.AppendLine($"video.glvsync {BoolToInt(options.VSync)}");
         if (options.IntegerScaling)
@@ -381,11 +409,20 @@ public static class EmulatorConfigGenerator
         sb.AppendLine("; Audio");
         sb.AppendLine($"sound.volume {options.AudioVolume}");
         sb.AppendLine("sound.rate 48000");
+        sb.AppendLine($"sound.buffer_time {options.SoundBufferSize}");
         sb.AppendLine();
 
-        // FPS display
+        // OSD / display
         sb.AppendLine("; OSD");
-        sb.AppendLine($"osd.state_display_time {(options.ShowFPS ? "5" : "0")}");
+        // state_display_time: how long save-state OSD messages are shown (seconds)
+        sb.AppendLine($"osd.state_display_time {(options.ShowFPS ? "5" : "2")}");
+        // fps.autoenable: auto-show FPS counter
+        sb.AppendLine($"fps.autoenable {BoolToInt(options.ShowFPS)}");
+        sb.AppendLine();
+
+        // Cheats
+        sb.AppendLine("; Cheats");
+        sb.AppendLine($"cheats {BoolToInt(options.EnableCheats)}");
         sb.AppendLine();
 
         // CD image memory cache
@@ -467,13 +504,13 @@ public static class EmulatorConfigGenerator
             sb.AppendLine("; Paths");
             if (!string.IsNullOrEmpty(options.SaveDirectory))
             {
-                sb.AppendLine($"filesys.path_sav {options.SaveDirectory.Replace("\\", "/")}");
-                sb.AppendLine($"filesys.path_savbackup {options.SaveDirectory.Replace("\\", "/")}/backup");
+                sb.AppendLine($"filesys.path_sav {NormalizePath(options.SaveDirectory)}");
+                sb.AppendLine($"filesys.path_savbackup {NormalizePath(options.SaveDirectory)}/backup");
             }
             if (!string.IsNullOrEmpty(options.StateDirectory))
-                sb.AppendLine($"filesys.path_state {options.StateDirectory.Replace("\\", "/")}");
+                sb.AppendLine($"filesys.path_state {NormalizePath(options.StateDirectory)}");
             if (!string.IsNullOrEmpty(options.ScreenshotDirectory))
-                sb.AppendLine($"filesys.path_snap {options.ScreenshotDirectory.Replace("\\", "/")}");
+                sb.AppendLine($"filesys.path_snap {NormalizePath(options.ScreenshotDirectory)}");
         }
 
         return sb.ToString();
@@ -490,6 +527,7 @@ public static class EmulatorConfigGenerator
         sb.AppendLine($"fullscreen = {options.Fullscreen.ToString().ToLowerInvariant()}");
         sb.AppendLine($"vsync = {options.VSync.ToString().ToLowerInvariant()}");
         sb.AppendLine($"tv.filter = {(options.SmoothVideo ? "1" : "0")}");
+        sb.AppendLine($"tv.scanlines = {options.TvEffects}");
         sb.AppendLine($"palette = {options.Palette}");
         sb.AppendLine($"phosphor = {(options.Phosphor ? "always" : "byrom")}");
         if (options.IntegerScaling)
@@ -500,6 +538,10 @@ public static class EmulatorConfigGenerator
         sb.AppendLine("[Audio]");
         sb.AppendLine("sound = true");
         sb.AppendLine($"volume = {options.AudioVolume}");
+        sb.AppendLine();
+
+        sb.AppendLine("[Input]");
+        sb.AppendLine($"cheat = {(options.EnableCheats ? "true" : "false")}");
         sb.AppendLine();
 
         sb.AppendLine("[Paths]");
@@ -521,6 +563,7 @@ public static class EmulatorConfigGenerator
         sb.AppendLine($"SDL.Fullscreen = {BoolToInt(options.Fullscreen)}");
         sb.AppendLine("SDL.Sound = 1");
         sb.AppendLine($"SDL.Sound.Volume = {options.AudioVolume}");
+        sb.AppendLine($"SDL.Sound.Quality = {options.SoundQuality}");
         sb.AppendLine("SDL.VideoDriver = 0");
         sb.AppendLine($"SDL.ShowFPS = {BoolToInt(options.ShowFPS)}");
         sb.AppendLine($"SDL.AutoSaveState = {BoolToInt(options.AutoSaveState)}");
@@ -529,6 +572,8 @@ public static class EmulatorConfigGenerator
         sb.AppendLine($"SDL.Region = {options.Region}");
         sb.AppendLine($"SDL.RemoveSpriteLimit = {BoolToInt(options.RemoveSpriteLimit)}");
         sb.AppendLine($"SDL.NewPPU = {BoolToInt(options.NewPPU)}");
+        sb.AppendLine($"SDL.EnableCheats = {BoolToInt(options.EnableCheats)}");
+        sb.AppendLine($"SDL.GameGenie = {BoolToInt(options.GameGenie)}");
         sb.AppendLine();
 
         if (!string.IsNullOrEmpty(options.RomDirectory))
@@ -539,7 +584,7 @@ public static class EmulatorConfigGenerator
 
     private static string GenerateMame(EmulatorConfigOptions options)
     {
-        var sb = new StringBuilder();
+        var sb = new StringBuilder(2048);
         sb.AppendLine("#");
         sb.AppendLine("# MAME Configuration");
         sb.AppendLine($"# Generated by RetroMultiTools on {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
@@ -684,6 +729,12 @@ public static class EmulatorConfigGenerator
 
     private static string BoolToInt(bool value) => value ? "1" : "0";
 
+    /// <summary>
+    /// Normalizes a file path for cross-platform emulator configs by replacing
+    /// backslashes with forward slashes.
+    /// </summary>
+    private static string NormalizePath(string path) => path.Replace("\\", "/");
+
     private static string EscapeXml(string value) =>
         value.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;")
              .Replace("\"", "&quot;").Replace("'", "&apos;");
@@ -711,10 +762,15 @@ public class EmulatorConfigOptions
     // RetroArch-specific
     public string VideoDriver { get; set; } = "gl";
     public string MenuDriver { get; set; } = "ozone";
+    public string AudioDriver { get; set; } = "auto";
+    public string InputDriver { get; set; } = "auto";
     public int RunAheadFrames { get; set; }
     public bool ThreadedVideo { get; set; }
     public bool EnableNotifications { get; set; } = true;
     public bool EnableCheats { get; set; }
+    public bool AudioSyncRetroArch { get; set; } = true;
+    public bool ConfigSaveOnExit { get; set; } = true;
+    public bool PauseOnUnfocus { get; set; }
 
     // Region (Mesen, FCEUX, Snes9x, Kega Fusion)
     public string Region { get; set; } = "Auto";
@@ -726,19 +782,25 @@ public class EmulatorConfigOptions
     // Snes9x-specific
     public int TurboSpeed { get; set; } = 2;
     public bool SuperFXOverclock { get; set; }
+    public bool BlockInvalidVram { get; set; } = true;
+    public bool DynamicRateControl { get; set; }
 
     // Project64-specific
     public string CpuCore { get; set; } = "Recompiler";
     public int CounterFactor { get; set; } = 2;
+    public bool DisplaySpeed { get; set; }
 
     // mGBA-specific
     public bool AudioSync { get; set; } = true;
     public bool UseBios { get; set; } = true;
     public int FastForwardSpeed { get; set; } = 4;
+    public int FrameSkip { get; set; }
+    public bool AllowOpposingDirections { get; set; }
 
     // Stella-specific
     public string Palette { get; set; } = "standard";
     public bool Phosphor { get; set; }
+    public int TvEffects { get; set; }
 
     // MAME-specific
     public bool SkipGameInfo { get; set; }
@@ -746,10 +808,15 @@ public class EmulatorConfigOptions
 
     // Mednafen-specific
     public bool CdImageMemoryCache { get; set; }
+    public int SoundBufferSize { get; set; } = 32;
+    public string MednafenVideoDriver { get; set; } = "opengl";
 
     // Kega Fusion-specific
     public bool PerfectSync { get; set; }
+    public bool SramAutoSave { get; set; } = true;
 
     // FCEUX-specific
     public bool NewPPU { get; set; }
+    public int SoundQuality { get; set; } = 1;
+    public bool GameGenie { get; set; }
 }

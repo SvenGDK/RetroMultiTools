@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
@@ -7,6 +8,10 @@ namespace RetroMultiTools.Views;
 
 public partial class RomTrimmerView : UserControl
 {
+    private static readonly IBrush StatusErrorBrush = new SolidColorBrush(Color.Parse("#F38BA8"));
+    private static readonly IBrush StatusSuccessBrush = new SolidColorBrush(Color.Parse("#A6E3A1"));
+    private static readonly IBrush StatusWarningBrush = new SolidColorBrush(Color.Parse("#F9E2AF"));
+
     private TrimAnalysis? _analysis;
 
     public RomTrimmerView()
@@ -58,14 +63,12 @@ public partial class RomTrimmerView : UserControl
             {
                 double pct = _analysis.OriginalSize > 0 ? (_analysis.SavedBytes * 100.0 / _analysis.OriginalSize) : 0;
                 SavingsText.Text = $"{FileUtils.FormatFileSize(_analysis.SavedBytes)} ({pct:F1}%)";
-                SavingsText.Foreground = new Avalonia.Media.SolidColorBrush(
-                    Avalonia.Media.Color.Parse("#A6E3A1"));
+                SavingsText.Foreground = StatusSuccessBrush;
             }
             else
             {
                 SavingsText.Text = LocalizationManager.Instance["Trimmer_AlreadyTrimmed"];
-                SavingsText.Foreground = new Avalonia.Media.SolidColorBrush(
-                    Avalonia.Media.Color.Parse("#F9E2AF"));
+                SavingsText.Foreground = StatusWarningBrush;
             }
 
             AnalysisPanel.IsVisible = true;
@@ -146,9 +149,7 @@ public partial class RomTrimmerView : UserControl
     private void ShowStatus(string message, bool isError)
     {
         StatusText.Text = message;
-        StatusText.Foreground = isError
-            ? new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#F38BA8"))
-            : new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.Parse("#A6E3A1"));
+        StatusText.Foreground = isError ? StatusErrorBrush : StatusSuccessBrush;
         StatusBorder.IsVisible = true;
     }
 

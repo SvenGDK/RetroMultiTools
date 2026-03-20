@@ -9,6 +9,8 @@ using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using RetroMultiTools.Services;
 using RetroMultiTools.Utilities;
+using RetroMultiTools.Utilities.Mame;
+using RetroMultiTools.Utilities.RetroArch;
 
 namespace RetroMultiTools.Views;
 
@@ -750,6 +752,16 @@ public partial class BigPictureView : UserControl
         bool canLaunch = RetroArchLauncher.IsSystemSupported(rom.System);
         DetailLaunchButton.IsEnabled = canLaunch;
 
+        // Show the MAME launch button for Arcade ROMs
+        bool canLaunchMame = MameLauncher.IsSystemSupported(rom.System);
+        DetailLaunchMameButton.IsVisible = canLaunchMame;
+
+        // Show BIOS notice for Neo Geo AES/MVS in the status bar
+        if (rom.System == RomSystem.NeoGeo)
+        {
+            StatusText.Text = loc["Common_NeoGeoBiosNotice"];
+        }
+
         _ = LoadArtworkAsync(rom);
     }
 
@@ -1089,6 +1101,12 @@ public partial class BigPictureView : UserControl
             int playCount = AppSettings.Instance.GetPlayCount(rom.FilePath);
             DetailPlayCount.Text = string.Format(loc["BigPicture_PlayCount"], playCount);
 
+            // Append BIOS notice for Neo Geo AES/MVS after launch
+            if (rom.System == RomSystem.NeoGeo)
+            {
+                StatusText.Text = result.Message + "  ·  " + loc["Common_NeoGeoBiosNotice"];
+            }
+
             if (result.Process != null)
             {
                 if (AppSettings.Instance.MinimizeToTrayOnLaunch)
@@ -1104,6 +1122,48 @@ public partial class BigPictureView : UserControl
     }
 
     private void LaunchButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => LaunchSelectedRom();
+
+    private void LaunchMameButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => LaunchSelectedRomWithMame();
+
+    private void LaunchSelectedRomWithMame()
+    {
+        if (_selectedIndex < 0 || _selectedIndex >= _filteredRoms.Count) return;
+
+        var rom = _filteredRoms[_selectedIndex];
+        var loc = LocalizationManager.Instance;
+
+        if (!MameLauncher.IsSystemSupported(rom.System))
+        {
+            StatusText.Text = string.Format(loc["Browser_MameSystemNotSupported"], rom.SystemName);
+            return;
+        }
+
+        StatusText.Text = string.Format(loc["Browser_LaunchingMame"], rom.FileName);
+        var result = MameLauncher.Launch(rom.FilePath, rom.System);
+        StatusText.Text = result.Message;
+
+        if (result.Success)
+        {
+            AppSettings.Instance.RecordRecentlyPlayed(rom.FilePath);
+            AppSettings.Instance.IncrementPlayCount(rom.FilePath);
+
+            // Refresh play count in the detail panel
+            int playCount = AppSettings.Instance.GetPlayCount(rom.FilePath);
+            DetailPlayCount.Text = string.Format(loc["BigPicture_PlayCount"], playCount);
+
+            if (result.Process != null)
+            {
+                if (AppSettings.Instance.MinimizeToTrayOnLaunch)
+                {
+                    MinimizeToTrayAndRestoreOnExit(result.Process);
+                }
+                else
+                {
+                    result.Process.Dispose();
+                }
+            }
+        }
+    }
 
     private async void MinimizeToTrayAndRestoreOnExit(System.Diagnostics.Process process)
     {

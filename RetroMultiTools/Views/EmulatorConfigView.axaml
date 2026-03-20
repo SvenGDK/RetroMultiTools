@@ -122,11 +122,37 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBlock Text="{Binding [EmuConfig_RunAheadFrames], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
-                        <NumericUpDown x:Name="RunAheadFramesInput" Minimum="0" Maximum="5" Value="0" FormatString="0" Width="120"/>
+                        <NumericUpDown x:Name="RunAheadFramesInput" Minimum="0" Maximum="8" Value="0" FormatString="0" Width="120"/>
                     </StackPanel>
                     <CheckBox x:Name="ThreadedVideoCheck" Content="{Binding [EmuConfig_ThreadedVideo], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
                     <CheckBox x:Name="EnableNotificationsCheck" Content="{Binding [EmuConfig_Notifications], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" IsChecked="True"/>
                     <CheckBox x:Name="EnableCheatsCheck" Content="{Binding [EmuConfig_Cheats], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_AudioDriver], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="AudioDriverCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="0">
+                            <ComboBoxItem Content="auto"/>
+                            <ComboBoxItem Content="alsa"/>
+                            <ComboBoxItem Content="pulse"/>
+                            <ComboBoxItem Content="sdl2"/>
+                            <ComboBoxItem Content="wasapi"/>
+                            <ComboBoxItem Content="dsound"/>
+                            <ComboBoxItem Content="coreaudio"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_InputDriver], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="InputDriverCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="0">
+                            <ComboBoxItem Content="auto"/>
+                            <ComboBoxItem Content="udev"/>
+                            <ComboBoxItem Content="sdl2"/>
+                            <ComboBoxItem Content="x"/>
+                            <ComboBoxItem Content="dinput"/>
+                            <ComboBoxItem Content="xinput"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <CheckBox x:Name="AudioSyncRetroArchCheck" Content="{Binding [EmuConfig_AudioSyncRA], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" IsChecked="True"/>
+                    <CheckBox x:Name="ConfigSaveOnExitCheck" Content="{Binding [EmuConfig_ConfigSaveOnExit], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" IsChecked="True"/>
+                    <CheckBox x:Name="PauseOnUnfocusCheck" Content="{Binding [EmuConfig_PauseOnUnfocus], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
                 </StackPanel>
 
                 <!-- Mesen -->
@@ -142,6 +168,7 @@
                     </StackPanel>
                     <CheckBox x:Name="MesenRemoveSpriteLimitCheck" Content="{Binding [EmuConfig_RemoveSpriteLimit], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
                     <CheckBox x:Name="MesenOverclockCheck" Content="{Binding [EmuConfig_Overclock], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="MesenEnableCheatsCheck" Content="{Binding [EmuConfig_Cheats], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
                 </StackPanel>
 
                 <!-- Snes9x -->
@@ -159,6 +186,9 @@
                         <NumericUpDown x:Name="TurboSpeedInput" Minimum="1" Maximum="16" Value="2" FormatString="0" Width="120"/>
                     </StackPanel>
                     <CheckBox x:Name="SuperFXOverclockCheck" Content="{Binding [EmuConfig_SuperFXOverclock], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="Snes9xEnableCheatsCheck" Content="{Binding [EmuConfig_Cheats], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="BlockInvalidVramCheck" Content="{Binding [EmuConfig_BlockInvalidVram], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" IsChecked="True"/>
+                    <CheckBox x:Name="DynamicRateControlCheck" Content="{Binding [EmuConfig_DynamicRateControl], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
                 </StackPanel>
 
                 <!-- Project64 -->
@@ -175,6 +205,8 @@
                         <TextBlock Text="{Binding [EmuConfig_CounterFactor], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
                         <NumericUpDown x:Name="CounterFactorInput" Minimum="1" Maximum="6" Value="2" FormatString="0" Width="120"/>
                     </StackPanel>
+                    <CheckBox x:Name="Project64EnableCheatsCheck" Content="{Binding [EmuConfig_Cheats], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="DisplaySpeedCheck" Content="{Binding [EmuConfig_DisplaySpeed], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
                 </StackPanel>
 
                 <!-- mGBA -->
@@ -185,6 +217,12 @@
                         <TextBlock Text="{Binding [EmuConfig_FastForwardSpeed], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
                         <NumericUpDown x:Name="FastForwardSpeedInput" Minimum="2" Maximum="16" Value="4" FormatString="0" Width="120"/>
                     </StackPanel>
+                    <CheckBox x:Name="MGBAEnableCheatsCheck" Content="{Binding [EmuConfig_Cheats], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_FrameSkip], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <NumericUpDown x:Name="FrameSkipInput" Minimum="0" Maximum="10" Value="0" FormatString="0" Width="120"/>
+                    </StackPanel>
+                    <CheckBox x:Name="AllowOpposingDirectionsCheck" Content="{Binding [EmuConfig_AllowOpposingDirections], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
                 </StackPanel>
 
                 <!-- Kega Fusion -->
@@ -199,11 +237,26 @@
                         </ComboBox>
                     </StackPanel>
                     <CheckBox x:Name="PerfectSyncCheck" Content="{Binding [EmuConfig_PerfectSync], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="KegaEnableCheatsCheck" Content="{Binding [EmuConfig_Cheats], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="SramAutoSaveCheck" Content="{Binding [EmuConfig_SramAutoSave], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" IsChecked="True"/>
                 </StackPanel>
 
                 <!-- Mednafen -->
                 <StackPanel x:Name="MednafenOptionsPanel" IsVisible="False" Spacing="8">
                     <CheckBox x:Name="CdImageMemoryCacheCheck" Content="{Binding [EmuConfig_CdImageCache], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="MednafenEnableCheatsCheck" Content="{Binding [EmuConfig_Cheats], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_SoundBufferSize], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <NumericUpDown x:Name="SoundBufferSizeInput" Minimum="8" Maximum="200" Value="32" FormatString="0" Width="120"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_MednafenVideoDriver], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="MednafenVideoDriverCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="0">
+                            <ComboBoxItem Content="opengl"/>
+                            <ComboBoxItem Content="sdl"/>
+                            <ComboBoxItem Content="softfb"/>
+                        </ComboBox>
+                    </StackPanel>
                 </StackPanel>
 
                 <!-- Stella -->
@@ -217,6 +270,11 @@
                         </ComboBox>
                     </StackPanel>
                     <CheckBox x:Name="PhosphorCheck" Content="{Binding [EmuConfig_Phosphor], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="StellaEnableCheatsCheck" Content="{Binding [EmuConfig_Cheats], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_TvEffects], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <NumericUpDown x:Name="TvEffectsInput" Minimum="0" Maximum="100" Value="0" FormatString="0" Width="120"/>
+                    </StackPanel>
                 </StackPanel>
 
                 <!-- FCEUX -->
@@ -232,6 +290,12 @@
                     </StackPanel>
                     <CheckBox x:Name="FCEUXRemoveSpriteLimitCheck" Content="{Binding [EmuConfig_RemoveSpriteLimit], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
                     <CheckBox x:Name="NewPPUCheck" Content="{Binding [EmuConfig_NewPPU], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="FCEUXEnableCheatsCheck" Content="{Binding [EmuConfig_Cheats], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding [EmuConfig_SoundQuality], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
+                        <NumericUpDown x:Name="SoundQualityInput" Minimum="0" Maximum="2" Value="1" FormatString="0" Width="120"/>
+                    </StackPanel>
+                    <CheckBox x:Name="GameGenieCheck" Content="{Binding [EmuConfig_GameGenie], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
                 </StackPanel>
 
                 <!-- MAME -->
@@ -257,6 +321,11 @@
         <Button x:Name="GenerateButton" Content="{Binding [EmuConfig_Generate], Source={x:Static loc:LocalizationManager.Instance}}"
                 Click="GenerateButton_Click"
                 Padding="16,10" HorizontalAlignment="Left"/>
+
+        <!-- Export to RetroArch Button -->
+        <Button x:Name="ExportToRetroArchButton" Content="{Binding [EmuConfig_ExportToRetroArch], Source={x:Static loc:LocalizationManager.Instance}}"
+                Click="ExportToRetroArch_Click"
+                Padding="16,10" HorizontalAlignment="Left" IsVisible="False"/>
 
         <!-- Status -->
         <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12"

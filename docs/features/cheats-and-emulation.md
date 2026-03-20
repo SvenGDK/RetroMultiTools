@@ -98,11 +98,17 @@ All emulators support configuring:
 <details>
 <summary><strong>RetroArch</strong></summary>
 
-- Video driver (gl, vulkan, d3d11, d3d12, sdl2, metal)
+- Video driver (gl, glcore, vulkan, d3d11, d3d12)
 - Menu driver (ozone, xmb, rgui, glui)
+- Audio driver (auto, alsa, pulse, sdl2, wasapi, dsound, coreaudio)
+- Input driver (auto, udev, sdl2, x, dinput, xinput)
 - Run-ahead frames (0–8)
 - Threaded video
+- Audio sync
 - Notifications
+- Enable cheats
+- Config save on exit
+- Pause on unfocus
 
 </details>
 
@@ -112,6 +118,7 @@ All emulators support configuring:
 - Region (Auto, NTSC, PAL, Dendy)
 - Remove sprite limit
 - Overclock
+- Enable cheats
 
 </details>
 
@@ -121,6 +128,9 @@ All emulators support configuring:
 - Region (Auto, NTSC, PAL)
 - Turbo speed multiplier
 - SuperFX overclock
+- Enable cheats
+- Block invalid VRAM access
+- Dynamic rate control
 
 </details>
 
@@ -129,6 +139,8 @@ All emulators support configuring:
 
 - CPU core (Recompiler, Interpreter)
 - Counter factor (1–6)
+- Enable cheats
+- Display speed
 
 </details>
 
@@ -138,6 +150,9 @@ All emulators support configuring:
 - Audio sync
 - Use BIOS
 - Fast-forward speed multiplier
+- Enable cheats
+- Frame skip (0–10)
+- Allow opposing directions
 
 </details>
 
@@ -146,6 +161,8 @@ All emulators support configuring:
 
 - Region (Auto, USA, Europe, Japan)
 - Perfect sync
+- Enable cheats
+- SRAM auto-save
 
 </details>
 
@@ -153,6 +170,9 @@ All emulators support configuring:
 <summary><strong>Mednafen</strong></summary>
 
 - CD image memory cache
+- Enable cheats
+- Sound buffer size (8–200 ms)
+- Video driver (opengl, sdl, softfb)
 - Per-system settings for: PC Engine, Lynx, Neo Geo Pocket, SMS, Game Gear, Virtual Boy, NES, SNES, Game Boy, GBA, Mega Drive
 
 </details>
@@ -162,6 +182,8 @@ All emulators support configuring:
 
 - Palette (standard, z26, custom)
 - Phosphor glow effect
+- Enable cheats
+- TV scanline effects (0–100)
 
 </details>
 
@@ -171,6 +193,9 @@ All emulators support configuring:
 - Region (NTSC, PAL, Dendy)
 - Remove sprite limit
 - New PPU
+- Enable cheats
+- Sound quality (0–2)
+- Game Genie
 
 </details>
 
@@ -190,3 +215,4 @@ All emulators support configuring:
 2. Configure common and emulator-specific options.
 3. Optionally set ROM, save, state, and screenshot directories.
 4. Click **Generate** to create the configuration file.
+5. When RetroArch is selected, click **Export to RetroArch** to write the configuration directly to the detected RetroArch installation's `retroarch.cfg`.
