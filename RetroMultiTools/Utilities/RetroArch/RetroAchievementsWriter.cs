@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using RetroMultiTools.Localization;
 
 namespace RetroMultiTools.Utilities.RetroArch;
 
@@ -203,6 +204,10 @@ public static class RetroAchievementsWriter
     /// </summary>
     public static async Task SaveAsync(AchievementSet set, string filePath, CancellationToken ct = default)
     {
+        string? dir = Path.GetDirectoryName(filePath);
+        if (!string.IsNullOrEmpty(dir))
+            Directory.CreateDirectory(dir);
+
         string json = JsonSerializer.Serialize(set, SerializerOptions);
         await File.WriteAllTextAsync(filePath, json, Encoding.UTF8, ct).ConfigureAwait(false);
     }
@@ -236,23 +241,26 @@ public static class RetroAchievementsWriter
         var issues = new List<string>();
 
         if (string.IsNullOrWhiteSpace(set.Title))
-            issues.Add("Game title is required.");
+            issues.Add(LocalizationManager.Instance["RAAchievement_TitleRequired"]);
         if (set.GameId <= 0)
-            issues.Add("Game ID must be a positive integer.");
+            issues.Add(LocalizationManager.Instance["RAAchievement_InvalidGameId"]);
         if (set.ConsoleId <= 0)
-            issues.Add("Console ID must be a positive integer.");
+            issues.Add(LocalizationManager.Instance["RAAchievement_InvalidConsoleId"]);
 
         var seenIds = new HashSet<int>();
+        var validTypes = new HashSet<string>(AchievementTypes);
         foreach (var ach in set.Achievements)
         {
             if (!seenIds.Add(ach.Id))
-                issues.Add($"Duplicate achievement ID: {ach.Id}");
+                issues.Add(string.Format(LocalizationManager.Instance["RAAchievement_DuplicateId"], ach.Id));
             if (string.IsNullOrWhiteSpace(ach.Title))
-                issues.Add($"Achievement {ach.Id}: Title is required.");
+                issues.Add(string.Format(LocalizationManager.Instance["RAAchievement_AchTitleRequired"], ach.Id));
             if (ach.Points < 0 || ach.Points > 100)
-                issues.Add($"Achievement '{ach.Title}': Points must be 0–100.");
+                issues.Add(string.Format(LocalizationManager.Instance["RAAchievement_PointsRange"], ach.Title));
             if (string.IsNullOrWhiteSpace(ach.MemAddr))
-                issues.Add($"Achievement '{ach.Title}': Memory condition (MemAddr) is required.");
+                issues.Add(string.Format(LocalizationManager.Instance["RAAchievement_MemAddrRequired"], ach.Title));
+            if (!validTypes.Contains(ach.Type))
+                issues.Add(string.Format(LocalizationManager.Instance["RAAchievement_InvalidType"], ach.Title));
         }
 
         return issues;
@@ -271,11 +279,27 @@ public static class RetroAchievementsWriter
 
         foreach (var ach in set.Achievements)
         {
+            // Sanitize unquoted fields — colons are the field delimiter in this format
+            string title = SanitizeLocalTextField(ach.Title);
+            string desc = SanitizeLocalTextField(ach.Description);
+            string author = SanitizeLocalTextField(ach.Author);
+
             // Format: ID:"MemAddr":Title:Description:::::Author:Points:::::Created:Modified:::::Type
-            sb.AppendLine($"{ach.Id}:\"{ach.MemAddr}\":{ach.Title}:{ach.Description}:::::{ach.Author}:{ach.Points}:::::{ach.Created}:{ach.Modified}:::::{ach.Type}");
+            sb.AppendLine($"{ach.Id}:\"{ach.MemAddr}\":{title}:{desc}:::::{author}:{ach.Points}:::::{ach.Created}:{ach.Modified}:::::{ach.Type}");
         }
 
         return sb.ToString();
+    }
+
+    /// <summary>
+    /// Replaces colons in plain-text field values so they don't break the
+    /// colon-delimited local export format used by RAIntegration.
+    /// Uses " -" as the replacement because game titles commonly contain colons
+    /// (e.g. "Zelda: Ocarina of Time" → "Zelda - Ocarina of Time").
+    /// </summary>
+    private static string SanitizeLocalTextField(string value)
+    {
+        return value.Replace(":", " -");
     }
 
     /// <summary>
@@ -288,6 +312,6 @@ public static class RetroAchievementsWriter
             if (id == consoleId)
                 return name;
         }
-        return $"Unknown ({consoleId})";
+        return string.Format(LocalizationManager.Instance["RAAchievement_UnknownConsole"], consoleId);
     }
 }

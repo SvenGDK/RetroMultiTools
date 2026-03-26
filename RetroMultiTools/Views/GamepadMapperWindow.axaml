@@ -35,7 +35,7 @@
                         <TextBlock Text="{Binding [Settings_GamepadToolSelectController], Source={x:Static loc:LocalizationManager.Instance}}"
                                    FontWeight="SemiBold" Foreground="#CDD6F4"/>
                         <StackPanel Orientation="Horizontal" Spacing="8">
-                            <ComboBox x:Name="ControllerCombo" Width="380" HorizontalAlignment="Left"
+                            <ComboBox x:Name="ControllerCombo" MinWidth="380" HorizontalAlignment="Left"
                                       SelectionChanged="ControllerCombo_SelectionChanged"/>
                             <Button x:Name="RefreshButton"
                                     Content="{Binding [Settings_GamepadToolRefresh], Source={x:Static loc:LocalizationManager.Instance}}"

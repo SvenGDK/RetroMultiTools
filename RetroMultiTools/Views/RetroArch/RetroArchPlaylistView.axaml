@@ -21,7 +21,7 @@
                             Click="BrowseRomDirButton_Click" Padding="12,6"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Spacing="8">
-                    <ComboBox x:Name="SystemCombo" Width="350" PlaceholderText="{Binding [RAPlaylist_SelectSystem], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <ComboBox x:Name="SystemCombo" MinWidth="350" PlaceholderText="{Binding [RAPlaylist_SelectSystem], Source={x:Static loc:LocalizationManager.Instance}}"/>
                 </StackPanel>
                 <CheckBox x:Name="RecursiveCheckBox" Content="{Binding [RAPlaylist_ScanRecursive], Source={x:Static loc:LocalizationManager.Instance}}"
                           Foreground="#CDD6F4"/>
@@ -77,9 +77,9 @@
                 <TextBlock Text="{Binding [RAPlaylist_ThumbnailsDescription], Source={x:Static loc:LocalizationManager.Instance}}"
                            Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap"/>
                 <StackPanel Orientation="Horizontal" Spacing="8">
-                    <CheckBox x:Name="BoxartCheckBox" Content="Boxarts" Foreground="#CDD6F4" IsChecked="True"/>
-                    <CheckBox x:Name="SnapsCheckBox" Content="Snaps" Foreground="#CDD6F4" IsChecked="True"/>
-                    <CheckBox x:Name="TitlesCheckBox" Content="Titles" Foreground="#CDD6F4"/>
+                    <CheckBox x:Name="BoxartCheckBox" Content="{Binding [RAPlaylist_Boxarts], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" IsChecked="True"/>
+                    <CheckBox x:Name="SnapsCheckBox" Content="{Binding [RAPlaylist_Snaps], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" IsChecked="True"/>
+                    <CheckBox x:Name="TitlesCheckBox" Content="{Binding [RAPlaylist_TitlesThumbnail], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
                 </StackPanel>
                 <CheckBox x:Name="OverwriteCheckBox" Content="{Binding [RAPlaylist_OverwriteExisting], Source={x:Static loc:LocalizationManager.Instance}}"
                           Foreground="#CDD6F4"/>

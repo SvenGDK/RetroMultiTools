@@ -1,6 +1,7 @@
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using RetroMultiTools.Localization;
 
 namespace RetroMultiTools.Utilities.Mame;
 
@@ -23,8 +24,9 @@ public static class MameDatEditor
         {
             var settings = new XmlReaderSettings
             {
-                DtdProcessing = DtdProcessing.Prohibit,
-                XmlResolver = null
+                DtdProcessing = DtdProcessing.Ignore,
+                XmlResolver = null,
+                MaxCharactersFromEntities = 0
             };
             using var reader = XmlReader.Create(filePath, settings);
             doc = XDocument.Load(reader);
@@ -68,7 +70,8 @@ public static class MameDatEditor
                 Manufacturer = game.Element("manufacturer")?.Value ?? "",
                 CloneOf = game.Attribute("cloneof")?.Value ?? "",
                 RomOf = game.Attribute("romof")?.Value ?? "",
-                SampleOf = game.Attribute("sampleof")?.Value ?? ""
+                SampleOf = game.Attribute("sampleof")?.Value ?? "",
+                IsMachine = game.Name.LocalName == "machine"
             };
 
             foreach (var rom in game.Elements("rom"))
@@ -80,7 +83,8 @@ public static class MameDatEditor
                     CRC = rom.Attribute("crc")?.Value ?? "",
                     MD5 = rom.Attribute("md5")?.Value ?? "",
                     SHA1 = rom.Attribute("sha1")?.Value ?? "",
-                    Status = rom.Attribute("status")?.Value ?? ""
+                    Status = rom.Attribute("status")?.Value ?? "",
+                    Merge = rom.Attribute("merge")?.Value ?? ""
                 });
             }
 
@@ -91,7 +95,8 @@ public static class MameDatEditor
                     Name = disk.Attribute("name")?.Value ?? "",
                     SHA1 = disk.Attribute("sha1")?.Value ?? "",
                     MD5 = disk.Attribute("md5")?.Value ?? "",
-                    Status = disk.Attribute("status")?.Value ?? ""
+                    Status = disk.Attribute("status")?.Value ?? "",
+                    Merge = disk.Attribute("merge")?.Value ?? ""
                 });
             }
 
@@ -136,7 +141,8 @@ public static class MameDatEditor
         // Build game entries
         foreach (var game in datDoc.Games.OrderBy(g => g.Name, StringComparer.OrdinalIgnoreCase))
         {
-            var gameElement = new XElement("game",
+            string elementName = game.IsMachine ? "machine" : "game";
+            var gameElement = new XElement(elementName,
                 new XAttribute("name", game.Name));
 
             if (!string.IsNullOrEmpty(game.CloneOf))
@@ -167,6 +173,8 @@ public static class MameDatEditor
                     romElement.Add(new XAttribute("sha1", rom.SHA1.ToLowerInvariant()));
                 if (!string.IsNullOrEmpty(rom.Status))
                     romElement.Add(new XAttribute("status", rom.Status));
+                if (!string.IsNullOrEmpty(rom.Merge))
+                    romElement.Add(new XAttribute("merge", rom.Merge));
 
                 gameElement.Add(romElement);
             }
@@ -182,6 +190,8 @@ public static class MameDatEditor
                     diskElement.Add(new XAttribute("md5", disk.MD5.ToLowerInvariant()));
                 if (!string.IsNullOrEmpty(disk.Status))
                     diskElement.Add(new XAttribute("status", disk.Status));
+                if (!string.IsNullOrEmpty(disk.Merge))
+                    diskElement.Add(new XAttribute("merge", disk.Merge));
 
                 gameElement.Add(diskElement);
             }
@@ -218,7 +228,7 @@ public static class MameDatEditor
         {
             // Clean up the temp file if it exists, but never delete the original
             string tempPath = outputPath + ".tmp";
-            try { File.Delete(tempPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            try { File.Delete(tempPath); } catch { /* best-effort cleanup */ }
             throw;
         }
     }
@@ -336,6 +346,7 @@ public class DatGameEntry
     public string CloneOf { get; set; } = string.Empty;
     public string RomOf { get; set; } = string.Empty;
     public string SampleOf { get; set; } = string.Empty;
+    public bool IsMachine { get; set; }
     public List<DatRomEntry> Roms { get; set; } = [];
     public List<DatDiskEntry> Disks { get; set; } = [];
     public List<string> Samples { get; set; } = [];
@@ -349,6 +360,7 @@ public class DatRomEntry
     public string MD5 { get; set; } = string.Empty;
     public string SHA1 { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
+    public string Merge { get; set; } = string.Empty;
 }
 
 public class DatDiskEntry
@@ -357,6 +369,7 @@ public class DatDiskEntry
     public string SHA1 { get; set; } = string.Empty;
     public string MD5 { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
+    public string Merge { get; set; } = string.Empty;
 }
 
 public class DatDocumentStats
@@ -369,6 +382,5 @@ public class DatDocumentStats
     public int ParentsCount { get; set; }
 
     public string Summary =>
-        $"{TotalGames} games ({ParentsCount} parents, {ClonesCount} clones), " +
-        $"{TotalRoms} ROMs, {TotalDisks} disks, {TotalSamples} samples";
+        string.Format(LocalizationManager.Instance["MameDatEditor_SummaryFormat"], TotalGames, ParentsCount, ClonesCount, TotalRoms, TotalDisks, TotalSamples);
 }

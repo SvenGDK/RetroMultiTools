@@ -37,6 +37,7 @@ public partial class GamepadMapperWindow : Window
     // ── State ──────────────────────────────────────────────────────────
 
     private bool _sdlInitialised;
+    private bool _gamepadServiceWasRunning;
     private int _selectedDeviceIndex = -1;
     private IntPtr _activeJoystick;
 
@@ -98,7 +99,8 @@ public partial class GamepadMapperWindow : Window
             GamepadMappingStorage.ApplyAllToSdl();
 
             // Pause GamepadService polling to avoid event contention
-            if (GamepadService.Instance.IsAvailable)
+            _gamepadServiceWasRunning = GamepadService.Instance.IsAvailable;
+            if (_gamepadServiceWasRunning)
                 GamepadService.Instance.Shutdown();
         }
         catch (DllNotFoundException)
@@ -107,7 +109,7 @@ public partial class GamepadMapperWindow : Window
         }
         catch (EntryPointNotFoundException ex)
         {
-            MappingStatusText.Text = $"SDL2 entry point missing: {ex.Message}";
+            MappingStatusText.Text = string.Format(LocalizationManager.Instance["Gamepad_SdlEntryPointMissing"], ex.Message);
         }
     }
 
@@ -138,7 +140,7 @@ public partial class GamepadMapperWindow : Window
 
         for (int i = 0; i < count; i++)
         {
-            string name = SDL2Interop.JoystickNameForIndex(i) ?? $"Joystick {i}";
+            string name = SDL2Interop.JoystickNameForIndex(i) ?? string.Format(LocalizationManager.Instance["Gamepad_JoystickFallback"], i);
             bool isMapped = SDL2Interop.SDL_IsGameController(i);
             string label = isMapped ? $"{name} (mapped)" : $"{name} (unmapped)";
             ControllerCombo.Items.Add(new ComboBoxItem { Content = label, Tag = i });
@@ -168,13 +170,14 @@ public partial class GamepadMapperWindow : Window
         StartMappingButton.IsEnabled = true;
 
         string guid = SDL2Interop.JoystickDeviceGUIDString(idx);
-        string name = SDL2Interop.JoystickNameForIndex(idx) ?? "Unknown";
+        string name = SDL2Interop.JoystickNameForIndex(idx) ?? LocalizationManager.Instance["Common_Unknown"];
         bool isMapped = SDL2Interop.SDL_IsGameController(idx);
 
-        ControllerInfoText.Text = $"GUID: {guid}\n" +
-                                  $"Name: {name}\n" +
-                                  (isMapped ? "✔ This controller has an existing mapping."
-                                            : "✘ No mapping found — use the wizard below to create one.");
+        var loc = LocalizationManager.Instance;
+        ControllerInfoText.Text = string.Format(loc["Gamepad_ControllerGuid"], guid) + "\n" +
+                                  string.Format(loc["Gamepad_ControllerName"], name) + "\n" +
+                                  (isMapped ? loc["Gamepad_HasMapping"]
+                                            : loc["Gamepad_NoMapping"]);
     }
 
     // ── Mapping wizard ─────────────────────────────────────────────────
@@ -197,7 +200,7 @@ public partial class GamepadMapperWindow : Window
         }
 
         _capturedGuid = SDL2Interop.JoystickDeviceGUIDString(_selectedDeviceIndex);
-        _capturedName = SDL2Interop.JoystickNameForIndex(_selectedDeviceIndex) ?? "Unknown Controller";
+        _capturedName = SDL2Interop.JoystickNameForIndex(_selectedDeviceIndex) ?? LocalizationManager.Instance["Gamepad_UnknownController"];
         _capturedMappings.Clear();
         _currentStep = 0;
 
@@ -235,7 +238,7 @@ public partial class GamepadMapperWindow : Window
         }
 
         var (sdlName, displayName) = MappingElements[_currentStep];
-        MappingStepText.Text = $"Step {_currentStep + 1} / {MappingElements.Length}";
+        MappingStepText.Text = string.Format(LocalizationManager.Instance["Gamepad_MappingStep"], _currentStep + 1, MappingElements.Length);
         MappingPromptText.Text = string.Format(
             LocalizationManager.Instance["Settings_GamepadToolPressPrompt"], displayName);
         MappingInputText.Text = $"({sdlName})";
@@ -299,7 +302,7 @@ public partial class GamepadMapperWindow : Window
 
     private void StartPolling()
     {
-        _pollTimer?.Stop();
+        StopPolling();
         _pollTimer = new DispatcherTimer(DispatcherPriority.Input)
         {
             Interval = TimeSpan.FromMilliseconds(16)
@@ -422,7 +425,7 @@ public partial class GamepadMapperWindow : Window
         var (sdlName, displayName) = MappingElements[_currentStep];
         _capturedMappings[sdlName] = sdlInput;
 
-        MappingStatusText.Text = $"✔ {displayName} → {sdlInput}";
+        MappingStatusText.Text = string.Format(LocalizationManager.Instance["Gamepad_MappingSuccess"], displayName, sdlInput);
         AdvanceStep();
     }
 
@@ -463,9 +466,10 @@ public partial class GamepadMapperWindow : Window
                 await clipboard.SetTextAsync(text);
                 MappingStatusText.Text = LocalizationManager.Instance["Gamepad_CopiedToClipboard"];
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // Clipboard access can fail on some platforms (e.g. Wayland without focus)
+                System.Diagnostics.Trace.WriteLine($"[GamepadMapper] Clipboard write failed: {ex.Message}");
             }
         }
     }
@@ -526,9 +530,9 @@ public partial class GamepadMapperWindow : Window
         StopPolling();
         CloseActiveJoystick();
 
-        // Restart GamepadService polling that was paused in TryInitSdl()
-        // so Big Picture Mode gamepad support continues to work.
-        GamepadService.Instance.Initialise();
+        // Restart GamepadService polling only if it was running before we paused it
+        if (_gamepadServiceWasRunning)
+            GamepadService.Instance.Initialise();
 
         base.OnClosing(e);
     }

@@ -150,6 +150,10 @@ public static class HexViewer
     public static byte[] ParseHexString(string hex)
     {
         hex = hex.Replace(" ", "").Replace("-", "");
+        if (hex.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
+            hex = hex[2..];
+        if (hex.Length == 0)
+            throw new FormatException("Hex string is empty.");
         if (hex.Length % 2 != 0)
             throw new FormatException("Hex string must have an even number of characters.");
 

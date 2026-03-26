@@ -31,7 +31,7 @@
         <!-- Target Format -->
         <StackPanel Spacing="4">
             <TextBlock Text="{Binding [N64Conv_TargetFormat], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
-            <ComboBox x:Name="TargetFormatCombo" Width="300" HorizontalAlignment="Left"
+            <ComboBox x:Name="TargetFormatCombo" MinWidth="300" HorizontalAlignment="Left"
                       SelectedIndex="0" SelectionChanged="TargetFormatCombo_SelectionChanged">
                 <ComboBoxItem Content="{Binding [N64Conv_BigEndian], Source={x:Static loc:LocalizationManager.Instance}}" Tag="z64"/>
                 <ComboBoxItem Content="{Binding [N64Conv_LittleEndian], Source={x:Static loc:LocalizationManager.Instance}}" Tag="n64"/>

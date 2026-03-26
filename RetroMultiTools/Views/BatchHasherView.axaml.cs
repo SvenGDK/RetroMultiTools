@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -15,12 +16,13 @@ public partial class BatchHasherView : UserControl
 
     private async void BrowseFolder_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
         var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
         {
-            Title = "Select ROM Folder",
+            Title = loc["BatchHash_SelectFolderTitle"],
             AllowMultiple = false
         });
 
@@ -32,6 +34,7 @@ public partial class BatchHasherView : UserControl
 
     private async void HashButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string folder = FolderPathTextBox.Text ?? "";
         if (string.IsNullOrEmpty(folder)) return;
 
@@ -54,11 +57,11 @@ public partial class BatchHasherView : UserControl
             var displayItems = _results.Select(r => new HashDisplayItem
             {
                 FileName = r.FileName,
-                SizeDisplay = $"Size: {r.FileSizeFormatted}",
-                CRC32Display = $"CRC32: {r.CRC32}",
-                MD5Display = r.MD5 != null ? $"MD5:   {r.MD5}" : "",
-                SHA1Display = r.SHA1 != null ? $"SHA1:  {r.SHA1}" : "",
-                SHA256Display = r.SHA256 != null ? $"SHA256: {r.SHA256}" : "",
+                SizeDisplay = string.Format(LocalizationManager.Instance["BatchHash_SizeLabel"], r.FileSizeFormatted),
+                CRC32Display = string.Format(LocalizationManager.Instance["BatchHash_CRC32Label"], r.CRC32),
+                MD5Display = r.MD5 != null ? string.Format(LocalizationManager.Instance["BatchHash_MD5Label"], r.MD5) : "",
+                SHA1Display = r.SHA1 != null ? string.Format(LocalizationManager.Instance["BatchHash_SHA1Label"], r.SHA1) : "",
+                SHA256Display = r.SHA256 != null ? string.Format(LocalizationManager.Instance["BatchHash_SHA256Label"], r.SHA256) : "",
                 HasMD5 = r.MD5 != null,
                 HasSHA1 = r.SHA1 != null,
                 HasSHA256 = r.SHA256 != null,
@@ -67,13 +70,13 @@ public partial class BatchHasherView : UserControl
             ResultsList.ItemsSource = displayItems;
 
             long totalSize = _results.Sum(r => r.FileSize);
-            SummaryText.Text = $"Hashed {_results.Count} file(s) — Total size: {FileUtils.FormatFileSize(totalSize)}";
+            SummaryText.Text = string.Format(loc["BatchHash_HashComplete"], _results.Count, FileUtils.FormatFileSize(totalSize));
             SummaryPanel.IsVisible = true;
             ExportButton.IsVisible = _results.Count > 0;
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            SummaryText.Text = $"✘ Error: {ex.Message}";
+            SummaryText.Text = string.Format(loc["Common_ErrorFormat"], ex.Message);
             SummaryPanel.IsVisible = true;
         }
         finally
@@ -86,13 +89,14 @@ public partial class BatchHasherView : UserControl
     private async void ExportButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (_results == null || _results.Count == 0) return;
+        var loc = LocalizationManager.Instance;
 
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
         var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Export Hash Results",
+            Title = loc["BatchHash_ExportDialogTitle"],
             SuggestedFileName = "hash_report.csv",
             FileTypeChoices =
             [
@@ -119,11 +123,11 @@ public partial class BatchHasherView : UserControl
         try
         {
             await BatchHasher.ExportResultsAsync(_results, path, format);
-            SummaryText.Text = $"✔ Exported to: {path}";
+            SummaryText.Text = string.Format(loc["BatchHash_ExportComplete"], path);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            SummaryText.Text = $"✘ Export error: {ex.Message}";
+            SummaryText.Text = string.Format(loc["BatchHash_ExportError"], ex.Message);
         }
     }
 }

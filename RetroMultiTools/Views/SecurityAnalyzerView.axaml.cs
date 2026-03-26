@@ -90,10 +90,11 @@ public partial class SecurityAnalyzerView : UserControl
 
     private async void AnalyzeButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string input = InputPathTextBox.Text ?? "";
         if (string.IsNullOrEmpty(input))
         {
-            ShowStatus("Please select a ROM file or directory.", isError: true);
+            ShowStatus(loc["Security_SelectInput"], isError: true);
             return;
         }
 
@@ -112,7 +113,7 @@ public partial class SecurityAnalyzerView : UserControl
                 var results = await SecurityAnalyzer.AnalyzeBatchAsync(input, progress);
                 int total = results.Sum(r => r.Features.Count);
 
-                ShowStatus($"✔ Analysis complete!\n{results.Count} ROM(s) analyzed, {total} security feature(s) detected.", isError: false);
+                ShowStatus(string.Format(loc["Security_AnalysisComplete"], results.Count, total), isError: false);
 
                 var sb = new System.Text.StringBuilder();
                 foreach (var result in results)
@@ -120,7 +121,7 @@ public partial class SecurityAnalyzerView : UserControl
                     sb.AppendLine($"═══ {result.FileName} [{result.System}] ═══");
                     if (result.Features.Count == 0)
                     {
-                        sb.AppendLine("  No security features detected.");
+                        sb.AppendLine("  " + loc["Security_NoFeaturesDetected"]);
                     }
                     else
                     {
@@ -144,13 +145,13 @@ public partial class SecurityAnalyzerView : UserControl
                     : $"✔ {result.FileName}: No security features detected.", isError: false);
 
                 var sb = new System.Text.StringBuilder();
-                sb.AppendLine($"File:   {result.FileName}");
-                sb.AppendLine($"System: {result.System}");
+                sb.AppendLine(string.Format(loc["SecAnalyzer_FileLabel"], result.FileName));
+                sb.AppendLine(string.Format(loc["SecAnalyzer_SystemLabel"], result.System));
                 sb.AppendLine();
 
                 if (result.Features.Count == 0)
                 {
-                    sb.AppendLine("No security features detected.");
+                    sb.AppendLine(loc["Security_NoFeaturesDetected"]);
                 }
                 else
                 {
@@ -173,7 +174,7 @@ public partial class SecurityAnalyzerView : UserControl
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

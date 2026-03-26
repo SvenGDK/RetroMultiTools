@@ -90,10 +90,11 @@ public partial class DumpVerifierView : UserControl
 
     private async void VerifyButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string input = InputPathTextBox.Text ?? "";
         if (string.IsNullOrEmpty(input))
         {
-            ShowStatus("Please select a ROM file or directory.", isError: true);
+            ShowStatus(loc["DumpVerifier_SelectInput"], isError: true);
             return;
         }
 
@@ -113,7 +114,7 @@ public partial class DumpVerifierView : UserControl
                 int good = results.Count(r => r.IsGoodDump);
                 int bad = results.Count - good;
 
-                ShowStatus($"✔ Verification complete!\n{good} good dumps, {bad} with potential issues.", isError: false);
+                ShowStatus(string.Format(loc["DumpVerifier_VerificationComplete"], good, bad), isError: false);
 
                 var sb = new System.Text.StringBuilder();
                 foreach (var r in results)
@@ -132,22 +133,20 @@ public partial class DumpVerifierView : UserControl
                 var result = await DumpVerifier.VerifyAsync(input, progress);
 
                 var sb = new System.Text.StringBuilder();
-                sb.AppendLine($"File:   {result.FileName}");
-                sb.AppendLine($"System: {result.System}");
-                sb.AppendLine($"Size:   {FileUtils.FormatFileSize(result.FileSize)}");
-                sb.AppendLine($"Status: {result.Status}");
+                sb.AppendLine(string.Format(loc["DumpVerifier_FileInfo"],
+                    result.FileName, result.System, FileUtils.FormatFileSize(result.FileSize), result.Status));
 
                 if (result.Issues.Count > 0)
                 {
                     sb.AppendLine();
-                    sb.AppendLine("Issues found:");
+                    sb.AppendLine(loc["DumpVerifier_IssuesFound"]);
                     foreach (var issue in result.Issues)
                         sb.AppendLine($"  • {issue}");
                 }
 
                 ShowStatus(result.IsGoodDump
-                    ? $"✔ {result.FileName} appears to be a good dump!"
-                    : $"⚠ {result.FileName} has potential issues.", isError: !result.IsGoodDump);
+                    ? string.Format(loc["DumpVerifier_GoodDump"], result.FileName)
+                    : string.Format(loc["DumpVerifier_HasIssues"], result.FileName), isError: !result.IsGoodDump);
 
                 ResultsText.Text = sb.ToString();
                 ResultsBorder.IsVisible = true;
@@ -155,7 +154,7 @@ public partial class DumpVerifierView : UserControl
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

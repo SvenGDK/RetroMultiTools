@@ -46,7 +46,8 @@ public partial class SnesHeaderToolView : UserControl
             HeaderStatusText.Foreground = _hasCopierHeader
                 ? StatusSuccessBrush
                 : StatusWarningBrush;
-            FileSizeText.Text = $"File size: {FileUtils.FormatFileSize(fileSize)} ({fileSize:N0} bytes)";
+            FileSizeText.Text = string.Format(LocalizationManager.Instance["Common_FileSizeFormat"],
+                FileUtils.FormatFileSize(fileSize), fileSize);
             HeaderStatusPanel.IsVisible = true;
 
             RemoveHeaderButton.IsEnabled = _hasCopierHeader;
@@ -129,11 +130,11 @@ public partial class SnesHeaderToolView : UserControl
         {
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
             await action(input, output, progress);
-            ShowStatus($"✔ Header {actionName} complete!\nOutput: {output}", isError: false);
+            ShowStatus(string.Format(LocalizationManager.Instance["SnesHeader_ActionComplete"], actionName, output), isError: false);
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

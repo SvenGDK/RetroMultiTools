@@ -33,7 +33,7 @@
         <!-- Analysis -->
         <Border x:Name="AnalysisPanel" Background="#181825" CornerRadius="6" Padding="12"
                 IsVisible="False">
-            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto">
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto">
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [PatchCreator_OriginalSize], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,6"/>
                 <TextBlock Grid.Row="0" Grid.Column="1" x:Name="OriginalSizeText" Foreground="#CDD6F4" Margin="0,0,0,6"/>
 

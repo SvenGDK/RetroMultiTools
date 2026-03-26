@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using RetroMultiTools.Utilities;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities.Mame;
 
 namespace RetroMultiTools.Views.Mame;
@@ -21,8 +21,9 @@ public partial class MameChdVerifierView : UserControl
         if (sender is RadioButton rb && rb.IsChecked != true) return;
 
         bool isBatch = sender == BatchModeRadio;
-        InputLabel.Text = isBatch ? "CHD Directory:" : "CHD File:";
-        InputTextBox.Watermark = isBatch ? "Select a directory containing CHD files..." : "Select a CHD file...";
+        var loc = LocalizationManager.Instance;
+        InputLabel.Text = isBatch ? loc["MameChd_ChdDirectory"] : loc["MameChd_ChdFileLabel"];
+        InputTextBox.Watermark = isBatch ? loc["MameChd_SelectChdDir"] : loc["MameChd_SelectChdFile"];
         InputTextBox.Text = string.Empty;
         StatusBorder.IsVisible = false;
         ResultsBorder.IsVisible = false;
@@ -35,14 +36,14 @@ public partial class MameChdVerifierView : UserControl
 
         if (isBatch)
         {
-            var path = await PickFolder("Select CHD Directory");
+            var path = await PickFolder(LocalizationManager.Instance["MameChd_SelectChdDirTitle"]);
             if (path != null) InputTextBox.Text = path;
         }
         else
         {
-            var path = await PickFile("Select CHD File",
+            var path = await PickFile(LocalizationManager.Instance["MameChd_SelectChdFileTitle"],
             [
-                new FilePickerFileType("CHD Files") { Patterns = ["*.chd"] },
+                new FilePickerFileType(LocalizationManager.Instance["MameChd_ChdFileType"]) { Patterns = ["*.chd"] },
                 FilePickerFileTypes.All
             ]);
             if (path != null) InputTextBox.Text = path;
@@ -53,10 +54,11 @@ public partial class MameChdVerifierView : UserControl
 
     private async void VerifyButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string input = InputTextBox.Text ?? "";
         if (string.IsNullOrEmpty(input))
         {
-            ShowStatus("Please select a CHD file or directory.", isError: true);
+            ShowStatus(loc["MameChd_SelectInput"], isError: true);
             return;
         }
 
@@ -73,7 +75,7 @@ public partial class MameChdVerifierView : UserControl
             if (isBatch)
             {
                 var batchResult = await MameChdVerifier.VerifyDirectoryAsync(input, progress);
-                ShowStatus($"✔ Verification complete!\n{batchResult.Summary}", isError: false);
+                ShowStatus(string.Format(loc["MameChd_VerificationComplete"], batchResult.Summary), isError: false);
 
                 var lines = new System.Text.StringBuilder();
                 foreach (var r in batchResult.Results)
@@ -83,14 +85,14 @@ public partial class MameChdVerifierView : UserControl
 
                     if (r.IsValid)
                     {
-                        lines.AppendLine($"   Version: CHD v{r.Version}  |  Compression: {r.Compression}");
-                        lines.AppendLine($"   Logical size: {FormatSize(r.LogicalSize)}  |  Hunk size: {FormatSize(r.HunkSize)}");
+                        lines.AppendLine(string.Format(loc["MameChd_BatchVersionComp"], r.Version, r.Compression));
+                        lines.AppendLine(string.Format(loc["MameChd_BatchSizeInfo"], FormatSize(r.LogicalSize), FormatSize(r.HunkSize)));
                         if (!string.IsNullOrEmpty(r.SHA1))
-                            lines.AppendLine($"   SHA-1: {r.SHA1}");
+                            lines.AppendLine(string.Format(loc["MameChd_BatchSha1"], r.SHA1));
                     }
                     else
                     {
-                        lines.AppendLine($"   Error: {r.Error}");
+                        lines.AppendLine(string.Format(loc["MameChd_BatchError"], r.Error));
                     }
                     lines.AppendLine();
                 }
@@ -103,34 +105,34 @@ public partial class MameChdVerifierView : UserControl
 
                 if (result.IsValid)
                 {
-                    string message = $"✔ Valid CHD file\n\n" +
-                                     $"Version:      CHD v{result.Version}\n" +
-                                     $"Compression:  {result.Compression}\n" +
-                                     $"Logical size: {FormatSize(result.LogicalSize)}\n" +
-                                     $"Hunk size:    {FormatSize(result.HunkSize)}\n" +
-                                     $"File size:    {FormatSize(result.FileSize)}\n";
+                    string message = loc["MameChd_ValidFile"] + "\n\n" +
+                                     string.Format(loc["MameChd_VersionInfo"], result.Version) + "\n" +
+                                     string.Format(loc["MameChd_CompressionInfo"], result.Compression) + "\n" +
+                                     string.Format(loc["MameChd_LogicalSizeInfo"], FormatSize(result.LogicalSize)) + "\n" +
+                                     string.Format(loc["MameChd_HunkSizeInfo"], FormatSize(result.HunkSize)) + "\n" +
+                                     string.Format(loc["MameChd_FileSizeInfo"], FormatSize(result.FileSize)) + "\n";
 
                     if (result.UnitSize > 0)
-                        message += $"Unit size:    {FormatSize(result.UnitSize)}\n";
+                        message += string.Format(loc["MameChd_UnitSizeInfo"], FormatSize(result.UnitSize)) + "\n";
 
                     if (!string.IsNullOrEmpty(result.SHA1))
-                        message += $"\nSHA-1:     {result.SHA1}";
+                        message += "\n" + string.Format(loc["MameChd_Sha1Info"], result.SHA1);
                     if (!string.IsNullOrEmpty(result.RawSHA1) && result.RawSHA1 != new string('0', 40))
-                        message += $"\nRaw SHA-1: {result.RawSHA1}";
+                        message += "\n" + string.Format(loc["MameChd_RawSha1Info"], result.RawSHA1);
                     if (result.HasParent)
-                        message += $"\nParent SHA-1: {result.ParentSHA1}";
+                        message += "\n" + string.Format(loc["MameChd_ParentSha1Info"], result.ParentSHA1);
 
                     ShowStatus(message, isError: false);
                 }
                 else
                 {
-                    ShowStatus($"✘ Invalid CHD file\n\n{result.Error}", isError: true);
+                    ShowStatus(string.Format(loc["MameChd_InvalidChd"], result.Error), isError: true);
                 }
             }
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {
@@ -139,13 +141,7 @@ public partial class MameChdVerifierView : UserControl
         }
     }
 
-    private static string FormatSize(long bytes) => bytes switch
-    {
-        >= 1L << 30 => $"{bytes / (double)(1L << 30):F2} GB",
-        >= 1L << 20 => $"{bytes / (double)(1L << 20):F2} MB",
-        >= 1L << 10 => $"{bytes / (double)(1L << 10):F2} KB",
-        _ => $"{bytes} bytes"
-    };
+    private static string FormatSize(long bytes) => ChdConvertResult.FormatSize(bytes);
 
     private void ShowStatus(string message, bool isError)
     {

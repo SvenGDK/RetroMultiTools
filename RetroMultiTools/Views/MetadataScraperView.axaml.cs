@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -49,12 +50,13 @@ public partial class MetadataScraperView : UserControl
 
     private async void BrowseOutput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
         var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Save Metadata Report",
+            Title = loc["MetaScraper_SaveDialogTitle"],
             SuggestedFileName = Path.GetFileName(OutputFileTextBox.Text ?? "metadata.csv")
         });
 
@@ -64,18 +66,19 @@ public partial class MetadataScraperView : UserControl
 
     private async void ScrapeButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string inputDir = InputDirTextBox.Text ?? "";
         string outputFile = OutputFileTextBox.Text ?? "";
 
         if (string.IsNullOrEmpty(inputDir))
         {
-            ShowStatus("Please select a ROM directory.", isError: true);
+            ShowStatus(loc["MetaScraper_SelectRomDir"], isError: true);
             return;
         }
 
         if (string.IsNullOrEmpty(outputFile))
         {
-            ShowStatus("Please specify an output file path.", isError: true);
+            ShowStatus(loc["MetaScraper_SelectOutputPath"], isError: true);
             return;
         }
 
@@ -99,7 +102,7 @@ public partial class MetadataScraperView : UserControl
 
             if (metadata.Count == 0)
             {
-                ShowStatus("No ROM files found in the selected directory.", isError: true);
+                ShowStatus(loc["MetaScraper_NoRomsFound"], isError: true);
                 return;
             }
 
@@ -110,7 +113,7 @@ public partial class MetadataScraperView : UserControl
             else
                 await MetadataScraper.ExportToTextAsync(metadata, outputFile, progress);
 
-            ShowStatus($"✔ Metadata scraped for {metadata.Count} ROM(s)!\nOutput: {outputFile}", isError: false);
+            ShowStatus(string.Format(loc["MetaScraper_ScrapeComplete"], metadata.Count, outputFile), isError: false);
 
             // Show summary
             var systemGroups = metadata.GroupBy(m => m.System).OrderByDescending(g => g.Count());
@@ -129,7 +132,7 @@ public partial class MetadataScraperView : UserControl
         }
         catch (Exception ex) when (ex is DirectoryNotFoundException or IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

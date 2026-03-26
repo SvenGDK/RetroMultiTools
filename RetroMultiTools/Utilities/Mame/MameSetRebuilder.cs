@@ -1,4 +1,5 @@
 using System.IO.Compression;
+using RetroMultiTools.Localization;
 
 namespace RetroMultiTools.Utilities.Mame;
 
@@ -13,7 +14,8 @@ public static class MameSetRebuilder
     /// </summary>
     public static async Task<Dictionary<string, List<SourceRom>>> IndexSourceDirectoryAsync(
         string sourceDirectory,
-        IProgress<string>? progress = null)
+        IProgress<string>? progress = null,
+        CancellationToken cancellationToken = default)
     {
         if (!Directory.Exists(sourceDirectory))
             throw new DirectoryNotFoundException($"Source directory not found: {sourceDirectory}");
@@ -25,9 +27,11 @@ public static class MameSetRebuilder
 
         foreach (string file in files)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             count++;
             if (count % 100 == 0)
-                progress?.Report($"Indexing source files: {count} of {files.Count}...");
+                progress?.Report(string.Format(LocalizationManager.Instance["MameRebuilder_ProgressIndexing"], count, files.Count));
 
             string ext = Path.GetExtension(file).ToLowerInvariant();
 
@@ -59,7 +63,7 @@ public static class MameSetRebuilder
             }
         }
 
-        progress?.Report($"Indexed {count} files, found {index.Count} unique CRC32 values.");
+        progress?.Report(string.Format(LocalizationManager.Instance["MameRebuilder_ProgressIndexed"], count, index.Count));
         return index;
     }
 
@@ -72,7 +76,8 @@ public static class MameSetRebuilder
         Dictionary<string, List<SourceRom>> sourceIndex,
         string outputDirectory,
         RebuildOptions options,
-        IProgress<string>? progress = null)
+        IProgress<string>? progress = null,
+        CancellationToken cancellationToken = default)
     {
         if (!Directory.Exists(outputDirectory))
             Directory.CreateDirectory(outputDirectory);
@@ -81,15 +86,15 @@ public static class MameSetRebuilder
 
         if (options.Mode == RebuildMode.Merged)
         {
-            await RebuildMergedAsync(machines, sourceIndex, outputDirectory, options, result, progress).ConfigureAwait(false);
+            await RebuildMergedAsync(machines, sourceIndex, outputDirectory, options, result, progress, cancellationToken).ConfigureAwait(false);
         }
         else
         {
-            await RebuildSplitOrNonMergedAsync(machines, sourceIndex, outputDirectory, options, result, progress).ConfigureAwait(false);
+            await RebuildSplitOrNonMergedAsync(machines, sourceIndex, outputDirectory, options, result, progress, cancellationToken).ConfigureAwait(false);
         }
 
         result.TotalMachines = machines.Count;
-        progress?.Report($"Done — {result.CompleteCount} complete, {result.PartialCount} partial, {result.FailedCount} failed, {result.SkippedCount} skipped.");
+        progress?.Report(string.Format(LocalizationManager.Instance["MameRebuilder_ProgressDone"], result.CompleteCount, result.PartialCount, result.FailedCount, result.SkippedCount));
 
         return result;
     }
@@ -100,15 +105,18 @@ public static class MameSetRebuilder
         string outputDirectory,
         RebuildOptions options,
         RebuildResult result,
-        IProgress<string>? progress)
+        IProgress<string>? progress,
+        CancellationToken cancellationToken)
     {
         int processed = 0;
 
         foreach (var machine in machines)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             processed++;
             if (processed % 50 == 0)
-                progress?.Report($"Processing {processed} of {machines.Count}: {machine.Name}...");
+                progress?.Report(string.Format(LocalizationManager.Instance["MameRebuilder_ProgressProcessing"], processed, machines.Count, machine.Name));
 
             // Get the ROMs that need to be in this set based on mode
             var requiredRoms = machine.Roms
@@ -163,7 +171,8 @@ public static class MameSetRebuilder
         string outputDirectory,
         RebuildOptions options,
         RebuildResult result,
-        IProgress<string>? progress)
+        IProgress<string>? progress,
+        CancellationToken cancellationToken)
     {
         // Build lookup of machines by name for finding clones' parents
         var machinesByName = new Dictionary<string, MameMachine>(StringComparer.OrdinalIgnoreCase);
@@ -183,9 +192,11 @@ public static class MameSetRebuilder
 
         foreach (var parent in parents)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             processed++;
             if (processed % 50 == 0)
-                progress?.Report($"Processing {processed} of {parents.Count}: {parent.Name}...");
+                progress?.Report(string.Format(LocalizationManager.Instance["MameRebuilder_ProgressProcessing"], processed, parents.Count, parent.Name));
 
             // Collect all ROMs: parent's own ROMs (all, ignoring merge) plus unique clone ROMs
             var allRoms = new List<MameRom>();
@@ -343,7 +354,7 @@ public static class MameSetRebuilder
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidDataException)
         {
-            try { File.Delete(outputZip); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            try { File.Delete(outputZip); } catch { /* best-effort cleanup */ }
             return false;
         }
     }
@@ -353,35 +364,12 @@ public static class MameSetRebuilder
         try
         {
             using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-            uint crc = 0xFFFFFFFF;
-            byte[] buffer = new byte[8192];
-            int bytesRead;
-
-            while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
-            {
-                for (int i = 0; i < bytesRead; i++)
-                    crc = (crc >> 8) ^ Crc32Table[(crc ^ buffer[i]) & 0xFF];
-            }
-
-            return (crc ^ 0xFFFFFFFF).ToString("X8");
+            return MameCrc32.ComputeHex(stream);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { return ""; }
     }
 
-    private static readonly uint[] Crc32Table = GenerateCrc32Table();
-
-    private static uint[] GenerateCrc32Table()
-    {
-        var table = new uint[256];
-        for (uint i = 0; i < 256; i++)
-        {
-            uint crc = i;
-            for (int j = 0; j < 8; j++)
-                crc = (crc & 1) != 0 ? (crc >> 1) ^ 0xEDB88320 : crc >> 1;
-            table[i] = crc;
-        }
-        return table;
-    }
+    private static readonly uint[] Crc32Table = MameCrc32.Table;
 }
 
 public class SourceRom
@@ -442,5 +430,5 @@ public class RebuildResult
     public List<RebuiltSetInfo> RebuiltSets { get; set; } = [];
 
     public string Summary =>
-        $"{CompleteCount} complete, {PartialCount} partial, {FailedCount} failed, {SkippedCount} skipped out of {TotalMachines} machines.";
+        string.Format(LocalizationManager.Instance["MameRebuilder_SummaryFormat"], CompleteCount, PartialCount, FailedCount, SkippedCount, TotalMachines);
 }

@@ -96,15 +96,22 @@ internal static class Program
             // Step 3: Clean up the downloaded ZIP
             TryDeleteFile(zipPath);
 
-            // Try to clean up the temp directory
-            string? tempDir = Path.GetDirectoryName(zipPath);
-            if (tempDir != null)
-                TryDeleteDirectory(tempDir);
-
             // Step 4: Relaunch the main application
             string exePath = Path.Combine(targetDir, exeName);
             Log($"Launching {exeName}...");
             LaunchApplication(exePath);
+
+            // Step 5: Clean up the temp directory (after launching so all log entries are captured)
+            string? tempDir = Path.GetDirectoryName(zipPath);
+            if (tempDir != null)
+            {
+                if (_logPath != null)
+                {
+                    TryDeleteFile(_logPath);
+                    _logPath = null;
+                }
+                TryDeleteDirectory(tempDir);
+            }
 
             return 0;
         }
@@ -179,12 +186,33 @@ internal static class Program
         {
             // Process already exited
         }
+        catch (InvalidOperationException)
+        {
+            // Process has no associated system process
+        }
     }
 
     private static void ExtractUpdate(string zipPath, string targetDir)
     {
         // Determine the updater's own file name so we can skip replacing ourselves
-        string ownFileName = Path.GetFileName(Environment.ProcessPath ?? "RetroMultiTools.Updater");
+        string ownFileName = Path.GetFileName(Environment.ProcessPath
+            ?? (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                ? "RetroMultiTools.Updater.exe"
+                : "RetroMultiTools.Updater"));
+
+        // Build a set of all files belonging to the running updater process.
+        // The managed assembly (.dll), dependency manifest, runtime config, and
+        // debug symbols are all locked while the updater runs and cannot be
+        // overwritten in place (especially on Windows).
+        string ownBaseName = Path.GetFileNameWithoutExtension(ownFileName);
+        var ownFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ownFileName,
+            $"{ownBaseName}.dll",
+            $"{ownBaseName}.deps.json",
+            $"{ownBaseName}.runtimeconfig.json",
+            $"{ownBaseName}.pdb",
+        };
 
         string normalizedTargetDir = Path.GetFullPath(targetDir);
         if (!normalizedTargetDir.EndsWith(Path.DirectorySeparatorChar))
@@ -193,6 +221,7 @@ internal static class Program
         using var archive = ZipFile.OpenRead(zipPath);
         int totalEntries = archive.Entries.Count(e => !string.IsNullOrEmpty(e.Name));
         int extractedCount = 0;
+        int deferredCount = 0;
 
         foreach (var entry in archive.Entries)
         {
@@ -209,11 +238,12 @@ internal static class Program
                 continue;
             }
 
-            // Skip replacing our own running executable
-            if (string.Equals(entry.Name, ownFileName, StringComparison.OrdinalIgnoreCase))
+            // Skip replacing files that belong to the running updater process;
+            // extract them as .new files to be swapped by the main app on next launch.
+            if (ownFiles.Contains(entry.Name))
             {
-                // Try to extract to a .new file; the main app can swap on next update
                 TryExtractAs(entry, destPath + ".new");
+                deferredCount++;
                 continue;
             }
 
@@ -227,29 +257,35 @@ internal static class Program
             extractedCount++;
         }
 
-        Log($"Extracted {extractedCount}/{totalEntries} files.");
+        Log($"Extracted {extractedCount}/{totalEntries} files" +
+            (deferredCount > 0 ? $" ({deferredCount} deferred for next launch)." : "."));
 
-        // If a .new updater was extracted, try to move it into place
-        string ownPath = Path.Combine(targetDir, ownFileName);
-        string newPath = ownPath + ".new";
-        if (File.Exists(newPath))
+        // Try to swap all .new updater files into place now.
+        // On Windows this typically fails for locked files; the main app
+        // will finalize the swap via CleanupAfterUpdate() on next launch.
+        foreach (string ownFile in ownFiles)
         {
+            string filePath = Path.Combine(targetDir, ownFile);
+            string newPath = filePath + ".new";
+            if (!File.Exists(newPath))
+                continue;
+
             try
             {
-                string bakPath = ownPath + ".bak";
+                string bakPath = filePath + ".bak";
                 TryDeleteFile(bakPath);
 
-                if (File.Exists(ownPath))
-                    File.Move(ownPath, bakPath);
+                if (File.Exists(filePath))
+                    File.Move(filePath, bakPath);
 
-                File.Move(newPath, ownPath);
+                File.Move(newPath, filePath);
                 TryDeleteFile(bakPath);
             }
             catch
             {
-                // Not critical — updater will be replaced on next update cycle.
-                // On Windows, the running executable cannot be renamed/deleted;
-                // the .new file remains and is swapped by the main app on next launch.
+                // Not critical — files will be replaced on next update cycle.
+                // On Windows, the running executable/DLL cannot be renamed/deleted;
+                // the .new files remain and are swapped by the main app on next launch.
             }
         }
     }
@@ -303,7 +339,7 @@ internal static class Program
     {
         try
         {
-            if (Directory.Exists(path) && Directory.GetFiles(path).Length == 0)
+            if (Directory.Exists(path) && Directory.GetFileSystemEntries(path).Length == 0)
                 Directory.Delete(path, recursive: false);
         }
         catch { /* best-effort cleanup */ }

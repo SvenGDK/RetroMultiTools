@@ -34,7 +34,7 @@
             <!-- System Filter -->
             <StackPanel Spacing="4">
                 <TextBlock Text="{Binding [Organizer_SystemFilter], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
-                <ComboBox x:Name="SystemFilterComboBox" Width="300" HorizontalAlignment="Left" Padding="8,6"/>
+                <ComboBox x:Name="SystemFilterComboBox" MinWidth="300" HorizontalAlignment="Left" Padding="8,6"/>
             </StackPanel>
 
             <!-- Copy / Move Mode -->

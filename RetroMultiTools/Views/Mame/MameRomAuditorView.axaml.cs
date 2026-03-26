@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using RetroMultiTools.Utilities;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities.Mame;
 
 namespace RetroMultiTools.Views.Mame;
@@ -20,9 +20,10 @@ public partial class MameRomAuditorView : UserControl
 
     private async void BrowseXml_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select MAME XML / DAT File",
+        var loc = LocalizationManager.Instance;
+        var path = await PickFile(loc["MameAuditor_SelectXmlTitle"],
         [
-            new FilePickerFileType("MAME XML Files") { Patterns = ["*.xml", "*.dat"] },
+            new FilePickerFileType(loc["MameAuditor_XmlFileType"]) { Patterns = ["*.xml", "*.dat"] },
             FilePickerFileTypes.All
         ]);
         if (path == null) return;
@@ -32,13 +33,13 @@ public partial class MameRomAuditorView : UserControl
         try
         {
             _machines = MameRomAuditor.LoadMameXml(path);
-            XmlInfoText.Text = $"Loaded {_machines.Count} machines from MAME database.";
+            XmlInfoText.Text = string.Format(loc["MameAuditor_LoadedMachines"], _machines.Count);
             XmlInfoPanel.IsVisible = true;
         }
         catch (Exception ex) when (ex is InvalidOperationException or IOException)
         {
             _machines = null;
-            XmlInfoText.Text = $"Error loading MAME XML: {ex.Message}";
+            XmlInfoText.Text = string.Format(loc["MameAuditor_LoadError"], ex.Message);
             XmlInfoPanel.IsVisible = true;
         }
 
@@ -47,7 +48,7 @@ public partial class MameRomAuditorView : UserControl
 
     private async void BrowseRomDir_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFolder("Select MAME ROM Directory");
+        var path = await PickFolder(LocalizationManager.Instance["MameAuditor_SelectRomDirTitle"]);
         if (path != null) RomDirTextBox.Text = path;
         UpdateAuditButton();
     }
@@ -61,16 +62,17 @@ public partial class MameRomAuditorView : UserControl
 
     private async void AuditButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         if (_machines == null)
         {
-            ShowStatus("Please load a MAME XML database first.", isError: true);
+            ShowStatus(loc["MameAuditor_LoadXmlFirst"], isError: true);
             return;
         }
 
         string romDir = RomDirTextBox.Text ?? "";
         if (string.IsNullOrEmpty(romDir))
         {
-            ShowStatus("Please select a ROM directory.", isError: true);
+            ShowStatus(loc["MameAuditor_SelectRomDir"], isError: true);
             return;
         }
 
@@ -86,7 +88,7 @@ public partial class MameRomAuditorView : UserControl
             var result = await MameRomAuditor.AuditDirectoryAsync(romDir, _machines, progress,
                 searchRecursively: RecursiveCheckBox.IsChecked == true);
 
-            ShowStatus($"✔ Audit complete!\n{result.Summary}", isError: false);
+            ShowStatus(string.Format(loc["MameAuditor_AuditComplete"], result.Summary), isError: false);
 
             var lines = new System.Text.StringBuilder();
 
@@ -101,7 +103,7 @@ public partial class MameRomAuditorView : UserControl
                     _ => "?"
                 };
 
-                string clone = r.IsClone ? $" (clone of {r.ParentName})" : "";
+                string clone = r.IsClone ? string.Format(loc["MameAuditor_CloneOf"], r.ParentName) : "";
                 lines.AppendLine($"{icon} {r.MachineName}{clone}");
                 lines.AppendLine($"   {r.Description}");
                 lines.AppendLine($"   {r.StatusDetail}");
@@ -111,18 +113,18 @@ public partial class MameRomAuditorView : UserControl
                     foreach (var issue in r.Issues.Take(5))
                         lines.AppendLine($"   → {issue}");
                     if (r.Issues.Count > 5)
-                        lines.AppendLine($"   → ... and {r.Issues.Count - 5} more issues");
+                        lines.AppendLine($"   → {string.Format(loc["MameAuditor_MoreIssues"], r.Issues.Count - 5)}");
                 }
                 lines.AppendLine();
             }
 
             if (result.MissingMachines.Count > 0)
             {
-                lines.AppendLine($"--- Missing machines ({result.MissingMachines.Count}) ---");
+                lines.AppendLine(string.Format(loc["MameAuditor_MissingMachinesHeader"], result.MissingMachines.Count));
                 foreach (var name in result.MissingMachines.Take(20))
                     lines.AppendLine($"  ✘ {name}");
                 if (result.MissingMachines.Count > 20)
-                    lines.AppendLine($"  ... and {result.MissingMachines.Count - 20} more");
+                    lines.AppendLine($"  {string.Format(loc["MameAuditor_AndMore"], result.MissingMachines.Count - 20)}");
             }
 
             ResultsText.Text = lines.ToString();
@@ -130,7 +132,7 @@ public partial class MameRomAuditorView : UserControl
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

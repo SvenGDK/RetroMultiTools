@@ -56,13 +56,13 @@ public partial class RomTrimmerView : UserControl
         {
             _analysis = RomTrimmer.Analyze(path);
 
-            OriginalSizeText.Text = $"{FileUtils.FormatFileSize(_analysis.OriginalSize)} ({_analysis.OriginalSize:N0} bytes)";
-            TrimmedSizeText.Text = $"{FileUtils.FormatFileSize(_analysis.TrimmedSize)} ({_analysis.TrimmedSize:N0} bytes)";
+            OriginalSizeText.Text = string.Format(LocalizationManager.Instance["Trimmer_SizeBytes"], FileUtils.FormatFileSize(_analysis.OriginalSize), _analysis.OriginalSize.ToString("N0"));
+            TrimmedSizeText.Text = string.Format(LocalizationManager.Instance["Trimmer_SizeBytes"], FileUtils.FormatFileSize(_analysis.TrimmedSize), _analysis.TrimmedSize.ToString("N0"));
 
             if (_analysis.SavedBytes > 0)
             {
                 double pct = _analysis.OriginalSize > 0 ? (_analysis.SavedBytes * 100.0 / _analysis.OriginalSize) : 0;
-                SavingsText.Text = $"{FileUtils.FormatFileSize(_analysis.SavedBytes)} ({pct:F1}%)";
+                SavingsText.Text = string.Format(LocalizationManager.Instance["Trimmer_SavingsPercent"], FileUtils.FormatFileSize(_analysis.SavedBytes), pct.ToString("F1"));
                 SavingsText.Foreground = StatusSuccessBrush;
             }
             else
@@ -133,11 +133,11 @@ public partial class RomTrimmerView : UserControl
         {
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
             await RomTrimmer.TrimAsync(input, output, progress);
-            ShowStatus($"✔ Trim complete!\nOutput: {output}\n{_analysis?.Summary ?? ""}", isError: false);
+            ShowStatus(string.Format(LocalizationManager.Instance["Trimmer_TrimComplete"], output, _analysis?.Summary ?? ""), isError: false);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

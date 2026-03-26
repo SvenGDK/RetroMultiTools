@@ -121,6 +121,7 @@ For detailed user guides and reference material, see the [full documentation](do
 
 - Apply **IPS** patches (with RLE support and optional truncation)
 - Apply **BPS** patches (with full CRC32 validation of source, target, and patch data)
+- Apply **xDelta/VCDIFF** patches (RFC 3284 compliant, with Adler-32 checksum verification)
 
 </details>
 
@@ -167,11 +168,13 @@ For detailed user guides and reference material, see the [full documentation](do
 </details>
 
 <details>
-<summary><strong>ZIP ROM Extractor</strong></summary>
+<summary><strong>Archive Manager</strong></summary>
 
-- Extract ROM files from ZIP archives
+- Extract ROM files from **ZIP**, **RAR**, **7z**, and **GZip** archives
+- Create **ZIP** archives from ROM files
 - Lists archive contents with compressed and uncompressed sizes
-- Batch extraction from a directory of ZIP files
+- Batch extraction from a directory of mixed archives
+- Batch creation: one archive per ROM or all ROMs in a single archive
 
 </details>
 
@@ -181,15 +184,6 @@ For detailed user guides and reference material, see the [full documentation](do
 - Reassemble split ROM files (.001/.002, .part1/.part2, .z01/.z02) into a single file
 - Auto-detects all parts from the first part file
 - Shows detected parts with individual sizes before assembly
-
-</details>
-
-<details>
-<summary><strong>ROM Decompressor</strong></summary>
-
-- Decompress GZip-compressed ROM files (.gz)
-- Single file or batch decompression from a directory
-- Reports compressed and decompressed sizes
 
 </details>
 
@@ -354,6 +348,17 @@ For detailed user guides and reference material, see the [full documentation](do
 
 </details>
 
+<details>
+<summary><strong>ROM Organizer</strong></summary>
+
+- Automatically sort ROMs into system-specific folders based on detected system type
+- Copy or move modes — duplicate ROMs to organized folders or relocate them
+- Optional system filter to organize only specific platforms
+- Skips files that already exist at the destination to prevent duplicates
+- Summary report shows processed, skipped, and failed file counts
+
+</details>
+
 ### Cheats & Emulation
 
 <details>
@@ -475,6 +480,20 @@ For detailed user guides and reference material, see the [full documentation](do
 </details>
 
 <details>
+<summary><strong>Gamepad Key Mapper</strong></summary>
+
+- Map gamepad buttons and sticks to keyboard keys, mouse buttons, mouse movement, scripts, or macros
+- Multi-profile system — create, rename, delete, export, and import mapping profiles
+- Multiple mapping sets per profile with runtime set cycling
+- Auto-profile rules — automatically switch profiles based on active window title or process name
+- Macro support — record multi-step key sequences with configurable delays
+- Script launching — execute scripts or programs with optional arguments on button press
+- Adjustable stick dead-zone (0.05–0.95)
+- Step-by-step mapping wizard for quick setup
+
+</details>
+
+<details>
 <summary><strong>Discord Rich Presence</strong></summary>
 
 - Automatically updates your Discord status when launching a ROM via RetroArch
@@ -485,6 +504,16 @@ For detailed user guides and reference material, see the [full documentation](do
 </details>
 
 ### MAME
+
+<details>
+<summary><strong>MAME Integration</strong></summary>
+
+- Auto-detect or manually configure the MAME executable path
+- Launch arcade ROMs directly from the ROM Browser or Big Picture Mode
+- Supports Windows, Linux, and macOS (including Homebrew and Snap installations)
+- Discord Rich Presence integration for MAME gameplay
+
+</details>
 
 <details>
 <summary><strong>ROM Set Auditor</strong></summary>
@@ -506,6 +535,32 @@ For detailed user guides and reference material, see the [full documentation](do
 - Reports SHA-1 and raw SHA-1 checksums, compression type, logical size, hunk size, and unit size
 - Detects parent CHD dependencies
 - Single file or batch directory verification
+
+</details>
+
+<details>
+<summary><strong>CHD Converter</strong></summary>
+
+- Compress disc images (`.cue`, `.iso`, `.bin`, `.gdi`, `.3do`, `.cdi`, `.toc`) to CHD format via chdman
+- Decompress CHD files back to BIN, CUE, or GDI disc images
+- Configurable compression algorithm and unit size
+- Single file or batch directory conversion
+- Multi-processor support for faster compression
+- Reports compression ratio and file sizes
+
+</details>
+
+<details>
+<summary><strong>DAT Editor</strong></summary>
+
+- Edit MAME DAT files (Logiqx XML format) directly
+- Modify DAT header metadata (name, description, version, author, homepage, date)
+- Add, remove, and edit machine/game entries with full metadata (name, description, year, manufacturer, clone relationships)
+- Manage ROM and disk entries per machine with CRC, MD5, and SHA-1 hashes
+- Manage sample references per machine
+- Search games by name or description
+- Statistics display showing total games, parents, clones, ROMs, disks, and samples
+- Safe file writing with atomic temp-file replacement
 
 </details>
 
@@ -638,13 +693,27 @@ For detailed user guides and reference material, see the [full documentation](do
 
 </details>
 
+### Mednafen
+
+<details>
+<summary><strong>Mednafen Integration</strong></summary>
+
+- Auto-detect or manually configure the Mednafen executable path
+- Launch ROMs directly from the ROM Browser or Big Picture Mode with automatic module selection
+- Supports 13 systems: Atari Lynx, Game Boy, GBA, Game Gear, Mega Drive, Neo Geo Pocket, NES, PC Engine, Sega Master System, Sega Saturn, SNES, Virtual Boy, Game Boy Color
+- Supports Windows, Linux, and macOS (including Homebrew, Snap, Scoop, and Chocolatey installations)
+- macOS `.app` bundle resolution
+- Discord Rich Presence integration for Mednafen gameplay
+
+</details>
+
 ## Supported Systems
 
 | System | Extensions |
 |---|---|
 | Amiga CD32 | `.iso`, `.cue` |
 | Amstrad CPC | `.dsk`, `.cdt`, `.sna` |
-| Arcade (MAME) | `.zip` |
+| Arcade (MAME) | `.zip`, `.7z` |
 | Atari 2600 | `.a26` |
 | Atari 5200 | `.a52` |
 | Atari 7800 | `.a78` |

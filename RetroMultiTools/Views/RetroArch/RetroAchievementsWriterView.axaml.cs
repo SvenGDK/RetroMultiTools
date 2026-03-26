@@ -28,10 +28,11 @@ public partial class RetroAchievementsWriterView : UserControl
 
     private void PopulateTypeCombo()
     {
-        AchTypeCombo.Items.Add(new ComboBoxItem { Content = "Standard", Tag = "" });
-        AchTypeCombo.Items.Add(new ComboBoxItem { Content = "Missable", Tag = "missable" });
-        AchTypeCombo.Items.Add(new ComboBoxItem { Content = "Progression", Tag = "progression" });
-        AchTypeCombo.Items.Add(new ComboBoxItem { Content = "Win Condition", Tag = "win_condition" });
+        var loc = LocalizationManager.Instance;
+        AchTypeCombo.Items.Add(new ComboBoxItem { Content = loc["RAAchievements_TypeStandard"], Tag = "" });
+        AchTypeCombo.Items.Add(new ComboBoxItem { Content = loc["RAAchievements_TypeMissable"], Tag = "missable" });
+        AchTypeCombo.Items.Add(new ComboBoxItem { Content = loc["RAAchievements_TypeProgression"], Tag = "progression" });
+        AchTypeCombo.Items.Add(new ComboBoxItem { Content = loc["RAAchievements_TypeWinCondition"], Tag = "win_condition" });
     }
 
     private void RefreshAchievementList()
@@ -161,7 +162,7 @@ public partial class RetroAchievementsWriterView : UserControl
         }
         catch (Exception ex)
         {
-            StatusText.Text = $"✘ {ex.Message}";
+            StatusText.Text = string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message);
         }
     }
 
@@ -194,7 +195,7 @@ public partial class RetroAchievementsWriterView : UserControl
         }
         catch (Exception ex)
         {
-            StatusText.Text = $"✘ {ex.Message}";
+            StatusText.Text = string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message);
         }
     }
 
@@ -227,7 +228,7 @@ public partial class RetroAchievementsWriterView : UserControl
         }
         catch (Exception ex)
         {
-            StatusText.Text = $"✘ {ex.Message}";
+            StatusText.Text = string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message);
         }
     }
 

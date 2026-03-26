@@ -330,7 +330,7 @@ public static class BatchHeaderFixer
                 }
                 catch
                 {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                    try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                     throw;
                 }
             }
@@ -384,7 +384,7 @@ public static class BatchHeaderFixer
             }
             catch
             {
-                try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                 throw;
             }
             return true;
@@ -450,7 +450,7 @@ public static class BatchHeaderFixer
                 }
                 catch
                 {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                    try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                     throw;
                 }
             }
@@ -494,7 +494,7 @@ public static class BatchHeaderFixer
                 }
                 catch
                 {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                    try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                     throw;
                 }
             }
@@ -550,7 +550,7 @@ public static class BatchHeaderFixer
                 }
                 catch
                 {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                    try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                     throw;
                 }
             }
@@ -649,7 +649,7 @@ public static class BatchHeaderFixer
                 }
                 catch
                 {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                    try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                     throw;
                 }
             }
@@ -743,7 +743,7 @@ public static class BatchHeaderFixer
                 }
                 catch
                 {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                    try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                     throw;
                 }
             }
@@ -800,7 +800,7 @@ public static class BatchHeaderFixer
                     }
                     catch
                     {
-                        try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                        try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                         throw;
                     }
                 }
@@ -861,7 +861,7 @@ public static class BatchHeaderFixer
                 }
                 catch
                 {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                    try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                     throw;
                 }
             }
@@ -902,7 +902,7 @@ public static class BatchHeaderFixer
             }
             catch
             {
-                try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                 throw;
             }
             return true;
@@ -953,7 +953,7 @@ public static class BatchHeaderFixer
                 }
                 catch
                 {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                    try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                     throw;
                 }
             }
@@ -1017,7 +1017,7 @@ public static class BatchHeaderFixer
                 }
                 catch
                 {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                    try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                     throw;
                 }
             }
@@ -1087,7 +1087,7 @@ public static class BatchHeaderFixer
                 }
                 catch
                 {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                    try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                     throw;
                 }
             }
@@ -1199,7 +1199,7 @@ public static class BatchHeaderFixer
                 }
                 catch
                 {
-                    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                    try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                     throw;
                 }
             }

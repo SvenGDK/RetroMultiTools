@@ -1,4 +1,5 @@
 using RetroMultiTools.Detection;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 
 namespace RetroMultiTools.Utilities;
@@ -79,7 +80,7 @@ public static class RomRenamer
     public static RenameResult ApplyRename(RenamePreview preview)
     {
         if (!File.Exists(preview.OriginalPath))
-            return new RenameResult { Success = false, Error = "File not found." };
+            return new RenameResult { Success = false, Error = LocalizationManager.Instance["Renamer_ErrorFileNotFound"] };
 
         if (!preview.WouldChange)
             return new RenameResult { Success = true, Skipped = true };
@@ -88,7 +89,7 @@ public static class RomRenamer
         string newPath = Path.Combine(dir, preview.NewName);
 
         if (File.Exists(newPath))
-            return new RenameResult { Success = false, Error = "Target file already exists." };
+            return new RenameResult { Success = false, Error = LocalizationManager.Instance["Renamer_ErrorFileExists"] };
 
         try
         {

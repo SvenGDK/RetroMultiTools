@@ -1,4 +1,5 @@
 using System.IO.Compression;
+using RetroMultiTools.Localization;
 
 namespace RetroMultiTools.Utilities.Mame;
 
@@ -81,7 +82,8 @@ public static class MameSampleAuditor
         string sampleDirectory,
         List<MameSampleSet> sampleSets,
         IProgress<string>? progress = null,
-        bool searchRecursively = false)
+        bool searchRecursively = false,
+        CancellationToken cancellationToken = default)
     {
         if (!Directory.Exists(sampleDirectory))
             throw new DirectoryNotFoundException($"Sample directory not found: {sampleDirectory}");
@@ -90,11 +92,32 @@ public static class MameSampleAuditor
         foreach (var s in sampleSets)
             setsByName[s.MachineName] = s;
 
-        // Also index by sampleof for shared sample sets
+        // Also index by sampleof for shared sample sets.
+        // Multiple machines may share the same sampleof value, so aggregate
+        // all required samples into one combined set per shared source.
         var sampleOfSets = new Dictionary<string, MameSampleSet>(StringComparer.OrdinalIgnoreCase);
         foreach (var s in sampleSets.Where(s => !string.IsNullOrEmpty(s.SampleOf)))
         {
-            sampleOfSets.TryAdd(s.SampleOf, s);
+            if (sampleOfSets.TryGetValue(s.SampleOf, out var existing))
+            {
+                // Merge required samples from additional machines into the existing set
+                foreach (string sample in s.RequiredSamples)
+                {
+                    if (!existing.RequiredSamples.Contains(sample, StringComparer.OrdinalIgnoreCase))
+                        existing.RequiredSamples.Add(sample);
+                }
+            }
+            else
+            {
+                // Create a combined set that represents all requirements for this shared source
+                sampleOfSets[s.SampleOf] = new MameSampleSet
+                {
+                    MachineName = s.SampleOf,
+                    Description = s.Description,
+                    SampleOf = s.SampleOf,
+                    RequiredSamples = new List<string>(s.RequiredSamples)
+                };
+            }
         }
 
         var searchOption = searchRecursively ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
@@ -105,10 +128,11 @@ public static class MameSampleAuditor
 
         for (int i = 0; i < zipFiles.Count; i++)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             string zipFile = zipFiles[i];
             string setName = Path.GetFileNameWithoutExtension(zipFile);
 
-            progress?.Report($"Auditing {i + 1} of {zipFiles.Count}: {setName}");
+            progress?.Report(string.Format(LocalizationManager.Instance["MameSamples_ProgressAuditing"], i + 1, zipFiles.Count, setName));
 
             // Find which sample set this ZIP belongs to
             MameSampleSet? sampleSet = null;
@@ -123,7 +147,7 @@ public static class MameSampleAuditor
                 {
                     SetName = setName,
                     Status = SampleSetStatus.Unknown,
-                    StatusDetail = "Not found in MAME database"
+                    StatusDetail = LocalizationManager.Instance["MameSampleAudit_NotInDatabase"]
                 });
                 continue;
             }
@@ -149,7 +173,7 @@ public static class MameSampleAuditor
             .Select(s => s.MachineName)
             .ToList();
 
-        progress?.Report($"Done — {goodCount} good, {incompleteCount} incomplete, {badCount} bad, {missingSets.Count} missing.");
+        progress?.Report(string.Format(LocalizationManager.Instance["MameSamples_ProgressDone"], goodCount, incompleteCount, badCount, missingSets.Count));
 
         return new SampleAuditResult
         {
@@ -213,28 +237,28 @@ public static class MameSampleAuditor
             if (found == sampleSet.RequiredSamples.Count)
             {
                 result.Status = SampleSetStatus.Good;
-                result.StatusDetail = $"All {found} samples present";
+                result.StatusDetail = string.Format(LocalizationManager.Instance["MameSampleAudit_AllPresent"], found);
             }
             else if (found == 0)
             {
                 result.Status = SampleSetStatus.Bad;
-                result.StatusDetail = $"No required samples found (need {sampleSet.RequiredSamples.Count})";
+                result.StatusDetail = string.Format(LocalizationManager.Instance["MameSampleAudit_NoRequired"], sampleSet.RequiredSamples.Count);
             }
             else
             {
                 result.Status = SampleSetStatus.Incomplete;
-                result.StatusDetail = $"{found} of {sampleSet.RequiredSamples.Count} samples present, {missing.Count} missing";
+                result.StatusDetail = string.Format(LocalizationManager.Instance["MameSampleAudit_SamplesPresent"], found, sampleSet.RequiredSamples.Count, missing.Count);
             }
         }
         catch (InvalidDataException)
         {
             result.Status = SampleSetStatus.Bad;
-            result.StatusDetail = "Corrupt or invalid ZIP file";
+            result.StatusDetail = LocalizationManager.Instance["MameSampleAudit_CorruptZip"];
         }
         catch (IOException ex)
         {
             result.Status = SampleSetStatus.Bad;
-            result.StatusDetail = $"Read error: {ex.Message}";
+            result.StatusDetail = string.Format(LocalizationManager.Instance["MameSampleAudit_ReadError"], ex.Message);
         }
 
         return result;
@@ -280,6 +304,5 @@ public class SampleAuditResult
     public List<string> MissingSets { get; set; } = [];
 
     public string Summary =>
-        $"{GoodCount} good, {IncompleteCount} incomplete, {BadCount} bad out of {TotalZips} sample sets. " +
-        $"{MissingSets.Count} sets missing from directory.";
+        string.Format(LocalizationManager.Instance["MameSamples_SummaryFormat"], GoodCount, IncompleteCount, BadCount, TotalZips, MissingSets.Count);
 }

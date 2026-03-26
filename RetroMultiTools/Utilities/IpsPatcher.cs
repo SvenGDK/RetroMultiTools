@@ -89,7 +89,7 @@ public static class IpsPatcher
         }
         catch
         {
-            try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
             throw;
         }
     }

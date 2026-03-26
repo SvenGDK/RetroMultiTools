@@ -186,6 +186,9 @@
   <data name="Nav_MetadataScraper" xml:space="preserve">
     <value>Metadata Scraper</value>
   </data>
+  <data name="Nav_GamepadKeyMapper" xml:space="preserve">
+    <value>Gamepad Key Mapper</value>
+  </data>
   <data name="Nav_Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
@@ -251,6 +254,9 @@
   </data>
   <data name="Common_Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="Common_OK" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="Browser_Title" xml:space="preserve">
     <value>ROM Browser</value>
@@ -340,7 +346,7 @@
     <value>Source ROM File:</value>
   </data>
   <data name="Patcher_PatchFile" xml:space="preserve">
-    <value>Patch File (.ips or .bps):</value>
+    <value>Patch File (.ips, .bps, .xdelta, or .vcdiff):</value>
   </data>
   <data name="Patcher_SelectSourceRom" xml:space="preserve">
     <value>Select source ROM file...</value>
@@ -353,6 +359,22 @@
   </data>
   <data name="Patcher_ApplyPatch" xml:space="preserve">
     <value>⚡ Apply Patch</value>
+  </data>
+  <data name="Patcher_FillAllPaths" xml:space="preserve">
+    <value>Please fill in all file paths.</value>
+  </data>
+  <data name="Patcher_Applying" xml:space="preserve">
+    <value>Applying patch...</value>
+  </data>
+  <data name="Patcher_Success" xml:space="preserve">
+    <value>✔ Patch applied successfully!
+Output: {0}</value>
+  </data>
+  <data name="Patcher_Error" xml:space="preserve">
+    <value>✘ Error: {0}</value>
+  </data>
+  <data name="Patcher_UnsupportedFormat" xml:space="preserve">
+    <value>Unsupported patch format: {0}</value>
   </data>
   <data name="N64Conv_Title" xml:space="preserve">
     <value>N64 ROM Format Converter</value>
@@ -792,8 +814,8 @@
   <data name="Settings_RestartNote" xml:space="preserve">
     <value>Status messages in progress may still show the previous language until the next action.</value>
   </data>
-  <data name="Nav_ZipExtractor" xml:space="preserve">
-    <value>ZIP Extractor</value>
+  <data name="Nav_Archives" xml:space="preserve">
+    <value>Archives</value>
   </data>
   <data name="Nav_SplitAssembler" xml:space="preserve">
     <value>Split Assembler</value>
@@ -804,32 +826,62 @@
   <data name="Nav_SecurityAnalysis" xml:space="preserve">
     <value>Security Analysis</value>
   </data>
-  <data name="ZipExtract_Title" xml:space="preserve">
-    <value>ZIP ROM Extractor</value>
+  <data name="Archive_Title" xml:space="preserve">
+    <value>Archive Manager</value>
   </data>
-  <data name="ZipExtract_Description" xml:space="preserve">
-    <value>Extract ROM files from ZIP archives. Supports single ZIP or batch extraction from a directory of ZIP files.</value>
+  <data name="Archive_Description" xml:space="preserve">
+    <value>Extract ROMs from ZIP, RAR, 7z, and GZip archives, or create ZIP archives from ROM files.</value>
   </data>
-  <data name="ZipExtract_SingleZip" xml:space="preserve">
-    <value>Single ZIP</value>
+  <data name="Archive_Operation" xml:space="preserve">
+    <value>Operation:</value>
   </data>
-  <data name="ZipExtract_ZipFile" xml:space="preserve">
-    <value>ZIP File:</value>
+  <data name="Archive_OpExtract" xml:space="preserve">
+    <value>Extract</value>
   </data>
-  <data name="ZipExtract_SelectZip" xml:space="preserve">
-    <value>Select a ZIP file...</value>
+  <data name="Archive_OpCreate" xml:space="preserve">
+    <value>Create</value>
   </data>
-  <data name="ZipExtract_OutputDir" xml:space="preserve">
+  <data name="Archive_SingleFile" xml:space="preserve">
+    <value>Single File</value>
+  </data>
+  <data name="Archive_ArchiveFile" xml:space="preserve">
+    <value>Archive File:</value>
+  </data>
+  <data name="Archive_SelectArchive" xml:space="preserve">
+    <value>Select a ZIP, RAR, or 7z file...</value>
+  </data>
+  <data name="Archive_ArchiveDirectory" xml:space="preserve">
+    <value>Archive Directory:</value>
+  </data>
+  <data name="Archive_SelectArchiveDirectory" xml:space="preserve">
+    <value>Select a directory of archives...</value>
+  </data>
+  <data name="Archive_RomFiles" xml:space="preserve">
+    <value>ROM Files:</value>
+  </data>
+  <data name="Archive_SelectRomFiles" xml:space="preserve">
+    <value>Select ROM files to archive...</value>
+  </data>
+  <data name="Archive_RomDirectory" xml:space="preserve">
+    <value>ROM Directory:</value>
+  </data>
+  <data name="Archive_SelectRomDirectory" xml:space="preserve">
+    <value>Select a directory of ROM files...</value>
+  </data>
+  <data name="Archive_OutputDir" xml:space="preserve">
     <value>Output Directory:</value>
   </data>
-  <data name="ZipExtract_Extract" xml:space="preserve">
+  <data name="Archive_OutputPath" xml:space="preserve">
+    <value>Output File:</value>
+  </data>
+  <data name="Archive_Extract" xml:space="preserve">
     <value>Extract ROMs</value>
   </data>
-  <data name="ZipExtract_ZipDirectory" xml:space="preserve">
-    <value>ZIP Directory:</value>
+  <data name="Archive_Create" xml:space="preserve">
+    <value>Create Archive</value>
   </data>
-  <data name="ZipExtract_SelectZipDirectory" xml:space="preserve">
-    <value>Select a directory of ZIP files...</value>
+  <data name="Archive_OnePerFile" xml:space="preserve">
+    <value>Create one archive per ROM file</value>
   </data>
   <data name="SplitRom_Title" xml:space="preserve">
     <value>Split ROM Assembler</value>
@@ -1870,7 +1922,7 @@
     <value>Current version: {0}</value>
   </data>
   <data name="Settings_UpdateNetworkError" xml:space="preserve">
-    <value>Network error while checking for updates</value>
+    <value>✘ Network error while checking for updates</value>
   </data>
   <data name="Settings_UpdateInstallNow" xml:space="preserve">
     <value>Update Now</value>
@@ -1885,10 +1937,10 @@
     <value>Installing update… The application will restart.</value>
   </data>
   <data name="Settings_UpdateDownloadError" xml:space="preserve">
-    <value>Failed to download the update. Please try again later.</value>
+    <value>✘ Failed to download the update. Please try again later.</value>
   </data>
   <data name="Settings_UpdateInstallError" xml:space="preserve">
-    <value>Failed to install the update. The updater could not be started.</value>
+    <value>✘ Failed to install the update. The updater could not be started.</value>
   </data>
   <data name="Settings_UpdateCancelled" xml:space="preserve">
     <value>Update download cancelled.</value>
@@ -2346,6 +2398,15 @@
   <data name="Hex_InvalidHex" xml:space="preserve">
     <value>Invalid hex string.</value>
   </data>
+  <data name="Hex_InvalidOffset" xml:space="preserve">
+    <value>Invalid hex offset.</value>
+  </data>
+  <data name="Hex_SearchingFromStart" xml:space="preserve">
+    <value>Wrapping search to beginning of file...</value>
+  </data>
+  <data name="Hex_FoundMatchesWrapped" xml:space="preserve">
+    <value>Found {0} match(es) (wrapped). First at 0x{1}</value>
+  </data>
   <data name="Hex_SelectFile" xml:space="preserve">
     <value>Select File to View</value>
   </data>
@@ -2535,23 +2596,38 @@
   <data name="Split_SaveAs" xml:space="preserve">
     <value>Save Assembled ROM As</value>
   </data>
-  <data name="ZipExtract_NoRomsFound" xml:space="preserve">
-    <value>No ROM files found in this ZIP archive.</value>
+  <data name="Archive_NoRomsFound" xml:space="preserve">
+    <value>No ROM files found in this archive.</value>
   </data>
-  <data name="ZipExtract_FoundRoms" xml:space="preserve">
+  <data name="Archive_FoundRoms" xml:space="preserve">
     <value>Found {0} ROM file(s):</value>
   </data>
-  <data name="ZipExtract_SelectInputOutput" xml:space="preserve">
+  <data name="Archive_SelectInputOutput" xml:space="preserve">
     <value>Please select input and output paths.</value>
   </data>
-  <data name="ZipExtract_SelectZipFile" xml:space="preserve">
-    <value>Select ZIP File</value>
+  <data name="Archive_SelectArchiveFile" xml:space="preserve">
+    <value>Select Archive File</value>
   </data>
-  <data name="ZipExtract_SelectOutputDir" xml:space="preserve">
+  <data name="Archive_SelectOutputDir" xml:space="preserve">
     <value>Select Output Directory</value>
   </data>
-  <data name="ZipExtract_SelectZipDir" xml:space="preserve">
-    <value>Select Directory of ZIP Files</value>
+  <data name="Archive_SelectArchiveDir" xml:space="preserve">
+    <value>Select Directory of Archives</value>
+  </data>
+  <data name="Archive_SelectRomDir" xml:space="preserve">
+    <value>Select ROM Directory</value>
+  </data>
+  <data name="Archive_SelectRomFilesTitle" xml:space="preserve">
+    <value>Select ROM Files</value>
+  </data>
+  <data name="Archive_SelectOutputFile" xml:space="preserve">
+    <value>Save Archive As</value>
+  </data>
+  <data name="Archive_ExtractComplete" xml:space="preserve">
+    <value>✔ Extraction complete!</value>
+  </data>
+  <data name="Archive_CreateComplete" xml:space="preserve">
+    <value>✔ Archive created!</value>
   </data>
   <data name="GoodTools_RomDirectory" xml:space="preserve">
     <value>ROM Directory:</value>
@@ -2569,7 +2645,7 @@
     <value>Please select a ROM file or directory.</value>
   </data>
   <data name="GoodTools_NoCodesFound" xml:space="preserve">
-    <value>The filename does not contain any recognized GoodTools labelling conventions.</value>
+    <value>— No GoodTools codes found in: {0}</value>
   </data>
   <data name="GoodTools_SelectRomDir" xml:space="preserve">
     <value>Select ROM Directory</value>
@@ -2663,6 +2739,81 @@
   </data>
   <data name="BigPicture_LaunchMame" xml:space="preserve">
     <value>Launch with MAME</value>
+  </data>
+  <data name="BigPicture_LaunchMednafen" xml:space="preserve">
+    <value>Launch with Mednafen</value>
+  </data>
+  <data name="Browser_LaunchMednafen" xml:space="preserve">
+    <value>🎮 Mednafen</value>
+  </data>
+  <data name="Browser_ContextLaunchMednafen" xml:space="preserve">
+    <value>🎮 Launch with Mednafen</value>
+  </data>
+  <data name="Browser_MednafenSystemNotSupported" xml:space="preserve">
+    <value>System '{0}' is not supported for Mednafen launch.</value>
+  </data>
+  <data name="Browser_LaunchingMednafen" xml:space="preserve">
+    <value>Launching {0} with Mednafen...</value>
+  </data>
+  <data name="Nav_Mednafen" xml:space="preserve">
+    <value>Mednafen</value>
+  </data>
+  <data name="Nav_MednafenIntegration" xml:space="preserve">
+    <value>Mednafen Integration</value>
+  </data>
+  <data name="MednafenIntegration_Title" xml:space="preserve">
+    <value>Mednafen Integration</value>
+  </data>
+  <data name="MednafenIntegration_Description" xml:space="preserve">
+    <value>Configure Mednafen to launch ROMs directly from the ROM Browser. Mednafen supports PC Engine, Lynx, Neo Geo Pocket, Game Boy, NES, SNES, Saturn, and more.</value>
+  </data>
+  <data name="Settings_MednafenTitle" xml:space="preserve">
+    <value>Mednafen Integration</value>
+  </data>
+  <data name="Settings_MednafenDescription" xml:space="preserve">
+    <value>Configure standalone Mednafen to launch ROMs directly from the ROM Browser. You can browse for an existing installation or download Mednafen.</value>
+  </data>
+  <data name="Settings_MednafenPathPlaceholder" xml:space="preserve">
+    <value>Path to Mednafen executable...</value>
+  </data>
+  <data name="Settings_MednafenDownload" xml:space="preserve">
+    <value>⬇️ Download Mednafen</value>
+  </data>
+  <data name="Settings_MednafenFound" xml:space="preserve">
+    <value>✔ Mednafen executable found.</value>
+  </data>
+  <data name="Settings_MednafenFileNotFound" xml:space="preserve">
+    <value>✘ Configured Mednafen path does not exist.</value>
+  </data>
+  <data name="Settings_MednafenAutoDetected" xml:space="preserve">
+    <value>Mednafen auto-detected on this system.</value>
+  </data>
+  <data name="Settings_MednafenPathSaved" xml:space="preserve">
+    <value>✔ Mednafen path saved.</value>
+  </data>
+  <data name="Settings_MednafenInvalidBundle" xml:space="preserve">
+    <value>✘ Selected .app bundle does not contain a valid Mednafen executable.</value>
+  </data>
+  <data name="Settings_MednafenNotSelectedFile" xml:space="preserve">
+    <value>✘ Please select the Mednafen executable ({0}).</value>
+  </data>
+  <data name="Settings_MednafenAutoDetectedSaved" xml:space="preserve">
+    <value>✔ Mednafen auto-detected and saved.</value>
+  </data>
+  <data name="Settings_MednafenNotFound" xml:space="preserve">
+    <value>Mednafen was not found on this system. Please install Mednafen or browse to it manually.</value>
+  </data>
+  <data name="Settings_MednafenDownloadPageOpened" xml:space="preserve">
+    <value>Mednafen download page opened in browser.</value>
+  </data>
+  <data name="Settings_MednafenCouldNotOpenBrowser" xml:space="preserve">
+    <value>Could not open browser. Visit {0} to download Mednafen.</value>
+  </data>
+  <data name="Settings_MednafenPathCleared" xml:space="preserve">
+    <value>Mednafen path cleared.</value>
+  </data>
+  <data name="Settings_SelectMednafenExecutable" xml:space="preserve">
+    <value>Select Mednafen Executable</value>
   </data>
   <data name="Nav_RetroArch" xml:space="preserve">
     <value>RetroArch</value>
@@ -3179,5 +3330,2796 @@
   </data>
   <data name="Settings_BigPictureCardScaleLabel" xml:space="preserve">
     <value>Card scale</value>
+  </data>
+  <data name="Settings_BigPictureScreensaverLabel" xml:space="preserve">
+    <value>Screensaver timeout (minutes, 0 = off)</value>
+  </data>
+  <data name="Settings_BigPictureScreensaverOff" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="BigPicture_ScreensaverDismiss" xml:space="preserve">
+    <value>Press any key or button to dismiss</value>
+  </data>
+  <data name="BigPicture_HelpScreensaver" xml:space="preserve">
+    <value>Screensaver (configurable timeout)</value>
+  </data>
+  <data name="BigPicture_HelpLetterJump" xml:space="preserve">
+    <value>Jump to letter</value>
+  </data>
+  <data name="BigPicture_HelpRecentlyPlayed" xml:space="preserve">
+    <value>Toggle recently played bar</value>
+  </data>
+  <data name="BigPicture_RecentlyPlayedBar" xml:space="preserve">
+    <value>Recently Played</value>
+  </data>
+  <data name="BigPicture_NoRecentlyPlayed" xml:space="preserve">
+    <value>No recently played games in this collection</value>
+  </data>
+  <data name="BigPicture_StatsTitle" xml:space="preserve">
+    <value>Collection Statistics</value>
+  </data>
+  <data name="BigPicture_StatsDismiss" xml:space="preserve">
+    <value>Press C or Escape to close</value>
+  </data>
+  <data name="BigPicture_StatsTotalRoms" xml:space="preserve">
+    <value>Total ROMs</value>
+  </data>
+  <data name="BigPicture_StatsFilteredRoms" xml:space="preserve">
+    <value>Filtered ROMs</value>
+  </data>
+  <data name="BigPicture_StatsFavorites" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="BigPicture_StatsTotalSize" xml:space="preserve">
+    <value>Total Size</value>
+  </data>
+  <data name="BigPicture_StatsAvgSize" xml:space="preserve">
+    <value>Average Size</value>
+  </data>
+  <data name="BigPicture_StatsPerSystem" xml:space="preserve">
+    <value>ROMs by System</value>
+  </data>
+  <data name="BigPicture_HelpStats" xml:space="preserve">
+    <value>Collection statistics</value>
+  </data>
+  <data name="BigPicture_HelpSystemCycle" xml:space="preserve">
+    <value>Cycle system filter</value>
+  </data>
+  <data name="BigPicture_HelpGallery" xml:space="preserve">
+    <value>Toggle auto-scroll gallery</value>
+  </data>
+  <data name="BigPicture_GalleryActive" xml:space="preserve">
+    <value>Gallery mode — press G or navigate to stop</value>
+  </data>
+  <data name="BigPicture_GalleryStopped" xml:space="preserve">
+    <value>Gallery mode stopped</value>
+  </data>
+  <data name="BigPicture_PlayTime" xml:space="preserve">
+    <value>Play time: {0}</value>
+  </data>
+  <data name="BigPicture_PlayTimeLabel" xml:space="preserve">
+    <value>Play Time</value>
+  </data>
+  <data name="BigPicture_RatingLabel" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="BigPicture_Unrated" xml:space="preserve">
+    <value>Unrated</value>
+  </data>
+  <data name="BigPicture_SortRating" xml:space="preserve">
+    <value>Rating (High → Low)</value>
+  </data>
+  <data name="BigPicture_HelpArtworkViewer" xml:space="preserve">
+    <value>Fullscreen artwork viewer</value>
+  </data>
+  <data name="BigPicture_HelpRating" xml:space="preserve">
+    <value>Rate game (press same key to clear)</value>
+  </data>
+  <data name="BigPicture_HelpPlayTime" xml:space="preserve">
+    <value>Play time tracked automatically</value>
+  </data>
+  <data name="BigPicture_ArtworkViewerDismiss" xml:space="preserve">
+    <value>V or Esc to close  ·  ← → cycle artwork</value>
+  </data>
+  <data name="BigPicture_StatsTotalPlayTime" xml:space="preserve">
+    <value>Total Play Time</value>
+  </data>
+  <data name="BigPicture_StatsAvgRating" xml:space="preserve">
+    <value>Average Rating</value>
+  </data>
+  <data name="BigPicture_StatsRated" xml:space="preserve">
+    <value>rated</value>
+  </data>
+  <data name="Settings_BigPicturePlayTracking" xml:space="preserve">
+    <value>Enable play count and session time tracking</value>
+  </data>
+  <data name="Settings_BigPictureRatings" xml:space="preserve">
+    <value>Enable user game ratings (1–5 stars)</value>
+  </data>
+  <data name="Browser_SelectFolderTitle" xml:space="preserve">
+    <value>Select ROM Folder</value>
+  </data>
+  <data name="Browser_ScanError" xml:space="preserve">
+    <value>Scan error: {0}</value>
+  </data>
+  <data name="Browser_FoundRoms" xml:space="preserve">
+    <value>Found {0} ROM(s).</value>
+  </data>
+  <data name="Browser_ShowingFiltered" xml:space="preserve">
+    <value>Showing {0} of {1} ROM(s).</value>
+  </data>
+  <data name="Browser_NetworkError" xml:space="preserve">
+    <value>Network error: {0}</value>
+  </data>
+  <data name="Browser_SelectRomFilesTitle" xml:space="preserve">
+    <value>Select ROM Files to Add</value>
+  </data>
+  <data name="Browser_AddedRoms" xml:space="preserve">
+    <value>Added {0} ROM(s).</value>
+  </data>
+  <data name="Browser_CopiedRoms" xml:space="preserve">
+    <value>Copied {0} ROM(s) to {1}.</value>
+  </data>
+  <data name="Browser_MovedRoms" xml:space="preserve">
+    <value>Moved {0} ROM(s) to {1}.</value>
+  </data>
+  <data name="Browser_DeletedRoms" xml:space="preserve">
+    <value>Deleted {0} ROM(s).</value>
+  </data>
+  <data name="Browser_SystemNotSupported" xml:space="preserve">
+    <value>System '{0}' is not supported for RetroArch launch.</value>
+  </data>
+  <data name="Browser_LaunchingRom" xml:space="preserve">
+    <value>Launching {0} with {1}...</value>
+  </data>
+  <data name="Browser_SelectOrganizeOutputTitle" xml:space="preserve">
+    <value>Select Output Folder for Organized ROMs</value>
+  </data>
+  <data name="Browser_OrganizeComplete" xml:space="preserve">
+    <value>Organized into {0}: {1}</value>
+  </data>
+  <data name="Browser_OrganizeError" xml:space="preserve">
+    <value>Organize error: {0}</value>
+  </data>
+  <data name="Browser_UseFormatConverter" xml:space="preserve">
+    <value>To convert {0}, use the ROM Format Converter tool.</value>
+  </data>
+  <data name="Browser_UseTrimmer" xml:space="preserve">
+    <value>To trim {0}, use the ROM Trimmer tool.</value>
+  </data>
+  <data name="Browser_HeaderExported" xml:space="preserve">
+    <value>Header exported to {0}</value>
+  </data>
+  <data name="Browser_ExportError" xml:space="preserve">
+    <value>Export error: {0}</value>
+  </data>
+  <data name="Browser_UseVerifier" xml:space="preserve">
+    <value>To verify {0}, use the DAT Verifier or Dump Verifier tool.</value>
+  </data>
+  <data name="Organizer_SelectSourceTitle" xml:space="preserve">
+    <value>Select ROM Source Folder</value>
+  </data>
+  <data name="Organizer_SelectOutputTitle" xml:space="preserve">
+    <value>Select Output Folder</value>
+  </data>
+  <data name="Common_ErrorFormat" xml:space="preserve">
+    <value>✘ Error: {0}</value>
+  </data>
+  <data name="Common_SuccessFormat" xml:space="preserve">
+    <value>✔ {0}</value>
+  </data>
+  <data name="RAAchievements_TypeStandard" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="RAAchievements_TypeMissable" xml:space="preserve">
+    <value>Missable</value>
+  </data>
+  <data name="RAAchievements_TypeProgression" xml:space="preserve">
+    <value>Progression</value>
+  </data>
+  <data name="RAAchievements_TypeWinCondition" xml:space="preserve">
+    <value>Win Condition</value>
+  </data>
+  <data name="GoodTools_IdentifyComplete" xml:space="preserve">
+    <value>✔ Identification complete!
+{0} ROM(s) with GoodTools codes, {1} without.</value>
+  </data>
+  <data name="GoodTools_CodesFound" xml:space="preserve">
+    <value>✔ GoodTools codes found in: {0}</value>
+  </data>
+  <data name="N64Conv_ConversionComplete" xml:space="preserve">
+    <value>✔ Conversion complete!
+Output: {0}</value>
+  </data>
+  <data name="Trimmer_TrimComplete" xml:space="preserve">
+    <value>✔ Trim complete!
+Output: {0}
+{1}</value>
+  </data>
+  <data name="SnesHeader_ActionComplete" xml:space="preserve">
+    <value>✔ Header {0} complete!
+Output: {1}</value>
+  </data>
+  <data name="Split_AssemblyComplete" xml:space="preserve">
+    <value>✔ Assembly complete!
+{0}
+Output: {1}</value>
+  </data>
+  <data name="Duplicates_DeleteError" xml:space="preserve">
+    <value>✘ Error deleting files: {0}</value>
+  </data>
+  <data name="Archive_ReadError" xml:space="preserve">
+    <value>Unable to read archive: {0}</value>
+  </data>
+  <data name="Analogue3D_ArtworkError" xml:space="preserve">
+    <value>✘ Error setting artwork: {0}</value>
+  </data>
+  <data name="Analogue3D_ArtworkSet" xml:space="preserve">
+    <value>✔ Label artwork set for {0}</value>
+  </data>
+  <data name="Analogue3D_FoundGamePaks" xml:space="preserve">
+    <value>✔ Found {0} Game Pak(s). Click a game to edit per-game settings.</value>
+  </data>
+  <data name="Analogue3D_InvalidSdCard" xml:space="preserve">
+    <value>⚠ The selected folder does not appear to be a valid Analogue 3D SD card. Please select the root of your Analogue 3D SD card.</value>
+  </data>
+  <data name="Analogue3D_LoadSettingsError" xml:space="preserve">
+    <value>⚠ Could not load settings: {0}</value>
+  </data>
+  <data name="Analogue3D_NoGamePaksFound" xml:space="preserve">
+    <value>No N64 Game Paks found on the SD card. Add .z64/.n64/.v64 files to the N64/ folder.</value>
+  </data>
+  <data name="Analogue3D_NoGameSelected" xml:space="preserve">
+    <value>✘ No game selected. Click a Game Pak to select it.</value>
+  </data>
+  <data name="Analogue3D_SaveError" xml:space="preserve">
+    <value>✘ Error saving settings: {0}</value>
+  </data>
+  <data name="Analogue3D_SavingSettings" xml:space="preserve">
+    <value>Saving settings...</value>
+  </data>
+  <data name="Analogue3D_ScanError" xml:space="preserve">
+    <value>✘ Error scanning Game Paks: {0}</value>
+  </data>
+  <data name="Analogue3D_ScanningGamePaks" xml:space="preserve">
+    <value>Scanning N64 Game Paks...</value>
+  </data>
+  <data name="Analogue3D_SdCardLoaded" xml:space="preserve">
+    <value>✔ Analogue 3D SD card loaded successfully.</value>
+  </data>
+  <data name="Analogue3D_SelectArtworkTitle" xml:space="preserve">
+    <value>Select Label Artwork Image</value>
+  </data>
+  <data name="Analogue3D_SelectGamePakFirst" xml:space="preserve">
+    <value>⚠ Select a Game Pak first by clicking 'Scan Game Paks' then clicking a game.</value>
+  </data>
+  <data name="Analogue3D_SettingArtwork" xml:space="preserve">
+    <value>Setting label artwork...</value>
+  </data>
+  <data name="Analogue3D_SettingsFor" xml:space="preserve">
+    <value>Settings for: {0}</value>
+  </data>
+  <data name="Analogue3D_SettingsSaved" xml:space="preserve">
+    <value>✔ Settings saved for {0}</value>
+  </data>
+  <data name="Analogue3D_RemoveArtwork" xml:space="preserve">
+    <value>Remove Artwork</value>
+  </data>
+  <data name="Analogue3D_RemovingArtwork" xml:space="preserve">
+    <value>Removing label artwork...</value>
+  </data>
+  <data name="Analogue3D_ArtworkRemoved" xml:space="preserve">
+    <value>✔ Label artwork removed for {0}</value>
+  </data>
+  <data name="Analogue3D_RemoveArtworkError" xml:space="preserve">
+    <value>✘ Error removing artwork: {0}</value>
+  </data>
+  <data name="Analogue3D_NoArtworkToRemove" xml:space="preserve">
+    <value>No artwork to remove for the selected Game Pak.</value>
+  </data>
+  <data name="Analogue3D_DeleteGamePak" xml:space="preserve">
+    <value>Delete Game Pak</value>
+  </data>
+  <data name="Analogue3D_DeletingGamePak" xml:space="preserve">
+    <value>Deleting Game Pak...</value>
+  </data>
+  <data name="Analogue3D_GamePakDeleted" xml:space="preserve">
+    <value>✔ Game Pak deleted: {0}</value>
+  </data>
+  <data name="Analogue3D_DeleteError" xml:space="preserve">
+    <value>✘ Error deleting Game Pak: {0}</value>
+  </data>
+  <data name="AnalogueMegaSg_InvalidSdCard" xml:space="preserve">
+    <value>⚠ The selected folder does not appear to be a valid Analogue Mega SG SD card. Expected a "System" directory at the root.</value>
+  </data>
+  <data name="AnalogueMegaSg_AnalyzeError" xml:space="preserve">
+    <value>✘ Error analyzing save file: {0}</value>
+  </data>
+  <data name="AnalogueMegaSg_ConvertComplete" xml:space="preserve">
+    <value>✔ Save converted successfully: {0}</value>
+  </data>
+  <data name="AnalogueMegaSg_ConvertError" xml:space="preserve">
+    <value>✘ Error converting save: {0}</value>
+  </data>
+  <data name="AnalogueMegaSg_SdCardPathSet" xml:space="preserve">
+    <value>✔ SD card path set.</value>
+  </data>
+  <data name="AnalogueMegaSg_SelectConversion" xml:space="preserve">
+    <value>✘ Please select a conversion type.</value>
+  </data>
+  <data name="AnalogueMegaSg_SelectSaveFirst" xml:space="preserve">
+    <value>✘ Please select a save file first.</value>
+  </data>
+  <data name="AnalogueMegaSg_SelectSaveTitle" xml:space="preserve">
+    <value>Select Save File</value>
+  </data>
+  <data name="AnalogueNtSuperNt_InvalidNesRom" xml:space="preserve">
+    <value>✘ Please select a valid NES ROM file.</value>
+  </data>
+  <data name="AnalogueNtSuperNt_InvalidSdCard" xml:space="preserve">
+    <value>⚠ The selected folder does not appear to be a valid Analogue NT / Super NT SD card. Expected a "System" directory at the root.</value>
+  </data>
+  <data name="AnalogueNtSuperNt_RepairError" xml:space="preserve">
+    <value>✘ Error repairing header: {0}</value>
+  </data>
+  <data name="AnalogueNtSuperNt_RepairingHeader" xml:space="preserve">
+    <value>Repairing NES header...</value>
+  </data>
+  <data name="AnalogueNtSuperNt_SdCardPathSet" xml:space="preserve">
+    <value>✔ SD card path set.</value>
+  </data>
+  <data name="AnalogueNtSuperNt_SelectNesRomTitle" xml:space="preserve">
+    <value>Select NES ROM File</value>
+  </data>
+  <data name="AnaloguePocket_BackupSavesError" xml:space="preserve">
+    <value>✘ Error backing up saves: {0}</value>
+  </data>
+  <data name="AnaloguePocket_CopyFilesError" xml:space="preserve">
+    <value>✘ Error copying files: {0}</value>
+  </data>
+  <data name="AnaloguePocket_DeleteSelected" xml:space="preserve">
+    <value>Delete Selected</value>
+  </data>
+  <data name="AnaloguePocket_DeletedStates" xml:space="preserve">
+    <value>✔ Deleted {0} save state(s).</value>
+  </data>
+  <data name="AnaloguePocket_DeselectAll" xml:space="preserve">
+    <value>Deselect All</value>
+  </data>
+  <data name="AnaloguePocket_ExportScreenshotsError" xml:space="preserve">
+    <value>✘ Error exporting screenshots: {0}</value>
+  </data>
+  <data name="AnaloguePocket_FoundCores" xml:space="preserve">
+    <value>✔ Found {0} installed core(s).</value>
+  </data>
+  <data name="AnaloguePocket_FoundFolders" xml:space="preserve">
+    <value>✔ Found {0} platform folder(s). Click to open.</value>
+  </data>
+  <data name="AnaloguePocket_FoundSaveStates" xml:space="preserve">
+    <value>✔ Found {0} save state(s). Select states to delete.</value>
+  </data>
+  <data name="AnaloguePocket_GbCameraError" xml:space="preserve">
+    <value>✘ Error exporting GB Camera photos: {0}</value>
+  </data>
+  <data name="AnaloguePocket_InvalidSdCard" xml:space="preserve">
+    <value>⚠ The selected folder does not appear to be a valid Analogue Pocket SD card. Please select the root of your Pocket SD card.</value>
+  </data>
+  <data name="AnaloguePocket_LibraryImagesError" xml:space="preserve">
+    <value>✘ Error generating library images: {0}</value>
+  </data>
+  <data name="AnaloguePocket_NoCoresFound" xml:space="preserve">
+    <value>No installed cores found on the SD card.</value>
+  </data>
+  <data name="AnaloguePocket_NoGameFolders" xml:space="preserve">
+    <value>No game folders found under Assets/.</value>
+  </data>
+  <data name="AnaloguePocket_NoSaveStates" xml:space="preserve">
+    <value>No save states found on the SD card.</value>
+  </data>
+  <data name="AnaloguePocket_NoStatesSelected" xml:space="preserve">
+    <value>No save states selected.</value>
+  </data>
+  <data name="AnaloguePocket_RestoreSavesError" xml:space="preserve">
+    <value>✘ Error restoring saves: {0}</value>
+  </data>
+  <data name="AnaloguePocket_ScanCoresError" xml:space="preserve">
+    <value>✘ Error scanning cores: {0}</value>
+  </data>
+  <data name="AnaloguePocket_ScanStatesError" xml:space="preserve">
+    <value>✘ Error scanning save states: {0}</value>
+  </data>
+  <data name="AnaloguePocket_ScanningCores" xml:space="preserve">
+    <value>Scanning installed cores...</value>
+  </data>
+  <data name="AnaloguePocket_ScanningSaveStates" xml:space="preserve">
+    <value>Scanning save states...</value>
+  </data>
+  <data name="AnaloguePocket_SdCardLoaded" xml:space="preserve">
+    <value>✔ Pocket SD card loaded successfully.</value>
+  </data>
+  <data name="AnaloguePocket_SelectAll" xml:space="preserve">
+    <value>Select All</value>
+  </data>
+  <data name="AnaloguePocket_SelectGbCameraTitle" xml:space="preserve">
+    <value>Select Game Boy Camera Save File</value>
+  </data>
+  <data name="AnaloguePocket_ExportedScreenshots" xml:space="preserve">
+    <value>✔ Exported {0} screenshot(s) to {1}</value>
+  </data>
+  <data name="AnaloguePocket_NoScreenshots" xml:space="preserve">
+    <value>No screenshots found on the SD card.</value>
+  </data>
+  <data name="AnaloguePocket_BackedUpSaves" xml:space="preserve">
+    <value>✔ Backed up {0} save file(s) to {1}</value>
+  </data>
+  <data name="AnaloguePocket_NoSavesFound" xml:space="preserve">
+    <value>No save files found on the SD card.</value>
+  </data>
+  <data name="AnaloguePocket_RestoredSaves" xml:space="preserve">
+    <value>✔ Restored {0} save file(s) to the Pocket.</value>
+  </data>
+  <data name="AnaloguePocket_NoSavesInBackup" xml:space="preserve">
+    <value>No save files found in the backup folder.</value>
+  </data>
+  <data name="AnaloguePocket_ExportedGbCameraPhotos" xml:space="preserve">
+    <value>✔ Exported {0} GB Camera photo(s) to {1}</value>
+  </data>
+  <data name="AnaloguePocket_NoGbCameraPhotos" xml:space="preserve">
+    <value>No photos found in the save file (slots may be empty).</value>
+  </data>
+  <data name="AnaloguePocket_CopiedFiles" xml:space="preserve">
+    <value>✔ Copied {0} file(s) to the Pocket SD card.</value>
+  </data>
+  <data name="AnaloguePocket_NoCopyFilesFound" xml:space="preserve">
+    <value>No files found in the source folder.</value>
+  </data>
+  <data name="AnaloguePocket_GeneratedLibraryImages" xml:space="preserve">
+    <value>✔ Generated {0} library image(s).</value>
+  </data>
+  <data name="AnaloguePocket_NoLibraryImagesNeeded" xml:space="preserve">
+    <value>All ROMs already have library images, or no ROMs found.</value>
+  </data>
+  <data name="Analogue_FontError" xml:space="preserve">
+    <value>✘ Error generating font: {0}</value>
+  </data>
+  <data name="Analogue_FontGenerated" xml:space="preserve">
+    <value>✔ Font generated successfully at {0}</value>
+  </data>
+  <data name="Analogue_FontSourceDialogTitle" xml:space="preserve">
+    <value>Select Font Source Image (128×128 BMP)</value>
+  </data>
+  <data name="BatchHash_ExportComplete" xml:space="preserve">
+    <value>✔ Exported to: {0}</value>
+  </data>
+  <data name="BatchHash_ExportDialogTitle" xml:space="preserve">
+    <value>Export Hash Results</value>
+  </data>
+  <data name="BatchHash_ExportError" xml:space="preserve">
+    <value>✘ Export error: {0}</value>
+  </data>
+  <data name="BatchHash_HashComplete" xml:space="preserve">
+    <value>Hashed {0} file(s) — Total size: {1}</value>
+  </data>
+  <data name="BatchHash_SelectFolderTitle" xml:space="preserve">
+    <value>Select ROM Folder</value>
+  </data>
+  <data name="Checksum_SelectFileFirst" xml:space="preserve">
+    <value>Please select a file first.</value>
+  </data>
+  <data name="DatFilter_ExportComplete" xml:space="preserve">
+    <value>✔ Exported {0} entries to:
+{1}</value>
+  </data>
+  <data name="DatFilter_ExportDialogTitle" xml:space="preserve">
+    <value>Export Filtered DAT</value>
+  </data>
+  <data name="DatFilter_ExportError" xml:space="preserve">
+    <value>✘ Export error: {0}</value>
+  </data>
+  <data name="DatFilter_LoadDatFirst" xml:space="preserve">
+    <value>Please load a DAT file first.</value>
+  </data>
+  <data name="DatFilter_LoadError" xml:space="preserve">
+    <value>Error loading DAT file: {0}</value>
+  </data>
+  <data name="DatFilter_LoadedEntries" xml:space="preserve">
+    <value>Loaded {0} ROM entries from DAT file.</value>
+  </data>
+  <data name="DatVerifier_LoadDatFirst" xml:space="preserve">
+    <value>Please load a DAT file first.</value>
+  </data>
+  <data name="DatVerifier_LoadError" xml:space="preserve">
+    <value>Error loading DAT file: {0}</value>
+  </data>
+  <data name="DatVerifier_LoadedEntries" xml:space="preserve">
+    <value>Loaded {0} ROM entries from DAT file.</value>
+  </data>
+  <data name="DatVerifier_SelectInput" xml:space="preserve">
+    <value>Please select a ROM file or directory.</value>
+  </data>
+  <data name="DatVerifier_VerificationComplete" xml:space="preserve">
+    <value>✔ Verification complete!
+{0}</value>
+  </data>
+  <data name="Decompress_BatchComplete" xml:space="preserve">
+    <value>✔ Batch decompression complete!
+{0}</value>
+  </data>
+  <data name="Decompress_Complete" xml:space="preserve">
+    <value>✔ Decompression complete!
+{0}
+Output: {1}</value>
+  </data>
+  <data name="Decompress_SaveDialogTitle" xml:space="preserve">
+    <value>Save Decompressed ROM As</value>
+  </data>
+  <data name="Decompress_SelectInputOutput" xml:space="preserve">
+    <value>Please select input and output paths.</value>
+  </data>
+  <data name="DumpVerifier_SelectInput" xml:space="preserve">
+    <value>Please select a ROM file or directory.</value>
+  </data>
+  <data name="DumpVerifier_VerificationComplete" xml:space="preserve">
+    <value>✔ Verification complete!
+{0} good dumps, {1} with potential issues.</value>
+  </data>
+  <data name="EmuConfig_ExportError" xml:space="preserve">
+    <value>✘ Error exporting to RetroArch: {0}</value>
+  </data>
+  <data name="EmuConfig_ExportedToRetroArch" xml:space="preserve">
+    <value>✔ Configuration exported to RetroArch!
+Path: {0}</value>
+  </data>
+  <data name="EmuConfig_Generated" xml:space="preserve">
+    <value>✔ Configuration generated!
+Output: {0}</value>
+  </data>
+  <data name="EmuConfig_Generating" xml:space="preserve">
+    <value>Generating configuration...</value>
+  </data>
+  <data name="EmuConfig_RetroArchNotDetected" xml:space="preserve">
+    <value>✘ Could not detect RetroArch config directory.
+Automatic detection failed. Please configure the RetroArch path in Settings first, or ensure RetroArch is installed in a standard location.</value>
+  </data>
+  <data name="EmuConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Save Configuration File</value>
+  </data>
+  <data name="EmuConfig_GeneratingProgress" xml:space="preserve">
+    <value>Generating {0} configuration...</value>
+  </data>
+  <data name="EmuConfig_ProgressDone" xml:space="preserve">
+    <value>Done.</value>
+  </data>
+  <data name="EmuConfig_SelectRomDir" xml:space="preserve">
+    <value>Select ROM Directory</value>
+  </data>
+  <data name="EmuConfig_SelectSaveDir" xml:space="preserve">
+    <value>Select Save Directory</value>
+  </data>
+  <data name="EmuConfig_SelectStateDir" xml:space="preserve">
+    <value>Select Save States Directory</value>
+  </data>
+  <data name="EmuConfig_SelectScreenshotDir" xml:space="preserve">
+    <value>Select Screenshot Directory</value>
+  </data>
+  <data name="FormatConv_BatchComplete" xml:space="preserve">
+    <value>✔ Batch conversion complete!
+{0}</value>
+  </data>
+  <data name="FormatConv_ConversionComplete" xml:space="preserve">
+    <value>✔ Conversion complete!
+Output: {0}</value>
+  </data>
+  <data name="FormatConv_SaveDialogTitle" xml:space="preserve">
+    <value>Save Converted ROM As</value>
+  </data>
+  <data name="FormatConv_SelectConversion" xml:space="preserve">
+    <value>Please select a conversion type.</value>
+  </data>
+  <data name="FormatConv_SelectInputOutput" xml:space="preserve">
+    <value>Please select input and output paths.</value>
+  </data>
+  <data name="FormatConv_UnableToRead" xml:space="preserve">
+    <value>Unable to read file.</value>
+  </data>
+  <data name="HeaderExport_SaveDialogTitle" xml:space="preserve">
+    <value>Save Report As</value>
+  </data>
+  <data name="HeaderExport_SelectInput" xml:space="preserve">
+    <value>Please select an input ROM file or directory.</value>
+  </data>
+  <data name="HeaderExport_SelectOutputPath" xml:space="preserve">
+    <value>Please specify an output file path.</value>
+  </data>
+  <data name="HeaderFixer_FixComplete" xml:space="preserve">
+    <value>✔ Batch fix complete!
+{0}</value>
+  </data>
+  <data name="HeaderFixer_SaveDialogTitle" xml:space="preserve">
+    <value>Save Fixed ROM As</value>
+  </data>
+  <data name="HeaderFixer_SelectInputOutput" xml:space="preserve">
+    <value>Please select input and output paths.</value>
+  </data>
+  <data name="MameAuditor_AuditComplete" xml:space="preserve">
+    <value>✔ Audit complete!
+{0}</value>
+  </data>
+  <data name="MameAuditor_LoadError" xml:space="preserve">
+    <value>Error loading MAME XML: {0}</value>
+  </data>
+  <data name="MameAuditor_LoadXmlFirst" xml:space="preserve">
+    <value>Please load a MAME XML database first.</value>
+  </data>
+  <data name="MameAuditor_LoadedMachines" xml:space="preserve">
+    <value>Loaded {0} machines from MAME database.</value>
+  </data>
+  <data name="MameChdConv_BatchCompressComplete" xml:space="preserve">
+    <value>✔ Batch compression complete!
+{0}</value>
+  </data>
+  <data name="MameChdConv_BatchDecompressComplete" xml:space="preserve">
+    <value>✔ Batch decompression complete!
+{0}</value>
+  </data>
+  <data name="MameChdConv_CompressComplete" xml:space="preserve">
+    <value>✔ Compression complete!
+{0}
+Output: {1}</value>
+  </data>
+  <data name="MameChdConv_DecompressComplete" xml:space="preserve">
+    <value>✔ Decompression complete!
+Output: {0}</value>
+  </data>
+  <data name="MameChdConv_SaveDialogTitle" xml:space="preserve">
+    <value>Save Output As</value>
+  </data>
+  <data name="MameChdConv_SelectInputOutput" xml:space="preserve">
+    <value>Please select input and output paths.</value>
+  </data>
+  <data name="MameChd_InvalidChd" xml:space="preserve">
+    <value>✘ Invalid CHD file
+
+{0}</value>
+  </data>
+  <data name="MameChd_SelectInput" xml:space="preserve">
+    <value>Please select a CHD file or directory.</value>
+  </data>
+  <data name="MameChd_VerificationComplete" xml:space="preserve">
+    <value>✔ Verification complete!
+{0}</value>
+  </data>
+  <data name="MameDatEditor_DatLoaded" xml:space="preserve">
+    <value>✔ DAT file loaded successfully.</value>
+  </data>
+  <data name="MameDatEditor_DatSaved" xml:space="preserve">
+    <value>✔ DAT file saved to {0}</value>
+  </data>
+  <data name="MameDatEditor_GameAdded" xml:space="preserve">
+    <value>✔ New game '{0}' added. Select it to edit.</value>
+  </data>
+  <data name="MameDatEditor_GameRemoved" xml:space="preserve">
+    <value>✔ Game '{0}' removed.</value>
+  </data>
+  <data name="MameDatEditor_GameUpdated" xml:space="preserve">
+    <value>✔ Game '{0}' updated.</value>
+  </data>
+  <data name="MameDatEditor_LoadError" xml:space="preserve">
+    <value>✘ Error loading DAT file: {0}</value>
+  </data>
+  <data name="MameDatEditor_NoGameSelected" xml:space="preserve">
+    <value>✘ No game selected.</value>
+  </data>
+  <data name="MameDatEditor_SaveDialogTitle" xml:space="preserve">
+    <value>Save DAT File As</value>
+  </data>
+  <data name="MameDatEditor_SaveError" xml:space="preserve">
+    <value>✘ Error saving: {0}</value>
+  </data>
+  <data name="MameDir2Dat_ExportComplete" xml:space="preserve">
+    <value>✔ DAT exported to: {0}</value>
+  </data>
+  <data name="MameDir2Dat_ExportDialogTitle" xml:space="preserve">
+    <value>Export DAT File</value>
+  </data>
+  <data name="MameDir2Dat_ExportError" xml:space="preserve">
+    <value>✘ Error exporting DAT: {0}</value>
+  </data>
+  <data name="MameDir2Dat_NoScanResults" xml:space="preserve">
+    <value>No scan results to export. Run a scan first.</value>
+  </data>
+  <data name="MameDir2Dat_ScanComplete" xml:space="preserve">
+    <value>✔ Scan complete!
+{0}</value>
+  </data>
+  <data name="MameRebuilder_LoadError" xml:space="preserve">
+    <value>Error loading MAME XML: {0}</value>
+  </data>
+  <data name="MameRebuilder_LoadXmlFirst" xml:space="preserve">
+    <value>Please load a MAME XML database first.</value>
+  </data>
+  <data name="MameRebuilder_LoadedMachines" xml:space="preserve">
+    <value>Loaded {0} machines from MAME database.</value>
+  </data>
+  <data name="MameRebuilder_RebuildComplete" xml:space="preserve">
+    <value>✔ Rebuild complete!
+{0}</value>
+  </data>
+  <data name="MameRebuilder_SelectDirectories" xml:space="preserve">
+    <value>Please select both source and output directories.</value>
+  </data>
+  <data name="MameSamples_AuditComplete" xml:space="preserve">
+    <value>✔ Audit complete!
+{0}</value>
+  </data>
+  <data name="MameSamples_LoadError" xml:space="preserve">
+    <value>Error loading MAME XML: {0}</value>
+  </data>
+  <data name="MameSamples_LoadXmlFirst" xml:space="preserve">
+    <value>Please load a MAME XML database first.</value>
+  </data>
+  <data name="MameSamples_LoadedSets" xml:space="preserve">
+    <value>Loaded {0} machines with sample requirements.</value>
+  </data>
+  <data name="MameSamples_SelectSamplesDir" xml:space="preserve">
+    <value>Please select a samples directory.</value>
+  </data>
+  <data name="MetaScraper_NoRomsFound" xml:space="preserve">
+    <value>No ROM files found in the selected directory.</value>
+  </data>
+  <data name="MetaScraper_SaveDialogTitle" xml:space="preserve">
+    <value>Save Metadata Report</value>
+  </data>
+  <data name="MetaScraper_ScrapeComplete" xml:space="preserve">
+    <value>✔ Metadata scraped for {0} ROM(s)!
+Output: {1}</value>
+  </data>
+  <data name="MetaScraper_SelectOutputPath" xml:space="preserve">
+    <value>Please specify an output file path.</value>
+  </data>
+  <data name="MetaScraper_SelectRomDir" xml:space="preserve">
+    <value>Please select a ROM directory.</value>
+  </data>
+  <data name="PatchCreator_AnalyzeError" xml:space="preserve">
+    <value>✘ Error analyzing: {0}</value>
+  </data>
+  <data name="PatchCreator_FillAllPaths" xml:space="preserve">
+    <value>Please fill in all file paths.</value>
+  </data>
+  <data name="PatchCreator_PatchCreated" xml:space="preserve">
+    <value>✔ IPS patch created!
+Output: {0}
+Patch size: {1}</value>
+  </data>
+  <data name="PatchCreator_SaveDialogTitle" xml:space="preserve">
+    <value>Save IPS Patch As</value>
+  </data>
+  <data name="Renamer_RenameComplete" xml:space="preserve">
+    <value>✔ Renamed {0} file(s) successfully.</value>
+  </data>
+  <data name="Renamer_SelectFolderTitle" xml:space="preserve">
+    <value>Select ROM Folder</value>
+  </data>
+  <data name="SaveConv_AnalyzeError" xml:space="preserve">
+    <value>✘ Could not analyze file: {0}</value>
+  </data>
+  <data name="SaveConv_ConversionComplete" xml:space="preserve">
+    <value>✔ Conversion complete!
+Output: {0}
+Size: {1}</value>
+  </data>
+  <data name="SaveConv_SaveDialogTitle" xml:space="preserve">
+    <value>Save Converted File As</value>
+  </data>
+  <data name="SaveConv_SelectConversion" xml:space="preserve">
+    <value>Please select a conversion type.</value>
+  </data>
+  <data name="SaveConv_SelectInputFile" xml:space="preserve">
+    <value>Please select an input save file.</value>
+  </data>
+  <data name="SaveConv_SelectOutputPath" xml:space="preserve">
+    <value>Please specify an output file path.</value>
+  </data>
+  <data name="Security_AnalysisComplete" xml:space="preserve">
+    <value>✔ Analysis complete!
+{0} ROM(s) analyzed, {1} security feature(s) detected.</value>
+  </data>
+  <data name="Security_NoFeaturesDetected" xml:space="preserve">
+    <value>No security features detected.</value>
+  </data>
+  <data name="Security_SelectInput" xml:space="preserve">
+    <value>Please select a ROM file or directory.</value>
+  </data>
+  <data name="HeaderExport_ExportComplete" xml:space="preserve">
+    <value>✔ Export complete!
+Output: {0}</value>
+  </data>
+  <data name="Common_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Common_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Common_OutputDirectory" xml:space="preserve">
+    <value>Output Directory:</value>
+  </data>
+  <data name="Common_OutputDirectoryWatermark" xml:space="preserve">
+    <value>Output directory...</value>
+  </data>
+  <data name="Common_OutputFileWatermark" xml:space="preserve">
+    <value>Output file path...</value>
+  </data>
+  <data name="Common_FileSizeFormat" xml:space="preserve">
+    <value>File size: {0} ({1:N0} bytes)</value>
+  </data>
+  <data name="Hex_SizeFormat" xml:space="preserve">
+    <value>Size: {0} ({1:N0} bytes)</value>
+  </data>
+  <data name="Hex_PageInfoFormat" xml:space="preserve">
+    <value>Offset: 0x{0} — Page {1} of {2}</value>
+  </data>
+  <data name="Hex_OffsetBeyondEnd" xml:space="preserve">
+    <value>Offset 0x{0} is beyond end of file (0x{1}).</value>
+  </data>
+  <data name="Hex_FoundMatches" xml:space="preserve">
+    <value>Found {0} match(es). First at 0x{1}</value>
+  </data>
+  <data name="HostShare_DirectoryInfo" xml:space="preserve">
+    <value>Directory: {0}
+{1} ROM file(s) in directory</value>
+  </data>
+  <data name="HostShare_SelectedInfo" xml:space="preserve">
+    <value>{0} ROM(s) selected — {1} total</value>
+  </data>
+  <data name="Split_UnableToRead" xml:space="preserve">
+    <value>Unable to read file: {0}</value>
+  </data>
+  <data name="DatVerifier_RomVerified" xml:space="preserve">
+    <value>✔ ROM Verified!
+
+DAT Game: {0}
+DAT ROM:  {1}
+CRC32:    {2}
+SHA-1:    {3}</value>
+  </data>
+  <data name="DatVerifier_RomNotFound" xml:space="preserve">
+    <value>✘ ROM not found in DAT database.
+
+CRC32:  {0}
+MD5:    {1}
+SHA-1:  {2}
+
+This ROM may be modified, a bad dump, or not in this DAT file.</value>
+  </data>
+  <data name="DatFilter_FilterComplete" xml:space="preserve">
+    <value>✔ Filtering complete!
+
+Original entries: {0}
+Excluded by category: {1}
+Excluded by 1G1R: {2}
+Remaining entries: {3}</value>
+  </data>
+  <data name="DatFilter_MoreEntries" xml:space="preserve">
+    <value>... and {0} more entries</value>
+  </data>
+  <data name="DumpVerifier_FileInfo" xml:space="preserve">
+    <value>File:   {0}
+System: {1}
+Size:   {2}
+Status: {3}</value>
+  </data>
+  <data name="DumpVerifier_IssuesFound" xml:space="preserve">
+    <value>Issues found:</value>
+  </data>
+  <data name="DumpVerifier_GoodDump" xml:space="preserve">
+    <value>✔ {0} appears to be a good dump!</value>
+  </data>
+  <data name="DumpVerifier_HasIssues" xml:space="preserve">
+    <value>⚠ {0} has potential issues.</value>
+  </data>
+  <data name="BigPicture_HelpKeyboardHeader" xml:space="preserve">
+    <value>⌨ Keyboard</value>
+  </data>
+  <data name="BigPicture_HelpControllerHeader" xml:space="preserve">
+    <value>🎮 Controller</value>
+  </data>
+  <data name="BigPicture_HelpPadNav" xml:space="preserve">
+    <value>D-Pad / Left Stick</value>
+  </data>
+  <data name="BigPicture_HelpKeyLaunch" xml:space="preserve">
+    <value>Enter / Space</value>
+  </data>
+  <data name="BigPicture_HelpKeyExit" xml:space="preserve">
+    <value>Escape / Backspace</value>
+  </data>
+  <data name="BigPicture_HelpKeyHomeEnd" xml:space="preserve">
+    <value>Home / End</value>
+  </data>
+  <data name="BigPicture_HelpKeyPageNav" xml:space="preserve">
+    <value>Page Up / Page Down</value>
+  </data>
+  <data name="BigPicture_HelpPadHomeEnd" xml:space="preserve">
+    <value>L3 / R3</value>
+  </data>
+  <data name="BigPicture_HelpPadPage" xml:space="preserve">
+    <value>LB / RB</value>
+  </data>
+  <data name="BigPicture_HelpPadZoom" xml:space="preserve">
+    <value>Right Stick ↕</value>
+  </data>
+  <data name="BigPicture_HelpPadHelp" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="BigPicture_HelpPadExit" xml:space="preserve">
+    <value>Guide</value>
+  </data>
+  <data name="BigPicture_HelpPadRandom" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="BigPicture_HelpPadStats" xml:space="preserve">
+    <value>LT</value>
+  </data>
+  <data name="BigPicture_HelpPadGallery" xml:space="preserve">
+    <value>RT</value>
+  </data>
+  <data name="BigPicture_HelpPadRecentlyPlayed" xml:space="preserve">
+    <value>LB + B</value>
+  </data>
+  <data name="BigPicture_HelpPadSystemCycle" xml:space="preserve">
+    <value>LB + ← / →</value>
+  </data>
+  <data name="BigPicture_HelpPadArtworkViewer" xml:space="preserve">
+    <value>LB + A</value>
+  </data>
+  <data name="BigPicture_HelpPadRating" xml:space="preserve">
+    <value>LB + Y</value>
+  </data>
+  <data name="RAPlaylist_Boxarts" xml:space="preserve">
+    <value>Boxarts</value>
+  </data>
+  <data name="RAPlaylist_Snaps" xml:space="preserve">
+    <value>Snaps</value>
+  </data>
+  <data name="RAPlaylist_TitlesThumbnail" xml:space="preserve">
+    <value>Titles</value>
+  </data>
+  <data name="Renamer_PreviewSummary" xml:space="preserve">
+    <value>Preview: {0} file(s) would be renamed out of {1} scanned.</value>
+  </data>
+  <data name="Renamer_AllMatch" xml:space="preserve">
+    <value>No files need renaming — all names already match headers.</value>
+  </data>
+  <data name="MameDatEditor_MoreResults" xml:space="preserve">
+    <value>... and {0} more (use search to narrow results)</value>
+  </data>
+  <data name="Duplicates_GroupHeader" xml:space="preserve">
+    <value>CRC32: {0} — {1} copies</value>
+  </data>
+  <data name="PatchCreator_FilesIdentical" xml:space="preserve">
+    <value>Files are identical</value>
+  </data>
+  <data name="PatchCreator_BytesDiffer" xml:space="preserve">
+    <value>{0} bytes differ</value>
+  </data>
+  <data name="PatchCreator_FilesTooLargeIps" xml:space="preserve">
+    <value>Files too large for IPS</value>
+  </data>
+  <data name="PatchCreator_Comparing" xml:space="preserve">
+    <value>Comparing files...</value>
+  </data>
+  <data name="PatchCreator_WritingRecords" xml:space="preserve">
+    <value>Writing IPS patch with {0} record(s)...</value>
+  </data>
+  <data name="PatchCreator_Done" xml:space="preserve">
+    <value>Done.</value>
+  </data>
+  <data name="Gamepad_SdlEntryPointMissing" xml:space="preserve">
+    <value>SDL2 entry point missing: {0}</value>
+  </data>
+  <data name="Gamepad_HasMapping" xml:space="preserve">
+    <value>✔ This controller has an existing mapping.</value>
+  </data>
+  <data name="Gamepad_NoMapping" xml:space="preserve">
+    <value>✘ No mapping found — use the wizard below to create one.</value>
+  </data>
+  <data name="Gamepad_MappingStep" xml:space="preserve">
+    <value>Step {0} / {1}</value>
+  </data>
+  <data name="Gamepad_MappingSuccess" xml:space="preserve">
+    <value>✔ {0} → {1}</value>
+  </data>
+  <data name="Gamepad_ControllerGuid" xml:space="preserve">
+    <value>GUID: {0}</value>
+  </data>
+  <data name="Gamepad_ControllerName" xml:space="preserve">
+    <value>Name: {0}</value>
+  </data>
+  <data name="Common_Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="Decompress_CompressedFileLabel" xml:space="preserve">
+    <value>Compressed File:</value>
+  </data>
+  <data name="Decompress_SelectCompressedFile" xml:space="preserve">
+    <value>Select a compressed ROM file...</value>
+  </data>
+  <data name="Decompress_SelectDirectory" xml:space="preserve">
+    <value>Select a directory...</value>
+  </data>
+  <data name="HeaderFixer_SelectRomFileWatermark" xml:space="preserve">
+    <value>Select a ROM file...</value>
+  </data>
+  <data name="HeaderFixer_SelectRomDirWatermark" xml:space="preserve">
+    <value>Select a ROM directory...</value>
+  </data>
+  <data name="Analogue3D_GameCode" xml:space="preserve">
+    <value>Code: {0}</value>
+  </data>
+  <data name="Analogue3D_ArtLabel" xml:space="preserve">
+    <value>Art:{0}</value>
+  </data>
+  <data name="Analogue3D_DispLabel" xml:space="preserve">
+    <value>Disp:{0}</value>
+  </data>
+  <data name="Analogue3D_HwLabel" xml:space="preserve">
+    <value>HW:{0}</value>
+  </data>
+  <data name="Common_YesCheck" xml:space="preserve">
+    <value>Yes ✔</value>
+  </data>
+  <data name="Common_NoX" xml:space="preserve">
+    <value>No ✘</value>
+  </data>
+  <data name="AnaloguePocket_PlatformLabel" xml:space="preserve">
+    <value>Platform: {0}</value>
+  </data>
+  <data name="AnaloguePocket_VersionLabel" xml:space="preserve">
+    <value>Version: {0}</value>
+  </data>
+  <data name="AnaloguePocket_SizeLabel" xml:space="preserve">
+    <value>Size: {0}</value>
+  </data>
+  <data name="Trimmer_SizeBytes" xml:space="preserve">
+    <value>{0} ({1} bytes)</value>
+  </data>
+  <data name="Trimmer_SavingsPercent" xml:space="preserve">
+    <value>{0} ({1}%)</value>
+  </data>
+  <data name="MameChd_ChdDirectory" xml:space="preserve">
+    <value>CHD Directory:</value>
+  </data>
+  <data name="MameChd_ChdFileLabel" xml:space="preserve">
+    <value>CHD File:</value>
+  </data>
+  <data name="MameChd_SelectChdDir" xml:space="preserve">
+    <value>Select a directory containing CHD files...</value>
+  </data>
+  <data name="MameChd_SelectChdFile" xml:space="preserve">
+    <value>Select a CHD file...</value>
+  </data>
+  <data name="BatchHash_SizeLabel" xml:space="preserve">
+    <value>Size: {0}</value>
+  </data>
+  <data name="BatchHash_CRC32Label" xml:space="preserve">
+    <value>CRC32: {0}</value>
+  </data>
+  <data name="BatchHash_MD5Label" xml:space="preserve">
+    <value>MD5: {0}</value>
+  </data>
+  <data name="BatchHash_SHA1Label" xml:space="preserve">
+    <value>SHA1: {0}</value>
+  </data>
+  <data name="BatchHash_SHA256Label" xml:space="preserve">
+    <value>SHA256: {0}</value>
+  </data>
+  <data name="CheatCode_SystemLabel" xml:space="preserve">
+    <value>System: {0}</value>
+  </data>
+  <data name="CheatCode_CodeLabel" xml:space="preserve">
+    <value>Code: {0}</value>
+  </data>
+  <data name="CheatCode_AddressLabel" xml:space="preserve">
+    <value>Address: ${0}</value>
+  </data>
+  <data name="CheatCode_ValueLabel" xml:space="preserve">
+    <value>Value: ${0}</value>
+  </data>
+  <data name="CheatCode_CompareLabel" xml:space="preserve">
+    <value>Compare: ${0}</value>
+  </data>
+  <data name="BigPicture_ArtworkCounter" xml:space="preserve">
+    <value>{0} / {1}</value>
+  </data>
+  <data name="BigPicture_RatingFormat" xml:space="preserve">
+    <value>({0}/5)</value>
+  </data>
+  <data name="Browser_FailedCount" xml:space="preserve">
+    <value>, {0} failed.</value>
+  </data>
+  <data name="DatFilter_FilteredComment" xml:space="preserve">
+    <value>Filtered by RetroMultiTools — {0} entries</value>
+  </data>
+  <data name="DatFilter_FilteredSuffix" xml:space="preserve">
+    <value> (Filtered)</value>
+  </data>
+  <data name="DatVerify_NotFound" xml:space="preserve">
+    <value>Not found in DAT ✘</value>
+  </data>
+  <data name="DatVerify_SizeMismatch" xml:space="preserve">
+    <value>Verified (size mismatch) ⚠</value>
+  </data>
+  <data name="DatVerify_Verified" xml:space="preserve">
+    <value>Verified ✔</value>
+  </data>
+  <data name="DatVerify_CalculatingChecksums" xml:space="preserve">
+    <value>Calculating checksums for {0}...</value>
+  </data>
+  <data name="DatVerify_SearchingDatabase" xml:space="preserve">
+    <value>Searching DAT database...</value>
+  </data>
+  <data name="DatVerify_ProgressDone" xml:space="preserve">
+    <value>Done.</value>
+  </data>
+  <data name="DatVerify_LoadingDat" xml:space="preserve">
+    <value>Loading DAT file...</value>
+  </data>
+  <data name="DatVerify_LoadedDatEntries" xml:space="preserve">
+    <value>Loaded {0} entries from DAT file.</value>
+  </data>
+  <data name="DatVerify_VerifyingProgress" xml:space="preserve">
+    <value>Verifying {0} of {1}: {2}</value>
+  </data>
+  <data name="DatVerify_BatchComplete" xml:space="preserve">
+    <value>Done — {0} verified, {1} not found.</value>
+  </data>
+  <data name="DatVerify_BatchSummary" xml:space="preserve">
+    <value>{0} of {1} ROMs verified against {2} DAT entries. {3} not found.</value>
+  </data>
+  <data name="DatVerifier_BrowseDatTitle" xml:space="preserve">
+    <value>Select DAT File</value>
+  </data>
+  <data name="DatVerifier_BrowseRomTitle" xml:space="preserve">
+    <value>Select ROM File</value>
+  </data>
+  <data name="DatVerifier_BrowseFolderTitle" xml:space="preserve">
+    <value>Select ROM Directory</value>
+  </data>
+  <data name="DatFilter_BrowseDatTitle" xml:space="preserve">
+    <value>Select DAT File</value>
+  </data>
+  <data name="DatFilter_ParsingNames" xml:space="preserve">
+    <value>Parsing {0} game names...</value>
+  </data>
+  <data name="DatFilter_ApplyingCategoryFilters" xml:space="preserve">
+    <value>Applying category filters...</value>
+  </data>
+  <data name="DatFilter_ExcludedCategoryCount" xml:space="preserve">
+    <value>Excluded {0} entries by category.</value>
+  </data>
+  <data name="DatFilter_Applying1G1R" xml:space="preserve">
+    <value>Applying 1G1R filtering...</value>
+  </data>
+  <data name="DatFilter_Excluded1G1RCount" xml:space="preserve">
+    <value>Excluded {0} entries by 1G1R.</value>
+  </data>
+  <data name="DatFilter_ExportingEntries" xml:space="preserve">
+    <value>Exporting {0} entries to {1}...</value>
+  </data>
+  <data name="DatFilter_ExportedEntries" xml:space="preserve">
+    <value>Exported {0} entries.</value>
+  </data>
+  <data name="DatFilter_ResultSummary" xml:space="preserve">
+    <value>{0} of {1} entries retained. Excluded: {2} by category, {3} by 1G1R.</value>
+  </data>
+  <data name="Decompress_DefaultOutputName" xml:space="preserve">
+    <value>decompressed_rom</value>
+  </data>
+  <data name="Detect_ErrorArchiveNoRoms" xml:space="preserve">
+    <value>Archive does not contain files with recognized ROM extensions.</value>
+  </data>
+  <data name="Detect_ErrorFileNotFound" xml:space="preserve">
+    <value>File not found.</value>
+  </data>
+  <data name="Detect_ErrorGBANoLogo" xml:space="preserve">
+    <value>GBA header logo not found.</value>
+  </data>
+  <data name="Detect_ErrorGBNoLogo" xml:space="preserve">
+    <value>Nintendo logo bytes not found at 0x104.</value>
+  </data>
+  <data name="Detect_ErrorInvalidNes" xml:space="preserve">
+    <value>Invalid iNES header magic.</value>
+  </data>
+  <data name="Detect_ErrorMegaDriveNoSega" xml:space="preserve">
+    <value>File has a Mega Drive extension but no valid SEGA header signature.</value>
+  </data>
+  <data name="Detect_ErrorN64ByteOrder" xml:space="preserve">
+    <value>Unrecognized N64 ROM byte order.</value>
+  </data>
+  <data name="Detect_ErrorN64TooSmall" xml:space="preserve">
+    <value>File too small to parse N64 header.</value>
+  </data>
+  <data name="Detect_ErrorNoRomHeader" xml:space="preserve">
+    <value>No recognized ROM header signature found in .bin file.</value>
+  </data>
+  <data name="Detect_ErrorPathEmpty" xml:space="preserve">
+    <value>File path cannot be null or empty.</value>
+  </data>
+  <data name="Detect_ErrorUnrecognizedExt" xml:space="preserve">
+    <value>Unrecognized file extension.</value>
+  </data>
+  <data name="Detect_ErrorZipInvalid" xml:space="preserve">
+    <value>Invalid or corrupted ZIP archive.</value>
+  </data>
+  <data name="Detect_ErrorZipNoRoms" xml:space="preserve">
+    <value>ZIP archive does not contain files with recognized ROM extensions.</value>
+  </data>
+  <data name="DumpVerify_Atari7800Sig" xml:space="preserve">
+    <value>Atari 7800 ROM is missing ATARI7800 signature — may not have a valid header.</value>
+  </data>
+  <data name="DumpVerify_ColecoVision" xml:space="preserve">
+    <value>ColecoVision magic bytes are non-standard — ROM may not be a valid ColecoVision cartridge.</value>
+  </data>
+  <data name="DumpVerify_CouldNotRead" xml:space="preserve">
+    <value>Could not read file: {0}</value>
+  </data>
+  <data name="DumpVerify_ErrorStatus" xml:space="preserve">
+    <value>Error: {0}</value>
+  </data>
+  <data name="DumpVerify_FileEmpty" xml:space="preserve">
+    <value>File is empty (0 bytes).</value>
+  </data>
+  <data name="DumpVerify_FileSmall" xml:space="preserve">
+    <value>File is unusually small ({0}).</value>
+  </data>
+  <data name="DumpVerify_GBALogoInvalid" xml:space="preserve">
+    <value>GBA header logo is invalid — ROM may not boot on hardware.</value>
+  </data>
+  <data name="DumpVerify_GBChecksum" xml:space="preserve">
+    <value>Game Boy header checksum is invalid — ROM may be corrupt or modified.</value>
+  </data>
+  <data name="DumpVerify_GoodDump" xml:space="preserve">
+    <value>Good dump ✔</value>
+  </data>
+  <data name="DumpVerify_HeaderFailed" xml:space="preserve">
+    <value>Header validation failed: {0}</value>
+  </data>
+  <data name="DumpVerify_IssuesFound" xml:space="preserve">
+    <value>Potential issues found ({0}) ⚠</value>
+  </data>
+  <data name="DumpVerify_LynxHeader" xml:space="preserve">
+    <value>Atari Lynx ROM has no LYNX header — some emulators require the header for correct operation.</value>
+  </data>
+  <data name="DumpVerify_MegaDriveNoSega" xml:space="preserve">
+    <value>Mega Drive ROM is missing SEGA identifier — may not be a valid ROM.</value>
+  </data>
+  <data name="DumpVerify_MostlyUniform" xml:space="preserve">
+    <value>File is {0} identical bytes (0x{1}). Likely a bad dump.</value>
+  </data>
+  <data name="DumpVerify_MsxSignature" xml:space="preserve">
+    <value>MSX cartridge lacks standard "AB" signature — may not be a valid cartridge ROM.</value>
+  </data>
+  <data name="DumpVerify_N64NoTitle" xml:space="preserve">
+    <value>N64 ROM is missing title in header — may not be a valid ROM.</value>
+  </data>
+  <data name="DumpVerify_NdsCrc" xml:space="preserve">
+    <value>Nintendo DS header CRC16 is invalid — ROM header may be corrupt.</value>
+  </data>
+  <data name="DumpVerify_NesPrgZero" xml:space="preserve">
+    <value>NES header declares 0 KB PRG ROM — likely invalid.</value>
+  </data>
+  <data name="DumpVerify_NonStandardSize" xml:space="preserve">
+    <value>ROM data size ({0}) is not a standard size. May indicate corruption.</value>
+  </data>
+  <data name="DumpVerify_Overdump" xml:space="preserve">
+    <value>ROM data size ({0}) is larger than expected ({1}). Possible overdump.</value>
+  </data>
+  <data name="DumpVerify_PceHeader" xml:space="preserve">
+    <value>PC Engine ROM has a copier header — this may cause compatibility issues with some emulators.</value>
+  </data>
+  <data name="DumpVerify_Sega32x" xml:space="preserve">
+    <value>Sega 32X ROM is missing SEGA identifier — may not be a valid ROM.</value>
+  </data>
+  <data name="DumpVerify_SmsGgChecksum" xml:space="preserve">
+    <value>SMS/Game Gear TMR SEGA header checksum is invalid — ROM may be corrupt.</value>
+  </data>
+  <data name="DumpVerify_SnesChecksum" xml:space="preserve">
+    <value>SNES internal checksum does not match. Header may be corrupt.</value>
+  </data>
+  <data name="DumpVerify_TrailingFF" xml:space="preserve">
+    <value>Last {0} of file is mostly 0xFF bytes ({1}). Possible overdump.</value>
+  </data>
+  <data name="DumpVerify_TrailingZero" xml:space="preserve">
+    <value>Last {0} of file is mostly 0x00 bytes ({1}). Possible overdump or padding.</value>
+  </data>
+  <data name="DumpVerify_Underdump" xml:space="preserve">
+    <value>ROM data size ({0}) is smaller than expected ({1}). Possible underdump.</value>
+  </data>
+  <data name="DumpVerify_UniformBytes" xml:space="preserve">
+    <value>Entire file contains only 0x{0} bytes. This is a blank/bad dump.</value>
+  </data>
+  <data name="DumpVerify_VirtualBoy" xml:space="preserve">
+    <value>Virtual Boy ROM is missing title in header — may not be a valid ROM.</value>
+  </data>
+  <data name="EmuConfig_Auto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="EmuConfig_FCEUXDesc" xml:space="preserve">
+    <value>FCEUX (NES)</value>
+  </data>
+  <data name="EmuConfig_KegaFusionDesc" xml:space="preserve">
+    <value>Kega Fusion (Sega)</value>
+  </data>
+  <data name="EmuConfig_MAMEDesc" xml:space="preserve">
+    <value>MAME (Arcade)</value>
+  </data>
+  <data name="EmuConfig_MGBADesc" xml:space="preserve">
+    <value>mGBA (Game Boy/GBA)</value>
+  </data>
+  <data name="EmuConfig_MednafenDesc" xml:space="preserve">
+    <value>Mednafen (Multi-system)</value>
+  </data>
+  <data name="EmuConfig_MesenDesc" xml:space="preserve">
+    <value>Mesen (NES/SNES)</value>
+  </data>
+  <data name="EmuConfig_Project64Desc" xml:space="preserve">
+    <value>Project64 (N64)</value>
+  </data>
+  <data name="EmuConfig_Snes9xDesc" xml:space="preserve">
+    <value>Snes9x (SNES)</value>
+  </data>
+  <data name="EmuConfig_StellaDesc" xml:space="preserve">
+    <value>Stella (Atari 2600)</value>
+  </data>
+  <data name="Gamepad_JoystickFallback" xml:space="preserve">
+    <value>Joystick {0}</value>
+  </data>
+  <data name="Gamepad_UnknownController" xml:space="preserve">
+    <value>Unknown Controller</value>
+  </data>
+  <data name="Hex_ErrorFormat" xml:space="preserve">
+    <value>Error: {0}</value>
+  </data>
+  <data name="MameAudit_AllVerified" xml:space="preserve">
+    <value>All {0} ROMs verified</value>
+  </data>
+  <data name="MameAudit_BadCRC" xml:space="preserve">
+    <value>Bad CRC: {0} (expected {1}, got {2})</value>
+  </data>
+  <data name="MameAudit_BadSize" xml:space="preserve">
+    <value>Bad size: {0} (expected {1}, got {2})</value>
+  </data>
+  <data name="MameAudit_CorruptZip" xml:space="preserve">
+    <value>Corrupt or invalid ZIP file</value>
+  </data>
+  <data name="MameAudit_Missing" xml:space="preserve">
+    <value>Missing: {0}</value>
+  </data>
+  <data name="MameAudit_NoNonMerged" xml:space="preserve">
+    <value>No non-merged ROMs required</value>
+  </data>
+  <data name="MameAudit_NoRequired" xml:space="preserve">
+    <value>No required ROMs found (need {0})</value>
+  </data>
+  <data name="MameAudit_NotInDatabase" xml:space="preserve">
+    <value>Not found in MAME database</value>
+  </data>
+  <data name="MameAudit_ReadError" xml:space="preserve">
+    <value>Read error: {0}</value>
+  </data>
+  <data name="MameAudit_RomsCorrect" xml:space="preserve">
+    <value>{0} of {1} ROMs correct, {2} issues</value>
+  </data>
+  <data name="MameAudit_RomsPresent" xml:space="preserve">
+    <value>{0} of {1} ROMs present, {2} issues</value>
+  </data>
+  <data name="MameAudit_MissingDisk" xml:space="preserve">
+    <value>Missing disk: {0}.chd</value>
+  </data>
+  <data name="MameAudit_BadDiskSha1" xml:space="preserve">
+    <value>Disk {0}: SHA-1 mismatch (expected {1}, got {2})</value>
+  </data>
+  <data name="MameAudit_InvalidDisk" xml:space="preserve">
+    <value>Disk {0}: invalid CHD ({1})</value>
+  </data>
+  <data name="MameAudit_DiskReadError" xml:space="preserve">
+    <value>Disk {0}: could not read CHD file</value>
+  </data>
+  <data name="MameChd_BatchSha1" xml:space="preserve">
+    <value>   SHA-1: {0}</value>
+  </data>
+  <data name="MameChd_BatchVersionComp" xml:space="preserve">
+    <value>   Version: CHD v{0}  |  Compression: {1}</value>
+  </data>
+  <data name="MameChd_BinFormat" xml:space="preserve">
+    <value>BIN (Raw binary)</value>
+  </data>
+  <data name="MameChd_CompressionInfo" xml:space="preserve">
+    <value>Compression:  {0}</value>
+  </data>
+  <data name="MameChd_CueBinFormat" xml:space="preserve">
+    <value>CUE/BIN (CD image)</value>
+  </data>
+  <data name="MameChd_ErrorInvalidMagic" xml:space="preserve">
+    <value>Invalid CHD magic number — not a CHD file</value>
+  </data>
+  <data name="MameChd_ErrorIoError" xml:space="preserve">
+    <value>I/O error reading CHD file: {0}</value>
+  </data>
+  <data name="MameChd_ErrorTooSmall" xml:space="preserve">
+    <value>File too small to be a valid CHD file</value>
+  </data>
+  <data name="MameChd_ErrorUnexpectedEof" xml:space="preserve">
+    <value>Unexpected end of file while reading CHD header</value>
+  </data>
+  <data name="MameChd_ErrorUnsupportedVer" xml:space="preserve">
+    <value>Unsupported CHD version: {0}</value>
+  </data>
+  <data name="MameChd_ErrorV3TooShort" xml:space="preserve">
+    <value>CHD v3 header too short</value>
+  </data>
+  <data name="MameChd_ErrorV4TooShort" xml:space="preserve">
+    <value>CHD v4 header too short</value>
+  </data>
+  <data name="MameChd_ErrorV5TooShort" xml:space="preserve">
+    <value>CHD v5 header too short</value>
+  </data>
+  <data name="MameChd_FileSizeInfo" xml:space="preserve">
+    <value>File size:    {0}</value>
+  </data>
+  <data name="MameChd_GdiFormat" xml:space="preserve">
+    <value>GDI (GD-ROM image)</value>
+  </data>
+  <data name="MameChd_HunkSizeInfo" xml:space="preserve">
+    <value>Hunk size:    {0}</value>
+  </data>
+  <data name="MameChd_LogicalSizeInfo" xml:space="preserve">
+    <value>Logical size: {0}</value>
+  </data>
+  <data name="MameChd_NoChdFiles" xml:space="preserve">
+    <value>No CHD files found.</value>
+  </data>
+  <data name="MameChd_ParentSha1Info" xml:space="preserve">
+    <value>Parent SHA-1: {0}</value>
+  </data>
+  <data name="MameChd_RawSha1Info" xml:space="preserve">
+    <value>Raw SHA-1: {0}</value>
+  </data>
+  <data name="MameChd_Sha1Info" xml:space="preserve">
+    <value>SHA-1:     {0}</value>
+  </data>
+  <data name="MameChd_UnitSizeInfo" xml:space="preserve">
+    <value>Unit size:    {0}</value>
+  </data>
+  <data name="MameChd_ValidFile" xml:space="preserve">
+    <value>✔ Valid CHD file</value>
+  </data>
+  <data name="MameChd_VersionInfo" xml:space="preserve">
+    <value>Version:      CHD v{0}</value>
+  </data>
+  <data name="MameDat_NewGamePrefix" xml:space="preserve">
+    <value>new_game_{0}</value>
+  </data>
+  <data name="MameSampleAudit_AllPresent" xml:space="preserve">
+    <value>All {0} samples present</value>
+  </data>
+  <data name="MameSampleAudit_CorruptZip" xml:space="preserve">
+    <value>Corrupt or invalid ZIP file</value>
+  </data>
+  <data name="MameSampleAudit_NoRequired" xml:space="preserve">
+    <value>No required samples found (need {0})</value>
+  </data>
+  <data name="MameSampleAudit_NotInDatabase" xml:space="preserve">
+    <value>Not found in MAME database</value>
+  </data>
+  <data name="MameSampleAudit_ReadError" xml:space="preserve">
+    <value>Read error: {0}</value>
+  </data>
+  <data name="MameSampleAudit_SamplesPresent" xml:space="preserve">
+    <value>{0} of {1} samples present, {2} missing</value>
+  </data>
+  <data name="Organizer_FoundRoms" xml:space="preserve">
+    <value>Found {0} ROM(s) across {1} system(s).</value>
+  </data>
+  <data name="Organizer_NoRomsFound" xml:space="preserve">
+    <value>No ROMs found in the selected folder.</value>
+  </data>
+  <data name="RAAchievement_AchTitleRequired" xml:space="preserve">
+    <value>Achievement {0}: Title is required.</value>
+  </data>
+  <data name="RAAchievement_DuplicateId" xml:space="preserve">
+    <value>Duplicate achievement ID: {0}</value>
+  </data>
+  <data name="RAAchievement_InvalidConsoleId" xml:space="preserve">
+    <value>Console ID must be a positive integer.</value>
+  </data>
+  <data name="RAAchievement_InvalidType" xml:space="preserve">
+    <value>Achievement '{0}': Invalid type. Must be standard, missable, progression, or win_condition.</value>
+  </data>
+  <data name="RAAchievement_InvalidGameId" xml:space="preserve">
+    <value>Game ID must be a positive integer.</value>
+  </data>
+  <data name="RAAchievement_MemAddrRequired" xml:space="preserve">
+    <value>Achievement '{0}': Memory condition (MemAddr) is required.</value>
+  </data>
+  <data name="RAAchievement_PointsRange" xml:space="preserve">
+    <value>Achievement '{0}': Points must be 0–100.</value>
+  </data>
+  <data name="RAAchievement_TitleRequired" xml:space="preserve">
+    <value>Game title is required.</value>
+  </data>
+  <data name="RAAchievement_UnknownConsole" xml:space="preserve">
+    <value>Unknown ({0})</value>
+  </data>
+  <data name="Renamer_ErrorFileExists" xml:space="preserve">
+    <value>Target file already exists.</value>
+  </data>
+  <data name="Renamer_ErrorFileNotFound" xml:space="preserve">
+    <value>File not found.</value>
+  </data>
+  <data name="SecAnalyzer_10nesLockout" xml:space="preserve">
+    <value>10NES Lockout</value>
+  </data>
+  <data name="SecAnalyzer_10nesLockoutDesc" xml:space="preserve">
+    <value>NES cartridges use the 10NES lockout chip for hardware-level copy protection.</value>
+  </data>
+  <data name="SecAnalyzer_3doDiscEncrypt" xml:space="preserve">
+    <value>3DO Disc Encryption</value>
+  </data>
+  <data name="SecAnalyzer_3doDiscEncryptDesc" xml:space="preserve">
+    <value>3DO uses encrypted disc headers; the console verifies disc authenticity at boot time.</value>
+  </data>
+  <data name="SecAnalyzer_3doRegion" xml:space="preserve">
+    <value>3DO Region</value>
+  </data>
+  <data name="SecAnalyzer_3doRegionDesc" xml:space="preserve">
+    <value>Panasonic 3DO is region-free by design; the 3DO specification does not include region lockout mechanisms.</value>
+  </data>
+  <data name="SecAnalyzer_3dsEncrypt" xml:space="preserve">
+    <value>Nintendo 3DS Encryption</value>
+  </data>
+  <data name="SecAnalyzer_3dsEncryptDesc" xml:space="preserve">
+    <value>Nintendo 3DS uses AES encryption for game content, RSA signatures for code verification, and a unique per-console key system for digital rights management.</value>
+  </data>
+  <data name="SecAnalyzer_3dsRegion" xml:space="preserve">
+    <value>Nintendo 3DS Region</value>
+  </data>
+  <data name="SecAnalyzer_3dsRegionDesc" xml:space="preserve">
+    <value>Nintendo 3DS enforces hardware region locking; game cartridges and digital titles are locked to their region (Japan, North America, Europe, etc.).</value>
+  </data>
+  <data name="SecAnalyzer_AmigaCd32Akiko" xml:space="preserve">
+    <value>Amiga CD32 AKIKO Chip</value>
+  </data>
+  <data name="SecAnalyzer_AmigaCd32AkikoDesc" xml:space="preserve">
+    <value>Amiga CD32 uses the AKIKO chip for CD drive access and copy protection verification.</value>
+  </data>
+  <data name="SecAnalyzer_AmigaCd32Region" xml:space="preserve">
+    <value>Amiga CD32 Region</value>
+  </data>
+  <data name="SecAnalyzer_AmigaCd32RegionDesc" xml:space="preserve">
+    <value>Amiga CD32 uses PAL/NTSC region encoding; some titles may not work on consoles from a different video region.</value>
+  </data>
+  <data name="SecAnalyzer_AmstradCpcNoCopy" xml:space="preserve">
+    <value>Amstrad CPC No ROM Copy Protection</value>
+  </data>
+  <data name="SecAnalyzer_AmstradCpcNoCopyDesc" xml:space="preserve">
+    <value>No cartridge-level copy protection in ROM format; original media used various disk protection schemes.</value>
+  </data>
+  <data name="SecAnalyzer_AmstradCpcRegion" xml:space="preserve">
+    <value>Amstrad CPC Region</value>
+  </data>
+  <data name="SecAnalyzer_AmstradCpcRegionDesc" xml:space="preserve">
+    <value>Amstrad CPC has no hardware region lock; regional differences are limited to keyboard layout and language.</value>
+  </data>
+  <data name="SecAnalyzer_AnalysisFailed" xml:space="preserve">
+    <value>Analysis Failed</value>
+  </data>
+  <data name="SecAnalyzer_ArcadeBoardProt" xml:space="preserve">
+    <value>Arcade Board Protection</value>
+  </data>
+  <data name="SecAnalyzer_ArcadeBoardProtDesc" xml:space="preserve">
+    <value>Arcade boards may use various copy protection mechanisms including encrypted ROMs, custom coprocessors, battery-backed RAM, or hardware security modules depending on the manufacturer and era.</value>
+  </data>
+  <data name="SecAnalyzer_ArcadeRegion" xml:space="preserve">
+    <value>Arcade Region</value>
+  </data>
+  <data name="SecAnalyzer_ArcadeRegionDesc" xml:space="preserve">
+    <value>Arcade boards typically have no hardware region lock; regional differences are implemented in software via DIP switch settings or separate ROM sets.</value>
+  </data>
+  <data name="SecAnalyzer_Atari2600NoCopy" xml:space="preserve">
+    <value>Atari 2600 No Copy Protection</value>
+  </data>
+  <data name="SecAnalyzer_Atari2600NoCopyDesc" xml:space="preserve">
+    <value>No software-level copy protection. The simple ROM cartridge format has no validation mechanism.</value>
+  </data>
+  <data name="SecAnalyzer_Atari2600Region" xml:space="preserve">
+    <value>Atari 2600 Region</value>
+  </data>
+  <data name="SecAnalyzer_Atari2600RegionDesc" xml:space="preserve">
+    <value>Atari 2600 is region-free; games are NTSC or PAL specific based on programming, not hardware lockout.</value>
+  </data>
+  <data name="SecAnalyzer_Atari5200NoCopy" xml:space="preserve">
+    <value>Atari 5200 No Copy Protection</value>
+  </data>
+  <data name="SecAnalyzer_Atari5200NoCopyDesc" xml:space="preserve">
+    <value>No software-level copy protection mechanism in cartridges.</value>
+  </data>
+  <data name="SecAnalyzer_Atari5200Region" xml:space="preserve">
+    <value>Atari 5200 Region</value>
+  </data>
+  <data name="SecAnalyzer_Atari5200RegionDesc" xml:space="preserve">
+    <value>Atari 5200 is NTSC-only; no hardware region lock since the system was only released in North America.</value>
+  </data>
+  <data name="SecAnalyzer_Atari7800DigSig" xml:space="preserve">
+    <value>Atari 7800 Digital Signature</value>
+  </data>
+  <data name="SecAnalyzer_Atari7800DigSigDesc" xml:space="preserve">
+    <value>Atari 7800 cartridges contain a digital signature that the BIOS verifies before running the game. Without a valid signature, the console falls back to Atari 2600 mode.</value>
+  </data>
+  <data name="SecAnalyzer_Atari7800HeaderSig" xml:space="preserve">
+    <value>Atari 7800 Header Signature</value>
+  </data>
+  <data name="SecAnalyzer_Atari7800Region" xml:space="preserve">
+    <value>Atari 7800 Region</value>
+  </data>
+  <data name="SecAnalyzer_Atari7800RegionDesc" xml:space="preserve">
+    <value>Atari 7800 uses a digital signature in the cartridge header to enforce region lockout. PAL and NTSC consoles validate this signature before running the game.</value>
+  </data>
+  <data name="SecAnalyzer_Atari800NoCopy" xml:space="preserve">
+    <value>Atari 800 No Copy Protection</value>
+  </data>
+  <data name="SecAnalyzer_Atari800NoCopyDesc" xml:space="preserve">
+    <value>No ROM-level copy protection; original media used basic disk protection schemes.</value>
+  </data>
+  <data name="SecAnalyzer_Atari800Region" xml:space="preserve">
+    <value>Atari 800 Region</value>
+  </data>
+  <data name="SecAnalyzer_Atari800RegionDesc" xml:space="preserve">
+    <value>Atari 8-bit computers are region-free; NTSC and PAL differences are hardware-based, not enforced by software lockout.</value>
+  </data>
+  <data name="SecAnalyzer_AtariJaguarRegion" xml:space="preserve">
+    <value>Atari Jaguar Region</value>
+  </data>
+  <data name="SecAnalyzer_AtariJaguarRegionDesc" xml:space="preserve">
+    <value>Atari Jaguar is region-free; the Jaguar has no hardware or software region lockout mechanism.</value>
+  </data>
+  <data name="SecAnalyzer_AtariLynxRegion" xml:space="preserve">
+    <value>Atari Lynx Region</value>
+  </data>
+  <data name="SecAnalyzer_AtariLynxRegionDesc" xml:space="preserve">
+    <value>Atari Lynx is region-free; the Lynx was designed as a worldwide product with no region restrictions.</value>
+  </data>
+  <data name="SecAnalyzer_CdiProt" xml:space="preserve">
+    <value>Philips CD-i Protection</value>
+  </data>
+  <data name="SecAnalyzer_CdiProtDesc" xml:space="preserve">
+    <value>Philips CD-i uses the CD-RTOS operating system with minimal disc-level copy protection. The proprietary OS format provides basic protection.</value>
+  </data>
+  <data name="SecAnalyzer_CdiRegion" xml:space="preserve">
+    <value>Philips CD-i Region</value>
+  </data>
+  <data name="SecAnalyzer_CdiRegionDesc" xml:space="preserve">
+    <value>Philips CD-i is region-free; the CD-i standard does not include region lockout mechanisms. PAL/NTSC differences are handled by the player hardware.</value>
+  </data>
+  <data name="SecAnalyzer_CicLockout" xml:space="preserve">
+    <value>CIC Lockout Chip</value>
+  </data>
+  <data name="SecAnalyzer_CicLockoutDesc" xml:space="preserve">
+    <value>SNES cartridges use a CIC (Checking Integrated Circuit) lockout chip for region and copy protection.</value>
+  </data>
+  <data name="SecAnalyzer_ColecoVisionBios" xml:space="preserve">
+    <value>ColecoVision BIOS Boot Check</value>
+  </data>
+  <data name="SecAnalyzer_ColecoVisionBiosDesc" xml:space="preserve">
+    <value>ColecoVision BIOS checks for specific magic bytes (0xAA 0x55 or 0x55 0xAA) at the start of the cartridge ROM to validate the cartridge.</value>
+  </data>
+  <data name="SecAnalyzer_ColecoVisionRegion" xml:space="preserve">
+    <value>ColecoVision Region</value>
+  </data>
+  <data name="SecAnalyzer_ColecoVisionRegionDesc" xml:space="preserve">
+    <value>ColecoVision hardware is region-free. Cartridges from any region will work on any console.</value>
+  </data>
+  <data name="SecAnalyzer_ColorCompNoCopy" xml:space="preserve">
+    <value>Color Computer No ROM Copy Protection</value>
+  </data>
+  <data name="SecAnalyzer_ColorCompNoCopyDesc" xml:space="preserve">
+    <value>No ROM-level copy protection in cartridge format.</value>
+  </data>
+  <data name="SecAnalyzer_DreamcastGdrom" xml:space="preserve">
+    <value>Sega Dreamcast GD-ROM Protection</value>
+  </data>
+  <data name="SecAnalyzer_DreamcastGdromDesc" xml:space="preserve">
+    <value>Sega Dreamcast uses the proprietary GD-ROM disc format which stores data in a high-density area inaccessible to standard CD drives, providing physical copy protection.</value>
+  </data>
+  <data name="SecAnalyzer_DreamcastRegion" xml:space="preserve">
+    <value>Sega Dreamcast Region</value>
+  </data>
+  <data name="SecAnalyzer_DreamcastRegionDesc" xml:space="preserve">
+    <value>Sega Dreamcast uses area symbol codes in the disc header for region locking. Games are coded for Japan, USA, and/or Europe regions.</value>
+  </data>
+  <data name="SecAnalyzer_ExecRomHandshake" xml:space="preserve">
+    <value>EXEC ROM Handshake</value>
+  </data>
+  <data name="SecAnalyzer_ExecRomHandshakeDesc" xml:space="preserve">
+    <value>Intellivision uses the EXEC ROM firmware to perform a handshake with the cartridge. The EXEC validates the cartridge entry point before transferring control.</value>
+  </data>
+  <data name="SecAnalyzer_FairchildNoCopy" xml:space="preserve">
+    <value>Fairchild Channel F No Copy Protection</value>
+  </data>
+  <data name="SecAnalyzer_FairchildNoCopyDesc" xml:space="preserve">
+    <value>No copy protection. The Channel F uses simple ROM cartridges with no validation mechanism.</value>
+  </data>
+  <data name="SecAnalyzer_FileLabel" xml:space="preserve">
+    <value>File:   {0}</value>
+  </data>
+  <data name="SecAnalyzer_GBALogoCheck" xml:space="preserve">
+    <value>GBA Logo Check</value>
+  </data>
+  <data name="SecAnalyzer_GBARegionCode" xml:space="preserve">
+    <value>GBA Region Code</value>
+  </data>
+  <data name="SecAnalyzer_GameBoyHeaderChecksum" xml:space="preserve">
+    <value>Game Boy Header Checksum</value>
+  </data>
+  <data name="SecAnalyzer_GameBoyRegion" xml:space="preserve">
+    <value>Game Boy Region</value>
+  </data>
+  <data name="SecAnalyzer_GameCubeAuth" xml:space="preserve">
+    <value>GameCube Disc Authentication</value>
+  </data>
+  <data name="SecAnalyzer_GameCubeAuthDesc" xml:space="preserve">
+    <value>GameCube uses a proprietary mini-DVD format with Burst Cutting Area (BCA) data for disc authentication. The drive firmware validates disc authenticity before allowing reads.</value>
+  </data>
+  <data name="SecAnalyzer_GameCubeRegionLock" xml:space="preserve">
+    <value>GameCube Region Lock</value>
+  </data>
+  <data name="SecAnalyzer_GameCubeRegionLockDesc" xml:space="preserve">
+    <value>GameCube enforces hardware-level region lockout. The console verifies the disc region code at boot time.</value>
+  </data>
+  <data name="SecAnalyzer_GbaHeaderCheck" xml:space="preserve">
+    <value>GBA Header Checksum</value>
+  </data>
+  <data name="SecAnalyzer_HuCardFormFactor" xml:space="preserve">
+    <value>HuCard Form Factor</value>
+  </data>
+  <data name="SecAnalyzer_HuCardFormFactorDesc" xml:space="preserve">
+    <value>PC Engine uses the proprietary HuCard format as a physical copy protection mechanism.</value>
+  </data>
+  <data name="SecAnalyzer_IntellivisionRegion" xml:space="preserve">
+    <value>Intellivision Region</value>
+  </data>
+  <data name="SecAnalyzer_IntellivisionRegionDesc" xml:space="preserve">
+    <value>Intellivision hardware is region-free; the same cartridges are compatible with all console variants worldwide.</value>
+  </data>
+  <data name="SecAnalyzer_JaguarEncBoot" xml:space="preserve">
+    <value>Jaguar Encrypted Boot</value>
+  </data>
+  <data name="SecAnalyzer_JaguarEncBootDesc" xml:space="preserve">
+    <value>Cartridge header contains an encrypted boot sequence validated by the Jaguar BIOS.</value>
+  </data>
+  <data name="SecAnalyzer_LynxCartEncrypt" xml:space="preserve">
+    <value>Lynx Cartridge Encryption</value>
+  </data>
+  <data name="SecAnalyzer_LynxCartEncryptDesc" xml:space="preserve">
+    <value>Atari Lynx uses an encrypted boot header that the system ROM decrypts before execution.</value>
+  </data>
+  <data name="SecAnalyzer_LynxHeaderInt" xml:space="preserve">
+    <value>Atari Lynx Header Integrity</value>
+  </data>
+  <data name="SecAnalyzer_MSXCartridgeMarker" xml:space="preserve">
+    <value>MSX Cartridge Marker</value>
+  </data>
+  <data name="SecAnalyzer_MegaDriveCheck" xml:space="preserve">
+    <value>Mega Drive Internal Checksum</value>
+  </data>
+  <data name="SecAnalyzer_MegaDriveRegion" xml:space="preserve">
+    <value>Mega Drive Region</value>
+  </data>
+  <data name="SecAnalyzer_MemotechNoCopy" xml:space="preserve">
+    <value>Memotech MTX No Copy Protection</value>
+  </data>
+  <data name="SecAnalyzer_MemotechNoCopyDesc" xml:space="preserve">
+    <value>No ROM-level copy protection. Software was distributed on cassette and cartridge without copy protection mechanisms.</value>
+  </data>
+  <data name="SecAnalyzer_MsxRegion" xml:space="preserve">
+    <value>MSX Region</value>
+  </data>
+  <data name="SecAnalyzer_MsxRegionDesc" xml:space="preserve">
+    <value>MSX standard is region-free by design; cartridges are compatible across regions. Software may have language differences.</value>
+  </data>
+  <data name="SecAnalyzer_N64CicBoot" xml:space="preserve">
+    <value>N64 CIC Boot Code</value>
+  </data>
+  <data name="SecAnalyzer_N64Crc" xml:space="preserve">
+    <value>N64 CRC Checksums</value>
+  </data>
+  <data name="SecAnalyzer_N64RegionCode" xml:space="preserve">
+    <value>N64 Region Code</value>
+  </data>
+  <data name="SecAnalyzer_N64ddCopyProt" xml:space="preserve">
+    <value>N64DD Copy Protection</value>
+  </data>
+  <data name="SecAnalyzer_N64ddCopyProtDesc" xml:space="preserve">
+    <value>N64DD disks use the N64 CIC chip validation and proprietary magnetic disk format for copy protection.</value>
+  </data>
+  <data name="SecAnalyzer_N64ddRegion" xml:space="preserve">
+    <value>N64DD Region</value>
+  </data>
+  <data name="SecAnalyzer_N64ddRegionDesc" xml:space="preserve">
+    <value>Nintendo 64DD uses region locking inherited from the N64 console via the CIC chip. The 64DD peripheral was only officially released in Japan.</value>
+  </data>
+  <data name="SecAnalyzer_NdsEncrypt" xml:space="preserve">
+    <value>Nintendo DS Encryption</value>
+  </data>
+  <data name="SecAnalyzer_NdsEncryptDesc" xml:space="preserve">
+    <value>Nintendo DS cartridges use encrypted secure area (Blowfish encryption) in the first 2 KB of ARM9 code, validated by the BIOS during boot.</value>
+  </data>
+  <data name="SecAnalyzer_NdsHeaderCrc" xml:space="preserve">
+    <value>Nintendo DS Header CRC16</value>
+  </data>
+  <data name="SecAnalyzer_NdsRegion" xml:space="preserve">
+    <value>Nintendo DS Region</value>
+  </data>
+  <data name="SecAnalyzer_NdsRegionDesc" xml:space="preserve">
+    <value>Nintendo DS is region-free for DS games; the hardware does not enforce region lockout on DS cartridges. DSi-enhanced titles may have region restrictions.</value>
+  </data>
+  <data name="SecAnalyzer_NecPc88NoCopy" xml:space="preserve">
+    <value>NEC PC-88 No ROM Copy Protection</value>
+  </data>
+  <data name="SecAnalyzer_NecPc88NoCopyDesc" xml:space="preserve">
+    <value>No ROM-level copy protection; original floppy disks used various disk protection schemes.</value>
+  </data>
+  <data name="SecAnalyzer_NecPc88Region" xml:space="preserve">
+    <value>NEC PC-88 Region</value>
+  </data>
+  <data name="SecAnalyzer_NecPc88RegionDesc" xml:space="preserve">
+    <value>NEC PC-88 was a Japan-only platform; no hardware region lock since the system was only released domestically.</value>
+  </data>
+  <data name="SecAnalyzer_NeoGeoCdProt" xml:space="preserve">
+    <value>Neo Geo CD Protection</value>
+  </data>
+  <data name="SecAnalyzer_NeoGeoCdProtDesc" xml:space="preserve">
+    <value>Neo Geo CD uses the standard CD format with minimal copy protection; some titles check for specific disc characteristics.</value>
+  </data>
+  <data name="SecAnalyzer_NeoGeoCdRegion" xml:space="preserve">
+    <value>Neo Geo CD Region</value>
+  </data>
+  <data name="SecAnalyzer_NeoGeoCdRegionDesc" xml:space="preserve">
+    <value>Neo Geo CD enforces region locking via the console BIOS; discs are coded for Japan, USA, or Europe regions.</value>
+  </data>
+  <data name="SecAnalyzer_NeoGeoPocketRegion" xml:space="preserve">
+    <value>Neo Geo Pocket Region</value>
+  </data>
+  <data name="SecAnalyzer_NeoGeoPocketRegionDesc" xml:space="preserve">
+    <value>Neo Geo Pocket and Pocket Color hardware is region-free. Games from any region can be played on any console.</value>
+  </data>
+  <data name="SecAnalyzer_NeoGeoProt" xml:space="preserve">
+    <value>Neo Geo Protection</value>
+  </data>
+  <data name="SecAnalyzer_NeoGeoProtDesc" xml:space="preserve">
+    <value>Neo Geo AES/MVS cartridges use proprietary cartridge connectors and some later titles employ encrypted graphics data (C-ROM encryption) for copy protection.</value>
+  </data>
+  <data name="SecAnalyzer_NeoGeoRegion" xml:space="preserve">
+    <value>Neo Geo Region</value>
+  </data>
+  <data name="SecAnalyzer_NeoGeoRegionDesc" xml:space="preserve">
+    <value>SNK Neo Geo AES consoles use a BIOS-level region lock (Japan, USA, Europe). MVS arcade boards use regional BIOS variants.</value>
+  </data>
+  <data name="SecAnalyzer_Nes2Timing" xml:space="preserve">
+    <value>NES 2.0 Timing</value>
+  </data>
+  <data name="SecAnalyzer_Nes2TimingDesc" xml:space="preserve">
+    <value>NES 2.0 header supports region timing metadata (NTSC/PAL/Multi).</value>
+  </data>
+  <data name="SecAnalyzer_NintendoLogoCheck" xml:space="preserve">
+    <value>Nintendo Logo Check</value>
+  </data>
+  <data name="SecAnalyzer_OricNoCopy" xml:space="preserve">
+    <value>Oric No ROM Copy Protection</value>
+  </data>
+  <data name="SecAnalyzer_OricNoCopyDesc" xml:space="preserve">
+    <value>No ROM-level copy protection; original cassette tapes used custom loading routines.</value>
+  </data>
+  <data name="SecAnalyzer_OricRegion" xml:space="preserve">
+    <value>Oric Region</value>
+  </data>
+  <data name="SecAnalyzer_OricRegionDesc" xml:space="preserve">
+    <value>Oric has no region locking; the Oric was sold primarily in Europe with no regional restrictions.</value>
+  </data>
+  <data name="SecAnalyzer_PceRegion" xml:space="preserve">
+    <value>PC Engine Region</value>
+  </data>
+  <data name="SecAnalyzer_PceRegionDesc" xml:space="preserve">
+    <value>PC Engine (Japan) and TurboGrafx-16 (USA) use different hardware pin configurations for region lockout. HuCard form factor differs between regions.</value>
+  </data>
+  <data name="SecAnalyzer_SMSGameGearRegion" xml:space="preserve">
+    <value>SMS/Game Gear Region</value>
+  </data>
+  <data name="SecAnalyzer_SMSGameGearRegionDesc" xml:space="preserve">
+    <value>No TMR SEGA header found — region cannot be determined from the ROM header. Early cartridges lack this marker.</value>
+  </data>
+  <data name="SecAnalyzer_SaturnDiscProt" xml:space="preserve">
+    <value>Sega Saturn Disc Protection</value>
+  </data>
+  <data name="SecAnalyzer_SaturnDiscProtDesc" xml:space="preserve">
+    <value>Sega Saturn uses a security ring on the outer edge of the disc for copy protection.</value>
+  </data>
+  <data name="SecAnalyzer_SaturnRegion" xml:space="preserve">
+    <value>Sega Saturn Region</value>
+  </data>
+  <data name="SecAnalyzer_SaturnRegionDesc" xml:space="preserve">
+    <value>Sega Saturn enforces region lockout via a region code in the disc header. Games are typically locked to Japan, North America, or Europe.</value>
+  </data>
+  <data name="SecAnalyzer_Sega32xCheck" xml:space="preserve">
+    <value>Sega 32X Internal Checksum</value>
+  </data>
+  <data name="SecAnalyzer_SegaCDRegion" xml:space="preserve">
+    <value>Sega CD Region</value>
+  </data>
+  <data name="SecAnalyzer_SegaCdDiscProt" xml:space="preserve">
+    <value>Sega CD Disc Protection</value>
+  </data>
+  <data name="SecAnalyzer_SegaCdDiscProtDesc" xml:space="preserve">
+    <value>Region-coded disc format with security ring on physical media.</value>
+  </data>
+  <data name="SecAnalyzer_SmsBiosCheck" xml:space="preserve">
+    <value>SMS/Game Gear BIOS Check</value>
+  </data>
+  <data name="SecAnalyzer_SmsBiosCheckDesc" xml:space="preserve">
+    <value>Master System and Game Gear consoles use a BIOS check that verifies the "TMR SEGA" header marker to validate cartridges.</value>
+  </data>
+  <data name="SecAnalyzer_SmsGgChecksum" xml:space="preserve">
+    <value>SMS/Game Gear TMR SEGA Checksum</value>
+  </data>
+  <data name="SecAnalyzer_SnesChecksum" xml:space="preserve">
+    <value>SNES Internal Checksum</value>
+  </data>
+  <data name="SecAnalyzer_SnesRegionLock" xml:space="preserve">
+    <value>SNES Region Lock</value>
+  </data>
+  <data name="SecAnalyzer_SystemLabel" xml:space="preserve">
+    <value>System: {0}</value>
+  </data>
+  <data name="SecAnalyzer_TMSSTrademarkSecuritySystem" xml:space="preserve">
+    <value>TMSS (Trademark Security System)</value>
+  </data>
+  <data name="SecAnalyzer_ThomsonNoCopy" xml:space="preserve">
+    <value>Thomson MO5 No ROM Copy Protection</value>
+  </data>
+  <data name="SecAnalyzer_ThomsonNoCopyDesc" xml:space="preserve">
+    <value>No ROM-level copy protection; original media used format-based copy protection.</value>
+  </data>
+  <data name="SecAnalyzer_ThomsonRegion" xml:space="preserve">
+    <value>Thomson MO5 Region</value>
+  </data>
+  <data name="SecAnalyzer_ThomsonRegionDesc" xml:space="preserve">
+    <value>Thomson MO5 has no region locking; the Thomson MO5 was primarily a French market computer.</value>
+  </data>
+  <data name="SecAnalyzer_TigerNoCopy" xml:space="preserve">
+    <value>Tiger Game Com No Copy Protection</value>
+  </data>
+  <data name="SecAnalyzer_TigerNoCopyDesc" xml:space="preserve">
+    <value>No ROM-level copy protection. The Game Com uses simple ROM cartridges.</value>
+  </data>
+  <data name="SecAnalyzer_Trs80Region" xml:space="preserve">
+    <value>TRS-80 Color Computer Region</value>
+  </data>
+  <data name="SecAnalyzer_Trs80RegionDesc" xml:space="preserve">
+    <value>TRS-80 Color Computer has no region locking; the system was primarily sold in North America.</value>
+  </data>
+  <data name="SecAnalyzer_VBoyHeaderInt" xml:space="preserve">
+    <value>Virtual Boy Header Integrity</value>
+  </data>
+  <data name="SecAnalyzer_VirtualBoyLogo" xml:space="preserve">
+    <value>Virtual Boy Nintendo Logo</value>
+  </data>
+  <data name="SecAnalyzer_VirtualBoyLogoDesc" xml:space="preserve">
+    <value>Virtual Boy validates the Nintendo logo data in the cartridge header at boot, similar to the Game Boy logo check.</value>
+  </data>
+  <data name="SecAnalyzer_VirtualBoyRegion" xml:space="preserve">
+    <value>Virtual Boy Region</value>
+  </data>
+  <data name="SecAnalyzer_VirtualBoyRegionDesc" xml:space="preserve">
+    <value>Virtual Boy hardware is region-free; however, all commercial titles were released only in Japan and North America.</value>
+  </data>
+  <data name="SecAnalyzer_WataraNoCopy" xml:space="preserve">
+    <value>Watara Supervision No Copy Protection</value>
+  </data>
+  <data name="SecAnalyzer_WataraNoCopyDesc" xml:space="preserve">
+    <value>No software-level copy protection.</value>
+  </data>
+  <data name="SecAnalyzer_WataraRegion" xml:space="preserve">
+    <value>Watara Supervision Region</value>
+  </data>
+  <data name="SecAnalyzer_WataraRegionDesc" xml:space="preserve">
+    <value>Watara Supervision is region-free; the handheld was sold worldwide with no regional restrictions.</value>
+  </data>
+  <data name="SecAnalyzer_WiiDiscEncrypt" xml:space="preserve">
+    <value>Wii Disc Encryption</value>
+  </data>
+  <data name="SecAnalyzer_WiiDiscEncryptDesc" xml:space="preserve">
+    <value>Wii discs use AES-128-CBC encryption with per-title keys stored in an encrypted title key block. The common key is stored in the console's OTP memory. Additionally, disc authenticity is verified via a signature chain (CA → CP → Ticket).</value>
+  </data>
+  <data name="SecAnalyzer_WiiRegionLock" xml:space="preserve">
+    <value>Wii Region Lock</value>
+  </data>
+  <data name="SecAnalyzer_WiiRegionLockDesc" xml:space="preserve">
+    <value>Wii enforces region lockout at both hardware and software levels. The System Menu validates the disc region before launching.</value>
+  </data>
+  <data name="SecAnalyzer_iNesHeader" xml:space="preserve">
+    <value>iNES Header Integrity</value>
+  </data>
+  <data name="Settings_ScreensaverMinutes" xml:space="preserve">
+    <value>{0} min</value>
+  </data>
+  <data name="SecAnalyzer_GBARegionCodeDynDesc" xml:space="preserve">
+    <value>Game code region: {0} ({1}).</value>
+  </data>
+  <data name="SecAnalyzer_GameBoyRegionDynDesc" xml:space="preserve">
+    <value>Destination code: 0x{0} ({1}).</value>
+  </data>
+  <data name="SecAnalyzer_GameCubeRegionLockDynDesc" xml:space="preserve">
+    <value>Region: {0}. GameCube enforces region lockout via the Game ID in the disc header. The console checks the region code and refuses to boot discs from a different region.</value>
+  </data>
+  <data name="SecAnalyzer_GbaHeaderCheckDynDesc" xml:space="preserve">
+    <value>Header checksum: {0}. The GBA BIOS validates the header checksum before booting.</value>
+  </data>
+  <data name="SecAnalyzer_MegaDriveCheckDynDesc" xml:space="preserve">
+    <value>Internal checksum: {0}. Some Mega Drive games validate this checksum at boot.</value>
+  </data>
+  <data name="SecAnalyzer_MegaDriveRegionDynDesc" xml:space="preserve">
+    <value>Region code: &quot;{0}&quot;. {1}. Mega Drive uses hardware region lockout.</value>
+  </data>
+  <data name="SecAnalyzer_N64CicBootDynDesc" xml:space="preserve">
+    <value>Boot code hash: 0x{0}. N64 CIC chip validates boot code for anti-piracy and region locking.</value>
+  </data>
+  <data name="SecAnalyzer_N64CrcDynDesc" xml:space="preserve">
+    <value>Header CRC1: {0}, CRC2: {1}. N64 boot code validates these checksums.</value>
+  </data>
+  <data name="SecAnalyzer_N64RegionCodeDynDesc" xml:space="preserve">
+    <value>Region: {0} (0x{1}). N64 uses CIC chip for region lockout.</value>
+  </data>
+  <data name="SecAnalyzer_NdsHeaderCrcDynDesc" xml:space="preserve">
+    <value>Header CRC16: {0}. The DS firmware validates this CRC16 checksum (bytes 0x00-0x15D) before booting.</value>
+  </data>
+  <data name="SecAnalyzer_SMSGameGearRegionDynDesc" xml:space="preserve">
+    <value>Header region: {0}. Region is encoded in the TMR SEGA header and enforced by BIOS on consoles that have one.</value>
+  </data>
+  <data name="SecAnalyzer_Sega32xCheckDynDesc" xml:space="preserve">
+    <value>Internal checksum: {0}. The 32X uses a Mega Drive-compatible checksum in the header.</value>
+  </data>
+  <data name="SecAnalyzer_SegaCDRegionDynDesc" xml:space="preserve">
+    <value>Region code: &quot;{0}&quot;. {1}. Sega CD uses region coding in the disc header similar to Mega Drive.</value>
+  </data>
+  <data name="SecAnalyzer_SmsGgChecksumDynDesc" xml:space="preserve">
+    <value>TMR SEGA checksum: {0}. Consoles with a BIOS validate this checksum before running the game.</value>
+  </data>
+  <data name="SecAnalyzer_SnesRegionLockDynDesc" xml:space="preserve">
+    <value>Region code: 0x{0} ({1}). SNES CIC chip enforces region-based lockout.</value>
+  </data>
+  <data name="SecAnalyzer_WiiRegionLockDynDesc" xml:space="preserve">
+    <value>Region: {0}. Wii enforces region lockout at both hardware and software levels. The System Menu checks the disc region code against the console&#x27;s region setting.</value>
+  </data>
+  <data name="GpMapper_Title" xml:space="preserve">
+    <value>Gamepad Key Mapper</value>
+  </data>
+  <data name="GpMapper_Description" xml:space="preserve">
+    <value>Map gamepad buttons to keyboard keys, mouse actions, scripts, and macros. Create multiple switchable mapping sets and auto-profiles that activate based on the active application.</value>
+  </data>
+  <data name="GpMapper_Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="GpMapper_Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="GpMapper_Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="GpMapper_Stopped" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="GpMapper_CycleSet" xml:space="preserve">
+    <value>Cycle Set</value>
+  </data>
+  <data name="GpMapper_Profiles" xml:space="preserve">
+    <value>Profiles</value>
+  </data>
+  <data name="GpMapper_AddProfile" xml:space="preserve">
+    <value>Add Profile</value>
+  </data>
+  <data name="GpMapper_RenameProfile" xml:space="preserve">
+    <value>Rename Profile</value>
+  </data>
+  <data name="GpMapper_DeleteProfile" xml:space="preserve">
+    <value>Delete Profile</value>
+  </data>
+  <data name="GpMapper_ExportProfile" xml:space="preserve">
+    <value>Export Profile</value>
+  </data>
+  <data name="GpMapper_ProfileNamePrompt" xml:space="preserve">
+    <value>Enter profile name:</value>
+  </data>
+  <data name="GpMapper_Sets" xml:space="preserve">
+    <value>Mapping Sets</value>
+  </data>
+  <data name="GpMapper_AddSet" xml:space="preserve">
+    <value>Add Set</value>
+  </data>
+  <data name="GpMapper_RemoveSet" xml:space="preserve">
+    <value>Remove Set</value>
+  </data>
+  <data name="GpMapper_Mappings" xml:space="preserve">
+    <value>Button Mappings</value>
+  </data>
+  <data name="GpMapper_MappingsHint" xml:space="preserve">
+    <value>Click Assign to map a gamepad input to a keyboard key, mouse button, mouse movement, script, or macro.</value>
+  </data>
+  <data name="GpMapper_Assign" xml:space="preserve">
+    <value>Assign</value>
+  </data>
+  <data name="GpMapper_AssignTitle" xml:space="preserve">
+    <value>Assign action for: {0}</value>
+  </data>
+  <data name="GpMapper_ActionType" xml:space="preserve">
+    <value>Action Type</value>
+  </data>
+  <data name="GpMapper_Keyboard" xml:space="preserve">
+    <value>Keyboard Key</value>
+  </data>
+  <data name="GpMapper_MouseButton" xml:space="preserve">
+    <value>Mouse Button</value>
+  </data>
+  <data name="GpMapper_MouseMove" xml:space="preserve">
+    <value>Mouse Move</value>
+  </data>
+  <data name="GpMapper_Script" xml:space="preserve">
+    <value>Script / Executable</value>
+  </data>
+  <data name="GpMapper_Macro" xml:space="preserve">
+    <value>Macro</value>
+  </data>
+  <data name="GpMapper_SelectKey" xml:space="preserve">
+    <value>Select key:</value>
+  </data>
+  <data name="GpMapper_SelectMouseBtn" xml:space="preserve">
+    <value>Select mouse button:</value>
+  </data>
+  <data name="GpMapper_MouseSpeed" xml:space="preserve">
+    <value>Mouse speed (pixels per tick):</value>
+  </data>
+  <data name="GpMapper_ScriptPath" xml:space="preserve">
+    <value>Script / Executable path:</value>
+  </data>
+  <data name="GpMapper_ScriptArgs" xml:space="preserve">
+    <value>Arguments:</value>
+  </data>
+  <data name="GpMapper_SelectFile" xml:space="preserve">
+    <value>Select file...</value>
+  </data>
+  <data name="GpMapper_OptionalArgs" xml:space="preserve">
+    <value>Optional arguments</value>
+  </data>
+  <data name="GpMapper_MacroSteps" xml:space="preserve">
+    <value>Macro Steps</value>
+  </data>
+  <data name="GpMapper_MacroHint" xml:space="preserve">
+    <value>One step per line. Format: Key:A 50ms, Mouse:Left 100ms, Run:path args. The delay after each step defaults to 50ms.</value>
+  </data>
+  <data name="GpMapper_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="GpMapper_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="GpMapper_AutoProfiles" xml:space="preserve">
+    <value>Auto Profiles</value>
+  </data>
+  <data name="GpMapper_AutoProfilesHint" xml:space="preserve">
+    <value>Automatically switch to a profile when a matching application window gains focus.</value>
+  </data>
+  <data name="GpMapper_WindowTitle" xml:space="preserve">
+    <value>Window title (substring)</value>
+  </data>
+  <data name="GpMapper_ProcessName" xml:space="preserve">
+    <value>Process name</value>
+  </data>
+  <data name="GpMapper_AddRule" xml:space="preserve">
+    <value>Add Rule</value>
+  </data>
+  <data name="GpMapper_ImportProfile" xml:space="preserve">
+    <value>Import Profile</value>
+  </data>
+  <data name="GpMapper_DeadZone" xml:space="preserve">
+    <value>Stick dead zone:</value>
+  </data>
+  <data name="GpMapper_Wizard" xml:space="preserve">
+    <value>Mapping Wizard</value>
+  </data>
+  <data name="GpMapper_WizardDesc" xml:space="preserve">
+    <value>Quickly set up a new profile with common mappings using the step-by-step wizard.</value>
+  </data>
+  <data name="GpMapper_WizardTitle" xml:space="preserve">
+    <value>Mapping Wizard</value>
+  </data>
+  <data name="GpMapper_WizardStep1Title" xml:space="preserve">
+    <value>Step 1: Profile Name</value>
+  </data>
+  <data name="GpMapper_WizardStep1Desc" xml:space="preserve">
+    <value>Choose a name for your new mapping profile.</value>
+  </data>
+  <data name="GpMapper_WizardStep2Title" xml:space="preserve">
+    <value>Step 2: Face Buttons</value>
+  </data>
+  <data name="GpMapper_WizardStep2Desc" xml:space="preserve">
+    <value>Assign keyboard keys to the face buttons (A, B, X, Y).</value>
+  </data>
+  <data name="GpMapper_WizardStep3Title" xml:space="preserve">
+    <value>Step 3: D-Pad</value>
+  </data>
+  <data name="GpMapper_WizardStep3Desc" xml:space="preserve">
+    <value>Choose what the D-Pad should do.</value>
+  </data>
+  <data name="GpMapper_WizardStep4Title" xml:space="preserve">
+    <value>Step 4: Left Stick</value>
+  </data>
+  <data name="GpMapper_WizardStep4Desc" xml:space="preserve">
+    <value>Choose what the left analog stick should do.</value>
+  </data>
+  <data name="GpMapper_WizardStep5Title" xml:space="preserve">
+    <value>Step 5: Triggers &amp; Shoulders</value>
+  </data>
+  <data name="GpMapper_WizardStep5Desc" xml:space="preserve">
+    <value>Assign keyboard keys to the triggers and shoulder buttons.</value>
+  </data>
+  <data name="GpMapper_WizardNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="GpMapper_WizardBack" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="GpMapper_WizardFinish" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="GpMapper_WizardArrowKeys" xml:space="preserve">
+    <value>Arrow Keys (↑↓←→)</value>
+  </data>
+  <data name="GpMapper_WizardWASD" xml:space="preserve">
+    <value>WASD Keys</value>
+  </data>
+  <data name="GpMapper_WizardMouseMove" xml:space="preserve">
+    <value>Mouse Movement</value>
+  </data>
+  <data name="GpMapper_WizardNone" xml:space="preserve">
+    <value>None (skip)</value>
+  </data>
+  <data name="GpMapper_WizardProfileCreated" xml:space="preserve">
+    <value>Profile "{0}" created with {1} mappings.</value>
+  </data>
+  <data name="GpMapper_InputDetected" xml:space="preserve">
+    <value>Detected: {0}</value>
+  </data>
+  <data name="GpMapper_ControllerConnected" xml:space="preserve">
+    <value>Controller connected</value>
+  </data>
+  <data name="GpMapper_ControllerDisconnected" xml:space="preserve">
+    <value>Controller disconnected</value>
+  </data>
+  <data name="GpMapper_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="MameAuditor_AndMore" xml:space="preserve">
+    <value>... and {0} more</value>
+  </data>
+  <data name="MameAuditor_CloneOf" xml:space="preserve">
+    <value> (clone of {0})</value>
+  </data>
+  <data name="MameAuditor_MissingMachinesHeader" xml:space="preserve">
+    <value>--- Missing machines ({0}) ---</value>
+  </data>
+  <data name="MameAuditor_MoreIssues" xml:space="preserve">
+    <value>... and {0} more issues</value>
+  </data>
+  <data name="MameAuditor_ProgressAuditing" xml:space="preserve">
+    <value>Auditing {0} of {1}: {2}</value>
+  </data>
+  <data name="MameAuditor_ProgressDone" xml:space="preserve">
+    <value>Done — {0} good, {1} incomplete, {2} bad, {3} missing.</value>
+  </data>
+  <data name="MameAuditor_SelectRomDirTitle" xml:space="preserve">
+    <value>Select MAME ROM Directory</value>
+  </data>
+  <data name="MameAuditor_SelectXmlTitle" xml:space="preserve">
+    <value>Select MAME XML / DAT File</value>
+  </data>
+  <data name="MameAuditor_SummaryFormat" xml:space="preserve">
+    <value>{0} good, {1} incomplete, {2} bad out of {3} ROM sets. {4} machines missing from directory.</value>
+  </data>
+  <data name="MameAuditor_XmlFileType" xml:space="preserve">
+    <value>MAME XML Files</value>
+  </data>
+  <data name="MameChdConv_BatchSummary" xml:space="preserve">
+    <value>{0} converted, {1} skipped, {2} failed</value>
+  </data>
+  <data name="MameChdConv_ChdFileType" xml:space="preserve">
+    <value>CHD Files</value>
+  </data>
+  <data name="MameChdConv_ChdmanNotFound" xml:space="preserve">
+    <value>chdman not found. Please install MAME tools (chdman) and ensure it is available in your system PATH, or configure your MAME path in Settings.</value>
+  </data>
+  <data name="MameChdConv_DiscImageFileType" xml:space="preserve">
+    <value>Disc Images</value>
+  </data>
+  <data name="MameChdConv_ProgressBatchComplete" xml:space="preserve">
+    <value>Batch complete — {0}</value>
+  </data>
+  <data name="MameChdConv_ProgressBatchCompressing" xml:space="preserve">
+    <value>Compressing {0} of {1}: {2}...</value>
+  </data>
+  <data name="MameChdConv_ProgressBatchDecompressing" xml:space="preserve">
+    <value>Decompressing {0} of {1}: {2}...</value>
+  </data>
+  <data name="MameChdConv_ProgressCompressing" xml:space="preserve">
+    <value>Compressing {0} to CHD...</value>
+  </data>
+  <data name="MameChdConv_ProgressCompressionComplete" xml:space="preserve">
+    <value>Compression complete.</value>
+  </data>
+  <data name="MameChdConv_ProgressDecompressing" xml:space="preserve">
+    <value>Decompressing {0}...</value>
+  </data>
+  <data name="MameChdConv_ProgressDecompressionComplete" xml:space="preserve">
+    <value>Decompression complete.</value>
+  </data>
+  <data name="MameChdConv_ProgressReadingHeader" xml:space="preserve">
+    <value>Reading CHD header...</value>
+  </data>
+  <data name="MameChdConv_SelectChdDirTitle" xml:space="preserve">
+    <value>Select CHD Directory</value>
+  </data>
+  <data name="MameChdConv_SelectChdFileTitle" xml:space="preserve">
+    <value>Select CHD File</value>
+  </data>
+  <data name="MameChdConv_SelectDiscDirTitle" xml:space="preserve">
+    <value>Select Disc Image Directory</value>
+  </data>
+  <data name="MameChdConv_SelectDiscFileTitle" xml:space="preserve">
+    <value>Select Disc Image</value>
+  </data>
+  <data name="MameChdConv_SelectOutputDirTitle" xml:space="preserve">
+    <value>Select Output Directory</value>
+  </data>
+  <data name="MameChdConv_SummaryRatio" xml:space="preserve">
+    <value>{0} → {1} ({2} ratio)</value>
+  </data>
+  <data name="MameChdConv_SummarySimple" xml:space="preserve">
+    <value>{0} → {1}</value>
+  </data>
+  <data name="MameChd_BatchError" xml:space="preserve">
+    <value>   Error: {0}</value>
+  </data>
+  <data name="MameChd_BatchSizeInfo" xml:space="preserve">
+    <value>   Logical size: {0}  |  Hunk size: {1}</value>
+  </data>
+  <data name="MameChd_ChdFileType" xml:space="preserve">
+    <value>CHD Files</value>
+  </data>
+  <data name="MameChd_HashNotAvailable" xml:space="preserve">
+    <value>Hash verification not available (no raw SHA-1 in header)</value>
+  </data>
+  <data name="MameChd_HashReadSuccess" xml:space="preserve">
+    <value>Header SHA-1 values read successfully</value>
+  </data>
+  <data name="MameChd_ProgressDone" xml:space="preserve">
+    <value>Done — {0} valid, {1} invalid.</value>
+  </data>
+  <data name="MameChd_ProgressReading" xml:space="preserve">
+    <value>Reading CHD header: {0}...</value>
+  </data>
+  <data name="MameChd_ProgressVerifying" xml:space="preserve">
+    <value>Verifying {0} of {1}: {2}</value>
+  </data>
+  <data name="MameChd_SelectChdDirTitle" xml:space="preserve">
+    <value>Select CHD Directory</value>
+  </data>
+  <data name="MameChd_SelectChdFileTitle" xml:space="preserve">
+    <value>Select CHD File</value>
+  </data>
+  <data name="MameChd_SummaryFormat" xml:space="preserve">
+    <value>{0} valid, {1} invalid out of {2} CHD files.</value>
+  </data>
+  <data name="MameDatEditor_CrcLabel" xml:space="preserve">
+    <value>CRC: {0}</value>
+  </data>
+  <data name="MameDatEditor_DatFileType" xml:space="preserve">
+    <value>DAT Files</value>
+  </data>
+  <data name="MameDatEditor_NoRomsOrDisks" xml:space="preserve">
+    <value>(no ROMs or disks)</value>
+  </data>
+  <data name="MameDatEditor_RomSizeBytes" xml:space="preserve">
+    <value>{0} ({1:N0} bytes)</value>
+  </data>
+  <data name="MameDatEditor_SelectDatTitle" xml:space="preserve">
+    <value>Select DAT File</value>
+  </data>
+  <data name="MameDatEditor_Sha1Label" xml:space="preserve">
+    <value>SHA1: {0}</value>
+  </data>
+  <data name="MameDatEditor_SummaryFormat" xml:space="preserve">
+    <value>{0} games ({1} parents, {2} clones), {3} ROMs, {4} disks, {5} samples</value>
+  </data>
+  <data name="MameDatEditor_XmlFileType" xml:space="preserve">
+    <value>XML Files</value>
+  </data>
+  <data name="MameDir2Dat_DatFileType" xml:space="preserve">
+    <value>DAT Files</value>
+  </data>
+  <data name="MameDir2Dat_GameSummaryLine" xml:space="preserve">
+    <value>{0} — {1} ROM(s), {2} disk(s)</value>
+  </data>
+  <data name="MameDir2Dat_MoreGames" xml:space="preserve">
+    <value>... and {0} more games</value>
+  </data>
+  <data name="MameDir2Dat_MoreRoms" xml:space="preserve">
+    <value>... and {0} more ROMs</value>
+  </data>
+  <data name="MameDir2Dat_ProgressDone" xml:space="preserve">
+    <value>Done — {0} games, {1} ROMs scanned.</value>
+  </data>
+  <data name="MameDir2Dat_ProgressScanning" xml:space="preserve">
+    <value>Scanning {0} of {1}: {2}...</value>
+  </data>
+  <data name="MameDir2Dat_SelectRomDirTitle" xml:space="preserve">
+    <value>Select ROM Directory</value>
+  </data>
+  <data name="MameDir2Dat_SummaryFormat" xml:space="preserve">
+    <value>{0} games with {1} ROMs scanned.</value>
+  </data>
+  <data name="MameIntegration_MameApplication" xml:space="preserve">
+    <value>MAME Application</value>
+  </data>
+  <data name="MameIntegration_MameExecutable" xml:space="preserve">
+    <value>MAME Executable</value>
+  </data>
+  <data name="MameLauncher_FailedToLaunch" xml:space="preserve">
+    <value>Failed to launch MAME: {0}</value>
+  </data>
+  <data name="MameLauncher_FailedToStart" xml:space="preserve">
+    <value>Failed to start MAME process.</value>
+  </data>
+  <data name="MameLauncher_Launched" xml:space="preserve">
+    <value>Launched {0} with MAME.</value>
+  </data>
+  <data name="MameLauncher_MameNotFound" xml:space="preserve">
+    <value>MAME not found. Please configure the path in Settings or download MAME.</value>
+  </data>
+  <data name="MameLauncher_RomNotFound" xml:space="preserve">
+    <value>ROM file not found.</value>
+  </data>
+  <data name="MameRebuilder_AndMore" xml:space="preserve">
+    <value>... and {0} more</value>
+  </data>
+  <data name="MameRebuilder_MissingRomsLabel" xml:space="preserve">
+    <value>Missing {0} ROMs:</value>
+  </data>
+  <data name="MameRebuilder_ProgressDone" xml:space="preserve">
+    <value>Done — {0} complete, {1} partial, {2} failed, {3} skipped.</value>
+  </data>
+  <data name="MameRebuilder_ProgressIndexed" xml:space="preserve">
+    <value>Indexed {0} files, found {1} unique CRC32 values.</value>
+  </data>
+  <data name="MameRebuilder_ProgressIndexing" xml:space="preserve">
+    <value>Indexing source files: {0} of {1}...</value>
+  </data>
+  <data name="MameRebuilder_ProgressProcessing" xml:space="preserve">
+    <value>Processing {0} of {1}: {2}...</value>
+  </data>
+  <data name="MameRebuilder_RomsIncluded" xml:space="preserve">
+    <value>{0} ROMs included</value>
+  </data>
+  <data name="MameRebuilder_SelectOutputDirTitle" xml:space="preserve">
+    <value>Select Output Directory</value>
+  </data>
+  <data name="MameRebuilder_SelectSourceDirTitle" xml:space="preserve">
+    <value>Select Source ROM Directory</value>
+  </data>
+  <data name="MameRebuilder_SelectXmlTitle" xml:space="preserve">
+    <value>Select MAME XML / DAT File</value>
+  </data>
+  <data name="MameRebuilder_SummaryFormat" xml:space="preserve">
+    <value>{0} complete, {1} partial, {2} failed, {3} skipped out of {4} machines.</value>
+  </data>
+  <data name="MameRebuilder_XmlFileType" xml:space="preserve">
+    <value>MAME XML Files</value>
+  </data>
+  <data name="MameSamples_AndMore" xml:space="preserve">
+    <value>... and {0} more</value>
+  </data>
+  <data name="MameSamples_MissingSample" xml:space="preserve">
+    <value>Missing: {0}</value>
+  </data>
+  <data name="MameSamples_MissingSetsHeader" xml:space="preserve">
+    <value>--- Missing sample sets ({0}) ---</value>
+  </data>
+  <data name="MameSamples_MoreMissing" xml:space="preserve">
+    <value>... and {0} more missing</value>
+  </data>
+  <data name="MameSamples_ProgressAuditing" xml:space="preserve">
+    <value>Auditing {0} of {1}: {2}</value>
+  </data>
+  <data name="MameSamples_ProgressDone" xml:space="preserve">
+    <value>Done — {0} good, {1} incomplete, {2} bad, {3} missing.</value>
+  </data>
+  <data name="MameSamples_SelectSampleDirTitle" xml:space="preserve">
+    <value>Select MAME Samples Directory</value>
+  </data>
+  <data name="MameSamples_SelectXmlTitle" xml:space="preserve">
+    <value>Select MAME XML / DAT File</value>
+  </data>
+  <data name="MameSamples_SummaryFormat" xml:space="preserve">
+    <value>{0} good, {1} incomplete, {2} bad out of {3} sample sets. {4} sets missing from directory.</value>
+  </data>
+  <data name="MameSamples_XmlFileType" xml:space="preserve">
+    <value>MAME XML Files</value>
+  </data>
+  <data name="Browser_CopyDestinationTitle" xml:space="preserve">
+    <value>Select Destination Folder for Copy</value>
+  </data>
+  <data name="Browser_MoveDestinationTitle" xml:space="preserve">
+    <value>Select Destination Folder for Move</value>
+  </data>
+  <data name="Browser_ExportDestinationTitle" xml:space="preserve">
+    <value>Select Output Folder for Header Export</value>
+  </data>
+  <data name="Browser_ConfirmDeletePrompt" xml:space="preserve">
+    <value>⚠️ Are you sure you want to permanently delete {0} ROM file(s)? This cannot be undone.</value>
+  </data>
+  <data name="Browser_ConfirmDelete" xml:space="preserve">
+    <value>Confirm Delete</value>
+  </data>
+  <data name="Browser_RomFilesDescription" xml:space="preserve">
+    <value>ROM Files</value>
+  </data>
+  <data name="Browser_AllSystems" xml:space="preserve">
+    <value>All Systems</value>
+  </data>
+  <data name="Browser_Scanning" xml:space="preserve">
+    <value>Scanning...</value>
+  </data>
+  <data name="Browser_ArtworkLoading" xml:space="preserve">
+    <value>Loading artwork...</value>
+  </data>
+  <data name="Browser_ArtworkLoaded" xml:space="preserve">
+    <value>Artwork loaded.</value>
+  </data>
+  <data name="Browser_ArtworkNotFound" xml:space="preserve">
+    <value>No artwork found.</value>
+  </data>
+  <data name="Browser_SearchingArtwork" xml:space="preserve">
+    <value>Searching artwork for "{0}"...</value>
+  </data>
+  <data name="Browser_FetchingScreenshot" xml:space="preserve">
+    <value>Fetching screenshot...</value>
+  </data>
+  <data name="Browser_FetchingTitleScreen" xml:space="preserve">
+    <value>Fetching title screen...</value>
+  </data>
+  <data name="Browser_SearchingThumbnailIndex" xml:space="preserve">
+    <value>Searching thumbnail index...</value>
+  </data>
+  <data name="Browser_ArtworkNetworkError" xml:space="preserve">
+    <value>Network error fetching artwork: {0}</value>
+  </data>
+  <data name="Browser_ArtworkRequestTimeout" xml:space="preserve">
+    <value>Artwork request timed out.</value>
+  </data>
+  <data name="FormatConv_AddCopierHeader" xml:space="preserve">
+    <value>Add Copier Header (512 bytes)</value>
+  </data>
+  <data name="FormatConv_RemoveCopierHeader" xml:space="preserve">
+    <value>Remove Copier Header (512 bytes)</value>
+  </data>
+  <data name="FormatConv_NesToUnheadered" xml:space="preserve">
+    <value>Remove iNES Header (16 bytes)</value>
+  </data>
+  <data name="FormatConv_NesFixHeader" xml:space="preserve">
+    <value>Fix iNES Header</value>
+  </data>
+  <data name="FormatConv_ConvertToCHD" xml:space="preserve">
+    <value>Convert to CHD (Compressed Hunks of Data)</value>
+  </data>
+  <data name="FormatConv_ConvertToRVZ" xml:space="preserve">
+    <value>Convert to RVZ (Dolphin Compressed Image)</value>
+  </data>
+  <data name="FormatConv_ProgressRemoving" xml:space="preserve">
+    <value>Removing {0}-byte {1}...</value>
+  </data>
+  <data name="FormatConv_ProgressAdding" xml:space="preserve">
+    <value>Adding {0}-byte copier header...</value>
+  </data>
+  <data name="FormatConv_ProgressFixingNes" xml:space="preserve">
+    <value>Fixing iNES header...</value>
+  </data>
+  <data name="FormatConv_ProgressDone" xml:space="preserve">
+    <value>Done.</value>
+  </data>
+  <data name="FormatConv_ProgressConvertCHD" xml:space="preserve">
+    <value>Converting to CHD format...</value>
+  </data>
+  <data name="FormatConv_ProgressConvertRVZ" xml:space="preserve">
+    <value>Converting to RVZ format...</value>
+  </data>
+  <data name="FormatConv_ErrorTooSmall" xml:space="preserve">
+    <value>File is too small to contain a {0}.</value>
+  </data>
+  <data name="FormatConv_ErrorNotNes" xml:space="preserve">
+    <value>Not a valid iNES ROM file.</value>
+  </data>
+  <data name="FormatConv_ErrorTooLargeNes" xml:space="preserve">
+    <value>File is too large ({0:F1} MB). Maximum supported size for NES header fix: 64 MB.</value>
+  </data>
+  <data name="FormatConv_ErrorChdmanNotFound" xml:space="preserve">
+    <value>chdman not found. Please install MAME tools (chdman) and ensure it is available in your system PATH.</value>
+  </data>
+  <data name="FormatConv_ErrorDolphinToolNotFound" xml:space="preserve">
+    <value>DolphinTool not found. Please install Dolphin Emulator tools (DolphinTool) and ensure it is available in your system PATH.</value>
+  </data>
+  <data name="FormatConv_ErrorToolFailed" xml:space="preserve">
+    <value>{0} failed (exit code {1}): {2}</value>
+  </data>
+  <data name="FormatConv_BatchProgress" xml:space="preserve">
+    <value>Processing {0} of {1}: {2}</value>
+  </data>
+  <data name="FormatConv_BatchDone" xml:space="preserve">
+    <value>Done — {0} converted, {1} skipped, {2} failed.</value>
+  </data>
+  <data name="FormatConv_BatchSummary" xml:space="preserve">
+    <value>{0} converted, {1} skipped, {2} failed</value>
+  </data>
+  <data name="FormatConv_SelectRomFile" xml:space="preserve">
+    <value>Select ROM File</value>
+  </data>
+  <data name="FormatConv_SelectRomDirectory" xml:space="preserve">
+    <value>Select ROM Directory</value>
+  </data>
+  <data name="FormatConv_SelectOutputDirectory" xml:space="preserve">
+    <value>Select Output Directory</value>
+  </data>
+  <data name="SaveConv_ProgressApplying" xml:space="preserve">
+    <value>Applying conversion: {0}...</value>
+  </data>
+  <data name="SaveConv_ProgressWriting" xml:space="preserve">
+    <value>Writing output file...</value>
+  </data>
+  <data name="SaveConv_ProgressDone" xml:space="preserve">
+    <value>Done.</value>
+  </data>
+  <data name="SaveConv_ErrorFileTooLarge" xml:space="preserve">
+    <value>File is too large ({0:F1} MB). Maximum supported size: {1} MB.</value>
+  </data>
+  <data name="SaveConv_BrowseInputTitle" xml:space="preserve">
+    <value>Select Save File</value>
+  </data>
+  <data name="N64Conv_ProgressAlreadyTarget" xml:space="preserve">
+    <value>Source ROM is already in the target format. Copying...</value>
+  </data>
+  <data name="N64Conv_ProgressConverting" xml:space="preserve">
+    <value>Converting from {0} to {1}...</value>
+  </data>
+  <data name="N64Conv_ProgressDone" xml:space="preserve">
+    <value>Done.</value>
+  </data>
+  <data name="N64Conv_ErrorUnknownFormat" xml:space="preserve">
+    <value>Not a recognized N64 ROM (unknown byte order).</value>
+  </data>
+  <data name="AnaloguePocket_BrowseSdCardTitle" xml:space="preserve">
+    <value>Select Analogue Pocket SD Card</value>
+  </data>
+  <data name="AnaloguePocket_SelectOutputScreenshots" xml:space="preserve">
+    <value>Select Output Folder for Screenshots</value>
+  </data>
+  <data name="AnaloguePocket_SelectBackupFolder" xml:space="preserve">
+    <value>Select Backup Destination Folder</value>
+  </data>
+  <data name="AnaloguePocket_SelectRestoreFolder" xml:space="preserve">
+    <value>Select Backup Folder to Restore From</value>
+  </data>
+  <data name="AnaloguePocket_SelectGbCameraOutput" xml:space="preserve">
+    <value>Select Output Folder for GB Camera Photos</value>
+  </data>
+  <data name="AnaloguePocket_SelectCopySource" xml:space="preserve">
+    <value>Select Source Folder to Copy From</value>
+  </data>
+  <data name="AnaloguePocket_ProgressExporting" xml:space="preserve">
+    <value>Exporting {0}...</value>
+  </data>
+  <data name="AnaloguePocket_ProgressBackingUp" xml:space="preserve">
+    <value>Backing up {0}...</value>
+  </data>
+  <data name="AnaloguePocket_ProgressRestoring" xml:space="preserve">
+    <value>Restoring {0}...</value>
+  </data>
+  <data name="AnaloguePocket_ProgressDeleting" xml:space="preserve">
+    <value>Deleting {0}...</value>
+  </data>
+  <data name="AnaloguePocket_ProgressExportingPhoto" xml:space="preserve">
+    <value>Exporting photo {0}...</value>
+  </data>
+  <data name="AnaloguePocket_ProgressCopying" xml:space="preserve">
+    <value>Copying {0}...</value>
+  </data>
+  <data name="AnaloguePocket_ProgressGeneratingImage" xml:space="preserve">
+    <value>Generating image for {0}...</value>
+  </data>
+  <data name="Analogue3D_BrowseSdCardTitle" xml:space="preserve">
+    <value>Select Analogue 3D SD Card</value>
+  </data>
+  <data name="Analogue3D_ConfirmDeleteTitle" xml:space="preserve">
+    <value>Confirm Deletion</value>
+  </data>
+  <data name="Analogue3D_ConfirmDeleteMessage" xml:space="preserve">
+    <value>Are you sure you want to delete "{0}" and all its associated settings and artwork? This action cannot be undone.</value>
+  </data>
+  <data name="AnalogueMegaSg_BrowseSdCardTitle" xml:space="preserve">
+    <value>Select Analogue Mega SG SD Card</value>
+  </data>
+  <data name="AnalogueNtSuperNt_BrowseSdCardTitle" xml:space="preserve">
+    <value>Select Analogue NT / Super NT SD Card</value>
+  </data>
+  <data name="HeaderExport_RomDirectory" xml:space="preserve">
+    <value>ROM Directory:</value>
+  </data>
+  <data name="HeaderExport_RomFile" xml:space="preserve">
+    <value>ROM File:</value>
+  </data>
+  <data name="HeaderExport_SelectRomDirectory" xml:space="preserve">
+    <value>Select a ROM directory...</value>
+  </data>
+  <data name="HeaderExport_SelectRomFile" xml:space="preserve">
+    <value>Select a ROM file...</value>
+  </data>
+  <data name="HeaderExport_SelectRomDirTitle" xml:space="preserve">
+    <value>Select ROM Directory</value>
+  </data>
+  <data name="HeaderExport_SelectRomFileTitle" xml:space="preserve">
+    <value>Select ROM File</value>
+  </data>
+  <data name="GpMapper_DefaultProfileName" xml:space="preserve">
+    <value>My Profile</value>
+  </data>
+  <data name="GpMapper_MouseLeft" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="GpMapper_MouseRight" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="GpMapper_MouseMiddle" xml:space="preserve">
+    <value>Middle</value>
+  </data>
+  <data name="GpMapper_MouseBack" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="GpMapper_MouseForward" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="GpMapper_MacroExample" xml:space="preserve">
+    <value>Key:A 50ms
+Key:Space 100ms
+Mouse:Left 50ms
+Run:notepad.exe</value>
+  </data>
+  <data name="Common_NeoGeoBiosNoticeWithSeparator" xml:space="preserve">
+    <value>{0}  ·  {1}</value>
+  </data>
+  <data name="BigPicture_RecentlyPlayedBarIcon" xml:space="preserve">
+    <value>🕹 {0}</value>
+  </data>
+  <data name="BigPicture_RatingDisplay" xml:space="preserve">
+    <value>{0} ({1}/5)</value>
+  </data>
+  <data name="BigPicture_UnratedDisplay" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="MameDatEditor_DatInfoIcon" xml:space="preserve">
+    <value>📋 {0}</value>
   </data>
 </root>

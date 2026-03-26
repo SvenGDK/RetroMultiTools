@@ -35,9 +35,16 @@ All keyboard shortcuts available in Retro Multi Tools.
 | **Start** | Show / hide help overlay |
 | **Back (Select)** | Pick a random game |
 | **Guide** | Exit Big Picture Mode |
-| **LB / RB** | Page Up / Page Down |
+| **LB** | Page Up (modifier for combos below) |
+| **RB** | Page Down |
+| **LT** | Show / hide Collection Statistics overlay |
+| **RT** | Toggle auto-scroll gallery mode |
 | **L3 / R3** | Jump to first / last card |
 | **Right Stick ↕** | Zoom in / out |
+| **LB + A** | Open / close fullscreen artwork viewer |
+| **LB + B** | Toggle recently played bar |
+| **LB + Y** | Cycle game rating (0–5) |
+| **LB + D-Pad ← / →** | Cycle system filter backward / forward |
 
 ---
 

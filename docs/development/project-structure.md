@@ -20,11 +20,14 @@ RetroMultiTools/
 │   ├── Services/                  # Application services
 │   ├── Utilities/                 # Core feature implementations
 │   │   ├── Analogue/              # Analogue device utilities (Pocket, Mega SG, 3D)
+│   │   ├── GamepadKeyMapper/      # Gamepad-to-keyboard/mouse mapping engine
 │   │   ├── Mame/                  # MAME arcade utilities (auditor, CHD, rebuilder)
+│   │   ├── Mednafen/              # Mednafen emulator launcher
 │   │   └── RetroArch/             # RetroArch integration utilities (launcher, cores, playlists)
 │   └── Views/                     # UI views (AXAML + code-behind)
 │       ├── Analogue/              # Analogue device views
 │       ├── Mame/                  # MAME tool views
+│       ├── Mednafen/              # Mednafen integration views
 │       └── RetroArch/             # RetroArch integration views
 ├── RetroMultiTools.Updater/       # External updater project (Console)
 │   └── Program.cs                 # Update extraction and relaunch logic
@@ -108,7 +111,6 @@ Utilities are organized into subdirectories by category:
 | `PatchCreator.cs` | Creates IPS patches by comparing original and modified ROM files |
 | `RemoteTransferService.cs` | Transfers files to remote targets via FTP, SFTP, WebDAV, Amazon S3, and cloud storage providers |
 | `RomComparer.cs` | Streaming byte-by-byte binary comparison of two ROM files |
-| `RomDecompressor.cs` | Decompresses GZip-compressed ROM files (.gz), single or batch |
 | `RomFormatConverter.cs` | Adds/removes copier headers, converts disc images to CHD or RVZ format |
 | `RomHeaderExporter.cs` | Exports ROM header information to text or CSV reports |
 | `RomHostingService.cs` | Built-in HTTP server for sharing ROMs on the local network |
@@ -119,7 +121,8 @@ Utilities are organized into subdirectories by category:
 | `SecurityAnalyzer.cs` | Detects region locking, copy protection, and checksum integrity across all supported systems |
 | `SnesHeaderTool.cs` | Detects, adds, and removes the 512-byte copier header from SNES ROM dumps |
 | `SplitRomAssembler.cs` | Reassembles split ROM files (.001/.002, .part1/.part2, .z01/.z02) into a single file |
-| `ZipRomExtractor.cs` | Extracts ROM files from ZIP archives, single or batch |
+| `XdeltaPatcher.cs` | Applies xDelta/VCDIFF patches (RFC 3284) with address cache and Adler-32 verification |
+| `ArchiveManager.cs` | Unified archive manager: extract ROMs from ZIP/RAR/7z/GZip, create ZIP archives, single or batch |
 
 #### Utilities/Analogue/
 
@@ -129,18 +132,34 @@ Utilities are organized into subdirectories by category:
 | `AnalogueFontGenerator.cs` | Generates 8×8 pixel fonts for Analogue Mega SG, NT, and Super NT |
 | `AnaloguePocketManager.cs` | Manages Analogue Pocket SD card operations (cores, saves, screenshots) |
 
+#### Utilities/GamepadKeyMapper/
+
+| File | Description |
+|---|---|
+| `GamepadKeyMapperEngine.cs` | Core gamepad-to-keyboard/mouse mapping engine with profile and set management |
+| `GamepadKeyMapperModels.cs` | Data models for button mappings, profiles, mapping sets, and auto-profile rules |
+| `ActiveWindowMonitor.cs` | Monitors the active window for auto-profile switching |
+| `InputSimulator.cs` | Simulates keyboard and mouse input on the host system |
+
 #### Utilities/Mame/
 
 | File | Description |
 |---|---|
 | `MameChdConverter.cs` | Converts MAME CHD (Compressed Hunks of Data) files between formats |
 | `MameChdVerifier.cs` | Verifies MAME CHD file integrity (headers, checksums, compression metadata) |
+| `MameCrc32.cs` | Shared CRC32 helper for MAME ROM auditing |
 | `MameDatEditor.cs` | Edits MAME DAT database files |
 | `MameDir2Dat.cs` | Creates Logiqx XML DAT files from a directory of ROM ZIPs, loose files, and CHD disks |
 | `MameLauncher.cs` | Launches standalone MAME emulator with ROM sets |
 | `MameRomAuditor.cs` | Audits MAME ROM sets against a MAME XML database for completeness and CRC32 correctness |
 | `MameSampleAuditor.cs` | Audits MAME sample audio ZIPs for expected WAV files per machine |
 | `MameSetRebuilder.cs` | Rebuilds MAME ROM sets (split, non-merged, or merged) from scattered files |
+
+#### Utilities/Mednafen/
+
+| File | Description |
+|---|---|
+| `MednafenLauncher.cs` | Launches ROMs with the Mednafen emulator with automatic module selection |
 
 #### Utilities/RetroArch/
 
@@ -179,7 +198,8 @@ Views are organized into subdirectories by category:
 
 - `Views/` — General ROM tool views (browser, inspector, patcher, checksum, etc.)
 - `Views/Analogue/` — Analogue device views (Pocket, Mega SG, NT/Super NT, 3D)
-- `Views/Mame/` — MAME tool views (auditor, CHD, rebuilder, Dir2Dat, etc.)
+- `Views/Mame/` — MAME tool views (auditor, CHD, rebuilder, Dir2Dat, DAT editor, integration)
+- `Views/Mednafen/` — Mednafen emulator integration view
 - `Views/RetroArch/` — RetroArch integration views (playlists, shortcuts, achievements)
 
 Views handle:
@@ -201,7 +221,7 @@ All user-facing text uses resource keys from `Strings.resx`. The `LocalizationMa
 
 ### Main Window
 
-`MainWindow.axaml` defines the sidebar navigation with 34+ feature entries organized into categories (Browse & Inspect, Patching & Conversion, Analysis & Verification, Headers & Trimming, Utilities, RetroArch, MAME, Analogue, Settings). Clicking a menu item swaps the content area to the corresponding view. Three features open separate modal windows: `GamepadMapperWindow` (SDL2 gamepad mapping tool), `HostRomsWindow` (ROM hosting server), and `SendToRemoteWindow` (remote file transfer).
+`MainWindow.axaml` defines the sidebar navigation with 44+ feature entries organized into categories (Browse & Inspect, Patching & Conversion, Analysis & Verification, Headers & Trimming, Utilities, RetroArch, MAME, Mednafen, Analogue, Settings). Clicking a menu item swaps the content area to the corresponding view. Three features open separate modal windows: `GamepadMapperWindow` (SDL2 gamepad mapping tool), `HostRomsWindow` (ROM hosting server), and `SendToRemoteWindow` (remote file transfer).
 
 `MainWindow.axaml.cs` provides public methods for external control:
 
@@ -252,7 +272,7 @@ try
 }
 catch
 {
-    try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+    try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
     throw;
 }
 ```

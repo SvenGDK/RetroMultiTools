@@ -1,6 +1,8 @@
 using System.IO.Compression;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using RetroMultiTools.Utilities;
+using SharpCompress.Archives;
 
 namespace RetroMultiTools.Detection;
 
@@ -110,7 +112,7 @@ public static class RomDetector
                 FilePath = filePath ?? "",
                 FileName = "",
                 IsValid = false,
-                ErrorMessage = "File path cannot be null or empty."
+                ErrorMessage = LocalizationManager.Instance["Detect_ErrorPathEmpty"]
             };
         }
 
@@ -126,7 +128,7 @@ public static class RomDetector
             if (!fileInfo.Exists)
             {
                 info.IsValid = false;
-                info.ErrorMessage = "File not found.";
+                info.ErrorMessage = LocalizationManager.Instance["Detect_ErrorFileNotFound"];
                 return info;
             }
 
@@ -138,6 +140,13 @@ public static class RomDetector
             if (string.Equals(ext, ".zip", StringComparison.OrdinalIgnoreCase))
             {
                 DetectZip(info, filePath);
+                return info;
+            }
+
+            if (string.Equals(ext, ".rar", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(ext, ".7z", StringComparison.OrdinalIgnoreCase))
+            {
+                DetectArchive(info, filePath);
                 return info;
             }
 
@@ -167,7 +176,7 @@ public static class RomDetector
                 info.System = RomSystem.Unknown;
                 info.SystemName = "Unknown";
                 info.IsValid = false;
-                info.ErrorMessage = "Unrecognized file extension.";
+                info.ErrorMessage = LocalizationManager.Instance["Detect_ErrorUnrecognizedExt"];
             }
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
@@ -413,7 +422,7 @@ public static class RomDetector
             info.System = RomSystem.Unknown;
             info.SystemName = GetSystemDisplayName(RomSystem.Unknown);
             info.IsValid = false;
-            info.ErrorMessage = "No recognized ROM header signature found in .bin file.";
+            info.ErrorMessage = LocalizationManager.Instance["Detect_ErrorNoRomHeader"];
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
@@ -498,14 +507,82 @@ public static class RomDetector
             info.System = RomSystem.Unknown;
             info.SystemName = GetSystemDisplayName(RomSystem.Unknown);
             info.IsValid = false;
-            info.ErrorMessage = "ZIP archive does not contain files with recognized ROM extensions.";
+            info.ErrorMessage = LocalizationManager.Instance["Detect_ErrorZipNoRoms"];
         }
         catch (InvalidDataException)
         {
             info.IsValid = false;
-            info.ErrorMessage = "Invalid or corrupted ZIP archive.";
+            info.ErrorMessage = LocalizationManager.Instance["Detect_ErrorZipInvalid"];
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            info.IsValid = false;
+            info.ErrorMessage = ex.Message;
+        }
+    }
+
+    /// <summary>
+    /// Detects the gaming system of a ROM stored inside a RAR or 7z archive.
+    /// Uses the same single-pass approach as <see cref="DetectZip"/>: checks for
+    /// recognized console/computer extensions and simultaneously collects MAME
+    /// Arcade ROM set heuristics.
+    /// </summary>
+    private static void DetectArchive(RomInfo info, string filePath)
+    {
+        try
+        {
+            using var archive = ArchiveFactory.Open(filePath);
+
+            int fileCount = 0;
+            int chipDumpCount = 0;
+
+            foreach (var entry in archive.Entries)
+            {
+                if (entry.IsDirectory)
+                    continue;
+
+                string entryName = entry.Key ?? "";
+                string ext = Path.GetExtension(entryName);
+
+                if (!string.IsNullOrEmpty(ext) && ExtensionMap.TryGetValue(ext, out var system))
+                {
+                    info.System = system;
+                    info.SystemName = GetSystemDisplayName(system);
+                    info.IsValid = true;
+                    return;
+                }
+
+                fileCount++;
+
+                if (!string.IsNullOrEmpty(ext) && NonRomExtensions.Contains(ext))
+                    continue;
+
+                if (string.IsNullOrEmpty(ext))
+                {
+                    chipDumpCount++;
+                }
+                else
+                {
+                    ReadOnlySpan<char> bare = ext.AsSpan(1);
+                    if (bare.Length >= 1 && bare.Length <= 8 && IsAsciiAlphanumeric(bare))
+                        chipDumpCount++;
+                }
+            }
+
+            if (chipDumpCount >= 2 && chipDumpCount * 2 >= fileCount)
+            {
+                info.System = RomSystem.Arcade;
+                info.SystemName = GetSystemDisplayName(RomSystem.Arcade);
+                info.IsValid = true;
+                return;
+            }
+
+            info.System = RomSystem.Unknown;
+            info.SystemName = GetSystemDisplayName(RomSystem.Unknown);
+            info.IsValid = false;
+            info.ErrorMessage = LocalizationManager.Instance["Detect_ErrorArchiveNoRoms"];
+        }
+        catch (Exception ex) when (ex is InvalidDataException or InvalidOperationException or IOException or UnauthorizedAccessException)
         {
             info.IsValid = false;
             info.ErrorMessage = ex.Message;
@@ -604,7 +681,7 @@ public static class RomDetector
                         info.System = RomSystem.Unknown;
                         info.SystemName = GetSystemDisplayName(RomSystem.Unknown);
                         info.IsValid = false;
-                        info.ErrorMessage = "File has a Mega Drive extension but no valid SEGA header signature.";
+                        info.ErrorMessage = LocalizationManager.Instance["Detect_ErrorMegaDriveNoSega"];
                     }
                     break;
                 case RomSystem.MemotechMTX:
@@ -700,7 +777,7 @@ public static class RomDetector
         if (read < 16 || header[0] != 0x4E || header[1] != 0x45 || header[2] != 0x53 || header[3] != 0x1A)
         {
             info.IsValid = false;
-            info.ErrorMessage = "Invalid iNES header magic.";
+            info.ErrorMessage = LocalizationManager.Instance["Detect_ErrorInvalidNes"];
             return;
         }
 
@@ -824,7 +901,7 @@ public static class RomDetector
         if (read < 4)
         {
             info.IsValid = false;
-            info.ErrorMessage = "File too small to parse N64 header.";
+            info.ErrorMessage = LocalizationManager.Instance["Detect_ErrorN64TooSmall"];
             return;
         }
 
@@ -858,7 +935,7 @@ public static class RomDetector
         }
 
         info.IsValid = format != null;
-        if (!info.IsValid) info.ErrorMessage = "Unrecognized N64 ROM byte order.";
+        if (!info.IsValid) info.ErrorMessage = LocalizationManager.Instance["Detect_ErrorN64ByteOrder"];
     }
 
     private static void ParseGbHeader(RomInfo info, byte[] header, int read)
@@ -870,7 +947,7 @@ public static class RomDetector
             if (!validLogo)
             {
                 info.IsValid = false;
-                info.ErrorMessage = "Nintendo logo bytes not found at 0x104.";
+                info.ErrorMessage = LocalizationManager.Instance["Detect_ErrorGBNoLogo"];
                 return;
             }
         }
@@ -910,7 +987,7 @@ public static class RomDetector
             if (!validLogo)
             {
                 info.IsValid = false;
-                info.ErrorMessage = "GBA header logo not found.";
+                info.ErrorMessage = LocalizationManager.Instance["Detect_ErrorGBANoLogo"];
                 return;
             }
         }

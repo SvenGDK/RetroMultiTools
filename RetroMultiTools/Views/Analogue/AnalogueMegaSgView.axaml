@@ -57,7 +57,7 @@
         <!-- Save File Info -->
         <Border x:Name="SaveInfoPanel" Background="#181825" CornerRadius="6" Padding="12"
                 IsVisible="False">
-            <Grid ColumnDefinitions="140,*" RowDefinitions="Auto,Auto,Auto">
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto">
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [AnalogueMegaSg_FileSize], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,6"/>
                 <TextBlock Grid.Row="0" Grid.Column="1" x:Name="SaveFileSizeText" Foreground="#CDD6F4" Margin="0,0,0,6"/>
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [AnalogueMegaSg_DetectedType], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,6"/>
@@ -69,14 +69,14 @@
 
         <StackPanel Spacing="4">
             <TextBlock Text="{Binding [AnalogueMegaSg_Conversion], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
-            <ComboBox x:Name="ConversionComboBox" Width="300" SelectedIndex="0">
-                <ComboBoxItem Content="Swap Endian (16-bit)"/>
-                <ComboBoxItem Content="Swap Endian (32-bit)"/>
-                <ComboBoxItem Content="Pad to Power of Two"/>
-                <ComboBoxItem Content="Trim Trailing Zeros"/>
-                <ComboBoxItem Content="Trim Trailing 0xFF"/>
-                <ComboBoxItem Content="SRM → SAV"/>
-                <ComboBoxItem Content="SAV → SRM"/>
+            <ComboBox x:Name="ConversionComboBox" MinWidth="300" SelectedIndex="0">
+                <ComboBoxItem Content="{Binding [SaveConv_SwapEndian16], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <ComboBoxItem Content="{Binding [SaveConv_SwapEndian32], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <ComboBoxItem Content="{Binding [SaveConv_PadPowerOfTwo], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <ComboBoxItem Content="{Binding [SaveConv_TrimZeros], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <ComboBoxItem Content="{Binding [SaveConv_TrimFF], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <ComboBoxItem Content="{Binding [SaveConv_SrmToSav], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <ComboBoxItem Content="{Binding [SaveConv_SavToSrm], Source={x:Static loc:LocalizationManager.Instance}}"/>
             </ComboBox>
         </StackPanel>
 

@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -19,21 +20,37 @@ public partial class PatchCreatorView : UserControl
 
     private async void BrowseOriginal_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select Original ROM File");
-        if (path == null) return;
-        OriginalFileTextBox.Text = path;
-        TryAnalyze();
+        try
+        {
+            var loc = LocalizationManager.Instance;
+            var path = await PickFile(loc["PatchCreator_SelectOriginal"]);
+            if (path == null) return;
+            OriginalFileTextBox.Text = path;
+            await AnalyzeAsync();
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"BrowseOriginal_Click error: {ex}");
+        }
     }
 
     private async void BrowseModified_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select Modified ROM File");
-        if (path == null) return;
-        ModifiedFileTextBox.Text = path;
-        TryAnalyze();
+        try
+        {
+            var loc = LocalizationManager.Instance;
+            var path = await PickFile(loc["PatchCreator_SelectModified"]);
+            if (path == null) return;
+            ModifiedFileTextBox.Text = path;
+            await AnalyzeAsync();
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"BrowseModified_Click error: {ex}");
+        }
     }
 
-    private void TryAnalyze()
+    private async Task AnalyzeAsync()
     {
         string original = OriginalFileTextBox.Text ?? "";
         string modified = ModifiedFileTextBox.Text ?? "";
@@ -43,14 +60,14 @@ public partial class PatchCreatorView : UserControl
 
         try
         {
-            _analysis = PatchCreator.Analyze(original, modified);
+            _analysis = await Task.Run(() => PatchCreator.Analyze(original, modified));
 
             OriginalSizeText.Text = FileUtils.FormatFileSize(_analysis.OriginalSize);
             ModifiedSizeText.Text = FileUtils.FormatFileSize(_analysis.ModifiedSize);
             DiffCountText.Text = _analysis.IsIdentical
-                ? "Files are identical"
-                : $"{_analysis.DifferingBytes:N0} bytes differ";
-            FormatText.Text = _analysis.CanCreateIps ? "IPS" : "Files too large for IPS";
+                ? LocalizationManager.Instance["PatchCreator_FilesIdentical"]
+                : string.Format(LocalizationManager.Instance["PatchCreator_BytesDiffer"], _analysis.DifferingBytes.ToString("N0"));
+            FormatText.Text = _analysis.CanCreateIps ? "IPS" : LocalizationManager.Instance["PatchCreator_FilesTooLargeIps"];
 
             AnalysisPanel.IsVisible = true;
             CreateButton.IsEnabled = !_analysis.IsIdentical && _analysis.CanCreateIps;
@@ -64,38 +81,48 @@ public partial class PatchCreatorView : UserControl
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error analyzing: {ex.Message}", isError: true);
+            var loc = LocalizationManager.Instance;
+            ShowStatus(string.Format(loc["PatchCreator_AnalyzeError"], ex.Message), isError: true);
         }
     }
 
     private async void BrowseOutput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel == null) return;
-
-        var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        try
         {
-            Title = "Save IPS Patch As",
-            SuggestedFileName = Path.GetFileName(OutputFileTextBox.Text ?? "patch.ips"),
-            FileTypeChoices =
-            [
-                new FilePickerFileType("IPS Patch") { Patterns = ["*.ips"] }
-            ]
-        });
+            var loc = LocalizationManager.Instance;
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel == null) return;
 
-        if (file != null)
-            OutputFileTextBox.Text = file.Path.LocalPath;
+            var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = loc["PatchCreator_SaveDialogTitle"],
+                SuggestedFileName = Path.GetFileName(OutputFileTextBox.Text ?? "patch.ips"),
+                FileTypeChoices =
+                [
+                    new FilePickerFileType("IPS Patch") { Patterns = ["*.ips"] }
+                ]
+            });
+
+            if (file != null)
+                OutputFileTextBox.Text = file.Path.LocalPath;
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"BrowseOutput_Click error: {ex}");
+        }
     }
 
     private async void CreateButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string original = OriginalFileTextBox.Text ?? "";
         string modified = ModifiedFileTextBox.Text ?? "";
         string output = OutputFileTextBox.Text ?? "";
 
         if (string.IsNullOrEmpty(original) || string.IsNullOrEmpty(modified) || string.IsNullOrEmpty(output))
         {
-            ShowStatus("Please fill in all file paths.", isError: true);
+            ShowStatus(loc["PatchCreator_FillAllPaths"], isError: true);
             return;
         }
 
@@ -106,13 +133,13 @@ public partial class PatchCreatorView : UserControl
         try
         {
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
-            await PatchCreator.CreateIpsAsync(original, modified, output, progress);
+            await PatchCreator.CreateIpsAsync(original, modified, output, progress, loc);
             var patchSize = new FileInfo(output).Length;
-            ShowStatus($"✔ IPS patch created!\nOutput: {output}\nPatch size: {FileUtils.FormatFileSize(patchSize)}", isError: false);
+            ShowStatus(string.Format(loc["PatchCreator_PatchCreated"], output, FileUtils.FormatFileSize(patchSize)), isError: false);
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

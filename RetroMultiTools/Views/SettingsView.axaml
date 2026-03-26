@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
              x:Class="RetroMultiTools.Views.SettingsView">
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
     <StackPanel Spacing="16" MaxWidth="600" HorizontalAlignment="Left">
@@ -16,7 +17,7 @@
                            FontWeight="SemiBold" Foreground="#CDD6F4"/>
                 <TextBlock Text="{Binding [Settings_LanguageDescription], Source={x:Static loc:LocalizationManager.Instance}}"
                            Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap"/>
-                <ComboBox x:Name="LanguageCombo" Width="350" HorizontalAlignment="Left"
+                <ComboBox x:Name="LanguageCombo" MinWidth="350" HorizontalAlignment="Left"
                           SelectionChanged="LanguageCombo_SelectionChanged"/>
                 <TextBlock Text="{Binding [Settings_RestartNote], Source={x:Static loc:LocalizationManager.Instance}}"
                            Foreground="#6C7086" FontSize="11" FontStyle="Italic" TextWrapping="Wrap"/>
@@ -72,6 +73,23 @@
                     <TextBlock x:Name="BigPictureCardScaleValueText" Foreground="#6C7086" FontSize="11"
                                VerticalAlignment="Center"/>
                 </StackPanel>
+                <TextBlock Text="{Binding [Settings_BigPictureScreensaverLabel], Source={x:Static loc:LocalizationManager.Instance}}"
+                           Foreground="#CDD6F4" FontSize="12" Margin="0,4,0,0"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Slider x:Name="BigPictureScreensaverSlider" Minimum="0" Maximum="30"
+                            TickFrequency="1" IsSnapToTickEnabled="True" Width="250"
+                            ValueChanged="BigPictureScreensaverSlider_ValueChanged"/>
+                    <TextBlock x:Name="BigPictureScreensaverValueText" Foreground="#6C7086" FontSize="11"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+                <CheckBox x:Name="BigPicturePlayTrackingCheck"
+                          Content="{Binding [Settings_BigPicturePlayTracking], Source={x:Static loc:LocalizationManager.Instance}}"
+                          Foreground="#CDD6F4"
+                          IsCheckedChanged="BigPicturePlayTrackingCheck_Changed"/>
+                <CheckBox x:Name="BigPictureRatingsCheck"
+                          Content="{Binding [Settings_BigPictureRatings], Source={x:Static loc:LocalizationManager.Instance}}"
+                          Foreground="#CDD6F4"
+                          IsCheckedChanged="BigPictureRatingsCheck_Changed"/>
             </StackPanel>
         </Border>
 
@@ -123,6 +141,10 @@
                 <ProgressBar x:Name="UpdateProgressBar" Minimum="0" Maximum="100"
                              IsVisible="False" Height="6" Margin="0,4,0,0"/>
                 <TextBlock x:Name="UpdateStatusText" Foreground="#A6ADC8" FontSize="11" TextWrapping="Wrap"/>
+                <Border x:Name="ReleaseNotesBorder" Background="#11161B" CornerRadius="4"
+                        Padding="8" IsVisible="False" Margin="0,4,0,0" MaxHeight="260">
+                    <md:MarkdownScrollViewer x:Name="ReleaseNotesViewer" />
+                </Border>
                 <TextBlock x:Name="VersionText" Foreground="#6C7086" FontSize="11"/>
             </StackPanel>
         </Border>

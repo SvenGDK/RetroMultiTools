@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -20,8 +21,8 @@ public partial class HeaderExporterView : UserControl
         if (sender is RadioButton rb && rb.IsChecked != true) return;
 
         bool isBatch = sender == BatchModeRadio;
-        InputLabel.Text = isBatch ? "ROM Directory:" : "ROM File:";
-        InputPathTextBox.Watermark = isBatch ? "Select a ROM directory..." : "Select a ROM file...";
+        InputLabel.Text = isBatch ? LocalizationManager.Instance["HeaderExport_RomDirectory"] : LocalizationManager.Instance["HeaderExport_RomFile"];
+        InputPathTextBox.Watermark = isBatch ? LocalizationManager.Instance["HeaderExport_SelectRomDirectory"] : LocalizationManager.Instance["HeaderExport_SelectRomFile"];
         InputPathTextBox.Text = string.Empty;
         OutputFileTextBox.Text = string.Empty;
         StatusBorder.IsVisible = false;
@@ -41,13 +42,13 @@ public partial class HeaderExporterView : UserControl
 
         if (isBatch)
         {
-            var path = await PickFolder("Select ROM Directory");
+            var path = await PickFolder(LocalizationManager.Instance["HeaderExport_SelectRomDirTitle"]);
             if (path == null) return;
             InputPathTextBox.Text = path;
         }
         else
         {
-            var path = await PickFile("Select ROM File",
+            var path = await PickFile(LocalizationManager.Instance["HeaderExport_SelectRomFileTitle"],
             [
                 new FilePickerFileType("ROM Files")
                 {
@@ -78,12 +79,13 @@ public partial class HeaderExporterView : UserControl
 
     private async void BrowseOutput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
         var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Save Report As",
+            Title = loc["HeaderExport_SaveDialogTitle"],
             SuggestedFileName = Path.GetFileName(OutputFileTextBox.Text ?? "rom_report.txt")
         });
 
@@ -120,18 +122,19 @@ public partial class HeaderExporterView : UserControl
 
     private async void ExportButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string input = InputPathTextBox.Text ?? "";
         string output = OutputFileTextBox.Text ?? "";
 
         if (string.IsNullOrEmpty(input))
         {
-            ShowStatus("Please select an input ROM file or directory.", isError: true);
+            ShowStatus(loc["HeaderExport_SelectInput"], isError: true);
             return;
         }
 
         if (string.IsNullOrEmpty(output))
         {
-            ShowStatus("Please specify an output file path.", isError: true);
+            ShowStatus(loc["HeaderExport_SelectOutputPath"], isError: true);
             return;
         }
 
@@ -155,11 +158,11 @@ public partial class HeaderExporterView : UserControl
             else
                 await RomHeaderExporter.ExportSingleAsync(input, output, progress);
 
-            ShowStatus($"✔ Export complete!\nOutput: {output}", isError: false);
+            ShowStatus(string.Format(loc["HeaderExport_ExportComplete"], output), isError: false);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

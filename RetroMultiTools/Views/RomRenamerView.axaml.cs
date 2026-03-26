@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -20,6 +21,7 @@ public partial class RomRenamerView : UserControl
 
     private async void BrowseInput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         if (BatchMode.IsChecked == true)
         {
             var topLevel = TopLevel.GetTopLevel(this);
@@ -27,7 +29,7 @@ public partial class RomRenamerView : UserControl
 
             var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
             {
-                Title = "Select ROM Folder",
+                Title = loc["Renamer_SelectFolderTitle"],
                 AllowMultiple = false
             });
 
@@ -104,15 +106,16 @@ public partial class RomRenamerView : UserControl
 
             int changeCount = _previews.Count(p => p.WouldChange);
             StatusText.Text = changeCount > 0
-                ? $"Preview: {changeCount} file(s) would be renamed out of {_previews.Count} scanned."
-                : "No files need renaming — all names already match headers.";
+                ? string.Format(LocalizationManager.Instance["Renamer_PreviewSummary"], changeCount, _previews.Count)
+                : LocalizationManager.Instance["Renamer_AllMatch"];
             StatusText.Foreground = changeCount > 0 ? StatusSuccessBrush : StatusWarningBrush;
             StatusBorder.IsVisible = true;
             ApplyButton.IsVisible = changeCount > 0;
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            StatusText.Text = $"✘ Error: {ex.Message}";
+            var loc = LocalizationManager.Instance;
+            StatusText.Text = string.Format(loc["Common_ErrorFormat"], ex.Message);
             StatusText.Foreground = StatusErrorBrush;
             StatusBorder.IsVisible = true;
         }
@@ -126,6 +129,7 @@ public partial class RomRenamerView : UserControl
     private async void ApplyButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (_previews == null || _previews.Count == 0) return;
+        var loc = LocalizationManager.Instance;
 
         ApplyButton.IsEnabled = false;
         ProgressPanel.IsVisible = true;
@@ -135,7 +139,7 @@ public partial class RomRenamerView : UserControl
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
             int renamed = await Task.Run(() => RomRenamer.ApplyBatchRename(_previews, progress));
 
-            StatusText.Text = $"✔ Renamed {renamed} file(s) successfully.";
+            StatusText.Text = string.Format(loc["Renamer_RenameComplete"], renamed);
             StatusText.Foreground = StatusSuccessBrush;
             StatusBorder.IsVisible = true;
             ApplyButton.IsVisible = false;
@@ -143,7 +147,7 @@ public partial class RomRenamerView : UserControl
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            StatusText.Text = $"✘ Error: {ex.Message}";
+            StatusText.Text = string.Format(loc["Common_ErrorFormat"], ex.Message);
             StatusText.Foreground = StatusErrorBrush;
             StatusBorder.IsVisible = true;
         }

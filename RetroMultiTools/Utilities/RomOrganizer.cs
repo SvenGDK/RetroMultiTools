@@ -26,7 +26,7 @@ public static class RomOrganizer
         ".chf",
         ".tgc",
         ".mtx", ".run",
-        ".zip"
+        ".zip", ".rar", ".7z"
     };
 
     public static List<RomInfo> ScanDirectory(string path, IProgress<string>? progress = null)

@@ -6,7 +6,7 @@ Tools for applying and creating ROM patches.
 
 ## ROM Patcher
 
-Applies IPS or BPS patches to ROM files.
+Applies IPS, BPS, or xDelta patches to ROM files.
 
 ### IPS Patches
 
@@ -20,12 +20,20 @@ Applies IPS or BPS patches to ROM files.
 - Applies **BPS** format patches (Beat Patching System).
 - Full **CRC32 validation** of source ROM, target ROM, and patch data.
 - Supports SourceRead, TargetRead, SourceCopy, and TargetCopy actions.
-- If the source ROM CRC32 does not match the patch header, a warning is shown before proceeding.
+- If the source ROM CRC32 does not match the patch header, an error is raised indicating the wrong source file.
+
+### xDelta Patches
+
+- Applies **xDelta/VCDIFF** format patches (RFC 3284).
+- Supports all standard VCDIFF instruction types: **ADD**, **RUN**, and **COPY**.
+- Full **address cache** implementation (NEAR and SAME caches) for efficient COPY address decoding.
+- **Adler-32 checksum** verification of target windows (xdelta3 extension).
+- Supports multi-window patches and VCD_SOURCE/VCD_TARGET window modes.
 
 ### Usage
 
 1. Select the **source ROM** (the unmodified file).
-2. Select the **patch file** (`.ips` or `.bps`).
+2. Select the **patch file** (`.ips`, `.bps`, `.xdelta`, or `.vcdiff`).
 3. Choose an output path or let the tool generate one automatically.
 4. Click **Apply Patch**.
 

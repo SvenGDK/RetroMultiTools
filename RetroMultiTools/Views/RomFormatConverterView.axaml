@@ -37,7 +37,7 @@
         <!-- Available Conversions -->
         <StackPanel Spacing="4">
             <TextBlock Text="{Binding [FormatConv_Conversion], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
-            <ComboBox x:Name="ConversionCombo" Width="350" HorizontalAlignment="Left"
+            <ComboBox x:Name="ConversionCombo" MinWidth="350" HorizontalAlignment="Left"
                       SelectionChanged="ConversionCombo_SelectionChanged"/>
         </StackPanel>
 

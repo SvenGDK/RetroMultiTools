@@ -2,7 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using RetroMultiTools.Utilities;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities.Mame;
 
 namespace RetroMultiTools.Views.Mame;
@@ -24,9 +24,10 @@ public partial class MameDatEditorView : UserControl
 
     private async void BrowseDat_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select DAT File",
+        var loc = LocalizationManager.Instance;
+        var path = await PickFile(loc["MameDatEditor_SelectDatTitle"],
         [
-            new FilePickerFileType("DAT Files") { Patterns = ["*.dat", "*.xml"] },
+            new FilePickerFileType(loc["MameDatEditor_DatFileType"]) { Patterns = ["*.dat", "*.xml"] },
             FilePickerFileTypes.All
         ]);
 
@@ -45,7 +46,7 @@ public partial class MameDatEditorView : UserControl
             HeaderAuthorTextBox.Text = _datDoc.Header.Author;
 
             var stats = MameDatEditor.GetStats(_datDoc);
-            DatInfoText.Text = $"📋 {stats.Summary}";
+            DatInfoText.Text = string.Format(LocalizationManager.Instance["MameDatEditor_DatInfoIcon"], stats.Summary);
             DatInfoBorder.IsVisible = true;
 
             // Show editing sections
@@ -57,11 +58,11 @@ public partial class MameDatEditorView : UserControl
             // Populate game list
             RefreshGameList();
 
-            ShowStatus($"✔ DAT file loaded successfully.", isError: false);
+            ShowStatus(loc["MameDatEditor_DatLoaded"], isError: false);
         }
         catch (Exception ex) when (ex is InvalidOperationException or FileNotFoundException)
         {
-            ShowStatus($"✘ Error loading DAT file: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["MameDatEditor_LoadError"], ex.Message), isError: true);
             _datDoc = null;
             DatInfoBorder.IsVisible = false;
             HeaderSection.IsVisible = false;
@@ -92,7 +93,7 @@ public partial class MameDatEditorView : UserControl
                 : $"{game.Name} — {game.Description}";
 
             if (!string.IsNullOrEmpty(game.CloneOf))
-                label += $" (clone of {game.CloneOf})";
+                label += string.Format(LocalizationManager.Instance["MameDatEditor_CloneOf"], game.CloneOf);
 
             GameListBox.Items.Add(new ListBoxItem
             {
@@ -107,7 +108,7 @@ public partial class MameDatEditorView : UserControl
         {
             GameListBox.Items.Add(new ListBoxItem
             {
-                Content = $"... and {_displayedGames.Count - 500} more (use search to narrow results)",
+                Content = string.Format(LocalizationManager.Instance["MameDatEditor_MoreResults"], _displayedGames.Count - 500),
                 IsEnabled = false,
                 Foreground = GameItemOverflowBrush
             });
@@ -162,20 +163,20 @@ public partial class MameDatEditorView : UserControl
         {
             romLines.AppendLine($"  {rom.Name} ({rom.Size:N0} bytes)");
             if (!string.IsNullOrEmpty(rom.CRC))
-                romLines.AppendLine($"    CRC: {rom.CRC}");
+                romLines.AppendLine($"    {string.Format(LocalizationManager.Instance["MameDatEditor_CrcLabel"], rom.CRC)}");
             if (!string.IsNullOrEmpty(rom.SHA1))
-                romLines.AppendLine($"    SHA1: {rom.SHA1}");
+                romLines.AppendLine($"    {string.Format(LocalizationManager.Instance["MameDatEditor_Sha1Label"], rom.SHA1)}");
         }
 
         foreach (var disk in game.Disks)
         {
             romLines.AppendLine($"  💿 {disk.Name}");
             if (!string.IsNullOrEmpty(disk.SHA1))
-                romLines.AppendLine($"    SHA1: {disk.SHA1}");
+                romLines.AppendLine($"    {string.Format(LocalizationManager.Instance["MameDatEditor_Sha1Label"], disk.SHA1)}");
         }
 
         if (game.Roms.Count == 0 && game.Disks.Count == 0)
-            romLines.AppendLine("  (no ROMs or disks)");
+            romLines.AppendLine($"  {LocalizationManager.Instance["MameDatEditor_NoRomsOrDisks"]}");
 
         RomListText.Text = romLines.ToString();
         GameDetailBorder.IsVisible = true;
@@ -184,6 +185,7 @@ public partial class MameDatEditorView : UserControl
 
     private void ApplyGameButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         if (_datDoc == null) return;
 
         string originalName = (GameListBox.SelectedItem as ListBoxItem)?.Tag?.ToString() ?? "";
@@ -192,7 +194,7 @@ public partial class MameDatEditorView : UserControl
 
         if (game == null)
         {
-            ShowStatus("✘ No game selected.", isError: true);
+            ShowStatus(loc["MameDatEditor_NoGameSelected"], isError: true);
             return;
         }
 
@@ -204,23 +206,25 @@ public partial class MameDatEditorView : UserControl
 
         RefreshGameList(SearchTextBox.Text);
         UpdateDatInfo();
-        ShowStatus($"✔ Game '{game.Name}' updated.", isError: false);
+        ShowStatus(string.Format(loc["MameDatEditor_GameUpdated"], game.Name), isError: false);
     }
 
     private void AddGameButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         if (_datDoc == null) return;
 
-        string newName = $"new_game_{_datDoc.Games.Count + 1}";
+        string newName = string.Format(LocalizationManager.Instance["MameDat_NewGamePrefix"], _datDoc.Games.Count + 1);
         MameDatEditor.AddGame(_datDoc, newName);
 
         RefreshGameList(SearchTextBox.Text);
         UpdateDatInfo();
-        ShowStatus($"✔ New game '{newName}' added. Select it to edit.", isError: false);
+        ShowStatus(string.Format(loc["MameDatEditor_GameAdded"], newName), isError: false);
     }
 
     private void RemoveGameButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         if (_datDoc == null) return;
 
         string gameName = (GameListBox.SelectedItem as ListBoxItem)?.Tag?.ToString() ?? "";
@@ -230,7 +234,7 @@ public partial class MameDatEditorView : UserControl
         {
             RefreshGameList(SearchTextBox.Text);
             UpdateDatInfo();
-            ShowStatus($"✔ Game '{gameName}' removed.", isError: false);
+            ShowStatus(string.Format(loc["MameDatEditor_GameRemoved"], gameName), isError: false);
         }
     }
 
@@ -245,11 +249,12 @@ public partial class MameDatEditorView : UserControl
         _datDoc.Header.Author = HeaderAuthorTextBox.Text ?? _datDoc.Header.Author;
 
         var stats = MameDatEditor.GetStats(_datDoc);
-        DatInfoText.Text = $"📋 {stats.Summary}";
+        DatInfoText.Text = string.Format(LocalizationManager.Instance["MameDatEditor_DatInfoIcon"], stats.Summary);
     }
 
     private void SaveButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         if (_datDoc == null) return;
 
         UpdateDatInfo();
@@ -258,16 +263,17 @@ public partial class MameDatEditorView : UserControl
         {
             string outputPath = _datDoc.FilePath;
             MameDatEditor.SaveDat(_datDoc, outputPath);
-            ShowStatus($"✔ DAT file saved to {outputPath}", isError: false);
+            ShowStatus(string.Format(loc["MameDatEditor_DatSaved"], outputPath), isError: false);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error saving: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["MameDatEditor_SaveError"], ex.Message), isError: true);
         }
     }
 
     private async void SaveAsButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         if (_datDoc == null) return;
 
         UpdateDatInfo();
@@ -281,12 +287,12 @@ public partial class MameDatEditorView : UserControl
 
         var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Save DAT File As",
+            Title = loc["MameDatEditor_SaveDialogTitle"],
             SuggestedFileName = suggestedName,
             FileTypeChoices =
             [
-                new FilePickerFileType("DAT Files") { Patterns = ["*.dat"] },
-                new FilePickerFileType("XML Files") { Patterns = ["*.xml"] }
+                new FilePickerFileType(loc["MameDatEditor_DatFileType"]) { Patterns = ["*.dat"] },
+                new FilePickerFileType(loc["MameDatEditor_XmlFileType"]) { Patterns = ["*.xml"] }
             ]
         });
 
@@ -298,11 +304,11 @@ public partial class MameDatEditorView : UserControl
             MameDatEditor.SaveDat(_datDoc, outputPath);
             _datDoc.FilePath = outputPath;
             DatFileTextBox.Text = outputPath;
-            ShowStatus($"✔ DAT file saved to {outputPath}", isError: false);
+            ShowStatus(string.Format(loc["MameDatEditor_DatSaved"], outputPath), isError: false);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error saving: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["MameDatEditor_SaveError"], ex.Message), isError: true);
         }
     }
 

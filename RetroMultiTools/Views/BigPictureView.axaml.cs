@@ -5,11 +5,13 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
+using Avalonia.Threading;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using RetroMultiTools.Services;
 using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.Mame;
+using RetroMultiTools.Utilities.Mednafen;
 using RetroMultiTools.Utilities.RetroArch;
 
 namespace RetroMultiTools.Views;
@@ -24,6 +26,7 @@ public partial class BigPictureView : UserControl
     private CancellationTokenSource? _preloadCts;
     private CancellationTokenSource? _searchDebounceCts;
     private CancellationTokenSource? _checksumCts;
+    private bool _suppressFilterUpdate;
 
     /// <summary>Maps ROM file paths to the Image control on each game card for thumbnail updates.</summary>
     private readonly Dictionary<string, Image> _cardImageMap = new();
@@ -44,6 +47,14 @@ public partial class BigPictureView : UserControl
     private const double ScaleMin = 0.5;
     private const double ScaleMax = 2.0;
     private const int SearchDebounceMs = 300;
+    private const int LetterJumpDisplayMs = 800;
+    private const int ScreensaverCycleMs = 5000;
+    private const int RecentlyPlayedMaxCards = 10;
+    private const int RecentlyPlayedCardWidth = 120;
+    private const int RecentlyPlayedCardHeight = 80;
+    private const int SystemCycleDisplayMs = 800;
+    private const int GalleryIntervalMs = 3000;
+    private const int ArtworkViewerImageCount = 3;
 
     // Cached brushes to avoid repeated allocations during card creation and selection
     private static readonly IBrush CardDefaultBackground = new SolidColorBrush(Color.Parse("#1E1E2E"));
@@ -61,6 +72,35 @@ public partial class BigPictureView : UserControl
     private static readonly IBrush RomInfoSubHeaderForeground = new SolidColorBrush(Color.Parse("#F9E2AF"));
     private static readonly IBrush RomInfoLabelForeground = new SolidColorBrush(Color.Parse("#A6ADC8"));
     private static readonly IBrush RomInfoValueForeground = new SolidColorBrush(Color.Parse("#CDD6F4"));
+    private static readonly IBrush RecentlyPlayedNameOverlayBackground = new SolidColorBrush(Color.Parse("#CC11111B"));
+
+    // --- Screensaver / Attract Mode fields ---
+    private DispatcherTimer? _inactivityTimer;
+    private DispatcherTimer? _screensaverCycleTimer;
+    private bool _screensaverActive;
+    private int _lastScreensaverRomIndex = -1;
+
+    // --- Letter Jump fields ---
+    private CancellationTokenSource? _letterJumpCts;
+
+    // --- Recently Played Bar fields ---
+    private bool _recentlyPlayedBarVisible;
+
+    // --- System Cycle fields ---
+    private CancellationTokenSource? _systemCycleCts;
+
+    // --- Gallery Mode fields ---
+    private DispatcherTimer? _galleryTimer;
+    private bool _galleryActive;
+
+    // --- Artwork Viewer fields ---
+    private Bitmap?[] _artworkViewerImages = new Bitmap?[ArtworkViewerImageCount];
+    private string[] _artworkViewerLabels = new string[ArtworkViewerImageCount];
+    private int _artworkViewerIndex;
+
+    // --- Rating display ---
+    private static readonly IBrush RatingStarForeground = new SolidColorBrush(Color.Parse("#F9E2AF"));
+    private static readonly IBrush RatingEmptyForeground = new SolidColorBrush(Color.Parse("#45475A"));
 
     /// <summary>Effective card width based on current scale.</summary>
     private int CardWidth => (int)(BaseCardWidth * _cardScale);
@@ -76,7 +116,10 @@ public partial class BigPictureView : UserControl
         _cardScale = AppSettings.Instance.BigPictureCardScale;
         UpdateZoomLevelText();
         PopulateHelpOverlay();
+        InitialiseInactivityTimer();
         KeyDown += OnKeyDownHandler;
+        PointerMoved += OnPointerActivity;
+        PointerPressed += OnPointerActivity;
         AttachedToVisualTree += OnAttachedToVisualTree;
         DetachedFromVisualTree += OnDetachedFromVisualTree;
     }
@@ -90,15 +133,30 @@ public partial class BigPictureView : UserControl
     private void OnDetachedFromVisualTree(object? sender, Avalonia.VisualTreeAttachmentEventArgs e)
     {
         KeyDown -= OnKeyDownHandler;
+        PointerMoved -= OnPointerActivity;
+        PointerPressed -= OnPointerActivity;
         _searchDebounceCts?.Cancel();
         _searchDebounceCts?.Dispose();
         _searchDebounceCts = null;
         _checksumCts?.Cancel();
         _checksumCts?.Dispose();
         _checksumCts = null;
+        _letterJumpCts?.Cancel();
+        _letterJumpCts?.Dispose();
+        _letterJumpCts = null;
+        _systemCycleCts?.Cancel();
+        _systemCycleCts?.Dispose();
+        _systemCycleCts = null;
+        StopGalleryMode();
+        StopInactivityTimer();
+        StopScreensaverCycleTimer();
+        _screensaverActive = false;
+        ScreensaverImage.Source = null;
+        ArtworkViewerImage.Source = null;
         CancelArtworkPreload();
         CancelArtworkLoading();
         ClearArtworkImages();
+        ClearArtworkViewerReferences();
         ClearThumbnailCache();
         ShutdownGamepad();
     }
@@ -195,8 +253,29 @@ public partial class BigPictureView : UserControl
             HintText.Text = loc["BigPicture_Hints"];
     }
 
+    /// <summary>
+    /// Handles mouse/pointer activity to reset the screensaver inactivity
+    /// timer and dismiss the screensaver if it is currently active.
+    /// </summary>
+    private void OnPointerActivity(object? sender, Avalonia.Input.PointerEventArgs e)
+    {
+        ResetInactivityTimer();
+
+        if (_screensaverActive)
+            DismissScreensaver();
+    }
+
     private void OnGamepadAction(GamepadAction action)
     {
+        ResetInactivityTimer();
+
+        // Dismiss screensaver on any gamepad input
+        if (_screensaverActive)
+        {
+            DismissScreensaver();
+            return;
+        }
+
         // When ROM info overlay is showing, only allow dismiss
         if (RomInfoOverlay.IsVisible)
         {
@@ -205,11 +284,45 @@ public partial class BigPictureView : UserControl
             return;
         }
 
+        // When stats overlay is showing, only allow dismiss
+        if (StatsOverlay.IsVisible)
+        {
+            if (action is GamepadAction.Back or GamepadAction.StatsOverlay)
+                DismissStatsOverlay();
+            return;
+        }
+
+        // When artwork viewer is showing, allow navigation and dismiss
+        if (ArtworkViewerOverlay.IsVisible)
+        {
+            switch (action)
+            {
+                case GamepadAction.Back or GamepadAction.ArtworkViewer:
+                    DismissArtworkViewer();
+                    break;
+                case GamepadAction.NavigateLeft:
+                    CycleArtworkViewer(-1);
+                    break;
+                case GamepadAction.NavigateRight:
+                    CycleArtworkViewer(1);
+                    break;
+            }
+            return;
+        }
+
         // When help overlay is showing, only allow dismiss
         if (HelpOverlay.IsVisible)
         {
             if (action is GamepadAction.Back or GamepadAction.Help)
                 HelpOverlay.IsVisible = false;
+            return;
+        }
+
+        // When gallery mode is active, Back should stop the gallery
+        // instead of exiting Big Picture Mode (mirrors keyboard Escape behaviour).
+        if (_galleryActive && action is GamepadAction.Back)
+        {
+            StopGalleryMode();
             return;
         }
 
@@ -266,6 +379,27 @@ public partial class BigPictureView : UserControl
             case GamepadAction.ZoomOut:
                 ZoomOut();
                 break;
+            case GamepadAction.StatsOverlay:
+                ToggleStatsOverlay();
+                break;
+            case GamepadAction.GalleryMode:
+                ToggleGalleryMode();
+                break;
+            case GamepadAction.ArtworkViewer:
+                ToggleArtworkViewer();
+                break;
+            case GamepadAction.CycleRating:
+                CycleSelectedRating();
+                break;
+            case GamepadAction.RecentlyPlayed:
+                ToggleRecentlyPlayedBar();
+                break;
+            case GamepadAction.SystemCycleForward:
+                CycleSystemFilter(1);
+                break;
+            case GamepadAction.SystemCycleBackward:
+                CycleSystemFilter(-1);
+                break;
         }
     }
 
@@ -285,6 +419,7 @@ public partial class BigPictureView : UserControl
             StatusText.Text = string.Format(LocalizationManager.Instance["BigPicture_LoadedRoms"],
                 _allRoms.Count, _currentFolder);
             StartArtworkPreload(_allRoms);
+            PopulateRecentlyPlayedBar();
         }
         else
         {
@@ -338,26 +473,34 @@ public partial class BigPictureView : UserControl
         SortCombo.Items.Add(new ComboBoxItem { Content = loc["BigPicture_SortSizeAsc"], Tag = "size_asc" });
         SortCombo.Items.Add(new ComboBoxItem { Content = loc["BigPicture_SortSizeDesc"], Tag = "size_desc" });
         SortCombo.Items.Add(new ComboBoxItem { Content = loc["BigPicture_SortRecentlyPlayed"], Tag = "recent" });
+        SortCombo.Items.Add(new ComboBoxItem { Content = loc["BigPicture_SortRating"], Tag = "rating" });
         SortCombo.SelectedIndex = 0;
     }
 
     private async void BrowseFolderButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel == null) return;
-
-        var loc = LocalizationManager.Instance;
-        var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+        try
         {
-            Title = loc["BigPicture_SelectRomFolder"],
-            AllowMultiple = false
-        });
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel == null) return;
 
-        if (folders.Count == 0) return;
+            var loc = LocalizationManager.Instance;
+            var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+            {
+                Title = loc["BigPicture_SelectRomFolder"],
+                AllowMultiple = false
+            });
 
-        _currentFolder = folders[0].Path.LocalPath;
-        AppSettings.Instance.BigPictureRomFolder = _currentFolder;
-        await ScanCurrentFolderAsync();
+            if (folders.Count == 0) return;
+
+            _currentFolder = folders[0].Path.LocalPath;
+            AppSettings.Instance.BigPictureRomFolder = _currentFolder;
+            await ScanCurrentFolderAsync();
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[BigPicture] BrowseFolderButton_Click failed: {ex.Message}");
+        }
     }
 
     private async Task ScanCurrentFolderAsync()
@@ -391,6 +534,7 @@ public partial class BigPictureView : UserControl
         {
             StatusText.Text = string.Format(loc["BigPicture_FoundRoms"], _allRoms.Count, _currentFolder);
             StartArtworkPreload(_allRoms);
+            PopulateRecentlyPlayedBar();
         }
     }
 
@@ -417,6 +561,8 @@ public partial class BigPictureView : UserControl
 
     private void ApplyFilterAndSort()
     {
+        if (_suppressFilterUpdate) return;
+
         // Capture current selection before the filtered list changes so
         // RebuildGameCards can restore it in the new list.
         string? selectedPath = (_selectedIndex >= 0 && _selectedIndex < _filteredRoms.Count)
@@ -458,6 +604,8 @@ public partial class BigPictureView : UserControl
             "size_asc" => filtered.OrderBy(r => r.FileSize),
             "size_desc" => filtered.OrderByDescending(r => r.FileSize),
             "recent" => SortByRecentlyPlayed(filtered),
+            "rating" => filtered.OrderByDescending(r => AppSettings.Instance.GetRating(r.FilePath))
+                                .ThenBy(r => r.FileName, StringComparer.OrdinalIgnoreCase),
             _ => filtered.OrderBy(r => r.FileName, StringComparer.OrdinalIgnoreCase)
         };
 
@@ -642,6 +790,13 @@ public partial class BigPictureView : UserControl
                                 Text = rom.FileSizeFormatted,
                                 FontSize = metaFontSize,
                                 Foreground = CardSizeForeground
+                            },
+                            new TextBlock
+                            {
+                                Text = FormatRatingStars(AppSettings.Instance.GetRating(rom.FilePath)),
+                                FontSize = metaFontSize,
+                                Foreground = RatingStarForeground,
+                                IsVisible = AppSettings.Instance.GetRating(rom.FilePath) > 0
                             }
                         }
                     }
@@ -747,6 +902,12 @@ public partial class BigPictureView : UserControl
         int playCount = AppSettings.Instance.GetPlayCount(rom.FilePath);
         DetailPlayCount.Text = string.Format(loc["BigPicture_PlayCount"], playCount);
 
+        long playTimeSec = AppSettings.Instance.GetPlayTime(rom.FilePath);
+        DetailPlayTime.Text = string.Format(loc["BigPicture_PlayTime"], FormatPlayTime(playTimeSec));
+
+        int rating = AppSettings.Instance.GetRating(rom.FilePath);
+        DetailRating.Text = rating > 0 ? string.Format(loc["BigPicture_RatingDisplay"], FormatRatingStars(rating), rating) : string.Format(loc["BigPicture_UnratedDisplay"], FormatRatingStars(rating), loc["BigPicture_Unrated"]);
+
         UpdateFavoriteButton(rom);
 
         bool canLaunch = RetroArchLauncher.IsSystemSupported(rom.System);
@@ -755,6 +916,10 @@ public partial class BigPictureView : UserControl
         // Show the MAME launch button for Arcade ROMs
         bool canLaunchMame = MameLauncher.IsSystemSupported(rom.System);
         DetailLaunchMameButton.IsVisible = canLaunchMame;
+
+        // Show the Mednafen launch button for supported systems
+        bool canLaunchMednafen = MednafenLauncher.IsSystemSupported(rom.System);
+        DetailLaunchMednafenButton.IsVisible = canLaunchMednafen;
 
         // Show BIOS notice for Neo Geo AES/MVS in the status bar
         if (rom.System == RomSystem.NeoGeo)
@@ -846,12 +1011,17 @@ public partial class BigPictureView : UserControl
 
     private void ClearArtworkImages()
     {
-        (DetailBoxArt.Source as Bitmap)?.Dispose();
-        (DetailScreenshot.Source as Bitmap)?.Dispose();
-        (DetailTitleScreen.Source as Bitmap)?.Dispose();
+        // Detach bitmaps from Image controls before disposing to prevent
+        // Avalonia from rendering an already-disposed bitmap.
+        var boxArt = DetailBoxArt.Source as Bitmap;
+        var screenshot = DetailScreenshot.Source as Bitmap;
+        var titleScreen = DetailTitleScreen.Source as Bitmap;
         DetailBoxArt.Source = null;
         DetailScreenshot.Source = null;
         DetailTitleScreen.Source = null;
+        boxArt?.Dispose();
+        screenshot?.Dispose();
+        titleScreen?.Dispose();
     }
 
     /// <summary>
@@ -1094,36 +1264,21 @@ public partial class BigPictureView : UserControl
 
         if (result.Success)
         {
-            AppSettings.Instance.RecordRecentlyPlayed(rom.FilePath);
-            AppSettings.Instance.IncrementPlayCount(rom.FilePath);
-
-            // Refresh play count in the detail panel
-            int playCount = AppSettings.Instance.GetPlayCount(rom.FilePath);
-            DetailPlayCount.Text = string.Format(loc["BigPicture_PlayCount"], playCount);
-
             // Append BIOS notice for Neo Geo AES/MVS after launch
             if (rom.System == RomSystem.NeoGeo)
             {
-                StatusText.Text = result.Message + "  ·  " + loc["Common_NeoGeoBiosNotice"];
+                StatusText.Text = string.Format(loc["Common_NeoGeoBiosNoticeWithSeparator"], result.Message, loc["Common_NeoGeoBiosNotice"]);
             }
 
-            if (result.Process != null)
-            {
-                if (AppSettings.Instance.MinimizeToTrayOnLaunch)
-                {
-                    MinimizeToTrayAndRestoreOnExit(result.Process);
-                }
-                else
-                {
-                    result.Process.Dispose();
-                }
-            }
+            HandleSuccessfulLaunch(rom, result.Process);
         }
     }
 
     private void LaunchButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => LaunchSelectedRom();
 
     private void LaunchMameButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => LaunchSelectedRomWithMame();
+
+    private void LaunchMednafenButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => LaunchSelectedRomWithMednafen();
 
     private void LaunchSelectedRomWithMame()
     {
@@ -1143,29 +1298,65 @@ public partial class BigPictureView : UserControl
         StatusText.Text = result.Message;
 
         if (result.Success)
+            HandleSuccessfulLaunch(rom, result.Process);
+    }
+
+    private void LaunchSelectedRomWithMednafen()
+    {
+        if (_selectedIndex < 0 || _selectedIndex >= _filteredRoms.Count) return;
+
+        var rom = _filteredRoms[_selectedIndex];
+        var loc = LocalizationManager.Instance;
+
+        if (!MednafenLauncher.IsSystemSupported(rom.System))
+        {
+            StatusText.Text = string.Format(loc["Browser_MednafenSystemNotSupported"], rom.SystemName);
+            return;
+        }
+
+        StatusText.Text = string.Format(loc["Browser_LaunchingMednafen"], rom.FileName);
+        var result = MednafenLauncher.Launch(rom.FilePath, rom.System);
+        StatusText.Text = result.Message;
+
+        if (result.Success)
+            HandleSuccessfulLaunch(rom, result.Process);
+    }
+
+    /// <summary>
+    /// Shared post-launch logic: records play tracking stats, refreshes
+    /// the detail panel, and optionally minimizes to tray while the
+    /// emulator process is running.
+    /// </summary>
+    private void HandleSuccessfulLaunch(RomInfo rom, System.Diagnostics.Process? process)
+    {
+        if (AppSettings.Instance.BigPicturePlayTrackingEnabled)
         {
             AppSettings.Instance.RecordRecentlyPlayed(rom.FilePath);
             AppSettings.Instance.IncrementPlayCount(rom.FilePath);
 
             // Refresh play count in the detail panel
+            var loc = LocalizationManager.Instance;
             int playCount = AppSettings.Instance.GetPlayCount(rom.FilePath);
             DetailPlayCount.Text = string.Format(loc["BigPicture_PlayCount"], playCount);
 
-            if (result.Process != null)
+            // Refresh recently played bar
+            PopulateRecentlyPlayedBar();
+        }
+
+        if (process != null)
+        {
+            if (AppSettings.Instance.MinimizeToTrayOnLaunch)
             {
-                if (AppSettings.Instance.MinimizeToTrayOnLaunch)
-                {
-                    MinimizeToTrayAndRestoreOnExit(result.Process);
-                }
-                else
-                {
-                    result.Process.Dispose();
-                }
+                MinimizeToTrayAndRestoreOnExit(process, rom.FilePath);
+            }
+            else
+            {
+                process.Dispose();
             }
         }
     }
 
-    private async void MinimizeToTrayAndRestoreOnExit(System.Diagnostics.Process process)
+    private async void MinimizeToTrayAndRestoreOnExit(System.Diagnostics.Process process, string romFilePath)
     {
         try
         {
@@ -1173,6 +1364,7 @@ public partial class BigPictureView : UserControl
             {
                 mainWindow.MinimizeToTray();
 
+                var startTime = DateTime.UtcNow;
                 await Task.Run(() =>
                 {
                     try { process.WaitForExit(); }
@@ -1180,14 +1372,30 @@ public partial class BigPictureView : UserControl
                     {
                         System.Diagnostics.Trace.WriteLine($"[BigPicture] Process monitoring ended: {ex.Message}");
                     }
-                });
+                }).ConfigureAwait(false);
+                var elapsed = (long)(DateTime.UtcNow - startTime).TotalSeconds;
+                if (AppSettings.Instance.BigPicturePlayTrackingEnabled)
+                    AppSettings.Instance.AddPlayTime(romFilePath, elapsed);
 
                 Avalonia.Threading.Dispatcher.UIThread.Post(() =>
                 {
                     mainWindow.RestoreFromTray();
                     DiscordRichPresence.ClearPresence();
+
+                    // Refresh play time in the detail panel
+                    if (_selectedIndex >= 0 && _selectedIndex < _filteredRoms.Count &&
+                        string.Equals(_filteredRoms[_selectedIndex].FilePath, romFilePath, StringComparison.OrdinalIgnoreCase))
+                    {
+                        var loc = LocalizationManager.Instance;
+                        long playTimeSec = AppSettings.Instance.GetPlayTime(romFilePath);
+                        DetailPlayTime.Text = string.Format(loc["BigPicture_PlayTime"], FormatPlayTime(playTimeSec));
+                    }
                 });
             }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[BigPicture] Minimize-to-tray failed: {ex.Message}");
         }
         finally
         {
@@ -1202,6 +1410,17 @@ public partial class BigPictureView : UserControl
 
     private void ExitBigPictureMode()
     {
+        // Defensive cleanup: stop gallery and dismiss screensaver before
+        // leaving Big Picture Mode so timers don't fire after detach.
+        StopGalleryMode();
+        if (_screensaverActive)
+            DismissScreensaver();
+
+        // Stop the inactivity timer directly so it doesn't fire between now
+        // and the DetachedFromVisualTree event. DismissScreensaver() restarts
+        // the timer, so this must come after that call.
+        StopInactivityTimer();
+
         if (TopLevel.GetTopLevel(this) is MainWindow mainWindow)
         {
             mainWindow.ExitBigPictureMode();
@@ -1254,6 +1473,15 @@ public partial class BigPictureView : UserControl
         HelpToggle.Text = loc["BigPicture_HelpToggleHelp"];
         HelpRomInfo.Text = loc["BigPicture_HelpRomInfo"];
         HelpRandom.Text = loc["BigPicture_HelpRandom"];
+        HelpLetterJump.Text = loc["BigPicture_HelpLetterJump"];
+        HelpRecentlyPlayed.Text = loc["BigPicture_HelpRecentlyPlayed"];
+        HelpStats.Text = loc["BigPicture_HelpStats"];
+        HelpSystemCycle.Text = loc["BigPicture_HelpSystemCycle"];
+        HelpGallery.Text = loc["BigPicture_HelpGallery"];
+        HelpArtworkViewer.Text = loc["BigPicture_HelpArtworkViewer"];
+        HelpRating.Text = loc["BigPicture_HelpRating"];
+        HelpPlayTime.Text = loc["BigPicture_HelpPlayTime"];
+        HelpScreensaver.Text = loc["BigPicture_HelpScreensaver"];
         HelpDismiss.Text = loc["BigPicture_HelpDismiss"];
 
         // Show controller button column when gamepad support is available
@@ -1282,10 +1510,21 @@ public partial class BigPictureView : UserControl
         HelpGamepadToggle.IsVisible = showGamepad;
         HelpGamepadRomInfo.IsVisible = showGamepad;
         HelpGamepadRandom.IsVisible = showGamepad;
+        HelpGamepadRecentlyPlayed.IsVisible = showGamepad;
+        HelpGamepadStats.IsVisible = showGamepad;
+        HelpGamepadSystemCycle.IsVisible = showGamepad;
+        HelpGamepadGallery.IsVisible = showGamepad;
+        HelpGamepadArtworkViewer.IsVisible = showGamepad;
+        HelpGamepadRating.IsVisible = showGamepad;
     }
 
     private void ToggleHelpOverlay()
     {
+        // Stop gallery before showing the overlay so the timer does not
+        // advance cards behind it.  No action needed when hiding.
+        if (!HelpOverlay.IsVisible)
+            StopGalleryMode();
+
         HelpOverlay.IsVisible = !HelpOverlay.IsVisible;
     }
 
@@ -1302,6 +1541,7 @@ public partial class BigPictureView : UserControl
         if (_selectedIndex < 0 || _selectedIndex >= _filteredRoms.Count)
             return;
 
+        StopGalleryMode();
         PopulateRomInfoOverlay(_filteredRoms[_selectedIndex]);
         RomInfoOverlay.IsVisible = true;
     }
@@ -1335,6 +1575,14 @@ public partial class BigPictureView : UserControl
             foreach (var kvp in rom.HeaderInfo)
                 AddRomInfoRow(RomInfoDetailsSection, kvp.Key, kvp.Value);
         }
+
+        long playTimeSec = AppSettings.Instance.GetPlayTime(rom.FilePath);
+        if (playTimeSec > 0)
+            AddRomInfoRow(RomInfoDetailsSection, loc["BigPicture_PlayTimeLabel"], FormatPlayTime(playTimeSec));
+
+        int rating = AppSettings.Instance.GetRating(rom.FilePath);
+        AddRomInfoRow(RomInfoDetailsSection, loc["BigPicture_RatingLabel"],
+            rating > 0 ? string.Format(loc["BigPicture_RatingDisplay"], FormatRatingStars(rating), rating) : loc["BigPicture_Unrated"]);
 
         // --- Checksums ---
         RomInfoChecksumsSection.Children.Clear();
@@ -1480,6 +1728,16 @@ public partial class BigPictureView : UserControl
 
     private void OnKeyDownHandler(object? sender, KeyEventArgs e)
     {
+        ResetInactivityTimer();
+
+        // Dismiss screensaver on any key press
+        if (_screensaverActive)
+        {
+            DismissScreensaver();
+            e.Handled = true;
+            return;
+        }
+
         // Dismiss ROM info overlay
         if (RomInfoOverlay.IsVisible)
         {
@@ -1511,6 +1769,46 @@ public partial class BigPictureView : UserControl
             return;
         }
 
+        // Dismiss stats overlay
+        if (StatsOverlay.IsVisible)
+        {
+            if (e.Key is Key.C or Key.Escape)
+            {
+                DismissStatsOverlay();
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+            return;
+        }
+
+        // Dismiss artwork viewer overlay
+        if (ArtworkViewerOverlay.IsVisible)
+        {
+            if (e.Key is Key.V or Key.Escape)
+            {
+                DismissArtworkViewer();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Left)
+            {
+                CycleArtworkViewer(-1);
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Right)
+            {
+                CycleArtworkViewer(1);
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+            return;
+        }
+
         // When search box is focused, only handle Escape to return focus to the grid
         if (SearchBox.IsFocused)
         {
@@ -1520,6 +1818,27 @@ public partial class BigPictureView : UserControl
                 e.Handled = true;
             }
             return;
+        }
+
+        // Stop gallery mode on any user-initiated interaction key.
+        // Overlay dismiss blocks above return early, so this only runs
+        // when no overlay is visible and the key reaches normal handling.
+        if (_galleryActive && e.Key is Key.Left or Key.Right or Key.Up or Key.Down
+            or Key.Home or Key.End or Key.PageUp or Key.PageDown
+            or Key.Escape or Key.Back or Key.Enter or Key.Space
+            or Key.F or Key.R or Key.P
+            or Key.V or Key.D0 or Key.D1 or Key.D2 or Key.D3 or Key.D4 or Key.D5
+            or Key.NumPad0 or Key.NumPad1 or Key.NumPad2 or Key.NumPad3 or Key.NumPad4 or Key.NumPad5)
+        {
+            StopGalleryMode();
+
+            // Escape / Back should only stop the gallery on the first press,
+            // not also exit Big Picture Mode.
+            if (e.Key is Key.Escape or Key.Back)
+            {
+                e.Handled = true;
+                return;
+            }
         }
 
         switch (e.Key)
@@ -1613,11 +1932,79 @@ public partial class BigPictureView : UserControl
                 SelectRandomGame();
                 e.Handled = true;
                 break;
+
+            case Key.P:
+                ToggleRecentlyPlayedBar();
+                e.Handled = true;
+                break;
+
+            case Key.C:
+                ToggleStatsOverlay();
+                e.Handled = true;
+                break;
+
+            case Key.OemOpenBrackets:
+                CycleSystemFilter(-1);
+                e.Handled = true;
+                break;
+
+            case Key.OemCloseBrackets:
+                CycleSystemFilter(1);
+                e.Handled = true;
+                break;
+
+            case Key.G:
+                ToggleGalleryMode();
+                e.Handled = true;
+                break;
+
+            case Key.V:
+                ToggleArtworkViewer();
+                e.Handled = true;
+                break;
+
+            case Key.D0: case Key.NumPad0:
+                RateSelectedGame(0);
+                e.Handled = true;
+                break;
+            case Key.D1: case Key.NumPad1:
+                RateSelectedGame(1);
+                e.Handled = true;
+                break;
+            case Key.D2: case Key.NumPad2:
+                RateSelectedGame(2);
+                e.Handled = true;
+                break;
+            case Key.D3: case Key.NumPad3:
+                RateSelectedGame(3);
+                e.Handled = true;
+                break;
+            case Key.D4: case Key.NumPad4:
+                RateSelectedGame(4);
+                e.Handled = true;
+                break;
+            case Key.D5: case Key.NumPad5:
+                RateSelectedGame(5);
+                e.Handled = true;
+                break;
+
+            default:
+                // Quick letter jump: A–Z keys that are NOT handled by explicit
+                // cases above (F, G, H, I, P, R, V already have dedicated actions and
+                // will never reach this default branch).
+                if (e.Key >= Key.A && e.Key <= Key.Z)
+                {
+                    char letter = (char)('A' + (e.Key - Key.A));
+                    JumpToLetter(letter);
+                    e.Handled = true;
+                }
+                break;
         }
     }
 
     private void NavigateCards(int delta)
     {
+        if (_galleryActive) StopGalleryMode();
         if (_filteredRoms.Count == 0) return;
 
         int newIndex = _selectedIndex + delta;
@@ -1627,6 +2014,7 @@ public partial class BigPictureView : UserControl
 
     private void NavigateCardsRow(int rowDelta)
     {
+        if (_galleryActive) StopGalleryMode();
         if (_filteredRoms.Count == 0) return;
 
         // Estimate cards per row based on panel width
@@ -1637,7 +2025,8 @@ public partial class BigPictureView : UserControl
             // Only subtract detail panel width when it is actually visible
             if (DetailPanel.IsVisible)
                 available -= DetailPanelWidth;
-            panelWidth = available;
+            // Ensure the fallback width is positive
+            panelWidth = Math.Max(available, CardWidth + CardSpacing);
         }
         int cardsPerRow = Math.Max(1, (int)(panelWidth / (CardWidth + CardSpacing)));
 
@@ -1647,5 +2036,850 @@ public partial class BigPictureView : UserControl
         newIndex = Math.Clamp(newIndex, 0, _filteredRoms.Count - 1);
         if (newIndex != _selectedIndex)
             SelectCard(newIndex);
+    }
+
+    /// <summary>
+    /// Initialises the inactivity timer that triggers the screensaver after
+    /// a configurable number of minutes with no user input.
+    /// </summary>
+    private void InitialiseInactivityTimer()
+    {
+        int timeoutMinutes = AppSettings.Instance.BigPictureScreensaverTimeout;
+        if (timeoutMinutes <= 0) return;
+
+        _inactivityTimer = new DispatcherTimer(DispatcherPriority.Background)
+        {
+            Interval = TimeSpan.FromMinutes(timeoutMinutes)
+        };
+        _inactivityTimer.Tick += OnInactivityTimerTick;
+        _inactivityTimer.Start();
+    }
+
+    /// <summary>
+    /// Resets the inactivity timer so the screensaver countdown restarts
+    /// from zero. Called on every user interaction.
+    /// </summary>
+    private void ResetInactivityTimer()
+    {
+        if (_inactivityTimer is not { IsEnabled: true }) return;
+        _inactivityTimer.Stop();
+        _inactivityTimer.Start();
+    }
+
+    private void StopInactivityTimer()
+    {
+        if (_inactivityTimer != null)
+        {
+            _inactivityTimer.Stop();
+            _inactivityTimer.Tick -= OnInactivityTimerTick;
+            _inactivityTimer = null;
+        }
+    }
+
+    private void OnInactivityTimerTick(object? sender, EventArgs e) => StartScreensaver();
+
+    /// <summary>
+    /// Activates the screensaver overlay and begins cycling through random
+    /// game artwork at a fixed interval.
+    /// </summary>
+    private void StartScreensaver()
+    {
+        if (_screensaverActive || _allRoms.Count == 0) return;
+
+        StopGalleryMode();
+
+        // Dismiss any active overlays before showing the screensaver
+        if (HelpOverlay.IsVisible) HelpOverlay.IsVisible = false;
+        if (RomInfoOverlay.IsVisible) DismissRomInfoOverlay();
+        if (StatsOverlay.IsVisible) DismissStatsOverlay();
+        if (ArtworkViewerOverlay.IsVisible) DismissArtworkViewer();
+        LetterJumpOverlay.IsVisible = false;
+        SystemCycleOverlay.IsVisible = false;
+        _letterJumpCts?.Cancel();
+        _systemCycleCts?.Cancel();
+
+        _screensaverActive = true;
+
+        // Stop the inactivity timer while the screensaver is active to avoid
+        // wasteful ticks that call StartScreensaver() only to return early.
+        StopInactivityTimer();
+
+        var loc = LocalizationManager.Instance;
+        ScreensaverDismiss.Text = loc["BigPicture_ScreensaverDismiss"];
+        ScreensaverOverlay.IsVisible = true;
+
+        CycleScreensaverArtwork();
+
+        // Defensive: stop any leftover cycle timer before creating a new one
+        StopScreensaverCycleTimer();
+        _screensaverCycleTimer = new DispatcherTimer(DispatcherPriority.Background)
+        {
+            Interval = TimeSpan.FromMilliseconds(ScreensaverCycleMs)
+        };
+        _screensaverCycleTimer.Tick += OnScreensaverCycleTimerTick;
+        _screensaverCycleTimer.Start();
+    }
+
+    /// <summary>
+    /// Selects a random ROM and displays its box-art (or a placeholder)
+    /// in the screensaver overlay.
+    /// </summary>
+    private void CycleScreensaverArtwork()
+    {
+        if (_allRoms.Count == 0) return;
+
+        int index;
+        if (_allRoms.Count == 1)
+        {
+            index = 0;
+        }
+        else
+        {
+            // Avoid showing the same ROM twice in a row
+            do
+            {
+                index = Random.Shared.Next(_allRoms.Count);
+            } while (index == _lastScreensaverRomIndex);
+        }
+        _lastScreensaverRomIndex = index;
+
+        var rom = _allRoms[index];
+        ScreensaverTitle.Text = Path.GetFileNameWithoutExtension(rom.FileName);
+        ScreensaverSystem.Text = rom.SystemName;
+
+        // Use cached thumbnail if available; otherwise clear the image
+        if (_thumbnailCache.TryGetValue(rom.FilePath, out var bitmap))
+        {
+            ScreensaverImage.Source = bitmap;
+        }
+        else
+        {
+            ScreensaverImage.Source = null;
+        }
+    }
+
+    /// <summary>
+    /// Dismisses the screensaver and returns to the normal Big Picture view.
+    /// </summary>
+    private void DismissScreensaver()
+    {
+        if (!_screensaverActive) return;
+        _screensaverActive = false;
+        _lastScreensaverRomIndex = -1;
+
+        StopScreensaverCycleTimer();
+        ScreensaverOverlay.IsVisible = false;
+        ScreensaverImage.Source = null;
+
+        // Restart the inactivity timer so the screensaver can activate again
+        // after the next period of inactivity.
+        InitialiseInactivityTimer();
+    }
+
+    private void StopScreensaverCycleTimer()
+    {
+        if (_screensaverCycleTimer != null)
+        {
+            _screensaverCycleTimer.Stop();
+            _screensaverCycleTimer.Tick -= OnScreensaverCycleTimerTick;
+            _screensaverCycleTimer = null;
+        }
+    }
+
+    private void OnScreensaverCycleTimerTick(object? sender, EventArgs e) => CycleScreensaverArtwork();
+
+    /// <summary>
+    /// Jumps to the first ROM in the filtered list whose display name
+    /// starts with the given letter. Shows a brief on-screen indicator.
+    /// </summary>
+    private void JumpToLetter(char letter)
+    {
+        if (_filteredRoms.Count == 0) return;
+
+        string prefix = letter.ToString();
+        int index = _filteredRoms.FindIndex(r =>
+            Path.GetFileNameWithoutExtension(r.FileName)
+                .StartsWith(prefix, StringComparison.OrdinalIgnoreCase));
+
+        if (index >= 0)
+            SelectCard(index);
+
+        ShowLetterJumpIndicator(letter);
+    }
+
+    /// <summary>
+    /// Shows the letter jump indicator briefly on screen, then auto-hides.
+    /// </summary>
+    private async void ShowLetterJumpIndicator(char letter)
+    {
+        try
+        {
+            _letterJumpCts?.Cancel();
+            _letterJumpCts?.Dispose();
+            _letterJumpCts = new CancellationTokenSource();
+            var token = _letterJumpCts.Token;
+
+            LetterJumpText.Text = letter.ToString();
+            LetterJumpOverlay.IsVisible = true;
+
+            await Task.Delay(LetterJumpDisplayMs, token);
+            if (!token.IsCancellationRequested)
+                LetterJumpOverlay.IsVisible = false;
+        }
+        catch (OperationCanceledException)
+        {
+            // A new letter was pressed before the timeout — the new call
+            // will manage the overlay visibility.
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[BigPicture] ShowLetterJumpIndicator failed: {ex.Message}");
+        }
+    }
+
+    /// <summary>
+    /// Toggles the recently played bar visibility on/off.
+    /// </summary>
+    private void ToggleRecentlyPlayedBar()
+    {
+        _recentlyPlayedBarVisible = !_recentlyPlayedBarVisible;
+
+        if (_recentlyPlayedBarVisible)
+            PopulateRecentlyPlayedBar();
+        else
+            RecentlyPlayedBar.IsVisible = false;
+    }
+
+    /// <summary>
+    /// Populates the recently played quick-access bar with mini-cards
+    /// for the most recently launched ROMs that exist in the current
+    /// collection. Shows the bar only if there is at least one match.
+    /// </summary>
+    private void PopulateRecentlyPlayedBar()
+    {
+        if (!_recentlyPlayedBarVisible) return;
+
+        var loc = LocalizationManager.Instance;
+        RecentlyPlayedBarTitle.Text = string.Format(loc["BigPicture_RecentlyPlayedBarIcon"], loc["BigPicture_RecentlyPlayedBar"]);
+
+        var recentPaths = AppSettings.Instance.RecentlyPlayed;
+        var romLookup = new Dictionary<string, RomInfo>(StringComparer.OrdinalIgnoreCase);
+        foreach (var rom in _allRoms)
+            romLookup.TryAdd(rom.FilePath, rom);
+
+        RecentlyPlayedPanel.Children.Clear();
+
+        int added = 0;
+        foreach (string path in recentPaths)
+        {
+            if (added >= RecentlyPlayedMaxCards) break;
+            if (!romLookup.TryGetValue(path, out var rom)) continue;
+
+            var card = CreateRecentlyPlayedCard(rom);
+            RecentlyPlayedPanel.Children.Add(card);
+            added++;
+        }
+
+        if (added == 0)
+        {
+            RecentlyPlayedPanel.Children.Add(new TextBlock
+            {
+                Text = loc["BigPicture_NoRecentlyPlayed"],
+                Foreground = CardSizeForeground,
+                FontSize = 13,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(8, 0)
+            });
+        }
+
+        RecentlyPlayedBar.IsVisible = true;
+    }
+
+    /// <summary>
+    /// Finds a ROM by file path in the current filtered list and selects it.
+    /// If the ROM is not visible because of active filters, the filters are
+    /// cleared so the ROM becomes visible before selecting.
+    /// </summary>
+    private void SelectRecentlyPlayedRom(RomInfo rom)
+    {
+        Predicate<RomInfo> match = r =>
+            string.Equals(r.FilePath, rom.FilePath, StringComparison.OrdinalIgnoreCase);
+
+        int idx = _filteredRoms.FindIndex(match);
+
+        if (idx < 0)
+        {
+            // ROM not visible due to active filters — reset all filters.
+            // Suppress individual ApplyFilterAndSort triggers so we only
+            // rebuild the grid once after all filters are cleared.
+            _suppressFilterUpdate = true;
+            SearchBox.Text = string.Empty;
+            SystemFilterCombo.SelectedIndex = 0;
+            FavoritesFilterButton.IsChecked = false;
+            _suppressFilterUpdate = false;
+
+            // Cancel any pending debounced search since we apply all filters below
+            _searchDebounceCts?.Cancel();
+
+            ApplyFilterAndSort();
+
+            idx = _filteredRoms.FindIndex(match);
+        }
+
+        if (idx >= 0)
+            SelectCard(idx);
+    }
+
+    /// <summary>
+    /// Creates a compact card for the recently played bar with optional
+    /// thumbnail artwork and the ROM's display name.
+    /// </summary>
+    private Border CreateRecentlyPlayedCard(RomInfo rom)
+    {
+        var cardImage = new Image
+        {
+            Stretch = Stretch.UniformToFill,
+            IsVisible = false
+        };
+
+        if (_thumbnailCache.TryGetValue(rom.FilePath, out var cached))
+        {
+            cardImage.Source = cached;
+            cardImage.IsVisible = true;
+        }
+
+        string systemInitial = !string.IsNullOrEmpty(rom.SystemName)
+            ? rom.SystemName[..1].ToUpperInvariant()
+            : "?";
+
+        var card = new Border
+        {
+            Width = RecentlyPlayedCardWidth,
+            Height = RecentlyPlayedCardHeight,
+            Background = CardDefaultBackground,
+            CornerRadius = new CornerRadius(6),
+            Cursor = HandCursor,
+            ClipToBounds = true,
+            Child = new Grid
+            {
+                Children =
+                {
+                    // System colour banner or artwork
+                    new Border
+                    {
+                        Background = GetSystemBrush(rom.System),
+                        Child = new Grid
+                        {
+                            Children =
+                            {
+                                new TextBlock
+                                {
+                                    Text = systemInitial,
+                                    FontSize = 28,
+                                    FontWeight = FontWeight.Bold,
+                                    Foreground = CardInitialForeground,
+                                    Opacity = 0.3,
+                                    HorizontalAlignment = HorizontalAlignment.Center,
+                                    VerticalAlignment = VerticalAlignment.Center
+                                },
+                                cardImage
+                            }
+                        }
+                    },
+                    // Semi-transparent name overlay at the bottom
+                    new Border
+                    {
+                        Background = RecentlyPlayedNameOverlayBackground,
+                        VerticalAlignment = VerticalAlignment.Bottom,
+                        Padding = new Thickness(6, 3),
+                        Child = new TextBlock
+                        {
+                            Text = Path.GetFileNameWithoutExtension(rom.FileName),
+                            FontSize = 10,
+                            Foreground = CardNameForeground,
+                            TextTrimming = TextTrimming.CharacterEllipsis,
+                            MaxLines = 1
+                        }
+                    }
+                }
+            }
+        };
+
+        card.PointerPressed += (_, _) =>
+        {
+            SelectRecentlyPlayedRom(rom);
+            Focus();
+        };
+
+        card.DoubleTapped += (_, _) =>
+        {
+            SelectRecentlyPlayedRom(rom);
+            LaunchSelectedRom();
+        };
+
+        return card;
+    }
+
+    private void ToggleStatsOverlay()
+    {
+        if (StatsOverlay.IsVisible)
+        {
+            DismissStatsOverlay();
+        }
+        else
+        {
+            StopGalleryMode();
+            PopulateStatsOverlay();
+            StatsOverlay.IsVisible = true;
+        }
+    }
+
+    private void DismissStatsOverlay()
+    {
+        StatsOverlay.IsVisible = false;
+    }
+
+    private void PopulateStatsOverlay()
+    {
+        var loc = LocalizationManager.Instance;
+        StatsOverlayTitle.Text = loc["BigPicture_StatsTitle"];
+        StatsDismiss.Text = loc["BigPicture_StatsDismiss"];
+
+        StatsContent.Children.Clear();
+
+        // Total ROMs
+        AddStatsRow(StatsContent, loc["BigPicture_StatsTotalRoms"], _allRoms.Count.ToString("N0"));
+
+        // Filtered ROMs (if filtering is active)
+        if (_filteredRoms.Count != _allRoms.Count)
+            AddStatsRow(StatsContent, loc["BigPicture_StatsFilteredRoms"], _filteredRoms.Count.ToString("N0"));
+
+        // Favorites count
+        var favorites = AppSettings.Instance.Favorites;
+        int favCount = _allRoms.Count(r => favorites.Contains(r.FilePath));
+        AddStatsRow(StatsContent, loc["BigPicture_StatsFavorites"], favCount.ToString("N0"));
+
+        // Total file size
+        long totalSize = _allRoms.Sum(r => r.FileSize);
+        AddStatsRow(StatsContent, loc["BigPicture_StatsTotalSize"], FormatFileSize(totalSize));
+
+        // Average file size
+        if (_allRoms.Count > 0)
+        {
+            long avgSize = totalSize / _allRoms.Count;
+            AddStatsRow(StatsContent, loc["BigPicture_StatsAvgSize"], FormatFileSize(avgSize));
+        }
+
+        // Total play time
+        long totalPlayTime = 0;
+        int ratedCount = 0;
+        double ratingSum = 0;
+        foreach (var r in _allRoms)
+        {
+            totalPlayTime += AppSettings.Instance.GetPlayTime(r.FilePath);
+            int rt = AppSettings.Instance.GetRating(r.FilePath);
+            if (rt > 0) { ratedCount++; ratingSum += rt; }
+        }
+        AddStatsRow(StatsContent, loc["BigPicture_StatsTotalPlayTime"], FormatPlayTime(totalPlayTime));
+        if (ratedCount > 0)
+            AddStatsRow(StatsContent, loc["BigPicture_StatsAvgRating"],
+                $"{(ratingSum / ratedCount):F1} / 5  ({ratedCount} {loc["BigPicture_StatsRated"]})");
+
+        // Separator
+        StatsContent.Children.Add(new Border
+        {
+            Background = CardSelectedBackground,
+            Height = 1,
+            Margin = new Thickness(0, 8)
+        });
+
+        // Per-system breakdown header
+        StatsContent.Children.Add(new TextBlock
+        {
+            Text = loc["BigPicture_StatsPerSystem"],
+            FontSize = 16,
+            FontWeight = FontWeight.SemiBold,
+            Foreground = RomInfoSectionHeaderForeground,
+            Margin = new Thickness(0, 4)
+        });
+
+        // Per-system breakdown
+        var systemGroups = _allRoms
+            .GroupBy(r => r.SystemName)
+            .OrderByDescending(g => g.Count())
+            .ToList();
+
+        foreach (var group in systemGroups)
+        {
+            long groupSize = group.Sum(r => r.FileSize);
+            string detail = $"{group.Count():N0}  ({FormatFileSize(groupSize)})";
+            AddStatsRow(StatsContent, group.Key, detail);
+        }
+    }
+
+    private static void AddStatsRow(StackPanel parent, string label, string value)
+    {
+        var row = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,Auto"),
+            Margin = new Thickness(0, 2)
+        };
+
+        var labelBlock = new TextBlock
+        {
+            Text = label,
+            FontSize = 14,
+            Foreground = RomInfoLabelForeground,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        Grid.SetColumn(labelBlock, 0);
+
+        var valueBlock = new TextBlock
+        {
+            Text = value,
+            FontSize = 14,
+            FontWeight = FontWeight.SemiBold,
+            Foreground = RomInfoValueForeground,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(24, 0, 0, 0)
+        };
+        Grid.SetColumn(valueBlock, 1);
+
+        row.Children.Add(labelBlock);
+        row.Children.Add(valueBlock);
+        parent.Children.Add(row);
+    }
+
+    private static readonly string[] FileSizeUnits = ["B", "KB", "MB", "GB", "TB"];
+
+    private static string FormatFileSize(long bytes)
+    {
+        double size = bytes;
+        int unitIndex = 0;
+        while (size >= 1024 && unitIndex < FileSizeUnits.Length - 1)
+        {
+            size /= 1024;
+            unitIndex++;
+        }
+        return $"{size:F1} {FileSizeUnits[unitIndex]}";
+    }
+
+    /// <summary>
+    /// Cycles the system filter dropdown forward or backward, wrapping
+    /// around at the ends. Shows a brief on-screen indicator with the
+    /// selected system name.
+    /// </summary>
+    private void CycleSystemFilter(int direction)
+    {
+        if (SystemFilterCombo.Items.Count == 0) return;
+
+        StopGalleryMode();
+
+        int count = SystemFilterCombo.Items.Count;
+        int current = SystemFilterCombo.SelectedIndex;
+        int next = (current + direction + count) % count;
+
+        SystemFilterCombo.SelectedIndex = next;
+
+        // Read the display name from the newly selected item
+        string systemName = (SystemFilterCombo.SelectedItem as ComboBoxItem)?.Content?.ToString()
+                            ?? string.Empty;
+
+        ShowSystemCycleIndicator(systemName);
+    }
+
+    /// <summary>
+    /// Shows the system cycle indicator briefly on screen, then auto-hides.
+    /// </summary>
+    private async void ShowSystemCycleIndicator(string systemName)
+    {
+        try
+        {
+            _systemCycleCts?.Cancel();
+            _systemCycleCts?.Dispose();
+            _systemCycleCts = new CancellationTokenSource();
+            var token = _systemCycleCts.Token;
+
+            SystemCycleText.Text = systemName;
+            SystemCycleOverlay.IsVisible = true;
+
+            await Task.Delay(SystemCycleDisplayMs, token);
+            if (!token.IsCancellationRequested)
+                SystemCycleOverlay.IsVisible = false;
+        }
+        catch (OperationCanceledException)
+        {
+            // A new cycle was triggered before the timeout — the new call
+            // will manage the overlay visibility.
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[BigPicture] ShowSystemCycleIndicator failed: {ex.Message}");
+        }
+    }
+
+    /// <summary>
+    /// Toggles the auto-scroll gallery mode on or off. When active,
+    /// the view automatically advances to the next card at a fixed
+    /// interval, wrapping to the beginning when the end is reached.
+    /// </summary>
+    private void ToggleGalleryMode()
+    {
+        if (_galleryActive)
+        {
+            StopGalleryMode();
+        }
+        else
+        {
+            StartGalleryMode();
+        }
+    }
+
+    private void StartGalleryMode()
+    {
+        if (_filteredRoms.Count == 0) return;
+
+        // Defensive: fully dispose any existing timer to prevent event-handler
+        // leaks if this method is reached while a timer is already running.
+        if (_galleryTimer != null)
+        {
+            _galleryTimer.Stop();
+            _galleryTimer.Tick -= OnGalleryTimerTick;
+            _galleryTimer = null;
+        }
+        _galleryActive = true;
+
+        var loc = LocalizationManager.Instance;
+        StatusText.Text = loc["BigPicture_GalleryActive"];
+
+        _galleryTimer = new DispatcherTimer(DispatcherPriority.Background)
+        {
+            Interval = TimeSpan.FromMilliseconds(GalleryIntervalMs)
+        };
+        _galleryTimer.Tick += OnGalleryTimerTick;
+        _galleryTimer.Start();
+    }
+
+    private void StopGalleryMode()
+    {
+        if (!_galleryActive) return;
+        _galleryActive = false;
+
+        if (_galleryTimer != null)
+        {
+            _galleryTimer.Stop();
+            _galleryTimer.Tick -= OnGalleryTimerTick;
+            _galleryTimer = null;
+        }
+
+        var loc = LocalizationManager.Instance;
+        StatusText.Text = loc["BigPicture_GalleryStopped"];
+    }
+
+    private void OnGalleryTimerTick(object? sender, EventArgs e) => GalleryAdvance();
+
+    private void GalleryAdvance()
+    {
+        if (_filteredRoms.Count == 0)
+        {
+            StopGalleryMode();
+            return;
+        }
+
+        int next = _selectedIndex + 1;
+        if (next >= _filteredRoms.Count)
+            next = 0;
+
+        SelectCard(next);
+    }
+
+    /// <summary>
+    /// Formats a total number of seconds into a human-readable playtime
+    /// string (e.g. "2h 15m", "45m", "< 1m").
+    /// </summary>
+    private static string FormatPlayTime(long totalSeconds)
+    {
+        if (totalSeconds <= 0) return "—";
+        if (totalSeconds < 60) return "< 1m";
+
+        long hours = totalSeconds / 3600;
+        long minutes = (totalSeconds % 3600) / 60;
+
+        if (hours > 0)
+            return $"{hours}h {minutes}m";
+        return $"{minutes}m";
+    }
+
+    private void ToggleArtworkViewer()
+    {
+        if (ArtworkViewerOverlay.IsVisible)
+        {
+            DismissArtworkViewer();
+            return;
+        }
+
+        if (_selectedIndex < 0 || _selectedIndex >= _filteredRoms.Count)
+            return;
+
+        StopGalleryMode();
+        OpenArtworkViewer(_filteredRoms[_selectedIndex]);
+    }
+
+    private void OpenArtworkViewer(RomInfo rom)
+    {
+        var loc = LocalizationManager.Instance;
+
+        // Collect available artwork from the detail panel images
+        _artworkViewerImages[0] = DetailBoxArt.Source as Bitmap;
+        _artworkViewerImages[1] = DetailScreenshot.Source as Bitmap;
+        _artworkViewerImages[2] = DetailTitleScreen.Source as Bitmap;
+
+        _artworkViewerLabels[0] = loc["Browser_BoxArt"];
+        _artworkViewerLabels[1] = loc["Browser_Screenshot"];
+        _artworkViewerLabels[2] = loc["Browser_TitleScreen"];
+
+        // Bail out if no artwork is available
+        bool hasAny = false;
+        for (int i = 0; i < ArtworkViewerImageCount; i++)
+        {
+            if (_artworkViewerImages[i] != null) { hasAny = true; break; }
+        }
+        if (!hasAny) return;
+
+        ArtworkViewerTitle.Text = Path.GetFileNameWithoutExtension(rom.FileName);
+        ArtworkViewerDismiss.Text = loc["BigPicture_ArtworkViewerDismiss"];
+
+        // Start at the first available image
+        _artworkViewerIndex = 0;
+        for (int i = 0; i < ArtworkViewerImageCount; i++)
+        {
+            if (_artworkViewerImages[i] != null)
+            {
+                _artworkViewerIndex = i;
+                break;
+            }
+        }
+
+        UpdateArtworkViewerDisplay();
+        ArtworkViewerOverlay.IsVisible = true;
+    }
+
+    private void CycleArtworkViewer(int direction)
+    {
+        // Skip null (unloaded) images when cycling
+        int next = _artworkViewerIndex;
+        for (int i = 0; i < ArtworkViewerImageCount; i++)
+        {
+            next = (next + direction + ArtworkViewerImageCount) % ArtworkViewerImageCount;
+            if (_artworkViewerImages[next] != null)
+                break;
+        }
+        _artworkViewerIndex = next;
+        UpdateArtworkViewerDisplay();
+    }
+
+    private void UpdateArtworkViewerDisplay()
+    {
+        ArtworkViewerImage.Source = _artworkViewerImages[_artworkViewerIndex];
+        ArtworkViewerLabel.Text = _artworkViewerLabels[_artworkViewerIndex];
+
+        // Count only available (non-null) images and compute the 1-based position
+        int available = 0;
+        int position = 0;
+        for (int i = 0; i < ArtworkViewerImageCount; i++)
+        {
+            if (_artworkViewerImages[i] != null)
+            {
+                available++;
+                if (i == _artworkViewerIndex)
+                    position = available;
+            }
+        }
+        ArtworkViewerCounter.Text = string.Format(LocalizationManager.Instance["BigPicture_ArtworkCounter"], position, available);
+    }
+
+    private void DismissArtworkViewer()
+    {
+        ArtworkViewerOverlay.IsVisible = false;
+        // Don't dispose images — they belong to the detail panel
+        ArtworkViewerImage.Source = null;
+        ClearArtworkViewerReferences();
+    }
+
+    /// <summary>
+    /// Clears the artwork viewer image reference array so it does not hold
+    /// stale references to bitmaps that may be disposed elsewhere.
+    /// </summary>
+    private void ClearArtworkViewerReferences()
+    {
+        Array.Clear(_artworkViewerImages);
+    }
+
+    private void RateSelectedGame(int rating)
+    {
+        if (!AppSettings.Instance.BigPictureRatingsEnabled) return;
+        if (_selectedIndex < 0 || _selectedIndex >= _filteredRoms.Count) return;
+
+        var rom = _filteredRoms[_selectedIndex];
+        int current = AppSettings.Instance.GetRating(rom.FilePath);
+
+        // Pressing the same rating again clears it
+        if (current == rating)
+            AppSettings.Instance.SetRating(rom.FilePath, 0);
+        else
+            AppSettings.Instance.SetRating(rom.FilePath, rating);
+
+        // Refresh detail panel and the affected card
+        RefreshRatingDisplay(rom);
+    }
+
+    private void CycleSelectedRating()
+    {
+        if (!AppSettings.Instance.BigPictureRatingsEnabled) return;
+        if (_selectedIndex < 0 || _selectedIndex >= _filteredRoms.Count) return;
+
+        var rom = _filteredRoms[_selectedIndex];
+        int current = AppSettings.Instance.GetRating(rom.FilePath);
+        // Cycle: 0→1→2→3→4→5→0 (clear after 5)
+        int next = current >= 5 ? 0 : current + 1;
+        AppSettings.Instance.SetRating(rom.FilePath, next);
+
+        // Refresh detail panel and the affected card
+        RefreshRatingDisplay(rom);
+    }
+
+    /// <summary>
+    /// Refreshes the rating display in the detail panel and the selected card
+    /// without rebuilding the entire card grid.
+    /// </summary>
+    private void RefreshRatingDisplay(RomInfo rom)
+    {
+        var loc = LocalizationManager.Instance;
+        int newRating = AppSettings.Instance.GetRating(rom.FilePath);
+
+        DetailRating.Text = FormatRatingStars(newRating) +
+            (newRating > 0 ? $" ({newRating}/5)" : $" ({loc["BigPicture_Unrated"]})");
+
+        // Update just the rating TextBlock on the selected card
+        if (_selectedIndex >= 0 && _selectedIndex < GameCardsPanel.Children.Count &&
+            GameCardsPanel.Children[_selectedIndex] is Border card &&
+            card.Child is StackPanel cardStack &&
+            cardStack.Children.Count >= 3 &&
+            cardStack.Children[2] is StackPanel metaPanel &&
+            metaPanel.Children.Count >= 3 &&
+            metaPanel.Children[2] is TextBlock ratingBlock)
+        {
+            ratingBlock.Text = FormatRatingStars(newRating);
+            ratingBlock.IsVisible = newRating > 0;
+        }
+    }
+
+    /// <summary>
+    /// Returns a star string representation for a rating (e.g. "★★★☆☆" for 3).
+    /// </summary>
+    private static string FormatRatingStars(int rating)
+    {
+        if (rating <= 0) return "☆☆☆☆☆";
+        return new string('★', Math.Min(rating, 5)) + new string('☆', Math.Max(0, 5 - rating));
     }
 }

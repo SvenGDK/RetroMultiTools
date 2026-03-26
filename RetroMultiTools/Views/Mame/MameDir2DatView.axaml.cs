@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using RetroMultiTools.Utilities;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities.Mame;
 
 namespace RetroMultiTools.Views.Mame;
@@ -20,7 +20,7 @@ public partial class MameDir2DatView : UserControl
 
     private async void BrowseRomDir_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFolder("Select ROM Directory");
+        var path = await PickFolder(LocalizationManager.Instance["MameDir2Dat_SelectRomDirTitle"]);
         if (path != null) RomDirTextBox.Text = path;
         UpdateButtons();
     }
@@ -33,10 +33,11 @@ public partial class MameDir2DatView : UserControl
 
     private async void ScanButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string romDir = RomDirTextBox.Text ?? "";
         if (string.IsNullOrEmpty(romDir))
         {
-            ShowStatus("Please select a ROM directory.", isError: true);
+            ShowStatus(loc["MameDir2Dat_SelectRomDir"], isError: true);
             return;
         }
 
@@ -54,18 +55,18 @@ public partial class MameDir2DatView : UserControl
 
             _scanResult = await MameDir2Dat.CreateDatAsync(romDir, options, progress);
 
-            ShowStatus($"✔ Scan complete!\n{_scanResult.Summary}", isError: false);
+            ShowStatus(string.Format(loc["MameDir2Dat_ScanComplete"], _scanResult.Summary), isError: false);
 
             var lines = new System.Text.StringBuilder();
             int shown = 0;
             foreach (var game in _scanResult.Games.OrderBy(g => g.Name, StringComparer.OrdinalIgnoreCase))
             {
                 if (shown >= 200) break;
-                lines.AppendLine($"📦 {game.Name} — {game.Roms.Count} ROM(s), {game.Disks.Count} disk(s)");
+                lines.AppendLine($"📦 {string.Format(loc["MameDir2Dat_GameSummaryLine"], game.Name, game.Roms.Count, game.Disks.Count)}");
                 foreach (var rom in game.Roms.Take(5))
                     lines.AppendLine($"   {rom.Name} ({rom.Size:N0} bytes, CRC: {rom.CRC32})");
                 if (game.Roms.Count > 5)
-                    lines.AppendLine($"   ... and {game.Roms.Count - 5} more ROMs");
+                    lines.AppendLine($"   {string.Format(loc["MameDir2Dat_MoreRoms"], game.Roms.Count - 5)}");
                 foreach (var disk in game.Disks)
                     lines.AppendLine($"   💿 {disk.Name}");
                 lines.AppendLine();
@@ -73,14 +74,14 @@ public partial class MameDir2DatView : UserControl
             }
 
             if (_scanResult.Games.Count > 200)
-                lines.AppendLine($"... and {_scanResult.Games.Count - 200} more games");
+                lines.AppendLine(string.Format(loc["MameDir2Dat_MoreGames"], _scanResult.Games.Count - 200));
 
             ResultsText.Text = lines.ToString();
             ResultsBorder.IsVisible = _scanResult.Games.Count > 0;
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {
@@ -91,9 +92,10 @@ public partial class MameDir2DatView : UserControl
 
     private async void ExportButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         if (_scanResult == null || _scanResult.TotalGames == 0)
         {
-            ShowStatus("No scan results to export. Run a scan first.", isError: true);
+            ShowStatus(loc["MameDir2Dat_NoScanResults"], isError: true);
             return;
         }
 
@@ -106,11 +108,11 @@ public partial class MameDir2DatView : UserControl
 
         var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Export DAT File",
+            Title = loc["MameDir2Dat_ExportDialogTitle"],
             SuggestedFileName = defaultName,
             FileTypeChoices =
             [
-                new FilePickerFileType("DAT Files") { Patterns = ["*.dat", "*.xml"] }
+                new FilePickerFileType(loc["MameDir2Dat_DatFileType"]) { Patterns = ["*.dat", "*.xml"] }
             ]
         });
 
@@ -120,11 +122,11 @@ public partial class MameDir2DatView : UserControl
         {
             var options = BuildOptions();
             MameDir2Dat.ExportDat(_scanResult, file.Path.LocalPath, options);
-            ShowStatus($"✔ DAT exported to: {file.Path.LocalPath}", isError: false);
+            ShowStatus(string.Format(loc["MameDir2Dat_ExportComplete"], file.Path.LocalPath), isError: false);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error exporting DAT: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["MameDir2Dat_ExportError"], ex.Message), isError: true);
         }
     }
 

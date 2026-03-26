@@ -119,3 +119,25 @@ Extracts metadata from ROM files in bulk and exports the results.
 
 - **CSV** — tabular data with one row per ROM.
 - **Text report** — human-readable summary.
+
+---
+
+## ROM Organizer
+
+Automatically sorts ROMs into system-specific subfolders based on detected system type.
+
+### How It Works
+
+1. Select a **source directory** containing ROM files.
+2. Select an **output directory** where system folders will be created.
+3. Optionally filter to a specific system.
+4. Choose **Copy** or **Move** mode.
+5. Click **Organize** to begin.
+
+### Features
+
+- **System auto-detection** — each ROM is identified by its file extension and header via the ROM detector.
+- **Copy or Move** — duplicate ROMs into organized folders while preserving originals, or relocate them.
+- **System filter** — optionally organize only a specific platform.
+- **Duplicate handling** — files that already exist at the destination are skipped (no overwrites).
+- **Summary report** — shows processed, skipped, and failed file counts after completion.

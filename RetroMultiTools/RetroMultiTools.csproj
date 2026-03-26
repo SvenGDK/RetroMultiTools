@@ -16,7 +16,7 @@
     <PackageTags>retro;gaming;tools</PackageTags>
     <Description>Multi platform utility for managing, inspecting, and patching retro game ROMs.</Description>
     <ApplicationIcon>RetroMultiTools.ico</ApplicationIcon>
-    <Version>3.0.0</Version>
+    <Version>4.0.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="RetroMultiTools.ico" />
@@ -34,6 +34,8 @@
     <PackageReference Include="Avalonia.Diagnostics" Version="11.3.12" Condition="'$(Configuration)' == 'Debug'" />
     <PackageReference Include="AWSSDK.S3" Version="4.0.19" />
     <PackageReference Include="FluentFTP" Version="53.0.2" />
+    <PackageReference Include="Markdown.Avalonia" Version="11.0.2" />
+    <PackageReference Include="SharpCompress" Version="0.38.0" />
     <PackageReference Include="SSH.NET" Version="2025.1.0" />
   </ItemGroup>
 

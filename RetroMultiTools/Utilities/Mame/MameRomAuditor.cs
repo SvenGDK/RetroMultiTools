@@ -1,6 +1,7 @@
 using System.IO.Compression;
 using System.Xml;
 using System.Xml.Linq;
+using RetroMultiTools.Localization;
 
 namespace RetroMultiTools.Utilities.Mame;
 
@@ -110,7 +111,8 @@ public static class MameRomAuditor
         string romDirectory,
         List<MameMachine> machines,
         IProgress<string>? progress = null,
-        bool searchRecursively = false)
+        bool searchRecursively = false,
+        CancellationToken cancellationToken = default)
     {
         if (!Directory.Exists(romDirectory))
             throw new DirectoryNotFoundException($"ROM directory not found: {romDirectory}");
@@ -128,10 +130,12 @@ public static class MameRomAuditor
 
         for (int i = 0; i < zipFiles.Count; i++)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             string zipFile = zipFiles[i];
             string machineName = Path.GetFileNameWithoutExtension(zipFile);
 
-            progress?.Report($"Auditing {i + 1} of {zipFiles.Count}: {machineName}");
+            progress?.Report(string.Format(LocalizationManager.Instance["MameAuditor_ProgressAuditing"], i + 1, zipFiles.Count, machineName));
 
             if (!machinesByName.TryGetValue(machineName, out var machine))
             {
@@ -140,7 +144,7 @@ public static class MameRomAuditor
                     MachineName = machineName,
                     Description = machineName,
                     Status = MachineStatus.Unknown,
-                    StatusDetail = "Not found in MAME database"
+                    StatusDetail = LocalizationManager.Instance["MameAudit_NotInDatabase"]
                 });
                 continue;
             }
@@ -153,6 +157,60 @@ public static class MameRomAuditor
                 case MachineStatus.Good: goodCount++; break;
                 case MachineStatus.Bad: badCount++; break;
                 case MachineStatus.Incomplete: incompleteCount++; break;
+            }
+        }
+
+        // Also verify CHD disk files for machines that require them.
+        // CHD files are typically stored in subdirectories named after the machine.
+        foreach (var auditResult in results)
+        {
+            if (!machinesByName.TryGetValue(auditResult.MachineName, out var machine))
+                continue;
+
+            var requiredDisks = machine.Disks
+                .Where(d => string.IsNullOrEmpty(d.Merge) && d.Status != "nodump")
+                .ToList();
+
+            if (requiredDisks.Count == 0) continue;
+
+            string machineDir = Path.Combine(romDirectory, machine.Name);
+            if (!Directory.Exists(machineDir)) continue;
+
+            foreach (var disk in requiredDisks)
+            {
+                string chdPath = Path.Combine(machineDir, disk.Name + ".chd");
+                if (!File.Exists(chdPath))
+                {
+                    auditResult.Issues.Add(string.Format(LocalizationManager.Instance["MameAudit_MissingDisk"], disk.Name));
+                    if (auditResult.Status == MachineStatus.Good)
+                        auditResult.Status = MachineStatus.Incomplete;
+                }
+                else if (!string.IsNullOrEmpty(disk.SHA1))
+                {
+                    // Verify CHD SHA-1 against database by reading the header
+                    try
+                    {
+                        var chdResult = await MameChdVerifier.VerifyAsync(chdPath).ConfigureAwait(false);
+                        if (chdResult.IsValid && !string.IsNullOrEmpty(chdResult.SHA1) &&
+                            !chdResult.SHA1.Equals(disk.SHA1, StringComparison.OrdinalIgnoreCase))
+                        {
+                            auditResult.Issues.Add(string.Format(LocalizationManager.Instance["MameAudit_BadDiskSha1"], disk.Name, disk.SHA1, chdResult.SHA1));
+                            if (auditResult.Status == MachineStatus.Good)
+                                auditResult.Status = MachineStatus.Bad;
+                        }
+                        else if (!chdResult.IsValid)
+                        {
+                            auditResult.Issues.Add(string.Format(LocalizationManager.Instance["MameAudit_InvalidDisk"], disk.Name, chdResult.Error));
+                            if (auditResult.Status == MachineStatus.Good)
+                                auditResult.Status = MachineStatus.Bad;
+                        }
+                    }
+                    catch (IOException)
+                    {
+                        // Could not read CHD - report but don't fail the whole audit
+                        auditResult.Issues.Add(string.Format(LocalizationManager.Instance["MameAudit_DiskReadError"], disk.Name));
+                    }
+                }
             }
         }
 
@@ -172,7 +230,7 @@ public static class MameRomAuditor
             }
         }
 
-        progress?.Report($"Done — {goodCount} good, {incompleteCount} incomplete, {badCount} bad, {missingMachines.Count} missing.");
+        progress?.Report(string.Format(LocalizationManager.Instance["MameAuditor_ProgressDone"], goodCount, incompleteCount, badCount, missingMachines.Count));
 
         return new MameAuditResult
         {
@@ -204,7 +262,7 @@ public static class MameRomAuditor
         if (requiredRoms.Count == 0)
         {
             result.Status = MachineStatus.Good;
-            result.StatusDetail = "No non-merged ROMs required";
+            result.StatusDetail = LocalizationManager.Instance["MameAudit_NoNonMerged"];
             return result;
         }
 
@@ -224,7 +282,7 @@ public static class MameRomAuditor
             {
                 if (!zipEntries.TryGetValue(rom.Name, out var entry))
                 {
-                    issues.Add($"Missing: {rom.Name}");
+                    issues.Add(string.Format(LocalizationManager.Instance["MameAudit_Missing"], rom.Name));
                     result.RomResults.Add(new RomAuditResult
                     {
                         RomName = rom.Name,
@@ -252,12 +310,12 @@ public static class MameRomAuditor
                 if (rom.Size > 0 && entry.Length != rom.Size)
                 {
                     romResult.Status = RomStatus.BadSize;
-                    issues.Add($"Bad size: {rom.Name} (expected {rom.Size}, got {entry.Length})");
+                    issues.Add(string.Format(LocalizationManager.Instance["MameAudit_BadSize"], rom.Name, rom.Size, entry.Length));
                 }
                 else if (!string.IsNullOrEmpty(rom.CRC32) && !rom.CRC32.Equals(actualCrc, StringComparison.OrdinalIgnoreCase))
                 {
                     romResult.Status = RomStatus.BadChecksum;
-                    issues.Add($"Bad CRC: {rom.Name} (expected {rom.CRC32}, got {actualCrc})");
+                    issues.Add(string.Format(LocalizationManager.Instance["MameAudit_BadCRC"], rom.Name, rom.CRC32, actualCrc));
                 }
                 else
                 {
@@ -271,22 +329,22 @@ public static class MameRomAuditor
             if (correct == requiredRoms.Count)
             {
                 result.Status = MachineStatus.Good;
-                result.StatusDetail = $"All {requiredRoms.Count} ROMs verified";
+                result.StatusDetail = string.Format(LocalizationManager.Instance["MameAudit_AllVerified"], requiredRoms.Count);
             }
             else if (found == 0)
             {
                 result.Status = MachineStatus.Bad;
-                result.StatusDetail = $"No required ROMs found (need {requiredRoms.Count})";
+                result.StatusDetail = string.Format(LocalizationManager.Instance["MameAudit_NoRequired"], requiredRoms.Count);
             }
             else if (found < requiredRoms.Count)
             {
                 result.Status = MachineStatus.Incomplete;
-                result.StatusDetail = $"{found} of {requiredRoms.Count} ROMs present, {issues.Count} issues";
+                result.StatusDetail = string.Format(LocalizationManager.Instance["MameAudit_RomsPresent"], found, requiredRoms.Count, issues.Count);
             }
             else
             {
                 result.Status = MachineStatus.Bad;
-                result.StatusDetail = $"{correct} of {requiredRoms.Count} ROMs correct, {issues.Count} issues";
+                result.StatusDetail = string.Format(LocalizationManager.Instance["MameAudit_RomsCorrect"], correct, requiredRoms.Count, issues.Count);
             }
 
             result.Issues = issues;
@@ -294,12 +352,12 @@ public static class MameRomAuditor
         catch (InvalidDataException)
         {
             result.Status = MachineStatus.Bad;
-            result.StatusDetail = "Corrupt or invalid ZIP file";
+            result.StatusDetail = LocalizationManager.Instance["MameAudit_CorruptZip"];
         }
         catch (IOException ex)
         {
             result.Status = MachineStatus.Bad;
-            result.StatusDetail = $"Read error: {ex.Message}";
+            result.StatusDetail = string.Format(LocalizationManager.Instance["MameAudit_ReadError"], ex.Message);
         }
 
         return result;
@@ -385,6 +443,5 @@ public class MameAuditResult
     public List<string> MissingMachines { get; set; } = [];
 
     public string Summary =>
-        $"{GoodCount} good, {IncompleteCount} incomplete, {BadCount} bad out of {TotalZips} ROM sets. " +
-        $"{MissingMachines.Count} machines missing from directory.";
+        string.Format(LocalizationManager.Instance["MameAuditor_SummaryFormat"], GoodCount, IncompleteCount, BadCount, TotalZips, MissingMachines.Count);
 }

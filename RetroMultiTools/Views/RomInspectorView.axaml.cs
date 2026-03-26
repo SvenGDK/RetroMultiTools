@@ -55,12 +55,17 @@ public partial class RomInspectorView : UserControl
         string path = files[0].Path.LocalPath;
         RomFilePathText.Text = path;
 
-        // Show progress
+        // Show progress and clear previous results
         ProgressPanel.IsVisible = true;
         LoadProgressBar.IsVisible = true;
         OpenRomButton.IsEnabled = false;
         ArtworkPanel.IsVisible = false;
         ResetArtwork();
+        SystemNameText.Text = string.Empty;
+        FileSizeText.Text = string.Empty;
+        IsValidText.Text = string.Empty;
+        ErrorMessageText.Text = string.Empty;
+        HeaderItemsControl.ItemsSource = null;
 
         try
         {
@@ -94,15 +99,16 @@ public partial class RomInspectorView : UserControl
         }
         catch (Exception ex) when (ex is IOException or HttpRequestException)
         {
-            ProgressText.Text = $"Error: {ex.Message}";
+            ProgressText.Text = string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message);
         }
         catch (TaskCanceledException)
         {
             ProgressText.Text = LocalizationManager.Instance["Inspector_Cancelled"];
         }
-        catch (UnauthorizedAccessException ex)
+        catch (Exception ex)
         {
-            ProgressText.Text = $"Error: {ex.Message}";
+            System.Diagnostics.Trace.WriteLine($"[RomInspector] OpenRomButton_Click failed: {ex.Message}");
+            ProgressText.Text = string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message);
         }
         finally
         {
@@ -155,12 +161,17 @@ public partial class RomInspectorView : UserControl
         BoxArtPanel.IsVisible = false;
         SnapPanel.IsVisible = false;
         TitleScreenPanel.IsVisible = false;
-        (BoxArtImage.Source as Bitmap)?.Dispose();
-        (SnapImage.Source as Bitmap)?.Dispose();
-        (TitleScreenImage.Source as Bitmap)?.Dispose();
+        // Detach bitmaps from Image controls before disposing to prevent
+        // Avalonia from rendering an already-disposed bitmap.
+        var boxArt = BoxArtImage.Source as Bitmap;
+        var snap = SnapImage.Source as Bitmap;
+        var titleScreen = TitleScreenImage.Source as Bitmap;
         BoxArtImage.Source = null;
         SnapImage.Source = null;
         TitleScreenImage.Source = null;
+        boxArt?.Dispose();
+        snap?.Dispose();
+        titleScreen?.Dispose();
     }
 
     private static Bitmap? LoadBitmap(byte[] data)

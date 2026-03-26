@@ -1,0 +1,149 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+        x:Class="RetroMultiTools.Views.GamepadKeyMapperWizardWindow"
+        Title="{Binding [GpMapper_WizardTitle], Source={x:Static loc:LocalizationManager.Instance}}"
+        Width="520" Height="480"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        Background="#1E1E2E">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Header / Step indicator -->
+        <Border Grid.Row="0" Background="#181825" Padding="20,16">
+            <StackPanel Spacing="4">
+                <TextBlock x:Name="StepTitle" FontSize="16" FontWeight="Bold" Foreground="#CDD6F4"/>
+                <TextBlock x:Name="StepDescription" Foreground="#A6ADC8" TextWrapping="Wrap" FontSize="13"/>
+                <!-- Step dots -->
+                <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,8,0,0">
+                    <Ellipse x:Name="Dot1" Width="10" Height="10" Fill="#89B4FA"/>
+                    <Ellipse x:Name="Dot2" Width="10" Height="10" Fill="#45475A"/>
+                    <Ellipse x:Name="Dot3" Width="10" Height="10" Fill="#45475A"/>
+                    <Ellipse x:Name="Dot4" Width="10" Height="10" Fill="#45475A"/>
+                    <Ellipse x:Name="Dot5" Width="10" Height="10" Fill="#45475A"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Step content (stacked panels toggled by visibility) -->
+        <ScrollViewer Grid.Row="1" Padding="20,16">
+            <Grid>
+                <!-- Step 1: Profile name -->
+                <StackPanel x:Name="Step1Panel" Spacing="12">
+                    <TextBlock Text="{Binding [GpMapper_ProfileNamePrompt], Source={x:Static loc:LocalizationManager.Instance}}"
+                               Foreground="#CDD6F4"/>
+                    <TextBox x:Name="ProfileNameBox"
+                             Text="{Binding [GpMapper_DefaultProfileName], Source={x:Static loc:LocalizationManager.Instance}}"
+                             Padding="8,6" MaxWidth="350"
+                             HorizontalAlignment="Left"/>
+                </StackPanel>
+
+                <!-- Step 2: Face buttons -->
+                <StackPanel x:Name="Step2Panel" Spacing="10" IsVisible="False">
+                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto" Margin="0,0,0,0" ColumnSpacing="12">
+                        <TextBlock Text="A →" Foreground="#F9E2AF" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="BtnACombo" Grid.Column="1" MinWidth="200" HorizontalAlignment="Left"/>
+
+                        <TextBlock Grid.Row="1" Text="B →" Foreground="#F9E2AF" FontWeight="SemiBold" VerticalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                        <ComboBox x:Name="BtnBCombo" Grid.Row="1" Grid.Column="1" MinWidth="200" HorizontalAlignment="Left"
+                                  Margin="0,8,0,0"/>
+
+                        <TextBlock Grid.Row="2" Text="X →" Foreground="#F9E2AF" FontWeight="SemiBold" VerticalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                        <ComboBox x:Name="BtnXCombo" Grid.Row="2" Grid.Column="1" MinWidth="200" HorizontalAlignment="Left"
+                                  Margin="0,8,0,0"/>
+
+                        <TextBlock Grid.Row="3" Text="Y →" Foreground="#F9E2AF" FontWeight="SemiBold" VerticalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                        <ComboBox x:Name="BtnYCombo" Grid.Row="3" Grid.Column="1" MinWidth="200" HorizontalAlignment="Left"
+                                  Margin="0,8,0,0"/>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Step 3: D-Pad -->
+                <StackPanel x:Name="Step3Panel" Spacing="12" IsVisible="False">
+                    <RadioButton x:Name="DPadArrows" GroupName="DPad" IsChecked="True"
+                                 Content="{Binding [GpMapper_WizardArrowKeys], Source={x:Static loc:LocalizationManager.Instance}}"
+                                 Foreground="#CDD6F4"/>
+                    <RadioButton x:Name="DPadWASD" GroupName="DPad"
+                                 Content="{Binding [GpMapper_WizardWASD], Source={x:Static loc:LocalizationManager.Instance}}"
+                                 Foreground="#CDD6F4"/>
+                    <RadioButton x:Name="DPadNone" GroupName="DPad"
+                                 Content="{Binding [GpMapper_WizardNone], Source={x:Static loc:LocalizationManager.Instance}}"
+                                 Foreground="#CDD6F4"/>
+                </StackPanel>
+
+                <!-- Step 4: Left Stick -->
+                <StackPanel x:Name="Step4Panel" Spacing="12" IsVisible="False">
+                    <RadioButton x:Name="StickWASD" GroupName="Stick" IsChecked="True"
+                                 Content="{Binding [GpMapper_WizardWASD], Source={x:Static loc:LocalizationManager.Instance}}"
+                                 Foreground="#CDD6F4"/>
+                    <RadioButton x:Name="StickArrows" GroupName="Stick"
+                                 Content="{Binding [GpMapper_WizardArrowKeys], Source={x:Static loc:LocalizationManager.Instance}}"
+                                 Foreground="#CDD6F4"/>
+                    <RadioButton x:Name="StickMouse" GroupName="Stick"
+                                 Content="{Binding [GpMapper_WizardMouseMove], Source={x:Static loc:LocalizationManager.Instance}}"
+                                 Foreground="#CDD6F4"/>
+                    <RadioButton x:Name="StickNone" GroupName="Stick"
+                                 Content="{Binding [GpMapper_WizardNone], Source={x:Static loc:LocalizationManager.Instance}}"
+                                 Foreground="#CDD6F4"/>
+                </StackPanel>
+
+                <!-- Step 5: Triggers & Shoulders -->
+                <StackPanel x:Name="Step5Panel" Spacing="10" IsVisible="False">
+                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" Margin="0,0,0,0" ColumnSpacing="12">
+                        <TextBlock Text="LB →" Foreground="#F9E2AF" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="LBCombo" Grid.Column="1" MinWidth="200" HorizontalAlignment="Left"/>
+
+                        <TextBlock Grid.Row="1" Text="RB →" Foreground="#F9E2AF" FontWeight="SemiBold" VerticalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                        <ComboBox x:Name="RBCombo" Grid.Row="1" Grid.Column="1" MinWidth="200" HorizontalAlignment="Left"
+                                  Margin="0,8,0,0"/>
+
+                        <TextBlock Grid.Row="2" Text="LT →" Foreground="#F9E2AF" FontWeight="SemiBold" VerticalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                        <ComboBox x:Name="LTCombo" Grid.Row="2" Grid.Column="1" MinWidth="200" HorizontalAlignment="Left"
+                                  Margin="0,8,0,0"/>
+
+                        <TextBlock Grid.Row="3" Text="RT →" Foreground="#F9E2AF" FontWeight="SemiBold" VerticalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                        <ComboBox x:Name="RTCombo" Grid.Row="3" Grid.Column="1" MinWidth="200" HorizontalAlignment="Left"
+                                  Margin="0,8,0,0"/>
+
+                        <TextBlock Grid.Row="4" Text="Start →" Foreground="#F9E2AF" FontWeight="SemiBold" VerticalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                        <ComboBox x:Name="StartCombo" Grid.Row="4" Grid.Column="1" MinWidth="200" HorizontalAlignment="Left"
+                                  Margin="0,8,0,0"/>
+
+                        <TextBlock Grid.Row="5" Text="Back →" Foreground="#F9E2AF" FontWeight="SemiBold" VerticalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+                        <ComboBox x:Name="BackCombo" Grid.Row="5" Grid.Column="1" MinWidth="200" HorizontalAlignment="Left"
+                                  Margin="0,8,0,0"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- Footer: Back / Next / Finish / Cancel -->
+        <Border Grid.Row="2" Background="#181825" Padding="20,12">
+            <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                <Button x:Name="BackButton" Content="{Binding [GpMapper_WizardBack], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="BackButton_Click" Padding="16,6" IsVisible="False"/>
+                <Button x:Name="NextButton" Grid.Column="2"
+                        Content="{Binding [GpMapper_WizardNext], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="NextButton_Click" Padding="16,6"
+                        Background="#89B4FA" Foreground="#1E1E2E" FontWeight="SemiBold"/>
+                <Button x:Name="FinishButton" Grid.Column="2"
+                        Content="{Binding [GpMapper_WizardFinish], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="FinishButton_Click" Padding="16,6" IsVisible="False"
+                        Background="#A6E3A1" Foreground="#1E1E2E" FontWeight="SemiBold"/>
+                <Button Grid.Column="3"
+                        Content="{Binding [GpMapper_Cancel], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="CancelButton_Click" Padding="16,6" Margin="8,0,0,0"/>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>

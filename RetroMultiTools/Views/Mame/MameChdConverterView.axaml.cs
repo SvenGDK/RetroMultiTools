@@ -2,7 +2,6 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Localization;
-using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.Mame;
 
 namespace RetroMultiTools.Views.Mame;
@@ -78,16 +77,16 @@ public partial class MameChdConverterView : UserControl
 
         if (isBatch)
         {
-            var path = await PickFolder(isCompress ? "Select Disc Image Directory" : "Select CHD Directory");
+            var path = await PickFolder(isCompress ? LocalizationManager.Instance["MameChdConv_SelectDiscDirTitle"] : LocalizationManager.Instance["MameChdConv_SelectChdDirTitle"]);
             if (path != null) InputTextBox.Text = path;
         }
         else
         {
             if (isCompress)
             {
-                var path = await PickFile("Select Disc Image",
+                var path = await PickFile(LocalizationManager.Instance["MameChdConv_SelectDiscFileTitle"],
                 [
-                    new FilePickerFileType("Disc Images") { Patterns = ["*.cue", "*.iso", "*.bin", "*.gdi", "*.cdi", "*.toc"] },
+                    new FilePickerFileType(LocalizationManager.Instance["MameChdConv_DiscImageFileType"]) { Patterns = ["*.cue", "*.iso", "*.bin", "*.gdi", "*.cdi", "*.toc"] },
                     FilePickerFileTypes.All
                 ]);
                 if (path != null)
@@ -98,9 +97,9 @@ public partial class MameChdConverterView : UserControl
             }
             else
             {
-                var path = await PickFile("Select CHD File",
+                var path = await PickFile(LocalizationManager.Instance["MameChdConv_SelectChdFileTitle"],
                 [
-                    new FilePickerFileType("CHD Files") { Patterns = ["*.chd"] },
+                    new FilePickerFileType(LocalizationManager.Instance["MameChdConv_ChdFileType"]) { Patterns = ["*.chd"] },
                     FilePickerFileTypes.All
                 ]);
                 if (path != null)
@@ -124,18 +123,39 @@ public partial class MameChdConverterView : UserControl
         }
         else
         {
-            string outputName = Path.ChangeExtension(Path.GetFileName(inputPath), ".bin");
+            string ext = GetSelectedOutputExtension();
+            string outputName = Path.ChangeExtension(Path.GetFileName(inputPath), ext);
             OutputTextBox.Text = Path.Combine(dir, outputName);
         }
     }
 
+    private void OutputFormatCombo_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (CompressRadio == null || CompressRadio.IsChecked == true) return;
+        if (BatchModeRadio.IsChecked == true) return;
+
+        string current = OutputTextBox.Text ?? "";
+        if (string.IsNullOrEmpty(current)) return;
+
+        string ext = GetSelectedOutputExtension();
+        OutputTextBox.Text = Path.ChangeExtension(current, ext);
+    }
+
+    private string GetSelectedOutputExtension() => OutputFormatCombo.SelectedIndex switch
+    {
+        1 => ".cue",
+        2 => ".gdi",
+        _ => ".bin"
+    };
+
     private async void BrowseOutput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         bool isBatch = BatchModeRadio.IsChecked == true;
 
         if (isBatch)
         {
-            var path = await PickFolder("Select Output Directory");
+            var path = await PickFolder(LocalizationManager.Instance["MameChdConv_SelectOutputDirTitle"]);
             if (path != null) OutputTextBox.Text = path;
         }
         else
@@ -149,7 +169,7 @@ public partial class MameChdConverterView : UserControl
 
             var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
-                Title = "Save Output As",
+                Title = loc["MameChdConv_SaveDialogTitle"],
                 SuggestedFileName = suggestedName
             });
 
@@ -168,12 +188,13 @@ public partial class MameChdConverterView : UserControl
 
     private async void ConvertButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string input = InputTextBox.Text ?? "";
         string output = OutputTextBox.Text ?? "";
 
         if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(output))
         {
-            ShowStatus("Please select input and output paths.", isError: true);
+            ShowStatus(loc["MameChdConv_SelectInputOutput"], isError: true);
             return;
         }
 
@@ -194,12 +215,12 @@ public partial class MameChdConverterView : UserControl
                 if (isBatch)
                 {
                     var result = await MameChdConverter.CompressBatchAsync(input, output, options, progress);
-                    ShowStatus($"✔ Batch compression complete!\n{result.Summary}", isError: false);
+                    ShowStatus(string.Format(loc["MameChdConv_BatchCompressComplete"], result.Summary), isError: false);
                 }
                 else
                 {
                     var result = await MameChdConverter.CompressAsync(input, output, options, progress);
-                    ShowStatus($"✔ Compression complete!\n{result.Summary}\nOutput: {result.OutputPath}", isError: false);
+                    ShowStatus(string.Format(loc["MameChdConv_CompressComplete"], result.Summary, result.OutputPath), isError: false);
                 }
             }
             else
@@ -215,18 +236,18 @@ public partial class MameChdConverterView : UserControl
                 if (isBatch)
                 {
                     var result = await MameChdConverter.DecompressBatchAsync(input, output, options, progress);
-                    ShowStatus($"✔ Batch decompression complete!\n{result.Summary}", isError: false);
+                    ShowStatus(string.Format(loc["MameChdConv_BatchDecompressComplete"], result.Summary), isError: false);
                 }
                 else
                 {
                     var result = await MameChdConverter.DecompressAsync(input, output, options, progress);
-                    ShowStatus($"✔ Decompression complete!\nOutput: {result.OutputPath}", isError: false);
+                    ShowStatus(string.Format(loc["MameChdConv_DecompressComplete"], result.OutputPath), isError: false);
                 }
             }
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

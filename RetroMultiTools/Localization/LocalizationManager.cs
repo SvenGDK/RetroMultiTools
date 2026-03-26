@@ -67,7 +67,11 @@ public sealed class LocalizationManager : INotifyPropertyChanged
             _culture = value;
             CultureInfo.CurrentUICulture = value;
             SaveLanguagePreference(value.Name);
+            // Fire both "" (all regular properties) and "Item" (indexer bindings).
+            // Avalonia 11.3+ requires "Item" for indexer binding re-evaluation;
+            // the empty string alone does not trigger indexer updates.
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(""));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item"));
         }
     }
 
@@ -108,7 +112,7 @@ public sealed class LocalizationManager : INotifyPropertyChanged
             string json = JsonSerializer.Serialize(new LanguageSettings { Language = cultureName });
             File.WriteAllText(path, json);
         }
-        catch (IOException) { }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
     }
 
     private sealed class LanguageSettings

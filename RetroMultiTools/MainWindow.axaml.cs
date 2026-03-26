@@ -1,7 +1,9 @@
 using Avalonia.Controls;
+using RetroMultiTools.Utilities;
 using RetroMultiTools.Views;
 using RetroMultiTools.Views.Analogue;
 using RetroMultiTools.Views.Mame;
+using RetroMultiTools.Views.Mednafen;
 using RetroMultiTools.Views.RetroArch;
 
 namespace RetroMultiTools;
@@ -15,14 +17,13 @@ public partial class MainWindow : Window
     private readonly RomInspectorView _inspectorView = new();
 
     // Patching & Conversion
+    private readonly ArchiveManagerView _archiveManagerView = new();
     private readonly N64ConverterView _n64ConverterView = new();
     private readonly PatchCreatorView _patchCreatorView = new();
-    private readonly RomDecompressorView _decompressorView = new();
     private readonly RomFormatConverterView _formatConverterView = new();
     private readonly RomPatcherView _patcherView = new();
     private readonly SaveFileConverterView _saveFileConverterView = new();
     private readonly SplitRomAssemblerView _splitAssemblerView = new();
-    private readonly ZipRomExtractorView _zipExtractorView = new();
 
     // Analysis & Verification
     private readonly BatchHasherView _batchHasherView = new();
@@ -44,6 +45,7 @@ public partial class MainWindow : Window
     // Utilities
     private readonly CheatCodeView _cheatCodeView = new();
     private readonly EmulatorConfigView _emulatorConfigView = new();
+    private readonly GamepadKeyMapperView _gamepadKeyMapperView = new();
     private readonly MetadataScraperView _metadataScraperView = new();
     private readonly RomOrganizerView _romOrganizerView = new();
     private readonly RomRenamerView _romRenamerView = new();
@@ -63,6 +65,9 @@ public partial class MainWindow : Window
     private readonly MameRomAuditorView _mameAuditorView = new();
     private readonly MameSampleAuditorView _mameSampleAuditorView = new();
     private readonly MameSetRebuilderView _mameRebuilderView = new();
+
+    // Mednafen
+    private readonly MednafenIntegrationView _mednafenIntegrationView = new();
 
     // Analogue
     private readonly Analogue3DView _analogue3DView = new();
@@ -85,6 +90,13 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         NavListBox.SelectedIndex = 1;
+        UpdateTitle();
+        Localization.LocalizationManager.Instance.PropertyChanged += (_, _) => UpdateTitle();
+    }
+
+    private void UpdateTitle()
+    {
+        Title = $"{Localization.LocalizationManager.Instance["AppTitle"]} {AppUpdater.GetCurrentVersion()}";
     }
 
     /// <summary>
@@ -205,14 +217,12 @@ public partial class MainWindow : Window
             "inspector" => _inspectorView,
 
             // Patching & Conversion
-            "decompress" => _decompressorView,
             "formatconv" => _formatConverterView,
             "n64conv" => _n64ConverterView,
             "patcher" => _patcherView,
             "patchcreator" => _patchCreatorView,
             "saveconv" => _saveFileConverterView,
             "splitrom" => _splitAssemblerView,
-            "zipextract" => _zipExtractorView,
 
             // Analysis & Verification
             "batchhash" => _batchHasherView,
@@ -232,8 +242,10 @@ public partial class MainWindow : Window
             "trimmer" => _romTrimmerView,
 
             // Utilities
+            "archives" => _archiveManagerView,
             "cheatcodes" => _cheatCodeView,
             "emuconfig" => _emulatorConfigView,
+            "gamepadkeymapper" => _gamepadKeyMapperView,
             "metascraper" => _metadataScraperView,
             "romorganizer" => _romOrganizerView,
             "romrenamer" => _romRenamerView,
@@ -253,6 +265,9 @@ public partial class MainWindow : Window
             "mameauditor" => _mameAuditorView,
             "mamesamples" => _mameSampleAuditorView,
             "mamerebuilder" => _mameRebuilderView,
+
+            // Mednafen
+            "mednafenintegration" => _mednafenIntegrationView,
 
             // Analogue
             "analogue3d" => _analogue3DView,

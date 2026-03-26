@@ -1,5 +1,6 @@
 using System.Xml;
 using System.Xml.Linq;
+using RetroMultiTools.Localization;
 
 namespace RetroMultiTools.Utilities;
 
@@ -26,7 +27,7 @@ public static class DatVerifier
         {
             var settings = new XmlReaderSettings
             {
-                DtdProcessing = DtdProcessing.Prohibit,
+                DtdProcessing = DtdProcessing.Ignore,
                 XmlResolver = null
             };
             using var reader = XmlReader.Create(datFilePath, settings);
@@ -81,10 +82,12 @@ public static class DatVerifier
         string fileName = Path.GetFileName(romPath);
         long fileSize = new FileInfo(romPath).Length;
 
-        progress?.Report($"Calculating checksums for {fileName}...");
+        var loc = LocalizationManager.Instance;
+
+        progress?.Report(string.Format(loc["DatVerify_CalculatingChecksums"], fileName));
         var checksums = await ChecksumCalculator.CalculateAsync(romPath, null).ConfigureAwait(false);
 
-        progress?.Report("Searching DAT database...");
+        progress?.Report(loc["DatVerify_SearchingDatabase"]);
 
         // Try matching by CRC32 first (fastest), then SHA1, then MD5
         var match = datEntries.FirstOrDefault(e =>
@@ -111,19 +114,19 @@ public static class DatVerifier
             result.IsVerified = true;
             result.DatGameName = match.GameName;
             result.DatRomName = match.RomName;
-            result.Status = "Verified ✔";
+            result.Status = LocalizationManager.Instance["DatVerify_Verified"];
 
             // Check if size matches too
             if (match.Size > 0 && match.Size != fileSize)
-                result.Status = "Verified (size mismatch) ⚠";
+                result.Status = LocalizationManager.Instance["DatVerify_SizeMismatch"];
         }
         else
         {
             result.IsVerified = false;
-            result.Status = "Not found in DAT ✘";
+            result.Status = LocalizationManager.Instance["DatVerify_NotFound"];
         }
 
-        progress?.Report("Done.");
+        progress?.Report(loc["DatVerify_ProgressDone"]);
         return result;
     }
 
@@ -138,9 +141,10 @@ public static class DatVerifier
         if (!Directory.Exists(romDirectory))
             throw new DirectoryNotFoundException($"Directory not found: {romDirectory}");
 
-        progress?.Report("Loading DAT file...");
+        var loc = LocalizationManager.Instance;
+        progress?.Report(loc["DatVerify_LoadingDat"]);
         var datEntries = LoadDatFile(datFilePath);
-        progress?.Report($"Loaded {datEntries.Count} entries from DAT file.");
+        progress?.Report(string.Format(loc["DatVerify_LoadedDatEntries"], datEntries.Count));
 
         return await VerifyDirectoryAsync(romDirectory, datEntries, progress).ConfigureAwait(false);
     }
@@ -161,10 +165,11 @@ public static class DatVerifier
             .ToList();
 
         var results = new List<VerificationResult>();
+        var loc = LocalizationManager.Instance;
 
         for (int i = 0; i < romFiles.Count; i++)
         {
-            progress?.Report($"Verifying {i + 1} of {romFiles.Count}: {Path.GetFileName(romFiles[i])}");
+            progress?.Report(string.Format(loc["DatVerify_VerifyingProgress"], i + 1, romFiles.Count, Path.GetFileName(romFiles[i])));
             var result = await VerifyRomAsync(romFiles[i], datEntries, null).ConfigureAwait(false);
             results.Add(result);
         }
@@ -172,7 +177,7 @@ public static class DatVerifier
         int verified = results.Count(r => r.IsVerified);
         int unverified = results.Count - verified;
 
-        progress?.Report($"Done — {verified} verified, {unverified} not found.");
+        progress?.Report(string.Format(loc["DatVerify_BatchComplete"], verified, unverified));
 
         return new BatchVerificationResult
         {
@@ -239,5 +244,6 @@ public class BatchVerificationResult
     public int UnverifiedCount { get; set; }
 
     public string Summary =>
-        $"{VerifiedCount} of {TotalRoms} ROMs verified against {DatEntryCount} DAT entries. {UnverifiedCount} not found.";
+        string.Format(LocalizationManager.Instance["DatVerify_BatchSummary"],
+            VerifiedCount, TotalRoms, DatEntryCount, UnverifiedCount);
 }

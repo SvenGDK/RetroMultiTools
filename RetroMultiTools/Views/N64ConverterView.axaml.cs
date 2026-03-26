@@ -61,7 +61,11 @@ public partial class N64ConverterView : UserControl
         string ext = N64FormatConverter.FormatExtension(targetFormat);
         string dir = Path.GetDirectoryName(InputFileTextBox.Text) ?? "";
         string name = Path.GetFileNameWithoutExtension(InputFileTextBox.Text);
-        OutputFileTextBox.Text = Path.Combine(dir, name + ext);
+        string inputExt = Path.GetExtension(InputFileTextBox.Text);
+
+        // Add _converted suffix when output extension matches input to avoid overwriting the source file
+        string suffix = ext.Equals(inputExt, StringComparison.OrdinalIgnoreCase) ? "_converted" : "";
+        OutputFileTextBox.Text = Path.Combine(dir, name + suffix + ext);
     }
 
     private void UpdateConvertButton()
@@ -131,11 +135,11 @@ public partial class N64ConverterView : UserControl
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
             await N64FormatConverter.ConvertAsync(input, output, targetFormat, progress);
 
-            ShowStatus($"✔ Conversion complete!\nOutput: {output}", isError: false);
+            ShowStatus(string.Format(LocalizationManager.Instance["N64Conv_ConversionComplete"], output), isError: false);
         }
         catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

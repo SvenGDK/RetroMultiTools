@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.Analogue;
 
@@ -20,24 +21,31 @@ public partial class AnalogueNtSuperNtView : UserControl
 
     private async void BrowseSdCard_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFolder("Select Analogue NT / Super NT SD Card");
-        if (path != null)
+        var loc = LocalizationManager.Instance;
+        var path = await PickFolder(loc["AnalogueNtSuperNt_BrowseSdCardTitle"]);
+        if (path == null) return;
+
+        if (!Directory.Exists(Path.Combine(path, "System")))
         {
-            _sdRoot = path;
-            SdCardPathTextBox.Text = path;
-            GenerateFontButton.IsEnabled = true;
-            ShowStatus("✔ SD card path set.", isError: false);
+            ShowStatus(loc["AnalogueNtSuperNt_InvalidSdCard"], isError: true);
+            return;
         }
+
+        _sdRoot = path;
+        SdCardPathTextBox.Text = path;
+        GenerateFontButton.IsEnabled = true;
+        ShowStatus(loc["AnalogueNtSuperNt_SdCardPathSet"], isError: false);
     }
 
     private async void BrowseFontImage_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
         var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            Title = "Select Font Source Image (128×128 BMP)",
+            Title = loc["Analogue_FontSourceDialogTitle"],
             AllowMultiple = false,
             FileTypeFilter =
             [
@@ -52,6 +60,7 @@ public partial class AnalogueNtSuperNtView : UserControl
 
     private async void GenerateFont_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         var target = SuperNtRadio.IsChecked == true
             ? AnalogueFontGenerator.ConsoleTarget.SuperNt
             : AnalogueFontGenerator.ConsoleTarget.Nt;
@@ -77,11 +86,11 @@ public partial class AnalogueNtSuperNtView : UserControl
                 await AnalogueFontGenerator.GenerateDefaultFontAsync(outputPath, target, progress);
             }
 
-            ShowStatus($"✔ Font generated successfully at {outputPath}", isError: false);
+            ShowStatus(string.Format(loc["Analogue_FontGenerated"], outputPath), isError: false);
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error generating font: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Analogue_FontError"], ex.Message), isError: true);
         }
         finally
         {
@@ -92,12 +101,13 @@ public partial class AnalogueNtSuperNtView : UserControl
 
     private async void BrowseNesRom_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
         var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            Title = "Select NES ROM File",
+            Title = loc["AnalogueNtSuperNt_SelectNesRomTitle"],
             AllowMultiple = false,
             FileTypeFilter =
             [
@@ -115,16 +125,17 @@ public partial class AnalogueNtSuperNtView : UserControl
 
     private async void RepairHeader_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string romPath = NesRomTextBox.Text ?? string.Empty;
         if (string.IsNullOrEmpty(romPath) || !File.Exists(romPath))
         {
-            ShowStatus("✘ Please select a valid NES ROM file.", isError: true);
+            ShowStatus(loc["AnalogueNtSuperNt_InvalidNesRom"], isError: true);
             return;
         }
 
         RepairHeaderButton.IsEnabled = false;
         ProgressPanel.IsVisible = true;
-        ProgressText.Text = "Repairing NES header...";
+        ProgressText.Text = loc["AnalogueNtSuperNt_RepairingHeader"];
 
         try
         {
@@ -140,7 +151,7 @@ public partial class AnalogueNtSuperNtView : UserControl
                 File.Move(tempPath, romPath, overwrite: true);
             }
 
-            ShowStatus($"✔ {result}", isError: false);
+            ShowStatus(string.Format(loc["Common_SuccessFormat"], result), isError: false);
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
@@ -150,7 +161,7 @@ public partial class AnalogueNtSuperNtView : UserControl
             catch (IOException) { }
             catch (UnauthorizedAccessException) { }
 
-            ShowStatus($"✘ Error repairing header: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["AnalogueNtSuperNt_RepairError"], ex.Message), isError: true);
         }
         finally
         {

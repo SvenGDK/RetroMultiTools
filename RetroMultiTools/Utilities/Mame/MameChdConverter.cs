@@ -1,3 +1,4 @@
+using RetroMultiTools.Localization;
 using RetroMultiTools.Services;
 
 namespace RetroMultiTools.Utilities.Mame;
@@ -32,7 +33,7 @@ public static class MameChdConverter
         string ext = Path.GetExtension(inputPath).ToLowerInvariant();
         string chdOutput = Path.ChangeExtension(outputPath, ".chd");
 
-        progress?.Report($"Compressing {Path.GetFileName(inputPath)} to CHD...");
+        progress?.Report(string.Format(LocalizationManager.Instance["MameChdConv_ProgressCompressing"], Path.GetFileName(inputPath)));
 
         string chdmanPath = FindChdmanOrThrow();
 
@@ -59,12 +60,12 @@ public static class MameChdConverter
                     : 0;
             }
 
-            progress?.Report("Compression complete.");
+            progress?.Report(LocalizationManager.Instance["MameChdConv_ProgressCompressionComplete"]);
         }
         catch
         {
             result.Success = false;
-            try { File.Delete(chdOutput); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            try { File.Delete(chdOutput); } catch { /* best-effort cleanup */ }
             throw;
         }
 
@@ -86,7 +87,7 @@ public static class MameChdConverter
         // Ensure the output path uses the correct extension for the chosen format
         string correctedOutput = EnsureDecompressExtension(outputPath, options.OutputFormat);
 
-        progress?.Report($"Decompressing {Path.GetFileName(inputPath)}...");
+        progress?.Report(string.Format(LocalizationManager.Instance["MameChdConv_ProgressDecompressing"], Path.GetFileName(inputPath)));
 
         string chdmanPath = FindChdmanOrThrow();
 
@@ -107,12 +108,12 @@ public static class MameChdConverter
             if (File.Exists(correctedOutput))
                 result.OutputSize = new FileInfo(correctedOutput).Length;
 
-            progress?.Report("Decompression complete.");
+            progress?.Report(LocalizationManager.Instance["MameChdConv_ProgressDecompressionComplete"]);
         }
         catch
         {
             result.Success = false;
-            try { File.Delete(correctedOutput); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            try { File.Delete(correctedOutput); } catch { /* best-effort cleanup */ }
             throw;
         }
 
@@ -126,7 +127,8 @@ public static class MameChdConverter
         string directory,
         string outputDirectory,
         ChdCompressOptions options,
-        IProgress<string>? progress = null)
+        IProgress<string>? progress = null,
+        CancellationToken cancellationToken = default)
     {
         if (!Directory.Exists(directory))
             throw new DirectoryNotFoundException($"Directory not found: {directory}");
@@ -141,9 +143,11 @@ public static class MameChdConverter
 
         for (int i = 0; i < files.Count; i++)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             string file = files[i];
             string fileName = Path.GetFileName(file);
-            progress?.Report($"Compressing {i + 1} of {files.Count}: {fileName}...");
+            progress?.Report(string.Format(LocalizationManager.Instance["MameChdConv_ProgressBatchCompressing"], i + 1, files.Count, fileName));
 
             string outputName = Path.ChangeExtension(fileName, ".chd");
             string outputPath = Path.Combine(outputDirectory, outputName);
@@ -168,7 +172,7 @@ public static class MameChdConverter
             }
         }
 
-        progress?.Report($"Batch complete — {result.Summary}");
+        progress?.Report(string.Format(LocalizationManager.Instance["MameChdConv_ProgressBatchComplete"], result.Summary));
         return result;
     }
 
@@ -179,7 +183,8 @@ public static class MameChdConverter
         string directory,
         string outputDirectory,
         ChdDecompressOptions options,
-        IProgress<string>? progress = null)
+        IProgress<string>? progress = null,
+        CancellationToken cancellationToken = default)
     {
         if (!Directory.Exists(directory))
             throw new DirectoryNotFoundException($"Directory not found: {directory}");
@@ -191,9 +196,11 @@ public static class MameChdConverter
 
         for (int i = 0; i < files.Count; i++)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             string file = files[i];
             string fileName = Path.GetFileName(file);
-            progress?.Report($"Decompressing {i + 1} of {files.Count}: {fileName}...");
+            progress?.Report(string.Format(LocalizationManager.Instance["MameChdConv_ProgressBatchDecompressing"], i + 1, files.Count, fileName));
 
             string outputExt = GetDecompressExtension(options.OutputFormat);
             string outputName = Path.ChangeExtension(fileName, outputExt);
@@ -219,7 +226,7 @@ public static class MameChdConverter
             }
         }
 
-        progress?.Report($"Batch complete — {result.Summary}");
+        progress?.Report(string.Format(LocalizationManager.Instance["MameChdConv_ProgressBatchComplete"], result.Summary));
         return result;
     }
 
@@ -228,7 +235,7 @@ public static class MameChdConverter
     /// </summary>
     public static async Task<ChdFileInfo> GetFileInfoAsync(string filePath, IProgress<string>? progress = null)
     {
-        progress?.Report("Reading CHD header...");
+        progress?.Report(LocalizationManager.Instance["MameChdConv_ProgressReadingHeader"]);
         var verifyResult = await MameChdVerifier.VerifyAsync(filePath, progress).ConfigureAwait(false);
 
         return new ChdFileInfo
@@ -250,8 +257,7 @@ public static class MameChdConverter
     {
         return ext switch
         {
-            ".cue" or ".toc" => "createcd",
-            ".gdi" => "createcd",
+            ".cue" or ".toc" or ".gdi" or ".iso" or ".cdi" => "createcd",
             _ => "createraw"
         };
     }
@@ -356,7 +362,7 @@ public static class MameChdConverter
             return fromPath;
 
         throw new InvalidOperationException(
-            "chdman not found. Please install MAME tools (chdman) and ensure it is available in your system PATH, or configure your MAME path in Settings.");
+            LocalizationManager.Instance["MameChdConv_ChdmanNotFound"]);
     }
 }
 
@@ -399,12 +405,12 @@ public class ChdConvertResult
             string inputStr = FormatSize(InputSize);
             string outputStr = FormatSize(OutputSize);
             if (CompressionRatio > 0)
-                return $"{inputStr} → {outputStr} ({CompressionRatio:P1} ratio)";
-            return $"{inputStr} → {outputStr}";
+                return string.Format(LocalizationManager.Instance["MameChdConv_SummaryRatio"], inputStr, outputStr, CompressionRatio.ToString("P1"));
+            return string.Format(LocalizationManager.Instance["MameChdConv_SummarySimple"], inputStr, outputStr);
         }
     }
 
-    private static string FormatSize(long bytes) => bytes switch
+    internal static string FormatSize(long bytes) => bytes switch
     {
         >= 1L << 30 => $"{bytes / (double)(1L << 30):F2} GB",
         >= 1L << 20 => $"{bytes / (double)(1L << 20):F2} MB",
@@ -420,7 +426,7 @@ public class ChdBatchConvertResult
     public int Failed { get; set; }
 
     public string Summary =>
-        $"{Converted} converted, {Skipped} skipped, {Failed} failed";
+        string.Format(LocalizationManager.Instance["MameChdConv_BatchSummary"], Converted, Skipped, Failed);
 }
 
 public class ChdFileInfo

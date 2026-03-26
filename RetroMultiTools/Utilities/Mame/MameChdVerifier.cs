@@ -1,3 +1,5 @@
+using RetroMultiTools.Localization;
+
 namespace RetroMultiTools.Utilities.Mame;
 
 /// <summary>
@@ -21,7 +23,7 @@ public static class MameChdVerifier
         string fileName = Path.GetFileName(filePath);
         long fileSize = new FileInfo(filePath).Length;
 
-        progress?.Report($"Reading CHD header: {fileName}...");
+        progress?.Report(string.Format(LocalizationManager.Instance["MameChd_ProgressReading"], fileName));
 
         return await Task.Run(() => ReadChdHeader(filePath, fileName, fileSize)).ConfigureAwait(false);
     }
@@ -49,14 +51,14 @@ public static class MameChdVerifier
 
         for (int i = 0; i < chdFiles.Count; i++)
         {
-            progress?.Report($"Verifying {i + 1} of {chdFiles.Count}: {Path.GetFileName(chdFiles[i])}");
+            progress?.Report(string.Format(LocalizationManager.Instance["MameChd_ProgressVerifying"], i + 1, chdFiles.Count, Path.GetFileName(chdFiles[i])));
             var result = await VerifyAsync(chdFiles[i]).ConfigureAwait(false);
             results.Add(result);
 
             if (result.IsValid) validCount++;
         }
 
-        progress?.Report($"Done — {validCount} valid, {results.Count - validCount} invalid.");
+        progress?.Report(string.Format(LocalizationManager.Instance["MameChd_ProgressDone"], validCount, results.Count - validCount));
 
         return new ChdBatchResult
         {
@@ -82,20 +84,20 @@ public static class MameChdVerifier
         string fileName = Path.GetFileName(filePath);
         long fileSize = new FileInfo(filePath).Length;
 
-        progress?.Report($"Reading CHD header: {fileName}...");
+        progress?.Report(string.Format(LocalizationManager.Instance["MameChd_ProgressReading"], fileName));
 
         var result = await Task.Run(() => ReadChdHeader(filePath, fileName, fileSize)).ConfigureAwait(false);
 
         if (!result.IsValid || string.IsNullOrEmpty(result.RawSHA1) || result.RawSHA1 == new string('0', 40))
         {
-            result.HashVerification = "Hash verification not available (no raw SHA-1 in header)";
+            result.HashVerification = LocalizationManager.Instance["MameChd_HashNotAvailable"];
             return result;
         }
 
         // For full hash verification we would need to decompress and hash the CHD data,
         // which requires implementing the full CHD decompression codec.
         // Instead, we report the stored hashes for manual comparison.
-        result.HashVerification = "Header SHA-1 values read successfully";
+        result.HashVerification = LocalizationManager.Instance["MameChd_HashReadSuccess"];
 
         return result;
     }
@@ -118,7 +120,7 @@ public static class MameChdVerifier
             if (fileSize < 16)
             {
                 result.IsValid = false;
-                result.Error = "File too small to be a valid CHD file";
+                result.Error = LocalizationManager.Instance["MameChd_ErrorTooSmall"];
                 return result;
             }
 
@@ -127,7 +129,7 @@ public static class MameChdVerifier
             if (!magic.AsSpan().SequenceEqual(ChdMagic))
             {
                 result.IsValid = false;
-                result.Error = "Invalid CHD magic number — not a CHD file";
+                result.Error = LocalizationManager.Instance["MameChd_ErrorInvalidMagic"];
                 return result;
             }
 
@@ -149,7 +151,7 @@ public static class MameChdVerifier
                     break;
                 default:
                     result.IsValid = false;
-                    result.Error = $"Unsupported CHD version: {version}";
+                    result.Error = string.Format(LocalizationManager.Instance["MameChd_ErrorUnsupportedVer"], version);
                     return result;
             }
 
@@ -158,12 +160,12 @@ public static class MameChdVerifier
         catch (EndOfStreamException)
         {
             result.IsValid = false;
-            result.Error = "Unexpected end of file while reading CHD header";
+            result.Error = LocalizationManager.Instance["MameChd_ErrorUnexpectedEof"];
         }
         catch (IOException ex)
         {
             result.IsValid = false;
-            result.Error = $"I/O error reading CHD file: {ex.Message}";
+            result.Error = string.Format(LocalizationManager.Instance["MameChd_ErrorIoError"], ex.Message);
         }
 
         return result;
@@ -185,7 +187,7 @@ public static class MameChdVerifier
 
         if (headerLength < 120)
         {
-            result.Error = "CHD v3 header too short";
+            result.Error = LocalizationManager.Instance["MameChd_ErrorV3TooShort"];
             result.IsValid = false;
             return;
         }
@@ -227,7 +229,7 @@ public static class MameChdVerifier
 
         if (headerLength < 108)
         {
-            result.Error = "CHD v4 header too short";
+            result.Error = LocalizationManager.Instance["MameChd_ErrorV4TooShort"];
             result.IsValid = false;
             return;
         }
@@ -272,7 +274,7 @@ public static class MameChdVerifier
 
         if (headerLength < 124)
         {
-            result.Error = "CHD v5 header too short";
+            result.Error = LocalizationManager.Instance["MameChd_ErrorV5TooShort"];
             result.IsValid = false;
             return;
         }
@@ -391,6 +393,6 @@ public class ChdBatchResult
 
     public string Summary =>
         TotalFiles == 0
-            ? "No CHD files found."
-            : $"{ValidCount} valid, {InvalidCount} invalid out of {TotalFiles} CHD files.";
+            ? LocalizationManager.Instance["MameChd_NoChdFiles"]
+            : string.Format(LocalizationManager.Instance["MameChd_SummaryFormat"], ValidCount, InvalidCount, TotalFiles);
 }

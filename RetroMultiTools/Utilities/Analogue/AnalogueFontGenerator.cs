@@ -84,7 +84,7 @@ public static class AnalogueFontGenerator
         progress?.Report("Reading source image...");
         byte[] imageData = await File.ReadAllBytesAsync(imagePath).ConfigureAwait(false);
 
-        await Task.Run(() =>
+        byte[] fontData = await Task.Run(() =>
         {
             // Parse BMP header to extract pixel data
             if (imageData.Length < 54 || imageData[0] != 'B' || imageData[1] != 'M')
@@ -107,7 +107,7 @@ public static class AnalogueFontGenerator
 
             int bytesPerPixel = bpp / 8;
             int rowStride = (width * bytesPerPixel + 3) & ~3;
-            byte[] fontData = new byte[FontFileSize];
+            byte[] data = new byte[FontFileSize];
 
             for (int charY = 0; charY < 16; charY++)
             {
@@ -142,18 +142,20 @@ public static class AnalogueFontGenerator
                             }
                         }
 
-                        fontData[fontOffset + row] = rowBits;
+                        data[fontOffset + row] = rowBits;
                     }
                 }
             }
 
-            progress?.Report("Writing font file...");
-            string? dir = Path.GetDirectoryName(outputPath);
-            if (dir != null)
-                Directory.CreateDirectory(dir);
-
-            File.WriteAllBytes(outputPath, fontData);
+            return data;
         }).ConfigureAwait(false);
+
+        progress?.Report("Writing font file...");
+        string? dir = Path.GetDirectoryName(outputPath);
+        if (dir != null)
+            Directory.CreateDirectory(dir);
+
+        await File.WriteAllBytesAsync(outputPath, fontData).ConfigureAwait(false);
 
         progress?.Report("Font generated successfully.");
     }
@@ -161,24 +163,12 @@ public static class AnalogueFontGenerator
     /// <summary>
     /// Returns the expected font filename for the given console target.
     /// </summary>
-    public static string GetDefaultFontFileName(ConsoleTarget target) => target switch
-    {
-        ConsoleTarget.MegaSg => "font.bin",
-        ConsoleTarget.Nt => "font.bin",
-        ConsoleTarget.SuperNt => "font.bin",
-        _ => "font.bin"
-    };
+    public static string GetDefaultFontFileName(ConsoleTarget target) => "font.bin";
 
     /// <summary>
     /// Returns the expected font directory relative to the SD card root.
     /// </summary>
-    public static string GetFontDirectory(ConsoleTarget target) => target switch
-    {
-        ConsoleTarget.MegaSg => "System",
-        ConsoleTarget.Nt => "System",
-        ConsoleTarget.SuperNt => "System",
-        _ => "System"
-    };
+    public static string GetFontDirectory(ConsoleTarget target) => "System";
 
     /// <summary>
     /// Builds a minimal 8×8 pixel ASCII font covering printable characters.

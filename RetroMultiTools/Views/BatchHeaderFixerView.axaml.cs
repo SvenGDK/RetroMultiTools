@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -20,10 +21,11 @@ public partial class BatchHeaderFixerView : UserControl
         if (sender is RadioButton rb && rb.IsChecked != true) return;
 
         bool isBatch = sender == BatchModeRadio;
-        InputLabel.Text = isBatch ? "ROM Directory:" : "ROM File:";
-        InputPathTextBox.Watermark = isBatch ? "Select a ROM directory..." : "Select a ROM file (.nes, .smc, .sfc, .gb, .gbc, .gba, .md, .gen, .sms, .gg, .z64, .n64, .v64, .32x, .a78, .lnx, .pce, .tg16, .vb, .vboy, .ngp, .ngc, .j64, .jag, .mx1, .mx2, .col, .cv, .sv, .nds, .int)...";
-        OutputLabel.Text = isBatch ? "Output Directory:" : "Output File:";
-        OutputPathTextBox.Watermark = isBatch ? "Output directory..." : "Output file path...";
+        var loc = LocalizationManager.Instance;
+        InputLabel.Text = isBatch ? loc["Common_RomDirectory"] : loc["Common_RomFile"];
+        InputPathTextBox.Watermark = isBatch ? loc["HeaderFixer_SelectRomDirWatermark"] : loc["HeaderFixer_SelectRomFileWatermark"];
+        OutputLabel.Text = isBatch ? loc["Common_OutputDirectory"] : loc["Common_OutputFile"];
+        OutputPathTextBox.Watermark = isBatch ? loc["Common_OutputDirectoryWatermark"] : loc["Common_OutputFileWatermark"];
         InputPathTextBox.Text = string.Empty;
         OutputPathTextBox.Text = string.Empty;
         StatusBorder.IsVisible = false;
@@ -81,6 +83,7 @@ public partial class BatchHeaderFixerView : UserControl
 
     private async void BrowseOutput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         bool isBatch = BatchModeRadio.IsChecked == true;
 
         if (isBatch)
@@ -95,7 +98,7 @@ public partial class BatchHeaderFixerView : UserControl
 
             var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
-                Title = "Save Fixed ROM As",
+                Title = loc["HeaderFixer_SaveDialogTitle"],
                 SuggestedFileName = Path.GetFileName(OutputPathTextBox.Text ?? "fixed.rom")
             });
 
@@ -106,12 +109,13 @@ public partial class BatchHeaderFixerView : UserControl
 
     private async void FixButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string input = InputPathTextBox.Text ?? "";
         string output = OutputPathTextBox.Text ?? "";
 
         if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(output))
         {
-            ShowStatus("Please select input and output paths.", isError: true);
+            ShowStatus(loc["HeaderFixer_SelectInputOutput"], isError: true);
             return;
         }
 
@@ -128,7 +132,7 @@ public partial class BatchHeaderFixerView : UserControl
             if (isBatch)
             {
                 var result = await BatchHeaderFixer.FixDirectoryAsync(input, output, progress);
-                ShowStatus($"✔ Batch fix complete!\n{result.Summary}", isError: false);
+                ShowStatus(string.Format(loc["HeaderFixer_FixComplete"], result.Summary), isError: false);
 
                 if (result.Details.Count > 0)
                 {
@@ -144,7 +148,7 @@ public partial class BatchHeaderFixerView : UserControl
         }
         catch (Exception ex) when (ex is InvalidOperationException or IOException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

@@ -23,6 +23,12 @@ public sealed class AppSettings
         Directory.CreateDirectory(appData);
         _settingsPath = Path.Combine(appData, "settings.json");
         _data = Load();
+
+        // JSON deserialization creates HashSet<string> with the default (case-sensitive)
+        // comparer.  Rebuild with OrdinalIgnoreCase so that file-path lookups in
+        // AddFavorite / RemoveFavorite / IsFavorite are case-insensitive.
+        if (_data.Favorites is not null)
+            _data.Favorites = new HashSet<string>(_data.Favorites, StringComparer.OrdinalIgnoreCase);
     }
 
     public string RetroArchPath
@@ -46,6 +52,19 @@ public sealed class AppSettings
             lock (_lock)
             {
                 _data.MamePath = value;
+                Save();
+            }
+        }
+    }
+
+    public string MednafenPath
+    {
+        get { lock (_lock) { return _data.MednafenPath ?? string.Empty; } }
+        set
+        {
+            lock (_lock)
+            {
+                _data.MednafenPath = value;
                 Save();
             }
         }
@@ -134,7 +153,7 @@ public sealed class AppSettings
     {
         lock (_lock)
         {
-            _data.Favorites ??= [];
+            _data.Favorites ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             if (_data.Favorites.Add(filePath))
                 Save();
         }
@@ -158,6 +177,23 @@ public sealed class AppSettings
     }
 
     /// <summary>
+    /// Screensaver timeout for Big Picture Mode in minutes (0–30, default 5).
+    /// Set to 0 to disable the screensaver.
+    /// </summary>
+    public int BigPictureScreensaverTimeout
+    {
+        get { lock (_lock) { return _data.BigPictureScreensaverTimeout; } }
+        set
+        {
+            lock (_lock)
+            {
+                _data.BigPictureScreensaverTimeout = Math.Clamp(value, 0, 30);
+                Save();
+            }
+        }
+    }
+
+    /// <summary>
     /// Card scale factor for Big Picture Mode grid (0.5–2.0, default 1.0).
     /// </summary>
     public double BigPictureCardScale
@@ -168,6 +204,40 @@ public sealed class AppSettings
             lock (_lock)
             {
                 _data.BigPictureCardScale = Math.Clamp(value, 0.5, 2.0);
+                Save();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Whether play count, play time, and recently-played tracking is enabled
+    /// in Big Picture Mode (default true).
+    /// </summary>
+    public bool BigPicturePlayTrackingEnabled
+    {
+        get { lock (_lock) { return _data.BigPicturePlayTrackingEnabled; } }
+        set
+        {
+            lock (_lock)
+            {
+                _data.BigPicturePlayTrackingEnabled = value;
+                Save();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Whether user game ratings (1–5 stars) are enabled in Big Picture Mode
+    /// (default true).
+    /// </summary>
+    public bool BigPictureRatingsEnabled
+    {
+        get { lock (_lock) { return _data.BigPictureRatingsEnabled; } }
+        set
+        {
+            lock (_lock)
+            {
+                _data.BigPictureRatingsEnabled = value;
                 Save();
             }
         }
@@ -230,7 +300,14 @@ public sealed class AppSettings
         lock (_lock)
         {
             _data.RecentlyPlayed ??= [];
-            _data.RecentlyPlayed.Remove(filePath);
+
+            // Use case-insensitive removal so the same file path with
+            // different casing on Windows/macOS doesn't create duplicates.
+            int existing = _data.RecentlyPlayed.FindIndex(
+                p => string.Equals(p, filePath, StringComparison.OrdinalIgnoreCase));
+            if (existing >= 0)
+                _data.RecentlyPlayed.RemoveAt(existing);
+
             _data.RecentlyPlayed.Insert(0, filePath);
 
             const int maxRecent = 50;
@@ -266,6 +343,74 @@ public sealed class AppSettings
             _data.PlayCounts.TryGetValue(filePath, out int current);
             if (current < int.MaxValue)
                 _data.PlayCounts[filePath] = current + 1;
+            Save();
+        }
+    }
+
+    // ── Play Time Tracking ─────────────────────────────────────────────
+
+    /// <summary>
+    /// Returns the total play time in seconds for a ROM.
+    /// </summary>
+    public long GetPlayTime(string filePath)
+    {
+        lock (_lock)
+        {
+            if (_data.PlayTimes != null &&
+                _data.PlayTimes.TryGetValue(filePath, out long seconds))
+                return seconds;
+            return 0;
+        }
+    }
+
+    /// <summary>
+    /// Adds elapsed play time (in seconds) to a ROM's total.
+    /// </summary>
+    public void AddPlayTime(string filePath, long seconds)
+    {
+        if (seconds <= 0) return;
+        lock (_lock)
+        {
+            _data.PlayTimes ??= new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase);
+            _data.PlayTimes.TryGetValue(filePath, out long current);
+            if (current <= long.MaxValue - seconds)
+                _data.PlayTimes[filePath] = current + seconds;
+            Save();
+        }
+    }
+
+    // ── Game Ratings ───────────────────────────────────────────────────
+
+    /// <summary>
+    /// Returns the user rating (1–5) for a ROM, or 0 if unrated.
+    /// </summary>
+    public int GetRating(string filePath)
+    {
+        lock (_lock)
+        {
+            if (_data.Ratings != null &&
+                _data.Ratings.TryGetValue(filePath, out int rating))
+                return rating;
+            return 0;
+        }
+    }
+
+    /// <summary>
+    /// Sets the user rating for a ROM (1–5). Pass 0 to clear the rating.
+    /// </summary>
+    public void SetRating(string filePath, int rating)
+    {
+        lock (_lock)
+        {
+            if (rating <= 0)
+            {
+                if (_data.Ratings != null && _data.Ratings.Remove(filePath))
+                    Save();
+                return;
+            }
+
+            _data.Ratings ??= new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+            _data.Ratings[filePath] = Math.Clamp(rating, 1, 5);
             Save();
         }
     }
@@ -314,16 +459,22 @@ public sealed class AppSettings
     {
         public string? RetroArchPath { get; set; }
         public string? MamePath { get; set; }
+        public string? MednafenPath { get; set; }
         public bool DiscordRichPresenceEnabled { get; set; }
         public bool CheckForUpdatesOnStartup { get; set; } = true;
         public bool MinimizeToTrayOnLaunch { get; set; } = true;
         public bool StartInBigPictureMode { get; set; }
         public string? BigPictureRomFolder { get; set; }
         public double BigPictureCardScale { get; set; } = 1.0;
+        public int BigPictureScreensaverTimeout { get; set; } = 5;
+        public bool BigPicturePlayTrackingEnabled { get; set; } = true;
+        public bool BigPictureRatingsEnabled { get; set; } = true;
         public bool GamepadEnabled { get; set; } = true;
         public double GamepadDeadZone { get; set; } = 0.25;
         public HashSet<string>? Favorites { get; set; }
         public List<string>? RecentlyPlayed { get; set; }
         public Dictionary<string, int>? PlayCounts { get; set; }
+        public Dictionary<string, long>? PlayTimes { get; set; }
+        public Dictionary<string, int>? Ratings { get; set; }
     }
 }

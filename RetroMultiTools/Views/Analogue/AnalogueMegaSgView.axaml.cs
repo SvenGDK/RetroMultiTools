@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.Analogue;
 
@@ -45,26 +46,33 @@ public partial class AnalogueMegaSgView : UserControl
 
     private async void BrowseSdCard_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFolder("Select Analogue Mega SG SD Card");
-        if (path != null)
+        var loc = LocalizationManager.Instance;
+        var path = await PickFolder(loc["AnalogueMegaSg_BrowseSdCardTitle"]);
+        if (path == null) return;
+
+        if (!Directory.Exists(Path.Combine(path, "System")))
         {
-            _sdRoot = path;
-            SdCardPathTextBox.Text = path;
-            GenerateFontButton.IsEnabled = true;
-            ShowStatus("✔ SD card path set.", isError: false);
+            ShowStatus(loc["AnalogueMegaSg_InvalidSdCard"], isError: true);
+            return;
         }
+
+        _sdRoot = path;
+        SdCardPathTextBox.Text = path;
+        GenerateFontButton.IsEnabled = true;
+        ShowStatus(loc["AnalogueMegaSg_SdCardPathSet"], isError: false);
     }
 
     // ── Font Generator ─────────────────────────────────────────────────
 
     private async void BrowseFontImage_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
         var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            Title = "Select Font Source Image (128×128 BMP)",
+            Title = loc["Analogue_FontSourceDialogTitle"],
             AllowMultiple = false,
             FileTypeFilter =
             [
@@ -79,6 +87,7 @@ public partial class AnalogueMegaSgView : UserControl
 
     private async void GenerateFont_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         const AnalogueFontGenerator.ConsoleTarget target = AnalogueFontGenerator.ConsoleTarget.MegaSg;
 
         string fontDir = Path.Combine(_sdRoot, AnalogueFontGenerator.GetFontDirectory(target));
@@ -102,11 +111,11 @@ public partial class AnalogueMegaSgView : UserControl
                 await AnalogueFontGenerator.GenerateDefaultFontAsync(outputPath, target, progress);
             }
 
-            ShowStatus($"✔ Font generated successfully at {outputPath}", isError: false);
+            ShowStatus(string.Format(loc["Analogue_FontGenerated"], outputPath), isError: false);
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error generating font: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Analogue_FontError"], ex.Message), isError: true);
         }
         finally
         {
@@ -119,12 +128,13 @@ public partial class AnalogueMegaSgView : UserControl
 
     private async void BrowseSaveFile_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
         var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            Title = "Select Save File",
+            Title = loc["AnalogueMegaSg_SelectSaveTitle"],
             AllowMultiple = false,
             FileTypeFilter =
             [
@@ -143,13 +153,13 @@ public partial class AnalogueMegaSgView : UserControl
             _saveFileInfo = SaveFileConverter.Analyze(path);
             SaveFileSizeText.Text = _saveFileInfo.FileSizeFormatted;
             SaveDetectedTypeText.Text = _saveFileInfo.DetectedType;
-            SavePowerOfTwoText.Text = _saveFileInfo.IsPowerOfTwo ? "Yes ✔" : "No ✘";
+            SavePowerOfTwoText.Text = _saveFileInfo.IsPowerOfTwo ? LocalizationManager.Instance["Common_YesCheck"] : LocalizationManager.Instance["Common_NoX"];
             SaveInfoPanel.IsVisible = true;
             ConvertSaveButton.IsEnabled = true;
         }
         catch (Exception ex) when (ex is IOException or FileNotFoundException)
         {
-            ShowStatus($"✘ Error analyzing save file: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["AnalogueMegaSg_AnalyzeError"], ex.Message), isError: true);
             SaveInfoPanel.IsVisible = false;
             ConvertSaveButton.IsEnabled = false;
         }
@@ -157,16 +167,17 @@ public partial class AnalogueMegaSgView : UserControl
 
     private async void ConvertSave_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         if (_saveFileInfo == null || string.IsNullOrEmpty(SaveFileTextBox.Text))
         {
-            ShowStatus("✘ Please select a save file first.", isError: true);
+            ShowStatus(loc["AnalogueMegaSg_SelectSaveFirst"], isError: true);
             return;
         }
 
         int selectedIndex = ConversionComboBox.SelectedIndex;
         if (selectedIndex < 0 || selectedIndex >= ConversionMap.Length)
         {
-            ShowStatus("✘ Please select a conversion type.", isError: true);
+            ShowStatus(loc["AnalogueMegaSg_SelectConversion"], isError: true);
             return;
         }
 
@@ -188,11 +199,11 @@ public partial class AnalogueMegaSgView : UserControl
         {
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
             await SaveFileConverter.ConvertAsync(inputPath, outputPath, conversion, progress);
-            ShowStatus($"✔ Save converted successfully: {Path.GetFileName(outputPath)}", isError: false);
+            ShowStatus(string.Format(loc["AnalogueMegaSg_ConvertComplete"], Path.GetFileName(outputPath)), isError: false);
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error converting save: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["AnalogueMegaSg_ConvertError"], ex.Message), isError: true);
         }
         finally
         {

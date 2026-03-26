@@ -2,7 +2,6 @@ using Avalonia.Controls;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Services;
-using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.Mame;
 using System.Runtime.InteropServices;
 
@@ -46,7 +45,7 @@ public partial class MameIntegrationView : UserControl
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
-            fileTypes.Add(new FilePickerFileType("MAME Application")
+            fileTypes.Add(new FilePickerFileType(LocalizationManager.Instance["MameIntegration_MameApplication"])
             {
                 Patterns = ["mame", "*.app"],
                 AppleUniformTypeIdentifiers = ["com.apple.application-bundle", "public.unix-executable"]
@@ -54,7 +53,7 @@ public partial class MameIntegrationView : UserControl
         }
         else
         {
-            fileTypes.Add(new FilePickerFileType("MAME Executable")
+            fileTypes.Add(new FilePickerFileType(LocalizationManager.Instance["MameIntegration_MameExecutable"])
             {
                 Patterns = [RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "mame.exe" : "mame"]
             });

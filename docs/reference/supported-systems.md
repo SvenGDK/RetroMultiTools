@@ -8,7 +8,7 @@ Retro Multi Tools supports ROMs from the following 46 console and computer syste
 |---|---|---|---|---|---|---|
 | Amiga CD32 | `.iso`, `.cue` | ✔ | ✔ | ✔ | — | — |
 | Amstrad CPC | `.dsk`, `.cdt`, `.sna` | ✔ | ✔ | ✔ | — | — |
-| Arcade (MAME) | `.zip` | — | — | — | — | — |
+| Arcade (MAME) | `.zip`, `.7z` | — | — | — | — | — |
 | Atari 2600 | `.a26` | ✔ | ✔ | ✔ | — | — |
 | Atari 5200 | `.a52` | ✔ | ✔ | ✔ | — | — |
 | Atari 7800 | `.a78` | ✔ | ✔ | ✔ | — | ✔ |

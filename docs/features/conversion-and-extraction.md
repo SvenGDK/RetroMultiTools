@@ -82,19 +82,33 @@ Save type is detected from file size:
 
 ---
 
-## ZIP ROM Extractor
+## Archive Manager
 
-Extracts ROM files from ZIP archives.
+Unified archive tool for extracting ROMs from and creating archives. Supports **ZIP**, **RAR**, **7z**, and **GZip** for extraction, and **ZIP** for creation.
 
-### Single File
+### Extraction — Single File
 
-1. Select a ZIP file.
-2. The contents are listed with compressed and uncompressed sizes.
-3. Click **Extract** to extract to the chosen output directory.
+1. Select a ZIP, RAR, 7z, or GZip file.
+2. The ROM contents are listed with compressed and uncompressed sizes.
+3. Click **Extract ROMs** to extract to the chosen output directory.
 
-### Batch Mode
+### Extraction — Batch Mode
 
-Select a directory containing ZIP files. All archives are scanned and ROM files inside them are extracted.
+Select a directory containing archives. All ZIP, RAR, 7z, and GZip files are scanned and ROM files inside them are extracted.
+
+### Creation — Single Archive
+
+1. Select one or more ROM files.
+2. Choose an output path for the new ZIP archive.
+3. Click **Create Archive**.
+
+### Creation — Batch Mode
+
+1. Select a directory of ROM files.
+2. Choose between **one archive per ROM file** or a **single archive** containing all ROMs.
+3. Click **Create Archive**.
+
+> **Note:** Archive creation supports ZIP format only. RAR is a proprietary format and 7z writing is not available in the current library.
 
 ---
 
@@ -118,12 +132,6 @@ Reassembles split ROM files into a single file.
 
 ## ROM Decompressor
 
-Decompresses GZip-compressed ROM files.
+> **Note:** The ROM Decompressor has been merged into the **Archive Manager**. GZip decompression is now available as part of the Archive Manager's extraction workflow.
 
-### Single File
-
-Select a `.gz` file to decompress. The tool reports compressed and decompressed sizes.
-
-### Batch Mode
-
-Select a directory to decompress all `.gz` files found inside it.
+GZip-compressed ROM files (`.gz`) can be extracted using the Archive Manager, alongside ZIP, RAR, and 7z archives.

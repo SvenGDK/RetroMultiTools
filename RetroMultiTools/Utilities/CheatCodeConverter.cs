@@ -80,7 +80,7 @@ public static class CheatCodeConverter
         if (string.IsNullOrWhiteSpace(code))
             throw new ArgumentException("Code cannot be empty.", nameof(code));
 
-        code = code.Trim().ToUpperInvariant().Replace("-", "");
+        code = code.Trim().ToUpperInvariant().Replace("-", "").Replace(" ", "").Replace(":", "");
 
         return system switch
         {

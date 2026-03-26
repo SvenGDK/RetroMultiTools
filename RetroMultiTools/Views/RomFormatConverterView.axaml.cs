@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -20,10 +21,11 @@ public partial class RomFormatConverterView : UserControl
         if (sender is RadioButton rb && rb.IsChecked != true) return;
 
         bool isBatch = sender == BatchModeRadio;
-        InputLabel.Text = isBatch ? "ROM Directory:" : "ROM File:";
-        InputPathTextBox.Watermark = isBatch ? "Select a ROM directory..." : "Select a ROM file...";
-        OutputLabel.Text = isBatch ? "Output Directory:" : "Output File:";
-        OutputPathTextBox.Watermark = isBatch ? "Output directory..." : "Output file path...";
+        var loc = LocalizationManager.Instance;
+        InputLabel.Text = isBatch ? loc["Common_RomDirectory"] : loc["Common_RomFile"];
+        InputPathTextBox.Watermark = isBatch ? loc["Common_SelectRomDirectory"] : loc["Common_SelectRomFile"];
+        OutputLabel.Text = isBatch ? loc["Common_OutputDirectory"] : loc["Common_OutputFile"];
+        OutputPathTextBox.Watermark = isBatch ? loc["Common_OutputDirectoryWatermark"] : loc["Common_OutputFileWatermark"];
         InputPathTextBox.Text = string.Empty;
         OutputPathTextBox.Text = string.Empty;
         ConversionCombo.Items.Clear();
@@ -37,14 +39,14 @@ public partial class RomFormatConverterView : UserControl
 
         if (isBatch)
         {
-            var path = await PickFolder("Select ROM Directory");
+            var path = await PickFolder(LocalizationManager.Instance["FormatConv_SelectRomDirectory"]);
             if (path == null) return;
             InputPathTextBox.Text = path;
             PopulateBatchConversions();
         }
         else
         {
-            var path = await PickFile("Select ROM File",
+            var path = await PickFile(LocalizationManager.Instance["FormatConv_SelectRomFile"],
             [
                 new FilePickerFileType("ROM Files")
                 {
@@ -93,7 +95,8 @@ public partial class RomFormatConverterView : UserControl
         }
         catch (IOException)
         {
-            ShowStatus("Unable to read file.", isError: true);
+            var loc = LocalizationManager.Instance;
+            ShowStatus(loc["FormatConv_UnableToRead"], isError: true);
         }
     }
 
@@ -154,11 +157,12 @@ public partial class RomFormatConverterView : UserControl
 
     private async void BrowseOutput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         bool isBatch = BatchModeRadio.IsChecked == true;
 
         if (isBatch)
         {
-            var path = await PickFolder("Select Output Directory");
+            var path = await PickFolder(LocalizationManager.Instance["FormatConv_SelectOutputDirectory"]);
             if (path != null)
                 OutputPathTextBox.Text = path;
         }
@@ -169,7 +173,7 @@ public partial class RomFormatConverterView : UserControl
 
             var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
-                Title = "Save Converted ROM As",
+                Title = loc["FormatConv_SaveDialogTitle"],
                 SuggestedFileName = Path.GetFileName(OutputPathTextBox.Text ?? "converted.rom")
             });
 
@@ -180,18 +184,19 @@ public partial class RomFormatConverterView : UserControl
 
     private async void ConvertButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string input = InputPathTextBox.Text ?? "";
         string output = OutputPathTextBox.Text ?? "";
 
         if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(output))
         {
-            ShowStatus("Please select input and output paths.", isError: true);
+            ShowStatus(loc["FormatConv_SelectInputOutput"], isError: true);
             return;
         }
 
         if (ConversionCombo.SelectedItem is not ComboBoxItem item || item.Tag is not RomFormatConverter.ConversionType convType)
         {
-            ShowStatus("Please select a conversion type.", isError: true);
+            ShowStatus(loc["FormatConv_SelectConversion"], isError: true);
             return;
         }
 
@@ -207,17 +212,17 @@ public partial class RomFormatConverterView : UserControl
             if (isBatch)
             {
                 var result = await RomFormatConverter.ConvertBatchAsync(input, output, convType, progress);
-                ShowStatus($"✔ Batch conversion complete!\n{result.Summary}", isError: false);
+                ShowStatus(string.Format(loc["FormatConv_BatchComplete"], result.Summary), isError: false);
             }
             else
             {
                 await RomFormatConverter.ConvertAsync(input, output, convType, progress);
-                ShowStatus($"✔ Conversion complete!\nOutput: {output}", isError: false);
+                ShowStatus(string.Format(loc["FormatConv_ConversionComplete"], output), isError: false);
             }
         }
         catch (Exception ex) when (ex is InvalidOperationException or IOException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

@@ -22,7 +22,7 @@
         <!-- File Info -->
         <Border x:Name="InfoPanel" Background="#181825" CornerRadius="6" Padding="12"
                 IsVisible="False">
-            <Grid ColumnDefinitions="140,*" RowDefinitions="Auto,Auto,Auto">
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto">
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [SaveConv_FileSize], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Margin="0,0,12,6"/>
                 <TextBlock Grid.Row="0" Grid.Column="1" x:Name="FileSizeText" Foreground="#CDD6F4" Margin="0,0,0,6"/>
 
@@ -37,7 +37,8 @@
         <!-- Conversion Type -->
         <StackPanel Spacing="4">
             <TextBlock Text="{Binding [SaveConv_Conversion], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
-            <ComboBox x:Name="ConversionComboBox" Width="300" SelectedIndex="0">
+            <ComboBox x:Name="ConversionComboBox" MinWidth="300" SelectedIndex="0"
+                     SelectionChanged="ConversionComboBox_SelectionChanged">
                 <ComboBoxItem Content="{Binding [SaveConv_SwapEndian16], Source={x:Static loc:LocalizationManager.Instance}}"/>
                 <ComboBoxItem Content="{Binding [SaveConv_SwapEndian32], Source={x:Static loc:LocalizationManager.Instance}}"/>
                 <ComboBoxItem Content="{Binding [SaveConv_PadPowerOfTwo], Source={x:Static loc:LocalizationManager.Instance}}"/>

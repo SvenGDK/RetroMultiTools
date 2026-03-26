@@ -1,3 +1,4 @@
+using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using System.Net;
 using System.Text.Json;
@@ -126,7 +127,7 @@ public static partial class ArtworkService
             string sanitized = SanitizeForLibretro(candidate);
             string encoded = Uri.EscapeDataString(sanitized);
 
-            progress?.Report($"Searching artwork for \"{candidate}\"...");
+            progress?.Report(string.Format(LocalizationManager.Instance["Browser_SearchingArtwork"], candidate));
             var boxArt = await TryDownloadImageAsync(
                 $"{baseUrl}/Named_Boxarts/{encoded}.png", cancellationToken, progress).ConfigureAwait(false);
 
@@ -134,11 +135,11 @@ public static partial class ArtworkService
             {
                 artwork.BoxArt = boxArt;
 
-                progress?.Report("Fetching screenshot...");
+                progress?.Report(LocalizationManager.Instance["Browser_FetchingScreenshot"]);
                 artwork.Snap = await TryDownloadImageAsync(
                     $"{baseUrl}/Named_Snaps/{encoded}.png", cancellationToken, progress).ConfigureAwait(false);
 
-                progress?.Report("Fetching title screen...");
+                progress?.Report(LocalizationManager.Instance["Browser_FetchingTitleScreen"]);
                 artwork.TitleScreen = await TryDownloadImageAsync(
                     $"{baseUrl}/Named_Titles/{encoded}.png", cancellationToken, progress).ConfigureAwait(false);
 
@@ -149,7 +150,7 @@ public static partial class ArtworkService
         // No exact candidate matched. Fall back to the thumbnail index: fetch
         // the list of all known thumbnails for this system and look for an entry
         // whose base name matches one of our candidates.
-        progress?.Report("Searching thumbnail index...");
+        progress?.Report(LocalizationManager.Instance["Browser_SearchingThumbnailIndex"]);
         var indexMatch = await FindMatchInIndexAsync(
             systemName, candidates, cancellationToken).ConfigureAwait(false);
 
@@ -158,18 +159,18 @@ public static partial class ArtworkService
             string sanitized = SanitizeForLibretro(indexMatch);
             string encoded = Uri.EscapeDataString(sanitized);
 
-            progress?.Report($"Searching artwork for \"{indexMatch}\"...");
+            progress?.Report(string.Format(LocalizationManager.Instance["Browser_SearchingArtwork"], indexMatch));
             var boxArt = await TryDownloadImageAsync(
                 $"{baseUrl}/Named_Boxarts/{encoded}.png", cancellationToken, progress).ConfigureAwait(false);
 
             if (boxArt != null)
                 artwork.BoxArt = boxArt;
 
-            progress?.Report("Fetching screenshot...");
+            progress?.Report(LocalizationManager.Instance["Browser_FetchingScreenshot"]);
             artwork.Snap = await TryDownloadImageAsync(
                 $"{baseUrl}/Named_Snaps/{encoded}.png", cancellationToken, progress).ConfigureAwait(false);
 
-            progress?.Report("Fetching title screen...");
+            progress?.Report(LocalizationManager.Instance["Browser_FetchingTitleScreen"]);
             artwork.TitleScreen = await TryDownloadImageAsync(
                 $"{baseUrl}/Named_Titles/{encoded}.png", cancellationToken, progress).ConfigureAwait(false);
 
@@ -182,11 +183,11 @@ public static partial class ArtworkService
             string sanitized = SanitizeForLibretro(candidates[0]);
             string encoded = Uri.EscapeDataString(sanitized);
 
-            progress?.Report("Fetching screenshot...");
+            progress?.Report(LocalizationManager.Instance["Browser_FetchingScreenshot"]);
             artwork.Snap = await TryDownloadImageAsync(
                 $"{baseUrl}/Named_Snaps/{encoded}.png", cancellationToken, progress).ConfigureAwait(false);
 
-            progress?.Report("Fetching title screen...");
+            progress?.Report(LocalizationManager.Instance["Browser_FetchingTitleScreen"]);
             artwork.TitleScreen = await TryDownloadImageAsync(
                 $"{baseUrl}/Named_Titles/{encoded}.png", cancellationToken, progress).ConfigureAwait(false);
         }
@@ -484,7 +485,7 @@ public static partial class ArtworkService
         }
         catch (HttpRequestException ex)
         {
-            progress?.Report($"Network error fetching artwork: {ex.Message}");
+            progress?.Report(string.Format(LocalizationManager.Instance["Browser_ArtworkNetworkError"], ex.Message));
         }
         catch (TaskCanceledException) when (cancellationToken.IsCancellationRequested)
         {
@@ -493,7 +494,7 @@ public static partial class ArtworkService
         }
         catch (TaskCanceledException)
         {
-            progress?.Report("Artwork request timed out.");
+            progress?.Report(LocalizationManager.Instance["Browser_ArtworkRequestTimeout"]);
         }
 
         return null;

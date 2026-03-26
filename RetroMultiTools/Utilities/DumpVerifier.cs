@@ -1,4 +1,5 @@
 using RetroMultiTools.Detection;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 
 namespace RetroMultiTools.Utilities;
@@ -139,7 +140,7 @@ public static class DumpVerifier
 
         result.Issues = issues;
         result.IsGoodDump = issues.Count == 0;
-        result.Status = result.IsGoodDump ? "Good dump ✔" : $"Potential issues found ({issues.Count}) ⚠";
+        result.Status = result.IsGoodDump ? LocalizationManager.Instance["DumpVerify_GoodDump"] : string.Format(LocalizationManager.Instance["DumpVerify_IssuesFound"], issues.Count);
 
         progress?.Report("Done.");
         return result;
@@ -177,8 +178,8 @@ public static class DumpVerifier
                     FilePath = files[i],
                     FileName = Path.GetFileName(files[i]),
                     IsGoodDump = false,
-                    Status = $"Error: {ex.Message}",
-                    Issues = [$"Could not read file: {ex.Message}"]
+                    Status = string.Format(LocalizationManager.Instance["DumpVerify_ErrorStatus"], ex.Message),
+                    Issues = [string.Format(LocalizationManager.Instance["DumpVerify_CouldNotRead"], ex.Message)]
                 });
             }
         }
@@ -194,13 +195,13 @@ public static class DumpVerifier
     {
         if (romInfo.FileSize == 0)
         {
-            issues.Add("File is empty (0 bytes).");
+            issues.Add(LocalizationManager.Instance["DumpVerify_FileEmpty"]);
             return;
         }
 
         if (romInfo.FileSize < 512)
         {
-            issues.Add($"File is unusually small ({FileUtils.FormatFileSize(romInfo.FileSize)}).");
+            issues.Add(string.Format(LocalizationManager.Instance["DumpVerify_FileSmall"], FileUtils.FormatFileSize(romInfo.FileSize)));
             return;
         }
 
@@ -224,9 +225,9 @@ public static class DumpVerifier
                 // Check if it's close to an expected size (possible overdump)
                 long closest = expectedSizes.OrderBy(s => Math.Abs(s - romDataSize)).First();
                 if (romDataSize > closest && romDataSize < closest * 2)
-                    issues.Add($"ROM data size ({FileUtils.FormatFileSize(romDataSize)}) is larger than expected ({FileUtils.FormatFileSize(closest)}). Possible overdump.");
+                    issues.Add(string.Format(LocalizationManager.Instance["DumpVerify_Overdump"], FileUtils.FormatFileSize(romDataSize), FileUtils.FormatFileSize(closest)));
                 else if (romDataSize < closest)
-                    issues.Add($"ROM data size ({FileUtils.FormatFileSize(romDataSize)}) is smaller than expected ({FileUtils.FormatFileSize(closest)}). Possible underdump.");
+                    issues.Add(string.Format(LocalizationManager.Instance["DumpVerify_Underdump"], FileUtils.FormatFileSize(romDataSize), FileUtils.FormatFileSize(closest)));
             }
         }
     }
@@ -253,9 +254,9 @@ public static class DumpVerifier
             double zeroRatio = (double)zeroCount / bytesRead;
 
             if (ffRatio > 0.95)
-                issues.Add($"Last {FileUtils.FormatFileSize(checkSize)} of file is mostly 0xFF bytes ({ffRatio:P0}). Possible overdump.");
+                issues.Add(string.Format(LocalizationManager.Instance["DumpVerify_TrailingFF"], FileUtils.FormatFileSize(checkSize), ffRatio.ToString("P0")));
             else if (zeroRatio > 0.95)
-                issues.Add($"Last {FileUtils.FormatFileSize(checkSize)} of file is mostly 0x00 bytes ({zeroRatio:P0}). Possible overdump or padding.");
+                issues.Add(string.Format(LocalizationManager.Instance["DumpVerify_TrailingZero"], FileUtils.FormatFileSize(checkSize), zeroRatio.ToString("P0")));
         }).ConfigureAwait(false);
     }
 
@@ -296,12 +297,12 @@ public static class DumpVerifier
             }
 
             if (isUniform && totalBytes > 0)
-                issues.Add($"Entire file contains only 0x{uniformValue:X2} bytes. This is a blank/bad dump.");
+                issues.Add(string.Format(LocalizationManager.Instance["DumpVerify_UniformBytes"], uniformValue!.Value.ToString("X2")));
             else if (totalBytes > 0)
             {
                 double uniformRatio = (double)uniformBytes / totalBytes;
                 if (uniformRatio > 0.99)
-                    issues.Add($"File is {uniformRatio:P1} identical bytes (0x{uniformValue:X2}). Likely a bad dump.");
+                    issues.Add(string.Format(LocalizationManager.Instance["DumpVerify_MostlyUniform"], uniformRatio.ToString("P1"), uniformValue!.Value.ToString("X2")));
             }
         }).ConfigureAwait(false);
     }
@@ -310,100 +311,100 @@ public static class DumpVerifier
     {
         if (!romInfo.IsValid && !string.IsNullOrEmpty(romInfo.ErrorMessage))
         {
-            issues.Add($"Header validation failed: {romInfo.ErrorMessage}");
+            issues.Add(string.Format(LocalizationManager.Instance["DumpVerify_HeaderFailed"], romInfo.ErrorMessage));
         }
 
         // Check for missing expected header info
         if (romInfo.System == RomSystem.NES)
         {
             if (romInfo.HeaderInfo.TryGetValue("PRG ROM Size", out string? prg) && prg == "0 KB")
-                issues.Add("NES header declares 0 KB PRG ROM — likely invalid.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_NesPrgZero"]);
         }
 
         if (romInfo.System == RomSystem.SNES)
         {
             if (romInfo.HeaderInfo.TryGetValue("Checksum Valid", out string? valid) && valid == "No")
-                issues.Add("SNES internal checksum does not match. Header may be corrupt.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_SnesChecksum"]);
         }
 
         if (romInfo.System == RomSystem.GameBoy || romInfo.System == RomSystem.GameBoyColor)
         {
             if (romInfo.HeaderInfo.TryGetValue("Header Checksum", out string? gbChecksum) &&
                 gbChecksum.Contains("invalid", StringComparison.OrdinalIgnoreCase))
-                issues.Add("Game Boy header checksum is invalid — ROM may be corrupt or modified.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_GBChecksum"]);
         }
 
         if (romInfo.System == RomSystem.N64)
         {
             if (!romInfo.HeaderInfo.ContainsKey("Title"))
-                issues.Add("N64 ROM is missing title in header — may not be a valid ROM.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_N64NoTitle"]);
         }
 
         if (romInfo.System == RomSystem.MegaDrive)
         {
             if (romInfo.HeaderInfo.TryGetValue("System", out string? system) &&
                 !system.Contains("SEGA", StringComparison.OrdinalIgnoreCase))
-                issues.Add("Mega Drive ROM is missing SEGA identifier — may not be a valid ROM.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_MegaDriveNoSega"]);
         }
 
         if (romInfo.System == RomSystem.GameBoyAdvance)
         {
             if (romInfo.HeaderInfo.TryGetValue("GBA Logo", out string? logo) && logo == "Invalid")
-                issues.Add("GBA header logo is invalid — ROM may not boot on hardware.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_GBALogoInvalid"]);
         }
 
         if (romInfo.System == RomSystem.NintendoDS)
         {
             if (romInfo.HeaderInfo.TryGetValue("Header CRC16", out string? ndsCrc) &&
                 ndsCrc.Contains("invalid", StringComparison.OrdinalIgnoreCase))
-                issues.Add("Nintendo DS header CRC16 is invalid — ROM header may be corrupt.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_NdsCrc"]);
         }
 
         if (romInfo.System == RomSystem.ColecoVision)
         {
             if (romInfo.HeaderInfo.TryGetValue("Magic Bytes", out string? magic) && magic.StartsWith("Non-standard"))
-                issues.Add("ColecoVision magic bytes are non-standard — ROM may not be a valid ColecoVision cartridge.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_ColecoVision"]);
         }
 
         if (romInfo.System == RomSystem.SegaMasterSystem || romInfo.System == RomSystem.GameGear)
         {
             if (romInfo.HeaderInfo.TryGetValue("Header Checksum", out string? smsChecksum) &&
                 smsChecksum.Contains("invalid", StringComparison.OrdinalIgnoreCase))
-                issues.Add("SMS/Game Gear TMR SEGA header checksum is invalid — ROM may be corrupt.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_SmsGgChecksum"]);
         }
 
         if (romInfo.System == RomSystem.Atari7800)
         {
             if (romInfo.HeaderInfo.TryGetValue("Signature", out string? sig) &&
                 !sig.Contains("ATARI7800", StringComparison.OrdinalIgnoreCase))
-                issues.Add("Atari 7800 ROM is missing ATARI7800 signature — may not have a valid header.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_Atari7800Sig"]);
         }
 
         if (romInfo.System == RomSystem.AtariLynx)
         {
             if (romInfo.HeaderInfo.TryGetValue("Format", out string? lynxFmt) &&
                 lynxFmt.Contains("without header", StringComparison.OrdinalIgnoreCase))
-                issues.Add("Atari Lynx ROM has no LYNX header — some emulators require the header for correct operation.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_LynxHeader"]);
         }
 
         if (romInfo.System == RomSystem.Sega32X)
         {
             if (romInfo.HeaderInfo.TryGetValue("System", out string? sys32x) &&
                 !sys32x.Contains("SEGA", StringComparison.OrdinalIgnoreCase))
-                issues.Add("Sega 32X ROM is missing SEGA identifier — may not be a valid ROM.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_Sega32x"]);
         }
 
         if (romInfo.System == RomSystem.MSX || romInfo.System == RomSystem.MSX2)
         {
             if (romInfo.HeaderInfo.TryGetValue("Cartridge ID", out string? cartId) &&
                 cartId.Contains("Non-standard", StringComparison.OrdinalIgnoreCase))
-                issues.Add("MSX cartridge lacks standard \"AB\" signature — may not be a valid cartridge ROM.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_MsxSignature"]);
         }
 
         if (romInfo.System == RomSystem.VirtualBoy)
         {
             if (!romInfo.HeaderInfo.ContainsKey("Title"))
-                issues.Add("Virtual Boy ROM is missing title in header — may not be a valid ROM.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_VirtualBoy"]);
         }
 
         if (romInfo.System == RomSystem.PCEngine)
@@ -411,7 +412,7 @@ public static class DumpVerifier
             // PC Engine ROMs with copier header (512 bytes) may cause issues
             if (romInfo.HeaderInfo.TryGetValue("Format", out string? pceFmt) &&
                 pceFmt.Contains("copier header", StringComparison.OrdinalIgnoreCase))
-                issues.Add("PC Engine ROM has a copier header — this may cause compatibility issues with some emulators.");
+                issues.Add(LocalizationManager.Instance["DumpVerify_PceHeader"]);
         }
     }
 
@@ -437,7 +438,7 @@ public static class DumpVerifier
 
         if (!isPowerOf2 && !isStandardMultiple && romDataSize > 8192)
         {
-            issues.Add($"ROM data size ({FileUtils.FormatFileSize(romDataSize)}) is not a standard size. May indicate corruption.");
+            issues.Add(string.Format(LocalizationManager.Instance["DumpVerify_NonStandardSize"], FileUtils.FormatFileSize(romDataSize)));
         }
     }
 }

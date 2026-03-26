@@ -62,10 +62,11 @@
         <!-- Decompress Output Format -->
         <StackPanel x:Name="OutputFormatPanel" Spacing="4" IsVisible="False">
             <TextBlock Text="{Binding [MameChdConv_OutputFormat], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
-            <ComboBox x:Name="OutputFormatCombo" SelectedIndex="0" MinWidth="200">
-                <ComboBoxItem Content="BIN (Raw binary)"/>
-                <ComboBoxItem Content="CUE/BIN (CD image)"/>
-                <ComboBoxItem Content="GDI (GD-ROM image)"/>
+            <ComboBox x:Name="OutputFormatCombo" SelectedIndex="0" MinWidth="200"
+                      SelectionChanged="OutputFormatCombo_SelectionChanged">
+                <ComboBoxItem Content="{Binding [MameChd_BinFormat], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <ComboBoxItem Content="{Binding [MameChd_CueBinFormat], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <ComboBoxItem Content="{Binding [MameChd_GdiFormat], Source={x:Static loc:LocalizationManager.Instance}}"/>
             </ComboBox>
         </StackPanel>
 

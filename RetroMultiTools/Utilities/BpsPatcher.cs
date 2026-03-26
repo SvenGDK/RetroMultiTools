@@ -77,8 +77,9 @@ public static class BpsPatcher
                         throw new InvalidDataException("TargetRead extends beyond target buffer.");
                     if (pos + length > patchEnd)
                         throw new InvalidDataException("TargetRead extends beyond patch data.");
-                    for (long i = 0; i < length; i++)
-                        target[targetPos++] = patch[pos++];
+                    Buffer.BlockCopy(patch, pos, target, targetPos, (int)length);
+                    pos += (int)length;
+                    targetPos += (int)length;
                     break;
 
                 case 2: // SourceCopy
@@ -124,7 +125,7 @@ public static class BpsPatcher
         }
         catch
         {
-            try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
             throw;
         }
     }

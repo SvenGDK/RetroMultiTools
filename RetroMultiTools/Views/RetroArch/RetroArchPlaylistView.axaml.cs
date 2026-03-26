@@ -91,7 +91,7 @@ public partial class RetroArchPlaylistView : UserControl
         }
         catch (Exception ex)
         {
-            PlaylistStatusText.Text = $"✘ {ex.Message}";
+            PlaylistStatusText.Text = string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message);
         }
         finally
         {
@@ -133,7 +133,7 @@ public partial class RetroArchPlaylistView : UserControl
         }
         catch (Exception ex)
         {
-            PlaylistStatusText.Text = $"✘ {ex.Message}";
+            PlaylistStatusText.Text = string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message);
         }
     }
 
@@ -170,7 +170,7 @@ public partial class RetroArchPlaylistView : UserControl
         }
         catch (Exception ex)
         {
-            PlaylistStatusText.Text = $"✘ {ex.Message}";
+            PlaylistStatusText.Text = string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message);
         }
     }
 
@@ -237,7 +237,7 @@ public partial class RetroArchPlaylistView : UserControl
         }
         catch (Exception ex)
         {
-            ThumbnailStatusText.Text = $"✘ {ex.Message}";
+            ThumbnailStatusText.Text = string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message);
         }
         finally
         {

@@ -1,3 +1,5 @@
+using RetroMultiTools.Localization;
+
 namespace RetroMultiTools.Utilities;
 
 public static class PatchCreator
@@ -6,7 +8,7 @@ public static class PatchCreator
 
     public static async Task CreateIpsAsync(
         string originalPath, string modifiedPath, string outputPath,
-        IProgress<string>? progress = null)
+        IProgress<string>? progress = null, LocalizationManager? loc = null)
     {
         if (!File.Exists(originalPath))
             throw new FileNotFoundException("Original ROM file not found.", originalPath);
@@ -23,16 +25,17 @@ public static class PatchCreator
         byte[] original = await File.ReadAllBytesAsync(originalPath).ConfigureAwait(false);
         byte[] modified = await File.ReadAllBytesAsync(modifiedPath).ConfigureAwait(false);
 
-        progress?.Report("Comparing files...");
+        progress?.Report(loc?["PatchCreator_Comparing"] ?? "Comparing files...");
 
-        var records = BuildIpsRecords(original, modified, progress);
+        var records = BuildIpsRecords(original, modified);
 
-        progress?.Report($"Writing IPS patch with {records.Count} record(s)...");
+        var writingTemplate = loc?["PatchCreator_WritingRecords"] ?? "Writing IPS patch with {0} record(s)...";
+        progress?.Report(string.Format(writingTemplate, records.Count));
 
         await Task.Run(() => WriteIpsFile(records, modified.Length, original.Length, outputPath))
             .ConfigureAwait(false);
 
-        progress?.Report("Done.");
+        progress?.Report(loc?["PatchCreator_Done"] ?? "Done.");
     }
 
     private const int MaxAnalyzeSize = 512 * 1024 * 1024; // 512 MB
@@ -73,7 +76,7 @@ public static class PatchCreator
         };
     }
 
-    private static List<IpsRecord> BuildIpsRecords(byte[] original, byte[] modified, IProgress<string>? progress)
+    private static List<IpsRecord> BuildIpsRecords(byte[] original, byte[] modified)
     {
         var records = new List<IpsRecord>();
         int maxLen = Math.Max(original.Length, modified.Length);
@@ -198,7 +201,7 @@ public static class PatchCreator
         }
         catch
         {
-            try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
             throw;
         }
     }

@@ -81,6 +81,10 @@ public partial class SettingsView : UserControl
             BigPictureRomFolderTextBox.Text = folder;
         BigPictureCardScaleSlider.Value = AppSettings.Instance.BigPictureCardScale;
         BigPictureCardScaleValueText.Text = AppSettings.Instance.BigPictureCardScale.ToString("F1") + "×";
+        BigPictureScreensaverSlider.Value = AppSettings.Instance.BigPictureScreensaverTimeout;
+        UpdateScreensaverValueText(AppSettings.Instance.BigPictureScreensaverTimeout);
+        BigPicturePlayTrackingCheck.IsChecked = AppSettings.Instance.BigPicturePlayTrackingEnabled;
+        BigPictureRatingsCheck.IsChecked = AppSettings.Instance.BigPictureRatingsEnabled;
     }
 
     private void StartInBigPictureModeCheck_Changed(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -115,6 +119,34 @@ public partial class SettingsView : UserControl
         BigPictureCardScaleValueText.Text = val.ToString("F1") + "×";
     }
 
+    private void BigPictureScreensaverSlider_ValueChanged(object? sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+    {
+        if (_isInitializing) return;
+        int val = (int)e.NewValue;
+        AppSettings.Instance.BigPictureScreensaverTimeout = val;
+        UpdateScreensaverValueText(val);
+    }
+
+    private void UpdateScreensaverValueText(int minutes)
+    {
+        if (minutes == 0)
+            BigPictureScreensaverValueText.Text = LocalizationManager.Instance["Settings_BigPictureScreensaverOff"];
+        else
+            BigPictureScreensaverValueText.Text = string.Format(LocalizationManager.Instance["Settings_ScreensaverMinutes"], minutes);
+    }
+
+    private void BigPicturePlayTrackingCheck_Changed(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (_isInitializing) return;
+        AppSettings.Instance.BigPicturePlayTrackingEnabled = BigPicturePlayTrackingCheck.IsChecked == true;
+    }
+
+    private void BigPictureRatingsCheck_Changed(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (_isInitializing) return;
+        AppSettings.Instance.BigPictureRatingsEnabled = BigPictureRatingsCheck.IsChecked == true;
+    }
+
     // ── Gamepad ────────────────────────────────────────────────────────
 
     private void LoadGamepadSettings()
@@ -136,6 +168,7 @@ public partial class SettingsView : UserControl
         double val = e.NewValue;
         AppSettings.Instance.GamepadDeadZone = val;
         GamepadDeadZoneValueText.Text = val.ToString("F2");
+        GamepadService.Instance.SetDeadZone(val);
     }
 
     private AppUpdater.UpdateInfo? _pendingUpdate;
@@ -159,6 +192,7 @@ public partial class SettingsView : UserControl
     {
         CheckForUpdatesButton.IsEnabled = false;
         InstallUpdateButton.IsVisible = false;
+        ReleaseNotesBorder.IsVisible = false;
         UpdateStatusText.Text = Localization.LocalizationManager.Instance["Settings_UpdateChecking"];
 
         try
@@ -169,6 +203,7 @@ public partial class SettingsView : UserControl
             {
                 _pendingUpdate = null;
                 UpdateStatusText.Text = Localization.LocalizationManager.Instance["Settings_UpdateUpToDate"];
+                ReleaseNotesBorder.IsVisible = false;
             }
             else
             {
@@ -176,6 +211,17 @@ public partial class SettingsView : UserControl
                 UpdateStatusText.Text = string.Format(
                     Localization.LocalizationManager.Instance["Settings_UpdateAvailableMessage"],
                     update.CurrentVersion, update.NewVersion);
+
+                // Show release notes as rendered Markdown
+                if (!string.IsNullOrWhiteSpace(update.ReleaseNotes))
+                {
+                    ReleaseNotesViewer.Markdown = update.ReleaseNotes;
+                    ReleaseNotesBorder.IsVisible = true;
+                }
+                else
+                {
+                    ReleaseNotesBorder.IsVisible = false;
+                }
 
                 if (!string.IsNullOrEmpty(update.DownloadUrl))
                 {
@@ -190,12 +236,12 @@ public partial class SettingsView : UserControl
         catch (HttpRequestException ex)
         {
             System.Diagnostics.Trace.WriteLine($"[SettingsView] Update check network error: {ex.Message}");
-            UpdateStatusText.Text = $"✘ {Localization.LocalizationManager.Instance["Settings_UpdateNetworkError"]}";
+            UpdateStatusText.Text = Localization.LocalizationManager.Instance["Settings_UpdateNetworkError"];
         }
         catch (Exception ex)
         {
             System.Diagnostics.Trace.WriteLine($"[SettingsView] Update check failed: {ex.Message}");
-            UpdateStatusText.Text = $"✘ {Localization.LocalizationManager.Instance["Settings_UpdateNetworkError"]}";
+            UpdateStatusText.Text = Localization.LocalizationManager.Instance["Settings_UpdateNetworkError"];
         }
         finally
         {
@@ -243,6 +289,7 @@ public partial class SettingsView : UserControl
             else
             {
                 UpdateStatusText.Text = Localization.LocalizationManager.Instance["Settings_UpdateInstallError"];
+                UpdateProgressBar.IsVisible = false;
             }
         }
         catch (OperationCanceledException)
@@ -253,13 +300,13 @@ public partial class SettingsView : UserControl
         catch (HttpRequestException ex)
         {
             System.Diagnostics.Trace.WriteLine($"[SettingsView] Update download error: {ex.Message}");
-            UpdateStatusText.Text = $"✘ {Localization.LocalizationManager.Instance["Settings_UpdateDownloadError"]}";
+            UpdateStatusText.Text = Localization.LocalizationManager.Instance["Settings_UpdateDownloadError"];
             UpdateProgressBar.IsVisible = false;
         }
         catch (Exception ex)
         {
             System.Diagnostics.Trace.WriteLine($"[SettingsView] Update install error: {ex.Message}");
-            UpdateStatusText.Text = $"✘ {Localization.LocalizationManager.Instance["Settings_UpdateInstallError"]}";
+            UpdateStatusText.Text = Localization.LocalizationManager.Instance["Settings_UpdateInstallError"];
             UpdateProgressBar.IsVisible = false;
         }
         finally

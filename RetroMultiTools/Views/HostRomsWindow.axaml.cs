@@ -31,9 +31,12 @@ public partial class HostRomsWindow : Window
             fileCount = Directory.EnumerateFiles(directoryPath)
                 .Count(RomHostingService.IsRomFile);
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            System.Diagnostics.Trace.WriteLine($"HostRomsWindow: Failed to enumerate directory: {ex.Message}");
+        }
 
-        FileInfoText.Text = $"Directory: {directoryPath}\n{fileCount} ROM file(s) in directory";
+        FileInfoText.Text = string.Format(LocalizationManager.Instance["HostShare_DirectoryInfo"], directoryPath, fileCount);
     }
 
     /// <summary>
@@ -45,7 +48,8 @@ public partial class HostRomsWindow : Window
         _selectedRoms = selectedRoms;
 
         long totalSize = selectedRoms.Sum(r => r.FileSize);
-        FileInfoText.Text = $"{selectedRoms.Count} ROM(s) selected — {FileUtils.FormatFileSize(totalSize)} total";
+        FileInfoText.Text = string.Format(LocalizationManager.Instance["HostShare_SelectedInfo"],
+            selectedRoms.Count, FileUtils.FormatFileSize(totalSize));
     }
 
     private void StartStopButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -175,9 +179,10 @@ public partial class HostRomsWindow : Window
                 await clipboard.SetTextAsync(firstUrl);
                 StatusText.Text = LocalizationManager.Instance["HostShare_UrlCopied"];
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // Clipboard access can fail on some platforms (e.g. Wayland without focus)
+                System.Diagnostics.Trace.WriteLine($"[HostRomsWindow] Clipboard write failed: {ex.Message}");
             }
         }
     }

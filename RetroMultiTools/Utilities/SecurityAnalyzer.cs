@@ -1,4 +1,5 @@
 using RetroMultiTools.Detection;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 
 namespace RetroMultiTools.Utilities;
@@ -109,7 +110,7 @@ public static class SecurityAnalyzer
                     FileName = Path.GetFileName(files[i]),
                     Features =
                     [
-                        new() { Name = "Analysis Failed", Description = ex.Message, Category = FeatureCategory.Other }
+                        new() { Name = LocalizationManager.Instance["SecAnalyzer_AnalysisFailed"], Description = ex.Message, Category = FeatureCategory.Other }
                     ]
                 });
             }
@@ -126,8 +127,8 @@ public static class SecurityAnalyzer
             case RomSystem.AmigaCD32:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Amiga CD32 Region",
-                    Description = "Amiga CD32 uses PAL/NTSC region encoding; some titles may not work on consoles from a different video region.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_AmigaCd32Region"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_AmigaCd32RegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -135,8 +136,8 @@ public static class SecurityAnalyzer
             case RomSystem.AmstradCPC:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Amstrad CPC Region",
-                    Description = "Amstrad CPC has no hardware region lock; regional differences are limited to keyboard layout and language.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_AmstradCpcRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_AmstradCpcRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -144,8 +145,8 @@ public static class SecurityAnalyzer
             case RomSystem.Arcade:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Arcade Region",
-                    Description = "Arcade boards typically have no hardware region lock; regional differences are implemented in software via DIP switch settings or separate ROM sets.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_ArcadeRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_ArcadeRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -153,8 +154,8 @@ public static class SecurityAnalyzer
             case RomSystem.Atari2600:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Atari 2600 Region",
-                    Description = "Atari 2600 is region-free; games are NTSC or PAL specific based on programming, not hardware lockout.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_Atari2600Region"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_Atari2600RegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -162,8 +163,8 @@ public static class SecurityAnalyzer
             case RomSystem.Atari5200:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Atari 5200 Region",
-                    Description = "Atari 5200 is NTSC-only; no hardware region lock since the system was only released in North America.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_Atari5200Region"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_Atari5200RegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -171,8 +172,8 @@ public static class SecurityAnalyzer
             case RomSystem.Atari7800:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Atari 7800 Region",
-                    Description = "Atari 7800 uses a digital signature in the cartridge header to enforce region lockout. PAL and NTSC consoles validate this signature before running the game.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_Atari7800Region"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_Atari7800RegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -180,8 +181,8 @@ public static class SecurityAnalyzer
             case RomSystem.Atari800:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Atari 800 Region",
-                    Description = "Atari 8-bit computers are region-free; NTSC and PAL differences are hardware-based, not enforced by software lockout.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_Atari800Region"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_Atari800RegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -189,8 +190,8 @@ public static class SecurityAnalyzer
             case RomSystem.AtariJaguar:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Atari Jaguar Region",
-                    Description = "Atari Jaguar is region-free; the Jaguar has no hardware or software region lockout mechanism.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_AtariJaguarRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_AtariJaguarRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -198,8 +199,8 @@ public static class SecurityAnalyzer
             case RomSystem.AtariLynx:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Atari Lynx Region",
-                    Description = "Atari Lynx is region-free; the Lynx was designed as a worldwide product with no region restrictions.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_AtariLynxRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_AtariLynxRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -207,8 +208,8 @@ public static class SecurityAnalyzer
             case RomSystem.ColecoVision:
                 features.Add(new SecurityFeature
                 {
-                    Name = "ColecoVision Region",
-                    Description = "ColecoVision hardware is region-free. Cartridges from any region will work on any console.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_ColecoVisionRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_ColecoVisionRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -216,8 +217,8 @@ public static class SecurityAnalyzer
             case RomSystem.ColorComputer:
                 features.Add(new SecurityFeature
                 {
-                    Name = "TRS-80 Color Computer Region",
-                    Description = "TRS-80 Color Computer has no region locking; the system was primarily sold in North America.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_Trs80Region"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_Trs80RegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -238,8 +239,8 @@ public static class SecurityAnalyzer
             case RomSystem.Intellivision:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Intellivision Region",
-                    Description = "Intellivision hardware is region-free; the same cartridges are compatible with all console variants worldwide.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_IntellivisionRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_IntellivisionRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -253,8 +254,8 @@ public static class SecurityAnalyzer
             case RomSystem.MSX2:
                 features.Add(new SecurityFeature
                 {
-                    Name = "MSX Region",
-                    Description = "MSX standard is region-free by design; cartridges are compatible across regions. Software may have language differences.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_MsxRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_MsxRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -266,8 +267,8 @@ public static class SecurityAnalyzer
             case RomSystem.N64DD:
                 features.Add(new SecurityFeature
                 {
-                    Name = "N64DD Region",
-                    Description = "Nintendo 64DD uses region locking inherited from the N64 console via the CIC chip. The 64DD peripheral was only officially released in Japan.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_N64ddRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_N64ddRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -275,8 +276,8 @@ public static class SecurityAnalyzer
             case RomSystem.NECPC88:
                 features.Add(new SecurityFeature
                 {
-                    Name = "NEC PC-88 Region",
-                    Description = "NEC PC-88 was a Japan-only platform; no hardware region lock since the system was only released domestically.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_NecPc88Region"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_NecPc88RegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -284,8 +285,8 @@ public static class SecurityAnalyzer
             case RomSystem.NeoGeo:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Neo Geo Region",
-                    Description = "SNK Neo Geo AES consoles use a BIOS-level region lock (Japan, USA, Europe). MVS arcade boards use regional BIOS variants.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_NeoGeoRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_NeoGeoRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -293,8 +294,8 @@ public static class SecurityAnalyzer
             case RomSystem.NeoGeoCD:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Neo Geo CD Region",
-                    Description = "Neo Geo CD enforces region locking via the console BIOS; discs are coded for Japan, USA, or Europe regions.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_NeoGeoCdRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_NeoGeoCdRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -309,8 +310,8 @@ public static class SecurityAnalyzer
                 {
                     features.Add(new SecurityFeature
                     {
-                        Name = "NES 2.0 Timing",
-                        Description = "NES 2.0 header supports region timing metadata (NTSC/PAL/Multi).",
+                        Name = LocalizationManager.Instance["SecAnalyzer_Nes2Timing"],
+                        Description = LocalizationManager.Instance["SecAnalyzer_Nes2TimingDesc"],
                         Category = FeatureCategory.RegionLock
                     });
                 }
@@ -319,8 +320,8 @@ public static class SecurityAnalyzer
             case RomSystem.Nintendo3DS:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Nintendo 3DS Region",
-                    Description = "Nintendo 3DS enforces hardware region locking; game cartridges and digital titles are locked to their region (Japan, North America, Europe, etc.).",
+                    Name = LocalizationManager.Instance["SecAnalyzer_3dsRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_3dsRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -328,8 +329,8 @@ public static class SecurityAnalyzer
             case RomSystem.NintendoDS:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Nintendo DS Region",
-                    Description = "Nintendo DS is region-free for DS games; the hardware does not enforce region lockout on DS cartridges. DSi-enhanced titles may have region restrictions.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_NdsRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_NdsRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -337,8 +338,8 @@ public static class SecurityAnalyzer
             case RomSystem.Oric:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Oric Region",
-                    Description = "Oric has no region locking; the Oric was sold primarily in Europe with no regional restrictions.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_OricRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_OricRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -346,8 +347,8 @@ public static class SecurityAnalyzer
             case RomSystem.Panasonic3DO:
                 features.Add(new SecurityFeature
                 {
-                    Name = "3DO Region",
-                    Description = "Panasonic 3DO is region-free by design; the 3DO specification does not include region lockout mechanisms.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_3doRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_3doRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -355,8 +356,8 @@ public static class SecurityAnalyzer
             case RomSystem.PCEngine:
                 features.Add(new SecurityFeature
                 {
-                    Name = "PC Engine Region",
-                    Description = "PC Engine (Japan) and TurboGrafx-16 (USA) use different hardware pin configurations for region lockout. HuCard form factor differs between regions.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_PceRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_PceRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -364,8 +365,8 @@ public static class SecurityAnalyzer
             case RomSystem.PhilipsCDi:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Philips CD-i Region",
-                    Description = "Philips CD-i is region-free; the CD-i standard does not include region lockout mechanisms. PAL/NTSC differences are handled by the player hardware.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_CdiRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_CdiRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -377,8 +378,8 @@ public static class SecurityAnalyzer
             case RomSystem.SegaDreamcast:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Sega Dreamcast Region",
-                    Description = "Sega Dreamcast uses area symbol codes in the disc header for region locking. Games are coded for Japan, USA, and/or Europe regions.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_DreamcastRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_DreamcastRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -391,8 +392,8 @@ public static class SecurityAnalyzer
             case RomSystem.SegaSaturn:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Sega Saturn Region",
-                    Description = "Sega Saturn enforces region lockout via a region code in the disc header. Games are typically locked to Japan, North America, or Europe.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_SaturnRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_SaturnRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -404,8 +405,8 @@ public static class SecurityAnalyzer
             case RomSystem.ThomsonMO5:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Thomson MO5 Region",
-                    Description = "Thomson MO5 has no region locking; the Thomson MO5 was primarily a French market computer.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_ThomsonRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_ThomsonRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -413,8 +414,8 @@ public static class SecurityAnalyzer
             case RomSystem.VirtualBoy:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Virtual Boy Region",
-                    Description = "Virtual Boy hardware is region-free; however, all commercial titles were released only in Japan and North America.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_VirtualBoyRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_VirtualBoyRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -422,8 +423,8 @@ public static class SecurityAnalyzer
             case RomSystem.WataraSupervision:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Watara Supervision Region",
-                    Description = "Watara Supervision is region-free; the handheld was sold worldwide with no regional restrictions.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_WataraRegion"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_WataraRegionDesc"],
                     Category = FeatureCategory.RegionLock
                 });
                 break;
@@ -441,8 +442,8 @@ public static class SecurityAnalyzer
             case RomSystem.AmigaCD32:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Amiga CD32 AKIKO Chip",
-                    Description = "Amiga CD32 uses the AKIKO chip for CD drive access and copy protection verification.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_AmigaCd32Akiko"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_AmigaCd32AkikoDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -450,8 +451,8 @@ public static class SecurityAnalyzer
             case RomSystem.AmstradCPC:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Amstrad CPC No ROM Copy Protection",
-                    Description = "No cartridge-level copy protection in ROM format; original media used various disk protection schemes.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_AmstradCpcNoCopy"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_AmstradCpcNoCopyDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -459,8 +460,8 @@ public static class SecurityAnalyzer
             case RomSystem.Arcade:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Arcade Board Protection",
-                    Description = "Arcade boards may use various copy protection mechanisms including encrypted ROMs, custom coprocessors, battery-backed RAM, or hardware security modules depending on the manufacturer and era.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_ArcadeBoardProt"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_ArcadeBoardProtDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -468,8 +469,8 @@ public static class SecurityAnalyzer
             case RomSystem.Atari2600:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Atari 2600 No Copy Protection",
-                    Description = "No software-level copy protection. The simple ROM cartridge format has no validation mechanism.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_Atari2600NoCopy"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_Atari2600NoCopyDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -477,8 +478,8 @@ public static class SecurityAnalyzer
             case RomSystem.Atari5200:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Atari 5200 No Copy Protection",
-                    Description = "No software-level copy protection mechanism in cartridges.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_Atari5200NoCopy"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_Atari5200NoCopyDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -486,8 +487,8 @@ public static class SecurityAnalyzer
             case RomSystem.Atari7800:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Atari 7800 Digital Signature",
-                    Description = "Atari 7800 cartridges contain a digital signature that the BIOS verifies before running the game. Without a valid signature, the console falls back to Atari 2600 mode.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_Atari7800DigSig"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_Atari7800DigSigDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -495,8 +496,8 @@ public static class SecurityAnalyzer
             case RomSystem.Atari800:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Atari 800 No Copy Protection",
-                    Description = "No ROM-level copy protection; original media used basic disk protection schemes.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_Atari800NoCopy"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_Atari800NoCopyDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -504,8 +505,8 @@ public static class SecurityAnalyzer
             case RomSystem.AtariJaguar:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Jaguar Encrypted Boot",
-                    Description = "Cartridge header contains an encrypted boot sequence validated by the Jaguar BIOS.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_JaguarEncBoot"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_JaguarEncBootDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -513,8 +514,8 @@ public static class SecurityAnalyzer
             case RomSystem.AtariLynx:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Lynx Cartridge Encryption",
-                    Description = "Atari Lynx uses an encrypted boot header that the system ROM decrypts before execution.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_LynxCartEncrypt"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_LynxCartEncryptDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -522,8 +523,8 @@ public static class SecurityAnalyzer
             case RomSystem.ColecoVision:
                 features.Add(new SecurityFeature
                 {
-                    Name = "ColecoVision BIOS Boot Check",
-                    Description = "ColecoVision BIOS checks for specific magic bytes (0xAA 0x55 or 0x55 0xAA) at the start of the cartridge ROM to validate the cartridge.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_ColecoVisionBios"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_ColecoVisionBiosDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -531,8 +532,8 @@ public static class SecurityAnalyzer
             case RomSystem.ColorComputer:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Color Computer No ROM Copy Protection",
-                    Description = "No ROM-level copy protection in cartridge format.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_ColorCompNoCopy"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_ColorCompNoCopyDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -540,8 +541,8 @@ public static class SecurityAnalyzer
             case RomSystem.FairchildChannelF:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Fairchild Channel F No Copy Protection",
-                    Description = "No copy protection. The Channel F uses simple ROM cartridges with no validation mechanism.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_FairchildNoCopy"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_FairchildNoCopyDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -558,8 +559,8 @@ public static class SecurityAnalyzer
             case RomSystem.GameCube:
                 features.Add(new SecurityFeature
                 {
-                    Name = "GameCube Disc Authentication",
-                    Description = "GameCube uses a proprietary mini-DVD format with Burst Cutting Area (BCA) data for disc authentication. The drive firmware validates disc authenticity before allowing reads.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_GameCubeAuth"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_GameCubeAuthDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -567,8 +568,8 @@ public static class SecurityAnalyzer
             case RomSystem.Intellivision:
                 features.Add(new SecurityFeature
                 {
-                    Name = "EXEC ROM Handshake",
-                    Description = "Intellivision uses the EXEC ROM firmware to perform a handshake with the cartridge. The EXEC validates the cartridge entry point before transferring control.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_ExecRomHandshake"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_ExecRomHandshakeDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -581,8 +582,8 @@ public static class SecurityAnalyzer
             case RomSystem.MemotechMTX:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Memotech MTX No Copy Protection",
-                    Description = "No ROM-level copy protection. Software was distributed on cassette and cartridge without copy protection mechanisms.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_MemotechNoCopy"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_MemotechNoCopyDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -599,8 +600,8 @@ public static class SecurityAnalyzer
             case RomSystem.N64DD:
                 features.Add(new SecurityFeature
                 {
-                    Name = "N64DD Copy Protection",
-                    Description = "N64DD disks use the N64 CIC chip validation and proprietary magnetic disk format for copy protection.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_N64ddCopyProt"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_N64ddCopyProtDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -608,8 +609,8 @@ public static class SecurityAnalyzer
             case RomSystem.NECPC88:
                 features.Add(new SecurityFeature
                 {
-                    Name = "NEC PC-88 No ROM Copy Protection",
-                    Description = "No ROM-level copy protection; original floppy disks used various disk protection schemes.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_NecPc88NoCopy"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_NecPc88NoCopyDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -617,8 +618,8 @@ public static class SecurityAnalyzer
             case RomSystem.NeoGeo:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Neo Geo Protection",
-                    Description = "Neo Geo AES/MVS cartridges use proprietary cartridge connectors and some later titles employ encrypted graphics data (C-ROM encryption) for copy protection.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_NeoGeoProt"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_NeoGeoProtDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -626,8 +627,8 @@ public static class SecurityAnalyzer
             case RomSystem.NeoGeoCD:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Neo Geo CD Protection",
-                    Description = "Neo Geo CD uses the standard CD format with minimal copy protection; some titles check for specific disc characteristics.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_NeoGeoCdProt"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_NeoGeoCdProtDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -636,8 +637,8 @@ public static class SecurityAnalyzer
                 // NES 10NES lockout chip
                 features.Add(new SecurityFeature
                 {
-                    Name = "10NES Lockout",
-                    Description = "NES cartridges use the 10NES lockout chip for hardware-level copy protection.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_10nesLockout"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_10nesLockoutDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -645,8 +646,8 @@ public static class SecurityAnalyzer
             case RomSystem.Nintendo3DS:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Nintendo 3DS Encryption",
-                    Description = "Nintendo 3DS uses AES encryption for game content, RSA signatures for code verification, and a unique per-console key system for digital rights management.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_3dsEncrypt"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_3dsEncryptDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -654,8 +655,8 @@ public static class SecurityAnalyzer
             case RomSystem.NintendoDS:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Nintendo DS Encryption",
-                    Description = "Nintendo DS cartridges use encrypted secure area (Blowfish encryption) in the first 2 KB of ARM9 code, validated by the BIOS during boot.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_NdsEncrypt"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_NdsEncryptDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -663,8 +664,8 @@ public static class SecurityAnalyzer
             case RomSystem.Oric:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Oric No ROM Copy Protection",
-                    Description = "No ROM-level copy protection; original cassette tapes used custom loading routines.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_OricNoCopy"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_OricNoCopyDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -672,8 +673,8 @@ public static class SecurityAnalyzer
             case RomSystem.Panasonic3DO:
                 features.Add(new SecurityFeature
                 {
-                    Name = "3DO Disc Encryption",
-                    Description = "3DO uses encrypted disc headers; the console verifies disc authenticity at boot time.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_3doDiscEncrypt"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_3doDiscEncryptDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -681,8 +682,8 @@ public static class SecurityAnalyzer
             case RomSystem.PCEngine:
                 features.Add(new SecurityFeature
                 {
-                    Name = "HuCard Form Factor",
-                    Description = "PC Engine uses the proprietary HuCard format as a physical copy protection mechanism.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_HuCardFormFactor"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_HuCardFormFactorDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -690,8 +691,8 @@ public static class SecurityAnalyzer
             case RomSystem.PhilipsCDi:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Philips CD-i Protection",
-                    Description = "Philips CD-i uses the CD-RTOS operating system with minimal disc-level copy protection. The proprietary OS format provides basic protection.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_CdiProt"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_CdiProtDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -699,8 +700,8 @@ public static class SecurityAnalyzer
             case RomSystem.SegaCD:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Sega CD Disc Protection",
-                    Description = "Region-coded disc format with security ring on physical media.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_SegaCdDiscProt"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_SegaCdDiscProtDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -708,8 +709,8 @@ public static class SecurityAnalyzer
             case RomSystem.SegaDreamcast:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Sega Dreamcast GD-ROM Protection",
-                    Description = "Sega Dreamcast uses the proprietary GD-ROM disc format which stores data in a high-density area inaccessible to standard CD drives, providing physical copy protection.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_DreamcastGdrom"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_DreamcastGdromDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -718,8 +719,8 @@ public static class SecurityAnalyzer
             case RomSystem.GameGear:
                 features.Add(new SecurityFeature
                 {
-                    Name = "SMS/Game Gear BIOS Check",
-                    Description = "Master System and Game Gear consoles with BIOS check for the \"TMR SEGA\" header marker to validate cartridges.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_SmsBiosCheck"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_SmsBiosCheckDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -727,8 +728,8 @@ public static class SecurityAnalyzer
             case RomSystem.SegaSaturn:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Sega Saturn Disc Protection",
-                    Description = "Sega Saturn uses a security ring on the outer edge of the disc for copy protection.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_SaturnDiscProt"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_SaturnDiscProtDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -737,8 +738,8 @@ public static class SecurityAnalyzer
                 // SNES CIC lockout chip
                 features.Add(new SecurityFeature
                 {
-                    Name = "CIC Lockout Chip",
-                    Description = "SNES cartridges use a CIC (Checking Integrated Circuit) lockout chip for region and copy protection.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_CicLockout"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_CicLockoutDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -746,8 +747,8 @@ public static class SecurityAnalyzer
             case RomSystem.ThomsonMO5:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Thomson MO5 No ROM Copy Protection",
-                    Description = "No ROM-level copy protection; original media used format-based copy protection.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_ThomsonNoCopy"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_ThomsonNoCopyDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -755,8 +756,8 @@ public static class SecurityAnalyzer
             case RomSystem.TigerGameCom:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Tiger Game Com No Copy Protection",
-                    Description = "No ROM-level copy protection. The Game Com uses simple ROM cartridges.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_TigerNoCopy"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_TigerNoCopyDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -764,8 +765,8 @@ public static class SecurityAnalyzer
             case RomSystem.VirtualBoy:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Virtual Boy Nintendo Logo",
-                    Description = "Virtual Boy validates the Nintendo logo data in the cartridge header at boot, similar to the Game Boy logo check.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_VirtualBoyLogo"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_VirtualBoyLogoDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -773,8 +774,8 @@ public static class SecurityAnalyzer
             case RomSystem.WataraSupervision:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Watara Supervision No Copy Protection",
-                    Description = "No software-level copy protection.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_WataraNoCopy"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_WataraNoCopyDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -782,8 +783,8 @@ public static class SecurityAnalyzer
             case RomSystem.Wii:
                 features.Add(new SecurityFeature
                 {
-                    Name = "Wii Disc Encryption",
-                    Description = "Wii discs use AES-128-CBC encryption with per-title keys stored in an encrypted title key block. The common key is stored in the console's OTP memory. Additionally, disc authenticity is verified via a signature chain (CA → CP → Ticket).",
+                    Name = LocalizationManager.Instance["SecAnalyzer_WiiDiscEncrypt"],
+                    Description = LocalizationManager.Instance["SecAnalyzer_WiiDiscEncryptDesc"],
                     Category = FeatureCategory.CopyProtection
                 });
                 break;
@@ -798,7 +799,7 @@ public static class SecurityAnalyzer
             {
                 features.Add(new SecurityFeature
                 {
-                    Name = "SNES Internal Checksum",
+                    Name = LocalizationManager.Instance["SecAnalyzer_SnesChecksum"],
                     Description = valid == "Yes"
                         ? "Internal checksum is valid — ROM integrity verified."
                         : "Internal checksum mismatch — ROM may be modified or corrupted.",
@@ -813,8 +814,8 @@ public static class SecurityAnalyzer
             {
                 features.Add(new SecurityFeature
                 {
-                    Name = "N64 CRC Checksums",
-                    Description = $"Header CRC1: {value1}, CRC2: {value}. N64 boot code validates these checksums.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_N64Crc"],
+                    Description = string.Format(LocalizationManager.Instance["SecAnalyzer_N64CrcDynDesc"], value1, value),
                     Category = FeatureCategory.ChecksumProtection
                 });
             }
@@ -824,7 +825,7 @@ public static class SecurityAnalyzer
         {
             features.Add(new SecurityFeature
             {
-                Name = "iNES Header Integrity",
+                Name = LocalizationManager.Instance["SecAnalyzer_iNesHeader"],
                 Description = romInfo.IsValid
                     ? "iNES header magic bytes validated (NES\\x1A)."
                     : "iNES header validation failed — possible corruption.",
@@ -843,8 +844,8 @@ public static class SecurityAnalyzer
             {
                 features.Add(new SecurityFeature
                 {
-                    Name = "GBA Header Checksum",
-                    Description = $"Header checksum: {gbaChecksum}. The GBA BIOS validates the header checksum before booting.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_GbaHeaderCheck"],
+                    Description = string.Format(LocalizationManager.Instance["SecAnalyzer_GbaHeaderCheckDynDesc"], gbaChecksum),
                     Category = FeatureCategory.ChecksumProtection
                 });
             }
@@ -856,8 +857,8 @@ public static class SecurityAnalyzer
             {
                 features.Add(new SecurityFeature
                 {
-                    Name = "Mega Drive Internal Checksum",
-                    Description = $"Internal checksum: {mdChecksum}. Some Mega Drive games validate this checksum at boot.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_MegaDriveCheck"],
+                    Description = string.Format(LocalizationManager.Instance["SecAnalyzer_MegaDriveCheckDynDesc"], mdChecksum),
                     Category = FeatureCategory.ChecksumProtection
                 });
             }
@@ -869,8 +870,8 @@ public static class SecurityAnalyzer
             {
                 features.Add(new SecurityFeature
                 {
-                    Name = "SMS/Game Gear TMR SEGA Checksum",
-                    Description = $"TMR SEGA checksum: {smsChecksum}. Consoles with a BIOS validate this checksum before running the game.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_SmsGgChecksum"],
+                    Description = string.Format(LocalizationManager.Instance["SecAnalyzer_SmsGgChecksumDynDesc"], smsChecksum),
                     Category = FeatureCategory.ChecksumProtection
                 });
             }
@@ -882,8 +883,8 @@ public static class SecurityAnalyzer
             {
                 features.Add(new SecurityFeature
                 {
-                    Name = "Nintendo DS Header CRC16",
-                    Description = $"Header CRC16: {ndsCrc}. The DS firmware validates this CRC16 checksum (bytes 0x00-0x15D) before booting.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_NdsHeaderCrc"],
+                    Description = string.Format(LocalizationManager.Instance["SecAnalyzer_NdsHeaderCrcDynDesc"], ndsCrc),
                     Category = FeatureCategory.ChecksumProtection
                 });
             }
@@ -895,8 +896,8 @@ public static class SecurityAnalyzer
             {
                 features.Add(new SecurityFeature
                 {
-                    Name = "Sega 32X Internal Checksum",
-                    Description = $"Internal checksum: {s32xChecksum}. The 32X uses a Mega Drive-compatible checksum in the header.",
+                    Name = LocalizationManager.Instance["SecAnalyzer_Sega32xCheck"],
+                    Description = string.Format(LocalizationManager.Instance["SecAnalyzer_Sega32xCheckDynDesc"], s32xChecksum),
                     Category = FeatureCategory.ChecksumProtection
                 });
             }
@@ -906,7 +907,7 @@ public static class SecurityAnalyzer
         {
             features.Add(new SecurityFeature
             {
-                Name = "Virtual Boy Header Integrity",
+                Name = LocalizationManager.Instance["SecAnalyzer_VBoyHeaderInt"],
                 Description = romInfo.IsValid
                     ? "Virtual Boy ROM header validated successfully."
                     : "Virtual Boy ROM header validation failed — possible corruption.",
@@ -920,7 +921,7 @@ public static class SecurityAnalyzer
             {
                 features.Add(new SecurityFeature
                 {
-                    Name = "Atari Lynx Header Integrity",
+                    Name = LocalizationManager.Instance["SecAnalyzer_LynxHeaderInt"],
                     Description = lynxFmt.Contains("with header")
                         ? "LYNX header present — contains ROM size and bank information required by the Lynx hardware."
                         : "No LYNX header — headerless ROM dump. Some emulators may require the header for proper operation.",
@@ -935,7 +936,7 @@ public static class SecurityAnalyzer
             {
                 features.Add(new SecurityFeature
                 {
-                    Name = "Atari 7800 Header Signature",
+                    Name = LocalizationManager.Instance["SecAnalyzer_Atari7800HeaderSig"],
                     Description = a78Sig.Contains("ATARI7800")
                         ? "ATARI7800 signature found — header contains encryption, controller, and TV-type information."
                         : "Non-standard header signature — ROM may have a modified or missing header.",
@@ -984,8 +985,8 @@ public static class SecurityAnalyzer
 
                         features.Add(new SecurityFeature
                         {
-                            Name = "SNES Region Lock",
-                            Description = $"Region code: 0x{regionByte:X2} ({region}). SNES CIC chip enforces region-based lockout.",
+                            Name = LocalizationManager.Instance["SecAnalyzer_SnesRegionLock"],
+                            Description = string.Format(LocalizationManager.Instance["SecAnalyzer_SnesRegionLockDynDesc"], regionByte.ToString("X2"), region),
                             Category = FeatureCategory.RegionLock
                         });
                         return;
@@ -1031,8 +1032,8 @@ public static class SecurityAnalyzer
 
             features.Add(new SecurityFeature
             {
-                Name = "N64 Region Code",
-                Description = $"Region: {region} (0x{regionByte:X2}). N64 uses CIC chip for region lockout.",
+                Name = LocalizationManager.Instance["SecAnalyzer_N64RegionCode"],
+                Description = string.Format(LocalizationManager.Instance["SecAnalyzer_N64RegionCodeDynDesc"], region, regionByte.ToString("X2")),
                 Category = FeatureCategory.RegionLock
             });
         }
@@ -1070,8 +1071,8 @@ public static class SecurityAnalyzer
 
             features.Add(new SecurityFeature
             {
-                Name = "N64 CIC Boot Code",
-                Description = $"Boot code hash: 0x{hash:X8}. N64 CIC chip validates boot code for anti-piracy and region locking.",
+                Name = LocalizationManager.Instance["SecAnalyzer_N64CicBoot"],
+                Description = string.Format(LocalizationManager.Instance["SecAnalyzer_N64CicBootDynDesc"], hash.ToString("X8")),
                 Category = FeatureCategory.CopyProtection
             });
         }
@@ -1094,8 +1095,8 @@ public static class SecurityAnalyzer
             string region = dest == 0x00 ? "Japanese" : "Non-Japanese (International)";
             features.Add(new SecurityFeature
             {
-                Name = "Game Boy Region",
-                Description = $"Destination code: 0x{dest:X2} ({region}).",
+                Name = LocalizationManager.Instance["SecAnalyzer_GameBoyRegion"],
+                Description = string.Format(LocalizationManager.Instance["SecAnalyzer_GameBoyRegionDynDesc"], dest.ToString("X2"), region),
                 Category = FeatureCategory.RegionLock
             });
         }
@@ -1130,8 +1131,8 @@ public static class SecurityAnalyzer
 
             features.Add(new SecurityFeature
             {
-                Name = "GBA Region Code",
-                Description = $"Game code region: {regionChar} ({region}).",
+                Name = LocalizationManager.Instance["SecAnalyzer_GBARegionCode"],
+                Description = string.Format(LocalizationManager.Instance["SecAnalyzer_GBARegionCodeDynDesc"], regionChar, region),
                 Category = FeatureCategory.RegionLock
             });
         }
@@ -1156,8 +1157,8 @@ public static class SecurityAnalyzer
 
             features.Add(new SecurityFeature
             {
-                Name = "Mega Drive Region",
-                Description = $"Region code: \"{regionCode}\". {description.Trim()}. Mega Drive uses hardware region lockout.",
+                Name = LocalizationManager.Instance["SecAnalyzer_MegaDriveRegion"],
+                Description = string.Format(LocalizationManager.Instance["SecAnalyzer_MegaDriveRegionDynDesc"], regionCode, description.Trim()),
                 Category = FeatureCategory.RegionLock
             });
         }
@@ -1180,7 +1181,7 @@ public static class SecurityAnalyzer
 
             features.Add(new SecurityFeature
             {
-                Name = "Nintendo Logo Check",
+                Name = LocalizationManager.Instance["SecAnalyzer_NintendoLogoCheck"],
                 Description = valid
                     ? "Nintendo logo bytes at 0x104 are valid. Game Boy boot ROM verifies this as a form of trademark protection."
                     : "Nintendo logo bytes at 0x104 are invalid. The Game Boy would refuse to boot this ROM.",
@@ -1206,7 +1207,7 @@ public static class SecurityAnalyzer
 
             features.Add(new SecurityFeature
             {
-                Name = "GBA Logo Check",
+                Name = LocalizationManager.Instance["SecAnalyzer_GBALogoCheck"],
                 Description = valid
                     ? "GBA logo bytes at 0x04 are valid. The GBA BIOS verifies these as trademark protection."
                     : "GBA logo bytes at 0x04 are invalid. The GBA BIOS would refuse to boot this ROM.",
@@ -1234,7 +1235,7 @@ public static class SecurityAnalyzer
 
             features.Add(new SecurityFeature
             {
-                Name = "TMSS (Trademark Security System)",
+                Name = LocalizationManager.Instance["SecAnalyzer_TMSSTrademarkSecuritySystem"],
                 Description = hasTmss
                     ? "\"SEGA\" marker found at 0x100. Model 2+ Genesis/Mega Drive consoles check this for boot authorization."
                     : "\"SEGA\" marker not found at 0x100. This ROM may not boot on Model 2+ Genesis/Mega Drive hardware.",
@@ -1250,8 +1251,8 @@ public static class SecurityAnalyzer
         {
             features.Add(new SecurityFeature
             {
-                Name = "SMS/Game Gear Region",
-                Description = $"Header region: {region}. Region is encoded in the TMR SEGA header and enforced by BIOS on consoles that have one.",
+                Name = LocalizationManager.Instance["SecAnalyzer_SMSGameGearRegion"],
+                Description = string.Format(LocalizationManager.Instance["SecAnalyzer_SMSGameGearRegionDynDesc"], region),
                 Category = FeatureCategory.RegionLock
             });
         }
@@ -1259,8 +1260,8 @@ public static class SecurityAnalyzer
         {
             features.Add(new SecurityFeature
             {
-                Name = "SMS/Game Gear Region",
-                Description = "No TMR SEGA header found — region cannot be determined from the ROM header. Early cartridges lack this marker.",
+                Name = LocalizationManager.Instance["SecAnalyzer_SMSGameGearRegion"],
+                Description = LocalizationManager.Instance["SecAnalyzer_SMSGameGearRegionDesc"],
                 Category = FeatureCategory.RegionLock
             });
         }
@@ -1270,8 +1271,8 @@ public static class SecurityAnalyzer
     {
         features.Add(new SecurityFeature
         {
-            Name = "Neo Geo Pocket Region",
-            Description = "Neo Geo Pocket and Pocket Color hardware is region-free. Games from any region can be played on any console.",
+            Name = LocalizationManager.Instance["SecAnalyzer_NeoGeoPocketRegion"],
+            Description = LocalizationManager.Instance["SecAnalyzer_NeoGeoPocketRegionDesc"],
             Category = FeatureCategory.RegionLock
         });
     }
@@ -1298,7 +1299,7 @@ public static class SecurityAnalyzer
 
             features.Add(new SecurityFeature
             {
-                Name = "Game Boy Header Checksum",
+                Name = LocalizationManager.Instance["SecAnalyzer_GameBoyHeaderChecksum"],
                 Description = valid
                     ? $"Header checksum at 0x14D is valid (0x{stored:X2}). The Game Boy boot ROM verifies this checksum before booting."
                     : $"Header checksum at 0x14D is invalid (stored: 0x{stored:X2}, expected: 0x{computed:X2}). The Game Boy would refuse to boot this ROM.",
@@ -1326,8 +1327,8 @@ public static class SecurityAnalyzer
 
             features.Add(new SecurityFeature
             {
-                Name = "Sega CD Region",
-                Description = $"Region code: \"{regionCode}\". {description.Trim()}. Sega CD uses region coding in the disc header similar to Mega Drive.",
+                Name = LocalizationManager.Instance["SecAnalyzer_SegaCDRegion"],
+                Description = string.Format(LocalizationManager.Instance["SecAnalyzer_SegaCDRegionDynDesc"], regionCode, description.Trim()),
                 Category = FeatureCategory.RegionLock
             });
         }
@@ -1350,7 +1351,7 @@ public static class SecurityAnalyzer
 
             features.Add(new SecurityFeature
             {
-                Name = "MSX Cartridge Marker",
+                Name = LocalizationManager.Instance["SecAnalyzer_MSXCartridgeMarker"],
                 Description = hasAbMarker
                     ? "\"AB\" magic bytes (0x41, 0x42) found at start. MSX BIOS validates this cartridge identification marker."
                     : "\"AB\" magic bytes not found at start. This ROM may not be recognized by the MSX BIOS.",
@@ -1366,8 +1367,8 @@ public static class SecurityAnalyzer
         {
             features.Add(new SecurityFeature
             {
-                Name = "GameCube Region Lock",
-                Description = $"Region: {region}. GameCube enforces region lockout via the Game ID in the disc header. The console checks the region code and refuses to boot discs from a different region.",
+                Name = LocalizationManager.Instance["SecAnalyzer_GameCubeRegionLock"],
+                Description = string.Format(LocalizationManager.Instance["SecAnalyzer_GameCubeRegionLockDynDesc"], region),
                 Category = FeatureCategory.RegionLock
             });
         }
@@ -1375,8 +1376,8 @@ public static class SecurityAnalyzer
         {
             features.Add(new SecurityFeature
             {
-                Name = "GameCube Region Lock",
-                Description = "GameCube enforces hardware-level region lockout. The console verifies the disc region code at boot time.",
+                Name = LocalizationManager.Instance["SecAnalyzer_GameCubeRegionLock"],
+                Description = LocalizationManager.Instance["SecAnalyzer_GameCubeRegionLockDesc"],
                 Category = FeatureCategory.RegionLock
             });
         }
@@ -1388,8 +1389,8 @@ public static class SecurityAnalyzer
         {
             features.Add(new SecurityFeature
             {
-                Name = "Wii Region Lock",
-                Description = $"Region: {region}. Wii enforces region lockout at both hardware and software levels. The System Menu checks the disc region code against the console's region setting.",
+                Name = LocalizationManager.Instance["SecAnalyzer_WiiRegionLock"],
+                Description = string.Format(LocalizationManager.Instance["SecAnalyzer_WiiRegionLockDynDesc"], region),
                 Category = FeatureCategory.RegionLock
             });
         }
@@ -1397,8 +1398,8 @@ public static class SecurityAnalyzer
         {
             features.Add(new SecurityFeature
             {
-                Name = "Wii Region Lock",
-                Description = "Wii enforces region lockout at both hardware and software levels. The System Menu validates the disc region before launching.",
+                Name = LocalizationManager.Instance["SecAnalyzer_WiiRegionLock"],
+                Description = LocalizationManager.Instance["SecAnalyzer_WiiRegionLockDesc"],
                 Category = FeatureCategory.RegionLock
             });
         }

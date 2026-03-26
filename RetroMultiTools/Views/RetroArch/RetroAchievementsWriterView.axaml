@@ -21,7 +21,7 @@
                              Watermark="{Binding [RAAchievements_GameIdPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Spacing="8">
-                    <ComboBox x:Name="ConsoleCombo" Width="300" PlaceholderText="{Binding [RAAchievements_SelectConsole], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <ComboBox x:Name="ConsoleCombo" MinWidth="300" PlaceholderText="{Binding [RAAchievements_SelectConsole], Source={x:Static loc:LocalizationManager.Instance}}"/>
                 </StackPanel>
             </StackPanel>
         </Border>

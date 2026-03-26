@@ -28,7 +28,7 @@
         <Border x:Name="HeaderSection" Background="#181825" CornerRadius="6" Padding="12" IsVisible="False">
             <StackPanel Spacing="8">
                 <TextBlock Text="{Binding [MameDatEditor_HeaderSection], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#CDD6F4"/>
-                <Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="6">
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="12">
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [MameDatEditor_Name], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" VerticalAlignment="Center"/>
                     <TextBox x:Name="HeaderNameTextBox" Grid.Row="0" Grid.Column="1" Padding="8,4"/>
 
@@ -77,7 +77,7 @@
         <Border x:Name="GameDetailBorder" Background="#1E1E2E" CornerRadius="6" Padding="12" IsVisible="False">
             <StackPanel Spacing="8">
                 <TextBlock Text="{Binding [MameDatEditor_GameDetails], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#CDD6F4"/>
-                <Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="6">
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="12">
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [MameDatEditor_GameName], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" VerticalAlignment="Center"/>
                     <TextBox x:Name="GameNameTextBox" Grid.Row="0" Grid.Column="1" Padding="8,4"/>
 

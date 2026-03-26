@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -23,8 +24,9 @@ public partial class DatVerifierView : UserControl
         if (sender is RadioButton rb && rb.IsChecked != true) return;
 
         bool isBatch = sender == BatchModeRadio;
-        RomInputLabel.Text = isBatch ? "ROM Directory:" : "ROM File:";
-        RomInputTextBox.Watermark = isBatch ? "Select a ROM directory..." : "Select a ROM file...";
+        var loc = LocalizationManager.Instance;
+        RomInputLabel.Text = isBatch ? loc["Common_RomDirectory"] : loc["Common_RomFile"];
+        RomInputTextBox.Watermark = isBatch ? loc["Common_SelectRomDirectory"] : loc["Common_SelectRomFile"];
         RomInputTextBox.Text = string.Empty;
         StatusBorder.IsVisible = false;
         ResultsBorder.IsVisible = false;
@@ -33,7 +35,8 @@ public partial class DatVerifierView : UserControl
 
     private async void BrowseDat_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select DAT File",
+        var loc = LocalizationManager.Instance;
+        var path = await PickFile(loc["DatVerifier_BrowseDatTitle"],
         [
             new FilePickerFileType("DAT Files") { Patterns = ["*.dat", "*.xml"] },
             FilePickerFileTypes.All
@@ -45,13 +48,13 @@ public partial class DatVerifierView : UserControl
         try
         {
             _datEntries = DatVerifier.LoadDatFile(path);
-            DatInfoText.Text = $"Loaded {_datEntries.Count} ROM entries from DAT file.";
+            DatInfoText.Text = string.Format(loc["DatVerifier_LoadedEntries"], _datEntries.Count);
             DatInfoPanel.IsVisible = true;
         }
         catch (Exception ex) when (ex is InvalidOperationException or IOException)
         {
             _datEntries = null;
-            DatInfoText.Text = $"Error loading DAT file: {ex.Message}";
+            DatInfoText.Text = string.Format(loc["DatVerifier_LoadError"], ex.Message);
             DatInfoPanel.IsVisible = true;
         }
 
@@ -61,15 +64,16 @@ public partial class DatVerifierView : UserControl
     private async void BrowseRom_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         bool isBatch = BatchModeRadio.IsChecked == true;
+        var loc = LocalizationManager.Instance;
 
         if (isBatch)
         {
-            var path = await PickFolder("Select ROM Directory");
+            var path = await PickFolder(loc["DatVerifier_BrowseFolderTitle"]);
             if (path != null) RomInputTextBox.Text = path;
         }
         else
         {
-            var path = await PickFile("Select ROM File",
+            var path = await PickFile(loc["DatVerifier_BrowseRomTitle"],
             [
                 new FilePickerFileType("ROM Files")
                 {
@@ -106,16 +110,17 @@ public partial class DatVerifierView : UserControl
 
     private async void VerifyButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         if (_datEntries == null)
         {
-            ShowStatus("Please load a DAT file first.", isError: true);
+            ShowStatus(loc["DatVerifier_LoadDatFirst"], isError: true);
             return;
         }
 
         string romInput = RomInputTextBox.Text ?? "";
         if (string.IsNullOrEmpty(romInput))
         {
-            ShowStatus("Please select a ROM file or directory.", isError: true);
+            ShowStatus(loc["DatVerifier_SelectInput"], isError: true);
             return;
         }
 
@@ -132,7 +137,7 @@ public partial class DatVerifierView : UserControl
             if (isBatch)
             {
                 var batchResult = await DatVerifier.VerifyDirectoryAsync(romInput, _datEntries, progress);
-                ShowStatus($"✔ Verification complete!\n{batchResult.Summary}", isError: false);
+                ShowStatus(string.Format(loc["DatVerifier_VerificationComplete"], batchResult.Summary), isError: false);
 
                 var lines = new System.Text.StringBuilder();
                 foreach (var r in batchResult.Results)
@@ -153,19 +158,13 @@ public partial class DatVerifierView : UserControl
                 string message;
                 if (result.IsVerified)
                 {
-                    message = $"✔ ROM Verified!\n\n" +
-                              $"DAT Game: {result.DatGameName}\n" +
-                              $"DAT ROM:  {result.DatRomName}\n" +
-                              $"CRC32:    {result.CRC32}\n" +
-                              $"SHA-1:    {result.SHA1}";
+                    message = string.Format(loc["DatVerifier_RomVerified"],
+                        result.DatGameName, result.DatRomName, result.CRC32, result.SHA1);
                 }
                 else
                 {
-                    message = $"✘ ROM not found in DAT database.\n\n" +
-                              $"CRC32:  {result.CRC32}\n" +
-                              $"MD5:    {result.MD5}\n" +
-                              $"SHA-1:  {result.SHA1}\n\n" +
-                              "This ROM may be modified, a bad dump, or not in this DAT file.";
+                    message = string.Format(loc["DatVerifier_RomNotFound"],
+                        result.CRC32, result.MD5, result.SHA1);
                 }
 
                 ShowStatus(message, isError: !result.IsVerified);
@@ -173,7 +172,7 @@ public partial class DatVerifierView : UserControl
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

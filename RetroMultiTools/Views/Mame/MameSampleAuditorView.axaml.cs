@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using RetroMultiTools.Utilities;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities.Mame;
 
 namespace RetroMultiTools.Views.Mame;
@@ -20,9 +20,10 @@ public partial class MameSampleAuditorView : UserControl
 
     private async void BrowseXml_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select MAME XML / DAT File",
+        var loc = LocalizationManager.Instance;
+        var path = await PickFile(loc["MameSamples_SelectXmlTitle"],
         [
-            new FilePickerFileType("MAME XML Files") { Patterns = ["*.xml", "*.dat"] },
+            new FilePickerFileType(loc["MameSamples_XmlFileType"]) { Patterns = ["*.xml", "*.dat"] },
             FilePickerFileTypes.All
         ]);
         if (path == null) return;
@@ -32,13 +33,13 @@ public partial class MameSampleAuditorView : UserControl
         try
         {
             _sampleSets = MameSampleAuditor.LoadSampleRequirements(path);
-            XmlInfoText.Text = $"Loaded {_sampleSets.Count} machines with sample requirements.";
+            XmlInfoText.Text = string.Format(loc["MameSamples_LoadedSets"], _sampleSets.Count);
             XmlInfoPanel.IsVisible = true;
         }
         catch (Exception ex) when (ex is InvalidOperationException or IOException)
         {
             _sampleSets = null;
-            XmlInfoText.Text = $"Error loading MAME XML: {ex.Message}";
+            XmlInfoText.Text = string.Format(loc["MameSamples_LoadError"], ex.Message);
             XmlInfoPanel.IsVisible = true;
         }
 
@@ -47,7 +48,7 @@ public partial class MameSampleAuditorView : UserControl
 
     private async void BrowseSampleDir_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFolder("Select MAME Samples Directory");
+        var path = await PickFolder(LocalizationManager.Instance["MameSamples_SelectSampleDirTitle"]);
         if (path != null) SampleDirTextBox.Text = path;
         UpdateAuditButton();
     }
@@ -61,16 +62,17 @@ public partial class MameSampleAuditorView : UserControl
 
     private async void AuditButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         if (_sampleSets == null)
         {
-            ShowStatus("Please load a MAME XML database first.", isError: true);
+            ShowStatus(loc["MameSamples_LoadXmlFirst"], isError: true);
             return;
         }
 
         string sampleDir = SampleDirTextBox.Text ?? "";
         if (string.IsNullOrEmpty(sampleDir))
         {
-            ShowStatus("Please select a samples directory.", isError: true);
+            ShowStatus(loc["MameSamples_SelectSamplesDir"], isError: true);
             return;
         }
 
@@ -86,7 +88,7 @@ public partial class MameSampleAuditorView : UserControl
             var result = await MameSampleAuditor.AuditDirectoryAsync(sampleDir, _sampleSets, progress,
                 searchRecursively: RecursiveCheckBox.IsChecked == true);
 
-            ShowStatus($"✔ Audit complete!\n{result.Summary}", isError: false);
+            ShowStatus(string.Format(loc["MameSamples_AuditComplete"], result.Summary), isError: false);
 
             var lines = new System.Text.StringBuilder();
 
@@ -108,20 +110,20 @@ public partial class MameSampleAuditorView : UserControl
                 if (r.MissingSamples.Count > 0)
                 {
                     foreach (var sample in r.MissingSamples.Take(5))
-                        lines.AppendLine($"   → Missing: {sample}");
+                        lines.AppendLine($"   → {string.Format(loc["MameSamples_MissingSample"], sample)}");
                     if (r.MissingSamples.Count > 5)
-                        lines.AppendLine($"   → ... and {r.MissingSamples.Count - 5} more missing");
+                        lines.AppendLine($"   → {string.Format(loc["MameSamples_MoreMissing"], r.MissingSamples.Count - 5)}");
                 }
                 lines.AppendLine();
             }
 
             if (result.MissingSets.Count > 0)
             {
-                lines.AppendLine($"--- Missing sample sets ({result.MissingSets.Count}) ---");
+                lines.AppendLine(string.Format(loc["MameSamples_MissingSetsHeader"], result.MissingSets.Count));
                 foreach (var name in result.MissingSets.Take(20))
                     lines.AppendLine($"  ✘ {name}");
                 if (result.MissingSets.Count > 20)
-                    lines.AppendLine($"  ... and {result.MissingSets.Count - 20} more");
+                    lines.AppendLine($"  {string.Format(loc["MameSamples_AndMore"], result.MissingSets.Count - 20)}");
             }
 
             ResultsText.Text = lines.ToString();
@@ -129,7 +131,7 @@ public partial class MameSampleAuditorView : UserControl
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

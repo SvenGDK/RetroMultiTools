@@ -3,6 +3,7 @@ using System.IO.Compression;
 using System.Net.Http.Json;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace RetroMultiTools.Utilities;
@@ -55,24 +56,40 @@ public static class AppUpdater
         {
             string appDir = AppContext.BaseDirectory;
 
-            // Swap in any .new updater that the updater couldn't replace while running
+            // Swap in any .new updater files that the updater couldn't replace
+            // while running. The updater defers its own exe, managed assembly,
+            // dependency manifest, runtime config, and debug symbols as .new files.
             string updaterName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
                 ? UpdaterExeWindows
                 : UpdaterExeUnix;
-            string updaterPath = Path.Combine(appDir, updaterName);
-            string newUpdaterPath = updaterPath + ".new";
-            if (File.Exists(newUpdaterPath))
+            string updaterBaseName = Path.GetFileNameWithoutExtension(updaterName);
+
+            var updaterFiles = new[]
             {
+                updaterName,
+                $"{updaterBaseName}.dll",
+                $"{updaterBaseName}.deps.json",
+                $"{updaterBaseName}.runtimeconfig.json",
+                $"{updaterBaseName}.pdb",
+            };
+
+            foreach (string fileName in updaterFiles)
+            {
+                string filePath = Path.Combine(appDir, fileName);
+                string newFilePath = filePath + ".new";
+                if (!File.Exists(newFilePath))
+                    continue;
+
                 try
                 {
-                    string bakPath = updaterPath + ".bak";
+                    string bakPath = filePath + ".bak";
                     if (File.Exists(bakPath))
                         File.Delete(bakPath);
 
-                    if (File.Exists(updaterPath))
-                        File.Move(updaterPath, bakPath);
+                    if (File.Exists(filePath))
+                        File.Move(filePath, bakPath);
 
-                    File.Move(newUpdaterPath, updaterPath);
+                    File.Move(newFilePath, filePath);
 
                     if (File.Exists(bakPath))
                         File.Delete(bakPath);
@@ -87,6 +104,13 @@ public static class AppUpdater
             foreach (string bakFile in Directory.EnumerateFiles(appDir, "*.bak"))
             {
                 try { File.Delete(bakFile); }
+                catch { /* best-effort */ }
+            }
+
+            // Clean up any remaining .new files from incomplete updates
+            foreach (string newFile in Directory.EnumerateFiles(appDir, "*.new"))
+            {
+                try { File.Delete(newFile); }
                 catch { /* best-effort */ }
             }
 
@@ -161,6 +185,11 @@ public static class AppUpdater
             Trace.WriteLine($"[AppUpdater] Network error checking for updates: {ex.Message}");
             return null;
         }
+        catch (JsonException ex)
+        {
+            Trace.WriteLine($"[AppUpdater] Failed to parse update response: {ex.Message}");
+            return null;
+        }
         catch (TaskCanceledException)
         {
             return null;
@@ -179,6 +208,8 @@ public static class AppUpdater
         IProgress<int>? progress = null,
         CancellationToken cancellationToken = default)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(downloadUrl);
+
         string tempDir = Path.Combine(Path.GetTempPath(), "RetroMultiTools-Update");
         Directory.CreateDirectory(tempDir);
 
@@ -210,7 +241,7 @@ public static class AppUpdater
 
                 if (totalBytes.HasValue && totalBytes.Value > 0)
                 {
-                    int percent = (int)(downloadedBytes * 100 / totalBytes.Value);
+                    int percent = (int)Math.Min(downloadedBytes * 100 / totalBytes.Value, 100);
                     progress?.Report(percent);
                 }
             }
@@ -249,6 +280,8 @@ public static class AppUpdater
     /// </summary>
     public static bool LaunchUpdaterAndExit(string zipPath)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(zipPath);
+
         string appDir = AppContext.BaseDirectory;
         string updaterName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
             ? UpdaterExeWindows

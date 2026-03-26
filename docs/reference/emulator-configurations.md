@@ -269,6 +269,7 @@ ngp.videoip 1
 | `gb` | Game Boy |
 | `gba` | GBA |
 | `md` | Mega Drive / Genesis |
+| `ss` | Sega Saturn |
 
 ---
 

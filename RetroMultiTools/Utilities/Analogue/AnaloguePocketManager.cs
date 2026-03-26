@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using RetroMultiTools.Localization;
 
 namespace RetroMultiTools.Utilities.Analogue;
 
@@ -172,20 +173,20 @@ public static class AnaloguePocketManager
 
         Directory.CreateDirectory(outputDir);
 
-        int exported = 0;
-        foreach (string bmpPath in screenshots)
+        return await Task.Run(() =>
         {
-            string fileName = Path.GetFileNameWithoutExtension(bmpPath) + ".bmp";
-            string destPath = Path.Combine(outputDir, fileName);
+            int exported = 0;
+            foreach (string bmpPath in screenshots)
+            {
+                string fileName = Path.GetFileName(bmpPath);
+                string destPath = Path.Combine(outputDir, fileName);
 
-            progress?.Report($"Exporting {Path.GetFileName(bmpPath)}...");
-
-            // Copy the BMP file directly — the Pocket produces standard BMP files
-            await Task.Run(() => File.Copy(bmpPath, destPath, overwrite: true)).ConfigureAwait(false);
-            exported++;
-        }
-
-        return exported;
+                progress?.Report(string.Format(LocalizationManager.Instance["AnaloguePocket_ProgressExporting"], Path.GetFileName(bmpPath)));
+                File.Copy(bmpPath, destPath, overwrite: true);
+                exported++;
+            }
+            return exported;
+        }).ConfigureAwait(false);
     }
 
     // ── Save Backup & Restore ──────────────────────────────────────────
@@ -215,7 +216,7 @@ public static class AnaloguePocketManager
                 if (destDir != null)
                     Directory.CreateDirectory(destDir);
 
-                progress?.Report($"Backing up {relativePath}...");
+                progress?.Report(string.Format(LocalizationManager.Instance["AnaloguePocket_ProgressBackingUp"], relativePath));
                 File.Copy(file, destPath, overwrite: true);
                 count++;
             }
@@ -247,7 +248,7 @@ public static class AnaloguePocketManager
                 if (destDir != null)
                     Directory.CreateDirectory(destDir);
 
-                progress?.Report($"Restoring {relativePath}...");
+                progress?.Report(string.Format(LocalizationManager.Instance["AnaloguePocket_ProgressRestoring"], relativePath));
                 File.Copy(file, destPath, overwrite: true);
                 count++;
             }
@@ -303,8 +304,9 @@ public static class AnaloguePocketManager
             {
                 var fi = new FileInfo(file);
                 string relativePath = Path.GetRelativePath(statesPath, file);
-                string platform = relativePath.Contains(Path.DirectorySeparatorChar)
-                    ? relativePath[..relativePath.IndexOf(Path.DirectorySeparatorChar)]
+                int sepIndex = relativePath.IndexOfAny([Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar]);
+                string platform = sepIndex >= 0
+                    ? relativePath[..sepIndex]
                     : string.Empty;
 
                 states.Add(new SaveStateInfo
@@ -334,7 +336,7 @@ public static class AnaloguePocketManager
             {
                 if (File.Exists(path))
                 {
-                    progress?.Report($"Deleting {Path.GetFileName(path)}...");
+                    progress?.Report(string.Format(LocalizationManager.Instance["AnaloguePocket_ProgressDeleting"], Path.GetFileName(path)));
                     File.Delete(path);
                     count++;
                 }
@@ -474,7 +476,7 @@ public static class AnaloguePocketManager
             string fileName = $"gbcamera_photo_{photo.Index:D2}.bmp";
             string destPath = Path.Combine(outputDir, fileName);
 
-            progress?.Report($"Exporting photo {photo.Index + 1}...");
+            progress?.Report(string.Format(LocalizationManager.Instance["AnaloguePocket_ProgressExportingPhoto"], photo.Index + 1));
 
             await Task.Run(() => WriteGrayscaleBmp(
                 destPath, photo.PixelData, GbCameraPhoto.Width, GbCameraPhoto.Height
@@ -568,7 +570,7 @@ public static class AnaloguePocketManager
                 if (destDir != null)
                     Directory.CreateDirectory(destDir);
 
-                progress?.Report($"Copying {relativePath}...");
+                progress?.Report(string.Format(LocalizationManager.Instance["AnaloguePocket_ProgressCopying"], relativePath));
                 File.Copy(file, destPath, overwrite: true);
                 count++;
             }
@@ -619,7 +621,7 @@ public static class AnaloguePocketManager
                     if (File.Exists(imagePath))
                         continue;
 
-                    progress?.Report($"Generating image for {baseName}...");
+                    progress?.Report(string.Format(LocalizationManager.Instance["AnaloguePocket_ProgressGeneratingImage"], baseName));
                     GeneratePlaceholderImage(imagePath, baseName);
                     generated++;
                 }

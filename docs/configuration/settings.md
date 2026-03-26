@@ -65,11 +65,14 @@ On macOS and supported Linux desktop environments, a platform-native application
 |---|---|
 | **File** | Exit |
 | **Browse & Inspect** | ROM Browser, ROM Inspector, Hex Viewer |
-| **Patching & Conversion** | ROM Patcher, N64 Converter, Format Converter, Patch Creator, Save Converter, ZIP Extractor, Split Assembler, Decompressor |
-| **Analysis & Verification** | Checksum Calculator, ROM Comparer, DAT Verifier, DAT Filter, Dump Verifier, Duplicate Finder, Batch Hasher, Security Analysis, GoodTools Identifier |
-| **Headers & Trimming** | Header Export, SNES Header Tool, Header Fixer, ROM Trimmer |
-| **Utilities** | Cheat Codes, Emulator Config, Metadata Scraper, ROM Renamer |
-| **MAME** | ROM Auditor, CHD Verifier, Set Rebuilder, Dir2Dat, Sample Auditor |
+| **Patching & Conversion** | Format Converter, N64 Converter, Patch Creator, ROM Patcher, Save Converter, Split Assembler |
+| **Analysis & Verification** | Batch Hasher, Checksum Calculator, DAT Filter, DAT Verifier, Dump Verifier, Duplicate Finder, GoodTools Identifier, ROM Comparer, Security Analysis |
+| **Headers & Trimming** | Header Export, Header Fixer, ROM Trimmer, SNES Header Tool |
+| **Utilities** | Archives, Cheat Codes, Emulator Config, Gamepad Key Mapper, Metadata Scraper, ROM Organizer, ROM Renamer |
+| **RetroArch** | Achievements Writer, Playlist Utility, RetroArch Integration, Shortcut Creator |
+| **MAME** | CHD Converter, CHD Verifier, DAT Editor, Dir2Dat Creator, MAME Integration, ROM Set Auditor, ROM Set Rebuilder, Sample Auditor |
+| **Mednafen** | Mednafen Integration |
+| **Analogue** | 3D, Mega SG, NT / Super NT, Pocket |
 | **Help** | Settings |
 
 ---
@@ -156,3 +159,48 @@ Custom mappings are stored in `{AppData}/RetroMultiTools/custom_mappings.txt`. E
 ### Requirements
 
 SDL2 must be installed on the system. If SDL2 is not available, the tool displays a message and mapping is unavailable.
+
+---
+
+## Gamepad Key Mapper
+
+Maps gamepad buttons and analog sticks to keyboard keys, mouse buttons, mouse movement, scripts, or macros. Located in the sidebar under **Utilities** → **Gamepad Key Mapper**.
+
+> **Note:** This is a separate tool from the Gamepad Mapping Tool above. The Mapping Tool creates SDL2 controller definitions for unrecognized controllers. The Key Mapper translates recognized controller inputs into keyboard, mouse, and other actions.
+
+### Action Types
+
+| Type | Description |
+|---|---|
+| **Keyboard** | Simulates a keyboard key press |
+| **Mouse button** | Simulates a mouse click (Left, Right, Middle, Back, Forward) |
+| **Mouse movement** | Moves the mouse cursor (adjustable speed 1–20) |
+| **Script** | Launches an executable or script with optional arguments |
+| **Macro** | Executes a multi-step sequence of key presses with configurable delays |
+
+### Supported Inputs
+
+All 20 standard gamepad inputs are mappable: face buttons (A, B, X, Y), D-Pad (up, down, left, right), shoulder buttons (LB, RB), triggers (LT, RT), stick buttons (L3, R3), and analog stick directions (left stick up/down/left/right, right stick up/down/left/right).
+
+### Profiles
+
+- **Create, rename, and delete** profiles to organize mappings for different games or applications.
+- **Export and import** profiles for sharing or backup.
+- **Multiple mapping sets** per profile — switch between sets at runtime with a button press.
+
+### Auto-Profiles
+
+Automatically switch to a specific profile when a matching window becomes active.
+
+| Match Type | Description |
+|---|---|
+| **Window title** | Partial, case-insensitive match against the active window title |
+| **Process name** | Match against the active process name |
+
+### Mapping Wizard
+
+A step-by-step wizard guides you through creating mappings. Press each gamepad input in sequence to assign an action.
+
+### Dead-Zone
+
+Adjustable analog stick dead-zone (0.05–0.95, default 0.25) to prevent drift from triggering actions.

@@ -74,11 +74,13 @@ public static class RetroArchPlaylistCreator
     /// </summary>
     private static readonly Dictionary<RomSystem, string> SystemDbMap = new()
     {
+        { RomSystem.AmigaCD32,         "Commodore - Amiga CD32" },
         { RomSystem.AmstradCPC,        "Amstrad - CPC" },
         { RomSystem.Arcade,            "MAME" },
         { RomSystem.Atari2600,         "Atari - 2600" },
         { RomSystem.Atari5200,         "Atari - 5200" },
         { RomSystem.Atari7800,         "Atari - 7800" },
+        { RomSystem.Atari800,          "Atari - 8-bit" },
         { RomSystem.AtariJaguar,       "Atari - Jaguar" },
         { RomSystem.AtariLynx,         "Atari - Lynx" },
         { RomSystem.ColecoVision,      "Coleco - ColecoVision" },
@@ -93,6 +95,8 @@ public static class RetroArchPlaylistCreator
         { RomSystem.MSX,               "Microsoft - MSX" },
         { RomSystem.MSX2,              "Microsoft - MSX2" },
         { RomSystem.N64,               "Nintendo - Nintendo 64" },
+        { RomSystem.N64DD,             "Nintendo - Nintendo 64DD" },
+        { RomSystem.NECPC88,           "NEC - PC-8801" },
         { RomSystem.NeoGeo,            "SNK - Neo Geo" },
         { RomSystem.NeoGeoCD,          "SNK - Neo Geo CD" },
         { RomSystem.NeoGeoPocket,      "SNK - Neo Geo Pocket" },
@@ -101,13 +105,17 @@ public static class RetroArchPlaylistCreator
         { RomSystem.NintendoDS,        "Nintendo - Nintendo DS" },
         { RomSystem.Panasonic3DO,      "The 3DO Company - 3DO" },
         { RomSystem.PCEngine,          "NEC - PC Engine - TurboGrafx 16" },
+        { RomSystem.PhilipsCDi,        "Philips - CDi" },
         { RomSystem.Sega32X,           "Sega - 32X" },
         { RomSystem.SegaCD,            "Sega - Mega-CD - Sega CD" },
         { RomSystem.SegaDreamcast,     "Sega - Dreamcast" },
         { RomSystem.SegaMasterSystem,  "Sega - Master System - Mark III" },
         { RomSystem.SegaSaturn,        "Sega - Saturn" },
         { RomSystem.SNES,              "Nintendo - Super Nintendo Entertainment System" },
+        { RomSystem.ThomsonMO5,        "Thomson - MOTO" },
+        { RomSystem.TigerGameCom,      "Tiger - Game.com" },
         { RomSystem.VirtualBoy,        "Nintendo - Virtual Boy" },
+        { RomSystem.WataraSupervision, "Watara - Supervision" },
         { RomSystem.Wii,               "Nintendo - Wii" },
     };
 
@@ -250,14 +258,22 @@ public static class RetroArchPlaylistCreator
 
     /// <summary>
     /// Loads a playlist from a JSON .lpl file.
+    /// Returns null if the file does not exist or contains invalid JSON.
     /// </summary>
     public static async Task<Playlist?> LoadAsync(string filePath, CancellationToken ct = default)
     {
         if (!File.Exists(filePath))
             return null;
 
-        string json = await File.ReadAllTextAsync(filePath, System.Text.Encoding.UTF8, ct).ConfigureAwait(false);
-        return JsonSerializer.Deserialize<Playlist>(json, SerializerOptions);
+        try
+        {
+            string json = await File.ReadAllTextAsync(filePath, System.Text.Encoding.UTF8, ct).ConfigureAwait(false);
+            return JsonSerializer.Deserialize<Playlist>(json, SerializerOptions);
+        }
+        catch (JsonException)
+        {
+            return null;
+        }
     }
 
     /// <summary>
@@ -455,6 +471,7 @@ public static class RetroArchPlaylistCreator
             RomSystem.NES => [".nes", ".unf", ".fds"],
             RomSystem.SNES => [".sfc", ".smc", ".fig", ".swc"],
             RomSystem.N64 => [".z64", ".n64", ".v64"],
+            RomSystem.N64DD => [".ndd"],
             RomSystem.GameBoy => [".gb"],
             RomSystem.GameBoyColor => [".gbc"],
             RomSystem.GameBoyAdvance => [".gba"],
@@ -473,20 +490,27 @@ public static class RetroArchPlaylistCreator
             RomSystem.Atari2600 => [".a26", ".bin"],
             RomSystem.Atari5200 => [".a52", ".bin"],
             RomSystem.Atari7800 => [".a78", ".bin"],
+            RomSystem.Atari800 => [".atr", ".xex", ".rom", ".bin"],
             RomSystem.AtariJaguar => [".j64", ".jag"],
             RomSystem.AtariLynx => [".lnx"],
             RomSystem.PCEngine => [".pce"],
             RomSystem.NeoGeoPocket => [".ngp", ".ngc"],
-            RomSystem.NeoGeo => [".zip"],
+            RomSystem.NeoGeo => [".zip", ".7z"],
             RomSystem.NeoGeoCD => [".chd", ".cue"],
             RomSystem.ColecoVision => [".col"],
             RomSystem.Intellivision => [".int"],
             RomSystem.MSX or RomSystem.MSX2 => [".rom", ".mx1", ".mx2"],
             RomSystem.AmstradCPC => [".dsk", ".sna", ".cdt"],
-            RomSystem.Arcade => [".zip"],
+            RomSystem.Arcade => [".zip", ".7z"],
             RomSystem.Panasonic3DO => [".iso", ".chd", ".cue"],
             RomSystem.FairchildChannelF => [".bin", ".chf"],
-            _ => [".zip", ".bin", ".rom"],
+            RomSystem.AmigaCD32 => [".iso", ".chd", ".cue"],
+            RomSystem.NECPC88 => [".d88", ".t88"],
+            RomSystem.PhilipsCDi => [".chd", ".iso", ".cue"],
+            RomSystem.ThomsonMO5 => [".fd", ".k7", ".rom"],
+            RomSystem.TigerGameCom => [".bin", ".tgc"],
+            RomSystem.WataraSupervision => [".sv", ".bin"],
+            _ => [".zip", ".7z", ".bin", ".rom"],
         };
     }
 }

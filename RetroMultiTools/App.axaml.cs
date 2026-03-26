@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Markdown.Avalonia;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Services;
 using RetroMultiTools.Utilities;
@@ -30,6 +31,14 @@ public partial class App : Application
 
             // Set up the system tray icon
             BuildTrayIcon();
+
+            // Rebuild the native menu and tray icon when the language changes
+            // (their labels are plain strings, not data-bound)
+            LocalizationManager.Instance.PropertyChanged += (_, _) =>
+            {
+                BuildNativeMenu();
+                RebuildTrayMenu();
+            };
 
             // Show/hide the tray icon when the window is minimized to or restored from the tray
             _mainWindow.IsMinimizedToTrayChanged += minimized =>
@@ -85,63 +94,65 @@ public partial class App : Application
 
         // Patching & Conversion
         AddNavSubmenu(nativeMenu, loc["Nav_PatchingConversion"],
-            ("patcher", loc["Nav_RomPatcher"]),
-            ("n64conv", loc["Nav_N64Converter"]),
             ("formatconv", loc["Nav_FormatConvert"]),
+            ("n64conv", loc["Nav_N64Converter"]),
             ("patchcreator", loc["Nav_PatchCreator"]),
+            ("patcher", loc["Nav_RomPatcher"]),
             ("saveconv", loc["Nav_SaveConverter"]),
-            ("zipextract", loc["Nav_ZipExtractor"]),
-            ("splitrom", loc["Nav_SplitAssembler"]),
-            ("decompress", loc["Nav_Decompressor"]));
+            ("splitrom", loc["Nav_SplitAssembler"]));
 
         // Analysis & Verification
         AddNavSubmenu(nativeMenu, loc["Nav_AnalysisVerification"],
+            ("batchhash", loc["Nav_BatchHasher"]),
             ("checksum", loc["Nav_ChecksumCalc"]),
-            ("comparer", loc["Nav_RomComparer"]),
-            ("datverifier", loc["Nav_DatVerifier"]),
             ("datfilter", loc["Nav_DatFilter"]),
+            ("datverifier", loc["Nav_DatVerifier"]),
             ("dumpverifier", loc["Nav_DumpVerifier"]),
             ("duplicates", loc["Nav_DuplicateFinder"]),
-            ("batchhash", loc["Nav_BatchHasher"]),
-            ("security", loc["Nav_SecurityAnalysis"]),
-            ("goodtools", loc["Nav_GoodToolsIdentifier"]));
+            ("goodtools", loc["Nav_GoodToolsIdentifier"]),
+            ("comparer", loc["Nav_RomComparer"]),
+            ("security", loc["Nav_SecurityAnalysis"]));
 
         // Headers & Trimming
         AddNavSubmenu(nativeMenu, loc["Nav_HeadersTrimming"],
             ("export", loc["Nav_HeaderExport"]),
-            ("snesheader", loc["Nav_SnesHeader"]),
             ("headerfixer", loc["Nav_HeaderFixer"]),
-            ("trimmer", loc["Nav_RomTrimmer"]));
+            ("trimmer", loc["Nav_RomTrimmer"]),
+            ("snesheader", loc["Nav_SnesHeader"]));
 
         // Utilities
         AddNavSubmenu(nativeMenu, loc["Nav_Utilities"],
+            ("archives", loc["Nav_Archives"]),
             ("cheatcodes", loc["Nav_CheatCodes"]),
             ("emuconfig", loc["Nav_EmulatorConfig"]),
             ("metascraper", loc["Nav_MetadataScraper"]),
+            ("romorganizer", loc["Nav_RomOrganizer"]),
             ("romrenamer", loc["Nav_RomRenamer"]));
 
         // RetroArch
         AddNavSubmenu(nativeMenu, loc["Nav_RetroArch"],
-            ("raintegration", loc["Nav_RetroArchIntegration"]),
             ("raachievements", loc["Nav_RetroAchievementsWriter"]),
             ("raplaylist", loc["Nav_RetroArchPlaylist"]),
+            ("raintegration", loc["Nav_RetroArchIntegration"]),
             ("rashortcut", loc["Nav_RetroArchShortcut"]));
 
         // MAME
         AddNavSubmenu(nativeMenu, loc["Nav_Mame"],
+            ("mamechdconv", loc["Nav_MameChdConv"]),
+            ("mamechd", loc["Nav_MameChd"]),
+            ("mamedateditor", loc["Nav_MameDatEditor"]),
+            ("mamedir2dat", loc["Nav_MameDir2Dat"]),
             ("mameintegration", loc["Nav_MameIntegration"]),
             ("mameauditor", loc["Nav_MameAuditor"]),
-            ("mamechd", loc["Nav_MameChd"]),
             ("mamerebuilder", loc["Nav_MameRebuilder"]),
-            ("mamedir2dat", loc["Nav_MameDir2Dat"]),
             ("mamesamples", loc["Nav_MameSamples"]));
 
         // Analogue
         AddNavSubmenu(nativeMenu, loc["Nav_Analogue"],
-            ("analoguepocket", loc["Nav_AnaloguePocket"]),
-            ("analoguentsupernt", loc["Nav_AnalogueNtSuperNt"]),
+            ("analogue3d", loc["Nav_Analogue3D"]),
             ("analoguemegasg", loc["Nav_AnalogueMegaSg"]),
-            ("analogue3d", loc["Nav_Analogue3D"]));
+            ("analoguentsupernt", loc["Nav_AnalogueNtSuperNt"]),
+            ("analoguepocket", loc["Nav_AnaloguePocket"]));
 
         // Help menu with Settings
         var helpMenu = new NativeMenuItem(loc["Menu_Help"])
@@ -209,12 +220,37 @@ public partial class App : Application
         _trayIcon = new TrayIcon
         {
             Icon = new WindowIcon(iconStream),
-            ToolTipText = "Retro Multi Tools",
+            ToolTipText = LocalizationManager.Instance["AppTitle"],
             Menu = trayMenu,
             IsVisible = false
         };
 
         _trayIcon.Clicked += (_, _) => _mainWindow?.RestoreFromTray();
+    }
+
+    /// <summary>
+    /// Rebuilds the tray icon context menu with updated localized labels.
+    /// Called when the application language changes at runtime.
+    /// </summary>
+    private void RebuildTrayMenu()
+    {
+        if (_trayIcon is null) return;
+
+        var loc = LocalizationManager.Instance;
+
+        var trayMenu = new NativeMenu();
+
+        var showItem = new NativeMenuItem(loc["Tray_Show"]);
+        showItem.Click += (_, _) => _mainWindow?.RestoreFromTray();
+        trayMenu.Items.Add(showItem);
+
+        trayMenu.Items.Add(new NativeMenuItemSeparator());
+
+        var exitItem = new NativeMenuItem(loc["Tray_Exit"]);
+        exitItem.Click += (_, _) => ShutdownApp();
+        trayMenu.Items.Add(exitItem);
+
+        _trayIcon.Menu = trayMenu;
     }
 
     private const int UpdateCheckDelayMs = 2000;
@@ -239,8 +275,8 @@ public partial class App : Application
             var dialog = new Window
             {
                 Title = title,
-                Width = 440,
-                Height = 220,
+                Width = 520,
+                Height = string.IsNullOrWhiteSpace(update.ReleaseNotes) ? 220 : 480,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 CanResize = false,
                 Background = Avalonia.Media.Brush.Parse("#1E1E2E")
@@ -254,6 +290,25 @@ public partial class App : Application
                 Margin = new Thickness(16, 16, 16, 4),
                 FontSize = 14
             };
+
+            // Render release notes as Markdown when available
+            Control? releaseNotesControl = null;
+            if (!string.IsNullOrWhiteSpace(update.ReleaseNotes))
+            {
+                var mdViewer = new MarkdownScrollViewer
+                {
+                    Markdown = update.ReleaseNotes
+                };
+                releaseNotesControl = new Border
+                {
+                    Background = Avalonia.Media.Brush.Parse("#11161B"),
+                    CornerRadius = new CornerRadius(4),
+                    Padding = new Thickness(8),
+                    Margin = new Thickness(16, 4, 16, 4),
+                    MaxHeight = 240,
+                    Child = mdViewer
+                };
+            }
 
             var progressText = new TextBlock
             {
@@ -302,9 +357,14 @@ public partial class App : Application
             var cts = new CancellationTokenSource();
 
             // Cancel any in-progress download when the dialog is closed.
-            // The CTS is not disposed here because the async download may still
-            // be processing the cancellation; the GC will finalize it.
-            dialog.Closed += (_, _) => cts.Cancel();
+            dialog.Closed += async (_, _) =>
+            {
+                cts.Cancel();
+                // Brief delay to let the download task observe the cancellation
+                // before disposing the CTS, avoiding ObjectDisposedException.
+                await Task.Delay(100);
+                cts.Dispose();
+            };
 
             updateButton.Click += async (_, _) =>
             {
@@ -374,6 +434,8 @@ public partial class App : Application
 
             var panel = new StackPanel();
             panel.Children.Add(messageText);
+            if (releaseNotesControl != null)
+                panel.Children.Add(releaseNotesControl);
             panel.Children.Add(progressText);
             panel.Children.Add(progressBar);
             panel.Children.Add(buttonPanel);

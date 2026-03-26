@@ -59,9 +59,10 @@ The sidebar organizes all tools into categories:
 | **Patching & Conversion** | ROM Patcher, format converters, extractors |
 | **Analysis & Verification** | Checksums, DAT verification, duplicate finder |
 | **Headers & Trimming** | Header export, SNES header tool, ROM trimmer |
-| **Utilities** | Cheat codes, emulator config, metadata scraper |
-| **MAME** | ROM set auditor, CHD verifier, rebuilder |
+| **Utilities** | Archives, cheat codes, emulator config, gamepad key mapper, metadata scraper, ROM organizer |
+| **MAME** | ROM set auditor, CHD verifier/converter, DAT editor, rebuilder |
 | **RetroArch** | Playlist creator, shortcut creator, achievements |
+| **Mednafen** | Emulator path configuration and ROM launching |
 | **Analogue** | Pocket, Mega SG, NT / Super NT, 3D management |
 | **Settings** | Application preferences, RetroArch/MAME paths, language |
 
@@ -83,6 +84,6 @@ Retro Multi Tools supports 20 languages. To change:
 
 - **[User Guides](../guides/rom-browser-guide.md)** — step-by-step guides for key features
 - **[Tools Reference](../features/browsing-and-inspection.md)** — detailed documentation for every tool
-- **[Integrations](../integrations/retroarch.md)** — RetroArch, MAME, and Analogue hardware setup
+- **[Integrations](../integrations/retroarch.md)** — RetroArch, MAME, Mednafen, and Analogue hardware setup
 - **[Keyboard Shortcuts](../configuration/keyboard-shortcuts.md)** — all shortcuts in one place
 - **[Troubleshooting](../troubleshooting.md)** — common issues and solutions

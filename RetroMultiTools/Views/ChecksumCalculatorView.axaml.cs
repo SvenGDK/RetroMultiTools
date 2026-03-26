@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -44,10 +45,11 @@ public partial class ChecksumCalculatorView : UserControl
 
     private async void CalculateButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string filePath = FilePathTextBox.Text ?? "";
         if (string.IsNullOrEmpty(filePath))
         {
-            ShowStatus("Please select a file first.", isError: true);
+            ShowStatus(loc["Checksum_SelectFileFirst"], isError: true);
             return;
         }
 
@@ -71,7 +73,7 @@ public partial class ChecksumCalculatorView : UserControl
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

@@ -38,12 +38,12 @@ public partial class CheatCodeView : UserControl
             var system = GetSelectedSystem();
             var result = CheatCodeConverter.Decode(code, system);
 
-            DecodeResultText.Text = $"System:  {CheatCodeConverter.GetSystemName(system)}\n" +
-                                    $"Code:    {code.ToUpperInvariant()}\n" +
-                                    $"{result.Description}";
+            DecodeResultText.Text = string.Format(LocalizationManager.Instance["CheatCode_SystemLabel"], CheatCodeConverter.GetSystemName(system)) + "\n" +
+                                    string.Format(LocalizationManager.Instance["CheatCode_CodeLabel"], code.ToUpperInvariant()) + "\n" +
+                                    result.Description;
             DecodeResultBorder.IsVisible = true;
         }
-        catch (ArgumentException ex)
+        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
         {
             ShowError(string.Format(LocalizationManager.Instance["Cheat_DecodeError"], ex.Message));
             DecodeResultBorder.IsVisible = false;
@@ -73,11 +73,11 @@ public partial class CheatCodeView : UserControl
             var system = GetSelectedSystem();
             string code = CheatCodeConverter.Encode(address, value, system, compareValue);
 
-            EncodeResultText.Text = $"System:  {CheatCodeConverter.GetSystemName(system)}\n" +
-                                    $"Address: ${address:X}\n" +
-                                    $"Value:   ${value:X2}\n" +
-                                    (compareValue.HasValue ? $"Compare: ${compareValue:X2}\n" : "") +
-                                    $"Code:    {code}";
+            EncodeResultText.Text = string.Format(LocalizationManager.Instance["CheatCode_SystemLabel"], CheatCodeConverter.GetSystemName(system)) + "\n" +
+                                    string.Format(LocalizationManager.Instance["CheatCode_AddressLabel"], address.ToString("X")) + "\n" +
+                                    string.Format(LocalizationManager.Instance["CheatCode_ValueLabel"], value.ToString("X2")) + "\n" +
+                                    (compareValue.HasValue ? string.Format(LocalizationManager.Instance["CheatCode_CompareLabel"], compareValue.Value.ToString("X2")) + "\n" : "") +
+                                    string.Format(LocalizationManager.Instance["CheatCode_CodeLabel"], code);
             EncodeResultBorder.IsVisible = true;
         }
         catch (FormatException)
@@ -90,7 +90,7 @@ public partial class CheatCodeView : UserControl
             ShowError(LocalizationManager.Instance["Cheat_ValueOutOfRange"]);
             EncodeResultBorder.IsVisible = false;
         }
-        catch (ArgumentException ex)
+        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
         {
             ShowError(string.Format(LocalizationManager.Instance["Cheat_EncodeError"], ex.Message));
             EncodeResultBorder.IsVisible = false;

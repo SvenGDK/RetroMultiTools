@@ -28,6 +28,8 @@
                     Click="ScanPaks_Click" Padding="14,10" Margin="0,0,8,8" IsEnabled="False"/>
             <Button x:Name="SetArtworkButton" Content="{Binding [Analogue3D_SetLabelArtwork], Source={x:Static loc:LocalizationManager.Instance}}"
                     Click="SetArtwork_Click" Padding="14,10" Margin="0,0,8,8" IsEnabled="False"/>
+            <Button x:Name="RemoveArtworkButton" Content="{Binding [Analogue3D_RemoveArtwork], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="RemoveArtwork_Click" Padding="14,10" Margin="0,0,8,8" IsEnabled="False"/>
         </WrapPanel>
 
         <!-- Progress -->
@@ -59,8 +61,8 @@
                 <TextBlock Text="{Binding [Analogue3D_DisplaySettings], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#89B4FA" FontSize="13"/>
                 <StackPanel Spacing="6">
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <TextBlock Text="{Binding [Analogue3D_Resolution], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Width="120" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="ResolutionCombo" Width="200" SelectedIndex="0">
+                        <TextBlock Text="{Binding [Analogue3D_Resolution], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" MinWidth="120" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="ResolutionCombo" MinWidth="200" SelectedIndex="0">
                             <ComboBoxItem Content="auto"/>
                             <ComboBoxItem Content="240p"/>
                             <ComboBoxItem Content="480i"/>
@@ -70,16 +72,16 @@
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <TextBlock Text="{Binding [Analogue3D_AspectRatio], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Width="120" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="AspectRatioCombo" Width="200" SelectedIndex="0">
+                        <TextBlock Text="{Binding [Analogue3D_AspectRatio], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" MinWidth="120" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="AspectRatioCombo" MinWidth="200" SelectedIndex="0">
                             <ComboBoxItem Content="auto"/>
                             <ComboBoxItem Content="4:3"/>
                             <ComboBoxItem Content="16:9"/>
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <TextBlock Text="{Binding [Analogue3D_Smoothing], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Width="120" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="SmoothingCombo" Width="200" SelectedIndex="0">
+                        <TextBlock Text="{Binding [Analogue3D_Smoothing], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" MinWidth="120" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="SmoothingCombo" MinWidth="200" SelectedIndex="0">
                             <ComboBoxItem Content="off"/>
                             <ComboBoxItem Content="bilinear"/>
                             <ComboBoxItem Content="crt"/>
@@ -94,8 +96,8 @@
                     <CheckBox x:Name="RumblePakCheck" Content="{Binding [Analogue3D_RumblePak], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4" IsChecked="True"/>
                     <CheckBox x:Name="CpuOverclockCheck" Content="{Binding [Analogue3D_CpuOverclock], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#CDD6F4"/>
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <TextBlock Text="{Binding [Analogue3D_ControllerPak], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" Width="120" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="ControllerPakCombo" Width="200" SelectedIndex="0">
+                        <TextBlock Text="{Binding [Analogue3D_ControllerPak], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" MinWidth="120" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="ControllerPakCombo" MinWidth="200" SelectedIndex="0">
                             <ComboBoxItem Content="auto"/>
                             <ComboBoxItem Content="memory"/>
                             <ComboBoxItem Content="rumble"/>
@@ -106,6 +108,23 @@
 
                 <Button x:Name="SaveSettingsButton" Content="{Binding [Analogue3D_SaveSettings], Source={x:Static loc:LocalizationManager.Instance}}"
                         Click="SaveSettings_Click" Padding="14,10" Margin="0,8,0,0"/>
+                <Button x:Name="DeletePakButton" Content="{Binding [Analogue3D_DeleteGamePak], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="DeletePak_Click" Padding="14,10" Margin="0,8,0,0" Foreground="#F38BA8"/>
+
+                <!-- Delete Confirmation -->
+                <StackPanel x:Name="ConfirmDeletePanel" IsVisible="False" Spacing="8" Margin="0,8,0,0">
+                    <TextBlock x:Name="ConfirmDeleteText" Foreground="#F38BA8" TextWrapping="Wrap" FontWeight="Bold"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="ConfirmDeleteButton"
+                                Content="{Binding [Analogue3D_ConfirmDeleteTitle], Source={x:Static loc:LocalizationManager.Instance}}"
+                                Click="ConfirmDelete_Click"
+                                Padding="12,6" Background="#F38BA8" Foreground="#1E1E2E"/>
+                        <Button x:Name="CancelDeleteButton"
+                                Content="{Binding [Common_Cancel], Source={x:Static loc:LocalizationManager.Instance}}"
+                                Click="CancelDelete_Click"
+                                Padding="12,6"/>
+                    </StackPanel>
+                </StackPanel>
             </StackPanel>
         </Border>
     </StackPanel>

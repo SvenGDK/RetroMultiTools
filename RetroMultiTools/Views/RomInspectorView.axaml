@@ -74,7 +74,7 @@
             <ItemsControl x:Name="HeaderItemsControl">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid ColumnDefinitions="200,*" Margin="0,2">
+                        <Grid ColumnDefinitions="Auto,*" Margin="0,2" ColumnSpacing="12">
                             <TextBlock Grid.Column="0" Text="{Binding Key}" Foreground="#A6ADC8"/>
                             <TextBlock Grid.Column="1" Text="{Binding Value}" Foreground="#CDD6F4"/>
                         </Grid>

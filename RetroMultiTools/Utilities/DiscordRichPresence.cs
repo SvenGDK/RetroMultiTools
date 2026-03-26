@@ -141,6 +141,10 @@ public static class DiscordRichPresence
                 }
             }
             catch (Exception ex) when (ex is IOException or SocketException or InvalidOperationException) { }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine($"[DiscordRichPresence] Unexpected error in UpdatePresence: {ex.Message}");
+            }
         });
     }
 

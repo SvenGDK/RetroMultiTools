@@ -36,10 +36,10 @@ Detailed documentation for every tool in the application.
 | Document | Description |
 |---|---|
 | [Browsing & Inspection](features/browsing-and-inspection.md) | ROM Browser, ROM Inspector, Hex Viewer |
-| [Patching](features/patching.md) | ROM Patcher (IPS/BPS), IPS Patch Creator |
-| [Conversion & Extraction](features/conversion-and-extraction.md) | N64 Converter, ROM Format Converter, Save File Converter, ZIP Extractor, Split ROM Assembler, ROM Decompressor |
+| [Patching](features/patching.md) | ROM Patcher (IPS/BPS/xDelta), IPS Patch Creator |
+| [Conversion & Extraction](features/conversion-and-extraction.md) | N64 Converter, ROM Format Converter, Save File Converter, Archive Manager, Split ROM Assembler |
 | [Verification & Analysis](features/verification-and-analysis.md) | Checksum Calculator, ROM Comparer, DAT Verifier, DAT Filter, Dump Verifier, Duplicate Finder, Batch ROM Hasher, Security & DRM Analysis, GoodTools Identifier |
-| [ROM Management](features/rom-management.md) | Header Export, SNES Header Tool, Batch Header Fixer, ROM Trimmer, ROM Renamer, Metadata Scraper |
+| [ROM Management](features/rom-management.md) | Header Export, SNES Header Tool, Batch Header Fixer, ROM Trimmer, ROM Renamer, Metadata Scraper, ROM Organizer |
 | [Cheats & Emulation](features/cheats-and-emulation.md) | Cheat Code Converter, Emulator Config Generator |
 
 ---
@@ -51,7 +51,8 @@ Setup and usage for third-party hardware and software.
 | Document | Description |
 |---|---|
 | [RetroArch](integrations/retroarch.md) | Core management, playlists, shortcuts, achievements, Discord Rich Presence |
-| [MAME](integrations/mame.md) | ROM set auditor, CHD verifier, rebuilder, Dir2Dat, sample auditor |
+| [MAME](integrations/mame.md) | ROM set auditor, CHD verifier, CHD converter, DAT editor, rebuilder, Dir2Dat, sample auditor |
+| [Mednafen](integrations/mednafen.md) | Emulator path configuration, ROM launching, multi-system support |
 | [Analogue Hardware](integrations/analogue.md) | Pocket, Mega SG, NT / Super NT, 3D |
 
 ---
@@ -62,7 +63,7 @@ Application settings and customization.
 
 | Document | Description |
 |---|---|
-| [Settings](configuration/settings.md) | Language, updates, system tray, native menu, controller profiles |
+| [Settings](configuration/settings.md) | Language, updates, system tray, native menu, controller profiles, gamepad key mapper |
 | [Keyboard Shortcuts](configuration/keyboard-shortcuts.md) | All keyboard and controller shortcuts in one place |
 
 ---

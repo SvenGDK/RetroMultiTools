@@ -11,7 +11,7 @@
         <!-- System Selection -->
         <StackPanel Spacing="4">
             <TextBlock Text="{Binding [CheatCode_SystemFormat], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
-            <ComboBox x:Name="SystemCombo" Width="350" HorizontalAlignment="Left"
+            <ComboBox x:Name="SystemCombo" MinWidth="350" HorizontalAlignment="Left"
                       SelectedIndex="0">
                 <ComboBoxItem Content="{Binding [CheatCode_GbGG], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameBoyGameGenie"/>
                 <ComboBoxItem Content="{Binding [CheatCode_GbGS], Source={x:Static loc:LocalizationManager.Instance}}" Tag="GameBoyGameShark"/>

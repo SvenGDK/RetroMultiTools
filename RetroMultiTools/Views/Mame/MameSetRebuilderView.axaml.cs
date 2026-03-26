@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using RetroMultiTools.Utilities;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities.Mame;
 
 namespace RetroMultiTools.Views.Mame;
@@ -20,9 +20,10 @@ public partial class MameSetRebuilderView : UserControl
 
     private async void BrowseXml_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select MAME XML / DAT File",
+        var loc = LocalizationManager.Instance;
+        var path = await PickFile(loc["MameRebuilder_SelectXmlTitle"],
         [
-            new FilePickerFileType("MAME XML Files") { Patterns = ["*.xml", "*.dat"] },
+            new FilePickerFileType(loc["MameRebuilder_XmlFileType"]) { Patterns = ["*.xml", "*.dat"] },
             FilePickerFileTypes.All
         ]);
         if (path == null) return;
@@ -32,13 +33,13 @@ public partial class MameSetRebuilderView : UserControl
         try
         {
             _machines = MameRomAuditor.LoadMameXml(path);
-            XmlInfoText.Text = $"Loaded {_machines.Count} machines from MAME database.";
+            XmlInfoText.Text = string.Format(loc["MameRebuilder_LoadedMachines"], _machines.Count);
             XmlInfoPanel.IsVisible = true;
         }
         catch (Exception ex) when (ex is InvalidOperationException or IOException)
         {
             _machines = null;
-            XmlInfoText.Text = $"Error loading MAME XML: {ex.Message}";
+            XmlInfoText.Text = string.Format(loc["MameRebuilder_LoadError"], ex.Message);
             XmlInfoPanel.IsVisible = true;
         }
 
@@ -47,14 +48,14 @@ public partial class MameSetRebuilderView : UserControl
 
     private async void BrowseSourceDir_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFolder("Select Source ROM Directory");
+        var path = await PickFolder(LocalizationManager.Instance["MameRebuilder_SelectSourceDirTitle"]);
         if (path != null) SourceDirTextBox.Text = path;
         UpdateRebuildButton();
     }
 
     private async void BrowseOutputDir_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFolder("Select Output Directory");
+        var path = await PickFolder(LocalizationManager.Instance["MameRebuilder_SelectOutputDirTitle"]);
         if (path != null) OutputDirTextBox.Text = path;
         UpdateRebuildButton();
     }
@@ -69,9 +70,10 @@ public partial class MameSetRebuilderView : UserControl
 
     private async void RebuildButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         if (_machines == null)
         {
-            ShowStatus("Please load a MAME XML database first.", isError: true);
+            ShowStatus(loc["MameRebuilder_LoadXmlFirst"], isError: true);
             return;
         }
 
@@ -80,7 +82,7 @@ public partial class MameSetRebuilderView : UserControl
 
         if (string.IsNullOrEmpty(sourceDir) || string.IsNullOrEmpty(outputDir))
         {
-            ShowStatus("Please select both source and output directories.", isError: true);
+            ShowStatus(loc["MameRebuilder_SelectDirectories"], isError: true);
             return;
         }
 
@@ -112,7 +114,7 @@ public partial class MameSetRebuilderView : UserControl
 
             var result = await MameSetRebuilder.RebuildAsync(_machines, sourceIndex, outputDir, options, progress);
 
-            ShowStatus($"✔ Rebuild complete!\n{result.Summary}", isError: false);
+            ShowStatus(string.Format(loc["MameRebuilder_RebuildComplete"], result.Summary), isError: false);
 
             var lines = new System.Text.StringBuilder();
 
@@ -120,15 +122,15 @@ public partial class MameSetRebuilderView : UserControl
             {
                 string icon = set.IsComplete ? "✔" : "⚠";
                 lines.AppendLine($"{icon} {set.MachineName} — {set.Description}");
-                lines.AppendLine($"   {set.RomsIncluded} ROMs included");
+                lines.AppendLine($"   {string.Format(loc["MameRebuilder_RomsIncluded"], set.RomsIncluded)}");
 
                 if (!set.IsComplete && set.MissingRomNames.Count > 0)
                 {
-                    lines.AppendLine($"   Missing {set.RomsMissing} ROMs:");
+                    lines.AppendLine($"   {string.Format(loc["MameRebuilder_MissingRomsLabel"], set.RomsMissing)}");
                     foreach (var name in set.MissingRomNames.Take(5))
                         lines.AppendLine($"   → {name}");
                     if (set.MissingRomNames.Count > 5)
-                        lines.AppendLine($"   → ... and {set.MissingRomNames.Count - 5} more");
+                        lines.AppendLine($"   → {string.Format(loc["MameRebuilder_AndMore"], set.MissingRomNames.Count - 5)}");
                 }
                 lines.AppendLine();
             }
@@ -138,7 +140,7 @@ public partial class MameSetRebuilderView : UserControl
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

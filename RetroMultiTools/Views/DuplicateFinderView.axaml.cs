@@ -59,7 +59,7 @@ public partial class DuplicateFinderView : UserControl
             // Build display items
             var displayItems = groups.Select(g => new DuplicateDisplayItem
             {
-                Header = $"CRC32: {g.Hash} — {g.FilePaths.Count} copies",
+                Header = string.Format(LocalizationManager.Instance["Duplicates_GroupHeader"], g.Hash, g.FilePaths.Count),
                 Files = g.FilePaths.ToList()
             }).ToList();
 
@@ -78,7 +78,7 @@ public partial class DuplicateFinderView : UserControl
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            SummaryText.Text = $"✘ Error: {ex.Message}";
+            SummaryText.Text = string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message);
             SummaryPanel.IsVisible = true;
         }
         finally
@@ -130,7 +130,7 @@ public partial class DuplicateFinderView : UserControl
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            SummaryText.Text = $"✘ Error deleting files: {ex.Message}";
+            SummaryText.Text = string.Format(LocalizationManager.Instance["Duplicates_DeleteError"], ex.Message);
         }
         finally
         {

@@ -1,3 +1,4 @@
+using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using RetroMultiTools.Services;
 using System.Diagnostics;
@@ -74,11 +75,11 @@ public static class MameLauncher
     public static LaunchResult Launch(string romPath, RomSystem system)
     {
         if (string.IsNullOrEmpty(romPath) || !File.Exists(romPath))
-            return new LaunchResult(false, "ROM file not found.");
+            return new LaunchResult(false, LocalizationManager.Instance["MameLauncher_RomNotFound"]);
 
         string mamePath = GetMameExecutablePath();
         if (string.IsNullOrEmpty(mamePath) || !File.Exists(mamePath))
-            return new LaunchResult(false, "MAME not found. Please configure the path in Settings or download MAME.");
+            return new LaunchResult(false, LocalizationManager.Instance["MameLauncher_MameNotFound"]);
 
         try
         {
@@ -89,6 +90,7 @@ public static class MameLauncher
             {
                 FileName = mamePath,
                 UseShellExecute = false,
+                WorkingDirectory = Path.GetDirectoryName(mamePath) ?? string.Empty,
             };
 
             // Tell MAME where to find ROMs and which ROM set to run
@@ -98,14 +100,14 @@ public static class MameLauncher
 
             var process = Process.Start(startInfo);
             if (process == null)
-                return new LaunchResult(false, "Failed to start MAME process.");
+                return new LaunchResult(false, LocalizationManager.Instance["MameLauncher_FailedToStart"]);
 
             try
             {
                 // Update Discord Rich Presence with the current game
                 DiscordRichPresence.UpdatePresence(Path.GetFileName(romPath), system);
 
-                return new LaunchResult(true, $"Launched {romName} with MAME.", process);
+                return new LaunchResult(true, string.Format(LocalizationManager.Instance["MameLauncher_Launched"], romName), process);
             }
             catch
             {
@@ -115,11 +117,11 @@ public static class MameLauncher
         }
         catch (InvalidOperationException ex)
         {
-            return new LaunchResult(false, $"Failed to launch MAME: {ex.Message}");
+            return new LaunchResult(false, string.Format(LocalizationManager.Instance["MameLauncher_FailedToLaunch"], ex.Message));
         }
         catch (System.ComponentModel.Win32Exception ex)
         {
-            return new LaunchResult(false, $"Failed to launch MAME: {ex.Message}");
+            return new LaunchResult(false, string.Format(LocalizationManager.Instance["MameLauncher_FailedToLaunch"], ex.Message));
         }
     }
 

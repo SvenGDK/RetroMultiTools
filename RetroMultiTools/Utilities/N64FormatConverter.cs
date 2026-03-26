@@ -49,17 +49,18 @@ public static class N64FormatConverter
             throw new FileNotFoundException("Input file not found.", inputPath);
 
         var sourceFormat = DetectFormat(inputPath)
-            ?? throw new InvalidDataException("Not a recognized N64 ROM (unknown byte order).");
+            ?? throw new InvalidDataException(Localization.LocalizationManager.Instance["N64Conv_ErrorUnknownFormat"]);
 
         if (sourceFormat == targetFormat)
         {
-            progress?.Report("Source ROM is already in the target format. Copying...");
+            progress?.Report(Localization.LocalizationManager.Instance["N64Conv_ProgressAlreadyTarget"]);
             File.Copy(inputPath, outputPath, overwrite: true);
-            progress?.Report("Done.");
+            progress?.Report(Localization.LocalizationManager.Instance["N64Conv_ProgressDone"]);
             return;
         }
 
-        progress?.Report($"Converting from {FormatName(sourceFormat)} to {FormatName(targetFormat)}...");
+        progress?.Report(string.Format(Localization.LocalizationManager.Instance["N64Conv_ProgressConverting"],
+            FormatName(sourceFormat), FormatName(targetFormat)));
 
         await Task.Run(() =>
         {
@@ -79,12 +80,12 @@ public static class N64FormatConverter
             }
             catch
             {
-                try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                 throw;
             }
         }).ConfigureAwait(false);
 
-        progress?.Report("Done.");
+        progress?.Report(Localization.LocalizationManager.Instance["N64Conv_ProgressDone"]);
     }
 
     private static void ConvertBuffer(byte[] buffer, int length, N64Format from, N64Format to)
@@ -151,9 +152,9 @@ public static class N64FormatConverter
 
     public static string FormatName(N64Format format) => format switch
     {
-        N64Format.BigEndian => "Big Endian (.z64)",
-        N64Format.LittleEndian => "Little Endian (.n64)",
-        N64Format.ByteSwapped => "Byte-swapped (.v64)",
+        N64Format.BigEndian => Localization.LocalizationManager.Instance["N64Conv_BigEndian"],
+        N64Format.LittleEndian => Localization.LocalizationManager.Instance["N64Conv_LittleEndian"],
+        N64Format.ByteSwapped => Localization.LocalizationManager.Instance["N64Conv_ByteSwapped"],
         _ => "Unknown"
     };
 

@@ -11,18 +11,18 @@
         <!-- Emulator Selection -->
         <StackPanel Spacing="4">
             <TextBlock Text="{Binding [EmuConfig_Emulator], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
-            <ComboBox x:Name="EmulatorCombo" Width="350" HorizontalAlignment="Left"
+            <ComboBox x:Name="EmulatorCombo" MinWidth="350" HorizontalAlignment="Left"
                       SelectedIndex="0" SelectionChanged="EmulatorCombo_SelectionChanged">
                 <ComboBoxItem Content="RetroArch" Tag="RetroArch"/>
-                <ComboBoxItem Content="Mesen (NES/SNES)" Tag="Mesen"/>
-                <ComboBoxItem Content="Snes9x (SNES)" Tag="Snes9x"/>
-                <ComboBoxItem Content="Project64 (N64)" Tag="Project64"/>
-                <ComboBoxItem Content="mGBA (Game Boy/GBA)" Tag="MGBA"/>
-                <ComboBoxItem Content="Kega Fusion (Sega)" Tag="KegaFusion"/>
-                <ComboBoxItem Content="Mednafen (Multi-system)" Tag="Mednafen"/>
-                <ComboBoxItem Content="Stella (Atari 2600)" Tag="Stella"/>
-                <ComboBoxItem Content="FCEUX (NES)" Tag="FCEUX"/>
-                <ComboBoxItem Content="MAME (Arcade)" Tag="MAME"/>
+                <ComboBoxItem Content="{Binding [EmuConfig_MesenDesc], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Mesen"/>
+                <ComboBoxItem Content="{Binding [EmuConfig_Snes9xDesc], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Snes9x"/>
+                <ComboBoxItem Content="{Binding [EmuConfig_Project64Desc], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Project64"/>
+                <ComboBoxItem Content="{Binding [EmuConfig_MGBADesc], Source={x:Static loc:LocalizationManager.Instance}}" Tag="MGBA"/>
+                <ComboBoxItem Content="{Binding [EmuConfig_KegaFusionDesc], Source={x:Static loc:LocalizationManager.Instance}}" Tag="KegaFusion"/>
+                <ComboBoxItem Content="{Binding [EmuConfig_MednafenDesc], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Mednafen"/>
+                <ComboBoxItem Content="{Binding [EmuConfig_StellaDesc], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Stella"/>
+                <ComboBoxItem Content="{Binding [EmuConfig_FCEUXDesc], Source={x:Static loc:LocalizationManager.Instance}}" Tag="FCEUX"/>
+                <ComboBoxItem Content="{Binding [EmuConfig_MAMEDesc], Source={x:Static loc:LocalizationManager.Instance}}" Tag="MAME"/>
             </ComboBox>
         </StackPanel>
 
@@ -160,7 +160,7 @@
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBlock Text="{Binding [EmuConfig_Region], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
                         <ComboBox x:Name="MesenRegionCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="0">
-                            <ComboBoxItem Content="Auto"/>
+                            <ComboBoxItem Content="{Binding [EmuConfig_Auto], Source={x:Static loc:LocalizationManager.Instance}}"/>
                             <ComboBoxItem Content="NTSC"/>
                             <ComboBoxItem Content="PAL"/>
                             <ComboBoxItem Content="Dendy"/>
@@ -176,7 +176,7 @@
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBlock Text="{Binding [EmuConfig_Region], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
                         <ComboBox x:Name="Snes9xRegionCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="0">
-                            <ComboBoxItem Content="Auto"/>
+                            <ComboBoxItem Content="{Binding [EmuConfig_Auto], Source={x:Static loc:LocalizationManager.Instance}}"/>
                             <ComboBoxItem Content="NTSC"/>
                             <ComboBoxItem Content="PAL"/>
                         </ComboBox>
@@ -230,7 +230,7 @@
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBlock Text="{Binding [EmuConfig_Region], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
                         <ComboBox x:Name="KegaRegionCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="0">
-                            <ComboBoxItem Content="Auto"/>
+                            <ComboBoxItem Content="{Binding [EmuConfig_Auto], Source={x:Static loc:LocalizationManager.Instance}}"/>
                             <ComboBoxItem Content="USA"/>
                             <ComboBoxItem Content="Europe"/>
                             <ComboBoxItem Content="Japan"/>
@@ -282,7 +282,7 @@
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBlock Text="{Binding [EmuConfig_Region], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8" FontSize="12" VerticalAlignment="Center"/>
                         <ComboBox x:Name="FCEUXRegionCombo" Width="200" HorizontalAlignment="Left" SelectedIndex="0">
-                            <ComboBoxItem Content="Auto"/>
+                            <ComboBoxItem Content="{Binding [EmuConfig_Auto], Source={x:Static loc:LocalizationManager.Instance}}"/>
                             <ComboBoxItem Content="NTSC"/>
                             <ComboBoxItem Content="PAL"/>
                             <ComboBoxItem Content="Dendy"/>

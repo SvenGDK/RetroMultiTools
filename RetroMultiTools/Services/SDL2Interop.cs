@@ -1,5 +1,6 @@
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace RetroMultiTools.Services;
 
@@ -98,6 +99,9 @@ internal static class SDL2Interop
     /// <summary>Returns a mask of the specified subsystems that are currently initialised.</summary>
     [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
     internal static extern uint SDL_WasInit(uint flags);
+
+    [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+    internal static extern void SDL_QuitSubSystem(uint flags);
 
     [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
     internal static extern void SDL_Quit();
@@ -281,7 +285,7 @@ internal static class SDL2Interop
 
     // ── DLL import resolver ────────────────────────────────────────────
 
-    private static bool _resolverRegistered;
+    private static int _resolverRegistered;
 
     /// <summary>
     /// Registers a platform-aware DLL import resolver so that
@@ -290,8 +294,7 @@ internal static class SDL2Interop
     /// </summary>
     internal static void RegisterResolver()
     {
-        if (_resolverRegistered) return;
-        _resolverRegistered = true;
+        if (Interlocked.Exchange(ref _resolverRegistered, 1) != 0) return;
 
         NativeLibrary.SetDllImportResolver(
             typeof(SDL2Interop).Assembly,

@@ -89,7 +89,7 @@ Add this line to your `~/.zshrc` to make it permanent.
 ### No ROMs found after scanning
 
 - Verify that the folder contains ROM files with recognized extensions (see [Supported Systems](reference/supported-systems.md)).
-- Check that files are not nested inside ZIP archives — use the **ZIP ROM Extractor** to extract them first.
+- Check that files are not nested inside archives — use the **Archive Manager** to extract them first.
 - Ensure the folder is readable and not on a disconnected drive.
 
 ### Artwork does not load

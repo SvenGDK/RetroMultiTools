@@ -27,7 +27,7 @@ public static class RomHeaderExporter
         }
         catch
         {
-            try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
             throw;
         }
         progress?.Report("Done.");
@@ -103,7 +103,7 @@ public static class RomHeaderExporter
         }
         catch
         {
-            try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
             throw;
         }
     }
@@ -140,7 +140,7 @@ public static class RomHeaderExporter
         }
         catch
         {
-            try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
             throw;
         }
     }

@@ -12,7 +12,7 @@
                            Foreground="#A6ADC8" Text="{Binding [Browser_NoFolderSelected], Source={x:Static loc:LocalizationManager.Instance}}" TextTrimming="CharacterEllipsis"
                            MaxWidth="300"/>
                 <ComboBox x:Name="SystemFilterCombo" PlaceholderText="{Binding [Browser_FilterBySystem], Source={x:Static loc:LocalizationManager.Instance}}"
-                          SelectionChanged="SystemFilterCombo_SelectionChanged" Width="200"/>
+                          SelectionChanged="SystemFilterCombo_SelectionChanged" MinWidth="200"/>
                 <TextBox x:Name="SearchTextBox" Watermark="{Binding [Browser_SearchWatermark], Source={x:Static loc:LocalizationManager.Instance}}"
                          Width="255" TextChanged="SearchTextBox_TextChanged"/>
             </StackPanel>
@@ -35,6 +35,8 @@
                         Padding="12,6" IsEnabled="False"/>
                 <Button x:Name="LaunchMameButton" Content="{Binding [Browser_LaunchMame], Source={x:Static loc:LocalizationManager.Instance}}" Click="LaunchMameButton_Click"
                         Padding="12,6" IsEnabled="False"/>
+                <Button x:Name="LaunchMednafenButton" Content="{Binding [Browser_LaunchMednafen], Source={x:Static loc:LocalizationManager.Instance}}" Click="LaunchMednafenButton_Click"
+                        Padding="12,6" IsEnabled="False"/>
                 <CheckBox x:Name="ShowArtworkCheck" Content="{Binding [Browser_ShowArtwork], Source={x:Static loc:LocalizationManager.Instance}}"
                           Foreground="#CDD6F4" IsChecked="False"
                           IsCheckedChanged="ShowArtworkCheck_Changed"/>
@@ -48,6 +50,17 @@
             <StackPanel Spacing="4">
                 <ProgressBar x:Name="ScanProgressBar" IsVisible="False" Minimum="0" Maximum="1"
                              IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+                <StackPanel x:Name="ConfirmDeletePanel" IsVisible="False" Spacing="8" Orientation="Horizontal">
+                    <TextBlock x:Name="ConfirmDeleteText" Foreground="#F38BA8" VerticalAlignment="Center"
+                               FontWeight="Bold" TextWrapping="Wrap"/>
+                    <Button x:Name="ConfirmDeleteButton"
+                            Content="{Binding [Browser_ConfirmDelete], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="ConfirmDelete_Click"
+                            Padding="12,4" Background="#F38BA8" Foreground="#1E1E2E"/>
+                    <Button Content="{Binding [Common_Cancel], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="CancelDelete_Click"
+                            Padding="12,4"/>
+                </StackPanel>
                 <TextBlock x:Name="StatusText" Foreground="#A6ADC8" FontSize="12" Text="{Binding [Common_Ready], Source={x:Static loc:LocalizationManager.Instance}}"/>
             </StackPanel>
         </Border>
@@ -73,6 +86,7 @@
                     <ContextMenu>
                         <MenuItem x:Name="ContextLaunchItem" Header="{Binding [Browser_ContextLaunch], Source={x:Static loc:LocalizationManager.Instance}}" Click="ContextLaunch_Click"/>
                         <MenuItem x:Name="ContextLaunchMameItem" Header="{Binding [Browser_ContextLaunchMame], Source={x:Static loc:LocalizationManager.Instance}}" Click="ContextLaunchMame_Click"/>
+                        <MenuItem x:Name="ContextLaunchMednafenItem" Header="{Binding [Browser_ContextLaunchMednafen], Source={x:Static loc:LocalizationManager.Instance}}" Click="ContextLaunchMednafen_Click"/>
                         <Separator/>
                         <MenuItem x:Name="ContextCopyItem" Header="{Binding [Browser_ContextCopy], Source={x:Static loc:LocalizationManager.Instance}}" Click="CopyRomButton_Click"/>
                         <MenuItem x:Name="ContextMoveItem" Header="{Binding [Browser_ContextMove], Source={x:Static loc:LocalizationManager.Instance}}" Click="MoveRomButton_Click"/>
@@ -98,7 +112,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="{Binding [Browser_ColSize], Source={x:Static loc:LocalizationManager.Instance}}"      Binding="{Binding FileSizeFormatted}" Width="100"/>
+                    <DataGridTextColumn Header="{Binding [Browser_ColSize], Source={x:Static loc:LocalizationManager.Instance}}"      Binding="{Binding FileSizeFormatted}" SortMemberPath="FileSize" Width="100"/>
                     <DataGridTextColumn Header="{Binding [Browser_ColValid], Source={x:Static loc:LocalizationManager.Instance}}"     Binding="{Binding IsValid}" Width="75"/>
                 </DataGrid.Columns>
             </DataGrid>

@@ -98,16 +98,20 @@ public static class RomFormatConverter
     /// <summary>
     /// Gets the display name for a conversion type.
     /// </summary>
-    public static string GetConversionName(ConversionType type) => type switch
+    public static string GetConversionName(ConversionType type)
     {
-        ConversionType.AddCopierHeader => "Add Copier Header (512 bytes)",
-        ConversionType.RemoveCopierHeader => "Remove Copier Header (512 bytes)",
-        ConversionType.NesToUnheadered => "Remove iNES Header (16 bytes)",
-        ConversionType.NesFixHeader => "Fix iNES Header",
-        ConversionType.ConvertToCHD => "Convert to CHD (Compressed Hunks of Data)",
-        ConversionType.ConvertToRVZ => "Convert to RVZ (Dolphin Compressed Image)",
-        _ => type.ToString()
-    };
+        var loc = Localization.LocalizationManager.Instance;
+        return type switch
+        {
+            ConversionType.AddCopierHeader => loc["FormatConv_AddCopierHeader"],
+            ConversionType.RemoveCopierHeader => loc["FormatConv_RemoveCopierHeader"],
+            ConversionType.NesToUnheadered => loc["FormatConv_NesToUnheadered"],
+            ConversionType.NesFixHeader => loc["FormatConv_NesFixHeader"],
+            ConversionType.ConvertToCHD => loc["FormatConv_ConvertToCHD"],
+            ConversionType.ConvertToRVZ => loc["FormatConv_ConvertToRVZ"],
+            _ => type.ToString()
+        };
+    }
 
     /// <summary>
     /// Converts a ROM file based on the selected conversion type.
@@ -168,11 +172,14 @@ public static class RomFormatConverter
         int skipped = 0;
         int failed = 0;
 
+        var loc = Localization.LocalizationManager.Instance;
+
         for (int i = 0; i < files.Count; i++)
         {
             string file = files[i];
+            string relativePath = Path.GetRelativePath(inputDirectory, file);
             string fileName = Path.GetFileName(file);
-            progress?.Report($"Processing {i + 1} of {files.Count}: {fileName}");
+            progress?.Report(string.Format(loc["FormatConv_BatchProgress"], i + 1, files.Count, fileName));
 
             try
             {
@@ -183,7 +190,10 @@ public static class RomFormatConverter
                     continue;
                 }
 
-                string outputPath = Path.Combine(outputDirectory, fileName);
+                string outputPath = Path.Combine(outputDirectory, relativePath);
+                string? outputDir = Path.GetDirectoryName(outputPath);
+                if (outputDir != null)
+                    Directory.CreateDirectory(outputDir);
                 await ConvertAsync(file, outputPath, conversionType, null).ConfigureAwait(false);
                 converted++;
             }
@@ -197,7 +207,7 @@ public static class RomFormatConverter
             }
         }
 
-        progress?.Report($"Done — {converted} converted, {skipped} skipped, {failed} failed.");
+        progress?.Report(string.Format(loc["FormatConv_BatchDone"], converted, skipped, failed));
         return new BatchConversionResult { Converted = converted, Skipped = skipped, Failed = failed };
     }
 
@@ -205,9 +215,10 @@ public static class RomFormatConverter
     {
         long inputLength = new FileInfo(inputPath).Length;
         if (inputLength <= headerSize)
-            throw new InvalidOperationException($"File is too small to contain a {headerName}.");
+            throw new InvalidOperationException(
+                string.Format(Localization.LocalizationManager.Instance["FormatConv_ErrorTooSmall"], headerName));
 
-        progress?.Report($"Removing {headerSize}-byte {headerName}...");
+        progress?.Report(string.Format(Localization.LocalizationManager.Instance["FormatConv_ProgressRemoving"], headerSize, headerName));
 
         await Task.Run(() =>
         {
@@ -224,17 +235,17 @@ public static class RomFormatConverter
             }
             catch
             {
-                try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                 throw;
             }
         }).ConfigureAwait(false);
 
-        progress?.Report("Done.");
+        progress?.Report(Localization.LocalizationManager.Instance["FormatConv_ProgressDone"]);
     }
 
     private static async Task AddHeaderAsync(string inputPath, string outputPath, int headerSize, IProgress<string>? progress)
     {
-        progress?.Report($"Adding {headerSize}-byte copier header...");
+        progress?.Report(string.Format(Localization.LocalizationManager.Instance["FormatConv_ProgressAdding"], headerSize));
 
         await Task.Run(() =>
         {
@@ -251,29 +262,29 @@ public static class RomFormatConverter
             }
             catch
             {
-                try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                 throw;
             }
         }).ConfigureAwait(false);
 
-        progress?.Report("Done.");
+        progress?.Report(Localization.LocalizationManager.Instance["FormatConv_ProgressDone"]);
     }
 
     private static async Task FixNesHeaderAsync(string inputPath, string outputPath, IProgress<string>? progress)
     {
-        progress?.Report("Fixing iNES header...");
+        progress?.Report(Localization.LocalizationManager.Instance["FormatConv_ProgressFixingNes"]);
 
         long fileSize = new FileInfo(inputPath).Length;
         if (fileSize > 64 * 1024 * 1024)
             throw new InvalidOperationException(
-                $"File is too large ({fileSize / (1024.0 * 1024):F1} MB). Maximum supported size for NES header fix: 64 MB.");
+                string.Format(Localization.LocalizationManager.Instance["FormatConv_ErrorTooLargeNes"], fileSize / (1024.0 * 1024)));
 
         await Task.Run(() =>
         {
             byte[] data = File.ReadAllBytes(inputPath);
 
             if (data.Length < 16 || data[0] != 0x4E || data[1] != 0x45 || data[2] != 0x53 || data[3] != 0x1A)
-                throw new InvalidOperationException("Not a valid iNES ROM file.");
+                throw new InvalidOperationException(Localization.LocalizationManager.Instance["FormatConv_ErrorNotNes"]);
 
             // Clear unused header bytes (bytes 8-15 are often dirty)
             bool isNes2 = (data[7] & 0x0C) == 0x08;
@@ -289,12 +300,12 @@ public static class RomFormatConverter
             }
             catch
             {
-                try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                 throw;
             }
         }).ConfigureAwait(false);
 
-        progress?.Report("Done.");
+        progress?.Report(Localization.LocalizationManager.Instance["FormatConv_ProgressDone"]);
     }
 
     /// <summary>
@@ -306,12 +317,12 @@ public static class RomFormatConverter
         string ext = Path.GetExtension(inputPath).ToLowerInvariant();
         string chdOutput = Path.ChangeExtension(outputPath, ".chd");
 
-        progress?.Report("Converting to CHD format...");
+        progress?.Report(Localization.LocalizationManager.Instance["FormatConv_ProgressConvertCHD"]);
 
         string? chdmanPath = FindTool("chdman");
         if (chdmanPath == null)
             throw new InvalidOperationException(
-                "chdman not found. Please install MAME tools (chdman) and ensure it is available in your system PATH.");
+                Localization.LocalizationManager.Instance["FormatConv_ErrorChdmanNotFound"]);
 
         string args = ext == ".cue"
             ? $"createcd -i \"{inputPath}\" -o \"{chdOutput}\""
@@ -323,11 +334,11 @@ public static class RomFormatConverter
         }
         catch
         {
-            try { File.Delete(chdOutput); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            try { File.Delete(chdOutput); } catch { /* best-effort cleanup */ }
             throw;
         }
 
-        progress?.Report("Done.");
+        progress?.Report(Localization.LocalizationManager.Instance["FormatConv_ProgressDone"]);
     }
 
     /// <summary>
@@ -338,12 +349,12 @@ public static class RomFormatConverter
     {
         string rvzOutput = Path.ChangeExtension(outputPath, ".rvz");
 
-        progress?.Report("Converting to RVZ format...");
+        progress?.Report(Localization.LocalizationManager.Instance["FormatConv_ProgressConvertRVZ"]);
 
         string? dolphinToolPath = FindTool("DolphinTool");
         if (dolphinToolPath == null)
             throw new InvalidOperationException(
-                "DolphinTool not found. Please install Dolphin Emulator tools (DolphinTool) and ensure it is available in your system PATH.");
+                Localization.LocalizationManager.Instance["FormatConv_ErrorDolphinToolNotFound"]);
 
         string args = $"convert -i \"{inputPath}\" -o \"{rvzOutput}\" -f rvz -b 131072 -c zstd -l 5";
 
@@ -353,11 +364,11 @@ public static class RomFormatConverter
         }
         catch
         {
-            try { File.Delete(rvzOutput); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            try { File.Delete(rvzOutput); } catch { /* best-effort cleanup */ }
             throw;
         }
 
-        progress?.Report("Done.");
+        progress?.Report(Localization.LocalizationManager.Instance["FormatConv_ProgressDone"]);
     }
 
     internal static string? FindTool(string toolName)
@@ -402,7 +413,8 @@ public static class RomFormatConverter
         {
             string errorMsg = !string.IsNullOrWhiteSpace(stderr) ? stderr.Trim() : stdout.Trim();
             throw new InvalidOperationException(
-                $"{Path.GetFileName(toolPath)} failed (exit code {process.ExitCode}): {errorMsg}");
+                string.Format(Localization.LocalizationManager.Instance["FormatConv_ErrorToolFailed"],
+                    Path.GetFileName(toolPath), process.ExitCode, errorMsg));
         }
 
         if (!string.IsNullOrWhiteSpace(stdout))
@@ -417,5 +429,5 @@ public class BatchConversionResult
     public int Failed { get; set; }
 
     public string Summary =>
-        $"{Converted} converted, {Skipped} skipped, {Failed} failed";
+        string.Format(Localization.LocalizationManager.Instance["FormatConv_BatchSummary"], Converted, Skipped, Failed);
 }

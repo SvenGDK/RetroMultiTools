@@ -46,11 +46,12 @@ public static class SaveFileConverter
         long fileSize = new FileInfo(inputPath).Length;
         if (fileSize > MaxFileSize)
             throw new InvalidOperationException(
-                $"File is too large ({fileSize / (1024.0 * 1024):F1} MB). Maximum supported size: {MaxFileSize / (1024 * 1024)} MB.");
+                string.Format(Localization.LocalizationManager.Instance["SaveConv_ErrorFileTooLarge"],
+                    fileSize / (1024.0 * 1024), MaxFileSize / (1024 * 1024)));
 
         byte[] data = await File.ReadAllBytesAsync(inputPath).ConfigureAwait(false);
 
-        progress?.Report($"Applying conversion: {conversion}...");
+        progress?.Report(string.Format(Localization.LocalizationManager.Instance["SaveConv_ProgressApplying"], conversion));
 
         byte[] result = conversion switch
         {
@@ -64,15 +65,15 @@ public static class SaveFileConverter
             _ => throw new ArgumentException($"Unknown conversion: {conversion}")
         };
 
-        progress?.Report("Writing output file...");
+        progress?.Report(Localization.LocalizationManager.Instance["SaveConv_ProgressWriting"]);
         try
         {
             await File.WriteAllBytesAsync(outputPath, result).ConfigureAwait(false);
-            progress?.Report("Done.");
+            progress?.Report(Localization.LocalizationManager.Instance["SaveConv_ProgressDone"]);
         }
         catch
         {
-            try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
             throw;
         }
     }

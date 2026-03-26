@@ -63,7 +63,7 @@ public partial class SplitRomAssemblerView : UserControl
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             _detectedParts = null;
-            PartsText.Text = $"Unable to read file: {ex.Message}";
+            PartsText.Text = string.Format(LocalizationManager.Instance["Split_UnableToRead"], ex.Message);
             PartsPanel.IsVisible = true;
             AssembleButton.IsEnabled = false;
         }
@@ -123,11 +123,11 @@ public partial class SplitRomAssemblerView : UserControl
         {
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
             var result = await SplitRomAssembler.AssembleAsync(input, output, progress);
-            ShowStatus($"✔ Assembly complete!\n{result.Summary}\nOutput: {output}", isError: false);
+            ShowStatus(string.Format(LocalizationManager.Instance["Split_AssemblyComplete"], result.Summary, output), isError: false);
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Detection;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using RetroMultiTools.Utilities;
 
@@ -40,7 +41,7 @@ public partial class RomOrganizerView : UserControl
 
         var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
         {
-            Title = "Select ROM Source Folder",
+            Title = LocalizationManager.Instance["Organizer_SelectSourceTitle"],
             AllowMultiple = false
         });
 
@@ -57,7 +58,7 @@ public partial class RomOrganizerView : UserControl
 
         var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
         {
-            Title = "Select Output Folder",
+            Title = LocalizationManager.Instance["Organizer_SelectOutputTitle"],
             AllowMultiple = false
         });
 
@@ -68,6 +69,7 @@ public partial class RomOrganizerView : UserControl
 
     private async void ScanButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string sourcePath = SourcePathTextBox.Text ?? "";
         if (string.IsNullOrWhiteSpace(sourcePath)) return;
 
@@ -86,15 +88,15 @@ public partial class RomOrganizerView : UserControl
             RomList.ItemsSource = displayRoms;
 
             StatusText.Text = displayRoms.Count > 0
-                ? $"Found {displayRoms.Count} ROM(s) across {displayRoms.Select(r => r.SystemName).Distinct().Count()} system(s)."
-                : "No ROMs found in the selected folder.";
+                ? string.Format(loc["Organizer_FoundRoms"], displayRoms.Count, displayRoms.Select(r => r.SystemName).Distinct().Count())
+                : loc["Organizer_NoRomsFound"];
             StatusText.Foreground = displayRoms.Count > 0 ? StatusSuccessBrush : StatusWarningBrush;
             StatusBorder.IsVisible = true;
             OrganizeButton.IsVisible = displayRoms.Count > 0 && !string.IsNullOrWhiteSpace(OutputPathTextBox.Text);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            StatusText.Text = $"✘ Error: {ex.Message}";
+            StatusText.Text = string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message);
             StatusText.Foreground = StatusErrorBrush;
             StatusBorder.IsVisible = true;
         }
@@ -125,7 +127,7 @@ public partial class RomOrganizerView : UserControl
             var result = await Task.Run(() =>
                 RomOrganizer.OrganizeBySystem(_scannedRoms, outputPath, moveFiles, systemFilter, progress));
 
-            StatusText.Text = $"✔ {result.Summary}";
+            StatusText.Text = string.Format(LocalizationManager.Instance["Common_SuccessFormat"], result.Summary);
             StatusText.Foreground = result.Failed > 0 ? StatusWarningBrush : StatusSuccessBrush;
             StatusBorder.IsVisible = true;
 
@@ -138,7 +140,7 @@ public partial class RomOrganizerView : UserControl
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            StatusText.Text = $"✘ Error: {ex.Message}";
+            StatusText.Text = string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message);
             StatusText.Foreground = StatusErrorBrush;
             StatusBorder.IsVisible = true;
         }

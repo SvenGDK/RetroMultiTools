@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.RetroArch;
 
@@ -82,30 +83,31 @@ public partial class EmulatorConfigView : UserControl
 
     private async void BrowseRomDir_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFolder("Select ROM Directory");
+        var path = await PickFolder(LocalizationManager.Instance["EmuConfig_SelectRomDir"]);
         if (path != null) RomDirTextBox.Text = path;
     }
 
     private async void BrowseSaveDir_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFolder("Select Save Directory");
+        var path = await PickFolder(LocalizationManager.Instance["EmuConfig_SelectSaveDir"]);
         if (path != null) SaveDirTextBox.Text = path;
     }
 
     private async void BrowseStateDir_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFolder("Select Save States Directory");
+        var path = await PickFolder(LocalizationManager.Instance["EmuConfig_SelectStateDir"]);
         if (path != null) StateDirTextBox.Text = path;
     }
 
     private async void BrowseScreenshotDir_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFolder("Select Screenshot Directory");
+        var path = await PickFolder(LocalizationManager.Instance["EmuConfig_SelectScreenshotDir"]);
         if (path != null) ScreenshotDirTextBox.Text = path;
     }
 
     private async void BrowseOutput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
@@ -115,7 +117,7 @@ public partial class EmulatorConfigView : UserControl
 
         var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Save Configuration File",
+            Title = loc["EmuConfig_SaveDialogTitle"],
             SuggestedFileName = $"{name}_config{ext}"
         });
 
@@ -216,7 +218,8 @@ public partial class EmulatorConfigView : UserControl
         }
 
         GenerateButton.IsEnabled = false;
-        ShowStatus("Generating configuration...", isError: false);
+        var loc = LocalizationManager.Instance;
+        ShowStatus(loc["EmuConfig_Generating"], isError: false);
 
         try
         {
@@ -224,11 +227,11 @@ public partial class EmulatorConfigView : UserControl
             var progress = new Progress<string>(msg => StatusText.Text = msg);
             await EmulatorConfigGenerator.GenerateAsync(options, output, progress);
 
-            ShowStatus($"✔ Configuration generated!\nOutput: {output}", isError: false);
+            ShowStatus(string.Format(loc["EmuConfig_Generated"], output), isError: false);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {
@@ -239,13 +242,14 @@ public partial class EmulatorConfigView : UserControl
     private async void ExportToRetroArch_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         ExportToRetroArchButton.IsEnabled = false;
+        var loc = LocalizationManager.Instance;
 
         try
         {
             string? configPath = RetroArchLauncher.GetRetroArchConfigFilePath();
             if (configPath == null)
             {
-                ShowStatus("✘ Could not detect RetroArch config directory.\nAutomatic detection failed. Please configure the RetroArch path in Settings first, or ensure RetroArch is installed in a standard location.", isError: true);
+                ShowStatus(loc["EmuConfig_RetroArchNotDetected"], isError: true);
                 return;
             }
 
@@ -253,11 +257,11 @@ public partial class EmulatorConfigView : UserControl
             var progress = new Progress<string>(msg => StatusText.Text = msg);
             await EmulatorConfigGenerator.GenerateAsync(options, configPath, progress);
 
-            ShowStatus($"✔ Configuration exported to RetroArch!\nPath: {configPath}", isError: false);
+            ShowStatus(string.Format(loc["EmuConfig_ExportedToRetroArch"], configPath), isError: false);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException)
         {
-            ShowStatus($"✘ Error exporting to RetroArch: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["EmuConfig_ExportError"], ex.Message), isError: true);
         }
         finally
         {

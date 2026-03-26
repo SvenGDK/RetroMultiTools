@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using System.Xml;
+using RetroMultiTools.Localization;
 
 namespace RetroMultiTools.Utilities;
 
@@ -149,25 +150,26 @@ public static partial class DatFilter
     {
         return await Task.Run(() =>
         {
+            var loc = LocalizationManager.Instance;
             var stats = new DatFilterResult { OriginalCount = entries.Count };
 
-            progress?.Report($"Parsing {entries.Count} game names...");
+            progress?.Report(string.Format(loc["DatFilter_ParsingNames"], entries.Count));
             var parsed = entries.Select(e => (Entry: e, Info: ParseGameInfo(e.GameName))).ToList();
 
             // Step 1: Category exclusions
-            progress?.Report("Applying category filters...");
+            progress?.Report(loc["DatFilter_ApplyingCategoryFilters"]);
             var afterCategory = parsed.Where(p => !ShouldExcludeByCategory(p.Info, options)).ToList();
             stats.ExcludedByCategory = parsed.Count - afterCategory.Count;
-            progress?.Report($"Excluded {stats.ExcludedByCategory} entries by category.");
+            progress?.Report(string.Format(loc["DatFilter_ExcludedCategoryCount"], stats.ExcludedByCategory));
 
             // Step 2: 1G1R
             List<(DatEntry Entry, GameInfo Info)> afterOneGameOneRom;
             if (options.Enable1G1R)
             {
-                progress?.Report("Applying 1G1R filtering...");
+                progress?.Report(loc["DatFilter_Applying1G1R"]);
                 afterOneGameOneRom = ApplyOneGameOneRom(afterCategory, options, progress);
                 stats.ExcludedBy1G1R = afterCategory.Count - afterOneGameOneRom.Count;
-                progress?.Report($"Excluded {stats.ExcludedBy1G1R} entries by 1G1R.");
+                progress?.Report(string.Format(loc["DatFilter_Excluded1G1RCount"], stats.ExcludedBy1G1R));
             }
             else
             {
@@ -315,7 +317,8 @@ public static partial class DatFilter
     {
         await Task.Run(() =>
         {
-            progress?.Report($"Exporting {entries.Count} entries to {Path.GetFileName(outputPath)}...");
+            var loc = LocalizationManager.Instance;
+            progress?.Report(string.Format(loc["DatFilter_ExportingEntries"], entries.Count, Path.GetFileName(outputPath)));
 
             try
             {
@@ -365,11 +368,11 @@ public static partial class DatFilter
                 writer.WriteEndElement(); // datafile
                 writer.WriteEndDocument();
 
-                progress?.Report($"Exported {entries.Count} entries.");
+                progress?.Report(string.Format(loc["DatFilter_ExportedEntries"], entries.Count));
             }
             catch (Exception) when (File.Exists(outputPath))
             {
-                try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+                try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
                 throw;
             }
         }).ConfigureAwait(false);
@@ -400,8 +403,8 @@ public class DatFilterResult
     public int ExcludedBy1G1R { get; set; }
 
     public string Summary =>
-        $"{FilteredCount} of {OriginalCount} entries retained. " +
-        $"Excluded: {ExcludedByCategory} by category, {ExcludedBy1G1R} by 1G1R.";
+        string.Format(LocalizationManager.Instance["DatFilter_ResultSummary"],
+            FilteredCount, OriginalCount, ExcludedByCategory, ExcludedBy1G1R);
 }
 
 public class GameInfo

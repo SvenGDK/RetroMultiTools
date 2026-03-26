@@ -1,0 +1,276 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.GamepadKeyMapperView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16" MaxWidth="900" HorizontalAlignment="Left">
+
+        <!-- Title -->
+        <TextBlock Text="{Binding [GpMapper_Title], Source={x:Static loc:LocalizationManager.Instance}}"
+                   FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [GpMapper_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- ── Engine controls ─────────────────────────────────────── -->
+        <Border Background="#181825" CornerRadius="6" Padding="16" Margin="0,0,0,4">
+            <StackPanel Spacing="10">
+                <Grid ColumnDefinitions="*,Auto,Auto">
+                    <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <Ellipse x:Name="StatusDot" Width="10" Height="10" Fill="#F38BA8"/>
+                        <TextBlock x:Name="StatusText"
+                                   Text="{Binding [GpMapper_Stopped], Source={x:Static loc:LocalizationManager.Instance}}"
+                                   Foreground="#CDD6F4" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="InputFeedbackText" Foreground="#89B4FA"
+                                   FontSize="12" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                    </StackPanel>
+                    <Button x:Name="StartStopButton" Grid.Column="1"
+                            Content="{Binding [GpMapper_Start], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="StartStopButton_Click" Padding="16,6"
+                            Background="#89B4FA" Foreground="#1E1E2E" FontWeight="SemiBold"/>
+                    <Button x:Name="CycleSetButton" Grid.Column="2" Margin="8,0,0,0"
+                            Content="{Binding [GpMapper_CycleSet], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="CycleSetButton_Click" Padding="12,6"
+                            IsEnabled="False"/>
+                </Grid>
+                <!-- Dead-zone slider -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{Binding [GpMapper_DeadZone], Source={x:Static loc:LocalizationManager.Instance}}"
+                               Foreground="#A6ADC8" FontSize="12"/>
+                    <Grid ColumnDefinitions="Auto,*,Auto" Width="350" HorizontalAlignment="Left">
+                        <TextBlock Text="0.05" Foreground="#6C7086" VerticalAlignment="Center" FontSize="11"/>
+                        <Slider x:Name="DeadZoneSlider" Grid.Column="1" Minimum="0.05" Maximum="0.95"
+                                Value="0.25" IsSnapToTickEnabled="True" TickFrequency="0.05" Margin="8,0"
+                                ValueChanged="DeadZoneSlider_ValueChanged"/>
+                        <TextBlock x:Name="DeadZoneValueText" Grid.Column="2" Text="0.25"
+                                   Foreground="#6C7086" VerticalAlignment="Center" FontSize="11" Width="30"/>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- ── Profile management ──────────────────────────────────── -->
+        <Border Background="#181825" CornerRadius="6" Padding="16">
+            <StackPanel Spacing="10">
+                <TextBlock Text="{Binding [GpMapper_Profiles], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <Grid ColumnDefinitions="*,Auto,Auto,Auto,Auto,Auto">
+                    <ComboBox x:Name="ProfileCombo" HorizontalAlignment="Stretch"
+                              SelectionChanged="ProfileCombo_SelectionChanged"/>
+                    <Button Grid.Column="1" Margin="8,0,0,0" Content="+"
+                            Click="AddProfileButton_Click" Padding="10,6"
+                            ToolTip.Tip="{Binding [GpMapper_AddProfile], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <Button Grid.Column="2" Margin="4,0,0,0" Content="✎"
+                            Click="RenameProfileButton_Click" Padding="10,6"
+                            ToolTip.Tip="{Binding [GpMapper_RenameProfile], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <Button Grid.Column="3" Margin="4,0,0,0" Content="✕"
+                            Click="DeleteProfileButton_Click" Padding="10,6"
+                            ToolTip.Tip="{Binding [GpMapper_DeleteProfile], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <Button Grid.Column="4" Margin="4,0,0,0" Content="⤓"
+                            Click="ExportProfileButton_Click" Padding="10,6"
+                            ToolTip.Tip="{Binding [GpMapper_ExportProfile], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <Button Grid.Column="5" Margin="4,0,0,0" Content="⤒"
+                            Click="ImportProfileButton_Click" Padding="10,6"
+                            ToolTip.Tip="{Binding [GpMapper_ImportProfile], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                </Grid>
+                <!-- Mapping Wizard -->
+                <Button x:Name="WizardButton" Click="WizardButton_Click" Padding="12,6"
+                        Background="#CBA6F7" Foreground="#1E1E2E" FontWeight="SemiBold"
+                        Content="{Binding [GpMapper_Wizard], Source={x:Static loc:LocalizationManager.Instance}}"
+                        ToolTip.Tip="{Binding [GpMapper_WizardDesc], Source={x:Static loc:LocalizationManager.Instance}}"/>
+            </StackPanel>
+        </Border>
+
+        <!-- ── Set tabs ────────────────────────────────────────────── -->
+        <Border Background="#181825" CornerRadius="6" Padding="16">
+            <StackPanel Spacing="10">
+                <Grid ColumnDefinitions="*,Auto,Auto">
+                    <TextBlock Text="{Binding [GpMapper_Sets], Source={x:Static loc:LocalizationManager.Instance}}"
+                               FontWeight="SemiBold" Foreground="#CDD6F4" VerticalAlignment="Center"/>
+                    <Button Grid.Column="1" Content="+"
+                            Click="AddSetButton_Click" Padding="10,6"
+                            ToolTip.Tip="{Binding [GpMapper_AddSet], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <Button Grid.Column="2" Margin="4,0,0,0" Content="✕"
+                            Click="RemoveSetButton_Click" Padding="10,6"
+                            ToolTip.Tip="{Binding [GpMapper_RemoveSet], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                </Grid>
+                <ListBox x:Name="SetListBox" SelectionChanged="SetListBox_SelectionChanged"
+                         Height="36">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="4"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </StackPanel>
+        </Border>
+
+        <!-- ── Button mapping grid ─────────────────────────────────── -->
+        <Border Background="#181825" CornerRadius="6" Padding="16">
+            <StackPanel Spacing="10">
+                <TextBlock Text="{Binding [GpMapper_Mappings], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <TextBlock Text="{Binding [GpMapper_MappingsHint], Source={x:Static loc:LocalizationManager.Instance}}"
+                           Foreground="#6C7086" FontSize="12" TextWrapping="Wrap"/>
+
+                <ItemsControl x:Name="MappingList">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#11111B" CornerRadius="4" Padding="10,6" Margin="0,0,0,4">
+                                <Grid ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="12">
+                                    <TextBlock Text="{Binding InputName}" Foreground="#F9E2AF"
+                                               FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding ActionText}"
+                                               Foreground="#A6ADC8" VerticalAlignment="Center"
+                                               TextTrimming="CharacterEllipsis"/>
+                                    <Button Grid.Column="2" Content="{Binding [GpMapper_Assign], Source={x:Static loc:LocalizationManager.Instance}}"
+                                            Tag="{Binding InputValue}" Click="AssignButton_Click"
+                                            Padding="8,4" Margin="8,0,0,0" FontSize="12"/>
+                                    <Button Grid.Column="3" Content="✕"
+                                            Tag="{Binding InputValue}" Click="ClearButton_Click"
+                                            Padding="8,4" Margin="4,0,0,0" FontSize="12"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+
+        <!-- ── Assign action panel (initially hidden) ──────────────── -->
+        <Border x:Name="AssignPanel" Background="#181825" CornerRadius="6" Padding="16"
+                IsVisible="False">
+            <StackPanel Spacing="10">
+                <TextBlock x:Name="AssignTitle" FontWeight="SemiBold" Foreground="#CDD6F4"/>
+
+                <!-- Action type selector -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="{Binding [GpMapper_ActionType], Source={x:Static loc:LocalizationManager.Instance}}"
+                               Foreground="#A6ADC8"/>
+                    <ComboBox x:Name="ActionTypeCombo" SelectedIndex="0" MinWidth="250"
+                              HorizontalAlignment="Left"
+                              SelectionChanged="ActionTypeCombo_SelectionChanged">
+                        <ComboBoxItem Content="{Binding [GpMapper_Keyboard], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Keyboard"/>
+                        <ComboBoxItem Content="{Binding [GpMapper_MouseButton], Source={x:Static loc:LocalizationManager.Instance}}" Tag="MouseButton"/>
+                        <ComboBoxItem Content="{Binding [GpMapper_MouseMove], Source={x:Static loc:LocalizationManager.Instance}}" Tag="MouseMove"/>
+                        <ComboBoxItem Content="{Binding [GpMapper_Script], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Script"/>
+                        <ComboBoxItem Content="{Binding [GpMapper_Macro], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Macro"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Keyboard key selection -->
+                <StackPanel x:Name="KeyboardPanel" Spacing="4">
+                    <TextBlock Text="{Binding [GpMapper_SelectKey], Source={x:Static loc:LocalizationManager.Instance}}"
+                               Foreground="#A6ADC8"/>
+                    <ComboBox x:Name="KeyCombo" MinWidth="250" HorizontalAlignment="Left"
+                              IsTextSearchEnabled="True"/>
+                </StackPanel>
+
+                <!-- Mouse button selection -->
+                <StackPanel x:Name="MouseButtonPanel" Spacing="4" IsVisible="False">
+                    <TextBlock Text="{Binding [GpMapper_SelectMouseBtn], Source={x:Static loc:LocalizationManager.Instance}}"
+                               Foreground="#A6ADC8"/>
+                    <ComboBox x:Name="MouseBtnCombo" MinWidth="250" HorizontalAlignment="Left" SelectedIndex="0">
+                        <ComboBoxItem Content="{Binding [GpMapper_MouseLeft], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Left"/>
+                        <ComboBoxItem Content="{Binding [GpMapper_MouseRight], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Right"/>
+                        <ComboBoxItem Content="{Binding [GpMapper_MouseMiddle], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Middle"/>
+                        <ComboBoxItem Content="{Binding [GpMapper_MouseBack], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Back"/>
+                        <ComboBoxItem Content="{Binding [GpMapper_MouseForward], Source={x:Static loc:LocalizationManager.Instance}}" Tag="Forward"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Mouse move options -->
+                <StackPanel x:Name="MouseMovePanel" Spacing="4" IsVisible="False">
+                    <TextBlock Text="{Binding [GpMapper_MouseSpeed], Source={x:Static loc:LocalizationManager.Instance}}"
+                               Foreground="#A6ADC8"/>
+                    <Grid ColumnDefinitions="Auto,*,Auto" Width="300" HorizontalAlignment="Left">
+                        <TextBlock Text="1" Foreground="#6C7086" VerticalAlignment="Center"/>
+                        <Slider x:Name="SpeedSlider" Grid.Column="1" Minimum="1" Maximum="20"
+                                Value="10" IsSnapToTickEnabled="True" TickFrequency="1" Margin="8,0"/>
+                        <TextBlock Text="20" Grid.Column="2" Foreground="#6C7086" VerticalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Script path -->
+                <StackPanel x:Name="ScriptPanel" Spacing="4" IsVisible="False">
+                    <TextBlock Text="{Binding [GpMapper_ScriptPath], Source={x:Static loc:LocalizationManager.Instance}}"
+                               Foreground="#A6ADC8"/>
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBox x:Name="ScriptPathBox" IsReadOnly="True" Padding="8,6"
+                                 Watermark="{Binding [GpMapper_SelectFile], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                        <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}"
+                                Click="BrowseScript_Click" Margin="8,0,0,0" Padding="12,6"/>
+                    </Grid>
+                    <TextBlock Text="{Binding [GpMapper_ScriptArgs], Source={x:Static loc:LocalizationManager.Instance}}"
+                               Foreground="#A6ADC8" Margin="0,4,0,0"/>
+                    <TextBox x:Name="ScriptArgsBox" Padding="8,6" Width="400" HorizontalAlignment="Left"
+                             Watermark="{Binding [GpMapper_OptionalArgs], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                </StackPanel>
+
+                <!-- Macro editor -->
+                <StackPanel x:Name="MacroPanel" Spacing="4" IsVisible="False">
+                    <TextBlock Text="{Binding [GpMapper_MacroSteps], Source={x:Static loc:LocalizationManager.Instance}}"
+                               Foreground="#A6ADC8"/>
+                    <TextBlock Text="{Binding [GpMapper_MacroHint], Source={x:Static loc:LocalizationManager.Instance}}"
+                               Foreground="#6C7086" FontSize="11" TextWrapping="Wrap"/>
+                    <TextBox x:Name="MacroTextBox" Height="80" AcceptsReturn="True"
+                             FontFamily="Consolas,Menlo,monospace" FontSize="12"
+                             Watermark="{Binding [GpMapper_MacroExample], Source={x:Static loc:LocalizationManager.Instance}}"
+                             Padding="8,6"/>
+                </StackPanel>
+
+                <!-- Save / Cancel -->
+                <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+                    <Button Content="{Binding [GpMapper_Save], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="SaveAssignment_Click" Padding="16,6"
+                            Background="#A6E3A1" Foreground="#1E1E2E" FontWeight="SemiBold"/>
+                    <Button Content="{Binding [GpMapper_Cancel], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="CancelAssignment_Click" Padding="16,6"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- ── Auto-profile rules ──────────────────────────────────── -->
+        <Border Background="#181825" CornerRadius="6" Padding="16">
+            <StackPanel Spacing="10">
+                <TextBlock Text="{Binding [GpMapper_AutoProfiles], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <TextBlock Text="{Binding [GpMapper_AutoProfilesHint], Source={x:Static loc:LocalizationManager.Instance}}"
+                           Foreground="#6C7086" FontSize="12" TextWrapping="Wrap"/>
+
+                <ItemsControl x:Name="AutoProfileList">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#11111B" CornerRadius="4" Padding="10,6" Margin="0,0,0,4">
+                                <Grid ColumnDefinitions="*,160,Auto">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding DisplayText}" Foreground="#A6ADC8"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="1" Text="{Binding ProfileName}"
+                                               Foreground="#F9E2AF" VerticalAlignment="Center"
+                                               Margin="8,0"/>
+                                    <Button Grid.Column="2" Content="✕" Tag="{Binding Index}"
+                                            Click="DeleteAutoRule_Click" Padding="8,4" FontSize="12"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Add new auto-profile rule -->
+                <Grid ColumnDefinitions="*,*,160,Auto" Margin="0,4,0,0">
+                    <TextBox x:Name="AutoWindowTitle" Padding="8,6"
+                             Watermark="{Binding [GpMapper_WindowTitle], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <TextBox x:Name="AutoProcessName" Grid.Column="1" Padding="8,6" Margin="4,0,0,0"
+                             Watermark="{Binding [GpMapper_ProcessName], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    <ComboBox x:Name="AutoProfileCombo" Grid.Column="2" Margin="4,0,0,0"/>
+                    <Button Grid.Column="3" Content="+" Margin="4,0,0,0"
+                            Click="AddAutoRule_Click" Padding="10,6"
+                            ToolTip.Tip="{Binding [GpMapper_AddRule], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

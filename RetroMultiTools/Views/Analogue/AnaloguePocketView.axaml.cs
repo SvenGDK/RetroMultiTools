@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.Analogue;
 
@@ -26,20 +27,20 @@ public partial class AnaloguePocketView : UserControl
 
     private async void BrowseSdCard_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFolder("Select Analogue Pocket SD Card");
+        var loc = LocalizationManager.Instance;
+        var path = await PickFolder(loc["AnaloguePocket_BrowseSdCardTitle"]);
         if (path == null) return;
 
         if (!AnaloguePocketManager.ValidateSdCard(path))
         {
-            ShowStatus("⚠ The selected folder does not appear to be a valid Analogue Pocket SD card. " +
-                        "Expected directories like Cores/, Platforms/, or Assets/.", isError: true);
+            ShowStatus(loc["AnaloguePocket_InvalidSdCard"], isError: true);
             return;
         }
 
         _sdRoot = path;
         SdCardPathTextBox.Text = path;
         SetButtonsEnabled(true);
-        ShowStatus("✔ Pocket SD card loaded successfully.", isError: false);
+        ShowStatus(loc["AnaloguePocket_SdCardLoaded"], isError: false);
     }
 
     private void SetButtonsEnabled(bool enabled)
@@ -59,9 +60,10 @@ public partial class AnaloguePocketView : UserControl
 
     private async void BrowseCores_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         SetButtonsEnabled(false);
         ProgressPanel.IsVisible = true;
-        ProgressText.Text = "Scanning installed cores...";
+        ProgressText.Text = loc["AnaloguePocket_ScanningCores"];
 
         try
         {
@@ -72,11 +74,11 @@ public partial class AnaloguePocketView : UserControl
 
             if (cores.Count == 0)
             {
-                ShowStatus("No installed cores found on the SD card.", isError: false);
+                ShowStatus(loc["AnaloguePocket_NoCoresFound"], isError: false);
             }
             else
             {
-                ShowStatus($"✔ Found {cores.Count} installed core(s).", isError: false);
+                ShowStatus(string.Format(loc["AnaloguePocket_FoundCores"], cores.Count), isError: false);
 
                 foreach (var core in cores)
                 {
@@ -99,9 +101,9 @@ public partial class AnaloguePocketView : UserControl
                                 },
                                 new TextBlock
                                 {
-                                    Text = $"Platform: {(string.IsNullOrEmpty(core.Platform) ? "Unknown" : core.Platform)}  |  " +
-                                           $"Version: {(string.IsNullOrEmpty(core.Version) ? "Unknown" : core.Version)}  |  " +
-                                           $"Size: {core.SizeFormatted}",
+                                    Text = string.Format(LocalizationManager.Instance["AnaloguePocket_PlatformLabel"], string.IsNullOrEmpty(core.Platform) ? LocalizationManager.Instance["Common_Unknown"] : core.Platform) + "  |  " +
+                                           string.Format(LocalizationManager.Instance["AnaloguePocket_VersionLabel"], string.IsNullOrEmpty(core.Version) ? LocalizationManager.Instance["Common_Unknown"] : core.Version) + "  |  " +
+                                           string.Format(LocalizationManager.Instance["AnaloguePocket_SizeLabel"], core.SizeFormatted),
                                     FontSize = 12,
                                     Foreground = ResultLabelBrush
                                 }
@@ -126,7 +128,7 @@ public partial class AnaloguePocketView : UserControl
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error scanning cores: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["AnaloguePocket_ScanCoresError"], ex.Message), isError: true);
         }
         finally
         {
@@ -139,7 +141,8 @@ public partial class AnaloguePocketView : UserControl
 
     private async void ExportScreenshots_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var outputDir = await PickFolder("Select Output Folder for Screenshots");
+        var loc = LocalizationManager.Instance;
+        var outputDir = await PickFolder(loc["AnaloguePocket_SelectOutputScreenshots"]);
         if (outputDir == null) return;
 
         SetButtonsEnabled(false);
@@ -151,12 +154,12 @@ public partial class AnaloguePocketView : UserControl
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
             int count = await AnaloguePocketManager.ExportScreenshotsAsync(_sdRoot, outputDir, progress);
             ShowStatus(count > 0
-                ? $"✔ Exported {count} screenshot(s) to {outputDir}"
-                : "No screenshots found on the SD card.", isError: false);
+                ? string.Format(loc["AnaloguePocket_ExportedScreenshots"], count, outputDir)
+                : loc["AnaloguePocket_NoScreenshots"], isError: false);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error exporting screenshots: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["AnaloguePocket_ExportScreenshotsError"], ex.Message), isError: true);
         }
         finally
         {
@@ -169,7 +172,8 @@ public partial class AnaloguePocketView : UserControl
 
     private async void BackupSaves_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var backupDir = await PickFolder("Select Backup Destination Folder");
+        var loc = LocalizationManager.Instance;
+        var backupDir = await PickFolder(loc["AnaloguePocket_SelectBackupFolder"]);
         if (backupDir == null) return;
 
         SetButtonsEnabled(false);
@@ -181,12 +185,12 @@ public partial class AnaloguePocketView : UserControl
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
             int count = await AnaloguePocketManager.BackupSavesAsync(_sdRoot, backupDir, progress);
             ShowStatus(count > 0
-                ? $"✔ Backed up {count} save file(s) to {backupDir}"
-                : "No save files found on the SD card.", isError: false);
+                ? string.Format(loc["AnaloguePocket_BackedUpSaves"], count, backupDir)
+                : loc["AnaloguePocket_NoSavesFound"], isError: false);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error backing up saves: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["AnaloguePocket_BackupSavesError"], ex.Message), isError: true);
         }
         finally
         {
@@ -197,7 +201,8 @@ public partial class AnaloguePocketView : UserControl
 
     private async void RestoreSaves_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var backupDir = await PickFolder("Select Backup Folder to Restore From");
+        var loc = LocalizationManager.Instance;
+        var backupDir = await PickFolder(loc["AnaloguePocket_SelectRestoreFolder"]);
         if (backupDir == null) return;
 
         SetButtonsEnabled(false);
@@ -209,12 +214,12 @@ public partial class AnaloguePocketView : UserControl
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
             int count = await AnaloguePocketManager.RestoreSavesAsync(_sdRoot, backupDir, progress);
             ShowStatus(count > 0
-                ? $"✔ Restored {count} save file(s) to the Pocket."
-                : "No save files found in the backup folder.", isError: false);
+                ? string.Format(loc["AnaloguePocket_RestoredSaves"], count)
+                : loc["AnaloguePocket_NoSavesInBackup"], isError: false);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error restoring saves: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["AnaloguePocket_RestoreSavesError"], ex.Message), isError: true);
         }
         finally
         {
@@ -227,6 +232,7 @@ public partial class AnaloguePocketView : UserControl
 
     private void OpenGameFolders_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         var folders = AnaloguePocketManager.GetGameFolders(_sdRoot);
 
         ResultsPanel.Children.Clear();
@@ -234,12 +240,12 @@ public partial class AnaloguePocketView : UserControl
 
         if (folders.Count == 0)
         {
-            ShowStatus("No game folders found under Assets/.", isError: false);
+            ShowStatus(loc["AnaloguePocket_NoGameFolders"], isError: false);
             ResultsBorder.IsVisible = false;
             return;
         }
 
-        ShowStatus($"✔ Found {folders.Count} platform folder(s). Click to open.", isError: false);
+        ShowStatus(string.Format(loc["AnaloguePocket_FoundFolders"], folders.Count), isError: false);
 
         foreach (var (name, path) in folders)
         {
@@ -268,7 +274,7 @@ public partial class AnaloguePocketView : UserControl
         }
         catch (Exception ex) when (ex is InvalidOperationException or System.ComponentModel.Win32Exception)
         {
-            // Silently fail if the file explorer cannot be opened
+            Trace.WriteLine($"[AnaloguePocket] OpenInFileExplorer failed for '{path}': {ex.Message}");
         }
     }
 
@@ -281,9 +287,10 @@ public partial class AnaloguePocketView : UserControl
 
     private async Task RefreshSaveStatesAsync()
     {
+        var loc = LocalizationManager.Instance;
         SetButtonsEnabled(false);
         ProgressPanel.IsVisible = true;
-        ProgressText.Text = "Scanning save states...";
+        ProgressText.Text = loc["AnaloguePocket_ScanningSaveStates"];
 
         try
         {
@@ -294,12 +301,12 @@ public partial class AnaloguePocketView : UserControl
 
             if (states.Count == 0)
             {
-                ShowStatus("No save states found on the SD card.", isError: false);
+                ShowStatus(loc["AnaloguePocket_NoSaveStates"], isError: false);
                 ResultsBorder.IsVisible = false;
             }
             else
             {
-                ShowStatus($"✔ Found {states.Count} save state(s). Select states to delete.", isError: false);
+                ShowStatus(string.Format(loc["AnaloguePocket_FoundSaveStates"], states.Count), isError: false);
 
                 var checkboxes = new List<CheckBox>();
                 foreach (var state in states)
@@ -323,14 +330,14 @@ public partial class AnaloguePocketView : UserControl
                     Margin = new Avalonia.Thickness(0, 8, 0, 0)
                 };
 
-                var selectAllBtn = new Button { Content = "Select All", Padding = new Avalonia.Thickness(12, 6) };
+                var selectAllBtn = new Button { Content = loc["AnaloguePocket_SelectAll"], Padding = new Avalonia.Thickness(12, 6) };
                 selectAllBtn.Click += (_, _) =>
                 {
                     foreach (var cb in checkboxes)
                         cb.IsChecked = true;
                 };
 
-                var deselectBtn = new Button { Content = "Deselect All", Padding = new Avalonia.Thickness(12, 6) };
+                var deselectBtn = new Button { Content = loc["AnaloguePocket_DeselectAll"], Padding = new Avalonia.Thickness(12, 6) };
                 deselectBtn.Click += (_, _) =>
                 {
                     foreach (var cb in checkboxes)
@@ -339,31 +346,39 @@ public partial class AnaloguePocketView : UserControl
 
                 var deleteBtn = new Button
                 {
-                    Content = "Delete Selected",
+                    Content = loc["AnaloguePocket_DeleteSelected"],
                     Padding = new Avalonia.Thickness(12, 6),
                     Foreground = StatusErrorBrush
                 };
                 deleteBtn.Click += async (_, _) =>
                 {
-                    var selected = checkboxes
-                        .Where(cb => cb.IsChecked == true && cb.Tag is string)
-                        .Select(cb => (string)cb.Tag!)
-                        .ToList();
-
-                    if (selected.Count == 0)
+                    try
                     {
-                        ShowStatus("No save states selected.", isError: false);
-                        return;
+                        var selected = checkboxes
+                            .Where(cb => cb.IsChecked == true && cb.Tag is string)
+                            .Select(cb => (string)cb.Tag!)
+                            .ToList();
+
+                        if (selected.Count == 0)
+                        {
+                            ShowStatus(loc["AnaloguePocket_NoStatesSelected"], isError: false);
+                            return;
+                        }
+
+                        var progress = new Progress<string>(msg => ProgressText.Text = msg);
+                        ProgressPanel.IsVisible = true;
+                        int deleted = await AnaloguePocketManager.DeleteSaveStatesAsync(selected, progress);
+                        ProgressPanel.IsVisible = false;
+                        ShowStatus(string.Format(loc["AnaloguePocket_DeletedStates"], deleted), isError: false);
+
+                        // Refresh the list
+                        await RefreshSaveStatesAsync();
                     }
-
-                    var progress = new Progress<string>(msg => ProgressText.Text = msg);
-                    ProgressPanel.IsVisible = true;
-                    int deleted = await AnaloguePocketManager.DeleteSaveStatesAsync(selected, progress);
-                    ProgressPanel.IsVisible = false;
-                    ShowStatus($"✔ Deleted {deleted} save state(s).", isError: false);
-
-                    // Refresh the list
-                    await RefreshSaveStatesAsync();
+                    catch (Exception ex)
+                    {
+                        ProgressPanel.IsVisible = false;
+                        ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
+                    }
                 };
 
                 buttonPanel.Children.Add(selectAllBtn);
@@ -374,7 +389,7 @@ public partial class AnaloguePocketView : UserControl
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error scanning save states: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["AnaloguePocket_ScanStatesError"], ex.Message), isError: true);
         }
         finally
         {
@@ -387,13 +402,14 @@ public partial class AnaloguePocketView : UserControl
 
     private async void ExportGbCamera_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
         // Pick a .sav file (GB Camera save)
         var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            Title = "Select Game Boy Camera Save File",
+            Title = loc["AnaloguePocket_SelectGbCameraTitle"],
             AllowMultiple = false,
             FileTypeFilter =
             [
@@ -405,7 +421,7 @@ public partial class AnaloguePocketView : UserControl
         if (files.Count == 0) return;
         string savPath = files[0].Path.LocalPath;
 
-        var outputDir = await PickFolder("Select Output Folder for GB Camera Photos");
+        var outputDir = await PickFolder(loc["AnaloguePocket_SelectGbCameraOutput"]);
         if (outputDir == null) return;
 
         SetButtonsEnabled(false);
@@ -417,12 +433,12 @@ public partial class AnaloguePocketView : UserControl
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
             int count = await AnaloguePocketManager.ExportGbCameraPhotosAsync(savPath, outputDir, progress);
             ShowStatus(count > 0
-                ? $"✔ Exported {count} GB Camera photo(s) to {outputDir}"
-                : "No photos found in the save file (slots may be empty).", isError: false);
+                ? string.Format(loc["AnaloguePocket_ExportedGbCameraPhotos"], count, outputDir)
+                : loc["AnaloguePocket_NoGbCameraPhotos"], isError: false);
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error exporting GB Camera photos: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["AnaloguePocket_GbCameraError"], ex.Message), isError: true);
         }
         finally
         {
@@ -435,7 +451,8 @@ public partial class AnaloguePocketView : UserControl
 
     private async void AutoCopyFiles_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var sourceDir = await PickFolder("Select Source Folder to Copy From");
+        var loc = LocalizationManager.Instance;
+        var sourceDir = await PickFolder(loc["AnaloguePocket_SelectCopySource"]);
         if (sourceDir == null) return;
 
         SetButtonsEnabled(false);
@@ -447,12 +464,12 @@ public partial class AnaloguePocketView : UserControl
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
             int count = await AnaloguePocketManager.AutoCopyFilesAsync(sourceDir, _sdRoot, progress);
             ShowStatus(count > 0
-                ? $"✔ Copied {count} file(s) to the Pocket SD card."
-                : "No files found in the source folder.", isError: false);
+                ? string.Format(loc["AnaloguePocket_CopiedFiles"], count)
+                : loc["AnaloguePocket_NoCopyFilesFound"], isError: false);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or DirectoryNotFoundException)
         {
-            ShowStatus($"✘ Error copying files: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["AnaloguePocket_CopyFilesError"], ex.Message), isError: true);
         }
         finally
         {
@@ -465,6 +482,7 @@ public partial class AnaloguePocketView : UserControl
 
     private async void LibraryImageGen_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         SetButtonsEnabled(false);
         ProgressPanel.IsVisible = true;
         ResultsBorder.IsVisible = false;
@@ -474,12 +492,12 @@ public partial class AnaloguePocketView : UserControl
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
             int count = await AnaloguePocketManager.GenerateLibraryImagesAsync(_sdRoot, progress);
             ShowStatus(count > 0
-                ? $"✔ Generated {count} library image(s)."
-                : "All ROMs already have library images, or no ROMs found.", isError: false);
+                ? string.Format(loc["AnaloguePocket_GeneratedLibraryImages"], count)
+                : loc["AnaloguePocket_NoLibraryImagesNeeded"], isError: false);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error generating library images: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["AnaloguePocket_LibraryImagesError"], ex.Message), isError: true);
         }
         finally
         {

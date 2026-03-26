@@ -2,6 +2,7 @@ using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
+using RetroMultiTools.Localization;
 
 namespace RetroMultiTools.Utilities.Mame;
 
@@ -18,7 +19,8 @@ public static class MameDir2Dat
     public static async Task<Dir2DatResult> CreateDatAsync(
         string romDirectory,
         Dir2DatOptions options,
-        IProgress<string>? progress = null)
+        IProgress<string>? progress = null,
+        CancellationToken cancellationToken = default)
     {
         if (!Directory.Exists(romDirectory))
             throw new DirectoryNotFoundException($"ROM directory not found: {romDirectory}");
@@ -31,9 +33,11 @@ public static class MameDir2Dat
         int processed = 0;
         foreach (string file in files)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             processed++;
             string fileName = Path.GetFileName(file);
-            progress?.Report($"Scanning {processed} of {files.Count}: {fileName}...");
+            progress?.Report(string.Format(LocalizationManager.Instance["MameDir2Dat_ProgressScanning"], processed, files.Count, fileName));
 
             string ext = Path.GetExtension(file).ToLowerInvariant();
 
@@ -86,7 +90,7 @@ public static class MameDir2Dat
         result.TotalGames = games.Count;
         result.Games = games;
 
-        progress?.Report($"Done — {result.TotalGames} games, {result.TotalRoms} ROMs scanned.");
+        progress?.Report(string.Format(LocalizationManager.Instance["MameDir2Dat_ProgressDone"], result.TotalGames, result.TotalRoms));
 
         return result;
     }
@@ -98,7 +102,10 @@ public static class MameDir2Dat
     {
         var doc = new XDocument(
             new XDeclaration("1.0", "UTF-8", null),
-            new XDocumentType("datafile", null, null, null),
+            new XDocumentType("datafile",
+                "-//Logiqx//DTD ROM Management Datafile//EN",
+                "http://www.logiqx.com/Dats/datafile.dtd",
+                null),
             BuildDatafileElement(result, options));
 
         try
@@ -108,7 +115,7 @@ public static class MameDir2Dat
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            try { File.Delete(outputPath); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            try { File.Delete(outputPath); } catch { /* best-effort cleanup */ }
             throw;
         }
     }
@@ -324,35 +331,9 @@ public static class MameDir2Dat
         catch (IOException) { return new Dir2DatDisk { Name = Path.GetFileNameWithoutExtension(chdPath) }; }
     }
 
-    private static string ComputeCrc32(Stream stream)
-    {
-        uint crc = 0xFFFFFFFF;
-        byte[] buffer = new byte[8192];
-        int bytesRead;
+    private static string ComputeCrc32(Stream stream) => MameCrc32.ComputeHex(stream);
 
-        while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
-        {
-            for (int i = 0; i < bytesRead; i++)
-                crc = (crc >> 8) ^ Crc32Table[(crc ^ buffer[i]) & 0xFF];
-        }
-
-        return (crc ^ 0xFFFFFFFF).ToString("X8");
-    }
-
-    private static readonly uint[] Crc32Table = GenerateCrc32Table();
-
-    private static uint[] GenerateCrc32Table()
-    {
-        var table = new uint[256];
-        for (uint i = 0; i < 256; i++)
-        {
-            uint crc = i;
-            for (int j = 0; j < 8; j++)
-                crc = (crc & 1) != 0 ? (crc >> 1) ^ 0xEDB88320 : crc >> 1;
-            table[i] = crc;
-        }
-        return table;
-    }
+    private static readonly uint[] Crc32Table = MameCrc32.Table;
 
     private static string ComputeSha1(Stream stream)
     {
@@ -435,5 +416,5 @@ public class Dir2DatResult
     public List<Dir2DatGame> Games { get; set; } = [];
 
     public string Summary =>
-        $"{TotalGames} games with {TotalRoms} ROMs scanned.";
+        string.Format(LocalizationManager.Instance["MameDir2Dat_SummaryFormat"], TotalGames, TotalRoms);
 }

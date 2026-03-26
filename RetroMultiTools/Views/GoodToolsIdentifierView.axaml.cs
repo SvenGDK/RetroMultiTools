@@ -98,7 +98,7 @@ public partial class GoodToolsIdentifierView : UserControl
                 int withCodes = results.Count(r => r.HasCodes);
                 int withoutCodes = results.Count - withCodes;
 
-                ShowStatus($"✔ Identification complete!\n{withCodes} ROM(s) with GoodTools codes, {withoutCodes} without.", isError: false);
+                ShowStatus(string.Format(LocalizationManager.Instance["GoodTools_IdentifyComplete"], withCodes, withoutCodes), isError: false);
 
                 var sb = new System.Text.StringBuilder();
                 foreach (var r in results)
@@ -128,13 +128,14 @@ public partial class GoodToolsIdentifierView : UserControl
 
                 if (result.HasCodes)
                 {
-                    ShowStatus($"✔ GoodTools codes found in: {fileName}", isError: false);
+                    ShowStatus(string.Format(LocalizationManager.Instance["GoodTools_CodesFound"], fileName), isError: false);
                     ResultsText.Text = result.GetDetailedDescription();
                 }
                 else
                 {
-                    ShowStatus($"— No GoodTools codes found in: {fileName}", isError: false);
-                    ResultsText.Text = LocalizationManager.Instance["GoodTools_NoCodesFound"];
+                    var noCodesMsg = string.Format(LocalizationManager.Instance["GoodTools_NoCodesFound"], fileName);
+                    ShowStatus(noCodesMsg, isError: false);
+                    ResultsText.Text = noCodesMsg;
                 }
 
                 ResultsBorder.IsVisible = true;
@@ -142,7 +143,7 @@ public partial class GoodToolsIdentifierView : UserControl
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or DirectoryNotFoundException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(LocalizationManager.Instance["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

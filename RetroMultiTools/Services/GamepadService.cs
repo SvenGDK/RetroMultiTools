@@ -88,6 +88,18 @@ public sealed class GamepadService : IDisposable
     private GamepadAction? _lastZoomAction;
     private DateTime _lastZoomTime;
 
+    // Trigger debouncing
+    private GamepadAction? _lastTriggerAction;
+    private DateTime _lastTriggerTime;
+    private const int TriggerDebounceMs = 400;
+
+    // LB (left shoulder) modifier for button combinations.
+    // When LB is held and another button is pressed, a combo action fires
+    // instead of the normal single-button action.  If LB is released
+    // without any combo, the original PageUp action fires.
+    private bool _lbModifierHeld;
+    private bool _lbComboConsumed;
+
     /// <summary>Axis dead-zone as a fraction of the full range (0 – 1).</summary>
     private double _deadZone = 0.25;
 
@@ -114,6 +126,10 @@ public sealed class GamepadService : IDisposable
     private const byte FallbackButtonPageDown = 8;
     private const byte FallbackButtonHome = 9;
     private const byte FallbackButtonEnd = 10;
+    private const byte FallbackButtonStatsOverlay = 11;
+    private const byte FallbackButtonGalleryMode = 12;
+    private const byte FallbackButtonArtworkViewer = 13;
+    private const byte FallbackButtonCycleRating = 14;
 
     // Generic axis indices for unmapped joysticks
     private const byte FallbackAxisLeftX = 0;
@@ -243,6 +259,10 @@ public sealed class GamepadService : IDisposable
                     OnButtonDown(ev.cbutton_button);
                     break;
 
+                case SDL2Interop.SDL_CONTROLLERBUTTONUP:
+                    OnButtonUp(ev.cbutton_button);
+                    break;
+
                 case SDL2Interop.SDL_CONTROLLERAXISMOTION:
                     OnAxisMotion(ev.caxis_axis, ev.caxis_value);
                     break;
@@ -355,13 +375,50 @@ public sealed class GamepadService : IDisposable
     //   X  → Search                    Y  → Toggle favorite
     //   Start → Help overlay           Back/Select → Random game
     //   Guide → Exit Big Picture Mode
-    //   LB → Page Up                   RB → Page Down
+    //   LB → Modifier (PageUp on release when no combo)
+    //   RB → Page Down
     //   D-pad → Navigate cards         Left stick → Navigate cards
     //   L3 → Home (first card)         R3 → End (last card)
     //   Right stick Y → Zoom in/out
+    //   LT → Collection Statistics     RT → Gallery Mode
+    //
+    // LB + button combos:
+    //   LB + A → Artwork Viewer        LB + B → Recently Played
+    //   LB + Y → Cycle Rating          LB + D-pad ← → System Cycle
 
     private void OnButtonDown(byte button)
     {
+        // LB acts as a modifier key for button combinations.
+        // When pressed, we defer the PageUp action until release so that
+        // LB + another button can trigger a combo action instead.
+        if (button == SDL2Interop.SDL_CONTROLLER_BUTTON_LEFTSHOULDER)
+        {
+            _lbModifierHeld = true;
+            _lbComboConsumed = false;
+            return;
+        }
+
+        // When LB is held, check for combo mappings first
+        if (_lbModifierHeld)
+        {
+            GamepadAction? comboAction = button switch
+            {
+                SDL2Interop.SDL_CONTROLLER_BUTTON_A => GamepadAction.ArtworkViewer,
+                SDL2Interop.SDL_CONTROLLER_BUTTON_B => GamepadAction.RecentlyPlayed,
+                SDL2Interop.SDL_CONTROLLER_BUTTON_Y => GamepadAction.CycleRating,
+                SDL2Interop.SDL_CONTROLLER_BUTTON_DPAD_LEFT => GamepadAction.SystemCycleBackward,
+                SDL2Interop.SDL_CONTROLLER_BUTTON_DPAD_RIGHT => GamepadAction.SystemCycleForward,
+                _ => null
+            };
+
+            if (comboAction.HasValue)
+            {
+                _lbComboConsumed = true;
+                RaiseAction(comboAction.Value);
+                return;
+            }
+        }
+
         GamepadAction? action = button switch
         {
             SDL2Interop.SDL_CONTROLLER_BUTTON_A => GamepadAction.Confirm,
@@ -370,7 +427,6 @@ public sealed class GamepadService : IDisposable
             SDL2Interop.SDL_CONTROLLER_BUTTON_Y => GamepadAction.ToggleFavorite,
             SDL2Interop.SDL_CONTROLLER_BUTTON_START => GamepadAction.Help,
             SDL2Interop.SDL_CONTROLLER_BUTTON_BACK => GamepadAction.RandomGame,
-            SDL2Interop.SDL_CONTROLLER_BUTTON_LEFTSHOULDER => GamepadAction.PageUp,
             SDL2Interop.SDL_CONTROLLER_BUTTON_RIGHTSHOULDER => GamepadAction.PageDown,
             SDL2Interop.SDL_CONTROLLER_BUTTON_DPAD_UP => GamepadAction.NavigateUp,
             SDL2Interop.SDL_CONTROLLER_BUTTON_DPAD_DOWN => GamepadAction.NavigateDown,
@@ -384,6 +440,23 @@ public sealed class GamepadService : IDisposable
 
         if (action.HasValue)
             RaiseAction(action.Value);
+    }
+
+    /// <summary>
+    /// Handles button release events from mapped game controllers.
+    /// Used for the LB modifier: if LB is released without any combo
+    /// button being pressed, the deferred PageUp action fires.
+    /// </summary>
+    private void OnButtonUp(byte button)
+    {
+        if (button == SDL2Interop.SDL_CONTROLLER_BUTTON_LEFTSHOULDER)
+        {
+            if (!_lbComboConsumed)
+                RaiseAction(GamepadAction.PageUp);
+
+            _lbModifierHeld = false;
+            _lbComboConsumed = false;
+        }
     }
 
     // ── Analog stick handling ──────────────────────────────────────────
@@ -415,6 +488,19 @@ public sealed class GamepadService : IDisposable
             case SDL2Interop.SDL_CONTROLLER_AXIS_RIGHTY:
                 if (active)
                     action = normalized < 0 ? GamepadAction.ZoomIn : GamepadAction.ZoomOut;
+                break;
+
+            // Triggers report 0–1 (positive only). The 'active' guard
+            // already checks abs(normalized) > deadZone, so the extra
+            // positive check ensures we only fire on a real pull.
+            case SDL2Interop.SDL_CONTROLLER_AXIS_TRIGGERLEFT:
+                if (active && normalized > _deadZone)
+                    action = GamepadAction.StatsOverlay;
+                break;
+
+            case SDL2Interop.SDL_CONTROLLER_AXIS_TRIGGERRIGHT:
+                if (active && normalized > _deadZone)
+                    action = GamepadAction.GalleryMode;
                 break;
         }
 
@@ -464,6 +550,25 @@ public sealed class GamepadService : IDisposable
             {
                 // Stick returned to center — allow immediate zoom on next deflection
                 _lastZoomAction = null;
+            }
+        }
+        else if (axis is SDL2Interop.SDL_CONTROLLER_AXIS_TRIGGERLEFT or SDL2Interop.SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
+        {
+            // Fire trigger actions once per pull (debounce like zoom)
+            if (action.HasValue)
+            {
+                DateTime now = DateTime.UtcNow;
+                bool debounceElapsed = (now - _lastTriggerTime).TotalMilliseconds >= TriggerDebounceMs;
+                if (action != _lastTriggerAction || debounceElapsed)
+                {
+                    _lastTriggerAction = action;
+                    _lastTriggerTime = now;
+                    RaiseAction(action.Value);
+                }
+            }
+            else
+            {
+                _lastTriggerAction = null;
             }
         }
     }
@@ -628,6 +733,9 @@ public sealed class GamepadService : IDisposable
         }
         _heldStickAction = null;
         _lastZoomAction = null;
+        _lastTriggerAction = null;
+        _lbModifierHeld = false;
+        _lbComboConsumed = false;
 
         foreach (IntPtr gc in _controllers.Values)
             SDL2Interop.SDL_GameControllerClose(gc);
@@ -663,7 +771,8 @@ public sealed class GamepadService : IDisposable
     /// mapping.  Uses a generic positional mapping:
     ///   0 → Confirm   1 → RomInfo   2 → Search   3 → ToggleFavorite
     ///   4 → RandomGame   5 → Back   6 → Help   7–8 → PageUp/Down
-    ///   9 → Home   10 → End
+    ///   9 → Home   10 → End   11 → StatsOverlay   12 → GalleryMode
+    ///   13 → ArtworkViewer   14 → CycleRating
     /// </summary>
     private void OnFallbackButtonDown(int instanceId, byte button)
     {
@@ -682,6 +791,10 @@ public sealed class GamepadService : IDisposable
             FallbackButtonPageDown => GamepadAction.PageDown,
             FallbackButtonHome => GamepadAction.Home,
             FallbackButtonEnd => GamepadAction.End,
+            FallbackButtonStatsOverlay => GamepadAction.StatsOverlay,
+            FallbackButtonGalleryMode => GamepadAction.GalleryMode,
+            FallbackButtonArtworkViewer => GamepadAction.ArtworkViewer,
+            FallbackButtonCycleRating => GamepadAction.CycleRating,
             _ => null
         };
 
@@ -808,5 +921,12 @@ public enum GamepadAction
     Home,
     End,
     ZoomIn,
-    ZoomOut
+    ZoomOut,
+    StatsOverlay,
+    GalleryMode,
+    ArtworkViewer,
+    CycleRating,
+    RecentlyPlayed,
+    SystemCycleForward,
+    SystemCycleBackward
 }

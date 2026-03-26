@@ -6,6 +6,7 @@ using RetroMultiTools.Models;
 using RetroMultiTools.Services;
 using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.Mame;
+using RetroMultiTools.Utilities.Mednafen;
 using RetroMultiTools.Utilities.RetroArch;
 
 namespace RetroMultiTools.Views;
@@ -15,6 +16,8 @@ public partial class RomBrowserView : UserControl
     private List<RomInfo> _allRoms = new();
     private string _currentFolder = string.Empty;
     private CancellationTokenSource? _artworkCts;
+    private CancellationTokenSource? _scanCts;
+    private List<RomInfo>? _pendingDeleteRoms;
 
     public RomBrowserView()
     {
@@ -22,6 +25,9 @@ public partial class RomBrowserView : UserControl
         PopulateSystemFilter();
         DetachedFromVisualTree += (_, _) =>
         {
+            _scanCts?.Cancel();
+            _scanCts?.Dispose();
+            _scanCts = null;
             CancelArtworkLoading();
             ClearArtworkImages();
         };
@@ -30,7 +36,7 @@ public partial class RomBrowserView : UserControl
     private void PopulateSystemFilter()
     {
         SystemFilterCombo.Items.Clear();
-        SystemFilterCombo.Items.Add(new ComboBoxItem { Content = LocalizationManager.Instance["BigPicture_AllSystems"], Tag = "all" });
+        SystemFilterCombo.Items.Add(new ComboBoxItem { Content = LocalizationManager.Instance["Browser_AllSystems"], Tag = "all" });
         foreach (RomSystem sys in Enum.GetValues<RomSystem>())
         {
             if (sys == RomSystem.Unknown) continue;
@@ -45,48 +51,69 @@ public partial class RomBrowserView : UserControl
 
     private async void BrowseFolderButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel == null) return;
-
-        var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+        try
         {
-            Title = "Select ROM Folder",
-            AllowMultiple = false
-        });
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel == null) return;
 
-        if (folders.Count == 0) return;
+            var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+            {
+                Title = LocalizationManager.Instance["Browser_SelectFolderTitle"],
+                AllowMultiple = false
+            });
 
-        _currentFolder = folders[0].Path.LocalPath;
-        FolderPathText.Text = _currentFolder;
-        await ScanCurrentFolder();
+            if (folders.Count == 0) return;
+
+            _currentFolder = folders[0].Path.LocalPath;
+            FolderPathText.Text = _currentFolder;
+            await ScanCurrentFolder();
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[RomBrowser] BrowseFolderButton_Click failed: {ex.Message}");
+        }
     }
 
     private async Task ScanCurrentFolder()
     {
-        StatusText.Text = LocalizationManager.Instance["BigPicture_Scanning"];
+        _scanCts?.Cancel();
+        _scanCts?.Dispose();
+        _scanCts = new CancellationTokenSource();
+        var token = _scanCts.Token;
+
+        StatusText.Text = LocalizationManager.Instance["Browser_Scanning"];
         ScanProgressBar.IsVisible = true;
         BrowseFolderButton.IsEnabled = false;
         ClearArtwork();
 
         try
         {
-            var progress = new Progress<string>(msg => StatusText.Text = msg);
+            var progress = new Progress<string>(msg =>
+            {
+                if (!token.IsCancellationRequested)
+                    StatusText.Text = msg;
+            });
             _allRoms = await Task.Run(() =>
             {
                 var roms = RomOrganizer.ScanDirectory(_currentFolder, progress);
                 foreach (var rom in roms)
                 {
+                    token.ThrowIfCancellationRequested();
                     var gtResult = GoodToolsIdentifier.Identify(rom.FileName);
                     rom.GoodToolsCodes = gtResult.GetSummary();
                     if (gtResult.HasCodes)
                         rom.GoodToolsCodesDescription = gtResult.GetDetailedDescription();
                 }
                 return roms;
-            });
+            }, token).ConfigureAwait(true);
+        }
+        catch (OperationCanceledException)
+        {
+            return;
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            StatusText.Text = $"Scan error: {ex.Message}";
+            StatusText.Text = string.Format(LocalizationManager.Instance["Browser_ScanError"], ex.Message);
             _allRoms = new();
         }
         finally
@@ -98,7 +125,7 @@ public partial class RomBrowserView : UserControl
         ApplyFilter();
         UpdateButtonStates();
         if (_allRoms.Count > 0)
-            StatusText.Text = $"Found {_allRoms.Count} ROM(s).";
+            StatusText.Text = string.Format(LocalizationManager.Instance["Browser_FoundRoms"], _allRoms.Count);
     }
 
     private void SystemFilterCombo_SelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -135,9 +162,9 @@ public partial class RomBrowserView : UserControl
         RomDataGrid.ItemsSource = result;
 
         if (_allRoms.Count > 0 && result.Count != _allRoms.Count)
-            StatusText.Text = $"Showing {result.Count} of {_allRoms.Count} ROM(s).";
+            StatusText.Text = string.Format(LocalizationManager.Instance["Browser_ShowingFiltered"], result.Count, _allRoms.Count);
         else if (_allRoms.Count > 0)
-            StatusText.Text = $"Found {_allRoms.Count} ROM(s).";
+            StatusText.Text = string.Format(LocalizationManager.Instance["Browser_FoundRoms"], _allRoms.Count);
     }
 
     private void RomDataGrid_SelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -163,11 +190,13 @@ public partial class RomBrowserView : UserControl
                     or RomSystem.GameBoy or RomSystem.GameBoyColor or RomSystem.GameBoyAdvance
                     or RomSystem.MegaDrive or RomSystem.SegaMasterSystem;
         bool canLaunchMame = MameLauncher.IsSystemSupported(selectedRom.System);
+        bool canLaunchMednafen = MednafenLauncher.IsSystemSupported(selectedRom.System);
 
         ContextConvertItem.IsVisible = canConvert;
         ContextTrimItem.IsVisible = canTrim;
         ContextExportHeaderItem.IsVisible = canExportHeader;
         ContextLaunchMameItem.IsVisible = canLaunchMame;
+        ContextLaunchMednafenItem.IsVisible = canLaunchMednafen;
     }
 
     private void UpdateButtonStates()
@@ -176,6 +205,7 @@ public partial class RomBrowserView : UserControl
         bool hasRoms = _allRoms.Count > 0;
         bool hasSelection = RomDataGrid.SelectedItems.Count > 0;
         bool isArcadeSelected = RomDataGrid.SelectedItem is RomInfo rom && MameLauncher.IsSystemSupported(rom.System);
+        bool isMednafenSelected = RomDataGrid.SelectedItem is RomInfo mednafenRom && MednafenLauncher.IsSystemSupported(mednafenRom.System);
 
         AddRomButton.IsEnabled = hasFolderSelected;
         CopyRomButton.IsEnabled = hasSelection;
@@ -185,6 +215,7 @@ public partial class RomBrowserView : UserControl
         HostShareButton.IsEnabled = hasFolderSelected || hasSelection;
         LaunchRetroArchButton.IsEnabled = hasSelection;
         LaunchMameButton.IsEnabled = isArcadeSelected;
+        LaunchMednafenButton.IsEnabled = isMednafenSelected;
         OrganizeButton.IsEnabled = hasRoms;
     }
 
@@ -213,7 +244,7 @@ public partial class RomBrowserView : UserControl
         var token = _artworkCts.Token;
 
         ArtworkRomName.Text = romInfo.FileName;
-        ArtworkStatusText.Text = LocalizationManager.Instance["BigPicture_ArtworkLoading"];
+        ArtworkStatusText.Text = LocalizationManager.Instance["Browser_ArtworkLoading"];
         ClearArtworkImages();
 
         try
@@ -238,8 +269,8 @@ public partial class RomBrowserView : UserControl
                 TitleScreenImage.Source = LoadBitmapFromBytes(artwork.TitleScreen);
 
             ArtworkStatusText.Text = artwork.HasAnyArtwork
-                ? "Artwork loaded."
-                : "No artwork found for this ROM.";
+                ? LocalizationManager.Instance["Browser_ArtworkLoaded"]
+                : LocalizationManager.Instance["Browser_ArtworkNotFound"];
         }
         catch (TaskCanceledException)
         {
@@ -248,10 +279,11 @@ public partial class RomBrowserView : UserControl
         catch (HttpRequestException ex)
         {
             if (!token.IsCancellationRequested)
-                ArtworkStatusText.Text = $"Network error: {ex.Message}";
+                ArtworkStatusText.Text = string.Format(LocalizationManager.Instance["Browser_NetworkError"], ex.Message);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            System.Diagnostics.Trace.WriteLine($"[RomBrowser] Artwork load failed: {ex.Message}");
             if (!token.IsCancellationRequested)
                 ArtworkStatusText.Text = LocalizationManager.Instance["Browser_ArtworkFailed"];
         }
@@ -289,158 +321,229 @@ public partial class RomBrowserView : UserControl
 
     private void ClearArtworkImages()
     {
-        (BoxArtImage.Source as Bitmap)?.Dispose();
-        (SnapImage.Source as Bitmap)?.Dispose();
-        (TitleScreenImage.Source as Bitmap)?.Dispose();
+        // Detach bitmaps from Image controls before disposing to prevent
+        // Avalonia from rendering an already-disposed bitmap.
+        var boxArt = BoxArtImage.Source as Bitmap;
+        var snap = SnapImage.Source as Bitmap;
+        var titleScreen = TitleScreenImage.Source as Bitmap;
         BoxArtImage.Source = null;
         SnapImage.Source = null;
         TitleScreenImage.Source = null;
+        boxArt?.Dispose();
+        snap?.Dispose();
+        titleScreen?.Dispose();
     }
 
     private async void AddRomButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        if (string.IsNullOrEmpty(_currentFolder)) return;
-
-        var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel == null) return;
-
-        var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        try
         {
-            Title = "Select ROM Files to Add",
-            AllowMultiple = true,
-            FileTypeFilter =
-            [
-                new FilePickerFileType("ROM Files")
-                {
-                    Patterns = [ "*.nes","*.smc","*.sfc","*.z64","*.n64","*.v64",
-                                       "*.gb","*.gbc","*.gba","*.vb","*.vboy",
-                                       "*.sms","*.md","*.gen",
-                                       "*.bin","*.32x","*.gg","*.a26","*.a52","*.a78",
-                                       "*.j64","*.jag","*.lnx","*.lyx",
-                                       "*.pce","*.tg16","*.iso","*.cue","*.3do",
-                                       "*.chd","*.rvz","*.gcm",
-                                       "*.ngp","*.ngc",
-                                       "*.col","*.cv","*.int",
-                                       "*.mx1","*.mx2",
-                                       "*.dsk","*.cdt","*.sna",
-                                       "*.tap",
-                                       "*.mo5","*.k7","*.fd",
-                                       "*.sv","*.ccc" ]
-                },
-                FilePickerFileTypes.All
-            ]
-        });
+            if (string.IsNullOrEmpty(_currentFolder)) return;
 
-        if (files.Count == 0) return;
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel == null) return;
 
-        int added = 0;
-        int failed = 0;
-
-        foreach (var file in files)
-        {
-            try
+            var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
             {
-                string sourcePath = file.Path.LocalPath;
-                string destPath = Path.Combine(_currentFolder, Path.GetFileName(sourcePath));
+                Title = LocalizationManager.Instance["Browser_SelectRomFilesTitle"],
+                AllowMultiple = true,
+                FileTypeFilter =
+                [
+                    new FilePickerFileType(LocalizationManager.Instance["Browser_RomFilesDescription"])
+                    {
+                        Patterns = [ "*.nes","*.smc","*.sfc","*.z64","*.n64","*.v64",
+                                           "*.gb","*.gbc","*.gba","*.vb","*.vboy",
+                                           "*.sms","*.md","*.gen",
+                                           "*.bin","*.32x","*.gg","*.a26","*.a52","*.a78",
+                                           "*.j64","*.jag","*.lnx","*.lyx",
+                                           "*.pce","*.tg16","*.iso","*.cue","*.3do",
+                                           "*.chd","*.rvz","*.gcm",
+                                           "*.ngp","*.ngc",
+                                           "*.col","*.cv","*.int",
+                                           "*.mx1","*.mx2",
+                                           "*.dsk","*.cdt","*.sna",
+                                           "*.tap",
+                                           "*.mo5","*.k7","*.fd",
+                                           "*.sv","*.ccc",
+                                           "*.zip","*.rar","*.7z" ]
+                    },
+                    FilePickerFileTypes.All
+                ]
+            });
 
-                if (!string.Equals(Path.GetFullPath(sourcePath), Path.GetFullPath(destPath), StringComparison.OrdinalIgnoreCase))
+            if (files.Count == 0) return;
+
+            int added = 0;
+            int failed = 0;
+
+            foreach (var file in files)
+            {
+                try
                 {
-                    File.Copy(sourcePath, destPath, overwrite: false);
-                    added++;
+                    string sourcePath = file.Path.LocalPath;
+                    string destPath = Path.Combine(_currentFolder, Path.GetFileName(sourcePath));
+
+                    if (!string.Equals(Path.GetFullPath(sourcePath), Path.GetFullPath(destPath), StringComparison.OrdinalIgnoreCase))
+                    {
+                        File.Copy(sourcePath, destPath, overwrite: false);
+                        added++;
+                    }
+                }
+                catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+                {
+                    failed++;
                 }
             }
-            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
-            {
-                failed++;
-            }
-        }
 
-        StatusText.Text = $"Added {added} ROM(s)" + (failed > 0 ? $", {failed} failed." : ".");
-        await ScanCurrentFolder();
+            StatusText.Text = string.Format(LocalizationManager.Instance["Browser_AddedRoms"], added) + (failed > 0 ? string.Format(LocalizationManager.Instance["Browser_FailedCount"], failed) : "");
+            await ScanCurrentFolder();
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[RomBrowser] AddRomButton_Click failed: {ex.Message}");
+        }
     }
 
     private async void CopyRomButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var selectedRoms = GetSelectedRoms();
-        if (selectedRoms.Count == 0) return;
-
-        var destFolder = await PickFolder("Select Destination Folder for Copy");
-        if (destFolder == null) return;
-
-        int copied = 0;
-        int failed = 0;
-
-        foreach (var rom in selectedRoms)
+        try
         {
-            try
-            {
-                RomOrganizer.CopyRom(rom.FilePath, destFolder);
-                copied++;
-            }
-            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
-            {
-                failed++;
-            }
-        }
+            var selectedRoms = GetSelectedRoms();
+            if (selectedRoms.Count == 0) return;
 
-        StatusText.Text = $"Copied {copied} ROM(s) to {destFolder}" + (failed > 0 ? $", {failed} failed." : ".");
+            var destFolder = await PickFolder(LocalizationManager.Instance["Browser_CopyDestinationTitle"]);
+            if (destFolder == null) return;
+
+            int copied = 0;
+            int failed = 0;
+
+            foreach (var rom in selectedRoms)
+            {
+                try
+                {
+                    RomOrganizer.CopyRom(rom.FilePath, destFolder);
+                    copied++;
+                }
+                catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+                {
+                    failed++;
+                }
+            }
+
+            StatusText.Text = string.Format(LocalizationManager.Instance["Browser_CopiedRoms"], copied, destFolder) + (failed > 0 ? string.Format(LocalizationManager.Instance["Browser_FailedCount"], failed) : "");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[RomBrowser] CopyRomButton_Click failed: {ex.Message}");
+        }
     }
 
     private async void MoveRomButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var selectedRoms = GetSelectedRoms();
-        if (selectedRoms.Count == 0) return;
-
-        var destFolder = await PickFolder("Select Destination Folder for Move");
-        if (destFolder == null) return;
-
-        int moved = 0;
-        int failed = 0;
-
-        foreach (var rom in selectedRoms)
+        try
         {
-            try
+            var selectedRoms = GetSelectedRoms();
+            if (selectedRoms.Count == 0) return;
+
+            var destFolder = await PickFolder(LocalizationManager.Instance["Browser_MoveDestinationTitle"]);
+            if (destFolder == null) return;
+
+            int moved = 0;
+            int failed = 0;
+
+            foreach (var rom in selectedRoms)
             {
-                RomOrganizer.MoveRom(rom.FilePath, destFolder);
-                moved++;
+                try
+                {
+                    RomOrganizer.MoveRom(rom.FilePath, destFolder);
+                    moved++;
+                }
+                catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+                {
+                    failed++;
+                }
             }
-            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
-            {
-                failed++;
-            }
+
+            StatusText.Text = string.Format(LocalizationManager.Instance["Browser_MovedRoms"], moved, destFolder) + (failed > 0 ? string.Format(LocalizationManager.Instance["Browser_FailedCount"], failed) : "");
+
+            if (moved > 0)
+                await ScanCurrentFolder();
         }
-
-        StatusText.Text = $"Moved {moved} ROM(s) to {destFolder}" + (failed > 0 ? $", {failed} failed." : ".");
-
-        if (moved > 0)
-            await ScanCurrentFolder();
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[RomBrowser] MoveRomButton_Click failed: {ex.Message}");
+        }
     }
 
-    private async void DeleteRomButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void DeleteRomButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var selectedRoms = GetSelectedRoms();
-        if (selectedRoms.Count == 0) return;
-
-        int deleted = 0;
-        int failed = 0;
-
-        foreach (var rom in selectedRoms)
+        try
         {
-            try
-            {
-                RomOrganizer.DeleteRom(rom.FilePath);
-                deleted++;
-            }
-            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
-            {
-                failed++;
-            }
+            var selectedRoms = GetSelectedRoms();
+            if (selectedRoms.Count == 0) return;
+
+            _pendingDeleteRoms = selectedRoms;
+            ConfirmDeleteText.Text = string.Format(
+                LocalizationManager.Instance["Browser_ConfirmDeletePrompt"], selectedRoms.Count);
+            ConfirmDeletePanel.IsVisible = true;
         }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[RomBrowser] DeleteRomButton_Click failed: {ex.Message}");
+        }
+    }
 
-        StatusText.Text = $"Deleted {deleted} ROM(s)" + (failed > 0 ? $", {failed} failed." : ".");
+    private async void ConfirmDelete_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        try
+        {
+            ConfirmDeletePanel.IsVisible = false;
+            var romsToDelete = _pendingDeleteRoms;
+            _pendingDeleteRoms = null;
+            if (romsToDelete == null || romsToDelete.Count == 0) return;
 
-        if (deleted > 0)
-            await ScanCurrentFolder();
+            int deleted = 0;
+            int failed = 0;
+
+            foreach (var rom in romsToDelete)
+            {
+                try
+                {
+                    RomOrganizer.DeleteRom(rom.FilePath);
+                    deleted++;
+                }
+                catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+                {
+                    failed++;
+                }
+            }
+
+            StatusText.Text = string.Format(LocalizationManager.Instance["Browser_DeletedRoms"], deleted) + (failed > 0 ? string.Format(LocalizationManager.Instance["Browser_FailedCount"], failed) : "");
+
+            if (deleted > 0)
+                await ScanCurrentFolder();
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[RomBrowser] ConfirmDelete_Click failed: {ex.Message}");
+        }
+        finally
+        {
+            _pendingDeleteRoms = null;
+        }
+    }
+
+    private void CancelDelete_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        try
+        {
+            ConfirmDeletePanel.IsVisible = false;
+            _pendingDeleteRoms = null;
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[RomBrowser] CancelDelete_Click failed: {ex.Message}");
+        }
     }
 
     private void LaunchRetroArchButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -449,11 +552,11 @@ public partial class RomBrowserView : UserControl
 
         if (!RetroArchLauncher.IsSystemSupported(selectedRom.System))
         {
-            StatusText.Text = $"System '{selectedRom.SystemName}' is not supported for RetroArch launch.";
+            StatusText.Text = string.Format(LocalizationManager.Instance["Browser_SystemNotSupported"], selectedRom.SystemName);
             return;
         }
 
-        StatusText.Text = $"Launching {selectedRom.FileName} with {RetroArchLauncher.GetCoreDisplayName(selectedRom.System)}...";
+        StatusText.Text = string.Format(LocalizationManager.Instance["Browser_LaunchingRom"], selectedRom.FileName, RetroArchLauncher.GetCoreDisplayName(selectedRom.System));
         var result = RetroArchLauncher.Launch(selectedRom.FilePath, selectedRom.System);
         StatusText.Text = result.Message;
 
@@ -465,7 +568,7 @@ public partial class RomBrowserView : UserControl
             // Append BIOS notice for Neo Geo AES/MVS after successful launch
             if (selectedRom.System == RomSystem.NeoGeo)
             {
-                StatusText.Text = result.Message + "  ·  " + LocalizationManager.Instance["Common_NeoGeoBiosNotice"];
+                StatusText.Text = string.Format(LocalizationManager.Instance["Common_NeoGeoBiosNoticeWithSeparator"], result.Message, LocalizationManager.Instance["Common_NeoGeoBiosNotice"]);
             }
 
             if (result.Process != null)
@@ -517,6 +620,41 @@ public partial class RomBrowserView : UserControl
         }
     }
 
+    private void LaunchMednafenButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (RomDataGrid.SelectedItem is not RomInfo selectedRom) return;
+
+        if (!MednafenLauncher.IsSystemSupported(selectedRom.System))
+        {
+            StatusText.Text = string.Format(
+                LocalizationManager.Instance["Browser_MednafenSystemNotSupported"], selectedRom.SystemName);
+            return;
+        }
+
+        StatusText.Text = string.Format(
+            LocalizationManager.Instance["Browser_LaunchingMednafen"], selectedRom.FileName);
+        var result = MednafenLauncher.Launch(selectedRom.FilePath, selectedRom.System);
+        StatusText.Text = result.Message;
+
+        if (result.Success)
+        {
+            AppSettings.Instance.RecordRecentlyPlayed(selectedRom.FilePath);
+            AppSettings.Instance.IncrementPlayCount(selectedRom.FilePath);
+
+            if (result.Process != null)
+            {
+                if (AppSettings.Instance.MinimizeToTrayOnLaunch)
+                {
+                    MinimizeToTrayAndRestoreOnExit(result.Process);
+                }
+                else
+                {
+                    result.Process.Dispose();
+                }
+            }
+        }
+    }
+
     private async void MinimizeToTrayAndRestoreOnExit(System.Diagnostics.Process process)
     {
         try
@@ -545,6 +683,10 @@ public partial class RomBrowserView : UserControl
                 });
             }
         }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[RomBrowser] Minimize-to-tray failed: {ex.Message}");
+        }
         finally
         {
             process.Dispose();
@@ -553,92 +695,126 @@ public partial class RomBrowserView : UserControl
 
     private async void OrganizeButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        if (_allRoms.Count == 0) return;
-
-        var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel is not Window parentWindow) return;
-
-        var modeDialog = new OrganizeModeWindow();
-        var moveChoice = await modeDialog.ShowDialog<bool?>(parentWindow);
-        if (moveChoice is null) return;
-
-        bool moveFiles = moveChoice.Value;
-
-        var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
-        {
-            Title = "Select Output Folder for Organized ROMs"
-        });
-
-        if (folders.Count == 0) return;
-
-        string outputDir = folders[0].Path.LocalPath;
-        StatusText.Text = LocalizationManager.Instance["Browser_Organizing"];
-        OrganizeButton.IsEnabled = false;
-
         try
         {
-            var result = await Task.Run(() => RomOrganizer.OrganizeBySystem(_allRoms, outputDir, moveFiles, systemFilter: null));
-            StatusText.Text = $"Organized into {outputDir}: {result.Summary}";
+            if (_allRoms.Count == 0) return;
 
-            if (moveFiles && result.Processed > 0)
-                await ScanCurrentFolder();
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel is not Window parentWindow) return;
+
+            var modeDialog = new OrganizeModeWindow();
+            var moveChoice = await modeDialog.ShowDialog<bool?>(parentWindow);
+            if (moveChoice is null) return;
+
+            bool moveFiles = moveChoice.Value;
+
+            var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+            {
+                Title = LocalizationManager.Instance["Browser_SelectOrganizeOutputTitle"]
+            });
+
+            if (folders.Count == 0) return;
+
+            string outputDir = folders[0].Path.LocalPath;
+            StatusText.Text = LocalizationManager.Instance["Browser_Organizing"];
+
+            // Disable all file-mutation buttons to prevent concurrent operations
+            OrganizeButton.IsEnabled = false;
+            AddRomButton.IsEnabled = false;
+            CopyRomButton.IsEnabled = false;
+            MoveRomButton.IsEnabled = false;
+            DeleteRomButton.IsEnabled = false;
+
+            try
+            {
+                var result = await Task.Run(() => RomOrganizer.OrganizeBySystem(_allRoms, outputDir, moveFiles, systemFilter: null));
+                StatusText.Text = string.Format(LocalizationManager.Instance["Browser_OrganizeComplete"], outputDir, result.Summary);
+
+                if (moveFiles && result.Processed > 0)
+                    await ScanCurrentFolder();
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                StatusText.Text = string.Format(LocalizationManager.Instance["Browser_OrganizeError"], ex.Message);
+            }
+            finally
+            {
+                UpdateButtonStates();
+            }
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        catch (Exception ex)
         {
-            StatusText.Text = $"Organize error: {ex.Message}";
-        }
-        finally
-        {
-            OrganizeButton.IsEnabled = true;
+            System.Diagnostics.Trace.WriteLine($"[RomBrowser] OrganizeButton_Click failed: {ex.Message}");
         }
     }
 
     private async void SendToRemoteButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var selectedRoms = GetSelectedRoms();
-        if (selectedRoms.Count == 0) return;
+        try
+        {
+            var selectedRoms = GetSelectedRoms();
+            if (selectedRoms.Count == 0) return;
 
-        var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel is not Window parentWindow) return;
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel is not Window parentWindow) return;
 
-        var dialog = new SendToRemoteWindow(selectedRoms);
-        await dialog.ShowDialog(parentWindow);
+            var dialog = new SendToRemoteWindow(selectedRoms);
+            await dialog.ShowDialog(parentWindow);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[RomBrowser] SendToRemoteButton_Click failed: {ex.Message}");
+        }
     }
 
     private async void HostShareButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel is not Window parentWindow) return;
-
-        var selectedRoms = GetSelectedRoms();
-        HostRomsWindow dialog;
-
-        if (selectedRoms.Count > 0)
+        try
         {
-            dialog = new HostRomsWindow(selectedRoms);
-        }
-        else if (!string.IsNullOrEmpty(_currentFolder))
-        {
-            dialog = new HostRomsWindow(_currentFolder);
-        }
-        else
-        {
-            return;
-        }
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel is not Window parentWindow) return;
 
-        await dialog.ShowDialog(parentWindow);
+            var selectedRoms = GetSelectedRoms();
+            HostRomsWindow dialog;
+
+            if (selectedRoms.Count > 0)
+            {
+                dialog = new HostRomsWindow(selectedRoms);
+            }
+            else if (!string.IsNullOrEmpty(_currentFolder))
+            {
+                dialog = new HostRomsWindow(_currentFolder);
+            }
+            else
+            {
+                return;
+            }
+
+            await dialog.ShowDialog(parentWindow);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[RomBrowser] HostShareButton_Click failed: {ex.Message}");
+        }
     }
 
     private async void HostShareSelectedButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var selectedRoms = GetSelectedRoms();
-        if (selectedRoms.Count == 0) return;
+        try
+        {
+            var selectedRoms = GetSelectedRoms();
+            if (selectedRoms.Count == 0) return;
 
-        var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel is not Window parentWindow) return;
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel is not Window parentWindow) return;
 
-        var dialog = new HostRomsWindow(selectedRoms);
-        await dialog.ShowDialog(parentWindow);
+            var dialog = new HostRomsWindow(selectedRoms);
+            await dialog.ShowDialog(parentWindow);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[RomBrowser] HostShareSelectedButton_Click failed: {ex.Message}");
+        }
     }
 
     private void ContextLaunch_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -651,36 +827,48 @@ public partial class RomBrowserView : UserControl
         LaunchMameButton_Click(sender, e);
     }
 
+    private void ContextLaunchMednafen_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        LaunchMednafenButton_Click(sender, e);
+    }
+
     private void ContextConvert_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (RomDataGrid.SelectedItem is not RomInfo selectedRom) return;
 
-        StatusText.Text = $"To convert {selectedRom.FileName}, use the ROM Format Converter tool.";
+        StatusText.Text = string.Format(LocalizationManager.Instance["Browser_UseFormatConverter"], selectedRom.FileName);
     }
 
     private void ContextTrim_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (RomDataGrid.SelectedItem is not RomInfo selectedRom) return;
 
-        StatusText.Text = $"To trim {selectedRom.FileName}, use the ROM Trimmer tool.";
+        StatusText.Text = string.Format(LocalizationManager.Instance["Browser_UseTrimmer"], selectedRom.FileName);
     }
 
     private async void ContextExportHeader_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        if (RomDataGrid.SelectedItem is not RomInfo selectedRom) return;
-
-        var destFolder = await PickFolder("Select Output Folder for Header Export");
-        if (destFolder == null) return;
-
         try
         {
-            string outputPath = Path.Combine(destFolder, Path.GetFileNameWithoutExtension(selectedRom.FileName) + "_header.txt");
-            await RomHeaderExporter.ExportSingleAsync(selectedRom.FilePath, outputPath);
-            StatusText.Text = $"Header exported to {outputPath}";
+            if (RomDataGrid.SelectedItem is not RomInfo selectedRom) return;
+
+            var destFolder = await PickFolder(LocalizationManager.Instance["Browser_ExportDestinationTitle"]);
+            if (destFolder == null) return;
+
+            try
+            {
+                string outputPath = Path.Combine(destFolder, Path.GetFileNameWithoutExtension(selectedRom.FileName) + "_header.txt");
+                await RomHeaderExporter.ExportSingleAsync(selectedRom.FilePath, outputPath);
+                StatusText.Text = string.Format(LocalizationManager.Instance["Browser_HeaderExported"], outputPath);
+            }
+            catch (Exception ex) when (ex is IOException or InvalidOperationException)
+            {
+                StatusText.Text = string.Format(LocalizationManager.Instance["Browser_ExportError"], ex.Message);
+            }
         }
-        catch (Exception ex) when (ex is IOException or InvalidOperationException)
+        catch (Exception ex)
         {
-            StatusText.Text = $"Export error: {ex.Message}";
+            System.Diagnostics.Trace.WriteLine($"[RomBrowser] ContextExportHeader_Click failed: {ex.Message}");
         }
     }
 
@@ -688,7 +876,7 @@ public partial class RomBrowserView : UserControl
     {
         if (RomDataGrid.SelectedItem is not RomInfo selectedRom) return;
 
-        StatusText.Text = $"To verify {selectedRom.FileName}, use the DAT Verifier or Dump Verifier tool.";
+        StatusText.Text = string.Format(LocalizationManager.Instance["Browser_UseVerifier"], selectedRom.FileName);
     }
 
     private List<RomInfo> GetSelectedRoms()

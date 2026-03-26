@@ -28,12 +28,12 @@
                 </StackPanel>
 
                 <!-- System Selection -->
-                <ComboBox x:Name="SystemCombo" Width="400"
+                <ComboBox x:Name="SystemCombo" MinWidth="400"
                           PlaceholderText="{Binding [RAShortcut_SelectSystem], Source={x:Static loc:LocalizationManager.Instance}}"
                           SelectionChanged="SystemCombo_SelectionChanged"/>
 
                 <!-- Core Selection -->
-                <ComboBox x:Name="CoreCombo" Width="400"
+                <ComboBox x:Name="CoreCombo" MinWidth="400"
                           PlaceholderText="{Binding [RAShortcut_SelectCore], Source={x:Static loc:LocalizationManager.Instance}}"/>
             </StackPanel>
         </Border>

@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -30,7 +31,7 @@ public partial class SaveFileConverterView : UserControl
 
     private async void BrowseInput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select Save File",
+        var path = await PickFile(LocalizationManager.Instance["SaveConv_BrowseInputTitle"],
         [
             new FilePickerFileType("Save Files")
             {
@@ -47,12 +48,13 @@ public partial class SaveFileConverterView : UserControl
 
     private void AnalyzeFile(string path)
     {
+        var loc = LocalizationManager.Instance;
         try
         {
             _fileInfo = SaveFileConverter.Analyze(path);
-            FileSizeText.Text = $"{_fileInfo.FileSizeFormatted} ({_fileInfo.FileSize:N0} bytes)";
+            FileSizeText.Text = string.Format(loc["Common_FileSizeFormat"], _fileInfo.FileSizeFormatted, _fileInfo.FileSize);
             DetectedTypeText.Text = _fileInfo.DetectedType;
-            PowerOfTwoText.Text = _fileInfo.IsPowerOfTwo ? "Yes" : "No";
+            PowerOfTwoText.Text = _fileInfo.IsPowerOfTwo ? loc["Common_Yes"] : loc["Common_No"];
 
             InfoPanel.IsVisible = true;
             ConvertButton.IsEnabled = true;
@@ -62,13 +64,18 @@ public partial class SaveFileConverterView : UserControl
             _fileInfo = null;
             InfoPanel.IsVisible = false;
             ConvertButton.IsEnabled = false;
-            ShowStatus($"✘ Could not analyze file: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["SaveConv_AnalyzeError"], ex.Message), isError: true);
         }
+    }
+
+    private void ConversionComboBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        UpdateOutputPath();
     }
 
     private void UpdateOutputPath()
     {
-        if (string.IsNullOrEmpty(InputFileTextBox.Text)) return;
+        if (InputFileTextBox == null || string.IsNullOrEmpty(InputFileTextBox.Text)) return;
 
         string dir = Path.GetDirectoryName(InputFileTextBox.Text) ?? "";
         string name = Path.GetFileNameWithoutExtension(InputFileTextBox.Text);
@@ -84,12 +91,13 @@ public partial class SaveFileConverterView : UserControl
 
     private async void BrowseOutput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
         var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Save Converted File As",
+            Title = loc["SaveConv_SaveDialogTitle"],
             SuggestedFileName = Path.GetFileName(OutputFileTextBox.Text ?? "converted.sav")
         });
 
@@ -99,23 +107,24 @@ public partial class SaveFileConverterView : UserControl
 
     private async void ConvertButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         string input = InputFileTextBox.Text ?? "";
         string output = OutputFileTextBox.Text ?? "";
 
         if (string.IsNullOrEmpty(input))
         {
-            ShowStatus("Please select an input save file.", isError: true);
+            ShowStatus(loc["SaveConv_SelectInputFile"], isError: true);
             return;
         }
         if (string.IsNullOrEmpty(output))
         {
-            ShowStatus("Please specify an output file path.", isError: true);
+            ShowStatus(loc["SaveConv_SelectOutputPath"], isError: true);
             return;
         }
 
         if (ConversionComboBox.SelectedIndex < 0)
         {
-            ShowStatus("Please select a conversion type.", isError: true);
+            ShowStatus(loc["SaveConv_SelectConversion"], isError: true);
             return;
         }
 
@@ -131,11 +140,11 @@ public partial class SaveFileConverterView : UserControl
             await SaveFileConverter.ConvertAsync(input, output, conversion, progress);
 
             var outputInfo = new FileInfo(output);
-            ShowStatus($"✔ Conversion complete!\nOutput: {output}\nSize: {FileUtils.FormatFileSize(outputInfo.Length)}", isError: false);
+            ShowStatus(string.Format(loc["SaveConv_ConversionComplete"], output, FileUtils.FormatFileSize(outputInfo.Length)), isError: false);
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {

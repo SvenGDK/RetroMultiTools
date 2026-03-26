@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
 
 namespace RetroMultiTools.Views;
@@ -20,7 +21,8 @@ public partial class DatFilterView : UserControl
 
     private async void BrowseDat_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var path = await PickFile("Select DAT File",
+        var loc = LocalizationManager.Instance;
+        var path = await PickFile(loc["DatFilter_BrowseDatTitle"],
         [
             new FilePickerFileType("DAT Files") { Patterns = ["*.dat", "*.xml"] },
             FilePickerFileTypes.All
@@ -32,13 +34,13 @@ public partial class DatFilterView : UserControl
         try
         {
             _datEntries = DatVerifier.LoadDatFile(path);
-            DatInfoText.Text = $"Loaded {_datEntries.Count} ROM entries from DAT file.";
+            DatInfoText.Text = string.Format(loc["DatFilter_LoadedEntries"], _datEntries.Count);
             DatInfoPanel.IsVisible = true;
         }
         catch (Exception ex) when (ex is InvalidOperationException or IOException)
         {
             _datEntries = null;
-            DatInfoText.Text = $"Error loading DAT file: {ex.Message}";
+            DatInfoText.Text = string.Format(loc["DatFilter_LoadError"], ex.Message);
             DatInfoPanel.IsVisible = true;
         }
 
@@ -52,9 +54,10 @@ public partial class DatFilterView : UserControl
 
     private async void FilterButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        var loc = LocalizationManager.Instance;
         if (_datEntries == null)
         {
-            ShowStatus("Please load a DAT file first.", isError: true);
+            ShowStatus(loc["DatFilter_LoadDatFirst"], isError: true);
             return;
         }
 
@@ -73,11 +76,8 @@ public partial class DatFilterView : UserControl
             _filteredEntries = filtered;
 
             ShowStatus(
-                $"✔ Filtering complete!\n\n" +
-                $"Original entries: {stats.OriginalCount}\n" +
-                $"Excluded by category: {stats.ExcludedByCategory}\n" +
-                $"Excluded by 1G1R: {stats.ExcludedBy1G1R}\n" +
-                $"Remaining entries: {stats.FilteredCount}",
+                string.Format(loc["DatFilter_FilterComplete"],
+                    stats.OriginalCount, stats.ExcludedByCategory, stats.ExcludedBy1G1R, stats.FilteredCount),
                 isError: false);
 
             var lines = new System.Text.StringBuilder();
@@ -86,7 +86,7 @@ public partial class DatFilterView : UserControl
                 lines.AppendLine(filtered[i].GameName);
 
             if (filtered.Count > shown)
-                lines.AppendLine($"... and {filtered.Count - shown} more entries");
+                lines.AppendLine(string.Format(loc["DatFilter_MoreEntries"], filtered.Count - shown));
 
             ResultsText.Text = lines.ToString();
             ResultsBorder.IsVisible = true;
@@ -94,7 +94,7 @@ public partial class DatFilterView : UserControl
         }
         catch (Exception ex) when (ex is IOException or InvalidOperationException)
         {
-            ShowStatus($"✘ Error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
         }
         finally
         {
@@ -106,13 +106,14 @@ public partial class DatFilterView : UserControl
     private async void ExportButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (_filteredEntries == null || _filteredEntries.Count == 0) return;
+        var loc = LocalizationManager.Instance;
 
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
         var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "Export Filtered DAT",
+            Title = loc["DatFilter_ExportDialogTitle"],
             SuggestedFileName = "filtered.dat",
             FileTypeChoices =
             [
@@ -128,14 +129,14 @@ public partial class DatFilterView : UserControl
         try
         {
             var progress = new Progress<string>(msg => ProgressText.Text = msg);
-            string datName = Path.GetFileNameWithoutExtension(DatFileTextBox.Text ?? "filtered") + " (Filtered)";
+            string datName = Path.GetFileNameWithoutExtension(DatFileTextBox.Text ?? "filtered") + loc["DatFilter_FilteredSuffix"];
             await DatFilter.ExportFilteredDat(_filteredEntries, outputPath, datName,
-                $"Filtered by RetroMultiTools — {_filteredEntries.Count} entries", progress);
-            ShowStatus($"✔ Exported {_filteredEntries.Count} entries to:\n{outputPath}", isError: false);
+                string.Format(loc["DatFilter_FilteredComment"], _filteredEntries.Count), progress);
+            ShowStatus(string.Format(loc["DatFilter_ExportComplete"], _filteredEntries.Count, outputPath), isError: false);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ShowStatus($"✘ Export error: {ex.Message}", isError: true);
+            ShowStatus(string.Format(loc["DatFilter_ExportError"], ex.Message), isError: true);
         }
     }
 
