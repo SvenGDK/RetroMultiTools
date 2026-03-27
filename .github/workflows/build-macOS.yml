@@ -1,0 +1,214 @@
+name: Build macOS
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_NOLOGO: true
+  APP_VERSION: '4.1.0'
+  SDL2_VERSION: '2.30.12'
+
+jobs:
+  build-macos:
+    name: macOS ${{ matrix.arch }}
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x64, arm64]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Publish (Self-contained)
+        run: dotnet publish RetroMultiTools -c Release -r osx-${{ matrix.arch }} --self-contained -o publish-sc
+
+      - name: Publish Updater (Self-contained)
+        run: dotnet publish RetroMultiTools.Updater -c Release -r osx-${{ matrix.arch }} --self-contained -o publish-updater-sc
+
+      - name: Bundle Updater (Self-contained)
+        run: cp publish-updater-sc/RetroMultiTools.Updater* publish-sc/
+
+      - name: Publish
+        run: dotnet publish RetroMultiTools -c Release -r osx-${{ matrix.arch }} --no-self-contained -o publish
+
+      - name: Publish Updater
+        run: dotnet publish RetroMultiTools.Updater -c Release -r osx-${{ matrix.arch }} --no-self-contained -o publish-updater
+
+      - name: Bundle Updater
+        run: cp publish-updater/RetroMultiTools.Updater* publish/
+
+      - name: Download SDL2
+        run: |
+          curl -fsSL -o SDL2.dmg "https://github.com/libsdl-org/SDL/releases/download/release-${{ env.SDL2_VERSION }}/SDL2-${{ env.SDL2_VERSION }}.dmg"
+          hdiutil attach SDL2.dmg -mountpoint /Volumes/SDL2
+          cp /Volumes/SDL2/SDL2.framework/Versions/A/SDL2 publish/libSDL2.dylib
+          cp /Volumes/SDL2/SDL2.framework/Versions/A/SDL2 publish-sc/libSDL2.dylib
+          hdiutil detach /Volumes/SDL2
+
+      - name: Download controller profiles
+        run: |
+          curl -fsSL -o gamecontrollerdb.txt https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
+          cp gamecontrollerdb.txt publish/
+          cp gamecontrollerdb.txt publish-sc/
+
+      - name: Create ZIP (Portable)
+        run: |
+          cd publish
+          zip -r ../osx-${{ matrix.arch }}.zip .
+
+      - name: Create ZIP (Self-contained Portable)
+        run: |
+          cd publish-sc
+          zip -r ../osx-${{ matrix.arch }}-Selfcontained.zip .
+
+      - name: Generate macOS icon
+        run: |
+          ICONSET="AppIcon.iconset"
+          mkdir -p "$ICONSET"
+          sips -z 16 16     Icon.png --out "$ICONSET/icon_16x16.png"      > /dev/null
+          sips -z 32 32     Icon.png --out "$ICONSET/icon_16x16@2x.png"   > /dev/null
+          sips -z 32 32     Icon.png --out "$ICONSET/icon_32x32.png"      > /dev/null
+          sips -z 64 64     Icon.png --out "$ICONSET/icon_32x32@2x.png"   > /dev/null
+          sips -z 128 128   Icon.png --out "$ICONSET/icon_128x128.png"    > /dev/null
+          sips -z 256 256   Icon.png --out "$ICONSET/icon_128x128@2x.png" > /dev/null
+          sips -z 256 256   Icon.png --out "$ICONSET/icon_256x256.png"    > /dev/null
+          sips -z 512 512   Icon.png --out "$ICONSET/icon_256x256@2x.png" > /dev/null
+          sips -z 512 512   Icon.png --out "$ICONSET/icon_512x512.png"    > /dev/null
+          iconutil -c icns "$ICONSET" -o AppIcon.icns
+          rm -rf "$ICONSET"
+
+      - name: Create PKG Installer
+        run: |
+          APP="RetroMultiTools.app"
+          mkdir -p "$APP/Contents/MacOS"
+          mkdir -p "$APP/Contents/Resources"
+
+          cp -r publish/* "$APP/Contents/MacOS/"
+          chmod +x "$APP/Contents/MacOS/RetroMultiTools"
+          chmod +x "$APP/Contents/MacOS/RetroMultiTools.Updater"
+          cp AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
+
+          cat > "$APP/Contents/Info.plist" << 'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>CFBundleName</key>
+            <string>Retro Multi Tools</string>
+            <key>CFBundleDisplayName</key>
+            <string>Retro Multi Tools</string>
+            <key>CFBundleIdentifier</key>
+            <string>com.svengdk.retromultitools</string>
+            <key>CFBundleVersion</key>
+            <string>${{ env.APP_VERSION }}</string>
+            <key>CFBundleShortVersionString</key>
+            <string>${{ env.APP_VERSION }}</string>
+            <key>CFBundleExecutable</key>
+            <string>RetroMultiTools</string>
+            <key>CFBundleIconFile</key>
+            <string>AppIcon</string>
+            <key>CFBundlePackageType</key>
+            <string>APPL</string>
+            <key>LSMinimumSystemVersion</key>
+            <string>10.15</string>
+            <key>NSHighResolutionCapable</key>
+            <true/>
+          </dict>
+          </plist>
+          PLIST
+
+          mkdir -p pkg-root/Applications
+          cp -r "$APP" pkg-root/Applications/
+
+          pkgbuild \
+            --root pkg-root \
+            --identifier com.svengdk.retromultitools \
+            --version ${{ env.APP_VERSION }} \
+            --install-location / \
+            osx-${{ matrix.arch }}-Installer.pkg
+
+      - name: Create PKG Installer (Self-contained)
+        run: |
+          APP_SC="RetroMultiTools-SC.app"
+          mkdir -p "$APP_SC/Contents/MacOS"
+          mkdir -p "$APP_SC/Contents/Resources"
+
+          cp -r publish-sc/* "$APP_SC/Contents/MacOS/"
+          chmod +x "$APP_SC/Contents/MacOS/RetroMultiTools"
+          chmod +x "$APP_SC/Contents/MacOS/RetroMultiTools.Updater"
+          cp AppIcon.icns "$APP_SC/Contents/Resources/AppIcon.icns"
+
+          cat > "$APP_SC/Contents/Info.plist" << 'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>CFBundleName</key>
+            <string>Retro Multi Tools</string>
+            <key>CFBundleDisplayName</key>
+            <string>Retro Multi Tools</string>
+            <key>CFBundleIdentifier</key>
+            <string>com.svengdk.retromultitools</string>
+            <key>CFBundleVersion</key>
+            <string>${{ env.APP_VERSION }}</string>
+            <key>CFBundleShortVersionString</key>
+            <string>${{ env.APP_VERSION }}</string>
+            <key>CFBundleExecutable</key>
+            <string>RetroMultiTools</string>
+            <key>CFBundleIconFile</key>
+            <string>AppIcon</string>
+            <key>CFBundlePackageType</key>
+            <string>APPL</string>
+            <key>LSMinimumSystemVersion</key>
+            <string>10.15</string>
+            <key>NSHighResolutionCapable</key>
+            <true/>
+          </dict>
+          </plist>
+          PLIST
+
+          mkdir -p pkg-root-sc/Applications
+          cp -r "$APP_SC" pkg-root-sc/Applications/RetroMultiTools.app
+
+          pkgbuild \
+            --root pkg-root-sc \
+            --identifier com.svengdk.retromultitools \
+            --version ${{ env.APP_VERSION }} \
+            --install-location / \
+            osx-${{ matrix.arch }}-Selfcontained-Installer.pkg
+
+      - name: Upload ZIP (Portable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: osx-${{ matrix.arch }}-zip
+          path: osx-${{ matrix.arch }}.zip
+
+      - name: Upload ZIP (Self-contained Portable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: osx-${{ matrix.arch }}-Selfcontained-zip
+          path: osx-${{ matrix.arch }}-Selfcontained.zip
+
+      - name: Upload Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: osx-${{ matrix.arch }}-installer
+          path: osx-${{ matrix.arch }}-Installer.pkg
+
+      - name: Upload Installer (Self-contained)
+        uses: actions/upload-artifact@v4
+        with:
+          name: osx-${{ matrix.arch }}-Selfcontained-Installer
+          path: osx-${{ matrix.arch }}-Selfcontained-Installer.pkg

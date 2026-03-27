@@ -1,7 +1,9 @@
+using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using Markdown.Avalonia;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Services;
@@ -33,11 +35,37 @@ public partial class App : Application
             BuildTrayIcon();
 
             // Rebuild the native menu and tray icon when the language changes
-            // (their labels are plain strings, not data-bound)
-            LocalizationManager.Instance.PropertyChanged += (_, _) =>
+            // (their labels are plain strings, not data-bound).
+            // The Culture setter fires PropertyChanged twice ("" then "Item");
+            // respond only to "Item" and post at Background priority so all
+            // binding updates have settled before native menus are touched.
+            // Native menu backends on macOS/Linux can crash when manipulated
+            // during re-entrant event processing or active layout passes.
+            LocalizationManager.Instance.PropertyChanged += (_, e) =>
             {
-                BuildNativeMenu();
-                RebuildTrayMenu();
+                if (e.PropertyName != "Item") return;
+                Dispatcher.UIThread.Post(() =>
+                {
+                    try
+                    {
+                        BuildNativeMenu();
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Trace.WriteLine(
+                            $"[App] BuildNativeMenu failed after language change: {ex}");
+                    }
+
+                    try
+                    {
+                        RebuildTrayMenu();
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Trace.WriteLine(
+                            $"[App] RebuildTrayMenu failed after language change: {ex}");
+                    }
+                }, DispatcherPriority.Background);
             };
 
             // Show/hide the tray icon when the window is minimized to or restored from the tray
@@ -169,6 +197,14 @@ public partial class App : Application
         nativeMenu.Items.Add(helpMenu);
 
         NativeMenu.SetMenu(this, nativeMenu);
+
+        // On macOS the menu bar belongs to the frontmost window.
+        // Setting the menu on the Window in addition to the Application
+        // ensures the native menu bar is visible on macOS.
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && _mainWindow != null)
+        {
+            NativeMenu.SetMenu(_mainWindow, nativeMenu);
+        }
     }
 
     private void AddNavSubmenu(NativeMenu parentMenu, string header, params (string tag, string label)[] items)

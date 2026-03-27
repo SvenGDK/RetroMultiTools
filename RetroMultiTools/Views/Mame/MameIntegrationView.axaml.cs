@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Services;
+using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.Mame;
 using System.Runtime.InteropServices;
 
@@ -41,56 +42,53 @@ public partial class MameIntegrationView : UserControl
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
-        var fileTypes = new List<FilePickerFileType>();
+        string? selectedPath = null;
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
-            fileTypes.Add(new FilePickerFileType(LocalizationManager.Instance["MameIntegration_MameApplication"])
+            // On macOS, .app bundles are directories and cannot be selected via
+            // OpenFilePickerAsync (Avalonia limitation – see Avalonia #18080).
+            // Use a folder picker so the user can select .app bundles or the
+            // folder containing the executable.  If the folder picker also cannot
+            // select the .app, the user can paste the path directly in the text
+            // box and press Enter.
+            var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
             {
-                Patterns = ["mame", "*.app"],
-                AppleUniformTypeIdentifiers = ["com.apple.application-bundle", "public.unix-executable"]
+                Title = LocalizationManager.Instance["Settings_SelectMameExecutable"],
+                AllowMultiple = false
             });
+
+            if (folders.Count == 0) return;
+
+            selectedPath = Uri.UnescapeDataString(folders[0].Path.LocalPath);
+
+            if (TryAcceptMamePath(selectedPath))
+                return;
+
+            MameStatusText.Text = LocalizationManager.Instance["Settings_MameNotFound"];
+            return;
         }
-        else
+
+        // Non-macOS: standard file picker
+        var fileTypes = new List<FilePickerFileType>
         {
-            fileTypes.Add(new FilePickerFileType(LocalizationManager.Instance["MameIntegration_MameExecutable"])
+            new(LocalizationManager.Instance["MameIntegration_MameExecutable"])
             {
                 Patterns = [RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "mame.exe" : "mame"]
-            });
-        }
+            },
+            FilePickerFileTypes.All
+        };
 
-        fileTypes.Add(FilePickerFileTypes.All);
-
-        var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        var pickedFiles = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
             Title = LocalizationManager.Instance["Settings_SelectMameExecutable"],
             AllowMultiple = false,
             FileTypeFilter = fileTypes
         });
 
-        if (files.Count == 0) return;
+        if (pickedFiles.Count == 0) return;
 
-        string selectedPath = files[0].Path.LocalPath;
-
-        // On macOS, accept .app bundles and resolve to the executable inside
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        {
-            string trimmed = selectedPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-            if (trimmed.EndsWith(".app", StringComparison.OrdinalIgnoreCase))
-            {
-                string resolved = MameLauncher.ResolveMamePath(trimmed);
-                if (File.Exists(resolved))
-                {
-                    AppSettings.Instance.MamePath = trimmed;
-                    MamePathTextBox.Text = trimmed;
-                    MameStatusText.Text = LocalizationManager.Instance["Settings_MamePathSaved"];
-                    return;
-                }
-
-                MameStatusText.Text = LocalizationManager.Instance["Settings_MameInvalidBundle"];
-                return;
-            }
-        }
+        selectedPath = Uri.UnescapeDataString(pickedFiles[0].Path.LocalPath);
 
         string exeName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "mame.exe" : "mame";
         string fileName = Path.GetFileName(selectedPath);
@@ -104,6 +102,55 @@ public partial class MameIntegrationView : UserControl
         AppSettings.Instance.MamePath = selectedPath;
         MamePathTextBox.Text = selectedPath;
         MameStatusText.Text = LocalizationManager.Instance["Settings_MamePathSaved"];
+    }
+
+    /// <summary>
+    /// Allows the user to paste or type a path and press Enter to validate it.
+    /// </summary>
+    private void MamePathTextBox_KeyDown(object? sender, Avalonia.Input.KeyEventArgs e)
+    {
+        if (e.Key != Avalonia.Input.Key.Enter) return;
+
+        string text = MamePathTextBox.Text?.Trim() ?? string.Empty;
+        if (string.IsNullOrEmpty(text))
+        {
+            MameStatusText.Text = LocalizationManager.Instance["Settings_MameNotFound"];
+            return;
+        }
+
+        if (TryAcceptMamePath(text))
+            return;
+
+        MameStatusText.Text = LocalizationManager.Instance["Settings_MameNotFound"];
+    }
+
+    /// <summary>
+    /// Validates a candidate path and, when it resolves to a MAME executable,
+    /// saves it to settings.  Returns true when the path was accepted.
+    /// </summary>
+    private bool TryAcceptMamePath(string candidatePath)
+    {
+        string trimmed = candidatePath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        string resolved = MameLauncher.ResolveMamePath(trimmed);
+
+        if (File.Exists(resolved))
+        {
+            // On macOS, prefer storing the .app bundle path for a cleaner UX.
+            string storedPath = trimmed;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                string? bundleRoot = AppBundleHelper.GetAppBundleRoot(resolved);
+                if (bundleRoot != null)
+                    storedPath = bundleRoot;
+            }
+
+            AppSettings.Instance.MamePath = storedPath;
+            MamePathTextBox.Text = storedPath;
+            MameStatusText.Text = LocalizationManager.Instance["Settings_MamePathSaved"];
+            return true;
+        }
+
+        return false;
     }
 
     private void DetectMameButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

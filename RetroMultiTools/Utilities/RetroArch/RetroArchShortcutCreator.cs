@@ -220,14 +220,28 @@ $shortcut.Save()
     {
         string safeName = SanitizeFileName(config.Name);
         string desktopPath = Path.Combine(outputDir, $"{safeName}.desktop");
-        string arguments = BuildArguments(config, corePath);
+
+        // Build the Exec= line using proper desktop entry escaping for each argument.
+        var execLine = new StringBuilder();
+        execLine.Append(EscapeDesktopExec(retroArchPath));
+        execLine.Append(" -L ");
+        execLine.Append(EscapeDesktopExec(corePath));
+        if (config.Fullscreen)
+            execLine.Append(" --fullscreen");
+        if (!string.IsNullOrWhiteSpace(config.ExtraArguments))
+        {
+            execLine.Append(' ');
+            execLine.Append(EscapeDesktopExec(config.ExtraArguments));
+        }
+        execLine.Append(' ');
+        execLine.Append(EscapeDesktopExec(config.RomPath));
 
         var sb = new StringBuilder();
         sb.AppendLine("[Desktop Entry]");
         sb.AppendLine("Type=Application");
         sb.AppendLine($"Name={config.Name}");
         sb.AppendLine($"Comment=Launch {config.Name} in RetroArch");
-        sb.AppendLine($"Exec={EscapeDesktopExec(retroArchPath)} {arguments}");
+        sb.AppendLine($"Exec={execLine}");
         sb.AppendLine($"Path={Path.GetDirectoryName(retroArchPath)}");
         sb.AppendLine("Terminal=false");
         sb.AppendLine("Categories=Game;Emulator;");
@@ -412,6 +426,7 @@ $shortcut.Save()
                 "/usr/lib/libretro",
                 "/usr/lib64/libretro",
                 "/usr/lib/x86_64-linux-gnu/libretro",
+                "/usr/lib/aarch64-linux-gnu/libretro",
                 "/usr/local/lib/libretro",
                 Path.Combine(homeDir, ".config", "retroarch", "cores"),
                 // Flatpak core locations
@@ -439,6 +454,8 @@ $shortcut.Save()
                 // Homebrew locations
                 "/opt/homebrew/lib/retroarch/cores",
                 "/usr/local/lib/retroarch/cores",
+                // MacPorts location
+                "/opt/local/lib/retroarch/cores",
             ];
             foreach (string dir in dirs)
             {

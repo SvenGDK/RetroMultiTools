@@ -6064,4 +6064,64 @@ Run:notepad.exe</value>
   <data name="MameDatEditor_DatInfoIcon" xml:space="preserve">
     <value>📋 {0}</value>
   </data>
+  <data name="RetroArchLauncher_RomNotFound" xml:space="preserve">
+    <value>ไม่พบไฟล์ ROM</value>
+  </data>
+  <data name="RetroArchLauncher_RetroArchNotFound" xml:space="preserve">
+    <value>ไม่พบ RetroArch โปรดกำหนดเส้นทางในการตั้งค่าหรือดาวน์โหลด RetroArch</value>
+  </data>
+  <data name="RetroArchLauncher_NoCoreMapping" xml:space="preserve">
+    <value>ไม่พบการแมปหลัก RetroArch สำหรับระบบ: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_CoreNotFound" xml:space="preserve">
+    <value>ไม่พบคอร์ '{0}' โปรดติดตั้งคอร์ '{0}' ใน RetroArch (Online Updater → Core Downloader)</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToStart" xml:space="preserve">
+    <value>ไม่สามารถเริ่มกระบวนการ RetroArch</value>
+  </data>
+  <data name="RetroArchLauncher_Launched" xml:space="preserve">
+    <value>เปิดตัวด้วยคอร์: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToLaunch" xml:space="preserve">
+    <value>ไม่สามารถเปิด RetroArch: {0}</value>
+  </data>
+  <data name="MednafenLauncher_RomNotFound" xml:space="preserve">
+    <value>ไม่พบไฟล์ ROM</value>
+  </data>
+  <data name="MednafenLauncher_MednafenNotFound" xml:space="preserve">
+    <value>ไม่พบ Mednafen โปรดกำหนดเส้นทางในการตั้งค่าหรือดาวน์โหลด Mednafen</value>
+  </data>
+  <data name="MednafenLauncher_NoModuleMapping" xml:space="preserve">
+    <value>ไม่พบการแมปโมดูล Mednafen สำหรับระบบ: {0}</value>
+  </data>
+  <data name="MednafenLauncher_FailedToStart" xml:space="preserve">
+    <value>ไม่สามารถเริ่มกระบวนการ Mednafen</value>
+  </data>
+  <data name="MednafenLauncher_Launched" xml:space="preserve">
+    <value>เปิดตัว {0} พร้อมด้วย Mednafen ({1})</value>
+  </data>
+  <data name="MednafenLauncher_FailedToLaunch" xml:space="preserve">
+    <value>ไม่สามารถเปิด Mednafen: {0}</value>
+  </data>
+  <data name="RAIntegration_RetroArchApplication" xml:space="preserve">
+    <value>แอปพลิเคชั่น RetroArch</value>
+  </data>
+  <data name="RAIntegration_RetroArchExecutable" xml:space="preserve">
+    <value>RetroArch ปฏิบัติการได้</value>
+  </data>
+  <data name="MednafenIntegration_MednafenApplication" xml:space="preserve">
+    <value>แอปพลิเคชั่น Mednafen</value>
+  </data>
+  <data name="MednafenIntegration_MednafenExecutable" xml:space="preserve">
+    <value>Mednafen ปฏิบัติการได้</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>เรียกดู...</value>
+  </data>
+  <data name="Settings_AutoDetect" xml:space="preserve">
+    <value>ตรวจจับอัตโนมัติ</value>
+  </data>
+  <data name="Settings_Clear" xml:space="preserve">
+    <value>ล้าง</value>
+  </data>
 </root>

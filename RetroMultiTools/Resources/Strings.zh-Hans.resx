@@ -6064,4 +6064,64 @@ Run:notepad.exe</value>
   <data name="MameDatEditor_DatInfoIcon" xml:space="preserve">
     <value>📋 {0}</value>
   </data>
+  <data name="RetroArchLauncher_RomNotFound" xml:space="preserve">
+    <value>未找到 ROM 文件。</value>
+  </data>
+  <data name="RetroArchLauncher_RetroArchNotFound" xml:space="preserve">
+    <value>未找到 RetroArch。请在“设置”中配置路径或下载RetroArch。</value>
+  </data>
+  <data name="RetroArchLauncher_NoCoreMapping" xml:space="preserve">
+    <value>未找到系统的 RetroArch 核心映射：{0}</value>
+  </data>
+  <data name="RetroArchLauncher_CoreNotFound" xml:space="preserve">
+    <value>未找到核心“{0}”。请在 RetroArch 中安装“{0}”核心（在线更新程序 → 核心下载程序）。</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToStart" xml:space="preserve">
+    <value>无法启动 RetroArch 进程。</value>
+  </data>
+  <data name="RetroArchLauncher_Launched" xml:space="preserve">
+    <value>推出核心：{0}</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToLaunch" xml:space="preserve">
+    <value>无法启动 RetroArch：{0}</value>
+  </data>
+  <data name="MednafenLauncher_RomNotFound" xml:space="preserve">
+    <value>未找到 ROM 文件。</value>
+  </data>
+  <data name="MednafenLauncher_MednafenNotFound" xml:space="preserve">
+    <value>未找到 Mednafen。请在“设置”中配置路径或下载Mednafen。</value>
+  </data>
+  <data name="MednafenLauncher_NoModuleMapping" xml:space="preserve">
+    <value>未找到系统的 Mednafen 模块映射：{0}</value>
+  </data>
+  <data name="MednafenLauncher_FailedToStart" xml:space="preserve">
+    <value>无法启动 Mednafen 进程。</value>
+  </data>
+  <data name="MednafenLauncher_Launched" xml:space="preserve">
+    <value>推出 {0} 和 Mednafen ({1})。</value>
+  </data>
+  <data name="MednafenLauncher_FailedToLaunch" xml:space="preserve">
+    <value>无法启动 Mednafen：{0}</value>
+  </data>
+  <data name="RAIntegration_RetroArchApplication" xml:space="preserve">
+    <value>RetroArch 应用</value>
+  </data>
+  <data name="RAIntegration_RetroArchExecutable" xml:space="preserve">
+    <value>RetroArch 可执行文件</value>
+  </data>
+  <data name="MednafenIntegration_MednafenApplication" xml:space="preserve">
+    <value>Mednafen应用</value>
+  </data>
+  <data name="MednafenIntegration_MednafenExecutable" xml:space="preserve">
+    <value>Mednafen 可执行文件</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>浏览...</value>
+  </data>
+  <data name="Settings_AutoDetect" xml:space="preserve">
+    <value>自动检测</value>
+  </data>
+  <data name="Settings_Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
 </root>

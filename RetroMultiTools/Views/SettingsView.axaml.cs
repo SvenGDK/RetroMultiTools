@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Platform.Storage;
+using Avalonia.Threading;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Services;
 using RetroMultiTools.Utilities;
@@ -47,7 +48,17 @@ public partial class SettingsView : UserControl
 
         if (LanguageCombo.SelectedItem is ComboBoxItem item && item.Tag is string cultureName)
         {
-            LocalizationManager.Instance.Culture = new CultureInfo(cultureName);
+            // Defer the culture change so it runs after the ComboBox event
+            // is fully processed.  Setting Culture synchronously inside
+            // SelectionChanged fires PropertyChanged, which triggers a
+            // binding-update avalanche across the entire visual tree while
+            // the native ComboBox backend is still handling the selection.
+            // On macOS (AppKit) and some Linux desktops this re-entrancy
+            // crashes the native menu / tray subsystem.
+            var newCulture = new CultureInfo(cultureName);
+            Dispatcher.UIThread.Post(
+                () => LocalizationManager.Instance.Culture = newCulture,
+                DispatcherPriority.Background);
         }
     }
 

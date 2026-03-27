@@ -43,24 +43,80 @@ public static class MameLauncher
 
     /// <summary>
     /// Resolves a user-provided MAME path to the actual executable.
-    /// On macOS, if the path points to a .app bundle, resolves to the executable inside it.
-    /// On other platforms, returns the path unchanged.
+    /// Handles macOS .app bundles, directory paths containing the executable,
+    /// and symlinks on all platforms.
     /// </summary>
     public static string ResolveMamePath(string path)
     {
         if (string.IsNullOrEmpty(path))
             return path;
 
+        // Decode any URI percent-encoding (e.g. %20 → space) that may remain
+        // from file-picker URIs on macOS.  This is idempotent for plain paths.
+        path = Uri.UnescapeDataString(path);
+
+        // Normalise: strip any trailing directory separators
+        string trimmed = path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
-            string trimmed = path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-
+            // Case 1: path IS a .app bundle (e.g. /Applications/MAME.app)
             if (trimmed.EndsWith(".app", StringComparison.OrdinalIgnoreCase) &&
                 Directory.Exists(trimmed))
             {
-                string executable = Path.Combine(trimmed, "Contents", "MacOS", "mame");
-                if (File.Exists(executable))
-                    return executable;
+                string? resolved = AppBundleHelper.ResolveAppBundleExecutable(trimmed, "mame");
+                if (resolved != null)
+                    return resolved;
+            }
+
+            // Case 2: path is INSIDE a .app bundle
+            // (e.g. /path/MAME.app/Contents/MacOS/mame)
+            string? bundleRoot = AppBundleHelper.GetAppBundleRoot(trimmed);
+            if (bundleRoot != null)
+            {
+                // If the exact file exists inside the bundle, use it directly
+                if (File.Exists(trimmed))
+                    return trimmed;
+
+                // Otherwise resolve the bundle to its main executable
+                string? resolved = AppBundleHelper.ResolveAppBundleExecutable(bundleRoot, "mame");
+                if (resolved != null)
+                    return resolved;
+            }
+        }
+
+        // If the path is already an existing file, return it directly
+        if (File.Exists(trimmed))
+            return trimmed;
+
+        // If the path is a directory, look for the executable inside it
+        if (Directory.Exists(trimmed))
+        {
+            string exeName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                ? "mame.exe" : "mame";
+
+            string candidate = Path.Combine(trimmed, exeName);
+            if (File.Exists(candidate))
+                return candidate;
+
+            // Check a bin/ subdirectory (common for custom prefix installs)
+            candidate = Path.Combine(trimmed, "bin", exeName);
+            if (File.Exists(candidate))
+                return candidate;
+
+            // On macOS, search for .app bundles within the directory.
+            // This handles the case where the Avalonia folder picker returned
+            // the parent directory because it could not select the .app bundle
+            // directly (Avalonia limitation – see Avalonia #18080).
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                string? bundle = AppBundleHelper.FindAppBundleInDirectory(trimmed, "mame");
+                if (bundle != null)
+                {
+                    string? resolved = AppBundleHelper.ResolveAppBundleExecutable(bundle, "mame");
+                    if (resolved != null)
+                        return resolved;
+                }
             }
         }
 
@@ -86,12 +142,20 @@ public static class MameLauncher
             string romDir = Path.GetDirectoryName(romPath) ?? string.Empty;
             string romName = Path.GetFileNameWithoutExtension(romPath);
 
+            bool isFlatpak = mamePath.EndsWith("org.mamedev.MAME", StringComparison.Ordinal);
+
             var startInfo = new ProcessStartInfo
             {
-                FileName = mamePath,
+                FileName = isFlatpak ? "flatpak" : mamePath,
                 UseShellExecute = false,
-                WorkingDirectory = Path.GetDirectoryName(mamePath) ?? string.Empty,
+                WorkingDirectory = isFlatpak ? string.Empty : (Path.GetDirectoryName(mamePath) ?? string.Empty),
             };
+
+            if (isFlatpak)
+            {
+                startInfo.ArgumentList.Add("run");
+                startInfo.ArgumentList.Add("org.mamedev.MAME");
+            }
 
             // Tell MAME where to find ROMs and which ROM set to run
             startInfo.ArgumentList.Add("-rompath");
@@ -192,6 +256,8 @@ public static class MameLauncher
             @"C:\mame\mame.exe",
             // Scoop installation
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "scoop", "apps", "mame", "current", "mame.exe"),
+            // Chocolatey installation
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "chocolatey", "bin", "mame.exe"),
         ];
 
         foreach (string path in possiblePaths)
@@ -204,13 +270,17 @@ public static class MameLauncher
 
     private static string? DetectMameLinux()
     {
+        string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         string[] possiblePaths =
         [
             "/usr/bin/mame",
             "/usr/local/bin/mame",
             "/usr/games/mame",
             "/snap/bin/mame",
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".local", "bin", "mame"),
+            Path.Combine(homeDir, ".local", "bin", "mame"),
+            // Nix package manager
+            Path.Combine(homeDir, ".nix-profile", "bin", "mame"),
+            "/run/current-system/sw/bin/mame",
         ];
 
         foreach (string path in possiblePaths)
@@ -220,7 +290,22 @@ public static class MameLauncher
         }
 
         // Try to find mame on the system PATH
-        return FindOnPath("mame");
+        string? pathFound = FindOnPath("mame");
+        if (pathFound != null)
+            return pathFound;
+
+        // Try Flatpak: user installation
+        string flatpakPath = Path.Combine(homeDir,
+            ".local", "share", "flatpak", "exports", "bin", "org.mamedev.MAME");
+        if (File.Exists(flatpakPath))
+            return flatpakPath;
+
+        // Try Flatpak: system-wide installation
+        const string systemFlatpakPath = "/var/lib/flatpak/exports/bin/org.mamedev.MAME";
+        if (File.Exists(systemFlatpakPath))
+            return systemFlatpakPath;
+
+        return null;
     }
 
     private static string? DetectMameMacOS()
@@ -233,12 +318,36 @@ public static class MameLauncher
             // Homebrew installations
             "/opt/homebrew/bin/mame",
             "/usr/local/bin/mame",
+            // MacPorts installation
+            "/opt/local/bin/mame",
+            // Nix package manager
+            Path.Combine(homeDir, ".nix-profile", "bin", "mame"),
+            "/run/current-system/sw/bin/mame",
         ];
 
         foreach (string path in possiblePaths)
         {
             if (File.Exists(path))
                 return path;
+        }
+
+        // Check .app bundles and resolve to the executable inside
+        string[] appBundles =
+        [
+            "/Applications/MAME.app",
+            "/Applications/mame.app",
+            Path.Combine(homeDir, "Applications", "MAME.app"),
+            Path.Combine(homeDir, "Applications", "mame.app"),
+        ];
+
+        foreach (string bundle in appBundles)
+        {
+            if (Directory.Exists(bundle))
+            {
+                string resolved = ResolveMamePath(bundle);
+                if (File.Exists(resolved))
+                    return resolved;
+            }
         }
 
         // Try to find mame on the system PATH

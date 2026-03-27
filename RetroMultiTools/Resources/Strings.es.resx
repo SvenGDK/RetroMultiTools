@@ -6064,4 +6064,64 @@ Run:notepad.exe</value>
   <data name="MameDatEditor_DatInfoIcon" xml:space="preserve">
     <value>📋 {0}</value>
   </data>
+  <data name="RetroArchLauncher_RomNotFound" xml:space="preserve">
+    <value>Archivo ROM no encontrado.</value>
+  </data>
+  <data name="RetroArchLauncher_RetroArchNotFound" xml:space="preserve">
+    <value>RetroArch no encontrado. Configure la ruta en Configuración o descargue RetroArch.</value>
+  </data>
+  <data name="RetroArchLauncher_NoCoreMapping" xml:space="preserve">
+    <value>No se encontró ninguna asignación central RetroArch para el sistema: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_CoreNotFound" xml:space="preserve">
+    <value>No se encontró el núcleo '{0}'. Instale el núcleo '{0}' en RetroArch (Actualizador en línea → Descargador de núcleos).</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToStart" xml:space="preserve">
+    <value>No se pudo iniciar el proceso RetroArch.</value>
+  </data>
+  <data name="RetroArchLauncher_Launched" xml:space="preserve">
+    <value>Lanzado con núcleo: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToLaunch" xml:space="preserve">
+    <value>No se pudo iniciar RetroArch: {0}</value>
+  </data>
+  <data name="MednafenLauncher_RomNotFound" xml:space="preserve">
+    <value>Archivo ROM no encontrado.</value>
+  </data>
+  <data name="MednafenLauncher_MednafenNotFound" xml:space="preserve">
+    <value>Mednafen no encontrado. Configure la ruta en Configuración o descargue Mednafen.</value>
+  </data>
+  <data name="MednafenLauncher_NoModuleMapping" xml:space="preserve">
+    <value>No se encontró ninguna asignación de módulo Mednafen para el sistema: {0}</value>
+  </data>
+  <data name="MednafenLauncher_FailedToStart" xml:space="preserve">
+    <value>No se pudo iniciar el proceso Mednafen.</value>
+  </data>
+  <data name="MednafenLauncher_Launched" xml:space="preserve">
+    <value>Se lanzó {0} con Mednafen ({1}).</value>
+  </data>
+  <data name="MednafenLauncher_FailedToLaunch" xml:space="preserve">
+    <value>No se pudo iniciar Mednafen: {0}</value>
+  </data>
+  <data name="RAIntegration_RetroArchApplication" xml:space="preserve">
+    <value>Aplicación RetroArch</value>
+  </data>
+  <data name="RAIntegration_RetroArchExecutable" xml:space="preserve">
+    <value>RetroArch ejecutable</value>
+  </data>
+  <data name="MednafenIntegration_MednafenApplication" xml:space="preserve">
+    <value>Aplicación Mednafen</value>
+  </data>
+  <data name="MednafenIntegration_MednafenExecutable" xml:space="preserve">
+    <value>Mednafen ejecutable</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>Navegar...</value>
+  </data>
+  <data name="Settings_AutoDetect" xml:space="preserve">
+    <value>Detección automática</value>
+  </data>
+  <data name="Settings_Clear" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
 </root>

@@ -1,0 +1,179 @@
+name: Build Windows
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_NOLOGO: true
+  APP_VERSION: '4.1.0'
+  SDL2_VERSION: '2.30.12'
+
+jobs:
+  build-windows:
+    name: Windows ${{ matrix.arch }}
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x64, arm64]
+        include:
+          - arch: x64
+            inno_arch_allowed: x64compatible
+            inno_arch_mode: x64compatible
+          - arch: arm64
+            inno_arch_allowed: arm64
+            inno_arch_mode: arm64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Publish (Self-contained)
+        run: dotnet publish RetroMultiTools -c Release -r win-${{ matrix.arch }} --self-contained -o publish-sc
+
+      - name: Publish Updater (Self-contained)
+        run: dotnet publish RetroMultiTools.Updater -c Release -r win-${{ matrix.arch }} --self-contained -o publish-updater-sc
+
+      - name: Bundle Updater (Self-contained)
+        run: Copy-Item publish-updater-sc\RetroMultiTools.Updater.* publish-sc\
+
+      - name: Publish
+        run: dotnet publish RetroMultiTools -c Release -r win-${{ matrix.arch }} --no-self-contained -o publish
+
+      - name: Publish Updater
+        run: dotnet publish RetroMultiTools.Updater -c Release -r win-${{ matrix.arch }} --no-self-contained -o publish-updater
+
+      - name: Bundle Updater
+        run: Copy-Item publish-updater\RetroMultiTools.Updater.* publish\
+
+      - name: Download SDL2
+        shell: pwsh
+        run: |
+          if ("${{ matrix.arch }}" -eq "x64") {
+            $url = "https://github.com/libsdl-org/SDL/releases/download/release-${{ env.SDL2_VERSION }}/SDL2-devel-${{ env.SDL2_VERSION }}-VC.zip"
+            Invoke-WebRequest -Uri $url -OutFile sdl2-vc.zip
+            Expand-Archive -Path sdl2-vc.zip -DestinationPath sdl2-vc
+            Copy-Item "sdl2-vc\SDL2-${{ env.SDL2_VERSION }}\lib\x64\SDL2.dll" publish\
+            Copy-Item "sdl2-vc\SDL2-${{ env.SDL2_VERSION }}\lib\x64\SDL2.dll" publish-sc\
+          } else {
+            # ARM64: download prebuilt SDL2 from mmozeiko/build-sdl2
+            $release = Invoke-RestMethod -Uri "https://api.github.com/repos/mmozeiko/build-sdl2/releases/latest" -Headers @{ Authorization = "Bearer ${{ github.token }}" }
+            $asset = $release.assets | Where-Object { $_.name -like "SDL2-arm64-*.zip" }
+            if (-not $asset) { throw "SDL2 ARM64 asset not found in mmozeiko/build-sdl2 latest release" }
+            Invoke-WebRequest -Uri $asset.browser_download_url -OutFile sdl2-arm64.zip
+            Expand-Archive -Path sdl2-arm64.zip -DestinationPath sdl2-arm64
+            $sdl2dll = Get-ChildItem -Path sdl2-arm64 -Filter "SDL2.dll" -Recurse | Select-Object -First 1
+            if (-not $sdl2dll) { throw "SDL2.dll not found in downloaded archive" }
+            Copy-Item $sdl2dll.FullName publish\
+            Copy-Item $sdl2dll.FullName publish-sc\
+          }
+
+      - name: Download controller profiles
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt" -OutFile gamecontrollerdb.txt
+          Copy-Item gamecontrollerdb.txt publish\
+          Copy-Item gamecontrollerdb.txt publish-sc\
+
+      - name: Create ZIP (Portable)
+        run: Compress-Archive -Path publish\* -DestinationPath win-${{ matrix.arch }}.zip
+
+      - name: Create ZIP (Self-contained Portable)
+        run: Compress-Archive -Path publish-sc\* -DestinationPath win-${{ matrix.arch }}-Selfcontained.zip
+
+      - name: Install Inno Setup
+        run: |
+          choco install innosetup -y --no-progress
+          echo "C:\Program Files (x86)\Inno Setup 6" | Out-File -FilePath $env:GITHUB_PATH -Append
+
+      - name: Create Installer
+        shell: pwsh
+        run: |
+          $iss = @"
+          [Setup]
+          AppName=Retro Multi Tools
+          AppVersion=${{ env.APP_VERSION }}
+          AppPublisher=SvenGDK
+          AppPublisherURL=https://github.com/SvenGDK/RetroMultiTools
+          DefaultDirName={autopf}\RetroMultiTools
+          DefaultGroupName=Retro Multi Tools
+          UninstallDisplayIcon={app}\RetroMultiTools.exe
+          OutputDir=installer
+          OutputBaseFilename=win-${{ matrix.arch }}-Installer
+          Compression=lzma2
+          SolidCompression=yes
+          ArchitecturesAllowed=${{ matrix.inno_arch_allowed }}
+          ArchitecturesInstallIn64BitMode=${{ matrix.inno_arch_mode }}
+
+          [Files]
+          Source: "publish\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
+
+          [Icons]
+          Name: "{group}\Retro Multi Tools"; Filename: "{app}\RetroMultiTools.exe"
+          Name: "{group}\Uninstall Retro Multi Tools"; Filename: "{uninstallexe}"
+          "@
+          Set-Content -Path installer.iss -Value $iss -Encoding UTF8
+          ISCC installer.iss
+
+      - name: Create Installer (Self-contained)
+        shell: pwsh
+        run: |
+          $iss = @"
+          [Setup]
+          AppName=Retro Multi Tools
+          AppVersion=${{ env.APP_VERSION }}
+          AppPublisher=SvenGDK
+          AppPublisherURL=https://github.com/SvenGDK/RetroMultiTools
+          DefaultDirName={autopf}\RetroMultiTools
+          DefaultGroupName=Retro Multi Tools
+          UninstallDisplayIcon={app}\RetroMultiTools.exe
+          OutputDir=installer-sc
+          OutputBaseFilename=win-${{ matrix.arch }}-Selfcontained-Installer
+          Compression=lzma2
+          SolidCompression=yes
+          ArchitecturesAllowed=${{ matrix.inno_arch_allowed }}
+          ArchitecturesInstallIn64BitMode=${{ matrix.inno_arch_mode }}
+
+          [Files]
+          Source: "publish-sc\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion
+
+          [Icons]
+          Name: "{group}\Retro Multi Tools"; Filename: "{app}\RetroMultiTools.exe"
+          Name: "{group}\Uninstall Retro Multi Tools"; Filename: "{uninstallexe}"
+          "@
+          Set-Content -Path installer-sc.iss -Value $iss -Encoding UTF8
+          ISCC installer-sc.iss
+
+      - name: Upload ZIP (Portable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-${{ matrix.arch }}-zip
+          path: win-${{ matrix.arch }}.zip
+
+      - name: Upload ZIP (Self-contained Portable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-${{ matrix.arch }}-Selfcontained-zip
+          path: win-${{ matrix.arch }}-Selfcontained.zip
+
+      - name: Upload Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-${{ matrix.arch }}-installer
+          path: installer/win-${{ matrix.arch }}-Installer.exe
+
+      - name: Upload Installer (Self-contained)
+        uses: actions/upload-artifact@v4
+        with:
+          name: win-${{ matrix.arch }}-Selfcontained-Installer
+          path: installer-sc/win-${{ matrix.arch }}-Selfcontained-Installer.exe

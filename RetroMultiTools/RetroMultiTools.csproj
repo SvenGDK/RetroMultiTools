@@ -16,7 +16,7 @@
     <PackageTags>retro;gaming;tools</PackageTags>
     <Description>Multi platform utility for managing, inspecting, and patching retro game ROMs.</Description>
     <ApplicationIcon>RetroMultiTools.ico</ApplicationIcon>
-    <Version>4.0.0</Version>
+    <Version>4.1.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="RetroMultiTools.ico" />

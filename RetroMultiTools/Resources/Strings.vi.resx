@@ -6064,4 +6064,64 @@ Run:notepad.exe</value>
   <data name="MameDatEditor_DatInfoIcon" xml:space="preserve">
     <value>📋 {0}</value>
   </data>
+  <data name="RetroArchLauncher_RomNotFound" xml:space="preserve">
+    <value>Không tìm thấy tệp ROM.</value>
+  </data>
+  <data name="RetroArchLauncher_RetroArchNotFound" xml:space="preserve">
+    <value>Không tìm thấy RetroArch. Vui lòng định cấu hình đường dẫn trong Cài đặt hoặc tải xuống RetroArch.</value>
+  </data>
+  <data name="RetroArchLauncher_NoCoreMapping" xml:space="preserve">
+    <value>Không tìm thấy ánh xạ lõi RetroArch cho hệ thống: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_CoreNotFound" xml:space="preserve">
+    <value>Không tìm thấy lõi '{0}'. Vui lòng cài đặt lõi '{0}' trong RetroArch (Trình cập nhật trực tuyến → Trình tải xuống lõi).</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToStart" xml:space="preserve">
+    <value>Không thể khởi động quá trình RetroArch.</value>
+  </data>
+  <data name="RetroArchLauncher_Launched" xml:space="preserve">
+    <value>Ra mắt với lõi: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToLaunch" xml:space="preserve">
+    <value>Không khởi chạy được RetroArch: {0}</value>
+  </data>
+  <data name="MednafenLauncher_RomNotFound" xml:space="preserve">
+    <value>Không tìm thấy tệp ROM.</value>
+  </data>
+  <data name="MednafenLauncher_MednafenNotFound" xml:space="preserve">
+    <value>Không tìm thấy Mednafen. Vui lòng định cấu hình đường dẫn trong Cài đặt hoặc tải xuống Mednafen.</value>
+  </data>
+  <data name="MednafenLauncher_NoModuleMapping" xml:space="preserve">
+    <value>Không tìm thấy ánh xạ mô-đun Mednafen cho hệ thống: {0}</value>
+  </data>
+  <data name="MednafenLauncher_FailedToStart" xml:space="preserve">
+    <value>Không thể khởi động quá trình Mednafen.</value>
+  </data>
+  <data name="MednafenLauncher_Launched" xml:space="preserve">
+    <value>Ra mắt {0} với Mednafen ({1}).</value>
+  </data>
+  <data name="MednafenLauncher_FailedToLaunch" xml:space="preserve">
+    <value>Không khởi chạy được Mednafen: {0}</value>
+  </data>
+  <data name="RAIntegration_RetroArchApplication" xml:space="preserve">
+    <value>Ứng dụng RetroArch</value>
+  </data>
+  <data name="RAIntegration_RetroArchExecutable" xml:space="preserve">
+    <value>RetroArch có thể thực thi được</value>
+  </data>
+  <data name="MednafenIntegration_MednafenApplication" xml:space="preserve">
+    <value>Ứng dụng Mednafen</value>
+  </data>
+  <data name="MednafenIntegration_MednafenExecutable" xml:space="preserve">
+    <value>Mednafen có thể thực thi được</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>Duyệt...</value>
+  </data>
+  <data name="Settings_AutoDetect" xml:space="preserve">
+    <value>Tự động phát hiện</value>
+  </data>
+  <data name="Settings_Clear" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
 </root>

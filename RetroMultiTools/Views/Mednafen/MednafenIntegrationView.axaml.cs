@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Services;
+using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.Mednafen;
 using System.Runtime.InteropServices;
 
@@ -41,56 +42,53 @@ public partial class MednafenIntegrationView : UserControl
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
-        var fileTypes = new List<FilePickerFileType>();
+        string? selectedPath = null;
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
-            fileTypes.Add(new FilePickerFileType("Mednafen Application")
+            // On macOS, .app bundles are directories and cannot be selected via
+            // OpenFilePickerAsync (Avalonia limitation – see Avalonia #18080).
+            // Use a folder picker so the user can select .app bundles or the
+            // folder containing the executable.  If the folder picker also cannot
+            // select the .app, the user can paste the path directly in the text
+            // box and press Enter.
+            var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
             {
-                Patterns = ["mednafen", "*.app"],
-                AppleUniformTypeIdentifiers = ["com.apple.application-bundle", "public.unix-executable"]
+                Title = LocalizationManager.Instance["Settings_SelectMednafenExecutable"],
+                AllowMultiple = false
             });
+
+            if (folders.Count == 0) return;
+
+            selectedPath = Uri.UnescapeDataString(folders[0].Path.LocalPath);
+
+            if (TryAcceptMednafenPath(selectedPath))
+                return;
+
+            MednafenStatusText.Text = LocalizationManager.Instance["Settings_MednafenNotFound"];
+            return;
         }
-        else
+
+        // Non-macOS: standard file picker
+        var fileTypes = new List<FilePickerFileType>
         {
-            fileTypes.Add(new FilePickerFileType("Mednafen Executable")
+            new(LocalizationManager.Instance["MednafenIntegration_MednafenExecutable"])
             {
                 Patterns = [RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "mednafen.exe" : "mednafen"]
-            });
-        }
+            },
+            FilePickerFileTypes.All
+        };
 
-        fileTypes.Add(FilePickerFileTypes.All);
-
-        var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        var pickedFiles = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
             Title = LocalizationManager.Instance["Settings_SelectMednafenExecutable"],
             AllowMultiple = false,
             FileTypeFilter = fileTypes
         });
 
-        if (files.Count == 0) return;
+        if (pickedFiles.Count == 0) return;
 
-        string selectedPath = files[0].Path.LocalPath;
-
-        // On macOS, accept .app bundles and resolve to the executable inside
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        {
-            string trimmed = selectedPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-            if (trimmed.EndsWith(".app", StringComparison.OrdinalIgnoreCase))
-            {
-                string resolved = MednafenLauncher.ResolveMednafenPath(trimmed);
-                if (File.Exists(resolved))
-                {
-                    AppSettings.Instance.MednafenPath = trimmed;
-                    MednafenPathTextBox.Text = trimmed;
-                    MednafenStatusText.Text = LocalizationManager.Instance["Settings_MednafenPathSaved"];
-                    return;
-                }
-
-                MednafenStatusText.Text = LocalizationManager.Instance["Settings_MednafenInvalidBundle"];
-                return;
-            }
-        }
+        selectedPath = Uri.UnescapeDataString(pickedFiles[0].Path.LocalPath);
 
         string exeName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "mednafen.exe" : "mednafen";
         string fileName = Path.GetFileName(selectedPath);
@@ -104,6 +102,55 @@ public partial class MednafenIntegrationView : UserControl
         AppSettings.Instance.MednafenPath = selectedPath;
         MednafenPathTextBox.Text = selectedPath;
         MednafenStatusText.Text = LocalizationManager.Instance["Settings_MednafenPathSaved"];
+    }
+
+    /// <summary>
+    /// Allows the user to paste or type a path and press Enter to validate it.
+    /// </summary>
+    private void MednafenPathTextBox_KeyDown(object? sender, Avalonia.Input.KeyEventArgs e)
+    {
+        if (e.Key != Avalonia.Input.Key.Enter) return;
+
+        string text = MednafenPathTextBox.Text?.Trim() ?? string.Empty;
+        if (string.IsNullOrEmpty(text))
+        {
+            MednafenStatusText.Text = LocalizationManager.Instance["Settings_MednafenNotFound"];
+            return;
+        }
+
+        if (TryAcceptMednafenPath(text))
+            return;
+
+        MednafenStatusText.Text = LocalizationManager.Instance["Settings_MednafenNotFound"];
+    }
+
+    /// <summary>
+    /// Validates a candidate path and, when it resolves to a Mednafen executable,
+    /// saves it to settings.  Returns true when the path was accepted.
+    /// </summary>
+    private bool TryAcceptMednafenPath(string candidatePath)
+    {
+        string trimmed = candidatePath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        string resolved = MednafenLauncher.ResolveMednafenPath(trimmed);
+
+        if (File.Exists(resolved))
+        {
+            // On macOS, prefer storing the .app bundle path for a cleaner UX.
+            string storedPath = trimmed;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                string? bundleRoot = AppBundleHelper.GetAppBundleRoot(resolved);
+                if (bundleRoot != null)
+                    storedPath = bundleRoot;
+            }
+
+            AppSettings.Instance.MednafenPath = storedPath;
+            MednafenPathTextBox.Text = storedPath;
+            MednafenStatusText.Text = LocalizationManager.Instance["Settings_MednafenPathSaved"];
+            return true;
+        }
+
+        return false;
     }
 
     private void DetectMednafenButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

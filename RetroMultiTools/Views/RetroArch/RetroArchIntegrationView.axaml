@@ -17,18 +17,19 @@
                 <TextBlock Text="{Binding [Settings_RetroArchDescription], Source={x:Static loc:LocalizationManager.Instance}}"
                            Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap"/>
                 <StackPanel Orientation="Horizontal" Spacing="8">
-                    <TextBox x:Name="RetroArchPathTextBox" Width="300" IsReadOnly="True"
-                             Watermark="{Binding [Settings_RetroArchPathPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
-                    <Button x:Name="BrowseRetroArchButton" Content="{Binding [Settings_RetroArchBrowse], Source={x:Static loc:LocalizationManager.Instance}}"
+                    <TextBox x:Name="RetroArchPathTextBox" Width="300"
+                             Watermark="{Binding [Settings_RetroArchPathPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"
+                             KeyDown="RetroArchPathTextBox_KeyDown"/>
+                    <Button x:Name="BrowseRetroArchButton" Content="{Binding [Settings_Browse], Source={x:Static loc:LocalizationManager.Instance}}"
                             Click="BrowseRetroArchButton_Click" Padding="12,6"/>
-                    <Button x:Name="DetectRetroArchButton" Content="{Binding [Settings_RetroArchDetect], Source={x:Static loc:LocalizationManager.Instance}}"
+                    <Button x:Name="DetectRetroArchButton" Content="{Binding [Settings_AutoDetect], Source={x:Static loc:LocalizationManager.Instance}}"
                             Click="DetectRetroArchButton_Click" Padding="12,6"/>
                 </StackPanel>
                 <TextBlock x:Name="RetroArchStatusText" Foreground="#A6ADC8" FontSize="11" TextWrapping="Wrap"/>
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <Button x:Name="DownloadRetroArchButton" Content="{Binding [Settings_RetroArchDownload], Source={x:Static loc:LocalizationManager.Instance}}"
                             Click="DownloadRetroArchButton_Click" Padding="12,6"/>
-                    <Button x:Name="ClearRetroArchButton" Content="{Binding [Settings_RetroArchClear], Source={x:Static loc:LocalizationManager.Instance}}"
+                    <Button x:Name="ClearRetroArchButton" Content="{Binding [Settings_Clear], Source={x:Static loc:LocalizationManager.Instance}}"
                             Click="ClearRetroArchButton_Click" Padding="12,6"/>
                 </StackPanel>
             </StackPanel>

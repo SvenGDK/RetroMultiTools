@@ -17,18 +17,19 @@
                 <TextBlock Text="{Binding [Settings_MameDescription], Source={x:Static loc:LocalizationManager.Instance}}"
                            Foreground="#A6ADC8" FontSize="12" TextWrapping="Wrap"/>
                 <StackPanel Orientation="Horizontal" Spacing="8">
-                    <TextBox x:Name="MamePathTextBox" Width="300" IsReadOnly="True"
-                             Watermark="{Binding [Settings_MamePathPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
-                    <Button x:Name="BrowseMameButton" Content="{Binding [Settings_RetroArchBrowse], Source={x:Static loc:LocalizationManager.Instance}}"
+                    <TextBox x:Name="MamePathTextBox" Width="300"
+                             Watermark="{Binding [Settings_MamePathPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"
+                             KeyDown="MamePathTextBox_KeyDown"/>
+                    <Button x:Name="BrowseMameButton" Content="{Binding [Settings_Browse], Source={x:Static loc:LocalizationManager.Instance}}"
                             Click="BrowseMameButton_Click" Padding="12,6"/>
-                    <Button x:Name="DetectMameButton" Content="{Binding [Settings_RetroArchDetect], Source={x:Static loc:LocalizationManager.Instance}}"
+                    <Button x:Name="DetectMameButton" Content="{Binding [Settings_AutoDetect], Source={x:Static loc:LocalizationManager.Instance}}"
                             Click="DetectMameButton_Click" Padding="12,6"/>
                 </StackPanel>
                 <TextBlock x:Name="MameStatusText" Foreground="#A6ADC8" FontSize="11" TextWrapping="Wrap"/>
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <Button x:Name="DownloadMameButton" Content="{Binding [Settings_MameDownload], Source={x:Static loc:LocalizationManager.Instance}}"
                             Click="DownloadMameButton_Click" Padding="12,6"/>
-                    <Button x:Name="ClearMameButton" Content="{Binding [Settings_RetroArchClear], Source={x:Static loc:LocalizationManager.Instance}}"
+                    <Button x:Name="ClearMameButton" Content="{Binding [Settings_Clear], Source={x:Static loc:LocalizationManager.Instance}}"
                             Click="ClearMameButton_Click" Padding="12,6"/>
                 </StackPanel>
             </StackPanel>

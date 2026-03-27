@@ -17,14 +17,21 @@ public static class ControllerProfileDownloader
     private const string GameControllerDbUrl =
         "https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt";
 
-    private static readonly HttpClient _httpClient = new()
+    private static readonly HttpClient _httpClient = CreateHttpClient();
+
+    private static HttpClient CreateHttpClient()
     {
-        Timeout = TimeSpan.FromSeconds(30),
-        DefaultRequestHeaders =
+        var handler = new System.Net.Http.SocketsHttpHandler
         {
-            { "User-Agent", "RetroMultiTools/1.0" }
-        }
-    };
+            PooledConnectionLifetime = TimeSpan.FromMinutes(10)
+        };
+        var client = new HttpClient(handler)
+        {
+            Timeout = TimeSpan.FromSeconds(30),
+        };
+        client.DefaultRequestHeaders.Add("User-Agent", "RetroMultiTools/1.0");
+        return client;
+    }
 
     /// <summary>
     /// Minimum valid file size for gamecontrollerdb.txt in bytes.
@@ -106,23 +113,22 @@ public static class ControllerProfileDownloader
                 if (raDir != null)
                 {
                     string autoconfigDir = Path.Combine(raDir, "autoconfig");
-                    try
+                    bool saved = TrySaveToAutoconfig(tempPath, autoconfigDir,
+                        "Also saved to RetroArch autoconfig directory.",
+                        progress, ref destinations);
+
+                    // On Linux/macOS the executable may be in a system-protected directory
+                    // (e.g. /usr/bin). Fall back to the user config directory.
+                    if (!saved)
                     {
-                        Directory.CreateDirectory(autoconfigDir);
-                        string raDbPath = Path.Combine(autoconfigDir, "gamecontrollerdb.txt");
-                        File.Copy(tempPath, raDbPath, overwrite: true);
-                        destinations++;
-                        progress?.Report($"Also saved to RetroArch autoconfig directory.");
-                    }
-                    catch (IOException ex)
-                    {
-                        System.Diagnostics.Trace.WriteLine(
-                            $"[ControllerProfileDownloader] Could not write to RA dir: {ex.Message}");
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        System.Diagnostics.Trace.WriteLine(
-                            $"[ControllerProfileDownloader] Access denied (RA dir): {ex.Message}");
+                        string? configDir = RetroArchLauncher.GetRetroArchConfigDirectory();
+                        if (configDir != null)
+                        {
+                            string userAutoconfigDir = Path.Combine(configDir, "autoconfig");
+                            TrySaveToAutoconfig(tempPath, userAutoconfigDir,
+                                "Saved to RetroArch user config autoconfig directory.",
+                                progress, ref destinations);
+                        }
                     }
                 }
             }
@@ -213,4 +219,35 @@ public static class ControllerProfileDownloader
 
     /// <summary>Information about currently installed controller profiles.</summary>
     public sealed record InstalledInfo(bool Exists, int MappingCount, DateTime? LastModifiedUtc);
+
+    /// <summary>
+    /// Attempts to save the controller database to the given autoconfig directory.
+    /// Returns true on success, false if the write failed.
+    /// </summary>
+    private static bool TrySaveToAutoconfig(
+        string sourcePath, string autoconfigDir, string successMessage,
+        IProgress<string>? progress, ref int destinations)
+    {
+        try
+        {
+            Directory.CreateDirectory(autoconfigDir);
+            string dbPath = Path.Combine(autoconfigDir, "gamecontrollerdb.txt");
+            File.Copy(sourcePath, dbPath, overwrite: true);
+            destinations++;
+            progress?.Report(successMessage);
+            return true;
+        }
+        catch (IOException ex)
+        {
+            System.Diagnostics.Trace.WriteLine(
+                $"[ControllerProfileDownloader] Could not write to {autoconfigDir}: {ex.Message}");
+            return false;
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            System.Diagnostics.Trace.WriteLine(
+                $"[ControllerProfileDownloader] Access denied ({autoconfigDir}): {ex.Message}");
+            return false;
+        }
+    }
 }

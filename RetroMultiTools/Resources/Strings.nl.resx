@@ -6064,4 +6064,64 @@ Run:notepad.exe</value>
   <data name="MameDatEditor_DatInfoIcon" xml:space="preserve">
     <value>📋 {0}</value>
   </data>
+  <data name="RetroArchLauncher_RomNotFound" xml:space="preserve">
+    <value>ROM-bestand niet gevonden.</value>
+  </data>
+  <data name="RetroArchLauncher_RetroArchNotFound" xml:space="preserve">
+    <value>RetroArch niet gevonden. Configureer het pad in Instellingen of download RetroArch.</value>
+  </data>
+  <data name="RetroArchLauncher_NoCoreMapping" xml:space="preserve">
+    <value>Geen RetroArch-kerntoewijzing gevonden voor systeem: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_CoreNotFound" xml:space="preserve">
+    <value>Kern '{0}' niet gevonden. Installeer de kern '{0}' in RetroArch (Online Updater → Core Downloader).</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToStart" xml:space="preserve">
+    <value>Kan het RetroArch-proces niet starten.</value>
+  </data>
+  <data name="RetroArchLauncher_Launched" xml:space="preserve">
+    <value>Gelanceerd met kern: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToLaunch" xml:space="preserve">
+    <value>Kan RetroArch niet starten: {0}</value>
+  </data>
+  <data name="MednafenLauncher_RomNotFound" xml:space="preserve">
+    <value>ROM-bestand niet gevonden.</value>
+  </data>
+  <data name="MednafenLauncher_MednafenNotFound" xml:space="preserve">
+    <value>Mednafen niet gevonden. Configureer het pad in Instellingen of download Mednafen.</value>
+  </data>
+  <data name="MednafenLauncher_NoModuleMapping" xml:space="preserve">
+    <value>Geen Mednafen-moduletoewijzing gevonden voor systeem: {0}</value>
+  </data>
+  <data name="MednafenLauncher_FailedToStart" xml:space="preserve">
+    <value>Kan het Mednafen-proces niet starten.</value>
+  </data>
+  <data name="MednafenLauncher_Launched" xml:space="preserve">
+    <value>{0} gelanceerd met Mednafen ({1}).</value>
+  </data>
+  <data name="MednafenLauncher_FailedToLaunch" xml:space="preserve">
+    <value>Kan Mednafen niet starten: {0}</value>
+  </data>
+  <data name="RAIntegration_RetroArchApplication" xml:space="preserve">
+    <value>RetroArch-applicatie</value>
+  </data>
+  <data name="RAIntegration_RetroArchExecutable" xml:space="preserve">
+    <value>RetroArch uitvoerbaar bestand</value>
+  </data>
+  <data name="MednafenIntegration_MednafenApplication" xml:space="preserve">
+    <value>Mednafen-applicatie</value>
+  </data>
+  <data name="MednafenIntegration_MednafenExecutable" xml:space="preserve">
+    <value>Mednafen uitvoerbaar bestand</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>Blader...</value>
+  </data>
+  <data name="Settings_AutoDetect" xml:space="preserve">
+    <value>Automatische detectie</value>
+  </data>
+  <data name="Settings_Clear" xml:space="preserve">
+    <value>Wissen</value>
+  </data>
 </root>

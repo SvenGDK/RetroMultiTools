@@ -1,3 +1,4 @@
+using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using RetroMultiTools.Services;
 using System.Diagnostics;
@@ -136,6 +137,9 @@ public static class RetroArchLauncher
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            if (string.IsNullOrEmpty(homeDir))
+                return null;
+
             string[] candidates =
             [
                 Path.Combine(homeDir, ".config", "retroarch"),
@@ -149,17 +153,21 @@ public static class RetroArchLauncher
                     return dir;
             }
 
-            return null;
+            // On a fresh install the directory may not exist yet;
+            // return the standard XDG config path so callers can create it on demand.
+            return Path.Combine(homeDir, ".config", "retroarch");
         }
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
             string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            string configDir = Path.Combine(homeDir, "Library", "Application Support", "RetroArch");
-            if (Directory.Exists(configDir))
-                return configDir;
+            if (string.IsNullOrEmpty(homeDir))
+                return null;
 
-            return null;
+            string configDir = Path.Combine(homeDir, "Library", "Application Support", "RetroArch");
+            // Return the expected path even if the directory doesn't exist yet
+            // so callers can create it on demand.
+            return configDir;
         }
 
         return null;
@@ -181,26 +189,80 @@ public static class RetroArchLauncher
 
     /// <summary>
     /// Resolves a user-provided RetroArch path to the actual executable.
-    /// On macOS, if the path points to a .app bundle, resolves to the executable inside it.
-    /// On other platforms, returns the path unchanged.
+    /// Handles macOS .app bundles, directory paths containing the executable,
+    /// and symlinks on all platforms.
     /// </summary>
     public static string ResolveRetroArchPath(string path)
     {
         if (string.IsNullOrEmpty(path))
             return path;
 
+        // Decode any URI percent-encoding (e.g. %20 → space) that may remain
+        // from file-picker URIs on macOS.  This is idempotent for plain paths.
+        path = Uri.UnescapeDataString(path);
+
+        // Normalise: strip any trailing directory separators
+        string trimmed = path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
-            // Normalise: strip any trailing directory separators so .app detection works
-            // regardless of whether the path was entered with or without a trailing slash.
-            string trimmed = path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-
+            // Case 1: path IS a .app bundle (e.g. /Applications/RetroArch.app)
             if (trimmed.EndsWith(".app", StringComparison.OrdinalIgnoreCase) &&
                 Directory.Exists(trimmed))
             {
-                string executable = Path.Combine(trimmed, "Contents", "MacOS", "RetroArch");
-                if (File.Exists(executable))
-                    return executable;
+                string? resolved = AppBundleHelper.ResolveAppBundleExecutable(trimmed, "retroarch");
+                if (resolved != null)
+                    return resolved;
+            }
+
+            // Case 2: path is INSIDE a .app bundle
+            // (e.g. /path/RetroArch.app/Contents/MacOS/RetroArch)
+            string? bundleRoot = AppBundleHelper.GetAppBundleRoot(trimmed);
+            if (bundleRoot != null)
+            {
+                // If the exact file exists inside the bundle, use it directly
+                if (File.Exists(trimmed))
+                    return trimmed;
+
+                // Otherwise resolve the bundle to its main executable
+                string? resolved = AppBundleHelper.ResolveAppBundleExecutable(bundleRoot, "retroarch");
+                if (resolved != null)
+                    return resolved;
+            }
+        }
+
+        // If the path is already an existing file, return it directly
+        if (File.Exists(trimmed))
+            return trimmed;
+
+        // If the path is a directory, look for the executable inside it
+        if (Directory.Exists(trimmed))
+        {
+            string exeName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                ? "retroarch.exe" : "retroarch";
+
+            string candidate = Path.Combine(trimmed, exeName);
+            if (File.Exists(candidate))
+                return candidate;
+
+            // Check a bin/ subdirectory (common for custom prefix installs)
+            candidate = Path.Combine(trimmed, "bin", exeName);
+            if (File.Exists(candidate))
+                return candidate;
+
+            // On macOS, search for .app bundles within the directory.
+            // This handles the case where the Avalonia folder picker returned
+            // the parent directory because it could not select the .app bundle
+            // directly (Avalonia limitation – see Avalonia #18080).
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                string? bundle = AppBundleHelper.FindAppBundleInDirectory(trimmed, "retroarch");
+                if (bundle != null)
+                {
+                    string? resolved = AppBundleHelper.ResolveAppBundleExecutable(bundle, "retroarch");
+                    if (resolved != null)
+                        return resolved;
+                }
             }
         }
 
@@ -214,18 +276,18 @@ public static class RetroArchLauncher
     public static LaunchResult Launch(string romPath, RomSystem system)
     {
         if (string.IsNullOrEmpty(romPath) || !File.Exists(romPath))
-            return new LaunchResult(false, "ROM file not found.");
+            return new LaunchResult(false, LocalizationManager.Instance["RetroArchLauncher_RomNotFound"]);
 
         string retroArchPath = GetRetroArchExecutablePath();
         if (string.IsNullOrEmpty(retroArchPath) || !File.Exists(retroArchPath))
-            return new LaunchResult(false, "RetroArch not found. Please configure the path in Settings or download RetroArch.");
+            return new LaunchResult(false, LocalizationManager.Instance["RetroArchLauncher_RetroArchNotFound"]);
 
         if (!SystemCoreMap.TryGetValue(system, out var coreName))
-            return new LaunchResult(false, $"No RetroArch core mapping found for system: {system}");
+            return new LaunchResult(false, string.Format(LocalizationManager.Instance["RetroArchLauncher_NoCoreMapping"], system));
 
         string? corePath = FindCorePath(retroArchPath, coreName);
         if (corePath == null)
-            return new LaunchResult(false, $"Core '{coreName}' not found. Please install the '{coreName}' core in RetroArch (Online Updater → Core Downloader).");
+            return new LaunchResult(false, string.Format(LocalizationManager.Instance["RetroArchLauncher_CoreNotFound"], coreName));
 
         try
         {
@@ -254,14 +316,14 @@ public static class RetroArchLauncher
 
             var process = Process.Start(startInfo);
             if (process == null)
-                return new LaunchResult(false, "Failed to start RetroArch process.");
+                return new LaunchResult(false, LocalizationManager.Instance["RetroArchLauncher_FailedToStart"]);
 
             try
             {
                 // Update Discord Rich Presence with the current game
                 DiscordRichPresence.UpdatePresence(Path.GetFileName(romPath), system);
 
-                return new LaunchResult(true, $"Launched with core: {GetCoreDisplayName(system)}", process);
+                return new LaunchResult(true, string.Format(LocalizationManager.Instance["RetroArchLauncher_Launched"], GetCoreDisplayName(system)), process);
             }
             catch
             {
@@ -271,11 +333,11 @@ public static class RetroArchLauncher
         }
         catch (InvalidOperationException ex)
         {
-            return new LaunchResult(false, $"Failed to launch RetroArch: {ex.Message}");
+            return new LaunchResult(false, string.Format(LocalizationManager.Instance["RetroArchLauncher_FailedToLaunch"], ex.Message));
         }
         catch (System.ComponentModel.Win32Exception ex)
         {
-            return new LaunchResult(false, $"Failed to launch RetroArch: {ex.Message}");
+            return new LaunchResult(false, string.Format(LocalizationManager.Instance["RetroArchLauncher_FailedToLaunch"], ex.Message));
         }
     }
 
@@ -299,6 +361,50 @@ public static class RetroArchLauncher
                 return corePath;
         }
 
+        // For macOS .app bundles the executable lives at Contents/MacOS/RetroArch
+        // but cores live at Contents/Resources/cores — navigate up to the bundle root.
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && !string.IsNullOrEmpty(retroArchDir))
+        {
+            // Detect if we are inside a .app bundle (path contains .app/Contents/MacOS)
+            string? appBundleRoot = AppBundleHelper.GetAppBundleRoot(retroArchPath);
+            if (appBundleRoot != null)
+            {
+                string bundleCoresDir = Path.Combine(appBundleRoot, "Contents", "Resources", "cores");
+                if (Directory.Exists(bundleCoresDir))
+                {
+                    string corePath = Path.Combine(bundleCoresDir, coreFileName);
+                    if (File.Exists(corePath))
+                        return corePath;
+                }
+            }
+        }
+
+        // For custom prefix installs (e.g. /opt/retroarch/bin/retroarch),
+        // check the sibling lib directory (e.g. /opt/retroarch/lib/retroarch/cores/).
+        if (!string.IsNullOrEmpty(retroArchDir))
+        {
+            string? prefixDir = Path.GetDirectoryName(retroArchDir);
+            if (!string.IsNullOrEmpty(prefixDir))
+            {
+                string prefixCoresDir = Path.Combine(prefixDir, "lib", "retroarch", "cores");
+                if (Directory.Exists(prefixCoresDir))
+                {
+                    string corePath = Path.Combine(prefixCoresDir, coreFileName);
+                    if (File.Exists(corePath))
+                        return corePath;
+                }
+
+                // Also check lib64 for 64-bit custom installs
+                prefixCoresDir = Path.Combine(prefixDir, "lib64", "retroarch", "cores");
+                if (Directory.Exists(prefixCoresDir))
+                {
+                    string corePath = Path.Combine(prefixCoresDir, coreFileName);
+                    if (File.Exists(corePath))
+                        return corePath;
+                }
+            }
+        }
+
         // Check platform-specific additional core locations
         IEnumerable<string> additionalDirs;
 
@@ -309,6 +415,7 @@ public static class RetroArchLauncher
                 "/usr/lib/libretro",
                 "/usr/lib64/libretro",
                 "/usr/lib/x86_64-linux-gnu/libretro",
+                "/usr/lib/aarch64-linux-gnu/libretro",
                 "/usr/local/lib/libretro",
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".config", "retroarch", "cores"),
                 // Flatpak core locations
@@ -318,6 +425,10 @@ public static class RetroArchLauncher
                 // Snap core locations
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
                     "snap", "retroarch", "current", ".config", "retroarch", "cores"),
+                // Nix package manager
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                    ".nix-profile", "lib", "retroarch", "cores"),
+                "/run/current-system/sw/lib/retroarch/cores",
             ];
         }
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
@@ -326,12 +437,17 @@ public static class RetroArchLauncher
             additionalDirs =
             [
                 Path.Combine(homeDir, "Library", "Application Support", "RetroArch", "cores"),
-                // Inside .app bundle
+                // Inside .app bundle (well-known locations)
                 "/Applications/RetroArch.app/Contents/Resources/cores",
                 Path.Combine(homeDir, "Applications", "RetroArch.app", "Contents", "Resources", "cores"),
                 // Homebrew locations
                 "/opt/homebrew/lib/retroarch/cores",
                 "/usr/local/lib/retroarch/cores",
+                // MacPorts location
+                "/opt/local/lib/retroarch/cores",
+                // Nix package manager
+                Path.Combine(homeDir, ".nix-profile", "lib", "retroarch", "cores"),
+                "/run/current-system/sw/lib/retroarch/cores",
             ];
         }
         else
@@ -402,12 +518,17 @@ public static class RetroArchLauncher
 
     private static string? DetectRetroArchLinux()
     {
+        string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         string[] possiblePaths =
         [
             "/usr/bin/retroarch",
             "/usr/local/bin/retroarch",
+            "/usr/games/retroarch",
             "/snap/bin/retroarch",
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".local", "bin", "retroarch"),
+            Path.Combine(homeDir, ".local", "bin", "retroarch"),
+            // Nix package manager
+            Path.Combine(homeDir, ".nix-profile", "bin", "retroarch"),
+            "/run/current-system/sw/bin/retroarch",
         ];
 
         foreach (string path in possiblePaths)
@@ -422,7 +543,7 @@ public static class RetroArchLauncher
             return pathFound;
 
         // Try to find via user flatpak
-        string flatpakPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+        string flatpakPath = Path.Combine(homeDir,
             ".local", "share", "flatpak", "exports", "bin", "org.libretro.RetroArch");
         if (File.Exists(flatpakPath))
             return flatpakPath;
@@ -433,7 +554,6 @@ public static class RetroArchLauncher
             return systemFlatpakPath;
 
         // Try AppImage in common locations
-        string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         string[] appImageDirs = [
             Path.Combine(homeDir, "Applications"),
             Path.Combine(homeDir, ".local", "bin"),
@@ -463,17 +583,39 @@ public static class RetroArchLauncher
         string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         string[] possiblePaths =
         [
-            "/Applications/RetroArch.app/Contents/MacOS/RetroArch",
-            Path.Combine(homeDir, "Applications", "RetroArch.app", "Contents", "MacOS", "RetroArch"),
             // Homebrew installations
             "/opt/homebrew/bin/retroarch",
             "/usr/local/bin/retroarch",
+            // MacPorts installation
+            "/opt/local/bin/retroarch",
+            // Nix package manager
+            Path.Combine(homeDir, ".nix-profile", "bin", "retroarch"),
+            "/run/current-system/sw/bin/retroarch",
         ];
 
         foreach (string path in possiblePaths)
         {
             if (File.Exists(path))
                 return path;
+        }
+
+        // Check .app bundles and resolve to the executable inside
+        string[] appBundles =
+        [
+            "/Applications/RetroArch.app",
+            "/Applications/retroarch.app",
+            Path.Combine(homeDir, "Applications", "RetroArch.app"),
+            Path.Combine(homeDir, "Applications", "retroarch.app"),
+        ];
+
+        foreach (string bundle in appBundles)
+        {
+            if (Directory.Exists(bundle))
+            {
+                string resolved = ResolveRetroArchPath(bundle);
+                if (File.Exists(resolved))
+                    return resolved;
+            }
         }
 
         // Try to find retroarch on the system PATH

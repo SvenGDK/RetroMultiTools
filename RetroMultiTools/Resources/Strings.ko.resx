@@ -6064,4 +6064,64 @@ Run:notepad.exe</value>
   <data name="MameDatEditor_DatInfoIcon" xml:space="preserve">
     <value>📋 {0}</value>
   </data>
+  <data name="RetroArchLauncher_RomNotFound" xml:space="preserve">
+    <value>ROM 파일을 찾을 수 없습니다.</value>
+  </data>
+  <data name="RetroArchLauncher_RetroArchNotFound" xml:space="preserve">
+    <value>RetroArch를 찾을 수 없습니다. 설정에서 경로를 구성하거나 RetroArch를 다운로드하세요.</value>
+  </data>
+  <data name="RetroArchLauncher_NoCoreMapping" xml:space="preserve">
+    <value>{0} 시스템에 대한 RetroArch 코어 매핑을 찾을 수 없습니다.</value>
+  </data>
+  <data name="RetroArchLauncher_CoreNotFound" xml:space="preserve">
+    <value>코어 '{0}'를 찾을 수 없습니다. RetroArch(Online Updater → Core Downloader)에서 '{0}' 코어를 설치해 주세요.</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToStart" xml:space="preserve">
+    <value>RetroArch 프로세스를 시작하지 못했습니다.</value>
+  </data>
+  <data name="RetroArchLauncher_Launched" xml:space="preserve">
+    <value>코어 출시: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToLaunch" xml:space="preserve">
+    <value>RetroArch 실행 실패: {0}</value>
+  </data>
+  <data name="MednafenLauncher_RomNotFound" xml:space="preserve">
+    <value>ROM 파일을 찾을 수 없습니다.</value>
+  </data>
+  <data name="MednafenLauncher_MednafenNotFound" xml:space="preserve">
+    <value>Mednafen를 찾을 수 없습니다. 설정에서 경로를 구성하거나 Mednafen를 다운로드하세요.</value>
+  </data>
+  <data name="MednafenLauncher_NoModuleMapping" xml:space="preserve">
+    <value>{0} 시스템에 대한 Mednafen 모듈 매핑을 찾을 수 없습니다.</value>
+  </data>
+  <data name="MednafenLauncher_FailedToStart" xml:space="preserve">
+    <value>Mednafen 프로세스를 시작하지 못했습니다.</value>
+  </data>
+  <data name="MednafenLauncher_Launched" xml:space="preserve">
+    <value>Mednafen({1})를 탑재한 {0} 출시.</value>
+  </data>
+  <data name="MednafenLauncher_FailedToLaunch" xml:space="preserve">
+    <value>Mednafen 실행 실패: {0}</value>
+  </data>
+  <data name="RAIntegration_RetroArchApplication" xml:space="preserve">
+    <value>RetroArch 애플리케이션</value>
+  </data>
+  <data name="RAIntegration_RetroArchExecutable" xml:space="preserve">
+    <value>RetroArch 실행 파일</value>
+  </data>
+  <data name="MednafenIntegration_MednafenApplication" xml:space="preserve">
+    <value>Mednafen 애플리케이션</value>
+  </data>
+  <data name="MednafenIntegration_MednafenExecutable" xml:space="preserve">
+    <value>Mednafen 실행 파일</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>찾아보기...</value>
+  </data>
+  <data name="Settings_AutoDetect" xml:space="preserve">
+    <value>자동 감지</value>
+  </data>
+  <data name="Settings_Clear" xml:space="preserve">
+    <value>지우기</value>
+  </data>
 </root>

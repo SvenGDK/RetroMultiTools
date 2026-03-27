@@ -5,6 +5,7 @@ using RetroMultiTools.Models;
 using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.RetroArch;
 using System.Runtime.InteropServices;
+using AppBundle = RetroMultiTools.Utilities.AppBundleHelper;
 
 namespace RetroMultiTools.Views.RetroArch;
 
@@ -159,8 +160,54 @@ public partial class RetroArchShortcutView : UserControl
             FileTypeFilter = fileTypes
         });
 
-        if (files.Count > 0)
-            RetroArchOverrideTextBox.Text = files[0].Path.LocalPath;
+        if (files.Count == 0) return;
+
+        string selectedPath = files[0].Path.LocalPath;
+
+        // On macOS, resolve .app bundles to the executable so the shortcut works correctly
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            string trimmed = selectedPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+            // Case 1: user selected the .app bundle itself
+            if (trimmed.EndsWith(".app", StringComparison.OrdinalIgnoreCase))
+            {
+                string resolved = RetroArchLauncher.ResolveRetroArchPath(trimmed);
+                if (File.Exists(resolved))
+                {
+                    RetroArchOverrideTextBox.Text = resolved;
+                    return;
+                }
+
+                StatusText.Text = LocalizationManager.Instance["Settings_RetroArchInvalidBundle"];
+                return;
+            }
+
+            // Case 2: user selected a file inside a .app bundle
+            string? bundleRoot = AppBundle.GetAppBundleRoot(trimmed);
+            if (bundleRoot != null)
+            {
+                // Resolve the bundle to its main executable
+                string? resolved = AppBundle.ResolveAppBundleExecutable(bundleRoot, "retroarch");
+                if (resolved != null && File.Exists(resolved))
+                {
+                    RetroArchOverrideTextBox.Text = resolved;
+                    return;
+                }
+
+                // Accept the selected file if it exists inside the bundle
+                if (File.Exists(trimmed))
+                {
+                    RetroArchOverrideTextBox.Text = trimmed;
+                    return;
+                }
+
+                StatusText.Text = LocalizationManager.Instance["Settings_RetroArchInvalidBundle"];
+                return;
+            }
+        }
+
+        RetroArchOverrideTextBox.Text = selectedPath;
     }
 
     private void CreateShortcutButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

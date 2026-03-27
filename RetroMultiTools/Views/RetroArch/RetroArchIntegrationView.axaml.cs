@@ -45,55 +45,54 @@ public partial class RetroArchIntegrationView : UserControl
         var topLevel = TopLevel.GetTopLevel(this);
         if (topLevel == null) return;
 
-        var fileTypes = new List<FilePickerFileType>();
+        string? selectedPath = null;
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
-            fileTypes.Add(new FilePickerFileType("RetroArch Application")
+            // On macOS, .app bundles are directories and cannot be selected via
+            // OpenFilePickerAsync (Avalonia limitation – see Avalonia #18080).
+            // Use a folder picker so the user can select .app bundles or the
+            // folder containing the executable.  If the folder picker also cannot
+            // select the .app, the user can paste the path directly in the text
+            // box and press Enter.
+            var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
             {
-                Patterns = ["retroarch", "*.app"],
-                AppleUniformTypeIdentifiers = ["com.apple.application-bundle", "public.unix-executable"]
+                Title = LocalizationManager.Instance["Settings_SelectRetroArchExecutable"],
+                AllowMultiple = false
             });
+
+            if (folders.Count == 0) return;
+
+            selectedPath = Uri.UnescapeDataString(folders[0].Path.LocalPath);
+
+            // Process the macOS path
+            if (TryAcceptRetroArchPath(selectedPath))
+                return;
+
+            RetroArchStatusText.Text = LocalizationManager.Instance["Settings_RetroArchNotFound"];
+            return;
         }
-        else
+
+        // Non-macOS: use a standard file picker
+        var fileTypes = new List<FilePickerFileType>
         {
-            fileTypes.Add(new FilePickerFileType("RetroArch Executable")
+            new(LocalizationManager.Instance["RAIntegration_RetroArchExecutable"])
             {
                 Patterns = [RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "retroarch.exe" : "retroarch"]
-            });
-        }
+            },
+            FilePickerFileTypes.All
+        };
 
-        fileTypes.Add(FilePickerFileTypes.All);
-
-        var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        var pickedFiles = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
             Title = LocalizationManager.Instance["Settings_SelectRetroArchExecutable"],
             AllowMultiple = false,
             FileTypeFilter = fileTypes
         });
 
-        if (files.Count == 0) return;
+        if (pickedFiles.Count == 0) return;
 
-        string selectedPath = files[0].Path.LocalPath;
-
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        {
-            string trimmed = selectedPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-            if (trimmed.EndsWith(".app", StringComparison.OrdinalIgnoreCase))
-            {
-                string resolved = RetroArchLauncher.ResolveRetroArchPath(trimmed);
-                if (File.Exists(resolved))
-                {
-                    AppSettings.Instance.RetroArchPath = trimmed;
-                    RetroArchPathTextBox.Text = trimmed;
-                    RetroArchStatusText.Text = LocalizationManager.Instance["Settings_RetroArchPathSaved"];
-                    return;
-                }
-
-                RetroArchStatusText.Text = LocalizationManager.Instance["Settings_RetroArchInvalidBundle"];
-                return;
-            }
-        }
+        selectedPath = Uri.UnescapeDataString(pickedFiles[0].Path.LocalPath);
 
         string exeName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "retroarch.exe" : "retroarch";
         string fileName = Path.GetFileName(selectedPath);
@@ -107,6 +106,60 @@ public partial class RetroArchIntegrationView : UserControl
         AppSettings.Instance.RetroArchPath = selectedPath;
         RetroArchPathTextBox.Text = selectedPath;
         RetroArchStatusText.Text = LocalizationManager.Instance["Settings_RetroArchPathSaved"];
+    }
+
+    /// <summary>
+    /// Allows the user to paste or type a path and press Enter to validate it.
+    /// This is the primary path-entry mechanism on macOS where the native file
+    /// picker cannot select .app bundles.
+    /// </summary>
+    private void RetroArchPathTextBox_KeyDown(object? sender, Avalonia.Input.KeyEventArgs e)
+    {
+        if (e.Key != Avalonia.Input.Key.Enter) return;
+
+        string text = RetroArchPathTextBox.Text?.Trim() ?? string.Empty;
+        if (string.IsNullOrEmpty(text))
+        {
+            RetroArchStatusText.Text = LocalizationManager.Instance["Settings_RetroArchNotFound"];
+            return;
+        }
+
+        if (TryAcceptRetroArchPath(text))
+            return;
+
+        RetroArchStatusText.Text = LocalizationManager.Instance["Settings_RetroArchNotFound"];
+    }
+
+    /// <summary>
+    /// Validates a candidate path and, when it resolves to a RetroArch executable,
+    /// saves it to settings.  Returns true when the path was accepted.
+    /// </summary>
+    private bool TryAcceptRetroArchPath(string candidatePath)
+    {
+        string trimmed = candidatePath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+        string resolved = RetroArchLauncher.ResolveRetroArchPath(trimmed);
+
+        if (File.Exists(resolved))
+        {
+            // On macOS, prefer storing the .app bundle path for a cleaner UX.
+            // For example, if the user selected /Applications/ (because the
+            // folder picker could not select .app directly), display and store
+            // /Applications/RetroArch.app instead of /Applications/.
+            string storedPath = trimmed;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                string? bundleRoot = AppBundleHelper.GetAppBundleRoot(resolved);
+                if (bundleRoot != null)
+                    storedPath = bundleRoot;
+            }
+
+            AppSettings.Instance.RetroArchPath = storedPath;
+            RetroArchPathTextBox.Text = storedPath;
+            RetroArchStatusText.Text = LocalizationManager.Instance["Settings_RetroArchPathSaved"];
+            return true;
+        }
+
+        return false;
     }
 
     private void DetectRetroArchButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

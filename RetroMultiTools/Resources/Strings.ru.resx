@@ -6064,4 +6064,64 @@ Run:notepad.exe</value>
   <data name="MameDatEditor_DatInfoIcon" xml:space="preserve">
     <value>📋 {0}</value>
   </data>
+  <data name="RetroArchLauncher_RomNotFound" xml:space="preserve">
+    <value>Файл ROM не найден.</value>
+  </data>
+  <data name="RetroArchLauncher_RetroArchNotFound" xml:space="preserve">
+    <value>RetroArch не найден. Пожалуйста, настройте путь в настройках или загрузите RetroArch.</value>
+  </data>
+  <data name="RetroArchLauncher_NoCoreMapping" xml:space="preserve">
+    <value>Для системы не найдено сопоставление ядра RetroArch: {0}.</value>
+  </data>
+  <data name="RetroArchLauncher_CoreNotFound" xml:space="preserve">
+    <value>Ядро «{0}» не найдено. Пожалуйста, установите ядро ​​​​{0} в RetroArch (онлайн-программа обновления → Загрузчик ядра).</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToStart" xml:space="preserve">
+    <value>Не удалось запустить процесс RetroArch.</value>
+  </data>
+  <data name="RetroArchLauncher_Launched" xml:space="preserve">
+    <value>Запущен с ядром: {0}.</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToLaunch" xml:space="preserve">
+    <value>Не удалось запустить RetroArch: {0}.</value>
+  </data>
+  <data name="MednafenLauncher_RomNotFound" xml:space="preserve">
+    <value>Файл ROM не найден.</value>
+  </data>
+  <data name="MednafenLauncher_MednafenNotFound" xml:space="preserve">
+    <value>Mednafen не найден. Настройте путь в настройках или загрузите Mednafen.</value>
+  </data>
+  <data name="MednafenLauncher_NoModuleMapping" xml:space="preserve">
+    <value>Для системы не найдено сопоставление модулей Mednafen: {0}.</value>
+  </data>
+  <data name="MednafenLauncher_FailedToStart" xml:space="preserve">
+    <value>Не удалось запустить процесс Mednafen.</value>
+  </data>
+  <data name="MednafenLauncher_Launched" xml:space="preserve">
+    <value>Запущен {0} с Mednafen ({1}).</value>
+  </data>
+  <data name="MednafenLauncher_FailedToLaunch" xml:space="preserve">
+    <value>Не удалось запустить Mednafen: {0}.</value>
+  </data>
+  <data name="RAIntegration_RetroArchApplication" xml:space="preserve">
+    <value>Приложение RetroArch</value>
+  </data>
+  <data name="RAIntegration_RetroArchExecutable" xml:space="preserve">
+    <value>RetroArch Исполняемый файл</value>
+  </data>
+  <data name="MednafenIntegration_MednafenApplication" xml:space="preserve">
+    <value>Приложение Mednafen</value>
+  </data>
+  <data name="MednafenIntegration_MednafenExecutable" xml:space="preserve">
+    <value>Mednafen Исполняемый файл</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>Просматривать...</value>
+  </data>
+  <data name="Settings_AutoDetect" xml:space="preserve">
+    <value>Автоопределение</value>
+  </data>
+  <data name="Settings_Clear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
 </root>

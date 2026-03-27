@@ -17,7 +17,7 @@
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <TextBox x:Name="RomDirectoryTextBox" Width="350" IsReadOnly="True"
                              Watermark="{Binding [RAPlaylist_RomDirPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
-                    <Button x:Name="BrowseRomDirButton" Content="{Binding [Settings_RetroArchBrowse], Source={x:Static loc:LocalizationManager.Instance}}"
+                    <Button x:Name="BrowseRomDirButton" Content="{Binding [Settings_Browse], Source={x:Static loc:LocalizationManager.Instance}}"
                             Click="BrowseRomDirButton_Click" Padding="12,6"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Spacing="8">

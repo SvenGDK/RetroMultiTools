@@ -6064,4 +6064,64 @@ Run:notepad.exe</value>
   <data name="MameDatEditor_DatInfoIcon" xml:space="preserve">
     <value>📋 {0}</value>
   </data>
+  <data name="RetroArchLauncher_RomNotFound" xml:space="preserve">
+    <value>Berkas ROM tidak ditemukan.</value>
+  </data>
+  <data name="RetroArchLauncher_RetroArchNotFound" xml:space="preserve">
+    <value>RetroArch tidak ditemukan. Silakan konfigurasikan jalur di Pengaturan atau unduh RetroArch.</value>
+  </data>
+  <data name="RetroArchLauncher_NoCoreMapping" xml:space="preserve">
+    <value>Tidak ditemukan pemetaan inti RetroArch untuk sistem: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_CoreNotFound" xml:space="preserve">
+    <value>Inti '{0}' tidak ditemukan. Silakan instal inti '{0}' di RetroArch (Pembaru Online → Pengunduh Inti).</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToStart" xml:space="preserve">
+    <value>Gagal memulai proses RetroArch.</value>
+  </data>
+  <data name="RetroArchLauncher_Launched" xml:space="preserve">
+    <value>Diluncurkan dengan inti: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToLaunch" xml:space="preserve">
+    <value>Gagal meluncurkan RetroArch: {0}</value>
+  </data>
+  <data name="MednafenLauncher_RomNotFound" xml:space="preserve">
+    <value>Berkas ROM tidak ditemukan.</value>
+  </data>
+  <data name="MednafenLauncher_MednafenNotFound" xml:space="preserve">
+    <value>Mednafen tidak ditemukan. Silakan konfigurasikan jalur di Pengaturan atau unduh Mednafen.</value>
+  </data>
+  <data name="MednafenLauncher_NoModuleMapping" xml:space="preserve">
+    <value>Tidak ditemukan pemetaan modul Mednafen untuk sistem: {0}</value>
+  </data>
+  <data name="MednafenLauncher_FailedToStart" xml:space="preserve">
+    <value>Gagal memulai proses Mednafen.</value>
+  </data>
+  <data name="MednafenLauncher_Launched" xml:space="preserve">
+    <value>Meluncurkan {0} dengan Mednafen ({1}).</value>
+  </data>
+  <data name="MednafenLauncher_FailedToLaunch" xml:space="preserve">
+    <value>Gagal meluncurkan Mednafen: {0}</value>
+  </data>
+  <data name="RAIntegration_RetroArchApplication" xml:space="preserve">
+    <value>Aplikasi RetroArch</value>
+  </data>
+  <data name="RAIntegration_RetroArchExecutable" xml:space="preserve">
+    <value>RetroArch Dapat Dieksekusi</value>
+  </data>
+  <data name="MednafenIntegration_MednafenApplication" xml:space="preserve">
+    <value>Aplikasi Mednafen</value>
+  </data>
+  <data name="MednafenIntegration_MednafenExecutable" xml:space="preserve">
+    <value>Mednafen Dapat Dieksekusi</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>Jelajahi...</value>
+  </data>
+  <data name="Settings_AutoDetect" xml:space="preserve">
+    <value>Deteksi Otomatis</value>
+  </data>
+  <data name="Settings_Clear" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
 </root>

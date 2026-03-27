@@ -1,0 +1,212 @@
+name: Build Linux
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_NOLOGO: true
+  APP_VERSION: '4.1.0'
+  SDL2_VERSION: '2.30.12'
+
+jobs:
+  build-linux:
+    name: Linux ${{ matrix.arch }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x64, arm64]
+        include:
+          - arch: x64
+            deb_arch: amd64
+          - arch: arm64
+            deb_arch: arm64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Publish (Self-contained)
+        run: dotnet publish RetroMultiTools -c Release -r linux-${{ matrix.arch }} --self-contained -o publish-sc
+
+      - name: Publish Updater (Self-contained)
+        run: dotnet publish RetroMultiTools.Updater -c Release -r linux-${{ matrix.arch }} --self-contained -o publish-updater-sc
+
+      - name: Bundle Updater (Self-contained)
+        run: cp publish-updater-sc/RetroMultiTools.Updater* publish-sc/
+
+      - name: Publish
+        run: dotnet publish RetroMultiTools -c Release -r linux-${{ matrix.arch }} --no-self-contained -o publish
+
+      - name: Publish Updater
+        run: dotnet publish RetroMultiTools.Updater -c Release -r linux-${{ matrix.arch }} --no-self-contained -o publish-updater
+
+      - name: Bundle Updater
+        run: cp publish-updater/RetroMultiTools.Updater* publish/
+
+      - name: Install SDL2
+        run: |
+          if [ "${{ matrix.arch }}" = "x64" ]; then
+            sudo apt-get update -y
+            sudo apt-get install -y libsdl2-2.0-0
+            cp /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0 "$GITHUB_WORKSPACE/publish/"
+            cp /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0 "$GITHUB_WORKSPACE/publish-sc/"
+          else
+            # ARM64: cross-compile SDL2 from source
+            sudo apt-get update -y
+            sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+            curl -fsSL -o sdl2-src.tar.gz "https://github.com/libsdl-org/SDL/releases/download/release-${{ env.SDL2_VERSION }}/SDL2-${{ env.SDL2_VERSION }}.tar.gz"
+            tar xzf sdl2-src.tar.gz
+            cmake -S "SDL2-${{ env.SDL2_VERSION }}" -B sdl2-build \
+              -DCMAKE_SYSTEM_NAME=Linux \
+              -DCMAKE_SYSTEM_PROCESSOR=aarch64 \
+              -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc \
+              -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++ \
+              -DCMAKE_FIND_ROOT_PATH=/usr/aarch64-linux-gnu \
+              -DCMAKE_BUILD_TYPE=Release \
+              -DSDL_SHARED=ON \
+              -DSDL_STATIC=OFF
+            cmake --build sdl2-build --config Release --parallel
+            cp sdl2-build/libSDL2-2.0.so.0 "$GITHUB_WORKSPACE/publish/"
+            cp sdl2-build/libSDL2-2.0.so.0 "$GITHUB_WORKSPACE/publish-sc/"
+          fi
+
+      - name: Download controller profiles
+        run: |
+          curl -fsSL -o gamecontrollerdb.txt https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
+          cp gamecontrollerdb.txt publish/
+          cp gamecontrollerdb.txt publish-sc/
+
+      - name: Create ZIP (Portable)
+        run: |
+          cd publish
+          zip -r ../linux-${{ matrix.arch }}.zip .
+
+      - name: Create ZIP (Self-contained Portable)
+        run: |
+          cd publish-sc
+          zip -r ../linux-${{ matrix.arch }}-Selfcontained.zip .
+
+      - name: Create DEB Installer
+        run: |
+          mkdir -p deb/DEBIAN
+          mkdir -p deb/usr/lib/retromultitools
+          mkdir -p deb/usr/bin
+          mkdir -p deb/usr/share/applications
+          mkdir -p deb/usr/share/icons/hicolor/512x512/apps
+
+          cat > deb/DEBIAN/control << EOF
+          Package: retromultitools
+          Version: ${{ env.APP_VERSION }}
+          Architecture: ${{ matrix.deb_arch }}
+          Maintainer: SvenGDK
+          Homepage: https://github.com/SvenGDK/RetroMultiTools
+          Description: Retro Multi Tools
+           Multi platform utility for managing, inspecting, and patching retro game ROMs.
+          Section: utils
+          Priority: optional
+          EOF
+
+          cp -r publish/* deb/usr/lib/retromultitools/
+          chmod +x deb/usr/lib/retromultitools/RetroMultiTools
+          chmod +x deb/usr/lib/retromultitools/RetroMultiTools.Updater
+
+          cp Icon.png deb/usr/share/icons/hicolor/512x512/apps/retromultitools.png
+
+          cat > deb/usr/bin/retromultitools << 'LAUNCHER'
+          #!/bin/bash
+          exec /usr/lib/retromultitools/RetroMultiTools "$@"
+          LAUNCHER
+          chmod +x deb/usr/bin/retromultitools
+
+          cat > deb/usr/share/applications/retromultitools.desktop << 'DESKTOP'
+          [Desktop Entry]
+          Name=Retro Multi Tools
+          Comment=Multi platform utility for managing, inspecting, and patching retro game ROMs
+          Exec=/usr/bin/retromultitools
+          Icon=retromultitools
+          Terminal=false
+          Type=Application
+          Categories=Utility;Game;
+          DESKTOP
+
+          dpkg-deb --root-owner-group --build deb linux-${{ matrix.arch }}-Installer.deb
+
+      - name: Create DEB Installer (Self-contained)
+        run: |
+          mkdir -p deb-sc/DEBIAN
+          mkdir -p deb-sc/usr/lib/retromultitools
+          mkdir -p deb-sc/usr/bin
+          mkdir -p deb-sc/usr/share/applications
+          mkdir -p deb-sc/usr/share/icons/hicolor/512x512/apps
+
+          cat > deb-sc/DEBIAN/control << EOF
+          Package: retromultitools
+          Version: ${{ env.APP_VERSION }}
+          Architecture: ${{ matrix.deb_arch }}
+          Maintainer: SvenGDK
+          Homepage: https://github.com/SvenGDK/RetroMultiTools
+          Description: Retro Multi Tools
+           Multi platform utility for managing, inspecting, and patching retro game ROMs.
+          Section: utils
+          Priority: optional
+          EOF
+
+          cp -r publish-sc/* deb-sc/usr/lib/retromultitools/
+          chmod +x deb-sc/usr/lib/retromultitools/RetroMultiTools
+          chmod +x deb-sc/usr/lib/retromultitools/RetroMultiTools.Updater
+
+          cp Icon.png deb-sc/usr/share/icons/hicolor/512x512/apps/retromultitools.png
+
+          cat > deb-sc/usr/bin/retromultitools << 'LAUNCHER'
+          #!/bin/bash
+          exec /usr/lib/retromultitools/RetroMultiTools "$@"
+          LAUNCHER
+          chmod +x deb-sc/usr/bin/retromultitools
+
+          cat > deb-sc/usr/share/applications/retromultitools.desktop << 'DESKTOP'
+          [Desktop Entry]
+          Name=Retro Multi Tools
+          Comment=Multi platform utility for managing, inspecting, and patching retro game ROMs
+          Exec=/usr/bin/retromultitools
+          Icon=retromultitools
+          Terminal=false
+          Type=Application
+          Categories=Utility;Game;
+          DESKTOP
+
+          dpkg-deb --root-owner-group --build deb-sc linux-${{ matrix.arch }}-Selfcontained-Installer.deb
+
+      - name: Upload ZIP (Portable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}-zip
+          path: linux-${{ matrix.arch }}.zip
+
+      - name: Upload ZIP (Self-contained Portable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}-Selfcontained-zip
+          path: linux-${{ matrix.arch }}-Selfcontained.zip
+
+      - name: Upload Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}-installer
+          path: linux-${{ matrix.arch }}-Installer.deb
+
+      - name: Upload Installer (Self-contained)
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}-Selfcontained-Installer
+          path: linux-${{ matrix.arch }}-Selfcontained-Installer.deb

@@ -6064,4 +6064,64 @@ Run:notepad.exe</value>
   <data name="MameDatEditor_DatInfoIcon" xml:space="preserve">
     <value>📋 {0}</value>
   </data>
+  <data name="RetroArchLauncher_RomNotFound" xml:space="preserve">
+    <value>Soubor ROM nebyl nalezen.</value>
+  </data>
+  <data name="RetroArchLauncher_RetroArchNotFound" xml:space="preserve">
+    <value>RetroArch nebyl nalezen. Nakonfigurujte cestu v Nastavení nebo si stáhněte RetroArch.</value>
+  </data>
+  <data name="RetroArchLauncher_NoCoreMapping" xml:space="preserve">
+    <value>Nebylo nalezeno žádné mapování jádra RetroArch pro systém: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_CoreNotFound" xml:space="preserve">
+    <value>Jádro '{0}' nebylo nalezeno. Nainstalujte prosím jádro '{0}' do RetroArch (Online Updater → Core Downloader).</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToStart" xml:space="preserve">
+    <value>Proces RetroArch se nepodařilo spustit.</value>
+  </data>
+  <data name="RetroArchLauncher_Launched" xml:space="preserve">
+    <value>Uvedeno na trh s jádrem: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToLaunch" xml:space="preserve">
+    <value>Spuštění RetroArch: {0} se nezdařilo</value>
+  </data>
+  <data name="MednafenLauncher_RomNotFound" xml:space="preserve">
+    <value>Soubor ROM nebyl nalezen.</value>
+  </data>
+  <data name="MednafenLauncher_MednafenNotFound" xml:space="preserve">
+    <value>Mednafen nebyl nalezen. Nakonfigurujte cestu v Nastavení nebo si stáhněte Mednafen.</value>
+  </data>
+  <data name="MednafenLauncher_NoModuleMapping" xml:space="preserve">
+    <value>Nebylo nalezeno žádné mapování modulu Mednafen pro systém: {0}</value>
+  </data>
+  <data name="MednafenLauncher_FailedToStart" xml:space="preserve">
+    <value>Proces Mednafen se nepodařilo spustit.</value>
+  </data>
+  <data name="MednafenLauncher_Launched" xml:space="preserve">
+    <value>Spuštěno {0} s Mednafen ({1}).</value>
+  </data>
+  <data name="MednafenLauncher_FailedToLaunch" xml:space="preserve">
+    <value>Spuštění Mednafen: {0} se nezdařilo</value>
+  </data>
+  <data name="RAIntegration_RetroArchApplication" xml:space="preserve">
+    <value>Aplikace RetroArch</value>
+  </data>
+  <data name="RAIntegration_RetroArchExecutable" xml:space="preserve">
+    <value>Spustitelný soubor RetroArch</value>
+  </data>
+  <data name="MednafenIntegration_MednafenApplication" xml:space="preserve">
+    <value>Aplikace Mednafen</value>
+  </data>
+  <data name="MednafenIntegration_MednafenExecutable" xml:space="preserve">
+    <value>Spustitelný soubor Mednafen</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>Prohlížet...</value>
+  </data>
+  <data name="Settings_AutoDetect" xml:space="preserve">
+    <value>Automatická detekce</value>
+  </data>
+  <data name="Settings_Clear" xml:space="preserve">
+    <value>Vymazat</value>
+  </data>
 </root>

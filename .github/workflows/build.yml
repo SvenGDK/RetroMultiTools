@@ -1,4 +1,4 @@
-name: Build
+name: Build All
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ env:
   DOTNET_VERSION: '8.0.x'
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_NOLOGO: true
-  APP_VERSION: '4.0.0'
+  APP_VERSION: '4.1.0'
   SDL2_VERSION: '2.30.12'
 
 jobs:

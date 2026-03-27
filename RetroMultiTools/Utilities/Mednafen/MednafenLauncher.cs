@@ -1,3 +1,4 @@
+using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using RetroMultiTools.Services;
 using System.Diagnostics;
@@ -103,11 +104,12 @@ public static class MednafenLauncher
             RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
             string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            string configDir = Path.Combine(homeDir, ".mednafen");
-            if (Directory.Exists(configDir))
-                return configDir;
+            if (string.IsNullOrEmpty(homeDir))
+                return null;
 
-            return null;
+            // Return the expected path even if the directory doesn't exist yet
+            // so callers can create it on demand (e.g. on fresh installs).
+            return Path.Combine(homeDir, ".mednafen");
         }
 
         return null;
@@ -129,24 +131,80 @@ public static class MednafenLauncher
 
     /// <summary>
     /// Resolves a user-provided Mednafen path to the actual executable.
-    /// On macOS, if the path points to a .app bundle, resolves to the executable inside it.
-    /// On other platforms, returns the path unchanged.
+    /// Handles macOS .app bundles, directory paths containing the executable,
+    /// and symlinks on all platforms.
     /// </summary>
     public static string ResolveMednafenPath(string path)
     {
         if (string.IsNullOrEmpty(path))
             return path;
 
+        // Decode any URI percent-encoding (e.g. %20 → space) that may remain
+        // from file-picker URIs on macOS.  This is idempotent for plain paths.
+        path = Uri.UnescapeDataString(path);
+
+        // Normalise: strip any trailing directory separators
+        string trimmed = path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
-            string trimmed = path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-
+            // Case 1: path IS a .app bundle (e.g. /Applications/Mednafen.app)
             if (trimmed.EndsWith(".app", StringComparison.OrdinalIgnoreCase) &&
                 Directory.Exists(trimmed))
             {
-                string executable = Path.Combine(trimmed, "Contents", "MacOS", "mednafen");
-                if (File.Exists(executable))
-                    return executable;
+                string? resolved = AppBundleHelper.ResolveAppBundleExecutable(trimmed, "mednafen");
+                if (resolved != null)
+                    return resolved;
+            }
+
+            // Case 2: path is INSIDE a .app bundle
+            // (e.g. /path/Mednafen.app/Contents/MacOS/mednafen)
+            string? bundleRoot = AppBundleHelper.GetAppBundleRoot(trimmed);
+            if (bundleRoot != null)
+            {
+                // If the exact file exists inside the bundle, use it directly
+                if (File.Exists(trimmed))
+                    return trimmed;
+
+                // Otherwise resolve the bundle to its main executable
+                string? resolved = AppBundleHelper.ResolveAppBundleExecutable(bundleRoot, "mednafen");
+                if (resolved != null)
+                    return resolved;
+            }
+        }
+
+        // If the path is already an existing file, return it directly
+        if (File.Exists(trimmed))
+            return trimmed;
+
+        // If the path is a directory, look for the executable inside it
+        if (Directory.Exists(trimmed))
+        {
+            string exeName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                ? "mednafen.exe" : "mednafen";
+
+            string candidate = Path.Combine(trimmed, exeName);
+            if (File.Exists(candidate))
+                return candidate;
+
+            // Check a bin/ subdirectory (common for custom prefix installs)
+            candidate = Path.Combine(trimmed, "bin", exeName);
+            if (File.Exists(candidate))
+                return candidate;
+
+            // On macOS, search for .app bundles within the directory.
+            // This handles the case where the Avalonia folder picker returned
+            // the parent directory because it could not select the .app bundle
+            // directly (Avalonia limitation – see Avalonia #18080).
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                string? bundle = AppBundleHelper.FindAppBundleInDirectory(trimmed, "mednafen");
+                if (bundle != null)
+                {
+                    string? resolved = AppBundleHelper.ResolveAppBundleExecutable(bundle, "mednafen");
+                    if (resolved != null)
+                        return resolved;
+                }
             }
         }
 
@@ -160,14 +218,14 @@ public static class MednafenLauncher
     public static LaunchResult Launch(string romPath, RomSystem system)
     {
         if (string.IsNullOrEmpty(romPath) || !File.Exists(romPath))
-            return new LaunchResult(false, "ROM file not found.");
+            return new LaunchResult(false, LocalizationManager.Instance["MednafenLauncher_RomNotFound"]);
 
         string mednafenPath = GetMednafenExecutablePath();
         if (string.IsNullOrEmpty(mednafenPath) || !File.Exists(mednafenPath))
-            return new LaunchResult(false, "Mednafen not found. Please configure the path in Settings or download Mednafen.");
+            return new LaunchResult(false, LocalizationManager.Instance["MednafenLauncher_MednafenNotFound"]);
 
         if (!SystemModuleMap.TryGetValue(system, out var moduleName))
-            return new LaunchResult(false, $"No Mednafen module mapping found for system: {system}");
+            return new LaunchResult(false, string.Format(LocalizationManager.Instance["MednafenLauncher_NoModuleMapping"], system));
 
         try
         {
@@ -185,14 +243,14 @@ public static class MednafenLauncher
 
             var process = Process.Start(startInfo);
             if (process == null)
-                return new LaunchResult(false, "Failed to start Mednafen process.");
+                return new LaunchResult(false, LocalizationManager.Instance["MednafenLauncher_FailedToStart"]);
 
             try
             {
                 // Update Discord Rich Presence with the current game
                 DiscordRichPresence.UpdatePresence(Path.GetFileName(romPath), system);
 
-                return new LaunchResult(true, $"Launched {Path.GetFileName(romPath)} with Mednafen ({moduleName}).", process);
+                return new LaunchResult(true, string.Format(LocalizationManager.Instance["MednafenLauncher_Launched"], Path.GetFileName(romPath), moduleName), process);
             }
             catch
             {
@@ -202,11 +260,11 @@ public static class MednafenLauncher
         }
         catch (InvalidOperationException ex)
         {
-            return new LaunchResult(false, $"Failed to launch Mednafen: {ex.Message}");
+            return new LaunchResult(false, string.Format(LocalizationManager.Instance["MednafenLauncher_FailedToLaunch"], ex.Message));
         }
         catch (System.ComponentModel.Win32Exception ex)
         {
-            return new LaunchResult(false, $"Failed to launch Mednafen: {ex.Message}");
+            return new LaunchResult(false, string.Format(LocalizationManager.Instance["MednafenLauncher_FailedToLaunch"], ex.Message));
         }
     }
 
@@ -290,12 +348,17 @@ public static class MednafenLauncher
 
     private static string? DetectMednafenLinux()
     {
+        string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
         string[] possiblePaths =
         [
             "/usr/bin/mednafen",
             "/usr/local/bin/mednafen",
+            "/usr/games/mednafen",
             "/snap/bin/mednafen",
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".local", "bin", "mednafen"),
+            Path.Combine(homeDir, ".local", "bin", "mednafen"),
+            // Nix package manager
+            Path.Combine(homeDir, ".nix-profile", "bin", "mednafen"),
+            "/run/current-system/sw/bin/mednafen",
         ];
 
         foreach (string path in possiblePaths)
@@ -316,7 +379,12 @@ public static class MednafenLauncher
             // Direct executable paths
             "/opt/homebrew/bin/mednafen",
             "/usr/local/bin/mednafen",
+            // MacPorts installation
+            "/opt/local/bin/mednafen",
             Path.Combine(homeDir, "Applications", "mednafen", "mednafen"),
+            // Nix package manager
+            Path.Combine(homeDir, ".nix-profile", "bin", "mednafen"),
+            "/run/current-system/sw/bin/mednafen",
         ];
 
         foreach (string path in possiblePaths)
@@ -329,7 +397,9 @@ public static class MednafenLauncher
         string[] appBundles =
         [
             "/Applications/Mednafen.app",
+            "/Applications/mednafen.app",
             Path.Combine(homeDir, "Applications", "Mednafen.app"),
+            Path.Combine(homeDir, "Applications", "mednafen.app"),
         ];
 
         foreach (string bundle in appBundles)

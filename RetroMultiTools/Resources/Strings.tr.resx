@@ -6064,4 +6064,64 @@ Run:notepad.exe</value>
   <data name="MameDatEditor_DatInfoIcon" xml:space="preserve">
     <value>📋 {0}</value>
   </data>
+  <data name="RetroArchLauncher_RomNotFound" xml:space="preserve">
+    <value>ROM dosyası bulunamadı.</value>
+  </data>
+  <data name="RetroArchLauncher_RetroArchNotFound" xml:space="preserve">
+    <value>RetroArch bulunamadı. Lütfen yolu Ayarlar'da yapılandırın veya RetroArch'i indirin.</value>
+  </data>
+  <data name="RetroArchLauncher_NoCoreMapping" xml:space="preserve">
+    <value>Sistem için RetroArch çekirdek eşlemesi bulunamadı: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_CoreNotFound" xml:space="preserve">
+    <value>Çekirdek '{0}' bulunamadı. Lütfen '{0}' çekirdeğini RetroArch'e (Çevrimiçi Güncelleyici → Çekirdek İndirici) yükleyin.</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToStart" xml:space="preserve">
+    <value>RetroArch işlemi başlatılamadı.</value>
+  </data>
+  <data name="RetroArchLauncher_Launched" xml:space="preserve">
+    <value>Çekirdek ile piyasaya sürüldü: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToLaunch" xml:space="preserve">
+    <value>RetroArch başlatılamadı: {0}</value>
+  </data>
+  <data name="MednafenLauncher_RomNotFound" xml:space="preserve">
+    <value>ROM dosyası bulunamadı.</value>
+  </data>
+  <data name="MednafenLauncher_MednafenNotFound" xml:space="preserve">
+    <value>Mednafen bulunamadı. Lütfen yolu Ayarlar'da yapılandırın veya Mednafen'i indirin.</value>
+  </data>
+  <data name="MednafenLauncher_NoModuleMapping" xml:space="preserve">
+    <value>Sistem için Mednafen modül eşlemesi bulunamadı: {0}</value>
+  </data>
+  <data name="MednafenLauncher_FailedToStart" xml:space="preserve">
+    <value>Mednafen işlemi başlatılamadı.</value>
+  </data>
+  <data name="MednafenLauncher_Launched" xml:space="preserve">
+    <value>Mednafen ({1}) ile {0} piyasaya sürüldü.</value>
+  </data>
+  <data name="MednafenLauncher_FailedToLaunch" xml:space="preserve">
+    <value>Mednafen başlatılamadı: {0}</value>
+  </data>
+  <data name="RAIntegration_RetroArchApplication" xml:space="preserve">
+    <value>RetroArch Uygulaması</value>
+  </data>
+  <data name="RAIntegration_RetroArchExecutable" xml:space="preserve">
+    <value>RetroArch Çalıştırılabilir</value>
+  </data>
+  <data name="MednafenIntegration_MednafenApplication" xml:space="preserve">
+    <value>Mednafen Uygulaması</value>
+  </data>
+  <data name="MednafenIntegration_MednafenExecutable" xml:space="preserve">
+    <value>Mednafen Çalıştırılabilir</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>Göz at...</value>
+  </data>
+  <data name="Settings_AutoDetect" xml:space="preserve">
+    <value>Otomatik Algılama</value>
+  </data>
+  <data name="Settings_Clear" xml:space="preserve">
+    <value>Temizle</value>
+  </data>
 </root>

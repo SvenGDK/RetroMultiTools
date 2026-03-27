@@ -6064,4 +6064,64 @@ Run:notepad.exe</value>
   <data name="MameDatEditor_DatInfoIcon" xml:space="preserve">
     <value>📋 {0}</value>
   </data>
+  <data name="RetroArchLauncher_RomNotFound" xml:space="preserve">
+    <value>ROM फ़ाइल नहीं मिली.</value>
+  </data>
+  <data name="RetroArchLauncher_RetroArchNotFound" xml:space="preserve">
+    <value>RetroArch नहीं मिला. कृपया सेटिंग्स में पथ कॉन्फ़िगर करें या RetroArch डाउनलोड करें।</value>
+  </data>
+  <data name="RetroArchLauncher_NoCoreMapping" xml:space="preserve">
+    <value>सिस्टम के लिए कोई RetroArch कोर मैपिंग नहीं मिली: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_CoreNotFound" xml:space="preserve">
+    <value>कोर '{0}' नहीं मिला। कृपया RetroArch (ऑनलाइन अपडेटर → कोर डाउनलोडर) में '{0}' कोर इंस्टॉल करें।</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToStart" xml:space="preserve">
+    <value>RetroArch प्रक्रिया प्रारंभ करने में विफल.</value>
+  </data>
+  <data name="RetroArchLauncher_Launched" xml:space="preserve">
+    <value>कोर के साथ लॉन्च किया गया: {0}</value>
+  </data>
+  <data name="RetroArchLauncher_FailedToLaunch" xml:space="preserve">
+    <value>RetroArch लॉन्च करने में विफल: {0}</value>
+  </data>
+  <data name="MednafenLauncher_RomNotFound" xml:space="preserve">
+    <value>ROM फ़ाइल नहीं मिली.</value>
+  </data>
+  <data name="MednafenLauncher_MednafenNotFound" xml:space="preserve">
+    <value>Mednafen नहीं मिला. कृपया सेटिंग्स में पथ कॉन्फ़िगर करें या Mednafen डाउनलोड करें।</value>
+  </data>
+  <data name="MednafenLauncher_NoModuleMapping" xml:space="preserve">
+    <value>सिस्टम के लिए कोई Mednafen मॉड्यूल मैपिंग नहीं मिली: {0}</value>
+  </data>
+  <data name="MednafenLauncher_FailedToStart" xml:space="preserve">
+    <value>Mednafen प्रक्रिया प्रारंभ करने में विफल.</value>
+  </data>
+  <data name="MednafenLauncher_Launched" xml:space="preserve">
+    <value>Mednafen ({1}) के साथ {0} लॉन्च किया गया।</value>
+  </data>
+  <data name="MednafenLauncher_FailedToLaunch" xml:space="preserve">
+    <value>Mednafen लॉन्च करने में विफल: {0}</value>
+  </data>
+  <data name="RAIntegration_RetroArchApplication" xml:space="preserve">
+    <value>RetroArch अनुप्रयोग</value>
+  </data>
+  <data name="RAIntegration_RetroArchExecutable" xml:space="preserve">
+    <value>RetroArch निष्पादन योग्य</value>
+  </data>
+  <data name="MednafenIntegration_MednafenApplication" xml:space="preserve">
+    <value>Mednafen एप्लीकेशन</value>
+  </data>
+  <data name="MednafenIntegration_MednafenExecutable" xml:space="preserve">
+    <value>Mednafen निष्पादन योग्य</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>ब्राउज़ करें...</value>
+  </data>
+  <data name="Settings_AutoDetect" xml:space="preserve">
+    <value>ऑटो का पता लगाने</value>
+  </data>
+  <data name="Settings_Clear" xml:space="preserve">
+    <value>साफ़ करें</value>
+  </data>
 </root>

@@ -23,7 +23,7 @@
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <TextBox x:Name="RomPathTextBox" Width="350" IsReadOnly="True"
                              Watermark="{Binding [RAShortcut_RomPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
-                    <Button x:Name="BrowseRomButton" Content="{Binding [Settings_RetroArchBrowse], Source={x:Static loc:LocalizationManager.Instance}}"
+                    <Button x:Name="BrowseRomButton" Content="{Binding [Settings_Browse], Source={x:Static loc:LocalizationManager.Instance}}"
                             Click="BrowseRomButton_Click" Padding="12,6"/>
                 </StackPanel>
 
@@ -48,7 +48,7 @@
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <TextBox x:Name="OutputDirTextBox" Width="350" IsReadOnly="True"
                              Watermark="{Binding [RAShortcut_OutputDirPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
-                    <Button x:Name="BrowseOutputDirButton" Content="{Binding [Settings_RetroArchBrowse], Source={x:Static loc:LocalizationManager.Instance}}"
+                    <Button x:Name="BrowseOutputDirButton" Content="{Binding [Settings_Browse], Source={x:Static loc:LocalizationManager.Instance}}"
                             Click="BrowseOutputDirButton_Click" Padding="12,6"/>
                 </StackPanel>
 
@@ -56,7 +56,7 @@
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <TextBox x:Name="IconPathTextBox" Width="350" IsReadOnly="True"
                              Watermark="{Binding [RAShortcut_IconPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
-                    <Button x:Name="BrowseIconButton" Content="{Binding [Settings_RetroArchBrowse], Source={x:Static loc:LocalizationManager.Instance}}"
+                    <Button x:Name="BrowseIconButton" Content="{Binding [Settings_Browse], Source={x:Static loc:LocalizationManager.Instance}}"
                             Click="BrowseIconButton_Click" Padding="12,6"/>
                 </StackPanel>
 
@@ -64,7 +64,7 @@
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <TextBox x:Name="RetroArchOverrideTextBox" Width="350" IsReadOnly="True"
                              Watermark="{Binding [RAShortcut_RetroArchOverridePlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"/>
-                    <Button x:Name="BrowseRetroArchOverrideButton" Content="{Binding [Settings_RetroArchBrowse], Source={x:Static loc:LocalizationManager.Instance}}"
+                    <Button x:Name="BrowseRetroArchOverrideButton" Content="{Binding [Settings_Browse], Source={x:Static loc:LocalizationManager.Instance}}"
                             Click="BrowseRetroArchOverrideButton_Click" Padding="12,6"/>
                 </StackPanel>
 

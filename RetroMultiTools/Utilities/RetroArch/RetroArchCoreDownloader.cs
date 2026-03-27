@@ -11,14 +11,21 @@ namespace RetroMultiTools.Utilities.RetroArch;
 /// </summary>
 public static class RetroArchCoreDownloader
 {
-    private static readonly HttpClient _httpClient = new()
+    private static readonly HttpClient _httpClient = CreateHttpClient();
+
+    private static HttpClient CreateHttpClient()
     {
-        Timeout = TimeSpan.FromMinutes(5),
-        DefaultRequestHeaders =
+        var handler = new System.Net.Http.SocketsHttpHandler
         {
-            { "User-Agent", "RetroMultiTools/1.0" }
-        }
-    };
+            PooledConnectionLifetime = TimeSpan.FromMinutes(10)
+        };
+        var client = new HttpClient(handler)
+        {
+            Timeout = TimeSpan.FromMinutes(5),
+        };
+        client.DefaultRequestHeaders.Add("User-Agent", "RetroMultiTools/1.0");
+        return client;
+    }
 
     /// <summary>
     /// Represents information about a libretro core.
