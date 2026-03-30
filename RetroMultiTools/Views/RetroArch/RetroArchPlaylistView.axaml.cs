@@ -16,6 +16,8 @@ public partial class RetroArchPlaylistView : UserControl
     {
         InitializeComponent();
         PopulateSystemCombo();
+        SystemCombo.SelectionChanged += (_, _) => UpdateBuildButtonState();
+        DragDropHelper.EnableFileDrop(RomDirectoryTextBox, _ => UpdateBuildButtonState(), acceptDirectories: true);
     }
 
     private void PopulateSystemCombo()
@@ -57,6 +59,14 @@ public partial class RetroArchPlaylistView : UserControl
         if (folders.Count == 0) return;
 
         RomDirectoryTextBox.Text = folders[0].Path.LocalPath;
+        UpdateBuildButtonState();
+    }
+
+    private void UpdateBuildButtonState()
+    {
+        BuildPlaylistButton.IsEnabled =
+            !string.IsNullOrWhiteSpace(RomDirectoryTextBox.Text) &&
+            SystemCombo.SelectedItem is ComboBoxItem { Tag: RomSystem };
     }
 
     private async void BuildPlaylistButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -95,7 +105,7 @@ public partial class RetroArchPlaylistView : UserControl
         }
         finally
         {
-            BuildPlaylistButton.IsEnabled = true;
+            UpdateBuildButtonState();
         }
     }
 

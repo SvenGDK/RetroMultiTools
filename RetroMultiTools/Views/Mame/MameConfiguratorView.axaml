@@ -1,0 +1,870 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.Mame.MameConfiguratorView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16">
+        <TextBlock Text="{Binding [MameConfig_Title], Source={x:Static loc:LocalizationManager.Instance}}"
+                   FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [MameConfig_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- INI File Selection -->
+        <Border Background="#181825" CornerRadius="6" Padding="12">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding [MameConfig_ConfigFile], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBox x:Name="IniFilePathTextBox" Width="400" IsReadOnly="True"
+                             Watermark="{Binding [MameConfig_IniPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                    <Button x:Name="BrowseIniButton" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="BrowseIniButton_Click" Padding="12,6"/>
+                    <Button x:Name="AutoDetectIniButton" Content="{Binding [Settings_AutoDetect], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="AutoDetectIniButton_Click" Padding="12,6"/>
+                </StackPanel>
+                <TextBlock x:Name="IniStatusText" Foreground="#A6ADC8" FontSize="11" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Search / Filter -->
+        <Border x:Name="SearchBorder" Background="#181825" CornerRadius="6" Padding="12" IsVisible="False">
+            <StackPanel Spacing="4">
+                <TextBlock Text="{Binding [MameConfig_SearchSettings], Source={x:Static loc:LocalizationManager.Instance}}"
+                           FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                <TextBox x:Name="SearchTextBox"
+                         Watermark="{Binding [MameConfig_SearchPlaceholder], Source={x:Static loc:LocalizationManager.Instance}}"
+                         Padding="8,6"/>
+                <TextBlock x:Name="SearchResultsText" Foreground="#A6ADC8" FontSize="11"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Tab Control for Configuration Categories -->
+        <TabControl x:Name="ConfigTabs" IsVisible="False">
+
+            <!-- ══════════════════════════════════════════════════════════ -->
+            <!-- PATHS TAB -->
+            <!-- ══════════════════════════════════════════════════════════ -->
+            <TabItem Header="{Binding [MameConfig_TabPaths], Source={x:Static loc:LocalizationManager.Instance}}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="520">
+                <StackPanel Spacing="12" Margin="0,12,0,0">
+                    <!-- Search Paths -->
+                    <Border x:Name="Section_SearchPaths" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_SearchPaths], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="140,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="homepath" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_homepath" Grid.Row="0" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="rompath" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_rompath" Grid.Row="1" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="hashpath" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_hashpath" Grid.Row="2" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="samplepath" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_samplepath" Grid.Row="3" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="artpath" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_artpath" Grid.Row="4" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="ctrlrpath" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_ctrlrpath" Grid.Row="5" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="inipath" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_inipath" Grid.Row="6" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="fontpath" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_fontpath" Grid.Row="7" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="8" Grid.Column="0" Text="cheatpath" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_cheatpath" Grid.Row="8" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="9" Grid.Column="0" Text="crosshairpath" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_crosshairpath" Grid.Row="9" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="10" Grid.Column="0" Text="pluginspath" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_pluginspath" Grid.Row="10" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="11" Grid.Column="0" Text="languagepath" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_languagepath" Grid.Row="11" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="12" Grid.Column="0" Text="swpath" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_swpath" Grid.Row="12" Grid.Column="1" Padding="6,4" FontSize="12"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Output Directories -->
+                    <Border x:Name="Section_OutputDirs" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_OutputDirs], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="140,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="cfg_directory" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_cfg_directory" Grid.Row="0" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="nvram_directory" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_nvram_directory" Grid.Row="1" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="input_directory" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_input_directory" Grid.Row="2" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="state_directory" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_state_directory" Grid.Row="3" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="snapshot_directory" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_snapshot_directory" Grid.Row="4" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="diff_directory" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_diff_directory" Grid.Row="5" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="comment_directory" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_comment_directory" Grid.Row="6" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="share_directory" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_share_directory" Grid.Row="7" Grid.Column="1" Padding="6,4" FontSize="12"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ══════════════════════════════════════════════════════════ -->
+            <!-- VIDEO TAB -->
+            <!-- ══════════════════════════════════════════════════════════ -->
+            <TabItem Header="{Binding [MameConfig_TabVideo], Source={x:Static loc:LocalizationManager.Instance}}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="520">
+                <StackPanel Spacing="12" Margin="0,12,0,0">
+                    <!-- Core Video -->
+                    <Border x:Name="Section_CoreVideo" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_CoreVideo], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="video" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_video" Grid.Row="0" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="numscreens" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_numscreens" Grid.Row="1" Grid.Column="1" Minimum="1" Maximum="4" Value="1" FontSize="12" MinWidth="120"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="window" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_window" Grid.Row="2" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="maximize" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_maximize" Grid.Row="3" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="waitvsync" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_waitvsync" Grid.Row="4" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="syncrefresh" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_syncrefresh" Grid.Row="5" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="monitorprovider" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_monitorprovider" Grid.Row="6" Grid.Column="1" MinWidth="200" FontSize="12"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Screen Options -->
+                    <Border x:Name="Section_ScreenOptions" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_ScreenOptions], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="brightness" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                    <Slider x:Name="Cfg_brightness" Minimum="0.1" Maximum="2.0" Value="1.0" Width="200" TickFrequency="0.1"/>
+                                    <TextBlock x:Name="Cfg_brightness_label" Foreground="#CDD6F4" FontSize="12" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="contrast" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                    <Slider x:Name="Cfg_contrast" Minimum="0.1" Maximum="2.0" Value="1.0" Width="200" TickFrequency="0.1"/>
+                                    <TextBlock x:Name="Cfg_contrast_label" Foreground="#CDD6F4" FontSize="12" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="gamma" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                    <Slider x:Name="Cfg_gamma" Minimum="0.1" Maximum="3.0" Value="1.0" Width="200" TickFrequency="0.1"/>
+                                    <TextBlock x:Name="Cfg_gamma_label" Foreground="#CDD6F4" FontSize="12" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="pause_brightness" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                    <Slider x:Name="Cfg_pause_brightness" Minimum="0.0" Maximum="1.0" Value="0.65" Width="200" TickFrequency="0.05"/>
+                                    <TextBlock x:Name="Cfg_pause_brightness_label" Foreground="#CDD6F4" FontSize="12" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="effect" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_effect" Grid.Row="4" Grid.Column="1" Padding="6,4" FontSize="12"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Rotation -->
+                    <Border x:Name="Section_Rotation" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_Rotation], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="rotate" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_rotate" Grid.Row="0" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="ror" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_ror" Grid.Row="1" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="rol" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_rol" Grid.Row="2" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="autoror" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_autoror" Grid.Row="3" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="autorol" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_autorol" Grid.Row="4" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="flipx" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_flipx" Grid.Row="5" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="flipy" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_flipy" Grid.Row="6" Grid.Column="1"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Artwork -->
+                    <Border x:Name="Section_Artwork" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_Artwork], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="artwork_crop" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_artwork_crop" Grid.Row="0" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="fallback_artwork" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_fallback_artwork" Grid.Row="1" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="override_artwork" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_override_artwork" Grid.Row="2" Grid.Column="1" Padding="6,4" FontSize="12"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Vector Options -->
+                    <Border x:Name="Section_Vector" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_Vector], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="beam_width_min" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_beam_width_min" Grid.Row="0" Grid.Column="1" Minimum="0.001" Maximum="16" Increment="0.1" Value="1.0" FontSize="12" FormatString="0.000" MinWidth="140"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="beam_width_max" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_beam_width_max" Grid.Row="1" Grid.Column="1" Minimum="0.001" Maximum="16" Increment="0.1" Value="1.0" FontSize="12" FormatString="0.000" MinWidth="140"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="beam_dot_size" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_beam_dot_size" Grid.Row="2" Grid.Column="1" Minimum="0.001" Maximum="16" Increment="0.1" Value="1.0" FontSize="12" FormatString="0.000" MinWidth="140"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="beam_intensity_weight" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_beam_intensity_weight" Grid.Row="3" Grid.Column="1" Minimum="-10" Maximum="10" Increment="0.1" Value="0" FontSize="12" FormatString="0.0" MinWidth="140"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="flicker" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_flicker" Grid.Row="4" Grid.Column="1" Minimum="0" Maximum="100" Increment="1" Value="0" FontSize="12" FormatString="0" MinWidth="140"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- OSD Video -->
+                    <Border x:Name="Section_OsdVideo" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_OsdVideo], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="switchres" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_switchres" Grid.Row="0" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="filter" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_filter" Grid.Row="1" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="prescale" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_prescale" Grid.Row="2" Grid.Column="1" Minimum="1" Maximum="20" Value="1" FontSize="12" MinWidth="120"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="screen" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_screen" Grid.Row="3" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="aspect" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_aspect" Grid.Row="4" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="resolution" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_resolution" Grid.Row="5" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="view" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_view" Grid.Row="6" Grid.Column="1" Padding="6,4" FontSize="12"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Per-Window Video Options -->
+                    <Border x:Name="Section_PerWindowVideo" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_PerWindowVideo], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="screen0" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_screen0" Grid.Row="0" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="aspect0" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_aspect0" Grid.Row="1" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="resolution0" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_resolution0" Grid.Row="2" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="view0" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_view0" Grid.Row="3" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="screen1" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_screen1" Grid.Row="4" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="aspect1" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_aspect1" Grid.Row="5" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="resolution1" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_resolution1" Grid.Row="6" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="view1" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_view1" Grid.Row="7" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="8" Grid.Column="0" Text="screen2" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_screen2" Grid.Row="8" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="9" Grid.Column="0" Text="aspect2" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_aspect2" Grid.Row="9" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="10" Grid.Column="0" Text="resolution2" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_resolution2" Grid.Row="10" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="11" Grid.Column="0" Text="view2" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_view2" Grid.Row="11" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="12" Grid.Column="0" Text="screen3" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_screen3" Grid.Row="12" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="13" Grid.Column="0" Text="aspect3" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_aspect3" Grid.Row="13" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="14" Grid.Column="0" Text="resolution3" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_resolution3" Grid.Row="14" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="15" Grid.Column="0" Text="view3" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_view3" Grid.Row="15" Grid.Column="1" Padding="6,4" FontSize="12"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- BGFX Post-Processing -->
+                    <Border x:Name="Section_Bgfx" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_Bgfx], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="bgfx_path" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_bgfx_path" Grid.Row="0" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="bgfx_backend" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_bgfx_backend" Grid.Row="1" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="bgfx_debug" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_bgfx_debug" Grid.Row="2" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="bgfx_screen_chains" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_bgfx_screen_chains" Grid.Row="3" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="bgfx_shadow_mask" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_bgfx_shadow_mask" Grid.Row="4" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="bgfx_lut" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_bgfx_lut" Grid.Row="5" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="bgfx_avi_name" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_bgfx_avi_name" Grid.Row="6" Grid.Column="1" Padding="6,4" FontSize="12"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ══════════════════════════════════════════════════════════ -->
+            <!-- SOUND TAB -->
+            <!-- ══════════════════════════════════════════════════════════ -->
+            <TabItem Header="{Binding [MameConfig_TabSound], Source={x:Static loc:LocalizationManager.Instance}}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="520">
+                <StackPanel Spacing="12" Margin="0,12,0,0">
+                    <Border x:Name="Section_CoreSound" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_CoreSound], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="sound" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_sound" Grid.Row="0" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="samplerate" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_samplerate" Grid.Row="1" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="samples" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_samples" Grid.Row="2" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="volume" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                    <Slider x:Name="Cfg_volume" Minimum="-32" Maximum="0" Value="0" Width="200" TickFrequency="1"/>
+                                    <TextBlock x:Name="Cfg_volume_label" Foreground="#CDD6F4" FontSize="12" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="compressor" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_compressor" Grid.Row="4" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="speaker_report" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_speaker_report" Grid.Row="5" Grid.Column="1" Minimum="0" Maximum="4" Value="0" FontSize="12" MinWidth="120"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border x:Name="Section_OsdSound" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_OsdSound], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="audio_latency" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_audio_latency" Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="5" Value="1" FontSize="12" MinWidth="120"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ══════════════════════════════════════════════════════════ -->
+            <!-- INPUT TAB -->
+            <!-- ══════════════════════════════════════════════════════════ -->
+            <TabItem Header="{Binding [MameConfig_TabInput], Source={x:Static loc:LocalizationManager.Instance}}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="520">
+                <StackPanel Spacing="12" Margin="0,12,0,0">
+                    <!-- Core Input -->
+                    <Border x:Name="Section_CoreInput" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_CoreInput], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="180,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="coin_lockout" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_coin_lockout" Grid.Row="0" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="coin_impulse" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_coin_impulse" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="99" Value="0" FontSize="12" MinWidth="120"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="ctrlr" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_ctrlr" Grid.Row="2" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="mouse" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_mouse" Grid.Row="3" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="joystick" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_joystick" Grid.Row="4" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="lightgun" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_lightgun" Grid.Row="5" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="multikeyboard" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_multikeyboard" Grid.Row="6" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="multimouse" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_multimouse" Grid.Row="7" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="8" Grid.Column="0" Text="steadykey" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_steadykey" Grid.Row="8" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="9" Grid.Column="0" Text="ui_active" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_ui_active" Grid.Row="9" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="10" Grid.Column="0" Text="offscreen_reload" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_offscreen_reload" Grid.Row="10" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="11" Grid.Column="0" Text="joystick_map" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_joystick_map" Grid.Row="11" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="12" Grid.Column="0" Text="joystick_deadzone" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_joystick_deadzone" Grid.Row="12" Grid.Column="1" Minimum="0" Maximum="1" Increment="0.01" Value="0.15" FontSize="12" FormatString="0.00" MinWidth="140"/>
+
+                                <TextBlock Grid.Row="13" Grid.Column="0" Text="joystick_saturation" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_joystick_saturation" Grid.Row="13" Grid.Column="1" Minimum="0" Maximum="1" Increment="0.01" Value="0.85" FontSize="12" FormatString="0.00" MinWidth="140"/>
+
+                                <TextBlock Grid.Row="14" Grid.Column="0" Text="joystick_threshold" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_joystick_threshold" Grid.Row="14" Grid.Column="1" Minimum="0" Maximum="1" Increment="0.01" Value="0.3" FontSize="12" FormatString="0.00" MinWidth="140"/>
+
+                                <TextBlock Grid.Row="15" Grid.Column="0" Text="natural" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_natural" Grid.Row="15" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="16" Grid.Column="0" Text="joystick_contradictory" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_joystick_contradictory" Grid.Row="16" Grid.Column="1"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Auto Enable Devices -->
+                    <Border x:Name="Section_AutoEnable" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_AutoEnable], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="180,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="paddle_device" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_paddle_device" Grid.Row="0" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="adstick_device" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_adstick_device" Grid.Row="1" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="pedal_device" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_pedal_device" Grid.Row="2" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="dial_device" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_dial_device" Grid.Row="3" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="trackball_device" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_trackball_device" Grid.Row="4" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="lightgun_device" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_lightgun_device" Grid.Row="5" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="positional_device" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_positional_device" Grid.Row="6" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="mouse_device" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_mouse_device" Grid.Row="7" Grid.Column="1" MinWidth="200" FontSize="12"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- OSD Input Providers -->
+                    <Border x:Name="Section_OsdInput" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_OsdInput], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="180,*" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="keyboardprovider" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_keyboardprovider" Grid.Row="0" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="mouseprovider" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_mouseprovider" Grid.Row="1" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="lightgunprovider" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_lightgunprovider" Grid.Row="2" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="joystickprovider" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_joystickprovider" Grid.Row="3" Grid.Column="1" MinWidth="200" FontSize="12"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ══════════════════════════════════════════════════════════ -->
+            <!-- PERFORMANCE TAB -->
+            <!-- ══════════════════════════════════════════════════════════ -->
+            <TabItem Header="{Binding [MameConfig_TabPerformance], Source={x:Static loc:LocalizationManager.Instance}}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="520">
+                <StackPanel Spacing="12" Margin="0,12,0,0">
+                    <Border x:Name="Section_CorePerformance" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_CorePerformance], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="autoframeskip" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_autoframeskip" Grid.Row="0" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="frameskip" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_frameskip" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="10" Value="0" FontSize="12" MinWidth="120"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="seconds_to_run" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_seconds_to_run" Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="999999" Value="0" FontSize="12" MinWidth="120"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="throttle" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_throttle" Grid.Row="3" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="sleep" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_sleep" Grid.Row="4" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="speed" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_speed" Grid.Row="5" Grid.Column="1" Minimum="0.01" Maximum="100" Increment="0.1" Value="1.0" FontSize="12" FormatString="0.00" MinWidth="140"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="refreshspeed" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_refreshspeed" Grid.Row="6" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="lowlatency" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_lowlatency" Grid.Row="7" Grid.Column="1"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ══════════════════════════════════════════════════════════ -->
+            <!-- STATE / PLAYBACK TAB -->
+            <!-- ══════════════════════════════════════════════════════════ -->
+            <TabItem Header="{Binding [MameConfig_TabState], Source={x:Static loc:LocalizationManager.Instance}}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="520">
+                <StackPanel Spacing="12" Margin="0,12,0,0">
+                    <Border x:Name="Section_StatePlayback" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_StatePlayback], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="state" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_state" Grid.Row="0" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="autosave" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_autosave" Grid.Row="1" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="rewind" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_rewind" Grid.Row="2" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="rewind_capacity" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_rewind_capacity" Grid.Row="3" Grid.Column="1" Minimum="0" Maximum="10000" Value="100" FontSize="12" MinWidth="120"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="playback" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_playback" Grid.Row="4" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="record" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_record" Grid.Row="5" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="exit_after_playback" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_exit_after_playback" Grid.Row="6" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="mngwrite" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_mngwrite" Grid.Row="7" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="8" Grid.Column="0" Text="aviwrite" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_aviwrite" Grid.Row="8" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="9" Grid.Column="0" Text="wavwrite" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_wavwrite" Grid.Row="9" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="10" Grid.Column="0" Text="snapname" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_snapname" Grid.Row="10" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="11" Grid.Column="0" Text="snapsize" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_snapsize" Grid.Row="11" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="12" Grid.Column="0" Text="snapview" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_snapview" Grid.Row="12" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="13" Grid.Column="0" Text="snapbilinear" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_snapbilinear" Grid.Row="13" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="14" Grid.Column="0" Text="statename" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_statename" Grid.Row="14" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="15" Grid.Column="0" Text="burnin" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_burnin" Grid.Row="15" Grid.Column="1"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- ══════════════════════════════════════════════════════════ -->
+            <!-- MISC / ADVANCED TAB -->
+            <!-- ══════════════════════════════════════════════════════════ -->
+            <TabItem Header="{Binding [MameConfig_TabMisc], Source={x:Static loc:LocalizationManager.Instance}}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="520">
+                <StackPanel Spacing="12" Margin="0,12,0,0">
+
+                    <!-- Core Misc -->
+                    <Border x:Name="Section_CoreMisc" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_CoreMisc], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="readconfig" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_readconfig" Grid.Row="0" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="drc" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_drc" Grid.Row="1" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="drc_use_c" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_drc_use_c" Grid.Row="2" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="bios" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_bios" Grid.Row="3" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="cheat" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_cheat" Grid.Row="4" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="skip_gameinfo" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_skip_gameinfo" Grid.Row="5" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="skip_warnings" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_skip_warnings" Grid.Row="6" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="uifont" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_uifont" Grid.Row="7" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="8" Grid.Column="0" Text="ui" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <ComboBox x:Name="Cfg_ui" Grid.Row="8" Grid.Column="1" MinWidth="200" FontSize="12"/>
+
+                                <TextBlock Grid.Row="9" Grid.Column="0" Text="ramsize" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_ramsize" Grid.Row="9" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="10" Grid.Column="0" Text="confirm_quit" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_confirm_quit" Grid.Row="10" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="11" Grid.Column="0" Text="ui_mouse" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_ui_mouse" Grid.Row="11" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="12" Grid.Column="0" Text="nvram_save" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_nvram_save" Grid.Row="12" Grid.Column="1"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Language -->
+                    <Border x:Name="Section_Language" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_Language], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="language" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_language" Grid.Row="0" Grid.Column="1" Padding="6,4" FontSize="12"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Debugging -->
+                    <Border x:Name="Section_Debugging" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_Debugging], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="verbose" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_verbose" Grid.Row="0" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="log" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_log" Grid.Row="1" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="oslog" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_oslog" Grid.Row="2" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="debug" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_debug" Grid.Row="3" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="update_in_pause" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_update_in_pause" Grid.Row="4" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="debugscript" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_debugscript" Grid.Row="5" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="debuglog" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_debuglog" Grid.Row="6" Grid.Column="1"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Communication -->
+                    <Border x:Name="Section_Communication" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_Communication], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="comm_localhost" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_comm_localhost" Grid.Row="0" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="comm_localport" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_comm_localport" Grid.Row="1" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="comm_remotehost" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_comm_remotehost" Grid.Row="2" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="comm_remoteport" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_comm_remoteport" Grid.Row="3" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="comm_framesync" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_comm_framesync" Grid.Row="4" Grid.Column="1"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Scripting -->
+                    <Border x:Name="Section_Scripting" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_Scripting], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="autoboot_command" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_autoboot_command" Grid.Row="0" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="autoboot_delay" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_autoboot_delay" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="120" Value="0" FontSize="12" MinWidth="120"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="autoboot_script" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_autoboot_script" Grid.Row="2" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="console" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_console" Grid.Row="3" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="plugins" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_plugins" Grid.Row="4" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="plugin" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_plugin" Grid.Row="5" Grid.Column="1" Padding="6,4" FontSize="12"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="noplugin" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_noplugin" Grid.Row="6" Grid.Column="1" Padding="6,4" FontSize="12"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- HTTP Server -->
+                    <Border x:Name="Section_HttpServer" Background="#181825" CornerRadius="6" Padding="12">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="{Binding [MameConfig_HttpServer], Source={x:Static loc:LocalizationManager.Instance}}"
+                                       FontWeight="SemiBold" Foreground="#CDD6F4"/>
+                            <Grid ColumnDefinitions="160,*" RowDefinitions="Auto,Auto,Auto" RowSpacing="6" ColumnSpacing="8">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="http" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <CheckBox x:Name="Cfg_http" Grid.Row="0" Grid.Column="1"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="http_port" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <NumericUpDown x:Name="Cfg_http_port" Grid.Row="1" Grid.Column="1" Minimum="1" Maximum="65535" Value="8080" FontSize="12" MinWidth="120"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="http_root" Foreground="#A6ADC8" VerticalAlignment="Center" FontFamily="Consolas,monospace" FontSize="12"/>
+                                <TextBox x:Name="Cfg_http_root" Grid.Row="2" Grid.Column="1" Padding="6,4" FontSize="12"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+        </TabControl>
+
+        <!-- Action Buttons -->
+        <StackPanel x:Name="ActionPanel" Orientation="Horizontal" Spacing="8" IsVisible="False">
+            <Button x:Name="SaveButton" Content="{Binding [MameConfig_Save], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="SaveButton_Click" Padding="16,10" IsEnabled="False"/>
+            <Button x:Name="SaveAsButton" Content="{Binding [MameConfig_SaveAs], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="SaveAsButton_Click" Padding="16,10"/>
+            <Button x:Name="ResetDefaultsButton" Content="{Binding [MameConfig_ResetDefaults], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="ResetDefaultsButton_Click" Padding="16,10"/>
+            <Button x:Name="CreateNewButton" Content="{Binding [MameConfig_CreateNew], Source={x:Static loc:LocalizationManager.Instance}}"
+                    Click="CreateNewButton_Click" Padding="16,10"/>
+            <TextBlock x:Name="UnsavedIndicator" Text="{Binding [MameConfig_UnsavedChanges], Source={x:Static loc:LocalizationManager.Instance}}"
+                       Foreground="#F9E2AF" FontSize="12" VerticalAlignment="Center" IsVisible="False"/>
+        </StackPanel>
+
+        <!-- Status -->
+        <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12" IsVisible="False">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="#CDD6F4"/>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

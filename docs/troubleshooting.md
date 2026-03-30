@@ -8,23 +8,23 @@ Common issues and solutions for Retro Multi Tools.
 
 ### Application does not start
 
-Make sure the [.NET 8 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) is installed (unless you chose a self-contained build):
-
-```bash
-dotnet --info
-```
-
 On **Linux**, make sure all required system packages are installed:
 
 ```bash
-# Ubuntu / Debian
+# Ubuntu / Debian / Linux Mint
 sudo apt install libicu-dev libfontconfig1 libx11-6 libice6 libsm6
 
-# Fedora
+# Fedora / CentOS Stream / RHEL / Rocky Linux / AlmaLinux / Oracle Linux
 sudo dnf install libicu fontconfig libX11 libICE libSM
 
 # Arch Linux
 sudo pacman -S icu fontconfig libx11 libice libsm
+
+# Alpine Linux
+sudo apk add icu-libs fontconfig libx11 libice libsm
+
+# openSUSE / SLES
+sudo zypper install libicu-devel fontconfig libX11-6 libICE6 libSM6
 ```
 
 ### Missing libSkiaSharp (Linux)
@@ -32,14 +32,20 @@ sudo pacman -S icu fontconfig libx11 libice libsm
 If you see an error about `libSkiaSharp`, install the OpenGL library for your distribution:
 
 ```bash
-# Ubuntu / Debian
+# Ubuntu / Debian / Linux Mint
 sudo apt install libgl1-mesa-glx
 
-# Fedora
+# Fedora / CentOS Stream / RHEL / Rocky Linux / AlmaLinux / Oracle Linux
 sudo dnf install mesa-libGL
 
 # Arch Linux
 sudo pacman -S mesa
+
+# Alpine Linux
+sudo apk add mesa-gl
+
+# openSUSE / SLES
+sudo zypper install Mesa-libGL1
 ```
 
 ### Fonts look incorrect
@@ -47,14 +53,20 @@ sudo pacman -S mesa
 Install a common font package:
 
 ```bash
-# Ubuntu / Debian
+# Ubuntu / Debian / Linux Mint
 sudo apt install fonts-liberation
 
-# Fedora
+# Fedora / CentOS Stream / RHEL / Rocky Linux / AlmaLinux / Oracle Linux
 sudo dnf install liberation-fonts
 
 # Arch Linux
 sudo pacman -S ttf-liberation
+
+# Alpine Linux
+sudo apk add font-liberation
+
+# openSUSE / SLES
+sudo zypper install liberation-fonts
 
 # macOS
 brew install font-liberation
@@ -71,16 +83,6 @@ If macOS shows **"cannot be opened because the developer cannot be verified"**:
 ```bash
 xattr -rd com.apple.quarantine RetroMultiTools
 ```
-
-### Homebrew .NET not found on macOS
-
-If you installed .NET via Homebrew and the `dotnet` command is not found:
-
-```bash
-export PATH="/usr/local/share/dotnet:$PATH"
-```
-
-Add this line to your `~/.zshrc` to make it permanent.
 
 ---
 

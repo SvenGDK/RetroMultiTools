@@ -6124,4 +6124,1204 @@ Run:notepad.exe</value>
   <data name="Settings_Clear" xml:space="preserve">
     <value>清除</value>
   </data>
+  <data name="Nav_DiscTools" xml:space="preserve">
+    <value>光盘工具</value>
+  </data>
+  <data name="DiscTools_Title" xml:space="preserve">
+    <value>光盘工具</value>
+  </data>
+  <data name="DiscTools_Description" xml:space="preserve">
+    <value>将光盘映像或文件刻录到光学介质，并从物理光盘或文件创建光盘映像。支持ISO、BIN/CUE、IMG、GDI、CDI、NRG等游戏系统光盘格式。</value>
+  </data>
+  <data name="DiscTools_Operation" xml:space="preserve">
+    <value>手术：</value>
+  </data>
+  <data name="DiscTools_OpBurnImage" xml:space="preserve">
+    <value>将映像写入光盘</value>
+  </data>
+  <data name="DiscTools_OpBurnFiles" xml:space="preserve">
+    <value>将文件写入光盘</value>
+  </data>
+  <data name="DiscTools_OpImageFromDisc" xml:space="preserve">
+    <value>从光盘创建映像</value>
+  </data>
+  <data name="DiscTools_OpImageFromFiles" xml:space="preserve">
+    <value>从文件创建图像</value>
+  </data>
+  <data name="DiscTools_Drive" xml:space="preserve">
+    <value>光驱：</value>
+  </data>
+  <data name="DiscTools_SelectDrive" xml:space="preserve">
+    <value>选择光驱...</value>
+  </data>
+  <data name="DiscTools_RefreshDrives" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="DiscTools_NoDrivesFound" xml:space="preserve">
+    <value>该系统上未检测到光驱。</value>
+  </data>
+  <data name="DiscTools_ImageFile" xml:space="preserve">
+    <value>图片文件：</value>
+  </data>
+  <data name="DiscTools_SelectImageFile" xml:space="preserve">
+    <value>选择光盘映像文件...</value>
+  </data>
+  <data name="DiscTools_ImageFiles" xml:space="preserve">
+    <value>光盘映像文件</value>
+  </data>
+  <data name="DiscTools_FilesOrFolders" xml:space="preserve">
+    <value>文件/文件夹：</value>
+  </data>
+  <data name="DiscTools_SelectFilesOrFolders" xml:space="preserve">
+    <value>选择要写入的文件或文件夹...</value>
+  </data>
+  <data name="DiscTools_SelectFolder" xml:space="preserve">
+    <value>选择一个文件夹</value>
+  </data>
+  <data name="DiscTools_OutputFile" xml:space="preserve">
+    <value>输出图像文件：</value>
+  </data>
+  <data name="DiscTools_SelectOutputImage" xml:space="preserve">
+    <value>选择输出图像文件路径...</value>
+  </data>
+  <data name="DiscTools_VolumeLabel" xml:space="preserve">
+    <value>卷标：</value>
+  </data>
+  <data name="DiscTools_VolumeLabelHint" xml:space="preserve">
+    <value>输入光盘的卷标...</value>
+  </data>
+  <data name="DiscTools_WriteSpeed" xml:space="preserve">
+    <value>写入速度：</value>
+  </data>
+  <data name="DiscTools_SpeedAuto" xml:space="preserve">
+    <value>自动（最大）</value>
+  </data>
+  <data name="DiscTools_VerifyAfterBurn" xml:space="preserve">
+    <value>写入后验证</value>
+  </data>
+  <data name="DiscTools_Burn" xml:space="preserve">
+    <value>写入光盘</value>
+  </data>
+  <data name="DiscTools_CreateImage" xml:space="preserve">
+    <value>创建图像</value>
+  </data>
+  <data name="DiscTools_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DiscTools_DetectingDrives" xml:space="preserve">
+    <value>正在检测光驱...</value>
+  </data>
+  <data name="DiscTools_DriveDetectError" xml:space="preserve">
+    <value>检测驱动器时出错：{0}</value>
+  </data>
+  <data name="DiscTools_ImageNotFound" xml:space="preserve">
+    <value>未找到图像文件。</value>
+  </data>
+  <data name="DiscTools_BurningImage" xml:space="preserve">
+    <value>写入图像：{0}</value>
+  </data>
+  <data name="DiscTools_BurningFiles" xml:space="preserve">
+    <value>将 {0} 项目写入光盘...</value>
+  </data>
+  <data name="DiscTools_NoFilesSelected" xml:space="preserve">
+    <value>未选择文件或文件夹。</value>
+  </data>
+  <data name="DiscTools_OutputRequired" xml:space="preserve">
+    <value>输出文件路径是必需的。</value>
+  </data>
+  <data name="DiscTools_ReadingDisc" xml:space="preserve">
+    <value>读盘...</value>
+  </data>
+  <data name="DiscTools_CreatingImage" xml:space="preserve">
+    <value>创建图像：{0}</value>
+  </data>
+  <data name="DiscTools_WritingToDisc" xml:space="preserve">
+    <value>将数据写入光盘...</value>
+  </data>
+  <data name="DiscTools_RunningTool" xml:space="preserve">
+    <value>运行 {0}...</value>
+  </data>
+  <data name="DiscTools_BurnComplete" xml:space="preserve">
+    <value>✔ 已成功写入光盘。</value>
+  </data>
+  <data name="DiscTools_BurnFailed" xml:space="preserve">
+    <value>✘ 写入失败：{0}</value>
+  </data>
+  <data name="DiscTools_ImageCreated" xml:space="preserve">
+    <value>✔ 创建的图像：{0} ({1})</value>
+  </data>
+  <data name="DiscTools_ImageCreateFailed" xml:space="preserve">
+    <value>✘ 镜像创建失败：{0}</value>
+  </data>
+  <data name="DiscTools_UnsupportedPlatform" xml:space="preserve">
+    <value>该平台不支持光盘操作。</value>
+  </data>
+  <data name="DiscTools_NoBurnTool" xml:space="preserve">
+    <value>未找到光盘刻录工具。请安装 wodim、cdrecord 或 xorrecord。</value>
+  </data>
+  <data name="DiscTools_NoIsoTool" xml:space="preserve">
+    <value>未找到 ISO 创建工具。请安装 xorrisofs、genisoimage 或 mkisofs。</value>
+  </data>
+  <data name="DiscTools_IsoCreateFailed" xml:space="preserve">
+    <value>ISO 创建失败：{0}</value>
+  </data>
+  <data name="DiscTools_CreatingIso" xml:space="preserve">
+    <value>正在创建 ISO 映像...</value>
+  </data>
+  <data name="DiscTools_OperationCancelled" xml:space="preserve">
+    <value>操作已取消。</value>
+  </data>
+  <data name="DiscTools_BrowseFolder" xml:space="preserve">
+    <value>浏览文件夹</value>
+  </data>
+  <data name="DiscTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>图像格式“{0}”无法刻录到光盘。支持的格式：ISO、BIN/CUE、IMG、NRG、TOAST。</value>
+  </data>
+  <data name="DiscTools_Verifying" xml:space="preserve">
+    <value>正在验证光盘...</value>
+  </data>
+  <data name="DiscTools_BurnCompleteVerifySkipped" xml:space="preserve">
+    <value>刻录成功完成。无法进行验证。</value>
+  </data>
+  <data name="DiscTools_VerifyFailed" xml:space="preserve">
+    <value>刻录完成但验证失败：光盘数据与源映像不匹配。</value>
+  </data>
+  <data name="DiscTools_IsoImageType" xml:space="preserve">
+    <value>ISO镜像</value>
+  </data>
+  <data name="DiscTools_BinCueImageType" xml:space="preserve">
+    <value>BIN/CUE 图像</value>
+  </data>
+  <data name="Nav_UsbTools" xml:space="preserve">
+    <value>USB 工具</value>
+  </data>
+  <data name="UsbTools_Title" xml:space="preserve">
+    <value>USB 工具</value>
+  </data>
+  <data name="UsbTools_Description" xml:space="preserve">
+    <value>格式化、写入镜像到、从USB驱动器创建镜像和浏览USB驱动器。</value>
+  </data>
+  <data name="UsbTools_Drive" xml:space="preserve">
+    <value>USB 驱动器</value>
+  </data>
+  <data name="UsbTools_SelectDrive" xml:space="preserve">
+    <value>选择USB驱动器...</value>
+  </data>
+  <data name="UsbTools_RefreshDrives" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="UsbTools_DetectingDrives" xml:space="preserve">
+    <value>正在检测USB驱动器...</value>
+  </data>
+  <data name="UsbTools_NoDrivesFound" xml:space="preserve">
+    <value>未找到USB驱动器。</value>
+  </data>
+  <data name="UsbTools_DriveDetectError" xml:space="preserve">
+    <value>检测驱动器时出错: {0}</value>
+  </data>
+  <data name="UsbTools_NoDriveSelected" xml:space="preserve">
+    <value>未选择USB驱动器。</value>
+  </data>
+  <data name="UsbTools_UnsupportedPlatform" xml:space="preserve">
+    <value>当前平台不支持此操作。</value>
+  </data>
+  <data name="UsbTools_TabExplorer" xml:space="preserve">
+    <value>文件浏览器</value>
+  </data>
+  <data name="UsbTools_TabFormat" xml:space="preserve">
+    <value>格式化</value>
+  </data>
+  <data name="UsbTools_TabWriteImage" xml:space="preserve">
+    <value>写入镜像</value>
+  </data>
+  <data name="UsbTools_TabCreateImage" xml:space="preserve">
+    <value>创建镜像</value>
+  </data>
+  <data name="UsbTools_NavigateUp" xml:space="preserve">
+    <value>向上导航</value>
+  </data>
+  <data name="UsbTools_RefreshFiles" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="UsbTools_AddFiles" xml:space="preserve">
+    <value>添加文件</value>
+  </data>
+  <data name="UsbTools_NewFolder" xml:space="preserve">
+    <value>新建文件夹</value>
+  </data>
+  <data name="UsbTools_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="UsbTools_Move" xml:space="preserve">
+    <value>移动</value>
+  </data>
+  <data name="UsbTools_FileSystem" xml:space="preserve">
+    <value>文件系统</value>
+  </data>
+  <data name="UsbTools_PartitionScheme" xml:space="preserve">
+    <value>分区方案</value>
+  </data>
+  <data name="UsbTools_VolumeLabel" xml:space="preserve">
+    <value>卷标</value>
+  </data>
+  <data name="UsbTools_VolumeLabelHint" xml:space="preserve">
+    <value>输入卷标</value>
+  </data>
+  <data name="UsbTools_FormatWarning" xml:space="preserve">
+    <value>⚠ 警告：格式化将擦除所选USB驱动器上的所有数据。此操作无法撤消。</value>
+  </data>
+  <data name="UsbTools_Format" xml:space="preserve">
+    <value>格式化USB驱动器</value>
+  </data>
+  <data name="UsbTools_PreparingFormat" xml:space="preserve">
+    <value>正在准备格式化...</value>
+  </data>
+  <data name="UsbTools_Formatting" xml:space="preserve">
+    <value>正在格式化为 {0} ({1})...</value>
+  </data>
+  <data name="UsbTools_FormatComplete" xml:space="preserve">
+    <value>USB驱动器格式化成功。</value>
+  </data>
+  <data name="UsbTools_FormatFailed" xml:space="preserve">
+    <value>格式化失败: {0}</value>
+  </data>
+  <data name="UsbTools_UnsupportedFileSystem" xml:space="preserve">
+    <value>不支持的文件系统: {0}</value>
+  </data>
+  <data name="UsbTools_NtfsMacWarning" xml:space="preserve">
+    <value>注意：macOS 不原生支持 NTFS 格式化。驱动器已改为格式化为 ExFAT。</value>
+  </data>
+  <data name="UsbTools_ConfirmFormat" xml:space="preserve">
+    <value>确认格式化</value>
+  </data>
+  <data name="UsbTools_ConfirmFormatMessage" xml:space="preserve">
+    <value>您确定要格式化 {0} 吗？所有数据将被永久擦除。</value>
+  </data>
+  <data name="UsbTools_ImageFile" xml:space="preserve">
+    <value>镜像文件</value>
+  </data>
+  <data name="UsbTools_SelectImageFile" xml:space="preserve">
+    <value>选择镜像文件...</value>
+  </data>
+  <data name="UsbTools_ImageFiles" xml:space="preserve">
+    <value>磁盘镜像文件</value>
+  </data>
+  <data name="UsbTools_ImageNotFound" xml:space="preserve">
+    <value>未找到镜像文件。</value>
+  </data>
+  <data name="UsbTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>不支持的镜像格式: {0}</value>
+  </data>
+  <data name="UsbTools_WriteWarning" xml:space="preserve">
+    <value>⚠ 警告：写入镜像将擦除所选USB驱动器上的所有数据。此操作无法撤消。</value>
+  </data>
+  <data name="UsbTools_WriteImage" xml:space="preserve">
+    <value>写入镜像到USB</value>
+  </data>
+  <data name="UsbTools_WritingImage" xml:space="preserve">
+    <value>正在将 {0} 写入USB驱动器...</value>
+  </data>
+  <data name="UsbTools_WriteComplete" xml:space="preserve">
+    <value>镜像已成功写入USB驱动器。</value>
+  </data>
+  <data name="UsbTools_WriteFailed" xml:space="preserve">
+    <value>写入失败: {0}</value>
+  </data>
+  <data name="UsbTools_ConfirmWrite" xml:space="preserve">
+    <value>确认写入</value>
+  </data>
+  <data name="UsbTools_ConfirmWriteMessage" xml:space="preserve">
+    <value>您确定要将 {0} 写入 {1} 吗？所有现有数据将被永久擦除。</value>
+  </data>
+  <data name="UsbTools_OutputFile" xml:space="preserve">
+    <value>输出文件</value>
+  </data>
+  <data name="UsbTools_SelectOutputImage" xml:space="preserve">
+    <value>选择输出镜像位置...</value>
+  </data>
+  <data name="UsbTools_CreateImage" xml:space="preserve">
+    <value>从USB创建镜像</value>
+  </data>
+  <data name="UsbTools_CreatingImage" xml:space="preserve">
+    <value>正在从USB驱动器创建镜像...</value>
+  </data>
+  <data name="UsbTools_ImageCreated" xml:space="preserve">
+    <value>镜像创建成功: {0}</value>
+  </data>
+  <data name="UsbTools_ImageCreateFailed" xml:space="preserve">
+    <value>镜像创建失败: {0}</value>
+  </data>
+  <data name="UsbTools_OutputRequired" xml:space="preserve">
+    <value>需要输出文件路径。</value>
+  </data>
+  <data name="UsbTools_ImgFileType" xml:space="preserve">
+    <value>IMG 镜像</value>
+  </data>
+  <data name="UsbTools_IsoFileType" xml:space="preserve">
+    <value>ISO 镜像</value>
+  </data>
+  <data name="UsbTools_OperationCancelled" xml:space="preserve">
+    <value>操作已取消。</value>
+  </data>
+  <data name="UsbTools_FolderExists" xml:space="preserve">
+    <value>同名文件夹已存在。</value>
+  </data>
+  <data name="UsbTools_FolderCreated" xml:space="preserve">
+    <value>文件夹创建成功。</value>
+  </data>
+  <data name="UsbTools_DeleteComplete" xml:space="preserve">
+    <value>删除成功。</value>
+  </data>
+  <data name="UsbTools_EntryNotFound" xml:space="preserve">
+    <value>未找到文件或文件夹。</value>
+  </data>
+  <data name="UsbTools_DestinationExists" xml:space="preserve">
+    <value>目标位置已存在同名项目。</value>
+  </data>
+  <data name="UsbTools_MoveComplete" xml:space="preserve">
+    <value>移动成功。</value>
+  </data>
+  <data name="UsbTools_SelectMoveDestination" xml:space="preserve">
+    <value>选择目标文件夹</value>
+  </data>
+  <data name="UsbTools_CopyingFile" xml:space="preserve">
+    <value>正在复制 {0}...</value>
+  </data>
+  <data name="UsbTools_AddComplete" xml:space="preserve">
+    <value>已成功添加 {0} 个项目。</value>
+  </data>
+  <data name="UsbTools_ConfirmDelete" xml:space="preserve">
+    <value>确认删除</value>
+  </data>
+  <data name="UsbTools_ConfirmDeleteMessage" xml:space="preserve">
+    <value>您确定要删除 '{0}' 吗？此操作无法撤消。</value>
+  </data>
+  <data name="UsbTools_EnterFolderName" xml:space="preserve">
+    <value>输入文件夹名称:</value>
+  </data>
+  <data name="UsbTools_FolderNameHint" xml:space="preserve">
+    <value>文件夹名称</value>
+  </data>
+  <data name="Tour_Skip" xml:space="preserve">
+    <value>跳过导览</value>
+  </data>
+  <data name="Tour_Back" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="Tour_Next" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="Tour_Finish" xml:space="preserve">
+    <value>开始使用</value>
+  </data>
+  <data name="Tour_WelcomeTitle" xml:space="preserve">
+    <value>欢迎使用 RetroMultiTools！</value>
+  </data>
+  <data name="Tour_WelcomeDesc" xml:space="preserve">
+    <value>您的复古游戏多合一工具包。让我们快速带您了解这款应用的所有功能，只需一分钟！</value>
+  </data>
+  <data name="Tour_SidebarTitle" xml:space="preserve">
+    <value>侧边栏导航</value>
+  </data>
+  <data name="Tour_SidebarDesc" xml:space="preserve">
+    <value>使用左侧侧边栏在工具之间切换。工具按浏览、补丁、分析等类别组织。</value>
+  </data>
+  <data name="Tour_BrowserTitle" xml:space="preserve">
+    <value>ROM 浏览器</value>
+  </data>
+  <data name="Tour_BrowserDesc" xml:space="preserve">
+    <value>使用强大的文件浏览器浏览您的 ROM 收藏。查看文件详情，打开文件夹，快速找到您想要的游戏。</value>
+  </data>
+  <data name="Tour_InspectorTitle" xml:space="preserve">
+    <value>ROM 检查器 &amp; 十六进制查看器</value>
+  </data>
+  <data name="Tour_InspectorDesc" xml:space="preserve">
+    <value>检查 ROM 文件头，查看内部元数据，并使用内置十六进制查看器检查原始字节。非常适合高级用户和开发者。</value>
+  </data>
+  <data name="Tour_PatchingTitle" xml:space="preserve">
+    <value>补丁 &amp; 转换</value>
+  </data>
+  <data name="Tour_PatchingDesc" xml:space="preserve">
+    <value>应用 IPS/BPS/UPS 补丁，创建自己的补丁，转换 ROM 格式，转换存档文件，以及处理 N64 字节交换 — 全部在一处完成。</value>
+  </data>
+  <data name="Tour_AnalysisTitle" xml:space="preserve">
+    <value>分析 &amp; 验证</value>
+  </data>
+  <data name="Tour_AnalysisDesc" xml:space="preserve">
+    <value>根据 DAT 文件验证 ROM，计算校验和，查找重复项，批量哈希整个文件夹，并识别 GoodTools 集合以进行精确的收藏管理。</value>
+  </data>
+  <data name="Tour_HeadersTitle" xml:space="preserve">
+    <value>文件头 &amp; 修剪</value>
+  </data>
+  <data name="Tour_HeadersDesc" xml:space="preserve">
+    <value>导出、修复或移除 ROM 文件头。修剪填充的 ROM 以节省空间。包含用于 SNES 文件头管理的专用工具。</value>
+  </data>
+  <data name="Tour_UtilitiesTitle" xml:space="preserve">
+    <value>实用工具</value>
+  </data>
+  <data name="Tour_UtilitiesDesc" xml:space="preserve">
+    <value>管理存档，应用作弊码，处理光盘镜像，配置模拟器，映射手柄按钮，抓取元数据，整理和重命名 ROM 文件，以及管理 USB 设备。</value>
+  </data>
+  <data name="Tour_EmulatorsTitle" xml:space="preserve">
+    <value>模拟器集成</value>
+  </data>
+  <data name="Tour_EmulatorsDesc" xml:space="preserve">
+    <value>与 RetroArch、MAME 和 Mednafen 深度集成。管理播放列表，审计 ROM 集，转换 CHD 文件，编辑 DAT，创建快捷方式等。</value>
+  </data>
+  <data name="Tour_AnalogueTitle" xml:space="preserve">
+    <value>Analogue FPGA</value>
+  </data>
+  <data name="Tour_AnalogueDesc" xml:space="preserve">
+    <value>适用于 Analogue FPGA 硬件的工具：Pocket、Mega Sg、Nt/Super Nt 以及即将推出的 3D。管理您设备的核心、固件和游戏库。</value>
+  </data>
+  <data name="Tour_BigPictureTitle" xml:space="preserve">
+    <value>Big Picture Mode</value>
+  </data>
+  <data name="Tour_BigPictureDesc" xml:space="preserve">
+    <value>放松享受支持手柄、附有封面、游玩记录和评分的全屏游戏库。在经典网格或现代英雄布局之间选择。</value>
+  </data>
+  <data name="Tour_SettingsTitle" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Tour_SettingsDesc" xml:space="preserve">
+    <value>自定义您的体验：更改语言，启用 Discord Rich Presence，配置 Big Picture Mode，设置手柄控制，检查更新。</value>
+  </data>
+  <data name="Tour_FinishTitle" xml:space="preserve">
+    <value>一切就绪！</value>
+  </data>
+  <data name="Tour_FinishDesc" xml:space="preserve">
+    <value>就这些！开始探索侧边栏中的工具吧。如果需要复习，随时可以从设置中重新启动此导览。祝您玩得愉快！</value>
+  </data>
+  <data name="Tour_SettingSectionTitle" xml:space="preserve">
+    <value>导览</value>
+  </data>
+  <data name="Tour_SettingSectionDesc" xml:space="preserve">
+    <value>重新播放介绍应用程序所有功能的导览。</value>
+  </data>
+  <data name="Tour_RestartButton" xml:space="preserve">
+    <value>重新开始导览</value>
+  </data>
+  <data name="Browser_SelectFolderTooltip" xml:space="preserve">
+    <value>Browse for a ROM folder to scan</value>
+  </data>
+  <data name="Browser_AddRomsTooltip" xml:space="preserve">
+    <value>Add ROM files to the current folder</value>
+  </data>
+  <data name="Browser_CopyToTooltip" xml:space="preserve">
+    <value>Copy selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_MoveToTooltip" xml:space="preserve">
+    <value>Move selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_DeleteTooltip" xml:space="preserve">
+    <value>Delete the selected ROMs</value>
+  </data>
+  <data name="Browser_OrganizeTooltip" xml:space="preserve">
+    <value>Organize ROMs into subfolders by system</value>
+  </data>
+  <data name="Browser_SendToRemoteTooltip" xml:space="preserve">
+    <value>Send selected ROMs to a remote device or cloud storage</value>
+  </data>
+  <data name="Browser_HostShareTooltip" xml:space="preserve">
+    <value>Host a local server to share ROMs on the network</value>
+  </data>
+  <data name="Browser_LaunchRetroArchTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in RetroArch</value>
+  </data>
+  <data name="Browser_LaunchMameTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in MAME</value>
+  </data>
+  <data name="Browser_LaunchMednafenTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in Mednafen</value>
+  </data>
+  <data name="Browser_BigPictureModeTooltip" xml:space="preserve">
+    <value>Enter full-screen Big Picture Mode for gamepad-friendly browsing</value>
+  </data>
+  <data name="MainWindow_SearchShortcut" xml:space="preserve">
+    <value>Search tools (Ctrl+F)</value>
+  </data>
+  <data name="BigPictureModern_AllGames" xml:space="preserve">
+    <value>所有游戏</value>
+  </data>
+  <data name="BigPictureModern_EmptyCategory" xml:space="preserve">
+    <value>此分类中暂无游戏</value>
+  </data>
+  <data name="BigPictureModern_EmptyLibrary" xml:space="preserve">
+    <value>您的游戏库为空。请浏览ROM文件夹以开始使用。</value>
+  </data>
+  <data name="BigPictureModern_Favorites" xml:space="preserve">
+    <value>收藏夹</value>
+  </data>
+  <data name="BigPictureModern_LaunchWith" xml:space="preserve">
+    <value>使用 {0} 启动</value>
+  </data>
+  <data name="BigPictureModern_MostPlayed" xml:space="preserve">
+    <value>最多游玩</value>
+  </data>
+  <data name="BigPictureModern_NoResults" xml:space="preserve">
+    <value>没有匹配搜索的游戏</value>
+  </data>
+  <data name="BigPictureModern_Plays" xml:space="preserve">
+    <value>已玩 {0} 次</value>
+  </data>
+  <data name="BigPictureModern_RecentlyPlayed" xml:space="preserve">
+    <value>最近游玩</value>
+  </data>
+  <data name="BigPictureModern_SearchPlaceholder" xml:space="preserve">
+    <value>搜索游戏库...</value>
+  </data>
+  <data name="BigPictureModern_Spotlight" xml:space="preserve">
+    <value>精选推荐</value>
+  </data>
+  <data name="BigPictureModern_TopRated" xml:space="preserve">
+    <value>最高评分</value>
+  </data>
+  <data name="BigPicture_CopiedToClipboard" xml:space="preserve">
+    <value>路径已复制到剪贴板</value>
+  </data>
+  <data name="BigPicture_CopyFilePath" xml:space="preserve">
+    <value>复制文件路径</value>
+  </data>
+  <data name="BigPicture_OpenFileLocation" xml:space="preserve">
+    <value>打开文件位置</value>
+  </data>
+  <data name="BigPicture_SortPlayCount" xml:space="preserve">
+    <value>游玩次数（高 → 低）</value>
+  </data>
+  <data name="Browser_ContextChecksum" xml:space="preserve">
+    <value>#️⃣ 计算校验和</value>
+  </data>
+  <data name="Browser_ContextGoodTools" xml:space="preserve">
+    <value>🏷️ 使用GoodTools识别</value>
+  </data>
+  <data name="Browser_ContextHexView" xml:space="preserve">
+    <value>🔢 在十六进制查看器中打开</value>
+  </data>
+  <data name="Browser_ContextInspect" xml:space="preserve">
+    <value>🔍 在ROM检查器中打开</value>
+  </data>
+  <data name="Browser_ContextOpenFolder" xml:space="preserve">
+    <value>📂 打开所在文件夹</value>
+  </data>
+  <data name="Browser_ContextOpenWith" xml:space="preserve">
+    <value>🚀 打开方式</value>
+  </data>
+  <data name="Browser_ContextPatch" xml:space="preserve">
+    <value>🩹 补丁ROM...</value>
+  </data>
+  <data name="Browser_ContextRename" xml:space="preserve">
+    <value>✏️ 重命名...</value>
+  </data>
+  <data name="Browser_ContextTools" xml:space="preserve">
+    <value>🔧 工具</value>
+  </data>
+  <data name="Browser_OpenFolderError" xml:space="preserve">
+    <value>无法打开文件夹：{0}</value>
+  </data>
+  <data name="Browser_RenameError" xml:space="preserve">
+    <value>重命名失败：{0}</value>
+  </data>
+  <data name="Browser_RenamePromptTitle" xml:space="preserve">
+    <value>重命名ROM</value>
+  </data>
+  <data name="Browser_RenameSuccess" xml:space="preserve">
+    <value>已重命名为 {0}</value>
+  </data>
+  <data name="Checksum_Description" xml:space="preserve">
+    <value>计算ROM文件的CRC32、MD5、SHA-1和SHA-256校验和，以验证完整性和识别转储。</value>
+  </data>
+  <data name="Common_SelectFileTitle" xml:space="preserve">
+    <value>选择文件</value>
+  </data>
+  <data name="Common_SelectOutputDirectoryTitle" xml:space="preserve">
+    <value>选择输出目录</value>
+  </data>
+  <data name="Common_SelectRomDirectoryTitle" xml:space="preserve">
+    <value>选择ROM目录</value>
+  </data>
+  <data name="Common_SelectRomFileTitle" xml:space="preserve">
+    <value>选择ROM文件</value>
+  </data>
+  <data name="Comparer_Description" xml:space="preserve">
+    <value>逐字节比较两个ROM文件，以识别大小和内容差异，并找到第一个不匹配的偏移量。</value>
+  </data>
+  <data name="GoodTools_NoCodesForFile" xml:space="preserve">
+    <value>未找到GoodTools代码。</value>
+  </data>
+  <data name="MameConfig_Artwork" xml:space="preserve">
+    <value>画面选项</value>
+  </data>
+  <data name="MameConfig_AutoEnable" xml:space="preserve">
+    <value>输入自动启用选项</value>
+  </data>
+  <data name="MameConfig_Bgfx" xml:space="preserve">
+    <value>BGFX后处理</value>
+  </data>
+  <data name="MameConfig_Communication" xml:space="preserve">
+    <value>通信选项</value>
+  </data>
+  <data name="MameConfig_ConfigFile" xml:space="preserve">
+    <value>配置文件</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>您有未保存的更改。放弃并继续？</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>未保存的更改</value>
+  </data>
+  <data name="MameConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>此操作将把所有设置重置为MAME默认值。未保存的更改将丢失。是否继续？</value>
+  </data>
+  <data name="MameConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>重置为默认值</value>
+  </data>
+  <data name="MameConfig_CoreInput" xml:space="preserve">
+    <value>核心输入选项</value>
+  </data>
+  <data name="MameConfig_CoreMisc" xml:space="preserve">
+    <value>核心杂项选项</value>
+  </data>
+  <data name="MameConfig_CorePerformance" xml:space="preserve">
+    <value>核心性能选项</value>
+  </data>
+  <data name="MameConfig_CoreSound" xml:space="preserve">
+    <value>核心音频选项</value>
+  </data>
+  <data name="MameConfig_CoreVideo" xml:space="preserve">
+    <value>核心视频选项</value>
+  </data>
+  <data name="MameConfig_CreateNew" xml:space="preserve">
+    <value>新建</value>
+  </data>
+  <data name="MameConfig_Debugging" xml:space="preserve">
+    <value>调试选项</value>
+  </data>
+  <data name="MameConfig_DefaultsRestored" xml:space="preserve">
+    <value>所有设置已重置为MAME默认值。</value>
+  </data>
+  <data name="MameConfig_Description" xml:space="preserve">
+    <value>加载、编辑和保存MAME配置文件（mame.ini）。支持Windows、macOS和Linux的所有MAME设置。</value>
+  </data>
+  <data name="MameConfig_HttpServer" xml:space="preserve">
+    <value>HTTP服务器选项</value>
+  </data>
+  <data name="MameConfig_IniFileType" xml:space="preserve">
+    <value>MAME INI文件</value>
+  </data>
+  <data name="MameConfig_IniPlaceholder" xml:space="preserve">
+    <value>mame.ini路径...</value>
+  </data>
+  <data name="MameConfig_Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="MameConfig_LoadError" xml:space="preserve">
+    <value>无法加载配置：{0}</value>
+  </data>
+  <data name="MameConfig_Loaded" xml:space="preserve">
+    <value>从 {1} 加载了 {0} 个设置</value>
+  </data>
+  <data name="MameConfig_NewCreated" xml:space="preserve">
+    <value>已使用MAME默认值创建新配置。保存路径：{0}</value>
+  </data>
+  <data name="MameConfig_NoIniFound" xml:space="preserve">
+    <value>未找到mame.ini。使用"浏览"查找，或使用"新建"以默认值创建。</value>
+  </data>
+  <data name="MameConfig_OsdInput" xml:space="preserve">
+    <value>OSD输入提供程序</value>
+  </data>
+  <data name="MameConfig_OsdSound" xml:space="preserve">
+    <value>OSD音频选项</value>
+  </data>
+  <data name="MameConfig_OsdVideo" xml:space="preserve">
+    <value>OSD / 硬件加速视频</value>
+  </data>
+  <data name="MameConfig_OutputDirs" xml:space="preserve">
+    <value>输出目录</value>
+  </data>
+  <data name="MameConfig_PerWindowVideo" xml:space="preserve">
+    <value>每窗口视频选项</value>
+  </data>
+  <data name="MameConfig_ResetDefaults" xml:space="preserve">
+    <value>重置为默认值</value>
+  </data>
+  <data name="MameConfig_Rotation" xml:space="preserve">
+    <value>旋转选项</value>
+  </data>
+  <data name="MameConfig_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="MameConfig_SaveAs" xml:space="preserve">
+    <value>另存为...</value>
+  </data>
+  <data name="MameConfig_SaveDialogTitle" xml:space="preserve">
+    <value>保存MAME配置</value>
+  </data>
+  <data name="MameConfig_SaveError" xml:space="preserve">
+    <value>无法保存配置：{0}</value>
+  </data>
+  <data name="MameConfig_Saved" xml:space="preserve">
+    <value>配置已保存至 {0}</value>
+  </data>
+  <data name="MameConfig_ScreenOptions" xml:space="preserve">
+    <value>屏幕选项</value>
+  </data>
+  <data name="MameConfig_Scripting" xml:space="preserve">
+    <value>脚本 / 插件</value>
+  </data>
+  <data name="MameConfig_SearchPaths" xml:space="preserve">
+    <value>搜索路径</value>
+  </data>
+  <data name="MameConfig_SearchPlaceholder" xml:space="preserve">
+    <value>输入以按名称筛选设置（如rompath、video、joystick...）</value>
+  </data>
+  <data name="MameConfig_SearchResults" xml:space="preserve">
+    <value>{1} 个部分中有 {0} 个匹配</value>
+  </data>
+  <data name="MameConfig_SearchSettings" xml:space="preserve">
+    <value>搜索设置</value>
+  </data>
+  <data name="MameConfig_SelectIniTitle" xml:space="preserve">
+    <value>选择MAME配置文件</value>
+  </data>
+  <data name="MameConfig_StatePlayback" xml:space="preserve">
+    <value>状态 / 回放选项</value>
+  </data>
+  <data name="MameConfig_TabInput" xml:space="preserve">
+    <value>输入</value>
+  </data>
+  <data name="MameConfig_TabMisc" xml:space="preserve">
+    <value>杂项 / 高级</value>
+  </data>
+  <data name="MameConfig_TabPaths" xml:space="preserve">
+    <value>路径</value>
+  </data>
+  <data name="MameConfig_TabPerformance" xml:space="preserve">
+    <value>性能</value>
+  </data>
+  <data name="MameConfig_TabSound" xml:space="preserve">
+    <value>音频</value>
+  </data>
+  <data name="MameConfig_TabState" xml:space="preserve">
+    <value>状态 / 回放</value>
+  </data>
+  <data name="MameConfig_TabVideo" xml:space="preserve">
+    <value>视频</value>
+  </data>
+  <data name="MameConfig_Title" xml:space="preserve">
+    <value>MAME配置器</value>
+  </data>
+  <data name="MameConfig_UnsavedChanges" xml:space="preserve">
+    <value>● 未保存的更改</value>
+  </data>
+  <data name="MameConfig_Vector" xml:space="preserve">
+    <value>矢量选项</value>
+  </data>
+  <data name="MednafenConfig_CfgFileType" xml:space="preserve">
+    <value>Mednafen配置文件（*.cfg）</value>
+  </data>
+  <data name="MednafenConfig_CfgPlaceholder" xml:space="preserve">
+    <value>mednafen.cfg路径...</value>
+  </data>
+  <data name="MednafenConfig_ConfigFile" xml:space="preserve">
+    <value>配置文件</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>您有未保存的更改。放弃并继续？</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>未保存的更改</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>此操作将把所有设置重置为Mednafen默认值。未保存的更改将丢失。是否继续？</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>重置为默认值</value>
+  </data>
+  <data name="MednafenConfig_CoreSettings" xml:space="preserve">
+    <value>核心设置</value>
+  </data>
+  <data name="MednafenConfig_CpuAffinity" xml:space="preserve">
+    <value>CPU亲和性</value>
+  </data>
+  <data name="MednafenConfig_CreateNew" xml:space="preserve">
+    <value>新建</value>
+  </data>
+  <data name="MednafenConfig_DefaultsRestored" xml:space="preserve">
+    <value>所有设置已恢复为Mednafen默认值。</value>
+  </data>
+  <data name="MednafenConfig_Description" xml:space="preserve">
+    <value>加载、编辑和保存Mednafen配置文件（mednafen.cfg）。支持Windows、macOS和Linux的所有Mednafen设置。</value>
+  </data>
+  <data name="MednafenConfig_DirectoryPaths" xml:space="preserve">
+    <value>目录路径</value>
+  </data>
+  <data name="MednafenConfig_FilenameFormats" xml:space="preserve">
+    <value>文件名格式</value>
+  </data>
+  <data name="MednafenConfig_FpsDisplay" xml:space="preserve">
+    <value>FPS显示</value>
+  </data>
+  <data name="MednafenConfig_GoatShader" xml:space="preserve">
+    <value>Goat Shader设置</value>
+  </data>
+  <data name="MednafenConfig_InputSettings" xml:space="preserve">
+    <value>输入设置</value>
+  </data>
+  <data name="MednafenConfig_LoadError" xml:space="preserve">
+    <value>无法加载配置：{0}</value>
+  </data>
+  <data name="MednafenConfig_Loaded" xml:space="preserve">
+    <value>从 {1} 加载了 {0} 个设置</value>
+  </data>
+  <data name="MednafenConfig_NetworkPlay" xml:space="preserve">
+    <value>网络游戏</value>
+  </data>
+  <data name="MednafenConfig_NewCreated" xml:space="preserve">
+    <value>已在 {0} 创建新的默认配置</value>
+  </data>
+  <data name="MednafenConfig_NoCfgFound" xml:space="preserve">
+    <value>无法自动检测mednafen.cfg。请手动浏览到该文件。</value>
+  </data>
+  <data name="MednafenConfig_Osd" xml:space="preserve">
+    <value>屏幕显示</value>
+  </data>
+  <data name="MednafenConfig_PerSystemDescription" xml:space="preserve">
+    <value>按模拟系统配置视频缩放、着色器和显示设置。切换系统或保存文件时会保存更改。</value>
+  </data>
+  <data name="MednafenConfig_QtRecord" xml:space="preserve">
+    <value>QuickTime录制</value>
+  </data>
+  <data name="MednafenConfig_ResetDefaults" xml:space="preserve">
+    <value>重置为默认值</value>
+  </data>
+  <data name="MednafenConfig_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="MednafenConfig_SaveAs" xml:space="preserve">
+    <value>另存为</value>
+  </data>
+  <data name="MednafenConfig_SaveDialogTitle" xml:space="preserve">
+    <value>将Mednafen配置另存为</value>
+  </data>
+  <data name="MednafenConfig_SaveError" xml:space="preserve">
+    <value>无法保存配置：{0}</value>
+  </data>
+  <data name="MednafenConfig_Saved" xml:space="preserve">
+    <value>配置已保存至 {0}</value>
+  </data>
+  <data name="MednafenConfig_SearchPlaceholder" xml:space="preserve">
+    <value>输入以按名称筛选设置（如video、sound、shader...）</value>
+  </data>
+  <data name="MednafenConfig_SearchResults" xml:space="preserve">
+    <value>{1} 个部分中有 {0} 个匹配</value>
+  </data>
+  <data name="MednafenConfig_SearchSettings" xml:space="preserve">
+    <value>搜索设置</value>
+  </data>
+  <data name="MednafenConfig_SelectCfgTitle" xml:space="preserve">
+    <value>选择Mednafen配置文件</value>
+  </data>
+  <data name="MednafenConfig_SelectSystem" xml:space="preserve">
+    <value>选择系统</value>
+  </data>
+  <data name="MednafenConfig_SoundOutput" xml:space="preserve">
+    <value>音频输出</value>
+  </data>
+  <data name="MednafenConfig_SpeedSettings" xml:space="preserve">
+    <value>快进 / 慢进</value>
+  </data>
+  <data name="MednafenConfig_SystemVideo" xml:space="preserve">
+    <value>系统视频 / 缩放</value>
+  </data>
+  <data name="MednafenConfig_TabAdvanced" xml:space="preserve">
+    <value>高级</value>
+  </data>
+  <data name="MednafenConfig_TabGeneral" xml:space="preserve">
+    <value>常规</value>
+  </data>
+  <data name="MednafenConfig_TabInput" xml:space="preserve">
+    <value>输入</value>
+  </data>
+  <data name="MednafenConfig_TabNetplay" xml:space="preserve">
+    <value>网络游戏</value>
+  </data>
+  <data name="MednafenConfig_TabPaths" xml:space="preserve">
+    <value>路径</value>
+  </data>
+  <data name="MednafenConfig_TabPerSystem" xml:space="preserve">
+    <value>按系统</value>
+  </data>
+  <data name="MednafenConfig_TabSound" xml:space="preserve">
+    <value>音频</value>
+  </data>
+  <data name="MednafenConfig_TabVideo" xml:space="preserve">
+    <value>视频</value>
+  </data>
+  <data name="MednafenConfig_TemporalBlur" xml:space="preserve">
+    <value>时间模糊</value>
+  </data>
+  <data name="MednafenConfig_Title" xml:space="preserve">
+    <value>Mednafen配置器</value>
+  </data>
+  <data name="MednafenConfig_UnsavedChanges" xml:space="preserve">
+    <value>● 未保存的更改</value>
+  </data>
+  <data name="MednafenConfig_VideoOutput" xml:space="preserve">
+    <value>视频输出</value>
+  </data>
+  <data name="MetaScraper_SummaryBySystem" xml:space="preserve">
+    <value>按系统汇总：</value>
+  </data>
+  <data name="MetaScraper_SummaryStats" xml:space="preserve">
+    <value>有效：{0}，无效：{1}，错误：{2}</value>
+  </data>
+  <data name="Nav_MameConfigurator" xml:space="preserve">
+    <value>MAME配置器</value>
+  </data>
+  <data name="Nav_MednafenConfigurator" xml:space="preserve">
+    <value>Mednafen配置器</value>
+  </data>
+  <data name="Nav_NoResults" xml:space="preserve">
+    <value>未找到匹配的工具。</value>
+  </data>
+  <data name="Nav_RetroArchConfigurator" xml:space="preserve">
+    <value>RetroArch配置器</value>
+  </data>
+  <data name="Nav_SearchPlaceholder" xml:space="preserve">
+    <value>搜索工具...</value>
+  </data>
+  <data name="Patcher_Description" xml:space="preserve">
+    <value>将IPS、BPS或xdelta补丁应用于ROM文件，以应用翻译、修复或修改。</value>
+  </data>
+  <data name="RAConfig_AIService" xml:space="preserve">
+    <value>AI服务</value>
+  </data>
+  <data name="RAConfig_AccessibilityOptions" xml:space="preserve">
+    <value>辅助功能选项</value>
+  </data>
+  <data name="RAConfig_AchievementDisplay" xml:space="preserve">
+    <value>成就显示</value>
+  </data>
+  <data name="RAConfig_AchievementOptions" xml:space="preserve">
+    <value>RetroAchievements选项</value>
+  </data>
+  <data name="RAConfig_AudioDriver" xml:space="preserve">
+    <value>音频驱动</value>
+  </data>
+  <data name="RAConfig_AudioSync" xml:space="preserve">
+    <value>音频设置</value>
+  </data>
+  <data name="RAConfig_CfgFileType" xml:space="preserve">
+    <value>RetroArch CFG文件</value>
+  </data>
+  <data name="RAConfig_CfgPlaceholder" xml:space="preserve">
+    <value>retroarch.cfg路径...</value>
+  </data>
+  <data name="RAConfig_ConfigFile" xml:space="preserve">
+    <value>配置文件</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>您有未保存的更改。放弃并继续？</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>未保存的更改</value>
+  </data>
+  <data name="RAConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>此操作将把所有设置重置为RetroArch默认值。未保存的更改将丢失。是否继续？</value>
+  </data>
+  <data name="RAConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>重置为默认值</value>
+  </data>
+  <data name="RAConfig_ContentPaths" xml:space="preserve">
+    <value>内容和存档路径</value>
+  </data>
+  <data name="RAConfig_CoreOptions" xml:space="preserve">
+    <value>核心选项</value>
+  </data>
+  <data name="RAConfig_CorePaths" xml:space="preserve">
+    <value>核心和系统路径</value>
+  </data>
+  <data name="RAConfig_CreateNew" xml:space="preserve">
+    <value>新建</value>
+  </data>
+  <data name="RAConfig_DefaultsRestored" xml:space="preserve">
+    <value>所有设置已重置为RetroArch默认值。</value>
+  </data>
+  <data name="RAConfig_Description" xml:space="preserve">
+    <value>加载、编辑和保存RetroArch配置文件（retroarch.cfg）。支持Windows、macOS和Linux的所有RetroArch设置。</value>
+  </data>
+  <data name="RAConfig_FilterPaths" xml:space="preserve">
+    <value>滤镜、覆盖层和其他路径</value>
+  </data>
+  <data name="RAConfig_FrameThrottle" xml:space="preserve">
+    <value>帧率限制选项</value>
+  </data>
+  <data name="RAConfig_InputGeneral" xml:space="preserve">
+    <value>常规输入设置</value>
+  </data>
+  <data name="RAConfig_InputHotkeys" xml:space="preserve">
+    <value>热键绑定</value>
+  </data>
+  <data name="RAConfig_LoadError" xml:space="preserve">
+    <value>无法加载配置：{0}</value>
+  </data>
+  <data name="RAConfig_Loaded" xml:space="preserve">
+    <value>从 {1} 加载了 {0} 个设置</value>
+  </data>
+  <data name="RAConfig_Logging" xml:space="preserve">
+    <value>日志选项</value>
+  </data>
+  <data name="RAConfig_MenuGeneral" xml:space="preserve">
+    <value>菜单设置</value>
+  </data>
+  <data name="RAConfig_MenuTheme" xml:space="preserve">
+    <value>主题和外观</value>
+  </data>
+  <data name="RAConfig_MiscOptions" xml:space="preserve">
+    <value>杂项选项</value>
+  </data>
+  <data name="RAConfig_Netplay" xml:space="preserve">
+    <value>网络游戏</value>
+  </data>
+  <data name="RAConfig_NetworkGeneral" xml:space="preserve">
+    <value>网络设置</value>
+  </data>
+  <data name="RAConfig_NewCreated" xml:space="preserve">
+    <value>已使用RetroArch默认值创建新配置。保存路径：{0}</value>
+  </data>
+  <data name="RAConfig_NoCfgFound" xml:space="preserve">
+    <value>未找到retroarch.cfg。使用"浏览"查找，或使用"新建"以默认值创建。</value>
+  </data>
+  <data name="RAConfig_Notifications" xml:space="preserve">
+    <value>通知</value>
+  </data>
+  <data name="RAConfig_OverlaySettings" xml:space="preserve">
+    <value>覆盖层设置</value>
+  </data>
+  <data name="RAConfig_RGUITheme" xml:space="preserve">
+    <value>RGUI主题</value>
+  </data>
+  <data name="RAConfig_RecordingOptions" xml:space="preserve">
+    <value>录制选项</value>
+  </data>
+  <data name="RAConfig_ResetDefaults" xml:space="preserve">
+    <value>重置为默认值</value>
+  </data>
+  <data name="RAConfig_Rewind" xml:space="preserve">
+    <value>倒回选项</value>
+  </data>
+  <data name="RAConfig_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="RAConfig_SaveAs" xml:space="preserve">
+    <value>另存为...</value>
+  </data>
+  <data name="RAConfig_SaveDialogTitle" xml:space="preserve">
+    <value>保存RetroArch配置</value>
+  </data>
+  <data name="RAConfig_SaveError" xml:space="preserve">
+    <value>无法保存配置：{0}</value>
+  </data>
+  <data name="RAConfig_SaveOptions" xml:space="preserve">
+    <value>保存和状态选项</value>
+  </data>
+  <data name="RAConfig_Saved" xml:space="preserve">
+    <value>配置已保存至 {0}</value>
+  </data>
+  <data name="RAConfig_SearchPlaceholder" xml:space="preserve">
+    <value>输入以按名称筛选设置（如video_driver、audio、netplay...）</value>
+  </data>
+  <data name="RAConfig_SearchSettings" xml:space="preserve">
+    <value>搜索设置</value>
+  </data>
+  <data name="RAConfig_SelectCfgTitle" xml:space="preserve">
+    <value>选择RetroArch配置文件</value>
+  </data>
+  <data name="RAConfig_TabAccessibility" xml:space="preserve">
+    <value>辅助功能</value>
+  </data>
+  <data name="RAConfig_TabAchievements" xml:space="preserve">
+    <value>成就</value>
+  </data>
+  <data name="RAConfig_TabAudio" xml:space="preserve">
+    <value>音频</value>
+  </data>
+  <data name="RAConfig_TabCore" xml:space="preserve">
+    <value>核心 / 保存</value>
+  </data>
+  <data name="RAConfig_TabFrameThrottle" xml:space="preserve">
+    <value>帧率限制</value>
+  </data>
+  <data name="RAConfig_TabInput" xml:space="preserve">
+    <value>输入</value>
+  </data>
+  <data name="RAConfig_TabMenu" xml:space="preserve">
+    <value>菜单 / 界面</value>
+  </data>
+  <data name="RAConfig_TabMisc" xml:space="preserve">
+    <value>杂项 / 日志</value>
+  </data>
+  <data name="RAConfig_TabNetwork" xml:space="preserve">
+    <value>网络</value>
+  </data>
+  <data name="RAConfig_TabOverlay" xml:space="preserve">
+    <value>覆盖层</value>
+  </data>
+  <data name="RAConfig_TabPaths" xml:space="preserve">
+    <value>路径</value>
+  </data>
+  <data name="RAConfig_TabRecording" xml:space="preserve">
+    <value>录制</value>
+  </data>
+  <data name="RAConfig_TabVideo" xml:space="preserve">
+    <value>视频</value>
+  </data>
+  <data name="RAConfig_Title" xml:space="preserve">
+    <value>RetroArch配置器</value>
+  </data>
+  <data name="RAConfig_UnsavedChanges" xml:space="preserve">
+    <value>● 未保存的更改</value>
+  </data>
+  <data name="RAConfig_VideoAdvanced" xml:space="preserve">
+    <value>高级视频</value>
+  </data>
+  <data name="RAConfig_VideoDisplay" xml:space="preserve">
+    <value>显示设置</value>
+  </data>
+  <data name="RAConfig_VideoDriver" xml:space="preserve">
+    <value>视频驱动</value>
+  </data>
+  <data name="RAConfig_VideoOSD" xml:space="preserve">
+    <value>OSD和截图</value>
+  </data>
+  <data name="RAConfig_VideoScaling" xml:space="preserve">
+    <value>缩放和滤镜</value>
+  </data>
+  <data name="RAConfig_VideoSync" xml:space="preserve">
+    <value>同步</value>
+  </data>
+  <data name="Security_SingleNoFeatures" xml:space="preserve">
+    <value>✔ {0}：未检测到安全功能。</value>
+  </data>
+  <data name="Security_SingleResultDetected" xml:space="preserve">
+    <value>✔ {0}：检测到 {1} 个安全功能。</value>
+  </data>
+  <data name="Settings_BigPictureStyleClassic" xml:space="preserve">
+    <value>经典（卡片网格）</value>
+  </data>
+  <data name="Settings_BigPictureStyleLabel" xml:space="preserve">
+    <value>视觉风格</value>
+  </data>
+  <data name="Settings_BigPictureStyleModern" xml:space="preserve">
+    <value>现代（主视图 + 轮播）</value>
+  </data>
+  <data name="Settings_UpdateManagedByPackageManager" xml:space="preserve">
+    <value>更新由系统包管理器管理。</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImage" xml:space="preserve">
+    <value>确认创建镜像</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImageMessage" xml:space="preserve">
+    <value>从 {0} 创建完整磁盘镜像？根据驱动器大小，这可能需要一些时间。</value>
+  </data>
 </root>

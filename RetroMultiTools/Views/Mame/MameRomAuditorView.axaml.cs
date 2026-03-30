@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Localization;
+using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.Mame;
 
 namespace RetroMultiTools.Views.Mame;
@@ -16,6 +17,8 @@ public partial class MameRomAuditorView : UserControl
     public MameRomAuditorView()
     {
         InitializeComponent();
+        DragDropHelper.EnableFileDrop(XmlFileTextBox, _ => UpdateAuditButton());
+        DragDropHelper.EnableFileDrop(RomDirTextBox, _ => UpdateAuditButton(), acceptDirectories: true);
     }
 
     private async void BrowseXml_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

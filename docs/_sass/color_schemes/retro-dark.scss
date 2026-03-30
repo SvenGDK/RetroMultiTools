@@ -1,0 +1,34 @@
+// Custom dark color scheme for Retro Multi Tools documentation.
+// Mirrors the application's Avalonia dark theme colors.
+//
+// App palette reference:
+//   Background   #1E1E2E
+//   Sidebar      #181825
+//   Deep dark    #11161B
+//   Foreground   #CDD6F4
+//   Secondary    #A6ADC8
+//   Muted        #6C7086
+//   Accent       #89B4FA
+//   Surface      #313244
+
+// ── Backgrounds ──────────────────────────────────────────────
+$body-background-color: #1E1E2E;
+$sidebar-color: #181825;
+$search-background-color: #181825;
+$table-background-color: #181825;
+$code-background-color: #11161B;
+
+// ── Text ─────────────────────────────────────────────────────
+$body-text-color: #CDD6F4;
+$body-heading-color: #CDD6F4;
+$search-result-preview-color: #A6ADC8;
+$nav-child-link-color: #A6ADC8;
+$feedback-color: #A6ADC8;
+
+// ── Accent & links ───────────────────────────────────────────
+$link-color: #89B4FA;
+$btn-primary-color: #89B4FA;
+$base-button-color: #313244;
+
+// ── Borders ──────────────────────────────────────────────────
+$border-color: #313244;

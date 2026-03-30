@@ -6124,4 +6124,1205 @@ Run:notepad.exe</value>
   <data name="Settings_Clear" xml:space="preserve">
     <value>Rensa</value>
   </data>
+  <data name="Nav_DiscTools" xml:space="preserve">
+    <value>Skivverktyg</value>
+  </data>
+  <data name="DiscTools_Title" xml:space="preserve">
+    <value>Skivverktyg</value>
+  </data>
+  <data name="DiscTools_Description" xml:space="preserve">
+    <value>Bränn skivbilder eller filer till optiska media och skapa skivbilder från fysiska skivor eller filer. Stöder ISO, BIN/CUE, IMG, GDI, CDI, NRG och andra skivformat för spelsystem.</value>
+  </data>
+  <data name="DiscTools_Operation" xml:space="preserve">
+    <value>Drift:</value>
+  </data>
+  <data name="DiscTools_OpBurnImage" xml:space="preserve">
+    <value>Skriv bild till skiva</value>
+  </data>
+  <data name="DiscTools_OpBurnFiles" xml:space="preserve">
+    <value>Skriv filer till skiva</value>
+  </data>
+  <data name="DiscTools_OpImageFromDisc" xml:space="preserve">
+    <value>Skapa bild från skiva</value>
+  </data>
+  <data name="DiscTools_OpImageFromFiles" xml:space="preserve">
+    <value>Skapa bild från filer</value>
+  </data>
+  <data name="DiscTools_Drive" xml:space="preserve">
+    <value>Optisk enhet:</value>
+  </data>
+  <data name="DiscTools_SelectDrive" xml:space="preserve">
+    <value>Välj en optisk enhet...</value>
+  </data>
+  <data name="DiscTools_RefreshDrives" xml:space="preserve">
+    <value>Uppdatera</value>
+  </data>
+  <data name="DiscTools_NoDrivesFound" xml:space="preserve">
+    <value>Inga optiska enheter upptäcktes på det här systemet.</value>
+  </data>
+  <data name="DiscTools_ImageFile" xml:space="preserve">
+    <value>Bildfil:</value>
+  </data>
+  <data name="DiscTools_SelectImageFile" xml:space="preserve">
+    <value>Välj en skivavbildsfil...</value>
+  </data>
+  <data name="DiscTools_ImageFiles" xml:space="preserve">
+    <value>Skivbildsfiler</value>
+  </data>
+  <data name="DiscTools_FilesOrFolders" xml:space="preserve">
+    <value>Filer/mappar:</value>
+  </data>
+  <data name="DiscTools_SelectFilesOrFolders" xml:space="preserve">
+    <value>Välj filer eller mappar att skriva...</value>
+  </data>
+  <data name="DiscTools_SelectFolder" xml:space="preserve">
+    <value>Välj en mapp</value>
+  </data>
+  <data name="DiscTools_OutputFile" xml:space="preserve">
+    <value>Utdatabildfil:</value>
+  </data>
+  <data name="DiscTools_SelectOutputImage" xml:space="preserve">
+    <value>Välj sökväg för utdatabildfil...</value>
+  </data>
+  <data name="DiscTools_VolumeLabel" xml:space="preserve">
+    <value>Volymetikett:</value>
+  </data>
+  <data name="DiscTools_VolumeLabelHint" xml:space="preserve">
+    <value>Ange en volymetikett för skivan...</value>
+  </data>
+  <data name="DiscTools_WriteSpeed" xml:space="preserve">
+    <value>Skrivhastighet:</value>
+  </data>
+  <data name="DiscTools_SpeedAuto" xml:space="preserve">
+    <value>Automatisk (max)</value>
+  </data>
+  <data name="DiscTools_VerifyAfterBurn" xml:space="preserve">
+    <value>Verifiera efter att ha skrivit</value>
+  </data>
+  <data name="DiscTools_Burn" xml:space="preserve">
+    <value>Skriv till skiva</value>
+  </data>
+  <data name="DiscTools_CreateImage" xml:space="preserve">
+    <value>Skapa bild</value>
+  </data>
+  <data name="DiscTools_Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="DiscTools_DetectingDrives" xml:space="preserve">
+    <value>Upptäcker optiska enheter...</value>
+  </data>
+  <data name="DiscTools_DriveDetectError" xml:space="preserve">
+    <value>Fel vid upptäckt av enheter: {0}</value>
+  </data>
+  <data name="DiscTools_ImageNotFound" xml:space="preserve">
+    <value>Bildfilen hittades inte.</value>
+  </data>
+  <data name="DiscTools_BurningImage" xml:space="preserve">
+    <value>Skrivbild: {0}</value>
+  </data>
+  <data name="DiscTools_BurningFiles" xml:space="preserve">
+    <value>Skriver {0}-objekt till skiva...</value>
+  </data>
+  <data name="DiscTools_NoFilesSelected" xml:space="preserve">
+    <value>Inga filer eller mappar har valts.</value>
+  </data>
+  <data name="DiscTools_OutputRequired" xml:space="preserve">
+    <value>Utdatafilsökväg krävs.</value>
+  </data>
+  <data name="DiscTools_ReadingDisc" xml:space="preserve">
+    <value>Läser skiva...</value>
+  </data>
+  <data name="DiscTools_CreatingImage" xml:space="preserve">
+    <value>Skapar bild: {0}</value>
+  </data>
+  <data name="DiscTools_WritingToDisc" xml:space="preserve">
+    <value>Skriver data till skiva...</value>
+  </data>
+  <data name="DiscTools_RunningTool" xml:space="preserve">
+    <value>Kör {0}...</value>
+  </data>
+  <data name="DiscTools_BurnComplete" xml:space="preserve">
+    <value>✔ Har skrivits till skiva.</value>
+  </data>
+  <data name="DiscTools_BurnFailed" xml:space="preserve">
+    <value>✘ Skrivning misslyckades: {0}</value>
+  </data>
+  <data name="DiscTools_ImageCreated" xml:space="preserve">
+    <value>✔ Bild skapad: {0} ({1})</value>
+  </data>
+  <data name="DiscTools_ImageCreateFailed" xml:space="preserve">
+    <value>✘ Bildskapandet misslyckades: {0}</value>
+  </data>
+  <data name="DiscTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Denna plattform stöds inte för skivoperationer.</value>
+  </data>
+  <data name="DiscTools_NoBurnTool" xml:space="preserve">
+    <value>Inget verktyg för skivbränning hittades. Installera wodim, cdrecord eller xorrecord.</value>
+  </data>
+  <data name="DiscTools_NoIsoTool" xml:space="preserve">
+    <value>Inget verktyg för att skapa ISO hittades. Installera xorrisofs, genisoimage eller mkisofs.</value>
+  </data>
+  <data name="DiscTools_IsoCreateFailed" xml:space="preserve">
+    <value>Det gick inte att skapa ISO: {0}</value>
+  </data>
+  <data name="DiscTools_CreatingIso" xml:space="preserve">
+    <value>Skapar ISO-bild...</value>
+  </data>
+  <data name="DiscTools_OperationCancelled" xml:space="preserve">
+    <value>Åtgärden avbröts.</value>
+  </data>
+  <data name="DiscTools_BrowseFolder" xml:space="preserve">
+    <value>Bläddra i mapp</value>
+  </data>
+  <data name="DiscTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>Bildformatet '{0}' kan inte brännas till skiva. Format som stöds: ISO, BIN/CUE, IMG, NRG, TOAST.</value>
+  </data>
+  <data name="DiscTools_Verifying" xml:space="preserve">
+    <value>Verifierar skivan...</value>
+  </data>
+  <data name="DiscTools_BurnCompleteVerifySkipped" xml:space="preserve">
+    <value>Bränningen slutfördes. Verifiering kunde inte utföras.</value>
+  </data>
+  <data name="DiscTools_VerifyFailed" xml:space="preserve">
+    <value>Bränningen slutförd men verifieringen misslyckades: skivdata matchar inte källbilden.</value>
+  </data>
+  <data name="DiscTools_IsoImageType" xml:space="preserve">
+    <value>ISO-bild</value>
+  </data>
+  <data name="DiscTools_BinCueImageType" xml:space="preserve">
+    <value>BIN/CUE-bild</value>
+  </data>
+  <data name="Nav_UsbTools" xml:space="preserve">
+    <value>USB-verktyg</value>
+  </data>
+  <data name="UsbTools_Title" xml:space="preserve">
+    <value>USB-verktyg</value>
+  </data>
+  <data name="UsbTools_Description" xml:space="preserve">
+    <value>Formatera, skriv avbildningar till, skapa avbildningar från och bläddra i USB-enheter.</value>
+  </data>
+  <data name="UsbTools_Drive" xml:space="preserve">
+    <value>USB-enhet</value>
+  </data>
+  <data name="UsbTools_SelectDrive" xml:space="preserve">
+    <value>Välj en USB-enhet...</value>
+  </data>
+  <data name="UsbTools_RefreshDrives" xml:space="preserve">
+    <value>Uppdatera</value>
+  </data>
+  <data name="UsbTools_DetectingDrives" xml:space="preserve">
+    <value>Identifierar USB-enheter...</value>
+  </data>
+  <data name="UsbTools_NoDrivesFound" xml:space="preserve">
+    <value>Inga USB-enheter hittades.</value>
+  </data>
+  <data name="UsbTools_DriveDetectError" xml:space="preserve">
+    <value>Fel vid identifiering av enheter: {0}</value>
+  </data>
+  <data name="UsbTools_NoDriveSelected" xml:space="preserve">
+    <value>Ingen USB-enhet vald.</value>
+  </data>
+  <data name="UsbTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Denna åtgärd stöds inte på den aktuella plattformen.</value>
+  </data>
+  <data name="UsbTools_TabExplorer" xml:space="preserve">
+    <value>Filutforskare</value>
+  </data>
+  <data name="UsbTools_TabFormat" xml:space="preserve">
+    <value>Formatera</value>
+  </data>
+  <data name="UsbTools_TabWriteImage" xml:space="preserve">
+    <value>Skriv avbildning</value>
+  </data>
+  <data name="UsbTools_TabCreateImage" xml:space="preserve">
+    <value>Skapa avbildning</value>
+  </data>
+  <data name="UsbTools_NavigateUp" xml:space="preserve">
+    <value>Navigera uppåt</value>
+  </data>
+  <data name="UsbTools_RefreshFiles" xml:space="preserve">
+    <value>Uppdatera</value>
+  </data>
+  <data name="UsbTools_AddFiles" xml:space="preserve">
+    <value>Lägg till filer</value>
+  </data>
+  <data name="UsbTools_NewFolder" xml:space="preserve">
+    <value>Ny mapp</value>
+  </data>
+  <data name="UsbTools_Delete" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="UsbTools_Move" xml:space="preserve">
+    <value>Flytta</value>
+  </data>
+  <data name="UsbTools_FileSystem" xml:space="preserve">
+    <value>Filsystem</value>
+  </data>
+  <data name="UsbTools_PartitionScheme" xml:space="preserve">
+    <value>Partitionsschema</value>
+  </data>
+  <data name="UsbTools_VolumeLabel" xml:space="preserve">
+    <value>Volymetikett</value>
+  </data>
+  <data name="UsbTools_VolumeLabelHint" xml:space="preserve">
+    <value>Ange en volymetikett</value>
+  </data>
+  <data name="UsbTools_FormatWarning" xml:space="preserve">
+    <value>⚠ Varning: Formatering raderar ALL data på den valda USB-enheten. Denna åtgärd kan inte ångras.</value>
+  </data>
+  <data name="UsbTools_Format" xml:space="preserve">
+    <value>Formatera USB-enhet</value>
+  </data>
+  <data name="UsbTools_PreparingFormat" xml:space="preserve">
+    <value>Förbereder formatering...</value>
+  </data>
+  <data name="UsbTools_Formatting" xml:space="preserve">
+    <value>Formaterar till {0} ({1})...</value>
+  </data>
+  <data name="UsbTools_FormatComplete" xml:space="preserve">
+    <value>USB-enheten har formaterats.</value>
+  </data>
+  <data name="UsbTools_FormatFailed" xml:space="preserve">
+    <value>Formatering misslyckades: {0}</value>
+  </data>
+  <data name="UsbTools_UnsupportedFileSystem" xml:space="preserve">
+    <value>Filsystem som inte stöds: {0}</value>
+  </data>
+  <data name="UsbTools_NtfsMacWarning" xml:space="preserve">
+    <value>Obs: macOS stöder inte NTFS-formatering nativt. Enheten formaterades som ExFAT istället.</value>
+  </data>
+  <data name="UsbTools_ConfirmFormat" xml:space="preserve">
+    <value>Bekräfta formatering</value>
+  </data>
+  <data name="UsbTools_ConfirmFormatMessage" xml:space="preserve">
+    <value>Är du säker på att du vill formatera {0}? All data raderas permanent.</value>
+  </data>
+  <data name="UsbTools_ImageFile" xml:space="preserve">
+    <value>Avbildningsfil</value>
+  </data>
+  <data name="UsbTools_SelectImageFile" xml:space="preserve">
+    <value>Välj en avbildningsfil...</value>
+  </data>
+  <data name="UsbTools_ImageFiles" xml:space="preserve">
+    <value>Diskavbildningsfiler</value>
+  </data>
+  <data name="UsbTools_ImageNotFound" xml:space="preserve">
+    <value>Avbildningsfilen hittades inte.</value>
+  </data>
+  <data name="UsbTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>Avbildningsformat som inte stöds: {0}</value>
+  </data>
+  <data name="UsbTools_WriteWarning" xml:space="preserve">
+    <value>⚠ Varning: Att skriva en avbildning raderar ALL data på den valda USB-enheten. Denna åtgärd kan inte ångras.</value>
+  </data>
+  <data name="UsbTools_WriteImage" xml:space="preserve">
+    <value>Skriv avbildning till USB</value>
+  </data>
+  <data name="UsbTools_WritingImage" xml:space="preserve">
+    <value>Skriver {0} till USB-enhet...</value>
+  </data>
+  <data name="UsbTools_WriteComplete" xml:space="preserve">
+    <value>Avbildningen har skrivits till USB-enheten.</value>
+  </data>
+  <data name="UsbTools_WriteFailed" xml:space="preserve">
+    <value>Skrivning misslyckades: {0}</value>
+  </data>
+  <data name="UsbTools_ConfirmWrite" xml:space="preserve">
+    <value>Bekräfta skrivning</value>
+  </data>
+  <data name="UsbTools_ConfirmWriteMessage" xml:space="preserve">
+    <value>Är du säker på att du vill skriva {0} till {1}? All befintlig data raderas permanent.</value>
+  </data>
+  <data name="UsbTools_OutputFile" xml:space="preserve">
+    <value>Utdatafil</value>
+  </data>
+  <data name="UsbTools_SelectOutputImage" xml:space="preserve">
+    <value>Välj plats för utdataavbildning...</value>
+  </data>
+  <data name="UsbTools_CreateImage" xml:space="preserve">
+    <value>Skapa avbildning från USB</value>
+  </data>
+  <data name="UsbTools_CreatingImage" xml:space="preserve">
+    <value>Skapar avbildning från USB-enhet...</value>
+  </data>
+  <data name="UsbTools_ImageCreated" xml:space="preserve">
+    <value>Avbildning skapad: {0}</value>
+  </data>
+  <data name="UsbTools_ImageCreateFailed" xml:space="preserve">
+    <value>Avbildning kunde inte skapas: {0}</value>
+  </data>
+  <data name="UsbTools_OutputRequired" xml:space="preserve">
+    <value>Sökväg för utdatafilen krävs.</value>
+  </data>
+  <data name="UsbTools_ImgFileType" xml:space="preserve">
+    <value>IMG-avbildning</value>
+  </data>
+  <data name="UsbTools_IsoFileType" xml:space="preserve">
+    <value>ISO-avbildning</value>
+  </data>
+  <data name="UsbTools_OperationCancelled" xml:space="preserve">
+    <value>Åtgärden avbröts.</value>
+  </data>
+  <data name="UsbTools_FolderExists" xml:space="preserve">
+    <value>En mapp med det namnet finns redan.</value>
+  </data>
+  <data name="UsbTools_FolderCreated" xml:space="preserve">
+    <value>Mappen har skapats.</value>
+  </data>
+  <data name="UsbTools_DeleteComplete" xml:space="preserve">
+    <value>Borttaget.</value>
+  </data>
+  <data name="UsbTools_EntryNotFound" xml:space="preserve">
+    <value>Filen eller mappen hittades inte.</value>
+  </data>
+  <data name="UsbTools_DestinationExists" xml:space="preserve">
+    <value>Ett objekt med samma namn finns redan på destinationen.</value>
+  </data>
+  <data name="UsbTools_MoveComplete" xml:space="preserve">
+    <value>Flyttat.</value>
+  </data>
+  <data name="UsbTools_SelectMoveDestination" xml:space="preserve">
+    <value>Välj destinationsmapp</value>
+  </data>
+  <data name="UsbTools_CopyingFile" xml:space="preserve">
+    <value>Kopierar {0}...</value>
+  </data>
+  <data name="UsbTools_AddComplete" xml:space="preserve">
+    <value>{0} objekt har lagts till.</value>
+  </data>
+  <data name="UsbTools_ConfirmDelete" xml:space="preserve">
+    <value>Bekräfta borttagning</value>
+  </data>
+  <data name="UsbTools_ConfirmDeleteMessage" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort '{0}'? Denna åtgärd kan inte ångras.</value>
+  </data>
+  <data name="UsbTools_EnterFolderName" xml:space="preserve">
+    <value>Ange mappnamn:</value>
+  </data>
+  <data name="UsbTools_FolderNameHint" xml:space="preserve">
+    <value>Mappnamn</value>
+  </data>
+
+  <data name="Tour_Skip" xml:space="preserve">
+    <value>Hoppa över tour</value>
+  </data>
+  <data name="Tour_Back" xml:space="preserve">
+    <value>Tillbaka</value>
+  </data>
+  <data name="Tour_Next" xml:space="preserve">
+    <value>Nästa</value>
+  </data>
+  <data name="Tour_Finish" xml:space="preserve">
+    <value>Kom igång</value>
+  </data>
+  <data name="Tour_WelcomeTitle" xml:space="preserve">
+    <value>Välkommen till RetroMultiTools!</value>
+  </data>
+  <data name="Tour_WelcomeDesc" xml:space="preserve">
+    <value>Ditt allt-i-ett-verktyg för retrogaming. Låt oss ge dig en snabb rundtur om allt den här appen kan göra. Det tar bara en minut!</value>
+  </data>
+  <data name="Tour_SidebarTitle" xml:space="preserve">
+    <value>Sidopanelsnavigering</value>
+  </data>
+  <data name="Tour_SidebarDesc" xml:space="preserve">
+    <value>Använd sidopanelen till vänster för att växla mellan verktyg. De är organiserade i kategorier som surfning, patchning, analys och mer.</value>
+  </data>
+  <data name="Tour_BrowserTitle" xml:space="preserve">
+    <value>ROM-webbläsare</value>
+  </data>
+  <data name="Tour_BrowserDesc" xml:space="preserve">
+    <value>Bläddra i din ROM-samling med en kraftfull filbläddrare. Visa filinformation, öppna mappar och hitta snabbt de spel du letar efter.</value>
+  </data>
+  <data name="Tour_InspectorTitle" xml:space="preserve">
+    <value>ROM-inspektör &amp; hex-visare</value>
+  </data>
+  <data name="Tour_InspectorDesc" xml:space="preserve">
+    <value>Inspektera ROM-filhuvuden, visa intern metadata och undersök råa bytes med den inbyggda hex-visaren. Utmärkt för avancerade användare och utvecklare.</value>
+  </data>
+  <data name="Tour_PatchingTitle" xml:space="preserve">
+    <value>Patchning &amp; konvertering</value>
+  </data>
+  <data name="Tour_PatchingDesc" xml:space="preserve">
+    <value>Tillämpa IPS/BPS/UPS-patchar, skapa egna patchar, konvertera ROM-format, konvertera sparfiler och hantera N64-byte-swapping — allt på ett ställe.</value>
+  </data>
+  <data name="Tour_AnalysisTitle" xml:space="preserve">
+    <value>Analys &amp; verifiering</value>
+  </data>
+  <data name="Tour_AnalysisDesc" xml:space="preserve">
+    <value>Verifiera dina ROM-filer mot DAT-filer, beräkna checksummor, hitta dubbletter, batch-hasha hela mappar och identifiera GoodTools-set för korrekt samlingshantering.</value>
+  </data>
+  <data name="Tour_HeadersTitle" xml:space="preserve">
+    <value>Huvuden &amp; trimning</value>
+  </data>
+  <data name="Tour_HeadersDesc" xml:space="preserve">
+    <value>Exportera, fixa eller ta bort ROM-huvuden. Trimma utfyllda ROM-filer för att spara utrymme. Innehåller specialiserade verktyg för SNES-huvudhantering.</value>
+  </data>
+  <data name="Tour_UtilitiesTitle" xml:space="preserve">
+    <value>Verktyg</value>
+  </data>
+  <data name="Tour_UtilitiesDesc" xml:space="preserve">
+    <value>Hantera arkiv, tillämpa fuskoder, arbeta med skivavbildningar, konfigurera emulatorer, mappa gamepad-knappar, skrapa metadata, organisera och byt namn på dina ROM-filer och hantera USB-enheter.</value>
+  </data>
+  <data name="Tour_EmulatorsTitle" xml:space="preserve">
+    <value>Emulatorintegration</value>
+  </data>
+  <data name="Tour_EmulatorsDesc" xml:space="preserve">
+    <value>Djup integration med RetroArch, MAME och Mednafen. Hantera spellistor, granska ROM-set, konvertera CHD-filer, redigera DAT-filer, skapa genvägar och mer.</value>
+  </data>
+  <data name="Tour_AnalogueTitle" xml:space="preserve">
+    <value>Analogue FPGA</value>
+  </data>
+  <data name="Tour_AnalogueDesc" xml:space="preserve">
+    <value>Verktyg för Analogue FPGA-hårdvara: Pocket, Mega Sg, Nt/Super Nt och kommande 3D. Hantera kärnor, firmware och spelbibliotek för dina enheter.</value>
+  </data>
+  <data name="Tour_BigPictureTitle" xml:space="preserve">
+    <value>Big Picture Mode</value>
+  </data>
+  <data name="Tour_BigPictureDesc" xml:space="preserve">
+    <value>Luta dig tillbaka och njut av ett helskärmsbibliotek med kontrollerstöd, grafik, spårning av speltid och betyg. Välj mellan klassiskt rutnät eller modernt hero-layout.</value>
+  </data>
+  <data name="Tour_SettingsTitle" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  <data name="Tour_SettingsDesc" xml:space="preserve">
+    <value>Anpassa din upplevelse: byt språk, aktivera Discord Rich Presence, konfigurera Big Picture Mode, ställ in gamepad-kontroller och sök efter uppdateringar.</value>
+  </data>
+  <data name="Tour_FinishTitle" xml:space="preserve">
+    <value>Du är redo!</value>
+  </data>
+  <data name="Tour_FinishDesc" xml:space="preserve">
+    <value>Det var allt! Börja utforska verktygen i sidopanelen. Du kan alltid starta om den här touren från Inställningar om du behöver en uppfriskning. Njut!</value>
+  </data>
+  <data name="Tour_SettingSectionTitle" xml:space="preserve">
+    <value>Guidad rundtur</value>
+  </data>
+  <data name="Tour_SettingSectionDesc" xml:space="preserve">
+    <value>Spela upp den guidade rundturen som förklarar alla funktioner i applikationen.</value>
+  </data>
+  <data name="Tour_RestartButton" xml:space="preserve">
+    <value>Starta om touren</value>
+  </data>
+  <data name="Browser_SelectFolderTooltip" xml:space="preserve">
+    <value>Browse for a ROM folder to scan</value>
+  </data>
+  <data name="Browser_AddRomsTooltip" xml:space="preserve">
+    <value>Add ROM files to the current folder</value>
+  </data>
+  <data name="Browser_CopyToTooltip" xml:space="preserve">
+    <value>Copy selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_MoveToTooltip" xml:space="preserve">
+    <value>Move selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_DeleteTooltip" xml:space="preserve">
+    <value>Delete the selected ROMs</value>
+  </data>
+  <data name="Browser_OrganizeTooltip" xml:space="preserve">
+    <value>Organize ROMs into subfolders by system</value>
+  </data>
+  <data name="Browser_SendToRemoteTooltip" xml:space="preserve">
+    <value>Send selected ROMs to a remote device or cloud storage</value>
+  </data>
+  <data name="Browser_HostShareTooltip" xml:space="preserve">
+    <value>Host a local server to share ROMs on the network</value>
+  </data>
+  <data name="Browser_LaunchRetroArchTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in RetroArch</value>
+  </data>
+  <data name="Browser_LaunchMameTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in MAME</value>
+  </data>
+  <data name="Browser_LaunchMednafenTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in Mednafen</value>
+  </data>
+  <data name="Browser_BigPictureModeTooltip" xml:space="preserve">
+    <value>Enter full-screen Big Picture Mode for gamepad-friendly browsing</value>
+  </data>
+  <data name="MainWindow_SearchShortcut" xml:space="preserve">
+    <value>Search tools (Ctrl+F)</value>
+  </data>
+  <data name="BigPictureModern_AllGames" xml:space="preserve">
+    <value>Alla spel</value>
+  </data>
+  <data name="BigPictureModern_EmptyCategory" xml:space="preserve">
+    <value>Inga spel i denna kategori ännu</value>
+  </data>
+  <data name="BigPictureModern_EmptyLibrary" xml:space="preserve">
+    <value>Ditt bibliotek är tomt. Bläddra till en ROM-mapp för att komma igång.</value>
+  </data>
+  <data name="BigPictureModern_Favorites" xml:space="preserve">
+    <value>Favoriter</value>
+  </data>
+  <data name="BigPictureModern_LaunchWith" xml:space="preserve">
+    <value>Starta med {0}</value>
+  </data>
+  <data name="BigPictureModern_MostPlayed" xml:space="preserve">
+    <value>Mest spelade</value>
+  </data>
+  <data name="BigPictureModern_NoResults" xml:space="preserve">
+    <value>Inga spel matchar din sökning</value>
+  </data>
+  <data name="BigPictureModern_Plays" xml:space="preserve">
+    <value>{0} spelningar</value>
+  </data>
+  <data name="BigPictureModern_RecentlyPlayed" xml:space="preserve">
+    <value>Nyligen spelade</value>
+  </data>
+  <data name="BigPictureModern_SearchPlaceholder" xml:space="preserve">
+    <value>Sök i ditt bibliotek...</value>
+  </data>
+  <data name="BigPictureModern_Spotlight" xml:space="preserve">
+    <value>I fokus</value>
+  </data>
+  <data name="BigPictureModern_TopRated" xml:space="preserve">
+    <value>Högst betyg</value>
+  </data>
+  <data name="BigPicture_CopiedToClipboard" xml:space="preserve">
+    <value>Sökväg kopierad till urklipp</value>
+  </data>
+  <data name="BigPicture_CopyFilePath" xml:space="preserve">
+    <value>Kopiera filsökväg</value>
+  </data>
+  <data name="BigPicture_OpenFileLocation" xml:space="preserve">
+    <value>Öppna filplats</value>
+  </data>
+  <data name="BigPicture_SortPlayCount" xml:space="preserve">
+    <value>Antal spelningar (hög → låg)</value>
+  </data>
+  <data name="Browser_ContextChecksum" xml:space="preserve">
+    <value>#️⃣ Beräkna kontrollsumma</value>
+  </data>
+  <data name="Browser_ContextGoodTools" xml:space="preserve">
+    <value>🏷️ Identifiera med GoodTools</value>
+  </data>
+  <data name="Browser_ContextHexView" xml:space="preserve">
+    <value>🔢 Öppna i Hex-visare</value>
+  </data>
+  <data name="Browser_ContextInspect" xml:space="preserve">
+    <value>🔍 Öppna i ROM-inspektör</value>
+  </data>
+  <data name="Browser_ContextOpenFolder" xml:space="preserve">
+    <value>📂 Öppna överliggande mapp</value>
+  </data>
+  <data name="Browser_ContextOpenWith" xml:space="preserve">
+    <value>🚀 Öppna med</value>
+  </data>
+  <data name="Browser_ContextPatch" xml:space="preserve">
+    <value>🩹 Patcha ROM...</value>
+  </data>
+  <data name="Browser_ContextRename" xml:space="preserve">
+    <value>✏️ Byt namn...</value>
+  </data>
+  <data name="Browser_ContextTools" xml:space="preserve">
+    <value>🔧 Verktyg</value>
+  </data>
+  <data name="Browser_OpenFolderError" xml:space="preserve">
+    <value>Kunde inte öppna mapp: {0}</value>
+  </data>
+  <data name="Browser_RenameError" xml:space="preserve">
+    <value>Namnbyte misslyckades: {0}</value>
+  </data>
+  <data name="Browser_RenamePromptTitle" xml:space="preserve">
+    <value>Byt namn på ROM</value>
+  </data>
+  <data name="Browser_RenameSuccess" xml:space="preserve">
+    <value>Omdöpt till {0}</value>
+  </data>
+  <data name="Checksum_Description" xml:space="preserve">
+    <value>Beräkna CRC32-, MD5-, SHA-1- och SHA-256-kontrollsummor för ROM-filer för att verifiera integritet och identifiera dumpar.</value>
+  </data>
+  <data name="Common_SelectFileTitle" xml:space="preserve">
+    <value>Välj fil</value>
+  </data>
+  <data name="Common_SelectOutputDirectoryTitle" xml:space="preserve">
+    <value>Välj utdatakatalog</value>
+  </data>
+  <data name="Common_SelectRomDirectoryTitle" xml:space="preserve">
+    <value>Välj ROM-katalog</value>
+  </data>
+  <data name="Common_SelectRomFileTitle" xml:space="preserve">
+    <value>Välj ROM-fil</value>
+  </data>
+  <data name="Comparer_Description" xml:space="preserve">
+    <value>Jämför två ROM-filer byte för byte för att identifiera skillnader i storlek, innehåll och hitta den första avvikande positionen.</value>
+  </data>
+  <data name="GoodTools_NoCodesForFile" xml:space="preserve">
+    <value>Inga GoodTools-koder hittades.</value>
+  </data>
+  <data name="MameConfig_Artwork" xml:space="preserve">
+    <value>Grafikalternativ</value>
+  </data>
+  <data name="MameConfig_AutoEnable" xml:space="preserve">
+    <value>Alternativ för automatisk aktivering av inmatning</value>
+  </data>
+  <data name="MameConfig_Bgfx" xml:space="preserve">
+    <value>BGFX-efterbehandling</value>
+  </data>
+  <data name="MameConfig_Communication" xml:space="preserve">
+    <value>Kommunikationsalternativ</value>
+  </data>
+  <data name="MameConfig_ConfigFile" xml:space="preserve">
+    <value>Konfigurationsfil</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Du har osparade ändringar. Ignorera dem och fortsätta?</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Osparade ändringar</value>
+  </data>
+  <data name="MameConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Detta återställer alla inställningar till MAME-standardvärden. Osparade ändringar går förlorade. Fortsätta?</value>
+  </data>
+  <data name="MameConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Återställ till standardvärden</value>
+  </data>
+  <data name="MameConfig_CoreInput" xml:space="preserve">
+    <value>Kärninmatningsalternativ</value>
+  </data>
+  <data name="MameConfig_CoreMisc" xml:space="preserve">
+    <value>Kärna diverse alternativ</value>
+  </data>
+  <data name="MameConfig_CorePerformance" xml:space="preserve">
+    <value>Kärnprestanda-alternativ</value>
+  </data>
+  <data name="MameConfig_CoreSound" xml:space="preserve">
+    <value>Kärnljudalternativ</value>
+  </data>
+  <data name="MameConfig_CoreVideo" xml:space="preserve">
+    <value>Kärnvideoalternativ</value>
+  </data>
+  <data name="MameConfig_CreateNew" xml:space="preserve">
+    <value>Skapa ny</value>
+  </data>
+  <data name="MameConfig_Debugging" xml:space="preserve">
+    <value>Felsökningsalternativ</value>
+  </data>
+  <data name="MameConfig_DefaultsRestored" xml:space="preserve">
+    <value>Alla inställningar återställda till MAME-standardvärden.</value>
+  </data>
+  <data name="MameConfig_Description" xml:space="preserve">
+    <value>Ladda, redigera och spara MAME-konfigurationsfiler (mame.ini). Stödjer alla MAME-inställningar för Windows, macOS och Linux.</value>
+  </data>
+  <data name="MameConfig_HttpServer" xml:space="preserve">
+    <value>HTTP-serveralternativ</value>
+  </data>
+  <data name="MameConfig_IniFileType" xml:space="preserve">
+    <value>MAME INI-filer</value>
+  </data>
+  <data name="MameConfig_IniPlaceholder" xml:space="preserve">
+    <value>Sökväg till mame.ini...</value>
+  </data>
+  <data name="MameConfig_Language" xml:space="preserve">
+    <value>Språk</value>
+  </data>
+  <data name="MameConfig_LoadError" xml:space="preserve">
+    <value>Kunde inte ladda konfiguration: {0}</value>
+  </data>
+  <data name="MameConfig_Loaded" xml:space="preserve">
+    <value>Laddade {0} inställningar från {1}</value>
+  </data>
+  <data name="MameConfig_NewCreated" xml:space="preserve">
+    <value>Ny konfiguration skapad med MAME-standardvärden. Sökväg: {0}</value>
+  </data>
+  <data name="MameConfig_NoIniFound" xml:space="preserve">
+    <value>Ingen mame.ini hittades. Använd Bläddra för att hitta den, eller Skapa ny för att generera en med standardvärden.</value>
+  </data>
+  <data name="MameConfig_OsdInput" xml:space="preserve">
+    <value>OSD-inmatningsleverantörer</value>
+  </data>
+  <data name="MameConfig_OsdSound" xml:space="preserve">
+    <value>OSD-ljudalternativ</value>
+  </data>
+  <data name="MameConfig_OsdVideo" xml:space="preserve">
+    <value>OSD / Accelererad video</value>
+  </data>
+  <data name="MameConfig_OutputDirs" xml:space="preserve">
+    <value>Utdatakataloger</value>
+  </data>
+  <data name="MameConfig_PerWindowVideo" xml:space="preserve">
+    <value>Videoalternativ per fönster</value>
+  </data>
+  <data name="MameConfig_ResetDefaults" xml:space="preserve">
+    <value>Återställ till standardvärden</value>
+  </data>
+  <data name="MameConfig_Rotation" xml:space="preserve">
+    <value>Rotationsalternativ</value>
+  </data>
+  <data name="MameConfig_Save" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="MameConfig_SaveAs" xml:space="preserve">
+    <value>Spara som...</value>
+  </data>
+  <data name="MameConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Spara MAME-konfiguration</value>
+  </data>
+  <data name="MameConfig_SaveError" xml:space="preserve">
+    <value>Kunde inte spara konfiguration: {0}</value>
+  </data>
+  <data name="MameConfig_Saved" xml:space="preserve">
+    <value>Konfiguration sparad till {0}</value>
+  </data>
+  <data name="MameConfig_ScreenOptions" xml:space="preserve">
+    <value>Skärmalternativ</value>
+  </data>
+  <data name="MameConfig_Scripting" xml:space="preserve">
+    <value>Skript / Plugins</value>
+  </data>
+  <data name="MameConfig_SearchPaths" xml:space="preserve">
+    <value>Sökvägar</value>
+  </data>
+  <data name="MameConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Skriv för att filtrera inställningar efter namn (t.ex. rompath, video, joystick...)</value>
+  </data>
+  <data name="MameConfig_SearchResults" xml:space="preserve">
+    <value>{0} av {1} sektioner matchar</value>
+  </data>
+  <data name="MameConfig_SearchSettings" xml:space="preserve">
+    <value>Sök inställningar</value>
+  </data>
+  <data name="MameConfig_SelectIniTitle" xml:space="preserve">
+    <value>Välj MAME-konfigurationsfil</value>
+  </data>
+  <data name="MameConfig_StatePlayback" xml:space="preserve">
+    <value>Status/uppspelningsalternativ</value>
+  </data>
+  <data name="MameConfig_TabInput" xml:space="preserve">
+    <value>Inmatning</value>
+  </data>
+  <data name="MameConfig_TabMisc" xml:space="preserve">
+    <value>Diverse / Avancerat</value>
+  </data>
+  <data name="MameConfig_TabPaths" xml:space="preserve">
+    <value>Sökvägar</value>
+  </data>
+  <data name="MameConfig_TabPerformance" xml:space="preserve">
+    <value>Prestanda</value>
+  </data>
+  <data name="MameConfig_TabSound" xml:space="preserve">
+    <value>Ljud</value>
+  </data>
+  <data name="MameConfig_TabState" xml:space="preserve">
+    <value>Status / Uppspelning</value>
+  </data>
+  <data name="MameConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="MameConfig_Title" xml:space="preserve">
+    <value>MAME-konfigurator</value>
+  </data>
+  <data name="MameConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Osparade ändringar</value>
+  </data>
+  <data name="MameConfig_Vector" xml:space="preserve">
+    <value>Vektoralternativ</value>
+  </data>
+  <data name="MednafenConfig_CfgFileType" xml:space="preserve">
+    <value>Mednafen-konfigurationsfiler (*.cfg)</value>
+  </data>
+  <data name="MednafenConfig_CfgPlaceholder" xml:space="preserve">
+    <value>Sökväg till mednafen.cfg...</value>
+  </data>
+  <data name="MednafenConfig_ConfigFile" xml:space="preserve">
+    <value>Konfigurationsfil</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Du har osparade ändringar. Ignorera dem och fortsätta?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Osparade ändringar</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Detta återställer alla inställningar till Mednafen-standardvärden. Osparade ändringar går förlorade. Fortsätta?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Återställ till standardvärden</value>
+  </data>
+  <data name="MednafenConfig_CoreSettings" xml:space="preserve">
+    <value>Kärninställningar</value>
+  </data>
+  <data name="MednafenConfig_CpuAffinity" xml:space="preserve">
+    <value>CPU-affinitet</value>
+  </data>
+  <data name="MednafenConfig_CreateNew" xml:space="preserve">
+    <value>Skapa ny</value>
+  </data>
+  <data name="MednafenConfig_DefaultsRestored" xml:space="preserve">
+    <value>Alla inställningar återställda till Mednafen-standardvärden.</value>
+  </data>
+  <data name="MednafenConfig_Description" xml:space="preserve">
+    <value>Ladda, redigera och spara Mednafen-konfigurationsfiler (mednafen.cfg). Stödjer alla Mednafen-inställningar för Windows, macOS och Linux.</value>
+  </data>
+  <data name="MednafenConfig_DirectoryPaths" xml:space="preserve">
+    <value>Katalogsökvägar</value>
+  </data>
+  <data name="MednafenConfig_FilenameFormats" xml:space="preserve">
+    <value>Filnamnsformat</value>
+  </data>
+  <data name="MednafenConfig_FpsDisplay" xml:space="preserve">
+    <value>FPS-visning</value>
+  </data>
+  <data name="MednafenConfig_GoatShader" xml:space="preserve">
+    <value>Goat Shader-inställningar</value>
+  </data>
+  <data name="MednafenConfig_InputSettings" xml:space="preserve">
+    <value>Inmatningsinställningar</value>
+  </data>
+  <data name="MednafenConfig_LoadError" xml:space="preserve">
+    <value>Kunde inte ladda konfiguration: {0}</value>
+  </data>
+  <data name="MednafenConfig_Loaded" xml:space="preserve">
+    <value>Laddade {0} inställningar från {1}</value>
+  </data>
+  <data name="MednafenConfig_NetworkPlay" xml:space="preserve">
+    <value>Nätverksspel</value>
+  </data>
+  <data name="MednafenConfig_NewCreated" xml:space="preserve">
+    <value>Ny standardkonfiguration skapad i {0}</value>
+  </data>
+  <data name="MednafenConfig_NoCfgFound" xml:space="preserve">
+    <value>Kunde inte automatiskt hitta mednafen.cfg. Bläddra till filen manuellt.</value>
+  </data>
+  <data name="MednafenConfig_Osd" xml:space="preserve">
+    <value>Skärmvisning</value>
+  </data>
+  <data name="MednafenConfig_PerSystemDescription" xml:space="preserve">
+    <value>Konfigurera videoskalning, shaders och visningsinställningar per emulerat system. Ändringar sparas vid systembyte eller filsparning.</value>
+  </data>
+  <data name="MednafenConfig_QtRecord" xml:space="preserve">
+    <value>QuickTime-inspelning</value>
+  </data>
+  <data name="MednafenConfig_ResetDefaults" xml:space="preserve">
+    <value>Återställ till standardvärden</value>
+  </data>
+  <data name="MednafenConfig_Save" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="MednafenConfig_SaveAs" xml:space="preserve">
+    <value>Spara som</value>
+  </data>
+  <data name="MednafenConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Spara Mednafen-konfiguration som</value>
+  </data>
+  <data name="MednafenConfig_SaveError" xml:space="preserve">
+    <value>Kunde inte spara konfiguration: {0}</value>
+  </data>
+  <data name="MednafenConfig_Saved" xml:space="preserve">
+    <value>Konfiguration sparad till {0}</value>
+  </data>
+  <data name="MednafenConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Skriv för att filtrera inställningar efter namn (t.ex. video, sound, shader...)</value>
+  </data>
+  <data name="MednafenConfig_SearchResults" xml:space="preserve">
+    <value>{0} av {1} sektioner matchar</value>
+  </data>
+  <data name="MednafenConfig_SearchSettings" xml:space="preserve">
+    <value>Sök inställningar</value>
+  </data>
+  <data name="MednafenConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Välj Mednafen-konfigurationsfil</value>
+  </data>
+  <data name="MednafenConfig_SelectSystem" xml:space="preserve">
+    <value>Välj system</value>
+  </data>
+  <data name="MednafenConfig_SoundOutput" xml:space="preserve">
+    <value>Ljudutgång</value>
+  </data>
+  <data name="MednafenConfig_SpeedSettings" xml:space="preserve">
+    <value>Snabbspolning / Långsam uppspelning</value>
+  </data>
+  <data name="MednafenConfig_SystemVideo" xml:space="preserve">
+    <value>Systemvideo / Skalning</value>
+  </data>
+  <data name="MednafenConfig_TabAdvanced" xml:space="preserve">
+    <value>Avancerat</value>
+  </data>
+  <data name="MednafenConfig_TabGeneral" xml:space="preserve">
+    <value>Allmänt</value>
+  </data>
+  <data name="MednafenConfig_TabInput" xml:space="preserve">
+    <value>Inmatning</value>
+  </data>
+  <data name="MednafenConfig_TabNetplay" xml:space="preserve">
+    <value>Nätverksspel</value>
+  </data>
+  <data name="MednafenConfig_TabPaths" xml:space="preserve">
+    <value>Sökvägar</value>
+  </data>
+  <data name="MednafenConfig_TabPerSystem" xml:space="preserve">
+    <value>Per system</value>
+  </data>
+  <data name="MednafenConfig_TabSound" xml:space="preserve">
+    <value>Ljud</value>
+  </data>
+  <data name="MednafenConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="MednafenConfig_TemporalBlur" xml:space="preserve">
+    <value>Temporal oskärpa</value>
+  </data>
+  <data name="MednafenConfig_Title" xml:space="preserve">
+    <value>Mednafen-konfigurator</value>
+  </data>
+  <data name="MednafenConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Osparade ändringar</value>
+  </data>
+  <data name="MednafenConfig_VideoOutput" xml:space="preserve">
+    <value>Videoutgång</value>
+  </data>
+  <data name="MetaScraper_SummaryBySystem" xml:space="preserve">
+    <value>Sammanfattning per system:</value>
+  </data>
+  <data name="MetaScraper_SummaryStats" xml:space="preserve">
+    <value>Giltiga: {0}, ogiltiga: {1}, fel: {2}</value>
+  </data>
+  <data name="Nav_MameConfigurator" xml:space="preserve">
+    <value>MAME-konfigurator</value>
+  </data>
+  <data name="Nav_MednafenConfigurator" xml:space="preserve">
+    <value>Mednafen-konfigurator</value>
+  </data>
+  <data name="Nav_NoResults" xml:space="preserve">
+    <value>Inga matchande verktyg hittades.</value>
+  </data>
+  <data name="Nav_RetroArchConfigurator" xml:space="preserve">
+    <value>RetroArch-konfigurator</value>
+  </data>
+  <data name="Nav_SearchPlaceholder" xml:space="preserve">
+    <value>Sök verktyg...</value>
+  </data>
+  <data name="Patcher_Description" xml:space="preserve">
+    <value>Applicera IPS-, BPS- eller xdelta-patchar på ROM-filer för att tillämpa översättningar, korrigeringar eller modifieringar.</value>
+  </data>
+  <data name="RAConfig_AIService" xml:space="preserve">
+    <value>AI-tjänst</value>
+  </data>
+  <data name="RAConfig_AccessibilityOptions" xml:space="preserve">
+    <value>Tillgänglighetsalternativ</value>
+  </data>
+  <data name="RAConfig_AchievementDisplay" xml:space="preserve">
+    <value>Visning av prestationer</value>
+  </data>
+  <data name="RAConfig_AchievementOptions" xml:space="preserve">
+    <value>RetroAchievements-alternativ</value>
+  </data>
+  <data name="RAConfig_AudioDriver" xml:space="preserve">
+    <value>Ljuddrivrutin</value>
+  </data>
+  <data name="RAConfig_AudioSync" xml:space="preserve">
+    <value>Ljudinställningar</value>
+  </data>
+  <data name="RAConfig_CfgFileType" xml:space="preserve">
+    <value>RetroArch CFG-filer</value>
+  </data>
+  <data name="RAConfig_CfgPlaceholder" xml:space="preserve">
+    <value>Sökväg till retroarch.cfg...</value>
+  </data>
+  <data name="RAConfig_ConfigFile" xml:space="preserve">
+    <value>Konfigurationsfil</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Du har osparade ändringar. Ignorera dem och fortsätta?</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Osparade ändringar</value>
+  </data>
+  <data name="RAConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Detta återställer alla inställningar till RetroArch-standardvärden. Osparade ändringar går förlorade. Fortsätta?</value>
+  </data>
+  <data name="RAConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Återställ till standardvärden</value>
+  </data>
+  <data name="RAConfig_ContentPaths" xml:space="preserve">
+    <value>Innehålls- och sparvägar</value>
+  </data>
+  <data name="RAConfig_CoreOptions" xml:space="preserve">
+    <value>Kärnalternativ</value>
+  </data>
+  <data name="RAConfig_CorePaths" xml:space="preserve">
+    <value>Kärn- och systemvägar</value>
+  </data>
+  <data name="RAConfig_CreateNew" xml:space="preserve">
+    <value>Skapa ny</value>
+  </data>
+  <data name="RAConfig_DefaultsRestored" xml:space="preserve">
+    <value>Alla inställningar återställda till RetroArch-standardvärden.</value>
+  </data>
+  <data name="RAConfig_Description" xml:space="preserve">
+    <value>Ladda, redigera och spara RetroArch-konfigurationsfiler (retroarch.cfg). Stödjer alla RetroArch-inställningar för Windows, macOS och Linux.</value>
+  </data>
+  <data name="RAConfig_FilterPaths" xml:space="preserve">
+    <value>Filter-, overlay- och andra sökvägar</value>
+  </data>
+  <data name="RAConfig_FrameThrottle" xml:space="preserve">
+    <value>Bildhastighetsbegränsning</value>
+  </data>
+  <data name="RAConfig_InputGeneral" xml:space="preserve">
+    <value>Allmänna inmatningsinställningar</value>
+  </data>
+  <data name="RAConfig_InputHotkeys" xml:space="preserve">
+    <value>Snabbknappar</value>
+  </data>
+  <data name="RAConfig_LoadError" xml:space="preserve">
+    <value>Kunde inte ladda konfiguration: {0}</value>
+  </data>
+  <data name="RAConfig_Loaded" xml:space="preserve">
+    <value>Laddade {0} inställningar från {1}</value>
+  </data>
+  <data name="RAConfig_Logging" xml:space="preserve">
+    <value>Loggningsalternativ</value>
+  </data>
+  <data name="RAConfig_MenuGeneral" xml:space="preserve">
+    <value>Menyinställningar</value>
+  </data>
+  <data name="RAConfig_MenuTheme" xml:space="preserve">
+    <value>Tema och utseende</value>
+  </data>
+  <data name="RAConfig_MiscOptions" xml:space="preserve">
+    <value>Diverse alternativ</value>
+  </data>
+  <data name="RAConfig_Netplay" xml:space="preserve">
+    <value>Nätverksspel</value>
+  </data>
+  <data name="RAConfig_NetworkGeneral" xml:space="preserve">
+    <value>Nätverksinställningar</value>
+  </data>
+  <data name="RAConfig_NewCreated" xml:space="preserve">
+    <value>Ny konfiguration skapad med RetroArch-standardvärden. Sökväg: {0}</value>
+  </data>
+  <data name="RAConfig_NoCfgFound" xml:space="preserve">
+    <value>Ingen retroarch.cfg hittades. Använd Bläddra för att hitta den, eller Skapa ny för att generera en med standardvärden.</value>
+  </data>
+  <data name="RAConfig_Notifications" xml:space="preserve">
+    <value>Aviseringar</value>
+  </data>
+  <data name="RAConfig_OverlaySettings" xml:space="preserve">
+    <value>Overlay-inställningar</value>
+  </data>
+  <data name="RAConfig_RGUITheme" xml:space="preserve">
+    <value>RGUI-tema</value>
+  </data>
+  <data name="RAConfig_RecordingOptions" xml:space="preserve">
+    <value>Inspelningsalternativ</value>
+  </data>
+  <data name="RAConfig_ResetDefaults" xml:space="preserve">
+    <value>Återställ till standardvärden</value>
+  </data>
+  <data name="RAConfig_Rewind" xml:space="preserve">
+    <value>Tillbakaspolningsalternativ</value>
+  </data>
+  <data name="RAConfig_Save" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="RAConfig_SaveAs" xml:space="preserve">
+    <value>Spara som...</value>
+  </data>
+  <data name="RAConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Spara RetroArch-konfiguration</value>
+  </data>
+  <data name="RAConfig_SaveError" xml:space="preserve">
+    <value>Kunde inte spara konfiguration: {0}</value>
+  </data>
+  <data name="RAConfig_SaveOptions" xml:space="preserve">
+    <value>Spar- och tillståndsalternativ</value>
+  </data>
+  <data name="RAConfig_Saved" xml:space="preserve">
+    <value>Konfiguration sparad till {0}</value>
+  </data>
+  <data name="RAConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Skriv för att filtrera inställningar efter namn (t.ex. video_driver, audio, netplay...)</value>
+  </data>
+  <data name="RAConfig_SearchSettings" xml:space="preserve">
+    <value>Sök inställningar</value>
+  </data>
+  <data name="RAConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Välj RetroArch-konfigurationsfil</value>
+  </data>
+  <data name="RAConfig_TabAccessibility" xml:space="preserve">
+    <value>Tillgänglighet</value>
+  </data>
+  <data name="RAConfig_TabAchievements" xml:space="preserve">
+    <value>Prestationer</value>
+  </data>
+  <data name="RAConfig_TabAudio" xml:space="preserve">
+    <value>Ljud</value>
+  </data>
+  <data name="RAConfig_TabCore" xml:space="preserve">
+    <value>Kärna / Sparning</value>
+  </data>
+  <data name="RAConfig_TabFrameThrottle" xml:space="preserve">
+    <value>Bildhastighetsbegränsning</value>
+  </data>
+  <data name="RAConfig_TabInput" xml:space="preserve">
+    <value>Inmatning</value>
+  </data>
+  <data name="RAConfig_TabMenu" xml:space="preserve">
+    <value>Meny / Gränssnitt</value>
+  </data>
+  <data name="RAConfig_TabMisc" xml:space="preserve">
+    <value>Diverse / Loggning</value>
+  </data>
+  <data name="RAConfig_TabNetwork" xml:space="preserve">
+    <value>Nätverk</value>
+  </data>
+  <data name="RAConfig_TabOverlay" xml:space="preserve">
+    <value>Overlay</value>
+  </data>
+  <data name="RAConfig_TabPaths" xml:space="preserve">
+    <value>Sökvägar</value>
+  </data>
+  <data name="RAConfig_TabRecording" xml:space="preserve">
+    <value>Inspelning</value>
+  </data>
+  <data name="RAConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="RAConfig_Title" xml:space="preserve">
+    <value>RetroArch-konfigurator</value>
+  </data>
+  <data name="RAConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Osparade ändringar</value>
+  </data>
+  <data name="RAConfig_VideoAdvanced" xml:space="preserve">
+    <value>Avancerad video</value>
+  </data>
+  <data name="RAConfig_VideoDisplay" xml:space="preserve">
+    <value>Visningsinställningar</value>
+  </data>
+  <data name="RAConfig_VideoDriver" xml:space="preserve">
+    <value>Videodrivrutin</value>
+  </data>
+  <data name="RAConfig_VideoOSD" xml:space="preserve">
+    <value>OSD och skärmbilder</value>
+  </data>
+  <data name="RAConfig_VideoScaling" xml:space="preserve">
+    <value>Skalning och filtrering</value>
+  </data>
+  <data name="RAConfig_VideoSync" xml:space="preserve">
+    <value>Synkronisering</value>
+  </data>
+  <data name="Security_SingleNoFeatures" xml:space="preserve">
+    <value>✔ {0}: Inga säkerhetsfunktioner upptäckta.</value>
+  </data>
+  <data name="Security_SingleResultDetected" xml:space="preserve">
+    <value>✔ {0}: {1} säkerhetsfunktion(er) upptäckta.</value>
+  </data>
+  <data name="Settings_BigPictureStyleClassic" xml:space="preserve">
+    <value>Klassisk (kortrutnät)</value>
+  </data>
+  <data name="Settings_BigPictureStyleLabel" xml:space="preserve">
+    <value>Visuell stil</value>
+  </data>
+  <data name="Settings_BigPictureStyleModern" xml:space="preserve">
+    <value>Modern (hjälte + karusell)</value>
+  </data>
+  <data name="Settings_UpdateManagedByPackageManager" xml:space="preserve">
+    <value>Uppdateringar hanteras av systemets pakethanterare.</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImage" xml:space="preserve">
+    <value>Bekräfta skapande av avbild</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImageMessage" xml:space="preserve">
+    <value>Skapa en fullständig diskavbild från {0}? Detta kan ta ett tag beroende på enhetens storlek.</value>
+  </data>
 </root>

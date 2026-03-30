@@ -663,6 +663,7 @@ public sealed class GamepadService : IDisposable
     /// Loads additional SDL game-controller mappings from
     /// <c>gamecontrollerdb.txt</c> placed next to the executable, or from
     /// the RetroArch autoconfig directory if RetroArch is configured.
+    /// Also checks the Flatpak install directory when running inside a sandbox.
     /// </summary>
     private static void LoadExternalMappings()
     {
@@ -681,7 +682,19 @@ public sealed class GamepadService : IDisposable
             }
         }
 
-        // 2. RetroArch autoconfig directory (SDL mappings are compatible)
+        // 2. Flatpak install directory (gamecontrollerdb.txt is installed alongside the binary)
+        if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FLATPAK_ID")))
+        {
+            const string flatpakDbPath = "/app/lib/retromultitools/gamecontrollerdb.txt";
+            if (File.Exists(flatpakDbPath))
+            {
+                int added = SDL2Interop.SDL_GameControllerAddMappingsFromFile(flatpakDbPath);
+                System.Diagnostics.Trace.WriteLine(
+                    $"[GamepadService] Loaded {added} Flatpak mapping(s) from {flatpakDbPath}");
+            }
+        }
+
+        // 3. RetroArch autoconfig directory (SDL mappings are compatible)
         string retroArchPath = AppSettings.Instance.RetroArchPath;
         if (!string.IsNullOrEmpty(retroArchPath))
         {
@@ -705,11 +718,19 @@ public sealed class GamepadService : IDisposable
     /// </summary>
     private static void LoadCustomMappings()
     {
-        int applied = Utilities.GamepadMappingStorage.ApplyAllToSdl();
-        if (applied > 0)
+        try
+        {
+            int applied = Utilities.GamepadKeyMapper.GamepadMappingStorage.ApplyAllToSdl();
+            if (applied > 0)
+            {
+                System.Diagnostics.Trace.WriteLine(
+                    $"[GamepadService] Applied {applied} custom mapping(s) from user storage.");
+            }
+        }
+        catch (Exception ex)
         {
             System.Diagnostics.Trace.WriteLine(
-                $"[GamepadService] Applied {applied} custom mapping(s) from user storage.");
+                $"[GamepadService] Failed to load custom mappings: {ex.Message}");
         }
     }
 

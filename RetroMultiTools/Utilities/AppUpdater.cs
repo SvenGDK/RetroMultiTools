@@ -19,7 +19,7 @@ public static class AppUpdater
 
     private const string GitHubOwner = "SvenGDK";
     private const string GitHubRepo = "RetroMultiTools";
-    private const string ReleasesApiUrl = $"https://api.github.com/repos/{GitHubOwner}/{GitHubRepo}/releases/latest";
+    private const string ReleasesApiUrl = $"https://api.github.com/repos/{GitHubOwner}/{GitHubRepo}/releases?per_page=15";
     private const string UpdaterExeWindows = "RetroMultiTools.Updater.exe";
     private const string UpdaterExeUnix = "RetroMultiTools.Updater";
 
@@ -27,12 +27,18 @@ public static class AppUpdater
     {
         var handler = new SocketsHttpHandler
         {
-            PooledConnectionLifetime = TimeSpan.FromMinutes(10)
+            PooledConnectionLifetime = TimeSpan.FromMinutes(10),
+            ConnectTimeout = TimeSpan.FromSeconds(30)
         };
         var client = new HttpClient(handler);
         client.DefaultRequestHeaders.Add("User-Agent", $"RetroMultiTools/{GetCurrentVersion()}");
         client.DefaultRequestHeaders.Add("Accept", "application/vnd.github+json");
-        client.Timeout = TimeSpan.FromMinutes(10);
+        // Use Timeout.InfiniteTimeSpan because downloads are streamed with
+        // ResponseHeadersRead — the per-connection ConnectTimeout above
+        // limits the initial connect, while body reads use the cancellation
+        // token passed by the caller. A fixed HttpClient.Timeout would abort
+        // large downloads that take longer than the limit to transfer.
+        client.Timeout = Timeout.InfiniteTimeSpan;
         return client;
     }
 
@@ -43,6 +49,24 @@ public static class AppUpdater
     {
         var version = Assembly.GetEntryAssembly()?.GetName().Version;
         return version != null ? $"{version.Major}.{version.Minor}.{version.Build}" : "0.0.0";
+    }
+
+    /// <summary>
+    /// Returns <c>true</c> when the application is running inside a sandboxed
+    /// environment (e.g. Flatpak, Snap) where in-app updates should be disabled
+    /// because the package manager handles updates instead.
+    /// </summary>
+    public static bool IsRunningInSandbox()
+    {
+        // Flatpak sets FLATPAK_ID for every sandboxed process
+        if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("FLATPAK_ID")))
+            return true;
+
+        // Snap sets SNAP when running inside a snap package
+        if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("SNAP")))
+            return true;
+
+        return false;
     }
 
     /// <summary>
@@ -100,15 +124,15 @@ public static class AppUpdater
                 }
             }
 
-            // Clean up any remaining .bak files
-            foreach (string bakFile in Directory.EnumerateFiles(appDir, "*.bak"))
+            // Clean up any remaining .bak files (including subdirectories)
+            foreach (string bakFile in Directory.EnumerateFiles(appDir, "*.bak", SearchOption.AllDirectories))
             {
                 try { File.Delete(bakFile); }
                 catch { /* best-effort */ }
             }
 
             // Clean up any remaining .new files from incomplete updates
-            foreach (string newFile in Directory.EnumerateFiles(appDir, "*.new"))
+            foreach (string newFile in Directory.EnumerateFiles(appDir, "*.new", SearchOption.AllDirectories))
             {
                 try { File.Delete(newFile); }
                 catch { /* best-effort */ }
@@ -130,70 +154,122 @@ public static class AppUpdater
 
     /// <summary>
     /// Checks GitHub Releases for a newer version.
+    /// Fetches the recent releases list and picks the one with the highest
+    /// semantic version, instead of relying on the /releases/latest endpoint
+    /// which sorts by commit created_at date and can miss releases tagged on
+    /// older commits.
     /// Returns update information if available, or null if up to date.
+    /// Throws on network errors so callers can display appropriate messages.
     /// </summary>
     public static async Task<UpdateInfo?> CheckForUpdateAsync(CancellationToken cancellationToken = default)
     {
-        try
+        // Apply a reasonable timeout for the version-check API call.
+        // The global HttpClient.Timeout is infinite to support large downloads,
+        // so each non-streaming call needs its own deadline.
+        using var checkCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        checkCts.CancelAfter(TimeSpan.FromSeconds(30));
+
+        var releases = await _httpClient.GetFromJsonAsync<List<GitHubRelease>>(
+            ReleasesApiUrl, checkCts.Token).ConfigureAwait(false);
+
+        if (releases is null || releases.Count == 0)
+            return null;
+
+        string currentVersionStr = GetCurrentVersion();
+        if (!Version.TryParse(currentVersionStr, out var currentVersion))
+            return null;
+
+        // Normalize current version to 3 components for consistent comparison
+        currentVersion = NormalizeVersion(currentVersion);
+
+        Trace.WriteLine($"[AppUpdater] Current version: {currentVersion}");
+
+        // Find the release with the highest version, skipping drafts, pre-releases,
+        // and tags that don't parse as a valid version.
+        GitHubRelease? bestRelease = null;
+        Version? bestVersion = null;
+
+        foreach (var release in releases)
         {
-            var release = await _httpClient.GetFromJsonAsync<GitHubRelease>(
-                ReleasesApiUrl, cancellationToken).ConfigureAwait(false);
+            if (release.Draft == true || release.Prerelease == true)
+                continue;
 
-            if (release is null || string.IsNullOrEmpty(release.TagName))
-                return null;
+            if (string.IsNullOrEmpty(release.TagName))
+                continue;
 
-            string remoteVersionStr = release.TagName.TrimStart('v', 'V');
-            if (!Version.TryParse(remoteVersionStr, out var remoteVersion))
-                return null;
+            string versionStr = release.TagName.TrimStart('v', 'V');
+            if (!Version.TryParse(versionStr, out var version))
+                continue;
 
-            string currentVersionStr = GetCurrentVersion();
-            if (!Version.TryParse(currentVersionStr, out var currentVersion))
-                return null;
+            version = NormalizeVersion(version);
 
-            if (remoteVersion <= currentVersion)
-                return null;
-
-            // Find the platform-specific ZIP asset
-            string? downloadUrl = null;
-            string expectedAssetName = GetPlatformAssetName();
-            Trace.WriteLine($"[AppUpdater] Looking for asset: '{expectedAssetName}' in release {release.TagName}");
-            if (release.Assets != null && !string.IsNullOrEmpty(expectedAssetName))
+            if (bestVersion is null || version > bestVersion)
             {
-                var asset = release.Assets.FirstOrDefault(a =>
-                    string.Equals(a.Name, expectedAssetName, StringComparison.OrdinalIgnoreCase));
-                downloadUrl = asset?.BrowserDownloadUrl;
-
-                if (downloadUrl is null)
-                {
-                    Trace.WriteLine($"[AppUpdater] Asset '{expectedAssetName}' not found. Available: {string.Join(", ", release.Assets.Select(a => a.Name))}");
-                }
+                bestVersion = version;
+                bestRelease = release;
             }
+        }
 
-            return new UpdateInfo
+        if (bestRelease is null || bestVersion is null)
+        {
+            Trace.WriteLine("[AppUpdater] No valid releases found.");
+            return null;
+        }
+
+        Trace.WriteLine($"[AppUpdater] Best remote version: {bestVersion} (tag: {bestRelease.TagName})");
+
+        if (bestVersion <= currentVersion)
+        {
+            Trace.WriteLine("[AppUpdater] Already up to date.");
+            return null;
+        }
+
+        string remoteVersionStr = bestRelease.TagName!.TrimStart('v', 'V');
+
+        // Find the platform-specific ZIP asset
+        string? downloadUrl = null;
+        string expectedAssetName = GetPlatformAssetName();
+        Trace.WriteLine($"[AppUpdater] Looking for asset: '{expectedAssetName}' in release {bestRelease.TagName}");
+        if (bestRelease.Assets != null && !string.IsNullOrEmpty(expectedAssetName))
+        {
+            var asset = bestRelease.Assets.FirstOrDefault(a =>
+                string.Equals(a.Name, expectedAssetName, StringComparison.OrdinalIgnoreCase));
+            downloadUrl = asset?.BrowserDownloadUrl;
+
+            if (downloadUrl is null)
             {
-                CurrentVersion = currentVersionStr,
-                NewVersion = remoteVersionStr,
-                ReleaseUrl = release.HtmlUrl ?? $"https://github.com/{GitHubOwner}/{GitHubRepo}/releases/latest",
-                ReleaseName = release.Name ?? $"v{remoteVersionStr}",
-                ReleaseNotes = release.Body ?? string.Empty,
-                PublishedAt = release.PublishedAt,
-                DownloadUrl = downloadUrl
-            };
+                Trace.WriteLine($"[AppUpdater] Asset '{expectedAssetName}' not found. Available: {string.Join(", ", bestRelease.Assets.Select(a => a.Name))}");
+            }
         }
-        catch (HttpRequestException ex)
+
+        return new UpdateInfo
         {
-            Trace.WriteLine($"[AppUpdater] Network error checking for updates: {ex.Message}");
-            return null;
-        }
-        catch (JsonException ex)
-        {
-            Trace.WriteLine($"[AppUpdater] Failed to parse update response: {ex.Message}");
-            return null;
-        }
-        catch (TaskCanceledException)
-        {
-            return null;
-        }
+            CurrentVersion = currentVersionStr,
+            NewVersion = remoteVersionStr,
+            ReleaseUrl = bestRelease.HtmlUrl ?? $"https://github.com/{GitHubOwner}/{GitHubRepo}/releases/latest",
+            ReleaseName = bestRelease.Name ?? $"v{remoteVersionStr}",
+            ReleaseNotes = bestRelease.Body ?? string.Empty,
+            PublishedAt = bestRelease.PublishedAt,
+            DownloadUrl = downloadUrl
+        };
+    }
+
+    /// <summary>
+    /// Normalizes a Version to at least 3 components (Major.Minor.Build) so
+    /// that 2-component tags like "v4.0" compare correctly with 3-component
+    /// assembly versions like "4.0.0". Without this, Version(4,0) is less
+    /// than Version(4,0,0) because undefined Build (-1) &lt; 0.
+    /// Preserves the Revision component when present so that tags like
+    /// "v4.1.0.1" are not silently truncated.
+    /// </summary>
+    private static Version NormalizeVersion(Version v)
+    {
+        int build = Math.Max(v.Build, 0);
+        // Version stores undefined components as -1; only include Revision
+        // when it was actually specified in the parsed version string.
+        return v.Revision >= 0
+            ? new Version(v.Major, v.Minor, build, v.Revision)
+            : new Version(v.Major, v.Minor, build);
     }
 
     private const int DownloadBufferSize = 81920;
@@ -227,6 +303,7 @@ public static class AppUpdater
 
             long? totalBytes = response.Content.Headers.ContentLength;
             long downloadedBytes = 0;
+            int lastReportedPercent = -1;
 
             await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
             await using var fileStream = new FileStream(zipPath, FileMode.Create, FileAccess.Write, FileShare.None,
@@ -242,7 +319,12 @@ public static class AppUpdater
                 if (totalBytes.HasValue && totalBytes.Value > 0)
                 {
                     int percent = (int)Math.Min(downloadedBytes * 100 / totalBytes.Value, 100);
-                    progress?.Report(percent);
+                    // Avoid flooding the UI with identical progress values
+                    if (percent != lastReportedPercent)
+                    {
+                        progress?.Report(percent);
+                        lastReportedPercent = percent;
+                    }
                 }
             }
         }
@@ -348,16 +430,33 @@ public static class AppUpdater
 
     /// <summary>
     /// Opens the release page in the default browser.
+    /// On Linux, uses xdg-open for compatibility with Flatpak and other sandboxes.
     /// </summary>
     public static bool OpenReleasePage(string url)
     {
         try
         {
-            var psi = new ProcessStartInfo
+            ProcessStartInfo psi;
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                FileName = url,
-                UseShellExecute = true
-            };
+                // xdg-open works inside Flatpak (delegates to the host via portals)
+                psi = new ProcessStartInfo
+                {
+                    FileName = "xdg-open",
+                    UseShellExecute = false
+                };
+                psi.ArgumentList.Add(url);
+            }
+            else
+            {
+                psi = new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                };
+            }
+
             using var process = Process.Start(psi);
             return true;
         }
@@ -370,8 +469,7 @@ public static class AppUpdater
 
     /// <summary>
     /// Returns the expected ZIP asset name for the current platform and architecture.
-    /// Detects whether the current installation is self-contained and returns
-    /// the appropriate asset variant.
+    /// All release builds are self-contained, so no deployment-type suffix is needed.
     /// </summary>
     internal static string GetPlatformAssetName()
     {
@@ -395,29 +493,7 @@ public static class AppUpdater
         if (string.IsNullOrEmpty(arch))
             return string.Empty;
 
-        string suffix = IsSelfContainedDeployment() ? "-Selfcontained" : "";
-        return $"{os}-{arch}{suffix}.zip";
-    }
-
-    /// <summary>
-    /// Detects whether the current application is a self-contained deployment
-    /// by checking for the presence of the native host library in the app directory.
-    /// </summary>
-    private static bool IsSelfContainedDeployment()
-    {
-        string appDir = AppContext.BaseDirectory;
-
-        string hostFxr;
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            hostFxr = "hostfxr.dll";
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            hostFxr = "libhostfxr.so";
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            hostFxr = "libhostfxr.dylib";
-        else
-            return false;
-
-        return File.Exists(Path.Combine(appDir, hostFxr));
+        return $"{os}-{arch}.zip";
     }
 
     public sealed class UpdateInfo
@@ -449,6 +525,12 @@ public static class AppUpdater
 
         [JsonPropertyName("body")]
         public string? Body { get; set; }
+
+        [JsonPropertyName("draft")]
+        public bool? Draft { get; set; }
+
+        [JsonPropertyName("prerelease")]
+        public bool? Prerelease { get; set; }
 
         [JsonPropertyName("published_at")]
         public DateTimeOffset? PublishedAt { get; set; }

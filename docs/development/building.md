@@ -39,18 +39,39 @@ dotnet run --project RetroMultiTools
 Avalonia UI requires several system libraries for rendering. Install them before building:
 
 ```bash
-# Ubuntu / Debian
+# Ubuntu / Debian / Linux Mint
 sudo apt install libicu-dev libfontconfig1 libx11-6 libice6 libsm6
 
-# Fedora
+# Fedora / CentOS Stream / RHEL / Rocky Linux / AlmaLinux / Oracle Linux
 sudo dnf install libicu fontconfig libX11 libICE libSM
+
+# Arch Linux
+sudo pacman -S icu fontconfig libx11 libice libsm
+
+# Alpine Linux
+sudo apk add icu-libs fontconfig libx11 libice libsm
+
+# openSUSE / SLES
+sudo zypper install libicu-devel fontconfig libX11-6 libICE6 libSM6
 ```
 
 If you encounter a `libSkiaSharp` error at runtime, install the OpenGL library:
 
 ```bash
-# Ubuntu / Debian
+# Ubuntu / Debian / Linux Mint
 sudo apt install libgl1-mesa-glx
+
+# Fedora / CentOS Stream / RHEL / Rocky Linux / AlmaLinux / Oracle Linux
+sudo dnf install mesa-libGL
+
+# Arch Linux
+sudo pacman -S mesa
+
+# Alpine Linux
+sudo apk add mesa-gl
+
+# openSUSE / SLES
+sudo zypper install Mesa-libGL1
 ```
 
 See [LINUX.md](../../LINUX.md) for full Linux installation details.
@@ -65,14 +86,7 @@ See [macOS.md](../../macOS.md) for full macOS installation details.
 
 ## Publish
 
-### Framework-Dependent (requires .NET 8 Runtime on target machine)
-
-```bash
-dotnet publish RetroMultiTools -c Release -r win-x64 --no-self-contained
-dotnet publish RetroMultiTools.Updater -c Release -r win-x64 --no-self-contained
-```
-
-### Self-Contained (includes .NET Runtime)
+All release builds are self-contained (include the .NET runtime).
 
 ```bash
 dotnet publish RetroMultiTools -c Release -r win-x64 --self-contained
@@ -80,6 +94,31 @@ dotnet publish RetroMultiTools.Updater -c Release -r win-x64 --self-contained
 ```
 
 After publishing, copy the updater executable into the main application's output directory so it is bundled with the release.
+
+### Bundling External Files
+
+Release builds also require two external files to be placed in the publish output directory:
+
+| File | Source | Purpose |
+|---|---|---|
+| **SDL2 library** | [libsdl-org/SDL](https://github.com/libsdl-org/SDL/releases) | Required for gamepad support in Big Picture Mode |
+| **gamecontrollerdb.txt** | [SDL_GameControllerDB](https://github.com/gabomdq/SDL_GameControllerDB) | SDL2 game controller mappings for automatic controller recognition |
+
+The SDL2 library file name varies by platform:
+
+| Platform | File |
+|---|---|
+| Windows | `SDL2.dll` |
+| Linux | `libSDL2-2.0.so.0` |
+| macOS | `libSDL2.dylib` |
+
+Download the latest `gamecontrollerdb.txt`:
+
+```bash
+curl -fsSL -o gamecontrollerdb.txt https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
+```
+
+Copy both files into the publish output directory alongside the application executable. The CI workflows handle this automatically for all platforms.
 
 ### Supported Runtime Identifiers
 
@@ -104,4 +143,6 @@ After publishing, copy the updater executable into the main application's output
 | Avalonia.Diagnostics | 11.3.12 | Debug diagnostics (Debug builds only) |
 | AWSSDK.S3 | 4.0.19 | Amazon S3 file transfers |
 | FluentFTP | 53.0.2 | FTP / FTPS file transfers |
+| Markdown.Avalonia | 11.0.2 | Markdown rendering |
+| SharpCompress | 0.38.0 | Archive extraction (ZIP, RAR, 7z, GZip) |
 | SSH.NET | 2025.1.0 | SFTP file transfers |

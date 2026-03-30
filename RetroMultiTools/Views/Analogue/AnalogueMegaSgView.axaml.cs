@@ -3,6 +3,7 @@ using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
+using RetroMultiTools.Utilities.Conversion;
 using RetroMultiTools.Utilities.Analogue;
 
 namespace RetroMultiTools.Views.Analogue;
@@ -40,6 +41,9 @@ public partial class AnalogueMegaSgView : UserControl
     public AnalogueMegaSgView()
     {
         InitializeComponent();
+        DragDropHelper.EnableFileDrop(SdCardPathTextBox, acceptDirectories: true);
+        DragDropHelper.EnableFileDrop(FontImageTextBox);
+        DragDropHelper.EnableFileDrop(SaveFileTextBox);
     }
 
     // ── SD Card Selection ──────────────────────────────────────────────

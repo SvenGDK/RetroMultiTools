@@ -1,0 +1,189 @@
+name: Build FreeBSD
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-freebsd-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_NOLOGO: true
+  APP_VERSION: '5.0.0'
+  SDL2_VERSION: '2.30.12'
+
+jobs:
+  build-freebsd:
+    name: FreeBSD ${{ matrix.arch }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x64, arm64]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: ${{ runner.os }}-nuget-
+
+      - name: Patch Program.cs for X11
+        run: |
+          sed -i 's/\.UsePlatformDetect()/.UseX11()/' RetroMultiTools/Program.cs
+          echo "Patched Program.cs:"
+          grep -n 'UseX11\|UsePlatformDetect' RetroMultiTools/Program.cs
+
+      - name: Publish
+        run: dotnet publish RetroMultiTools -c Release -r linux-${{ matrix.arch }} --self-contained -o publish
+
+      - name: Publish Updater
+        run: dotnet publish RetroMultiTools.Updater -c Release -r linux-${{ matrix.arch }} --self-contained -o publish-updater
+
+      - name: Bundle Updater
+        run: cp publish-updater/RetroMultiTools.Updater* publish/
+
+      - name: Install SDL2
+        run: |
+          if [ "${{ matrix.arch }}" = "x64" ]; then
+            sudo apt-get update -y
+            sudo apt-get install -y libsdl2-2.0-0
+            cp /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0 "$GITHUB_WORKSPACE/publish/"
+          else
+            # ARM64: cross-compile SDL2 from source
+            sudo apt-get update -y
+            sudo apt-get install -y cmake gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+            curl -fsSL -o sdl2-src.tar.gz "https://github.com/libsdl-org/SDL/releases/download/release-${{ env.SDL2_VERSION }}/SDL2-${{ env.SDL2_VERSION }}.tar.gz"
+            tar xzf sdl2-src.tar.gz
+            cmake -S "SDL2-${{ env.SDL2_VERSION }}" -B sdl2-build \
+              -DCMAKE_SYSTEM_NAME=Linux \
+              -DCMAKE_SYSTEM_PROCESSOR=aarch64 \
+              -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc \
+              -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++ \
+              -DCMAKE_FIND_ROOT_PATH=/usr/aarch64-linux-gnu \
+              -DCMAKE_BUILD_TYPE=Release \
+              -DSDL_SHARED=ON \
+              -DSDL_STATIC=OFF
+            cmake --build sdl2-build --config Release --parallel
+            cp sdl2-build/libSDL2-2.0.so.0 "$GITHUB_WORKSPACE/publish/"
+          fi
+
+      - name: Download controller profiles
+        run: |
+          curl -fsSL -o gamecontrollerdb.txt https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
+          cp gamecontrollerdb.txt publish/
+
+      - name: Resize application icon
+        run: |
+          # Source Icon.png is 1024x1024; resize to 512x512 to match hicolor directory
+          sudo apt-get update -y
+          sudo apt-get install -y imagemagick
+          convert Icon.png -resize 512x512 Icon.png
+
+      - name: Create ZIP (Portable)
+        run: |
+          cd publish
+          zip -9 -r ../freebsd-${{ matrix.arch }}.zip .
+
+      - name: Create PKG installer
+        run: |
+          PKG_DIR="pkg-stage"
+          PREFIX="/usr/local"
+          INSTALL_DIR="${PREFIX}/lib/retromultitools"
+
+          mkdir -p "${PKG_DIR}${INSTALL_DIR}"
+          mkdir -p "${PKG_DIR}${PREFIX}/bin"
+          mkdir -p "${PKG_DIR}${PREFIX}/share/applications"
+          mkdir -p "${PKG_DIR}${PREFIX}/share/icons/hicolor/512x512/apps"
+
+          cp -r publish/* "${PKG_DIR}${INSTALL_DIR}/"
+          chmod +x "${PKG_DIR}${INSTALL_DIR}/RetroMultiTools"
+          chmod +x "${PKG_DIR}${INSTALL_DIR}/RetroMultiTools.Updater"
+
+          cp Icon.png "${PKG_DIR}${PREFIX}/share/icons/hicolor/512x512/apps/retromultitools.png"
+
+          cat > "${PKG_DIR}${PREFIX}/bin/retromultitools" << 'LAUNCHER'
+          #!/bin/sh
+          exec /usr/local/lib/retromultitools/RetroMultiTools "$@"
+          LAUNCHER
+          chmod +x "${PKG_DIR}${PREFIX}/bin/retromultitools"
+
+          cat > "${PKG_DIR}${PREFIX}/share/applications/retromultitools.desktop" << 'DESKTOP'
+          [Desktop Entry]
+          Name=Retro Multi Tools
+          Comment=Multi platform utility for managing, inspecting, and patching retro game ROMs
+          Exec=/usr/local/bin/retromultitools
+          Icon=retromultitools
+          Terminal=false
+          Type=Application
+          Categories=Utility;Game;
+          DESKTOP
+
+          # Create +MANIFEST for FreeBSD pkg
+          cat > "${PKG_DIR}/+MANIFEST" << EOF
+          name: retromultitools
+          version: "${{ env.APP_VERSION }}"
+          origin: games/retromultitools
+          comment: "Multi platform utility for managing, inspecting, and patching retro game ROMs"
+          maintainer: "SvenGDK"
+          www: "https://github.com/SvenGDK/RetroMultiTools"
+          prefix: "${PREFIX}"
+          desc: "Retro Multi Tools is a cross-platform desktop utility for managing, inspecting, modifying, patching and launching retro game ROMs."
+          categories: ["games"]
+          deps: {}
+          EOF
+
+          # Generate plist from staged files
+          (cd "${PKG_DIR}" && find . -type f ! -name '+MANIFEST' | sed 's|^\./||' | sort) > "${PKG_DIR}/plist"
+
+          # Build the .pkg using tar-based format
+          sudo apt-get update -y
+          sudo apt-get install -y libarchive-tools zstd xz-utils
+
+          # Create the UCL manifest
+          cat > /tmp/pkg-manifest.ucl << EOF
+          name = "retromultitools";
+          version = "${{ env.APP_VERSION }}";
+          origin = "games/retromultitools";
+          comment = "Multi platform utility for managing, inspecting, and patching retro game ROMs";
+          maintainer = "SvenGDK";
+          www = "https://github.com/SvenGDK/RetroMultiTools";
+          prefix = "${PREFIX}";
+          desc = "Retro Multi Tools is a cross-platform desktop utility for managing, inspecting, modifying, patching and launching retro game ROMs.";
+          EOF
+
+          # Create the pkg as a txz archive (FreeBSD pkg format)
+          mkdir -p pkg-build
+          cp /tmp/pkg-manifest.ucl pkg-build/+COMPACT_MANIFEST
+          cp /tmp/pkg-manifest.ucl pkg-build/+MANIFEST
+          (cd "${PKG_DIR}" && tar cf - --exclude='+MANIFEST' --exclude='plist' .) > pkg-build/data.tar
+          cd pkg-build
+          tar cf - +COMPACT_MANIFEST +MANIFEST data.tar | xz -9e > ../freebsd-${{ matrix.arch }}-Installer.pkg
+          cd ..
+
+      - name: Upload ZIP (Portable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: freebsd-${{ matrix.arch }}-zip
+          path: freebsd-${{ matrix.arch }}.zip
+
+      - name: Upload PKG Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: freebsd-${{ matrix.arch }}-pkg
+          path: freebsd-${{ matrix.arch }}-Installer.pkg

@@ -4,6 +4,8 @@ using RetroMultiTools.Localization;
 
 namespace RetroMultiTools.Utilities.Analogue;
 
+using RetroMultiTools.Utilities;
+
 /// <summary>
 /// Manages Analogue Pocket SD card operations: core listing, screenshot export,
 /// save backup/restore, save state management, GB Camera photo extraction,
@@ -212,6 +214,10 @@ public static class AnaloguePocketManager
                 string relativePath = Path.GetRelativePath(savesPath, file);
                 string destPath = Path.Combine(backupDir, relativePath);
 
+                // Guard against path-traversal
+                if (!PathValidator.IsPathSafe(destPath, backupDir))
+                    continue;
+
                 string? destDir = Path.GetDirectoryName(destPath);
                 if (destDir != null)
                     Directory.CreateDirectory(destDir);
@@ -243,6 +249,10 @@ public static class AnaloguePocketManager
             {
                 string relativePath = Path.GetRelativePath(backupDir, file);
                 string destPath = Path.Combine(savesPath, relativePath);
+
+                // Guard against path-traversal
+                if (!PathValidator.IsPathSafe(destPath, savesPath))
+                    continue;
 
                 string? destDir = Path.GetDirectoryName(destPath);
                 if (destDir != null)
@@ -565,6 +575,10 @@ public static class AnaloguePocketManager
             {
                 string relativePath = Path.GetRelativePath(sourceDir, file);
                 string destPath = Path.Combine(sdRoot, relativePath);
+
+                // Guard against path-traversal
+                if (!PathValidator.IsPathSafe(destPath, sdRoot))
+                    continue;
 
                 string? destDir = Path.GetDirectoryName(destPath);
                 if (destDir != null)

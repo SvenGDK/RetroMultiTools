@@ -16,6 +16,15 @@ public partial class RetroArchShortcutView : UserControl
         InitializeComponent();
         PopulateSystemCombo();
         PopulateCoreCombo();
+
+        DragDropHelper.EnableFileDrop(RomPathTextBox, path =>
+        {
+            if (string.IsNullOrEmpty(ShortcutNameTextBox.Text))
+                ShortcutNameTextBox.Text = Path.GetFileNameWithoutExtension(path);
+        });
+        DragDropHelper.EnableFileDrop(OutputDirTextBox, acceptDirectories: true);
+        DragDropHelper.EnableFileDrop(IconPathTextBox);
+        DragDropHelper.EnableFileDrop(RetroArchOverrideTextBox);
     }
 
     private void PopulateSystemCombo()

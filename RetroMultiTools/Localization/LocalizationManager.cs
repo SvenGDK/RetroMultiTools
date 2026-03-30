@@ -100,7 +100,7 @@ public sealed class LocalizationManager : INotifyPropertyChanged
                     return settings.Language;
             }
         }
-        catch (Exception ex) when (ex is IOException or JsonException) { }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or JsonException) { }
         return "en";
     }
 

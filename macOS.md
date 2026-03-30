@@ -9,44 +9,33 @@ Step-by-step guide for installing and running Retro Multi Tools on macOS.
 ## Prerequisites
 
 - macOS 10.15 (Catalina) or later
-- .NET 8.0 Runtime or SDK
-
-## Installing the .NET 8 Runtime
-
-### Using the Installer
-
-1. Go to <https://dotnet.microsoft.com/download/dotnet/8.0>
-2. Download the **macOS** installer for your Mac:
-   - **Apple Silicon** (M1 / M2 / M3 / M4) — Arm64
-   - **Intel** — x64
-3. Open the `.pkg` file and follow the installation steps
-
-### Using Homebrew
-
-```bash
-brew install dotnet@8
-```
-
-After installing, make sure the `dotnet` command is available:
-
-```bash
-dotnet --info
-```
-
-> **Note:** If you downloaded a self-contained release you do not need to install the .NET runtime.
 
 ## Downloading a Release
 
-Download the release ZIP that matches your Mac from the [Releases](https://github.com/SvenGDK/RetroMultiTools/releases) page.
+Download the release that matches your Mac from the [Releases](https://github.com/SvenGDK/RetroMultiTools/releases) page.
+
+### Portable ZIPs
 
 | File | Description |
 |---|---|
-| `osx-x64.zip` | Framework-dependent build for Intel Macs |
-| `osx-arm64.zip` | Framework-dependent build for Apple Silicon Macs |
-| `osx-x64-selfcontained.zip` | Self-contained build for Intel Macs (no runtime required) |
-| `osx-arm64-selfcontained.zip` | Self-contained build for Apple Silicon Macs (no runtime required) |
+| `osx-x64.zip` | macOS Intel |
+| `osx-arm64.zip` | macOS Apple Silicon |
 
-## Running the Application
+### PKG Installers
+
+| File | Description |
+|---|---|
+| `osx-x64-Installer.pkg` | macOS Intel |
+| `osx-arm64-Installer.pkg` | macOS Apple Silicon |
+
+### DMG Disk Images
+
+| File | Description |
+|---|---|
+| `osx-x64.dmg` | macOS Intel |
+| `osx-arm64.dmg` | macOS Apple Silicon |
+
+## Installing from a Portable ZIP
 
 1. Extract the downloaded ZIP — double-click the file in Finder or use the terminal:
 
@@ -71,6 +60,19 @@ chmod +x RetroMultiTools
 ```bash
 ./RetroMultiTools
 ```
+
+## Installing from a PKG Installer
+
+1. Double-click the `.pkg` file to open the installer.
+2. Follow the on-screen instructions to install **Retro Multi Tools** to `/Applications`.
+3. Launch the application from **Applications** or Spotlight.
+
+## Installing from a DMG Disk Image
+
+1. Double-click the `.dmg` file to mount the disk image.
+2. Drag **Retro Multi Tools.app** to the **Applications** folder.
+3. Eject the disk image.
+4. Launch the application from **Applications** or Spotlight.
 
 ### Gatekeeper Warning
 
@@ -98,22 +100,6 @@ dotnet run --project RetroMultiTools
 ```
 
 ## Troubleshooting
-
-### Application does not start
-
-Verify the .NET 8 runtime is installed:
-
-```bash
-dotnet --info
-```
-
-If you installed via Homebrew and the command is not found, add it to your `PATH`:
-
-```bash
-export PATH="/usr/local/share/dotnet:$PATH"
-```
-
-Add this line to your `~/.zshrc` to make it permanent.
 
 ### Fonts look incorrect
 

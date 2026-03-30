@@ -8,6 +8,11 @@ using Markdown.Avalonia;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Services;
 using RetroMultiTools.Utilities;
+using RetroMultiTools.Utilities.Patching;
+using RetroMultiTools.Utilities.Verification;
+using RetroMultiTools.Utilities.Conversion;
+using RetroMultiTools.Utilities.RomManagement;
+using RetroMultiTools.Utilities.Networking;
 
 namespace RetroMultiTools;
 
@@ -82,15 +87,22 @@ public partial class App : Application
             };
 
             // Clean up leftover files from a previous update cycle
-            AppUpdater.CleanupAfterUpdate();
+            // (skip in sandboxed environments where the app directory is read-only)
+            if (!AppUpdater.IsRunningInSandbox())
+                AppUpdater.CleanupAfterUpdate();
 
             // Auto-start Big Picture Mode if enabled in settings
             if (AppSettings.Instance.StartInBigPictureMode)
             {
                 _mainWindow.EnterBigPictureMode(AppSettings.Instance.BigPictureRomFolder);
             }
+            else if (!AppSettings.Instance.HasCompletedTour)
+            {
+                // Show the guided tour on first run (skip when Big Picture Mode starts)
+                Dispatcher.UIThread.Post(() => _mainWindow.ShowTour(), DispatcherPriority.Background);
+            }
 
-            if (AppSettings.Instance.CheckForUpdatesOnStartup)
+            if (AppSettings.Instance.CheckForUpdatesOnStartup && !AppUpdater.IsRunningInSandbox())
             {
                 _ = CheckForUpdatesAsync(_mainWindow, desktop);
             }
@@ -298,7 +310,18 @@ public partial class App : Application
             // Small delay to let the window fully render first
             await System.Threading.Tasks.Task.Delay(UpdateCheckDelayMs);
 
-            var update = await AppUpdater.CheckForUpdateAsync();
+            AppUpdater.UpdateInfo? update;
+            try
+            {
+                update = await AppUpdater.CheckForUpdateAsync();
+            }
+            catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or System.Text.Json.JsonException)
+            {
+                // Non-critical: silently ignore network/parse errors on startup
+                System.Diagnostics.Trace.WriteLine($"[App] Startup update check failed: {ex.Message}");
+                return;
+            }
+
             if (update is null)
                 return;
 

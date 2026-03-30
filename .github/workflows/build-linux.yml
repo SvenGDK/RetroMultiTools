@@ -2,15 +2,20 @@ name: Build Linux
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 permissions:
   contents: read
+
+concurrency:
+  group: build-linux-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   DOTNET_VERSION: '8.0.x'
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_NOLOGO: true
-  APP_VERSION: '4.1.0'
+  APP_VERSION: '5.0.0'
   SDL2_VERSION: '2.30.12'
 
 jobs:
@@ -24,8 +29,20 @@ jobs:
         include:
           - arch: x64
             deb_arch: amd64
+            rpm_arch: x86_64
+            apk_arch: x86_64
+            pacman_arch: x86_64
+            appimage_arch: x86_64
+            snap_arch: amd64
+            flatpak_arch: x86_64
           - arch: arm64
             deb_arch: arm64
+            rpm_arch: aarch64
+            apk_arch: aarch64
+            pacman_arch: aarch64
+            appimage_arch: aarch64
+            snap_arch: arm64
+            flatpak_arch: aarch64
 
     steps:
       - name: Checkout
@@ -36,20 +53,18 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Publish (Self-contained)
-        run: dotnet publish RetroMultiTools -c Release -r linux-${{ matrix.arch }} --self-contained -o publish-sc
-
-      - name: Publish Updater (Self-contained)
-        run: dotnet publish RetroMultiTools.Updater -c Release -r linux-${{ matrix.arch }} --self-contained -o publish-updater-sc
-
-      - name: Bundle Updater (Self-contained)
-        run: cp publish-updater-sc/RetroMultiTools.Updater* publish-sc/
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: ${{ runner.os }}-nuget-
 
       - name: Publish
-        run: dotnet publish RetroMultiTools -c Release -r linux-${{ matrix.arch }} --no-self-contained -o publish
+        run: dotnet publish RetroMultiTools -c Release -r linux-${{ matrix.arch }} --self-contained -o publish
 
       - name: Publish Updater
-        run: dotnet publish RetroMultiTools.Updater -c Release -r linux-${{ matrix.arch }} --no-self-contained -o publish-updater
+        run: dotnet publish RetroMultiTools.Updater -c Release -r linux-${{ matrix.arch }} --self-contained -o publish-updater
 
       - name: Bundle Updater
         run: cp publish-updater/RetroMultiTools.Updater* publish/
@@ -60,11 +75,10 @@ jobs:
             sudo apt-get update -y
             sudo apt-get install -y libsdl2-2.0-0
             cp /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0 "$GITHUB_WORKSPACE/publish/"
-            cp /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0 "$GITHUB_WORKSPACE/publish-sc/"
           else
             # ARM64: cross-compile SDL2 from source
             sudo apt-get update -y
-            sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+            sudo apt-get install -y cmake gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
             curl -fsSL -o sdl2-src.tar.gz "https://github.com/libsdl-org/SDL/releases/download/release-${{ env.SDL2_VERSION }}/SDL2-${{ env.SDL2_VERSION }}.tar.gz"
             tar xzf sdl2-src.tar.gz
             cmake -S "SDL2-${{ env.SDL2_VERSION }}" -B sdl2-build \
@@ -78,24 +92,24 @@ jobs:
               -DSDL_STATIC=OFF
             cmake --build sdl2-build --config Release --parallel
             cp sdl2-build/libSDL2-2.0.so.0 "$GITHUB_WORKSPACE/publish/"
-            cp sdl2-build/libSDL2-2.0.so.0 "$GITHUB_WORKSPACE/publish-sc/"
           fi
 
       - name: Download controller profiles
         run: |
           curl -fsSL -o gamecontrollerdb.txt https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
           cp gamecontrollerdb.txt publish/
-          cp gamecontrollerdb.txt publish-sc/
+
+      - name: Resize application icon
+        run: |
+          # Source Icon.png is 1024x1024; resize to 512x512 to match hicolor directory and pass Flatpak validation
+          sudo apt-get update -y
+          sudo apt-get install -y imagemagick
+          convert Icon.png -resize 512x512 Icon.png
 
       - name: Create ZIP (Portable)
         run: |
           cd publish
-          zip -r ../linux-${{ matrix.arch }}.zip .
-
-      - name: Create ZIP (Self-contained Portable)
-        run: |
-          cd publish-sc
-          zip -r ../linux-${{ matrix.arch }}-Selfcontained.zip .
+          zip -9 -r ../linux-${{ matrix.arch }}.zip .
 
       - name: Create DEB Installer
         run: |
@@ -105,12 +119,13 @@ jobs:
           mkdir -p deb/usr/share/applications
           mkdir -p deb/usr/share/icons/hicolor/512x512/apps
 
-          cat > deb/DEBIAN/control << EOF
+          cat > deb/DEBIAN/control << 'EOF'
           Package: retromultitools
           Version: ${{ env.APP_VERSION }}
           Architecture: ${{ matrix.deb_arch }}
           Maintainer: SvenGDK
           Homepage: https://github.com/SvenGDK/RetroMultiTools
+          Depends: libc6, libstdc++6, libgcc-s1, zlib1g, libssl3, libicu72 | libicu74
           Description: Retro Multi Tools
            Multi platform utility for managing, inspecting, and patching retro game ROMs.
           Section: utils
@@ -140,41 +155,32 @@ jobs:
           Categories=Utility;Game;
           DESKTOP
 
-          dpkg-deb --root-owner-group --build deb linux-${{ matrix.arch }}-Installer.deb
+          dpkg-deb --root-owner-group -Zxz -z9 --build deb linux-${{ matrix.arch }}-Installer.deb
 
-      - name: Create DEB Installer (Self-contained)
+      - name: Create RPM Package
         run: |
-          mkdir -p deb-sc/DEBIAN
-          mkdir -p deb-sc/usr/lib/retromultitools
-          mkdir -p deb-sc/usr/bin
-          mkdir -p deb-sc/usr/share/applications
-          mkdir -p deb-sc/usr/share/icons/hicolor/512x512/apps
+          sudo apt-get install -y rpm
 
-          cat > deb-sc/DEBIAN/control << EOF
-          Package: retromultitools
-          Version: ${{ env.APP_VERSION }}
-          Architecture: ${{ matrix.deb_arch }}
-          Maintainer: SvenGDK
-          Homepage: https://github.com/SvenGDK/RetroMultiTools
-          Description: Retro Multi Tools
-           Multi platform utility for managing, inspecting, and patching retro game ROMs.
-          Section: utils
-          Priority: optional
-          EOF
+          RPM_ARCH=${{ matrix.rpm_arch }}
 
-          cp -r publish-sc/* deb-sc/usr/lib/retromultitools/
-          chmod +x deb-sc/usr/lib/retromultitools/RetroMultiTools
-          chmod +x deb-sc/usr/lib/retromultitools/RetroMultiTools.Updater
+          mkdir -p rpm-stage/usr/lib/retromultitools
+          mkdir -p rpm-stage/usr/bin
+          mkdir -p rpm-stage/usr/share/applications
+          mkdir -p rpm-stage/usr/share/icons/hicolor/512x512/apps
 
-          cp Icon.png deb-sc/usr/share/icons/hicolor/512x512/apps/retromultitools.png
+          cp -r publish/* rpm-stage/usr/lib/retromultitools/
+          chmod +x rpm-stage/usr/lib/retromultitools/RetroMultiTools
+          chmod +x rpm-stage/usr/lib/retromultitools/RetroMultiTools.Updater
 
-          cat > deb-sc/usr/bin/retromultitools << 'LAUNCHER'
+          cp Icon.png rpm-stage/usr/share/icons/hicolor/512x512/apps/retromultitools.png
+
+          cat > rpm-stage/usr/bin/retromultitools << 'LAUNCHER'
           #!/bin/bash
           exec /usr/lib/retromultitools/RetroMultiTools "$@"
           LAUNCHER
-          chmod +x deb-sc/usr/bin/retromultitools
+          chmod +x rpm-stage/usr/bin/retromultitools
 
-          cat > deb-sc/usr/share/applications/retromultitools.desktop << 'DESKTOP'
+          cat > rpm-stage/usr/share/applications/retromultitools.desktop << 'DESKTOP'
           [Desktop Entry]
           Name=Retro Multi Tools
           Comment=Multi platform utility for managing, inspecting, and patching retro game ROMs
@@ -185,7 +191,302 @@ jobs:
           Categories=Utility;Game;
           DESKTOP
 
-          dpkg-deb --root-owner-group --build deb-sc linux-${{ matrix.arch }}-Selfcontained-Installer.deb
+          mkdir -p rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+
+          cat > rpmbuild/SPECS/retromultitools.spec << 'SPEC'
+          Name:           retromultitools
+          Version:        ${{ env.APP_VERSION }}
+          Release:        1
+          Summary:        Retro Multi Tools
+          License:        BSD-2-Clause
+          URL:            https://github.com/SvenGDK/RetroMultiTools
+          AutoReqProv:    no
+
+          %global __os_install_post %{nil}
+          %define _binary_payload w9.xzdio
+
+          %description
+          Multi platform utility for managing, inspecting, and patching retro game ROMs.
+
+          %install
+          mkdir -p %{buildroot}
+          cp -a ${{ github.workspace }}/rpm-stage/* %{buildroot}/
+
+          %files
+          /usr/lib/retromultitools/
+          /usr/bin/retromultitools
+          /usr/share/applications/retromultitools.desktop
+          /usr/share/icons/hicolor/512x512/apps/retromultitools.png
+          SPEC
+
+          rpmbuild --define "_topdir $(pwd)/rpmbuild" --target ${RPM_ARCH} -bb rpmbuild/SPECS/retromultitools.spec
+
+          cp rpmbuild/RPMS/${RPM_ARCH}/*.rpm linux-${{ matrix.arch }}.rpm
+
+      - name: Create APK Package (Alpine Linux)
+        run: |
+          APK_ARCH=${{ matrix.apk_arch }}
+
+          mkdir -p apk-data/usr/lib/retromultitools
+          mkdir -p apk-data/usr/bin
+          mkdir -p apk-data/usr/share/applications
+          mkdir -p apk-data/usr/share/icons/hicolor/512x512/apps
+
+          cp -r publish/* apk-data/usr/lib/retromultitools/
+          chmod +x apk-data/usr/lib/retromultitools/RetroMultiTools
+          chmod +x apk-data/usr/lib/retromultitools/RetroMultiTools.Updater
+
+          cp Icon.png apk-data/usr/share/icons/hicolor/512x512/apps/retromultitools.png
+
+          cat > apk-data/usr/bin/retromultitools << 'LAUNCHER'
+          #!/bin/sh
+          exec /usr/lib/retromultitools/RetroMultiTools "$@"
+          LAUNCHER
+          chmod +x apk-data/usr/bin/retromultitools
+
+          cat > apk-data/usr/share/applications/retromultitools.desktop << 'DESKTOP'
+          [Desktop Entry]
+          Name=Retro Multi Tools
+          Comment=Multi platform utility for managing, inspecting, and patching retro game ROMs
+          Exec=/usr/bin/retromultitools
+          Icon=retromultitools
+          Terminal=false
+          Type=Application
+          Categories=Utility;Game;
+          DESKTOP
+
+          INSTALLED_SIZE=$(du -sb apk-data | cut -f1)
+
+          cat > .PKGINFO << EOF
+          pkgname = retromultitools
+          pkgver = ${{ env.APP_VERSION }}-r0
+          pkgdesc = Multi platform utility for managing, inspecting, and patching retro game ROMs
+          url = https://github.com/SvenGDK/RetroMultiTools
+          builddate = $(date +%s)
+          packager = SvenGDK
+          size = ${INSTALLED_SIZE}
+          arch = ${APK_ARCH}
+          origin = retromultitools
+          maintainer = SvenGDK
+          license = BSD-2-Clause
+          EOF
+
+          tar -czf control.tar.gz .PKGINFO
+          (cd apk-data && tar -czf ../data.tar.gz .)
+          cat control.tar.gz data.tar.gz > linux-${{ matrix.arch }}.apk
+
+      - name: Create Pacman Package (Arch Linux)
+        run: |
+          sudo apt-get install -y zstd libarchive-tools
+
+          PACMAN_ARCH=${{ matrix.pacman_arch }}
+
+          mkdir -p pacman-pkg/usr/lib/retromultitools
+          mkdir -p pacman-pkg/usr/bin
+          mkdir -p pacman-pkg/usr/share/applications
+          mkdir -p pacman-pkg/usr/share/icons/hicolor/512x512/apps
+
+          cp -r publish/* pacman-pkg/usr/lib/retromultitools/
+          chmod +x pacman-pkg/usr/lib/retromultitools/RetroMultiTools
+          chmod +x pacman-pkg/usr/lib/retromultitools/RetroMultiTools.Updater
+
+          cp Icon.png pacman-pkg/usr/share/icons/hicolor/512x512/apps/retromultitools.png
+
+          cat > pacman-pkg/usr/bin/retromultitools << 'LAUNCHER'
+          #!/bin/bash
+          exec /usr/lib/retromultitools/RetroMultiTools "$@"
+          LAUNCHER
+          chmod +x pacman-pkg/usr/bin/retromultitools
+
+          cat > pacman-pkg/usr/share/applications/retromultitools.desktop << 'DESKTOP'
+          [Desktop Entry]
+          Name=Retro Multi Tools
+          Comment=Multi platform utility for managing, inspecting, and patching retro game ROMs
+          Exec=/usr/bin/retromultitools
+          Icon=retromultitools
+          Terminal=false
+          Type=Application
+          Categories=Utility;Game;
+          DESKTOP
+
+          INSTALLED_SIZE=$(du -sb pacman-pkg | cut -f1)
+
+          cat > pacman-pkg/.PKGINFO << EOF
+          pkgname = retromultitools
+          pkgver = ${{ env.APP_VERSION }}-1
+          pkgdesc = Multi platform utility for managing, inspecting, and patching retro game ROMs
+          url = https://github.com/SvenGDK/RetroMultiTools
+          builddate = $(date +%s)
+          packager = SvenGDK
+          size = ${INSTALLED_SIZE}
+          arch = ${PACMAN_ARCH}
+          license = BSD-2-Clause
+          depend = icu
+          depend = fontconfig
+          depend = libx11
+          depend = libice
+          depend = libsm
+          EOF
+
+          cd pacman-pkg
+          LANG=C bsdtar -czf .MTREE --format=mtree \
+            --options='!all,use-set,type,uid,gid,mode,time,size,md5,sha256,link' \
+            .PKGINFO usr
+          LANG=C bsdtar -cf - .PKGINFO .MTREE usr | zstd -c -T0 --ultra -20 > ../linux-${{ matrix.arch }}.pkg.tar.zst
+          cd ..
+
+      - name: Create AppImage
+        run: |
+          curl -fsSL -o appimagetool "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage"
+          chmod +x appimagetool
+
+          mkdir -p AppDir/usr/lib/retromultitools
+          mkdir -p AppDir/usr/share/applications
+          mkdir -p AppDir/usr/share/icons/hicolor/512x512/apps
+
+          cp -r publish/* AppDir/usr/lib/retromultitools/
+          chmod +x AppDir/usr/lib/retromultitools/RetroMultiTools
+          chmod +x AppDir/usr/lib/retromultitools/RetroMultiTools.Updater
+
+          cp Icon.png AppDir/usr/share/icons/hicolor/512x512/apps/retromultitools.png
+          cp Icon.png AppDir/retromultitools.png
+
+          cat > AppDir/usr/share/applications/retromultitools.desktop << 'DESKTOP'
+          [Desktop Entry]
+          Name=Retro Multi Tools
+          Comment=Multi platform utility for managing, inspecting, and patching retro game ROMs
+          Exec=RetroMultiTools
+          Icon=retromultitools
+          Terminal=false
+          Type=Application
+          Categories=Utility;Game;
+          DESKTOP
+          cp AppDir/usr/share/applications/retromultitools.desktop AppDir/
+
+          cat > AppDir/AppRun << 'APPRUN'
+          #!/bin/bash
+          SELF="$(readlink -f "$0")"
+          HERE="${SELF%/*}"
+          exec "${HERE}/usr/lib/retromultitools/RetroMultiTools" "$@"
+          APPRUN
+          chmod +x AppDir/AppRun
+
+          ARCH=${{ matrix.appimage_arch }} ./appimagetool --appimage-extract-and-run --comp zstd AppDir linux-${{ matrix.arch }}.AppImage
+
+      - name: Create Snap
+        run: |
+          mkdir -p snap-dir/meta/gui
+          mkdir -p snap-dir/usr/lib/retromultitools
+          mkdir -p snap-dir/usr/bin
+          mkdir -p snap-dir/usr/share/applications
+          mkdir -p snap-dir/usr/share/icons/hicolor/512x512/apps
+
+          cat > snap-dir/meta/snap.yaml << 'EOF'
+          name: retromultitools
+          version: '${{ env.APP_VERSION }}'
+          summary: Retro Multi Tools
+          description: |
+            Multi platform utility for managing, inspecting, and patching retro game ROMs.
+          architectures:
+            - ${{ matrix.snap_arch }}
+          confinement: strict
+          grade: stable
+          base: core22
+          apps:
+            retromultitools:
+              command: usr/lib/retromultitools/RetroMultiTools
+              plugs:
+                - desktop
+                - desktop-legacy
+                - home
+                - network
+                - opengl
+                - removable-media
+                - x11
+                - wayland
+                - joystick
+                - audio-playback
+          EOF
+
+          cp -r publish/* snap-dir/usr/lib/retromultitools/
+          chmod +x snap-dir/usr/lib/retromultitools/RetroMultiTools
+          chmod +x snap-dir/usr/lib/retromultitools/RetroMultiTools.Updater
+
+          cp Icon.png snap-dir/usr/share/icons/hicolor/512x512/apps/retromultitools.png
+          cp Icon.png snap-dir/meta/gui/icon.png
+
+          cat > snap-dir/usr/share/applications/retromultitools.desktop << 'DESKTOP'
+          [Desktop Entry]
+          Name=Retro Multi Tools
+          Comment=Multi platform utility for managing, inspecting, and patching retro game ROMs
+          Exec=retromultitools
+          Icon=${SNAP}/meta/gui/icon.png
+          Terminal=false
+          Type=Application
+          Categories=Utility;Game;
+          DESKTOP
+          cp snap-dir/usr/share/applications/retromultitools.desktop snap-dir/meta/gui/
+
+          snap pack snap-dir --filename=linux-${{ matrix.arch }}.snap --compression=xz
+
+      - name: Validate AppStream metainfo
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y appstream
+          appstreamcli validate --no-net Flatpak/io.github.svengdk.RetroMultiTools.metainfo.xml
+
+      - name: Create Flatpak
+        run: |
+          sudo apt-get install -y flatpak flatpak-builder
+          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          sudo flatpak install -y --noninteractive flathub org.freedesktop.Platform/${{ matrix.flatpak_arch }}/24.08 org.freedesktop.Sdk/${{ matrix.flatpak_arch }}/24.08
+
+          mkdir -p flatpak-build/files/lib/retromultitools
+          mkdir -p flatpak-build/files/bin
+          mkdir -p flatpak-build/files/share/applications
+          mkdir -p flatpak-build/files/share/icons/hicolor/512x512/apps
+          mkdir -p flatpak-build/files/share/metainfo
+          mkdir -p flatpak-build/export/share/applications
+          mkdir -p flatpak-build/export/share/icons/hicolor/512x512/apps
+          mkdir -p flatpak-build/export/share/metainfo
+
+          cp -r publish/* flatpak-build/files/lib/retromultitools/
+          chmod +x flatpak-build/files/lib/retromultitools/RetroMultiTools
+          chmod +x flatpak-build/files/lib/retromultitools/RetroMultiTools.Updater
+
+          install -Dm755 Flatpak/launch.sh flatpak-build/files/bin/retromultitools
+
+          install -Dm644 Flatpak/io.github.svengdk.RetroMultiTools.desktop flatpak-build/files/share/applications/io.github.svengdk.RetroMultiTools.desktop
+          cp flatpak-build/files/share/applications/io.github.svengdk.RetroMultiTools.desktop flatpak-build/export/share/applications/
+
+          install -Dm644 Flatpak/io.github.svengdk.RetroMultiTools.metainfo.xml flatpak-build/files/share/metainfo/io.github.svengdk.RetroMultiTools.metainfo.xml
+          cp flatpak-build/files/share/metainfo/io.github.svengdk.RetroMultiTools.metainfo.xml flatpak-build/export/share/metainfo/
+
+          cp Icon.png flatpak-build/files/share/icons/hicolor/512x512/apps/io.github.svengdk.RetroMultiTools.png
+          cp Icon.png flatpak-build/export/share/icons/hicolor/512x512/apps/io.github.svengdk.RetroMultiTools.png
+
+          mkdir -p flatpak-build/files/share/licenses/io.github.svengdk.RetroMultiTools
+          cp LICENSE flatpak-build/files/share/licenses/io.github.svengdk.RetroMultiTools/LICENSE
+
+          cat > flatpak-build/metadata << 'EOF'
+          [Application]
+          name=io.github.svengdk.RetroMultiTools
+          runtime=org.freedesktop.Platform/${{ matrix.flatpak_arch }}/24.08
+          sdk=org.freedesktop.Sdk/${{ matrix.flatpak_arch }}/24.08
+          command=retromultitools
+
+          [Context]
+          shared=ipc;network;
+          sockets=x11;wayland;
+          devices=dri;
+          filesystems=home;/media:ro;/run/media:ro;
+
+          [Session Bus Policy]
+          org.freedesktop.Notifications=talk
+          EOF
+
+          flatpak build-export flatpak-repo flatpak-build
+          flatpak build-bundle --arch=${{ matrix.flatpak_arch }} flatpak-repo linux-${{ matrix.arch }}.flatpak io.github.svengdk.RetroMultiTools
 
       - name: Upload ZIP (Portable)
         uses: actions/upload-artifact@v4
@@ -193,20 +494,44 @@ jobs:
           name: linux-${{ matrix.arch }}-zip
           path: linux-${{ matrix.arch }}.zip
 
-      - name: Upload ZIP (Self-contained Portable)
+      - name: Upload DEB Installer
         uses: actions/upload-artifact@v4
         with:
-          name: linux-${{ matrix.arch }}-Selfcontained-zip
-          path: linux-${{ matrix.arch }}-Selfcontained.zip
-
-      - name: Upload Installer
-        uses: actions/upload-artifact@v4
-        with:
-          name: linux-${{ matrix.arch }}-installer
+          name: linux-${{ matrix.arch }}-deb
           path: linux-${{ matrix.arch }}-Installer.deb
 
-      - name: Upload Installer (Self-contained)
+      - name: Upload RPM Package
         uses: actions/upload-artifact@v4
         with:
-          name: linux-${{ matrix.arch }}-Selfcontained-Installer
-          path: linux-${{ matrix.arch }}-Selfcontained-Installer.deb
+          name: linux-${{ matrix.arch }}-rpm
+          path: linux-${{ matrix.arch }}.rpm
+
+      - name: Upload APK Package (Alpine Linux)
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}-apk
+          path: linux-${{ matrix.arch }}.apk
+
+      - name: Upload Pacman Package (Arch Linux)
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}-pacman
+          path: linux-${{ matrix.arch }}.pkg.tar.zst
+
+      - name: Upload AppImage
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}-appimage
+          path: linux-${{ matrix.arch }}.AppImage
+
+      - name: Upload Snap
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}-snap
+          path: linux-${{ matrix.arch }}.snap
+
+      - name: Upload Flatpak
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}-flatpak
+          path: linux-${{ matrix.arch }}.flatpak

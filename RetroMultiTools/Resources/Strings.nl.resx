@@ -6124,4 +6124,1205 @@ Run:notepad.exe</value>
   <data name="Settings_Clear" xml:space="preserve">
     <value>Wissen</value>
   </data>
+  <data name="Nav_DiscTools" xml:space="preserve">
+    <value>Schijfhulpmiddelen</value>
+  </data>
+  <data name="DiscTools_Title" xml:space="preserve">
+    <value>Schijfhulpmiddelen</value>
+  </data>
+  <data name="DiscTools_Description" xml:space="preserve">
+    <value>Brand schijfimages of bestanden op optische media en maak schijfimages van fysieke schijven of bestanden. Ondersteunt ISO, BIN/CUE, IMG, GDI, CDI, NRG en andere schijfformaten voor spelsystemen.</value>
+  </data>
+  <data name="DiscTools_Operation" xml:space="preserve">
+    <value>Bediening:</value>
+  </data>
+  <data name="DiscTools_OpBurnImage" xml:space="preserve">
+    <value>Schrijf afbeelding naar schijf</value>
+  </data>
+  <data name="DiscTools_OpBurnFiles" xml:space="preserve">
+    <value>Schrijf bestanden naar schijf</value>
+  </data>
+  <data name="DiscTools_OpImageFromDisc" xml:space="preserve">
+    <value>Maak een afbeelding van schijf</value>
+  </data>
+  <data name="DiscTools_OpImageFromFiles" xml:space="preserve">
+    <value>Maak een afbeelding van bestanden</value>
+  </data>
+  <data name="DiscTools_Drive" xml:space="preserve">
+    <value>Optische schijf:</value>
+  </data>
+  <data name="DiscTools_SelectDrive" xml:space="preserve">
+    <value>Selecteer een optisch station...</value>
+  </data>
+  <data name="DiscTools_RefreshDrives" xml:space="preserve">
+    <value>Vernieuwen</value>
+  </data>
+  <data name="DiscTools_NoDrivesFound" xml:space="preserve">
+    <value>Er zijn geen optische stations gedetecteerd op dit systeem.</value>
+  </data>
+  <data name="DiscTools_ImageFile" xml:space="preserve">
+    <value>Afbeeldingsbestand:</value>
+  </data>
+  <data name="DiscTools_SelectImageFile" xml:space="preserve">
+    <value>Selecteer een schijfimagebestand...</value>
+  </data>
+  <data name="DiscTools_ImageFiles" xml:space="preserve">
+    <value>Schijfimagebestanden</value>
+  </data>
+  <data name="DiscTools_FilesOrFolders" xml:space="preserve">
+    <value>Bestanden / mappen:</value>
+  </data>
+  <data name="DiscTools_SelectFilesOrFolders" xml:space="preserve">
+    <value>Selecteer bestanden of mappen om te schrijven...</value>
+  </data>
+  <data name="DiscTools_SelectFolder" xml:space="preserve">
+    <value>Selecteer een map</value>
+  </data>
+  <data name="DiscTools_OutputFile" xml:space="preserve">
+    <value>Uitvoerbeeldbestand:</value>
+  </data>
+  <data name="DiscTools_SelectOutputImage" xml:space="preserve">
+    <value>Selecteer het bestandspad voor de uitvoerafbeelding...</value>
+  </data>
+  <data name="DiscTools_VolumeLabel" xml:space="preserve">
+    <value>Volumelabel:</value>
+  </data>
+  <data name="DiscTools_VolumeLabelHint" xml:space="preserve">
+    <value>Voer een volumelabel voor de schijf in...</value>
+  </data>
+  <data name="DiscTools_WriteSpeed" xml:space="preserve">
+    <value>Schrijfsnelheid:</value>
+  </data>
+  <data name="DiscTools_SpeedAuto" xml:space="preserve">
+    <value>Automatisch (max.)</value>
+  </data>
+  <data name="DiscTools_VerifyAfterBurn" xml:space="preserve">
+    <value>Controleer na schrijven</value>
+  </data>
+  <data name="DiscTools_Burn" xml:space="preserve">
+    <value>Schrijven naar schijf</value>
+  </data>
+  <data name="DiscTools_CreateImage" xml:space="preserve">
+    <value>Afbeelding maken</value>
+  </data>
+  <data name="DiscTools_Cancel" xml:space="preserve">
+    <value>Annuleer</value>
+  </data>
+  <data name="DiscTools_DetectingDrives" xml:space="preserve">
+    <value>Optische schijven detecteren...</value>
+  </data>
+  <data name="DiscTools_DriveDetectError" xml:space="preserve">
+    <value>Fout bij het detecteren van schijven: {0}</value>
+  </data>
+  <data name="DiscTools_ImageNotFound" xml:space="preserve">
+    <value>Afbeeldingsbestand niet gevonden.</value>
+  </data>
+  <data name="DiscTools_BurningImage" xml:space="preserve">
+    <value>Schrijvend beeld: {0}</value>
+  </data>
+  <data name="DiscTools_BurningFiles" xml:space="preserve">
+    <value>{0}-item(s) naar schijf schrijven...</value>
+  </data>
+  <data name="DiscTools_NoFilesSelected" xml:space="preserve">
+    <value>Geen bestanden of mappen geselecteerd.</value>
+  </data>
+  <data name="DiscTools_OutputRequired" xml:space="preserve">
+    <value>Pad voor uitvoerbestand is vereist.</value>
+  </data>
+  <data name="DiscTools_ReadingDisc" xml:space="preserve">
+    <value>Schijf lezen...</value>
+  </data>
+  <data name="DiscTools_CreatingImage" xml:space="preserve">
+    <value>Afbeelding maken: {0}</value>
+  </data>
+  <data name="DiscTools_WritingToDisc" xml:space="preserve">
+    <value>Gegevens naar schijf schrijven...</value>
+  </data>
+  <data name="DiscTools_RunningTool" xml:space="preserve">
+    <value>{0} uitvoeren...</value>
+  </data>
+  <data name="DiscTools_BurnComplete" xml:space="preserve">
+    <value>✔ Met succes naar schijf geschreven.</value>
+  </data>
+  <data name="DiscTools_BurnFailed" xml:space="preserve">
+    <value>✘ Schrijven mislukt: {0}</value>
+  </data>
+  <data name="DiscTools_ImageCreated" xml:space="preserve">
+    <value>✔ Afbeelding gemaakt: {0} ({1})</value>
+  </data>
+  <data name="DiscTools_ImageCreateFailed" xml:space="preserve">
+    <value>✘ Het maken van een afbeelding is mislukt: {0}</value>
+  </data>
+  <data name="DiscTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Dit platform wordt niet ondersteund voor schijfbewerkingen.</value>
+  </data>
+  <data name="DiscTools_NoBurnTool" xml:space="preserve">
+    <value>Geen hulpmiddel voor het branden van schijven gevonden. Installeer wodim, cdrecord of xorrecord.</value>
+  </data>
+  <data name="DiscTools_NoIsoTool" xml:space="preserve">
+    <value>Geen tool voor het maken van ISO gevonden. Installeer xorrisofs, genisoimage of mkisofs.</value>
+  </data>
+  <data name="DiscTools_IsoCreateFailed" xml:space="preserve">
+    <value>ISO-creatie mislukt: {0}</value>
+  </data>
+  <data name="DiscTools_CreatingIso" xml:space="preserve">
+    <value>ISO-image maken...</value>
+  </data>
+  <data name="DiscTools_OperationCancelled" xml:space="preserve">
+    <value>Bewerking geannuleerd.</value>
+  </data>
+  <data name="DiscTools_BrowseFolder" xml:space="preserve">
+    <value>Blader door map</value>
+  </data>
+  <data name="DiscTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>Het beeldformaat '{0}' kan niet op schijf worden gebrand. Ondersteunde formaten: ISO, BIN/CUE, IMG, NRG, TOAST.</value>
+  </data>
+  <data name="DiscTools_Verifying" xml:space="preserve">
+    <value>Schijf verifiëren...</value>
+  </data>
+  <data name="DiscTools_BurnCompleteVerifySkipped" xml:space="preserve">
+    <value>Branden is succesvol voltooid. Verificatie kon niet worden uitgevoerd.</value>
+  </data>
+  <data name="DiscTools_VerifyFailed" xml:space="preserve">
+    <value>Branden voltooid maar verificatie mislukt: de schijfgegevens komen niet overeen met de bronafbeelding.</value>
+  </data>
+  <data name="DiscTools_IsoImageType" xml:space="preserve">
+    <value>ISO-afbeelding</value>
+  </data>
+  <data name="DiscTools_BinCueImageType" xml:space="preserve">
+    <value>BIN/CUE-afbeelding</value>
+  </data>
+  <data name="Nav_UsbTools" xml:space="preserve">
+    <value>USB-hulpmiddelen</value>
+  </data>
+  <data name="UsbTools_Title" xml:space="preserve">
+    <value>USB-hulpmiddelen</value>
+  </data>
+  <data name="UsbTools_Description" xml:space="preserve">
+    <value>USB-stations formatteren, images schrijven, images maken en bladeren.</value>
+  </data>
+  <data name="UsbTools_Drive" xml:space="preserve">
+    <value>USB-station</value>
+  </data>
+  <data name="UsbTools_SelectDrive" xml:space="preserve">
+    <value>Selecteer een USB-station...</value>
+  </data>
+  <data name="UsbTools_RefreshDrives" xml:space="preserve">
+    <value>Vernieuwen</value>
+  </data>
+  <data name="UsbTools_DetectingDrives" xml:space="preserve">
+    <value>USB-stations detecteren...</value>
+  </data>
+  <data name="UsbTools_NoDrivesFound" xml:space="preserve">
+    <value>Geen USB-stations gevonden.</value>
+  </data>
+  <data name="UsbTools_DriveDetectError" xml:space="preserve">
+    <value>Fout bij het detecteren van stations: {0}</value>
+  </data>
+  <data name="UsbTools_NoDriveSelected" xml:space="preserve">
+    <value>Geen USB-station geselecteerd.</value>
+  </data>
+  <data name="UsbTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Deze bewerking wordt niet ondersteund op het huidige platform.</value>
+  </data>
+  <data name="UsbTools_TabExplorer" xml:space="preserve">
+    <value>Bestandsverkenner</value>
+  </data>
+  <data name="UsbTools_TabFormat" xml:space="preserve">
+    <value>Formatteren</value>
+  </data>
+  <data name="UsbTools_TabWriteImage" xml:space="preserve">
+    <value>Image schrijven</value>
+  </data>
+  <data name="UsbTools_TabCreateImage" xml:space="preserve">
+    <value>Image maken</value>
+  </data>
+  <data name="UsbTools_NavigateUp" xml:space="preserve">
+    <value>Omhoog navigeren</value>
+  </data>
+  <data name="UsbTools_RefreshFiles" xml:space="preserve">
+    <value>Vernieuwen</value>
+  </data>
+  <data name="UsbTools_AddFiles" xml:space="preserve">
+    <value>Bestanden toevoegen</value>
+  </data>
+  <data name="UsbTools_NewFolder" xml:space="preserve">
+    <value>Nieuwe map</value>
+  </data>
+  <data name="UsbTools_Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="UsbTools_Move" xml:space="preserve">
+    <value>Verplaatsen</value>
+  </data>
+  <data name="UsbTools_FileSystem" xml:space="preserve">
+    <value>Bestandssysteem</value>
+  </data>
+  <data name="UsbTools_PartitionScheme" xml:space="preserve">
+    <value>Partitieschema</value>
+  </data>
+  <data name="UsbTools_VolumeLabel" xml:space="preserve">
+    <value>Volumelabel</value>
+  </data>
+  <data name="UsbTools_VolumeLabelHint" xml:space="preserve">
+    <value>Voer een volumelabel in</value>
+  </data>
+  <data name="UsbTools_FormatWarning" xml:space="preserve">
+    <value>⚠ Waarschuwing: Formatteren zal ALLE gegevens op het geselecteerde USB-station wissen. Deze actie kan niet ongedaan worden gemaakt.</value>
+  </data>
+  <data name="UsbTools_Format" xml:space="preserve">
+    <value>USB-station formatteren</value>
+  </data>
+  <data name="UsbTools_PreparingFormat" xml:space="preserve">
+    <value>Formatteren voorbereiden...</value>
+  </data>
+  <data name="UsbTools_Formatting" xml:space="preserve">
+    <value>Formatteren naar {0} ({1})...</value>
+  </data>
+  <data name="UsbTools_FormatComplete" xml:space="preserve">
+    <value>USB-station succesvol geformatteerd.</value>
+  </data>
+  <data name="UsbTools_FormatFailed" xml:space="preserve">
+    <value>Formatteren mislukt: {0}</value>
+  </data>
+  <data name="UsbTools_UnsupportedFileSystem" xml:space="preserve">
+    <value>Niet-ondersteund bestandssysteem: {0}</value>
+  </data>
+  <data name="UsbTools_NtfsMacWarning" xml:space="preserve">
+    <value>Opmerking: macOS ondersteunt NTFS-formattering niet standaard. Het station is in plaats daarvan geformatteerd als ExFAT.</value>
+  </data>
+  <data name="UsbTools_ConfirmFormat" xml:space="preserve">
+    <value>Formatteren bevestigen</value>
+  </data>
+  <data name="UsbTools_ConfirmFormatMessage" xml:space="preserve">
+    <value>Weet u zeker dat u {0} wilt formatteren? Alle gegevens worden permanent gewist.</value>
+  </data>
+  <data name="UsbTools_ImageFile" xml:space="preserve">
+    <value>Imagebestand</value>
+  </data>
+  <data name="UsbTools_SelectImageFile" xml:space="preserve">
+    <value>Selecteer een imagebestand...</value>
+  </data>
+  <data name="UsbTools_ImageFiles" xml:space="preserve">
+    <value>Schijf-imagebestanden</value>
+  </data>
+  <data name="UsbTools_ImageNotFound" xml:space="preserve">
+    <value>Imagebestand niet gevonden.</value>
+  </data>
+  <data name="UsbTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>Niet-ondersteund imageformaat: {0}</value>
+  </data>
+  <data name="UsbTools_WriteWarning" xml:space="preserve">
+    <value>⚠ Waarschuwing: Het schrijven van een image zal ALLE gegevens op het geselecteerde USB-station wissen. Deze actie kan niet ongedaan worden gemaakt.</value>
+  </data>
+  <data name="UsbTools_WriteImage" xml:space="preserve">
+    <value>Image naar USB schrijven</value>
+  </data>
+  <data name="UsbTools_WritingImage" xml:space="preserve">
+    <value>{0} schrijven naar USB-station...</value>
+  </data>
+  <data name="UsbTools_WriteComplete" xml:space="preserve">
+    <value>Image succesvol naar USB-station geschreven.</value>
+  </data>
+  <data name="UsbTools_WriteFailed" xml:space="preserve">
+    <value>Schrijven mislukt: {0}</value>
+  </data>
+  <data name="UsbTools_ConfirmWrite" xml:space="preserve">
+    <value>Schrijven bevestigen</value>
+  </data>
+  <data name="UsbTools_ConfirmWriteMessage" xml:space="preserve">
+    <value>Weet u zeker dat u {0} naar {1} wilt schrijven? Alle bestaande gegevens worden permanent gewist.</value>
+  </data>
+  <data name="UsbTools_OutputFile" xml:space="preserve">
+    <value>Uitvoerbestand</value>
+  </data>
+  <data name="UsbTools_SelectOutputImage" xml:space="preserve">
+    <value>Selecteer locatie voor uitvoer-image...</value>
+  </data>
+  <data name="UsbTools_CreateImage" xml:space="preserve">
+    <value>Image van USB maken</value>
+  </data>
+  <data name="UsbTools_CreatingImage" xml:space="preserve">
+    <value>Image van USB-station maken...</value>
+  </data>
+  <data name="UsbTools_ImageCreated" xml:space="preserve">
+    <value>Image succesvol aangemaakt: {0}</value>
+  </data>
+  <data name="UsbTools_ImageCreateFailed" xml:space="preserve">
+    <value>Image maken mislukt: {0}</value>
+  </data>
+  <data name="UsbTools_OutputRequired" xml:space="preserve">
+    <value>Het pad van het uitvoerbestand is vereist.</value>
+  </data>
+  <data name="UsbTools_ImgFileType" xml:space="preserve">
+    <value>IMG-image</value>
+  </data>
+  <data name="UsbTools_IsoFileType" xml:space="preserve">
+    <value>ISO-image</value>
+  </data>
+  <data name="UsbTools_OperationCancelled" xml:space="preserve">
+    <value>Bewerking is geannuleerd.</value>
+  </data>
+  <data name="UsbTools_FolderExists" xml:space="preserve">
+    <value>Er bestaat al een map met die naam.</value>
+  </data>
+  <data name="UsbTools_FolderCreated" xml:space="preserve">
+    <value>Map succesvol aangemaakt.</value>
+  </data>
+  <data name="UsbTools_DeleteComplete" xml:space="preserve">
+    <value>Succesvol verwijderd.</value>
+  </data>
+  <data name="UsbTools_EntryNotFound" xml:space="preserve">
+    <value>Het bestand of de map is niet gevonden.</value>
+  </data>
+  <data name="UsbTools_DestinationExists" xml:space="preserve">
+    <value>Er bestaat al een item met dezelfde naam op de bestemming.</value>
+  </data>
+  <data name="UsbTools_MoveComplete" xml:space="preserve">
+    <value>Succesvol verplaatst.</value>
+  </data>
+  <data name="UsbTools_SelectMoveDestination" xml:space="preserve">
+    <value>Selecteer doelmap</value>
+  </data>
+  <data name="UsbTools_CopyingFile" xml:space="preserve">
+    <value>{0} kopiëren...</value>
+  </data>
+  <data name="UsbTools_AddComplete" xml:space="preserve">
+    <value>{0} item(s) succesvol toegevoegd.</value>
+  </data>
+  <data name="UsbTools_ConfirmDelete" xml:space="preserve">
+    <value>Verwijderen bevestigen</value>
+  </data>
+  <data name="UsbTools_ConfirmDeleteMessage" xml:space="preserve">
+    <value>Weet u zeker dat u '{0}' wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.</value>
+  </data>
+  <data name="UsbTools_EnterFolderName" xml:space="preserve">
+    <value>Voer de mapnaam in:</value>
+  </data>
+  <data name="UsbTools_FolderNameHint" xml:space="preserve">
+    <value>Mapnaam</value>
+  </data>
+
+  <data name="Tour_Skip" xml:space="preserve">
+    <value>Tour overslaan</value>
+  </data>
+  <data name="Tour_Back" xml:space="preserve">
+    <value>Terug</value>
+  </data>
+  <data name="Tour_Next" xml:space="preserve">
+    <value>Volgende</value>
+  </data>
+  <data name="Tour_Finish" xml:space="preserve">
+    <value>Aan de slag</value>
+  </data>
+  <data name="Tour_WelcomeTitle" xml:space="preserve">
+    <value>Welkom bij RetroMultiTools!</value>
+  </data>
+  <data name="Tour_WelcomeDesc" xml:space="preserve">
+    <value>Uw alles-in-één toolkit voor retro gaming. Laat ons u een snelle rondleiding geven van alles wat deze app kan doen. Het duurt maar een minuutje!</value>
+  </data>
+  <data name="Tour_SidebarTitle" xml:space="preserve">
+    <value>Zijbalknavigatie</value>
+  </data>
+  <data name="Tour_SidebarDesc" xml:space="preserve">
+    <value>Gebruik de zijbalk links om tussen tools te wisselen. Ze zijn ingedeeld in categorieën zoals browsen, patchen, analyse en meer.</value>
+  </data>
+  <data name="Tour_BrowserTitle" xml:space="preserve">
+    <value>ROM-browser</value>
+  </data>
+  <data name="Tour_BrowserDesc" xml:space="preserve">
+    <value>Blader door uw ROM-collectie met een krachtige bestandsbrowser. Bekijk bestandsdetails, open mappen en vind snel de games die u zoekt.</value>
+  </data>
+  <data name="Tour_InspectorTitle" xml:space="preserve">
+    <value>ROM-inspector &amp; hex-viewer</value>
+  </data>
+  <data name="Tour_InspectorDesc" xml:space="preserve">
+    <value>Inspecteer ROM-bestandsheaders, bekijk interne metadata en onderzoek ruwe bytes met de ingebouwde hex-viewer. Geweldig voor gevorderde gebruikers en ontwikkelaars.</value>
+  </data>
+  <data name="Tour_PatchingTitle" xml:space="preserve">
+    <value>Patchen &amp; conversie</value>
+  </data>
+  <data name="Tour_PatchingDesc" xml:space="preserve">
+    <value>Pas IPS/BPS/UPS-patches toe, maak uw eigen patches, converteer ROM-formaten, converteer opslagbestanden en verwerk N64 byte-swapping — alles op één plek.</value>
+  </data>
+  <data name="Tour_AnalysisTitle" xml:space="preserve">
+    <value>Analyse &amp; verificatie</value>
+  </data>
+  <data name="Tour_AnalysisDesc" xml:space="preserve">
+    <value>Verifieer uw ROM's aan de hand van DAT-bestanden, bereken checksums, vind duplicaten, hash volledige mappen in bulk en identificeer GoodTools-sets voor nauwkeurig collectiebeheer.</value>
+  </data>
+  <data name="Tour_HeadersTitle" xml:space="preserve">
+    <value>Headers &amp; trimmen</value>
+  </data>
+  <data name="Tour_HeadersDesc" xml:space="preserve">
+    <value>Exporteer, herstel of verwijder ROM-headers. Trim opgevulde ROM's om ruimte te besparen. Inclusief gespecialiseerde tools voor SNES-headerbeheer.</value>
+  </data>
+  <data name="Tour_UtilitiesTitle" xml:space="preserve">
+    <value>Hulpprogramma's</value>
+  </data>
+  <data name="Tour_UtilitiesDesc" xml:space="preserve">
+    <value>Beheer archieven, pas cheatcodes toe, werk met schijfkopieën, configureer emulators, wijs gamepad-knoppen toe, haal metadata op, organiseer en hernoem uw ROM-bestanden en beheer USB-apparaten.</value>
+  </data>
+  <data name="Tour_EmulatorsTitle" xml:space="preserve">
+    <value>Emulator-integratie</value>
+  </data>
+  <data name="Tour_EmulatorsDesc" xml:space="preserve">
+    <value>Diepe integratie met RetroArch, MAME en Mednafen. Beheer afspeellijsten, controleer ROM-sets, converteer CHD-bestanden, bewerk DAT-bestanden, maak snelkoppelingen en meer.</value>
+  </data>
+  <data name="Tour_AnalogueTitle" xml:space="preserve">
+    <value>Analogue FPGA</value>
+  </data>
+  <data name="Tour_AnalogueDesc" xml:space="preserve">
+    <value>Tools voor Analogue FPGA-hardware: Pocket, Mega Sg, Nt/Super Nt en de aankomende 3D. Beheer cores, firmware en gamebibliotheken voor uw apparaten.</value>
+  </data>
+  <data name="Tour_BigPictureTitle" xml:space="preserve">
+    <value>Big Picture Mode</value>
+  </data>
+  <data name="Tour_BigPictureDesc" xml:space="preserve">
+    <value>Leun achterover en geniet van een volledige gamecollectie met controllerondersteuning, artwork, speelregistratie en beoordelingen. Kies tussen klassiek raster- of modern hero-indeling.</value>
+  </data>
+  <data name="Tour_SettingsTitle" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="Tour_SettingsDesc" xml:space="preserve">
+    <value>Pas uw ervaring aan: verander de taal, schakel Discord Rich Presence in, configureer Big Picture Mode, stel gamepad-bediening in en controleer op updates.</value>
+  </data>
+  <data name="Tour_FinishTitle" xml:space="preserve">
+    <value>U bent er klaar voor!</value>
+  </data>
+  <data name="Tour_FinishDesc" xml:space="preserve">
+    <value>Dat is alles! Begin met het verkennen van de tools in de zijbalk. U kunt deze tour altijd opnieuw starten vanuit Instellingen als u een opfrissing nodig heeft. Veel plezier!</value>
+  </data>
+  <data name="Tour_SettingSectionTitle" xml:space="preserve">
+    <value>Begeleide rondleiding</value>
+  </data>
+  <data name="Tour_SettingSectionDesc" xml:space="preserve">
+    <value>Herstart de begeleide rondleiding die alle functies van de applicatie uitlegt.</value>
+  </data>
+  <data name="Tour_RestartButton" xml:space="preserve">
+    <value>Tour herstarten</value>
+  </data>
+  <data name="Browser_SelectFolderTooltip" xml:space="preserve">
+    <value>Browse for a ROM folder to scan</value>
+  </data>
+  <data name="Browser_AddRomsTooltip" xml:space="preserve">
+    <value>Add ROM files to the current folder</value>
+  </data>
+  <data name="Browser_CopyToTooltip" xml:space="preserve">
+    <value>Copy selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_MoveToTooltip" xml:space="preserve">
+    <value>Move selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_DeleteTooltip" xml:space="preserve">
+    <value>Delete the selected ROMs</value>
+  </data>
+  <data name="Browser_OrganizeTooltip" xml:space="preserve">
+    <value>Organize ROMs into subfolders by system</value>
+  </data>
+  <data name="Browser_SendToRemoteTooltip" xml:space="preserve">
+    <value>Send selected ROMs to a remote device or cloud storage</value>
+  </data>
+  <data name="Browser_HostShareTooltip" xml:space="preserve">
+    <value>Host a local server to share ROMs on the network</value>
+  </data>
+  <data name="Browser_LaunchRetroArchTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in RetroArch</value>
+  </data>
+  <data name="Browser_LaunchMameTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in MAME</value>
+  </data>
+  <data name="Browser_LaunchMednafenTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in Mednafen</value>
+  </data>
+  <data name="Browser_BigPictureModeTooltip" xml:space="preserve">
+    <value>Enter full-screen Big Picture Mode for gamepad-friendly browsing</value>
+  </data>
+  <data name="MainWindow_SearchShortcut" xml:space="preserve">
+    <value>Search tools (Ctrl+F)</value>
+  </data>
+  <data name="BigPictureModern_AllGames" xml:space="preserve">
+    <value>Alle spellen</value>
+  </data>
+  <data name="BigPictureModern_EmptyCategory" xml:space="preserve">
+    <value>Nog geen spellen in deze categorie</value>
+  </data>
+  <data name="BigPictureModern_EmptyLibrary" xml:space="preserve">
+    <value>Uw bibliotheek is leeg. Blader naar een ROM-map om te beginnen.</value>
+  </data>
+  <data name="BigPictureModern_Favorites" xml:space="preserve">
+    <value>Favorieten</value>
+  </data>
+  <data name="BigPictureModern_LaunchWith" xml:space="preserve">
+    <value>Starten met {0}</value>
+  </data>
+  <data name="BigPictureModern_MostPlayed" xml:space="preserve">
+    <value>Meest gespeeld</value>
+  </data>
+  <data name="BigPictureModern_NoResults" xml:space="preserve">
+    <value>Geen spellen komen overeen met uw zoekopdracht</value>
+  </data>
+  <data name="BigPictureModern_Plays" xml:space="preserve">
+    <value>{0} keer gespeeld</value>
+  </data>
+  <data name="BigPictureModern_RecentlyPlayed" xml:space="preserve">
+    <value>Recent gespeeld</value>
+  </data>
+  <data name="BigPictureModern_SearchPlaceholder" xml:space="preserve">
+    <value>Zoek in uw bibliotheek...</value>
+  </data>
+  <data name="BigPictureModern_Spotlight" xml:space="preserve">
+    <value>Uitgelicht</value>
+  </data>
+  <data name="BigPictureModern_TopRated" xml:space="preserve">
+    <value>Best beoordeeld</value>
+  </data>
+  <data name="BigPicture_CopiedToClipboard" xml:space="preserve">
+    <value>Pad gekopieerd naar klembord</value>
+  </data>
+  <data name="BigPicture_CopyFilePath" xml:space="preserve">
+    <value>Bestandspad kopiëren</value>
+  </data>
+  <data name="BigPicture_OpenFileLocation" xml:space="preserve">
+    <value>Bestandslocatie openen</value>
+  </data>
+  <data name="BigPicture_SortPlayCount" xml:space="preserve">
+    <value>Aantal keer gespeeld (Hoog → Laag)</value>
+  </data>
+  <data name="Browser_ContextChecksum" xml:space="preserve">
+    <value>#️⃣ Checksum berekenen</value>
+  </data>
+  <data name="Browser_ContextGoodTools" xml:space="preserve">
+    <value>🏷️ Identificeren met GoodTools</value>
+  </data>
+  <data name="Browser_ContextHexView" xml:space="preserve">
+    <value>🔢 Openen in Hex-viewer</value>
+  </data>
+  <data name="Browser_ContextInspect" xml:space="preserve">
+    <value>🔍 Openen in ROM-inspector</value>
+  </data>
+  <data name="Browser_ContextOpenFolder" xml:space="preserve">
+    <value>📂 Bovenliggende map openen</value>
+  </data>
+  <data name="Browser_ContextOpenWith" xml:space="preserve">
+    <value>🚀 Openen met</value>
+  </data>
+  <data name="Browser_ContextPatch" xml:space="preserve">
+    <value>🩹 ROM patchen...</value>
+  </data>
+  <data name="Browser_ContextRename" xml:space="preserve">
+    <value>✏️ Hernoemen...</value>
+  </data>
+  <data name="Browser_ContextTools" xml:space="preserve">
+    <value>🔧 Hulpmiddelen</value>
+  </data>
+  <data name="Browser_OpenFolderError" xml:space="preserve">
+    <value>Kan map niet openen: {0}</value>
+  </data>
+  <data name="Browser_RenameError" xml:space="preserve">
+    <value>Hernoemen mislukt: {0}</value>
+  </data>
+  <data name="Browser_RenamePromptTitle" xml:space="preserve">
+    <value>ROM hernoemen</value>
+  </data>
+  <data name="Browser_RenameSuccess" xml:space="preserve">
+    <value>Hernoemd naar {0}</value>
+  </data>
+  <data name="Checksum_Description" xml:space="preserve">
+    <value>Bereken CRC32-, MD5-, SHA-1- en SHA-256-checksums voor ROM-bestanden om de integriteit te verifiëren en dumps te identificeren.</value>
+  </data>
+  <data name="Common_SelectFileTitle" xml:space="preserve">
+    <value>Bestand selecteren</value>
+  </data>
+  <data name="Common_SelectOutputDirectoryTitle" xml:space="preserve">
+    <value>Uitvoermap selecteren</value>
+  </data>
+  <data name="Common_SelectRomDirectoryTitle" xml:space="preserve">
+    <value>ROM-map selecteren</value>
+  </data>
+  <data name="Common_SelectRomFileTitle" xml:space="preserve">
+    <value>ROM-bestand selecteren</value>
+  </data>
+  <data name="Comparer_Description" xml:space="preserve">
+    <value>Vergelijk twee ROM-bestanden byte voor byte om verschillen in grootte en inhoud te identificeren en de eerste afwijkende offset te vinden.</value>
+  </data>
+  <data name="GoodTools_NoCodesForFile" xml:space="preserve">
+    <value>Geen GoodTools-codes gevonden.</value>
+  </data>
+  <data name="MameConfig_Artwork" xml:space="preserve">
+    <value>Artwork-opties</value>
+  </data>
+  <data name="MameConfig_AutoEnable" xml:space="preserve">
+    <value>Opties voor automatisch inschakelen invoer</value>
+  </data>
+  <data name="MameConfig_Bgfx" xml:space="preserve">
+    <value>BGFX-nabewerking</value>
+  </data>
+  <data name="MameConfig_Communication" xml:space="preserve">
+    <value>Communicatie-opties</value>
+  </data>
+  <data name="MameConfig_ConfigFile" xml:space="preserve">
+    <value>Configuratiebestand</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>U hebt niet-opgeslagen wijzigingen. Verwerpen en doorgaan?</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Niet-opgeslagen wijzigingen</value>
+  </data>
+  <data name="MameConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Dit zal alle instellingen terugzetten naar MAME-standaardwaarden. Niet-opgeslagen wijzigingen gaan verloren. Doorgaan?</value>
+  </data>
+  <data name="MameConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Terugzetten naar standaard</value>
+  </data>
+  <data name="MameConfig_CoreInput" xml:space="preserve">
+    <value>Kerninvoeropties</value>
+  </data>
+  <data name="MameConfig_CoreMisc" xml:space="preserve">
+    <value>Kern diverse opties</value>
+  </data>
+  <data name="MameConfig_CorePerformance" xml:space="preserve">
+    <value>Kernprestatie-opties</value>
+  </data>
+  <data name="MameConfig_CoreSound" xml:space="preserve">
+    <value>Kerngeluidopties</value>
+  </data>
+  <data name="MameConfig_CoreVideo" xml:space="preserve">
+    <value>Kernvideo-opties</value>
+  </data>
+  <data name="MameConfig_CreateNew" xml:space="preserve">
+    <value>Nieuw aanmaken</value>
+  </data>
+  <data name="MameConfig_Debugging" xml:space="preserve">
+    <value>Debug-opties</value>
+  </data>
+  <data name="MameConfig_DefaultsRestored" xml:space="preserve">
+    <value>Alle instellingen terugzet naar MAME-standaardwaarden.</value>
+  </data>
+  <data name="MameConfig_Description" xml:space="preserve">
+    <value>Laad, bewerk en sla MAME-configuratiebestanden op (mame.ini). Ondersteunt alle MAME-instellingen voor Windows, macOS en Linux.</value>
+  </data>
+  <data name="MameConfig_HttpServer" xml:space="preserve">
+    <value>HTTP-serveropties</value>
+  </data>
+  <data name="MameConfig_IniFileType" xml:space="preserve">
+    <value>MAME INI-bestanden</value>
+  </data>
+  <data name="MameConfig_IniPlaceholder" xml:space="preserve">
+    <value>Pad naar mame.ini...</value>
+  </data>
+  <data name="MameConfig_Language" xml:space="preserve">
+    <value>Taal</value>
+  </data>
+  <data name="MameConfig_LoadError" xml:space="preserve">
+    <value>Kan configuratie niet laden: {0}</value>
+  </data>
+  <data name="MameConfig_Loaded" xml:space="preserve">
+    <value>{0} instellingen geladen uit {1}</value>
+  </data>
+  <data name="MameConfig_NewCreated" xml:space="preserve">
+    <value>Nieuwe configuratie aangemaakt met MAME-standaardwaarden. Opslagpad: {0}</value>
+  </data>
+  <data name="MameConfig_NoIniFound" xml:space="preserve">
+    <value>Geen mame.ini gevonden. Gebruik Bladeren om het te vinden of Nieuw aanmaken om er een te genereren met standaardwaarden.</value>
+  </data>
+  <data name="MameConfig_OsdInput" xml:space="preserve">
+    <value>OSD-invoerproviders</value>
+  </data>
+  <data name="MameConfig_OsdSound" xml:space="preserve">
+    <value>OSD-geluidopties</value>
+  </data>
+  <data name="MameConfig_OsdVideo" xml:space="preserve">
+    <value>OSD / Versnelde video</value>
+  </data>
+  <data name="MameConfig_OutputDirs" xml:space="preserve">
+    <value>Uitvoermappen</value>
+  </data>
+  <data name="MameConfig_PerWindowVideo" xml:space="preserve">
+    <value>Video-opties per venster</value>
+  </data>
+  <data name="MameConfig_ResetDefaults" xml:space="preserve">
+    <value>Terugzetten naar standaard</value>
+  </data>
+  <data name="MameConfig_Rotation" xml:space="preserve">
+    <value>Rotatie-opties</value>
+  </data>
+  <data name="MameConfig_Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="MameConfig_SaveAs" xml:space="preserve">
+    <value>Opslaan als...</value>
+  </data>
+  <data name="MameConfig_SaveDialogTitle" xml:space="preserve">
+    <value>MAME-configuratie opslaan</value>
+  </data>
+  <data name="MameConfig_SaveError" xml:space="preserve">
+    <value>Kan configuratie niet opslaan: {0}</value>
+  </data>
+  <data name="MameConfig_Saved" xml:space="preserve">
+    <value>Configuratie opgeslagen in {0}</value>
+  </data>
+  <data name="MameConfig_ScreenOptions" xml:space="preserve">
+    <value>Schermopties</value>
+  </data>
+  <data name="MameConfig_Scripting" xml:space="preserve">
+    <value>Scripting / Plugins</value>
+  </data>
+  <data name="MameConfig_SearchPaths" xml:space="preserve">
+    <value>Zoekpaden</value>
+  </data>
+  <data name="MameConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Typ om instellingen te filteren op naam (bijv. rompath, video, joystick...)</value>
+  </data>
+  <data name="MameConfig_SearchResults" xml:space="preserve">
+    <value>{0} van {1} secties komen overeen</value>
+  </data>
+  <data name="MameConfig_SearchSettings" xml:space="preserve">
+    <value>Instellingen zoeken</value>
+  </data>
+  <data name="MameConfig_SelectIniTitle" xml:space="preserve">
+    <value>MAME-configuratiebestand selecteren</value>
+  </data>
+  <data name="MameConfig_StatePlayback" xml:space="preserve">
+    <value>Status-/afspeelopties</value>
+  </data>
+  <data name="MameConfig_TabInput" xml:space="preserve">
+    <value>Invoer</value>
+  </data>
+  <data name="MameConfig_TabMisc" xml:space="preserve">
+    <value>Diversen / Geavanceerd</value>
+  </data>
+  <data name="MameConfig_TabPaths" xml:space="preserve">
+    <value>Paden</value>
+  </data>
+  <data name="MameConfig_TabPerformance" xml:space="preserve">
+    <value>Prestaties</value>
+  </data>
+  <data name="MameConfig_TabSound" xml:space="preserve">
+    <value>Geluid</value>
+  </data>
+  <data name="MameConfig_TabState" xml:space="preserve">
+    <value>Status / Afspelen</value>
+  </data>
+  <data name="MameConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="MameConfig_Title" xml:space="preserve">
+    <value>MAME-configurator</value>
+  </data>
+  <data name="MameConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Niet-opgeslagen wijzigingen</value>
+  </data>
+  <data name="MameConfig_Vector" xml:space="preserve">
+    <value>Vectoropties</value>
+  </data>
+  <data name="MednafenConfig_CfgFileType" xml:space="preserve">
+    <value>Mednafen-configuratiebestanden (*.cfg)</value>
+  </data>
+  <data name="MednafenConfig_CfgPlaceholder" xml:space="preserve">
+    <value>Pad naar mednafen.cfg...</value>
+  </data>
+  <data name="MednafenConfig_ConfigFile" xml:space="preserve">
+    <value>Configuratiebestand</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>U hebt niet-opgeslagen wijzigingen. Verwerpen en doorgaan?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Niet-opgeslagen wijzigingen</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Dit zal alle instellingen terugzetten naar Mednafen-standaardwaarden. Niet-opgeslagen wijzigingen gaan verloren. Doorgaan?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Terugzetten naar standaard</value>
+  </data>
+  <data name="MednafenConfig_CoreSettings" xml:space="preserve">
+    <value>Kerninstellingen</value>
+  </data>
+  <data name="MednafenConfig_CpuAffinity" xml:space="preserve">
+    <value>CPU-affiniteit</value>
+  </data>
+  <data name="MednafenConfig_CreateNew" xml:space="preserve">
+    <value>Nieuw aanmaken</value>
+  </data>
+  <data name="MednafenConfig_DefaultsRestored" xml:space="preserve">
+    <value>Alle instellingen hersteld naar Mednafen-standaardwaarden.</value>
+  </data>
+  <data name="MednafenConfig_Description" xml:space="preserve">
+    <value>Laad, bewerk en sla Mednafen-configuratiebestanden op (mednafen.cfg). Ondersteunt alle Mednafen-instellingen voor Windows, macOS en Linux.</value>
+  </data>
+  <data name="MednafenConfig_DirectoryPaths" xml:space="preserve">
+    <value>Mappaden</value>
+  </data>
+  <data name="MednafenConfig_FilenameFormats" xml:space="preserve">
+    <value>Bestandsnaamformaten</value>
+  </data>
+  <data name="MednafenConfig_FpsDisplay" xml:space="preserve">
+    <value>FPS-weergave</value>
+  </data>
+  <data name="MednafenConfig_GoatShader" xml:space="preserve">
+    <value>Goat Shader-instellingen</value>
+  </data>
+  <data name="MednafenConfig_InputSettings" xml:space="preserve">
+    <value>Invoerinstellingen</value>
+  </data>
+  <data name="MednafenConfig_LoadError" xml:space="preserve">
+    <value>Kan configuratie niet laden: {0}</value>
+  </data>
+  <data name="MednafenConfig_Loaded" xml:space="preserve">
+    <value>{0} instellingen geladen uit {1}</value>
+  </data>
+  <data name="MednafenConfig_NetworkPlay" xml:space="preserve">
+    <value>Netwerkspel</value>
+  </data>
+  <data name="MednafenConfig_NewCreated" xml:space="preserve">
+    <value>Nieuwe standaardconfiguratie aangemaakt in {0}</value>
+  </data>
+  <data name="MednafenConfig_NoCfgFound" xml:space="preserve">
+    <value>Kan mednafen.cfg niet automatisch detecteren. Blader handmatig naar het bestand.</value>
+  </data>
+  <data name="MednafenConfig_Osd" xml:space="preserve">
+    <value>Schermdisplay</value>
+  </data>
+  <data name="MednafenConfig_PerSystemDescription" xml:space="preserve">
+    <value>Configureer videoschaling, shaders en weergave-instellingen per geëmuleerd systeem. Wijzigingen worden opgeslagen bij het wisselen van systeem of opslaan van het bestand.</value>
+  </data>
+  <data name="MednafenConfig_QtRecord" xml:space="preserve">
+    <value>QuickTime-opname</value>
+  </data>
+  <data name="MednafenConfig_ResetDefaults" xml:space="preserve">
+    <value>Terugzetten naar standaard</value>
+  </data>
+  <data name="MednafenConfig_Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="MednafenConfig_SaveAs" xml:space="preserve">
+    <value>Opslaan als</value>
+  </data>
+  <data name="MednafenConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Mednafen-configuratie opslaan als</value>
+  </data>
+  <data name="MednafenConfig_SaveError" xml:space="preserve">
+    <value>Kan configuratie niet opslaan: {0}</value>
+  </data>
+  <data name="MednafenConfig_Saved" xml:space="preserve">
+    <value>Configuratie opgeslagen in {0}</value>
+  </data>
+  <data name="MednafenConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Typ om instellingen te filteren op naam (bijv. video, sound, shader...)</value>
+  </data>
+  <data name="MednafenConfig_SearchResults" xml:space="preserve">
+    <value>{0} van {1} secties komen overeen</value>
+  </data>
+  <data name="MednafenConfig_SearchSettings" xml:space="preserve">
+    <value>Instellingen zoeken</value>
+  </data>
+  <data name="MednafenConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Mednafen-configuratiebestand selecteren</value>
+  </data>
+  <data name="MednafenConfig_SelectSystem" xml:space="preserve">
+    <value>Systeem selecteren</value>
+  </data>
+  <data name="MednafenConfig_SoundOutput" xml:space="preserve">
+    <value>Geluiduitvoer</value>
+  </data>
+  <data name="MednafenConfig_SpeedSettings" xml:space="preserve">
+    <value>Snel vooruit / Langzaam</value>
+  </data>
+  <data name="MednafenConfig_SystemVideo" xml:space="preserve">
+    <value>Systeemvideo / Schaling</value>
+  </data>
+  <data name="MednafenConfig_TabAdvanced" xml:space="preserve">
+    <value>Geavanceerd</value>
+  </data>
+  <data name="MednafenConfig_TabGeneral" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <data name="MednafenConfig_TabInput" xml:space="preserve">
+    <value>Invoer</value>
+  </data>
+  <data name="MednafenConfig_TabNetplay" xml:space="preserve">
+    <value>Netwerkspel</value>
+  </data>
+  <data name="MednafenConfig_TabPaths" xml:space="preserve">
+    <value>Paden</value>
+  </data>
+  <data name="MednafenConfig_TabPerSystem" xml:space="preserve">
+    <value>Per systeem</value>
+  </data>
+  <data name="MednafenConfig_TabSound" xml:space="preserve">
+    <value>Geluid</value>
+  </data>
+  <data name="MednafenConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="MednafenConfig_TemporalBlur" xml:space="preserve">
+    <value>Temporele vervaging</value>
+  </data>
+  <data name="MednafenConfig_Title" xml:space="preserve">
+    <value>Mednafen-configurator</value>
+  </data>
+  <data name="MednafenConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Niet-opgeslagen wijzigingen</value>
+  </data>
+  <data name="MednafenConfig_VideoOutput" xml:space="preserve">
+    <value>Video-uitvoer</value>
+  </data>
+  <data name="MetaScraper_SummaryBySystem" xml:space="preserve">
+    <value>Samenvatting per systeem:</value>
+  </data>
+  <data name="MetaScraper_SummaryStats" xml:space="preserve">
+    <value>Geldig: {0}, Ongeldig: {1}, Fouten: {2}</value>
+  </data>
+  <data name="Nav_MameConfigurator" xml:space="preserve">
+    <value>MAME-configurator</value>
+  </data>
+  <data name="Nav_MednafenConfigurator" xml:space="preserve">
+    <value>Mednafen-configurator</value>
+  </data>
+  <data name="Nav_NoResults" xml:space="preserve">
+    <value>Geen overeenkomende hulpmiddelen gevonden.</value>
+  </data>
+  <data name="Nav_RetroArchConfigurator" xml:space="preserve">
+    <value>RetroArch-configurator</value>
+  </data>
+  <data name="Nav_SearchPlaceholder" xml:space="preserve">
+    <value>Hulpmiddelen zoeken...</value>
+  </data>
+  <data name="Patcher_Description" xml:space="preserve">
+    <value>Pas IPS-, BPS- of xdelta-patches toe op ROM-bestanden om vertalingen, fixes of aanpassingen aan te brengen.</value>
+  </data>
+  <data name="RAConfig_AIService" xml:space="preserve">
+    <value>AI-service</value>
+  </data>
+  <data name="RAConfig_AccessibilityOptions" xml:space="preserve">
+    <value>Toegankelijkheidsopties</value>
+  </data>
+  <data name="RAConfig_AchievementDisplay" xml:space="preserve">
+    <value>Prestatieweergave</value>
+  </data>
+  <data name="RAConfig_AchievementOptions" xml:space="preserve">
+    <value>RetroAchievements-opties</value>
+  </data>
+  <data name="RAConfig_AudioDriver" xml:space="preserve">
+    <value>Audiodriver</value>
+  </data>
+  <data name="RAConfig_AudioSync" xml:space="preserve">
+    <value>Audio-instellingen</value>
+  </data>
+  <data name="RAConfig_CfgFileType" xml:space="preserve">
+    <value>RetroArch CFG-bestanden</value>
+  </data>
+  <data name="RAConfig_CfgPlaceholder" xml:space="preserve">
+    <value>Pad naar retroarch.cfg...</value>
+  </data>
+  <data name="RAConfig_ConfigFile" xml:space="preserve">
+    <value>Configuratiebestand</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>U hebt niet-opgeslagen wijzigingen. Verwerpen en doorgaan?</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Niet-opgeslagen wijzigingen</value>
+  </data>
+  <data name="RAConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Dit zal alle instellingen terugzetten naar RetroArch-standaardwaarden. Niet-opgeslagen wijzigingen gaan verloren. Doorgaan?</value>
+  </data>
+  <data name="RAConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Terugzetten naar standaard</value>
+  </data>
+  <data name="RAConfig_ContentPaths" xml:space="preserve">
+    <value>Inhoud- en opslagpaden</value>
+  </data>
+  <data name="RAConfig_CoreOptions" xml:space="preserve">
+    <value>Kernopties</value>
+  </data>
+  <data name="RAConfig_CorePaths" xml:space="preserve">
+    <value>Kern- en systeempaden</value>
+  </data>
+  <data name="RAConfig_CreateNew" xml:space="preserve">
+    <value>Nieuw aanmaken</value>
+  </data>
+  <data name="RAConfig_DefaultsRestored" xml:space="preserve">
+    <value>Alle instellingen terugzet naar RetroArch-standaardwaarden.</value>
+  </data>
+  <data name="RAConfig_Description" xml:space="preserve">
+    <value>Laad, bewerk en sla RetroArch-configuratiebestanden op (retroarch.cfg). Ondersteunt alle RetroArch-instellingen voor Windows, macOS en Linux.</value>
+  </data>
+  <data name="RAConfig_FilterPaths" xml:space="preserve">
+    <value>Filter-, overlay- en andere paden</value>
+  </data>
+  <data name="RAConfig_FrameThrottle" xml:space="preserve">
+    <value>Framebegrenzing-opties</value>
+  </data>
+  <data name="RAConfig_InputGeneral" xml:space="preserve">
+    <value>Algemene invoerinstellingen</value>
+  </data>
+  <data name="RAConfig_InputHotkeys" xml:space="preserve">
+    <value>Sneltoetsen</value>
+  </data>
+  <data name="RAConfig_LoadError" xml:space="preserve">
+    <value>Kan configuratie niet laden: {0}</value>
+  </data>
+  <data name="RAConfig_Loaded" xml:space="preserve">
+    <value>{0} instellingen geladen uit {1}</value>
+  </data>
+  <data name="RAConfig_Logging" xml:space="preserve">
+    <value>Logboekopties</value>
+  </data>
+  <data name="RAConfig_MenuGeneral" xml:space="preserve">
+    <value>Menu-instellingen</value>
+  </data>
+  <data name="RAConfig_MenuTheme" xml:space="preserve">
+    <value>Thema en uiterlijk</value>
+  </data>
+  <data name="RAConfig_MiscOptions" xml:space="preserve">
+    <value>Diverse opties</value>
+  </data>
+  <data name="RAConfig_Netplay" xml:space="preserve">
+    <value>Netwerkspel</value>
+  </data>
+  <data name="RAConfig_NetworkGeneral" xml:space="preserve">
+    <value>Netwerkinstellingen</value>
+  </data>
+  <data name="RAConfig_NewCreated" xml:space="preserve">
+    <value>Nieuwe configuratie aangemaakt met RetroArch-standaardwaarden. Opslagpad: {0}</value>
+  </data>
+  <data name="RAConfig_NoCfgFound" xml:space="preserve">
+    <value>Geen retroarch.cfg gevonden. Gebruik Bladeren om het te vinden of Nieuw aanmaken om er een te genereren met standaardwaarden.</value>
+  </data>
+  <data name="RAConfig_Notifications" xml:space="preserve">
+    <value>Meldingen</value>
+  </data>
+  <data name="RAConfig_OverlaySettings" xml:space="preserve">
+    <value>Overlay-instellingen</value>
+  </data>
+  <data name="RAConfig_RGUITheme" xml:space="preserve">
+    <value>RGUI-thema</value>
+  </data>
+  <data name="RAConfig_RecordingOptions" xml:space="preserve">
+    <value>Opname-opties</value>
+  </data>
+  <data name="RAConfig_ResetDefaults" xml:space="preserve">
+    <value>Terugzetten naar standaard</value>
+  </data>
+  <data name="RAConfig_Rewind" xml:space="preserve">
+    <value>Terugspoelen-opties</value>
+  </data>
+  <data name="RAConfig_Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="RAConfig_SaveAs" xml:space="preserve">
+    <value>Opslaan als...</value>
+  </data>
+  <data name="RAConfig_SaveDialogTitle" xml:space="preserve">
+    <value>RetroArch-configuratie opslaan</value>
+  </data>
+  <data name="RAConfig_SaveError" xml:space="preserve">
+    <value>Kan configuratie niet opslaan: {0}</value>
+  </data>
+  <data name="RAConfig_SaveOptions" xml:space="preserve">
+    <value>Opslag- en statusopties</value>
+  </data>
+  <data name="RAConfig_Saved" xml:space="preserve">
+    <value>Configuratie opgeslagen in {0}</value>
+  </data>
+  <data name="RAConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Typ om instellingen te filteren op naam (bijv. video_driver, audio, netplay...)</value>
+  </data>
+  <data name="RAConfig_SearchSettings" xml:space="preserve">
+    <value>Instellingen zoeken</value>
+  </data>
+  <data name="RAConfig_SelectCfgTitle" xml:space="preserve">
+    <value>RetroArch-configuratiebestand selecteren</value>
+  </data>
+  <data name="RAConfig_TabAccessibility" xml:space="preserve">
+    <value>Toegankelijkheid</value>
+  </data>
+  <data name="RAConfig_TabAchievements" xml:space="preserve">
+    <value>Prestaties</value>
+  </data>
+  <data name="RAConfig_TabAudio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="RAConfig_TabCore" xml:space="preserve">
+    <value>Kern / Opslaan</value>
+  </data>
+  <data name="RAConfig_TabFrameThrottle" xml:space="preserve">
+    <value>Framebegrenzing</value>
+  </data>
+  <data name="RAConfig_TabInput" xml:space="preserve">
+    <value>Invoer</value>
+  </data>
+  <data name="RAConfig_TabMenu" xml:space="preserve">
+    <value>Menu / UI</value>
+  </data>
+  <data name="RAConfig_TabMisc" xml:space="preserve">
+    <value>Diversen / Logboek</value>
+  </data>
+  <data name="RAConfig_TabNetwork" xml:space="preserve">
+    <value>Netwerk</value>
+  </data>
+  <data name="RAConfig_TabOverlay" xml:space="preserve">
+    <value>Overlay</value>
+  </data>
+  <data name="RAConfig_TabPaths" xml:space="preserve">
+    <value>Paden</value>
+  </data>
+  <data name="RAConfig_TabRecording" xml:space="preserve">
+    <value>Opname</value>
+  </data>
+  <data name="RAConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="RAConfig_Title" xml:space="preserve">
+    <value>RetroArch-configurator</value>
+  </data>
+  <data name="RAConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Niet-opgeslagen wijzigingen</value>
+  </data>
+  <data name="RAConfig_VideoAdvanced" xml:space="preserve">
+    <value>Geavanceerde video</value>
+  </data>
+  <data name="RAConfig_VideoDisplay" xml:space="preserve">
+    <value>Weergave-instellingen</value>
+  </data>
+  <data name="RAConfig_VideoDriver" xml:space="preserve">
+    <value>Videodriver</value>
+  </data>
+  <data name="RAConfig_VideoOSD" xml:space="preserve">
+    <value>OSD en schermafbeeldingen</value>
+  </data>
+  <data name="RAConfig_VideoScaling" xml:space="preserve">
+    <value>Schaling en filtering</value>
+  </data>
+  <data name="RAConfig_VideoSync" xml:space="preserve">
+    <value>Synchronisatie</value>
+  </data>
+  <data name="Security_SingleNoFeatures" xml:space="preserve">
+    <value>✔ {0}: Geen beveiligingsfuncties gedetecteerd.</value>
+  </data>
+  <data name="Security_SingleResultDetected" xml:space="preserve">
+    <value>✔ {0}: {1} beveiligingsfunctie(s) gedetecteerd.</value>
+  </data>
+  <data name="Settings_BigPictureStyleClassic" xml:space="preserve">
+    <value>Klassiek (kaartraster)</value>
+  </data>
+  <data name="Settings_BigPictureStyleLabel" xml:space="preserve">
+    <value>Visuele stijl</value>
+  </data>
+  <data name="Settings_BigPictureStyleModern" xml:space="preserve">
+    <value>Modern (held + carrousel)</value>
+  </data>
+  <data name="Settings_UpdateManagedByPackageManager" xml:space="preserve">
+    <value>Updates worden beheerd door uw systeempakketbeheerder.</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImage" xml:space="preserve">
+    <value>Bevestig aanmaken image</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImageMessage" xml:space="preserve">
+    <value>Een volledig schijfimage aanmaken van {0}? Dit kan even duren afhankelijk van de schijfgrootte.</value>
+  </data>
 </root>

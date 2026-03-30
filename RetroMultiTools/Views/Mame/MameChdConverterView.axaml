@@ -3,7 +3,7 @@
              xmlns:loc="clr-namespace:RetroMultiTools.Localization"
              x:Class="RetroMultiTools.Views.Mame.MameChdConverterView">
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-    <StackPanel Spacing="16" MaxWidth="700" HorizontalAlignment="Left">
+    <StackPanel Spacing="16">
         <TextBlock Text="{Binding [MameChdConv_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
         <TextBlock Text="{Binding [MameChdConv_Description], Source={x:Static loc:LocalizationManager.Instance}}"
                    Foreground="#A6ADC8" TextWrapping="Wrap"/>
@@ -40,10 +40,10 @@
 
         <!-- Input Selection -->
         <StackPanel Spacing="4">
-            <TextBlock x:Name="InputLabel" Text="{Binding [MameChdConv_InputFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <TextBlock x:Name="InputLabel" Text="{Binding [MameChdConv_DiscImageFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
             <Grid ColumnDefinitions="*,Auto">
                 <TextBox x:Name="InputTextBox" IsReadOnly="True"
-                         Watermark="{Binding [MameChdConv_SelectInput], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                         Watermark="{Binding [MameChdConv_SelectDiscFile], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
                 <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseInput_Click"
                         Margin="8,0,0,0" Padding="12,6"/>
             </Grid>
@@ -51,7 +51,7 @@
 
         <!-- Output Selection -->
         <StackPanel Spacing="4">
-            <TextBlock x:Name="OutputLabel" Text="{Binding [Common_OutputFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <TextBlock x:Name="OutputLabel" Text="{Binding [MameChdConv_OutputFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
             <Grid ColumnDefinitions="*,Auto">
                 <TextBox x:Name="OutputTextBox" Watermark="{Binding [Common_OutputPath], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
                 <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseOutput_Click"
@@ -72,6 +72,7 @@
 
         <!-- Convert Button -->
         <Button x:Name="ConvertButton" Content="{Binding [MameChdConv_Convert], Source={x:Static loc:LocalizationManager.Instance}}"
+                ToolTip.Tip="{Binding [MameChdConv_Description], Source={x:Static loc:LocalizationManager.Instance}}"
                 Click="ConvertButton_Click"
                 Padding="16,10" HorizontalAlignment="Left"
                 IsEnabled="False"/>

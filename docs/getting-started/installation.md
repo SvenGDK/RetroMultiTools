@@ -1,6 +1,6 @@
 # Installation
 
-How to download and install Retro Multi Tools on Windows, Linux, and macOS.
+How to download and install Retro Multi Tools on Windows, Linux, macOS, and FreeBSD.
 
 ---
 
@@ -9,8 +9,9 @@ How to download and install Retro Multi Tools on Windows, Linux, and macOS.
 - **Windows** — Windows 10 or later (x64 or ARM64)
 - **Linux** — A 64-bit distribution (x64 or ARM64)
 - **macOS** — macOS 10.15 (Catalina) or later (Intel or Apple Silicon)
+- **FreeBSD** — FreeBSD 13.0 or later (x64 or ARM64) with Linux binary compatibility enabled
 
-Framework-dependent builds require the [.NET 8 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0). Self-contained builds include the runtime and have no prerequisites.
+All release builds are self-contained and include the .NET runtime — no separate runtime installation is required.
 
 ---
 
@@ -18,94 +19,40 @@ Framework-dependent builds require the [.NET 8 Runtime](https://dotnet.microsoft
 
 Download the latest release from the [Releases](https://github.com/SvenGDK/RetroMultiTools/releases) page.
 
-### Portable ZIPs
-
-| File | Description |
-|---|---|
-| `win-x64.zip` | Windows 64-bit (Intel/AMD) |
-| `win-arm64.zip` | Windows ARM64 |
-| `linux-x64.zip` | Linux 64-bit (Intel/AMD) |
-| `linux-arm64.zip` | Linux ARM64 |
-| `osx-x64.zip` | macOS Intel |
-| `osx-arm64.zip` | macOS Apple Silicon |
-
-Self-contained portable ZIPs (e.g. `win-x64-Selfcontained.zip`) are also available for each platform.
-
-### Installers
-
-| File | Description |
-|---|---|
-| `win-x64-Installer.exe` | Windows 64-bit (Intel/AMD) |
-| `win-arm64-Installer.exe` | Windows ARM64 |
-| `linux-x64-Installer.deb` | Linux 64-bit (Intel/AMD) |
-| `linux-arm64-Installer.deb` | Linux ARM64 |
-| `osx-x64-Installer.pkg` | macOS Intel |
-| `osx-arm64-Installer.pkg` | macOS Apple Silicon |
-
-Self-contained installers (e.g. `win-x64-Selfcontained-Installer.exe`) are also available.
+| Platform | Architectures | Formats |
+|---|---|---|
+| **Windows** | x64, ARM64 | ZIP, Installer (`.exe`) |
+| **Linux** | x64, ARM64 | ZIP, DEB, RPM, APK, Pacman, AppImage, Snap, Flatpak |
+| **macOS** | Intel, Apple Silicon | ZIP, PKG, DMG |
+| **FreeBSD** | x64, ARM64 | ZIP, PKG |
 
 ---
 
 ## Windows
 
-1. Install the [.NET 8 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) (skip for self-contained builds).
-2. Extract the ZIP and run `RetroMultiTools.exe`.
+### Portable ZIP
+
+Extract the ZIP and run `RetroMultiTools.exe`.
+
+### Installer
+
+Run the `.exe` installer and follow the on-screen instructions. A desktop shortcut can optionally be created during installation.
 
 ---
 
 ## Linux
 
-### Installing the .NET 8 Runtime
-
-**Ubuntu / Debian:**
-
-```bash
-sudo apt update
-sudo apt install dotnet-runtime-8.0
-```
-
-**Fedora:**
-
-```bash
-sudo dnf install dotnet-runtime-8.0
-```
-
-**Arch Linux:**
-
-```bash
-sudo pacman -S dotnet-runtime-8.0
-```
-
-**openSUSE:**
-
-```bash
-sudo zypper install dotnet-runtime-8.0
-```
-
-**Manual installation:** Download the binary from <https://dotnet.microsoft.com/download/dotnet/8.0>, extract it, and add the directory to your `PATH`:
-
-```bash
-mkdir -p $HOME/.dotnet
-tar -xzf dotnet-runtime-8.0.*-linux-x64.tar.gz -C $HOME/.dotnet
-export DOTNET_ROOT=$HOME/.dotnet
-export PATH=$PATH:$HOME/.dotnet
-```
-
-Add the `export` lines to your `~/.bashrc` or `~/.zshrc` to make them permanent.
-
-> **Note:** Self-contained builds do not require the .NET runtime.
-
 ### Required System Packages
 
 Retro Multi Tools uses [Avalonia UI](https://avaloniaui.net/) which requires a few system libraries.
 
-**Ubuntu / Debian:**
+**Ubuntu / Debian / Linux Mint:**
 
 ```bash
 sudo apt install libicu-dev libfontconfig1 libx11-6 libice6 libsm6
 ```
 
-**Fedora:**
+**Fedora / CentOS Stream / RHEL / Rocky Linux / AlmaLinux / Oracle Linux:**
 
 ```bash
 sudo dnf install libicu fontconfig libX11 libICE libSM
@@ -117,13 +64,19 @@ sudo dnf install libicu fontconfig libX11 libICE libSM
 sudo pacman -S icu fontconfig libx11 libice libsm
 ```
 
-**openSUSE:**
+**Alpine Linux:**
+
+```bash
+sudo apk add icu-libs fontconfig libx11 libice libsm
+```
+
+**openSUSE / SLES:**
 
 ```bash
 sudo zypper install libicu-devel fontconfig libX11-6 libICE6 libSM6
 ```
 
-### Running the Application
+### Portable ZIP
 
 ```bash
 unzip linux-x64.zip -d RetroMultiTools
@@ -132,35 +85,69 @@ chmod +x RetroMultiTools
 ./RetroMultiTools
 ```
 
+### DEB Installer
+
+```bash
+sudo dpkg -i linux-x64-Installer.deb
+retromultitools
+```
+
+### RPM Package
+
+```bash
+# Fedora / CentOS Stream / RHEL / Rocky Linux / AlmaLinux / Oracle Linux
+sudo dnf install linux-x64.rpm
+
+# openSUSE / SLES
+sudo zypper install linux-x64.rpm
+```
+
+Then launch from the application menu or run `retromultitools`.
+
+### APK Package (Alpine Linux)
+
+```bash
+sudo apk add --allow-untrusted linux-x64.apk
+retromultitools
+```
+
+### AppImage
+
+```bash
+chmod +x linux-x64.AppImage
+./linux-x64.AppImage
+```
+
+No installation is required — AppImage bundles everything into a single file.
+
+### Pacman (Arch Linux)
+
+```bash
+sudo pacman -U linux-x64.pkg.tar.zst
+retromultitools
+```
+
+### Snap
+
+```bash
+sudo snap install --dangerous linux-x64.snap
+snap run retromultitools
+```
+
+### Flatpak
+
+```bash
+flatpak install --user linux-x64.flatpak
+flatpak run io.github.svengdk.RetroMultiTools
+```
+
+See [LINUX.md](../../LINUX.md) for full details and troubleshooting.
+
 ---
 
 ## macOS
 
-### Installing the .NET 8 Runtime
-
-**Using the installer:**
-
-1. Go to <https://dotnet.microsoft.com/download/dotnet/8.0>
-2. Download the **macOS** installer for your Mac:
-   - **Apple Silicon** (M1 / M2 / M3 / M4) — Arm64
-   - **Intel** — x64
-3. Open the `.pkg` file and follow the installation steps
-
-**Using Homebrew:**
-
-```bash
-brew install dotnet@8
-```
-
-Verify the installation:
-
-```bash
-dotnet --info
-```
-
-> **Note:** Self-contained builds do not require the .NET runtime.
-
-### Running the Application
+### Portable ZIP
 
 ```bash
 unzip osx-arm64.zip -d RetroMultiTools
@@ -168,6 +155,16 @@ cd RetroMultiTools
 chmod +x RetroMultiTools
 ./RetroMultiTools
 ```
+
+### PKG Installer
+
+Double-click the `.pkg` file and follow the on-screen instructions to install to `/Applications`.
+
+### DMG Disk Image
+
+1. Double-click the `.dmg` file to mount the disk image.
+2. Drag **Retro Multi Tools.app** to the **Applications** folder.
+3. Eject the disk image.
 
 ### Gatekeeper Warning
 
@@ -182,6 +179,42 @@ Or remove the quarantine attribute from the terminal:
 ```bash
 xattr -rd com.apple.quarantine RetroMultiTools
 ```
+
+See [macOS.md](../../macOS.md) for full details and troubleshooting.
+
+---
+
+## FreeBSD
+
+FreeBSD runs Retro Multi Tools through its built-in Linux binary compatibility layer (Linuxulator). Building from source directly on FreeBSD is **not** supported.
+
+### Prerequisites
+
+Enable Linux binary compatibility and install the Rocky Linux 9 base packages:
+
+```bash
+sudo sysrc linux_enable="YES"
+sudo service linux start
+sudo pkg install linux_base-rl9 linux-rl9-icu linux-rl9-fontconfig linux-rl9-freetype
+```
+
+### Portable ZIP
+
+```bash
+unzip freebsd-x64.zip -d RetroMultiTools
+cd RetroMultiTools
+chmod +x RetroMultiTools
+./RetroMultiTools
+```
+
+### PKG Installer
+
+```bash
+sudo pkg add freebsd-x64-Installer.pkg
+retromultitools
+```
+
+See [FreeBSD.md](../../FreeBSD.md) for full details, required packages, and troubleshooting.
 
 ---
 

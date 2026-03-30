@@ -129,10 +129,32 @@ public static class AppBundleHelper
 
         try
         {
-            foreach (string entry in Directory.GetDirectories(directory, "*.app"))
+            string[] appDirs = Directory.GetDirectories(directory, "*.app");
+
+            // First pass: prefer bundles whose directory name matches the expected
+            // executable (e.g. "RetroArch.app" for "retroarch").  These are the
+            // most likely match, so they get full fallback resolution.
+            foreach (string entry in appDirs)
+            {
+                string bundleName = Path.GetFileNameWithoutExtension(entry);
+                if (string.Equals(bundleName, executableName, StringComparison.OrdinalIgnoreCase))
+                {
+                    string? exe = ResolveAppBundleExecutable(entry, executableName);
+                    if (exe != null && File.Exists(exe))
+                        return entry;
+                }
+            }
+
+            // Second pass: check remaining bundles, but only accept those whose
+            // resolved executable filename actually matches the expected name
+            // (case-insensitive).  This prevents selecting an unrelated .app via
+            // the Info.plist, bundle-name, or single-file fallbacks in
+            // ResolveAppBundleExecutable.
+            foreach (string entry in appDirs)
             {
                 string? exe = ResolveAppBundleExecutable(entry, executableName);
-                if (exe != null && File.Exists(exe))
+                if (exe != null && File.Exists(exe) &&
+                    string.Equals(Path.GetFileName(exe), executableName, StringComparison.OrdinalIgnoreCase))
                     return entry;
             }
         }

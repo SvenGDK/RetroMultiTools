@@ -256,7 +256,7 @@ public static partial class ArtworkService
         }
 
         // Fall back to the parsed title from header info
-        if (romInfo.HeaderInfo.TryGetValue("Title", out var title) &&
+        if (romInfo.HeaderInfo?.TryGetValue("Title", out var title) == true &&
             !string.IsNullOrWhiteSpace(title))
         {
             string trimmedTitle = title.Trim();

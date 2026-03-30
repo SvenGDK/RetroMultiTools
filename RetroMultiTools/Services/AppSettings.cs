@@ -136,6 +136,23 @@ public sealed class AppSettings
     }
 
     /// <summary>
+    /// Big Picture Mode visual style: "Classic" (card grid) or "Modern" (hero + carousel).
+    /// Defaults to "Classic" to preserve the existing layout.
+    /// </summary>
+    public string BigPictureStyle
+    {
+        get { lock (_lock) { return _data.BigPictureStyle ?? "Classic"; } }
+        set
+        {
+            lock (_lock)
+            {
+                _data.BigPictureStyle = value is "Classic" or "Modern" ? value : "Classic";
+                Save();
+            }
+        }
+    }
+
+    /// <summary>
     /// Set of ROM file paths that the user has marked as favorites.
     /// </summary>
     public HashSet<string> Favorites
@@ -255,6 +272,22 @@ public sealed class AppSettings
             lock (_lock)
             {
                 _data.GamepadEnabled = value;
+                Save();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Whether the first-run guided tour has been completed (or skipped).
+    /// </summary>
+    public bool HasCompletedTour
+    {
+        get { lock (_lock) { return _data.HasCompletedTour; } }
+        set
+        {
+            lock (_lock)
+            {
+                _data.HasCompletedTour = value;
                 Save();
             }
         }
@@ -429,6 +462,10 @@ public sealed class AppSettings
         {
             System.Diagnostics.Trace.WriteLine($"[AppSettings] Failed to read settings: {ex.Message}");
         }
+        catch (UnauthorizedAccessException ex)
+        {
+            System.Diagnostics.Trace.WriteLine($"[AppSettings] Permission denied reading settings: {ex.Message}");
+        }
         catch (JsonException ex)
         {
             System.Diagnostics.Trace.WriteLine($"[AppSettings] Failed to parse settings: {ex.Message}");
@@ -465,10 +502,12 @@ public sealed class AppSettings
         public bool MinimizeToTrayOnLaunch { get; set; } = true;
         public bool StartInBigPictureMode { get; set; }
         public string? BigPictureRomFolder { get; set; }
+        public string? BigPictureStyle { get; set; }
         public double BigPictureCardScale { get; set; } = 1.0;
         public int BigPictureScreensaverTimeout { get; set; } = 5;
         public bool BigPicturePlayTrackingEnabled { get; set; } = true;
         public bool BigPictureRatingsEnabled { get; set; } = true;
+        public bool HasCompletedTour { get; set; }
         public bool GamepadEnabled { get; set; } = true;
         public double GamepadDeadZone { get; set; } = 0.25;
         public HashSet<string>? Favorites { get; set; }

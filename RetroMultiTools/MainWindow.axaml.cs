@@ -1,6 +1,24 @@
+using System.Collections.Generic;
+using System.Linq;
 using Avalonia.Controls;
+using Avalonia.Input;
 using RetroMultiTools.Utilities;
-using RetroMultiTools.Views;
+using RetroMultiTools.Utilities.Patching;
+using RetroMultiTools.Utilities.Verification;
+using RetroMultiTools.Utilities.Conversion;
+using RetroMultiTools.Utilities.RomManagement;
+using RetroMultiTools.Utilities.Networking;
+using RetroMultiTools.Views.Browsing;
+using RetroMultiTools.Views.CheatsAndEmulation;
+using RetroMultiTools.Views.Conversion;
+using RetroMultiTools.Views.Dialogs;
+using RetroMultiTools.Views.DiscTools;
+using RetroMultiTools.Views.GamepadKeyMapper;
+using RetroMultiTools.Views.Patching;
+using RetroMultiTools.Views.RomManagement;
+using RetroMultiTools.Views.Settings;
+using RetroMultiTools.Views.UsbTools;
+using RetroMultiTools.Views.Verification;
 using RetroMultiTools.Views.Analogue;
 using RetroMultiTools.Views.Mame;
 using RetroMultiTools.Views.Mednafen;
@@ -12,6 +30,7 @@ public partial class MainWindow : Window
 {
     // Browse & Inspect
     private readonly BigPictureView _bigPictureView = new();
+    private readonly BigPictureModernView _bigPictureModernView = new();
     private readonly HexViewerView _hexViewerView = new();
     private readonly RomBrowserView _browserView = new();
     private readonly RomInspectorView _inspectorView = new();
@@ -44,14 +63,17 @@ public partial class MainWindow : Window
 
     // Utilities
     private readonly CheatCodeView _cheatCodeView = new();
+    private readonly DiscToolsView _discToolsView = new();
     private readonly EmulatorConfigView _emulatorConfigView = new();
     private readonly GamepadKeyMapperView _gamepadKeyMapperView = new();
     private readonly MetadataScraperView _metadataScraperView = new();
     private readonly RomOrganizerView _romOrganizerView = new();
     private readonly RomRenamerView _romRenamerView = new();
+    private readonly UsbToolsView _usbToolsView = new();
 
     // RetroArch
     private readonly RetroAchievementsWriterView _retroAchievementsWriterView = new();
+    private readonly RetroArchConfiguratorView _retroArchConfiguratorView = new();
     private readonly RetroArchIntegrationView _retroArchIntegrationView = new();
     private readonly RetroArchPlaylistView _retroArchPlaylistView = new();
     private readonly RetroArchShortcutView _retroArchShortcutView = new();
@@ -59,6 +81,7 @@ public partial class MainWindow : Window
     // MAME
     private readonly MameChdConverterView _mameChdConverterView = new();
     private readonly MameChdVerifierView _mameChdVerifierView = new();
+    private readonly MameConfiguratorView _mameConfiguratorView = new();
     private readonly MameDatEditorView _mameDatEditorView = new();
     private readonly MameDir2DatView _mameDir2DatView = new();
     private readonly MameIntegrationView _mameIntegrationView = new();
@@ -67,6 +90,7 @@ public partial class MainWindow : Window
     private readonly MameSetRebuilderView _mameRebuilderView = new();
 
     // Mednafen
+    private readonly MednafenConfiguratorView _mednafenConfiguratorView = new();
     private readonly MednafenIntegrationView _mednafenIntegrationView = new();
 
     // Analogue
@@ -80,6 +104,7 @@ public partial class MainWindow : Window
 
     private WindowState _stateBeforeMinimize = WindowState.Normal;
     private bool _isInBigPictureMode;
+    private Dictionary<TreeViewItem, bool>? _initialExpansionStates;
 
     /// <summary>
     /// Raised when <see cref="IsMinimizedToTray"/> changes.
@@ -89,9 +114,44 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        NavListBox.SelectedIndex = 1;
+        CacheInitialExpansionStates();
+        SelectNavItem("browser");
         UpdateTitle();
         Localization.LocalizationManager.Instance.PropertyChanged += (_, _) => UpdateTitle();
+        KeyDown += MainWindow_KeyDown;
+    }
+
+    private void MainWindow_KeyDown(object? sender, KeyEventArgs e)
+    {
+        // Ctrl+F / Ctrl+K — focus the sidebar search box
+        if (e.KeyModifiers == KeyModifiers.Control &&
+            (e.Key == Key.F || e.Key == Key.K))
+        {
+            if (Sidebar.IsVisible)
+            {
+                NavSearchBox.Focus();
+                NavSearchBox.SelectAll();
+                e.Handled = true;
+            }
+        }
+        // F1 — show the guided tour
+        else if (e.Key == Key.F1 && e.KeyModifiers == KeyModifiers.None)
+        {
+            ShowTour();
+            e.Handled = true;
+        }
+        // Escape — clear search box if focused, or return focus to content
+        else if (e.Key == Key.Escape && e.KeyModifiers == KeyModifiers.None)
+        {
+            if (NavSearchBox.IsFocused)
+            {
+                if (!string.IsNullOrEmpty(NavSearchBox.Text))
+                    NavSearchBox.Text = "";
+                else
+                    MainContent.Focus();
+                e.Handled = true;
+            }
+        }
     }
 
     private void UpdateTitle()
@@ -109,13 +169,58 @@ public partial class MainWindow : Window
         if (content != null)
         {
             MainContent.Content = content;
-            // Sync the sidebar selection
-            for (int i = 0; i < NavListBox.Items.Count; i++)
+            SelectNavItem(tag);
+        }
+    }
+
+    /// <summary>
+    /// Navigates to the view identified by the given tag and pre-fills it with a file path.
+    /// Supported views: inspector, hexviewer, formatconv, trimmer, checksum, goodtools, patcher.
+    /// </summary>
+    public void NavigateToViewWithFile(string tag, string filePath)
+    {
+        NavigateToView(tag);
+
+        switch (tag)
+        {
+            case "inspector":
+                _inspectorView.SetInputFile(filePath);
+                break;
+            case "hexviewer":
+                _hexViewerView.SetInputFile(filePath);
+                break;
+            case "formatconv":
+                _formatConverterView.SetInputFile(filePath);
+                break;
+            case "trimmer":
+                _romTrimmerView.SetInputFile(filePath);
+                break;
+            case "checksum":
+                _checksumView.SetInputFile(filePath);
+                break;
+            case "goodtools":
+                _goodToolsIdentifierView.SetInputFile(filePath);
+                break;
+            case "patcher":
+                _patcherView.SetInputFile(filePath);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Finds and selects the TreeViewItem with the given tag in the navigation tree.
+    /// </summary>
+    private void SelectNavItem(string tag)
+    {
+        foreach (var category in NavTreeView.Items.OfType<TreeViewItem>())
+        {
+            foreach (var child in category.Items.OfType<TreeViewItem>())
             {
-                if (NavListBox.Items[i] is ListBoxItem item && item.Tag?.ToString() == tag)
+                if (child.Tag?.ToString() == tag)
                 {
-                    NavListBox.SelectedIndex = i;
-                    break;
+                    category.IsExpanded = true;
+                    NavTreeView.SelectedItem = child;
+                    return;
                 }
             }
         }
@@ -169,9 +274,18 @@ public partial class MainWindow : Window
         Sidebar.IsVisible = false;
         MainContent.Padding = new Avalonia.Thickness(0);
 
-        // Show Big Picture view
-        _bigPictureView.LoadFolder(folderPath, roms);
-        MainContent.Content = _bigPictureView;
+        // Show the appropriate Big Picture view based on style setting
+        bool useModern = Services.AppSettings.Instance.BigPictureStyle == "Modern";
+        if (useModern)
+        {
+            _bigPictureModernView.LoadFolder(folderPath, roms);
+            MainContent.Content = _bigPictureModernView;
+        }
+        else
+        {
+            _bigPictureView.LoadFolder(folderPath, roms);
+            MainContent.Content = _bigPictureView;
+        }
 
         WindowState = WindowState.FullScreen;
     }
@@ -191,14 +305,14 @@ public partial class MainWindow : Window
 
         // Navigate back to the ROM Browser
         MainContent.Content = _browserView;
-        NavListBox.SelectedIndex = 1;
+        SelectNavItem("browser");
 
         WindowState = WindowState.Normal;
     }
 
-    private void NavListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    private void NavTreeView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (NavListBox.SelectedItem is ListBoxItem item)
+        if (NavTreeView.SelectedItem is TreeViewItem item && item.Tag != null)
         {
             var content = ResolveView(item.Tag?.ToString());
             if (content != null)
@@ -206,12 +320,106 @@ public partial class MainWindow : Window
         }
     }
 
+    private void NavSearchBox_TextChanged(object? sender, TextChangedEventArgs e)
+    {
+        string query = NavSearchBox.Text?.Trim() ?? "";
+        bool hasQuery = query.Length > 0;
+        bool anyResultVisible = false;
+
+        foreach (var category in NavTreeView.Items.OfType<TreeViewItem>())
+        {
+            bool anyCategoryChildVisible = false;
+
+            // When the query matches the category name, show all its children
+            bool categoryMatches = hasQuery &&
+                ExtractItemText(category).Contains(query, System.StringComparison.OrdinalIgnoreCase);
+
+            foreach (var child in category.Items.OfType<TreeViewItem>())
+            {
+                if (hasQuery)
+                {
+                    string text = ExtractItemText(child);
+                    bool matches = categoryMatches ||
+                        text.Contains(query, System.StringComparison.OrdinalIgnoreCase);
+                    child.IsVisible = matches;
+                    if (matches) anyCategoryChildVisible = true;
+                }
+                else
+                {
+                    child.IsVisible = true;
+                    anyCategoryChildVisible = true;
+                }
+            }
+
+            category.IsVisible = anyCategoryChildVisible;
+            if (hasQuery && anyCategoryChildVisible)
+                category.IsExpanded = true;
+            if (anyCategoryChildVisible) anyResultVisible = true;
+        }
+
+        // Restore initial expansion states when search is cleared
+        if (!hasQuery)
+            RestoreInitialExpansionStates();
+
+        // Show or hide the "no results" indicator
+        NavNoResultsText.IsVisible = hasQuery && !anyResultVisible;
+    }
+
+    /// <summary>
+    /// Extracts the display text from a TreeViewItem header.
+    /// Handles StackPanel > TextBlock (child items), plain TextBlock (categories),
+    /// and falls back to <see cref="object.ToString"/> for other header types.
+    /// </summary>
+    private static string ExtractItemText(TreeViewItem item)
+    {
+        if (item.Header is TextBlock directTb)
+            return directTb.Text ?? "";
+
+        if (item.Header is StackPanel sp)
+        {
+            var tb = sp.Children.OfType<TextBlock>().FirstOrDefault();
+            if (tb != null) return tb.Text ?? "";
+        }
+
+        return item.Header?.ToString() ?? "";
+    }
+
+    /// <summary>
+    /// Caches the XAML-defined expansion state of each category so it can
+    /// be restored when the search filter is cleared.
+    /// </summary>
+    private void CacheInitialExpansionStates()
+    {
+        _initialExpansionStates = new Dictionary<TreeViewItem, bool>();
+        foreach (var category in NavTreeView.Items.OfType<TreeViewItem>())
+            _initialExpansionStates[category] = category.IsExpanded;
+    }
+
+    /// <summary>
+    /// Restores category expansion states to the values captured at startup.
+    /// </summary>
+    private void RestoreInitialExpansionStates()
+    {
+        if (_initialExpansionStates == null) return;
+        foreach (var (category, expanded) in _initialExpansionStates)
+            category.IsExpanded = expanded;
+    }
+
+    /// <summary>
+    /// Shows the guided tour overlay.
+    /// </summary>
+    public void ShowTour()
+    {
+        TourOverlayControl.StartTour();
+    }
+
     private object? ResolveView(string? tag)
     {
         return tag switch
         {
             // Browse & Inspect
-            "bigpicture" => _bigPictureView,
+            "bigpicture" => Services.AppSettings.Instance.BigPictureStyle == "Modern"
+                ? _bigPictureModernView : _bigPictureView,
             "browser" => _browserView,
             "hexviewer" => _hexViewerView,
             "inspector" => _inspectorView,
@@ -244,14 +452,17 @@ public partial class MainWindow : Window
             // Utilities
             "archives" => _archiveManagerView,
             "cheatcodes" => _cheatCodeView,
+            "disctools" => _discToolsView,
             "emuconfig" => _emulatorConfigView,
             "gamepadkeymapper" => _gamepadKeyMapperView,
             "metascraper" => _metadataScraperView,
             "romorganizer" => _romOrganizerView,
             "romrenamer" => _romRenamerView,
+            "usbtools" => _usbToolsView,
 
             // RetroArch
             "raachievements" => _retroAchievementsWriterView,
+            "raconfigurator" => _retroArchConfiguratorView,
             "raintegration" => _retroArchIntegrationView,
             "raplaylist" => _retroArchPlaylistView,
             "rashortcut" => _retroArchShortcutView,
@@ -259,6 +470,7 @@ public partial class MainWindow : Window
             // MAME
             "mamechdconv" => _mameChdConverterView,
             "mamechd" => _mameChdVerifierView,
+            "mameconfigurator" => _mameConfiguratorView,
             "mamedateditor" => _mameDatEditorView,
             "mamedir2dat" => _mameDir2DatView,
             "mameintegration" => _mameIntegrationView,
@@ -267,6 +479,7 @@ public partial class MainWindow : Window
             "mamerebuilder" => _mameRebuilderView,
 
             // Mednafen
+            "mednafenconfigurator" => _mednafenConfiguratorView,
             "mednafenintegration" => _mednafenIntegrationView,
 
             // Analogue

@@ -6124,4 +6124,1205 @@ Run:notepad.exe</value>
   <data name="Settings_Clear" xml:space="preserve">
     <value>साफ़ करें</value>
   </data>
+  <data name="Nav_DiscTools" xml:space="preserve">
+    <value>डिस्क उपकरण</value>
+  </data>
+  <data name="DiscTools_Title" xml:space="preserve">
+    <value>डिस्क उपकरण</value>
+  </data>
+  <data name="DiscTools_Description" xml:space="preserve">
+    <value>डिस्क छवियों या फ़ाइलों को ऑप्टिकल मीडिया में जलाएं, और भौतिक डिस्क या फ़ाइलों से डिस्क छवियां बनाएं। ISO, BIN/CUE, IMG, GDI, CDI, NRG, और अन्य गेमिंग सिस्टम डिस्क प्रारूपों का समर्थन करता है।</value>
+  </data>
+  <data name="DiscTools_Operation" xml:space="preserve">
+    <value>संचालन:</value>
+  </data>
+  <data name="DiscTools_OpBurnImage" xml:space="preserve">
+    <value>डिस्क पर छवि लिखें</value>
+  </data>
+  <data name="DiscTools_OpBurnFiles" xml:space="preserve">
+    <value>डिस्क पर फ़ाइलें लिखें</value>
+  </data>
+  <data name="DiscTools_OpImageFromDisc" xml:space="preserve">
+    <value>डिस्क से छवि बनाएं</value>
+  </data>
+  <data name="DiscTools_OpImageFromFiles" xml:space="preserve">
+    <value>फ़ाइलों से छवि बनाएँ</value>
+  </data>
+  <data name="DiscTools_Drive" xml:space="preserve">
+    <value>दृस्टि सम्बन्धी अभियान:</value>
+  </data>
+  <data name="DiscTools_SelectDrive" xml:space="preserve">
+    <value>एक ऑप्टिकल ड्राइव का चयन करें...</value>
+  </data>
+  <data name="DiscTools_RefreshDrives" xml:space="preserve">
+    <value>ताज़ा करना</value>
+  </data>
+  <data name="DiscTools_NoDrivesFound" xml:space="preserve">
+    <value>इस सिस्टम पर कोई ऑप्टिकल ड्राइव नहीं पाई गई।</value>
+  </data>
+  <data name="DiscTools_ImageFile" xml:space="preserve">
+    <value>छवि फ़ाइल:</value>
+  </data>
+  <data name="DiscTools_SelectImageFile" xml:space="preserve">
+    <value>एक डिस्क छवि फ़ाइल का चयन करें...</value>
+  </data>
+  <data name="DiscTools_ImageFiles" xml:space="preserve">
+    <value>डिस्क छवि फ़ाइलें</value>
+  </data>
+  <data name="DiscTools_FilesOrFolders" xml:space="preserve">
+    <value>फ़ाइलें/फ़ोल्डर:</value>
+  </data>
+  <data name="DiscTools_SelectFilesOrFolders" xml:space="preserve">
+    <value>लिखने के लिए फ़ाइलें या फ़ोल्डर चुनें...</value>
+  </data>
+  <data name="DiscTools_SelectFolder" xml:space="preserve">
+    <value>एक फ़ोल्डर चुनें</value>
+  </data>
+  <data name="DiscTools_OutputFile" xml:space="preserve">
+    <value>आउटपुट छवि फ़ाइल:</value>
+  </data>
+  <data name="DiscTools_SelectOutputImage" xml:space="preserve">
+    <value>आउटपुट छवि फ़ाइल पथ का चयन करें...</value>
+  </data>
+  <data name="DiscTools_VolumeLabel" xml:space="preserve">
+    <value>वोल्यूम लेबल:</value>
+  </data>
+  <data name="DiscTools_VolumeLabelHint" xml:space="preserve">
+    <value>डिस्क के लिए वॉल्यूम लेबल दर्ज करें...</value>
+  </data>
+  <data name="DiscTools_WriteSpeed" xml:space="preserve">
+    <value>गति लिखें:</value>
+  </data>
+  <data name="DiscTools_SpeedAuto" xml:space="preserve">
+    <value>स्वचालित (अधिकतम)</value>
+  </data>
+  <data name="DiscTools_VerifyAfterBurn" xml:space="preserve">
+    <value>लिखने के बाद सत्यापित करें</value>
+  </data>
+  <data name="DiscTools_Burn" xml:space="preserve">
+    <value>डिस्क पर लिखें</value>
+  </data>
+  <data name="DiscTools_CreateImage" xml:space="preserve">
+    <value>चित्र बनाएं</value>
+  </data>
+  <data name="DiscTools_Cancel" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="DiscTools_DetectingDrives" xml:space="preserve">
+    <value>ऑप्टिकल ड्राइव का पता लगाया जा रहा है...</value>
+  </data>
+  <data name="DiscTools_DriveDetectError" xml:space="preserve">
+    <value>ड्राइव का पता लगाने में त्रुटि: {0}</value>
+  </data>
+  <data name="DiscTools_ImageNotFound" xml:space="preserve">
+    <value>छवि फ़ाइल नहीं मिली.</value>
+  </data>
+  <data name="DiscTools_BurningImage" xml:space="preserve">
+    <value>लेखन छवि: {0}</value>
+  </data>
+  <data name="DiscTools_BurningFiles" xml:space="preserve">
+    <value>डिस्क पर {0} आइटम लिख रहा हूँ...</value>
+  </data>
+  <data name="DiscTools_NoFilesSelected" xml:space="preserve">
+    <value>कोई फ़ाइल या फ़ोल्डर चयनित नहीं.</value>
+  </data>
+  <data name="DiscTools_OutputRequired" xml:space="preserve">
+    <value>आउटपुट फ़ाइल पथ आवश्यक है.</value>
+  </data>
+  <data name="DiscTools_ReadingDisc" xml:space="preserve">
+    <value>डिस्क पढ़ रहा है...</value>
+  </data>
+  <data name="DiscTools_CreatingImage" xml:space="preserve">
+    <value>छवि बनाना: {0}</value>
+  </data>
+  <data name="DiscTools_WritingToDisc" xml:space="preserve">
+    <value>डिस्क पर डेटा लिख ​​रहा हूँ...</value>
+  </data>
+  <data name="DiscTools_RunningTool" xml:space="preserve">
+    <value>{0} चल रहा है...</value>
+  </data>
+  <data name="DiscTools_BurnComplete" xml:space="preserve">
+    <value>✔ डिस्क पर सफलतापूर्वक लिखा गया।</value>
+  </data>
+  <data name="DiscTools_BurnFailed" xml:space="preserve">
+    <value>✘ लिखना विफल: {0}</value>
+  </data>
+  <data name="DiscTools_ImageCreated" xml:space="preserve">
+    <value>✔ छवि बनाई गई: {0} ({1})</value>
+  </data>
+  <data name="DiscTools_ImageCreateFailed" xml:space="preserve">
+    <value>✘ छवि निर्माण विफल: {0}</value>
+  </data>
+  <data name="DiscTools_UnsupportedPlatform" xml:space="preserve">
+    <value>यह प्लेटफ़ॉर्म डिस्क संचालन के लिए समर्थित नहीं है.</value>
+  </data>
+  <data name="DiscTools_NoBurnTool" xml:space="preserve">
+    <value>कोई डिस्क बर्निंग टूल नहीं मिला. कृपया wodim, cdrecord, या xorrecord स्थापित करें।</value>
+  </data>
+  <data name="DiscTools_NoIsoTool" xml:space="preserve">
+    <value>कोई ISO निर्माण उपकरण नहीं मिला. कृपया xorrisofs, genisoimage, या mkisofs स्थापित करें।</value>
+  </data>
+  <data name="DiscTools_IsoCreateFailed" xml:space="preserve">
+    <value>ISO निर्माण विफल: {0}</value>
+  </data>
+  <data name="DiscTools_CreatingIso" xml:space="preserve">
+    <value>आईएसओ छवि बनाई जा रही है...</value>
+  </data>
+  <data name="DiscTools_OperationCancelled" xml:space="preserve">
+    <value>ऑपरेशन रद्द कर दिया गया.</value>
+  </data>
+  <data name="DiscTools_BrowseFolder" xml:space="preserve">
+    <value>फ़ोल्डर ब्राउज़ करें</value>
+  </data>
+  <data name="DiscTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>छवि प्रारूप '{0}' को डिस्क पर नहीं जलाया जा सकता। समर्थित प्रारूप: आईएसओ, बिन/क्यू, आईएमजी, एनआरजी, टोस्ट।</value>
+  </data>
+  <data name="DiscTools_Verifying" xml:space="preserve">
+    <value>डिस्क का सत्यापन किया जा रहा है...</value>
+  </data>
+  <data name="DiscTools_BurnCompleteVerifySkipped" xml:space="preserve">
+    <value>बर्न सफलतापूर्वक पूरा हुआ. सत्यापन नहीं किया जा सका.</value>
+  </data>
+  <data name="DiscTools_VerifyFailed" xml:space="preserve">
+    <value>बर्न पूरा हुआ लेकिन सत्यापन विफल: डिस्क डेटा स्रोत छवि से मेल नहीं खाता।</value>
+  </data>
+  <data name="DiscTools_IsoImageType" xml:space="preserve">
+    <value>आईएसओ छवि</value>
+  </data>
+  <data name="DiscTools_BinCueImageType" xml:space="preserve">
+    <value>बिन/क्यू छवि</value>
+  </data>
+  <data name="Nav_UsbTools" xml:space="preserve">
+    <value>USB उपकरण</value>
+  </data>
+  <data name="UsbTools_Title" xml:space="preserve">
+    <value>USB उपकरण</value>
+  </data>
+  <data name="UsbTools_Description" xml:space="preserve">
+    <value>USB ड्राइव को फ़ॉर्मेट करें, इमेज लिखें, इमेज बनाएं और ब्राउज़ करें।</value>
+  </data>
+  <data name="UsbTools_Drive" xml:space="preserve">
+    <value>USB ड्राइव</value>
+  </data>
+  <data name="UsbTools_SelectDrive" xml:space="preserve">
+    <value>एक USB ड्राइव चुनें...</value>
+  </data>
+  <data name="UsbTools_RefreshDrives" xml:space="preserve">
+    <value>रीफ्रेश</value>
+  </data>
+  <data name="UsbTools_DetectingDrives" xml:space="preserve">
+    <value>USB ड्राइव की पहचान हो रही है...</value>
+  </data>
+  <data name="UsbTools_NoDrivesFound" xml:space="preserve">
+    <value>कोई USB ड्राइव नहीं मिला।</value>
+  </data>
+  <data name="UsbTools_DriveDetectError" xml:space="preserve">
+    <value>ड्राइव का पता लगाने में त्रुटि: {0}</value>
+  </data>
+  <data name="UsbTools_NoDriveSelected" xml:space="preserve">
+    <value>कोई USB ड्राइव चयनित नहीं है।</value>
+  </data>
+  <data name="UsbTools_UnsupportedPlatform" xml:space="preserve">
+    <value>यह ऑपरेशन वर्तमान प्लेटफ़ॉर्म पर समर्थित नहीं है।</value>
+  </data>
+  <data name="UsbTools_TabExplorer" xml:space="preserve">
+    <value>फ़ाइल एक्सप्लोरर</value>
+  </data>
+  <data name="UsbTools_TabFormat" xml:space="preserve">
+    <value>फ़ॉर्मेट</value>
+  </data>
+  <data name="UsbTools_TabWriteImage" xml:space="preserve">
+    <value>इमेज लिखें</value>
+  </data>
+  <data name="UsbTools_TabCreateImage" xml:space="preserve">
+    <value>इमेज बनाएं</value>
+  </data>
+  <data name="UsbTools_NavigateUp" xml:space="preserve">
+    <value>ऊपर जाएं</value>
+  </data>
+  <data name="UsbTools_RefreshFiles" xml:space="preserve">
+    <value>रीफ्रेश</value>
+  </data>
+  <data name="UsbTools_AddFiles" xml:space="preserve">
+    <value>फ़ाइलें जोड़ें</value>
+  </data>
+  <data name="UsbTools_NewFolder" xml:space="preserve">
+    <value>नया फ़ोल्डर</value>
+  </data>
+  <data name="UsbTools_Delete" xml:space="preserve">
+    <value>हटाएं</value>
+  </data>
+  <data name="UsbTools_Move" xml:space="preserve">
+    <value>स्थानांतरित करें</value>
+  </data>
+  <data name="UsbTools_FileSystem" xml:space="preserve">
+    <value>फ़ाइल सिस्टम</value>
+  </data>
+  <data name="UsbTools_PartitionScheme" xml:space="preserve">
+    <value>विभाजन योजना</value>
+  </data>
+  <data name="UsbTools_VolumeLabel" xml:space="preserve">
+    <value>वॉल्यूम लेबल</value>
+  </data>
+  <data name="UsbTools_VolumeLabelHint" xml:space="preserve">
+    <value>वॉल्यूम लेबल दर्ज करें</value>
+  </data>
+  <data name="UsbTools_FormatWarning" xml:space="preserve">
+    <value>⚠ चेतावनी: फ़ॉर्मेट करने से चयनित USB ड्राइव के सभी डेटा मिट जाएंगे। यह क्रिया पूर्ववत नहीं की जा सकती।</value>
+  </data>
+  <data name="UsbTools_Format" xml:space="preserve">
+    <value>USB ड्राइव फ़ॉर्मेट करें</value>
+  </data>
+  <data name="UsbTools_PreparingFormat" xml:space="preserve">
+    <value>फ़ॉर्मेट की तैयारी हो रही है...</value>
+  </data>
+  <data name="UsbTools_Formatting" xml:space="preserve">
+    <value>{0} ({1}) में फ़ॉर्मेट हो रहा है...</value>
+  </data>
+  <data name="UsbTools_FormatComplete" xml:space="preserve">
+    <value>USB ड्राइव सफलतापूर्वक फ़ॉर्मेट हो गया।</value>
+  </data>
+  <data name="UsbTools_FormatFailed" xml:space="preserve">
+    <value>फ़ॉर्मेट विफल: {0}</value>
+  </data>
+  <data name="UsbTools_UnsupportedFileSystem" xml:space="preserve">
+    <value>असमर्थित फ़ाइल सिस्टम: {0}</value>
+  </data>
+  <data name="UsbTools_NtfsMacWarning" xml:space="preserve">
+    <value>नोट: macOS मूल रूप से NTFS फ़ॉर्मेटिंग का समर्थन नहीं करता। ड्राइव को ExFAT में फ़ॉर्मेट किया गया।</value>
+  </data>
+  <data name="UsbTools_ConfirmFormat" xml:space="preserve">
+    <value>फ़ॉर्मेट की पुष्टि करें</value>
+  </data>
+  <data name="UsbTools_ConfirmFormatMessage" xml:space="preserve">
+    <value>क्या आप वाकई {0} को फ़ॉर्मेट करना चाहते हैं? सभी डेटा स्थायी रूप से मिट जाएगा।</value>
+  </data>
+  <data name="UsbTools_ImageFile" xml:space="preserve">
+    <value>इमेज फ़ाइल</value>
+  </data>
+  <data name="UsbTools_SelectImageFile" xml:space="preserve">
+    <value>एक इमेज फ़ाइल चुनें...</value>
+  </data>
+  <data name="UsbTools_ImageFiles" xml:space="preserve">
+    <value>डिस्क इमेज फ़ाइलें</value>
+  </data>
+  <data name="UsbTools_ImageNotFound" xml:space="preserve">
+    <value>इमेज फ़ाइल नहीं मिली।</value>
+  </data>
+  <data name="UsbTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>असमर्थित इमेज प्रारूप: {0}</value>
+  </data>
+  <data name="UsbTools_WriteWarning" xml:space="preserve">
+    <value>⚠ चेतावनी: इमेज लिखने से चयनित USB ड्राइव के सभी डेटा मिट जाएंगे। यह क्रिया पूर्ववत नहीं की जा सकती।</value>
+  </data>
+  <data name="UsbTools_WriteImage" xml:space="preserve">
+    <value>USB पर इमेज लिखें</value>
+  </data>
+  <data name="UsbTools_WritingImage" xml:space="preserve">
+    <value>{0} USB ड्राइव पर लिखा जा रहा है...</value>
+  </data>
+  <data name="UsbTools_WriteComplete" xml:space="preserve">
+    <value>इमेज USB ड्राइव पर सफलतापूर्वक लिखी गई।</value>
+  </data>
+  <data name="UsbTools_WriteFailed" xml:space="preserve">
+    <value>लिखना विफल: {0}</value>
+  </data>
+  <data name="UsbTools_ConfirmWrite" xml:space="preserve">
+    <value>लिखने की पुष्टि करें</value>
+  </data>
+  <data name="UsbTools_ConfirmWriteMessage" xml:space="preserve">
+    <value>क्या आप वाकई {0} को {1} पर लिखना चाहते हैं? सभी मौजूदा डेटा स्थायी रूप से मिट जाएगा।</value>
+  </data>
+  <data name="UsbTools_OutputFile" xml:space="preserve">
+    <value>आउटपुट फ़ाइल</value>
+  </data>
+  <data name="UsbTools_SelectOutputImage" xml:space="preserve">
+    <value>आउटपुट इमेज स्थान चुनें...</value>
+  </data>
+  <data name="UsbTools_CreateImage" xml:space="preserve">
+    <value>USB से इमेज बनाएं</value>
+  </data>
+  <data name="UsbTools_CreatingImage" xml:space="preserve">
+    <value>USB ड्राइव से इमेज बनाई जा रही है...</value>
+  </data>
+  <data name="UsbTools_ImageCreated" xml:space="preserve">
+    <value>इमेज सफलतापूर्वक बनाई गई: {0}</value>
+  </data>
+  <data name="UsbTools_ImageCreateFailed" xml:space="preserve">
+    <value>इमेज बनाना विफल: {0}</value>
+  </data>
+  <data name="UsbTools_OutputRequired" xml:space="preserve">
+    <value>आउटपुट फ़ाइल पथ आवश्यक है।</value>
+  </data>
+  <data name="UsbTools_ImgFileType" xml:space="preserve">
+    <value>IMG इमेज</value>
+  </data>
+  <data name="UsbTools_IsoFileType" xml:space="preserve">
+    <value>ISO इमेज</value>
+  </data>
+  <data name="UsbTools_OperationCancelled" xml:space="preserve">
+    <value>ऑपरेशन रद्द कर दिया गया।</value>
+  </data>
+  <data name="UsbTools_FolderExists" xml:space="preserve">
+    <value>उस नाम का एक फ़ोल्डर पहले से मौजूद है।</value>
+  </data>
+  <data name="UsbTools_FolderCreated" xml:space="preserve">
+    <value>फ़ोल्डर सफलतापूर्वक बनाया गया।</value>
+  </data>
+  <data name="UsbTools_DeleteComplete" xml:space="preserve">
+    <value>सफलतापूर्वक हटाया गया।</value>
+  </data>
+  <data name="UsbTools_EntryNotFound" xml:space="preserve">
+    <value>फ़ाइल या फ़ोल्डर नहीं मिला।</value>
+  </data>
+  <data name="UsbTools_DestinationExists" xml:space="preserve">
+    <value>गंतव्य पर उसी नाम का एक आइटम पहले से मौजूद है।</value>
+  </data>
+  <data name="UsbTools_MoveComplete" xml:space="preserve">
+    <value>सफलतापूर्वक स्थानांतरित किया गया।</value>
+  </data>
+  <data name="UsbTools_SelectMoveDestination" xml:space="preserve">
+    <value>गंतव्य फ़ोल्डर चुनें</value>
+  </data>
+  <data name="UsbTools_CopyingFile" xml:space="preserve">
+    <value>{0} कॉपी हो रहा है...</value>
+  </data>
+  <data name="UsbTools_AddComplete" xml:space="preserve">
+    <value>{0} आइटम सफलतापूर्वक जोड़े गए।</value>
+  </data>
+  <data name="UsbTools_ConfirmDelete" xml:space="preserve">
+    <value>हटाने की पुष्टि करें</value>
+  </data>
+  <data name="UsbTools_ConfirmDeleteMessage" xml:space="preserve">
+    <value>क्या आप वाकई '{0}' को हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।</value>
+  </data>
+  <data name="UsbTools_EnterFolderName" xml:space="preserve">
+    <value>फ़ोल्डर का नाम दर्ज करें:</value>
+  </data>
+  <data name="UsbTools_FolderNameHint" xml:space="preserve">
+    <value>फ़ोल्डर का नाम</value>
+  </data>
+
+  <data name="Tour_Skip" xml:space="preserve">
+    <value>टूर छोड़ें</value>
+  </data>
+  <data name="Tour_Back" xml:space="preserve">
+    <value>वापस</value>
+  </data>
+  <data name="Tour_Next" xml:space="preserve">
+    <value>अगला</value>
+  </data>
+  <data name="Tour_Finish" xml:space="preserve">
+    <value>शुरू करें</value>
+  </data>
+  <data name="Tour_WelcomeTitle" xml:space="preserve">
+    <value>RetroMultiTools में आपका स्वागत है!</value>
+  </data>
+  <data name="Tour_WelcomeDesc" xml:space="preserve">
+    <value>रेट्रो गेमिंग के लिए आपका ऑल-इन-वन टूलकिट। हमें इस ऐप की सभी सुविधाओं का एक त्वरित दौरा करने दें। इसमें केवल एक मिनट लगेगा!</value>
+  </data>
+  <data name="Tour_SidebarTitle" xml:space="preserve">
+    <value>साइडबार नेविगेशन</value>
+  </data>
+  <data name="Tour_SidebarDesc" xml:space="preserve">
+    <value>टूल के बीच स्विच करने के लिए बाईं ओर के साइडबार का उपयोग करें। ये ब्राउज़िंग, पैचिंग, विश्लेषण और अधिक जैसी श्रेणियों में व्यवस्थित हैं।</value>
+  </data>
+  <data name="Tour_BrowserTitle" xml:space="preserve">
+    <value>ROM ब्राउज़र</value>
+  </data>
+  <data name="Tour_BrowserDesc" xml:space="preserve">
+    <value>एक शक्तिशाली फ़ाइल ब्राउज़र के साथ अपना ROM संग्रह ब्राउज़ करें। फ़ाइल विवरण देखें, फ़ोल्डर खोलें, और जो गेम आप ढूंढ रहे हैं उन्हें जल्दी से खोजें।</value>
+  </data>
+  <data name="Tour_InspectorTitle" xml:space="preserve">
+    <value>ROM इंस्पेक्टर &amp; Hex व्यूअर</value>
+  </data>
+  <data name="Tour_InspectorDesc" xml:space="preserve">
+    <value>ROM फ़ाइल हेडर का निरीक्षण करें, आंतरिक मेटाडेटा देखें, और बिल्ट-इन hex व्यूअर के साथ कच्चे बाइट्स की जांच करें। उन्नत उपयोगकर्ताओं और डेवलपर्स के लिए बढ़िया।</value>
+  </data>
+  <data name="Tour_PatchingTitle" xml:space="preserve">
+    <value>पैचिंग &amp; रूपांतरण</value>
+  </data>
+  <data name="Tour_PatchingDesc" xml:space="preserve">
+    <value>IPS/BPS/UPS पैच लागू करें, अपने खुद के पैच बनाएं, ROM फॉर्मेट कन्वर्ट करें, सेव फ़ाइलें कन्वर्ट करें, और N64 बाइट-स्वैपिंग संभालें — सब एक जगह।</value>
+  </data>
+  <data name="Tour_AnalysisTitle" xml:space="preserve">
+    <value>विश्लेषण &amp; सत्यापन</value>
+  </data>
+  <data name="Tour_AnalysisDesc" xml:space="preserve">
+    <value>DAT फ़ाइलों के विरुद्ध अपने ROM सत्यापित करें, चेकसम की गणना करें, डुप्लिकेट खोजें, पूरे फ़ोल्डर को बैच-हैश करें, और सटीक संग्रह प्रबंधन के लिए GoodTools सेट पहचानें।</value>
+  </data>
+  <data name="Tour_HeadersTitle" xml:space="preserve">
+    <value>हेडर्स &amp; ट्रिमिंग</value>
+  </data>
+  <data name="Tour_HeadersDesc" xml:space="preserve">
+    <value>ROM हेडर निर्यात करें, ठीक करें या हटाएं। जगह बचाने के लिए पैडेड ROM ट्रिम करें। SNES हेडर प्रबंधन के लिए विशेष टूल शामिल हैं।</value>
+  </data>
+  <data name="Tour_UtilitiesTitle" xml:space="preserve">
+    <value>यूटिलिटीज़</value>
+  </data>
+  <data name="Tour_UtilitiesDesc" xml:space="preserve">
+    <value>आर्काइव प्रबंधित करें, चीट कोड लागू करें, डिस्क इमेज के साथ काम करें, एमुलेटर कॉन्फ़िगर करें, गेमपैड बटन मैप करें, मेटाडेटा स्क्रेप करें, अपनी ROM फ़ाइलें व्यवस्थित और नाम दें, और USB डिवाइस प्रबंधित करें।</value>
+  </data>
+  <data name="Tour_EmulatorsTitle" xml:space="preserve">
+    <value>एमुलेटर इंटीग्रेशन</value>
+  </data>
+  <data name="Tour_EmulatorsDesc" xml:space="preserve">
+    <value>RetroArch, MAME, और Mednafen के साथ गहरा एकीकरण। प्लेलिस्ट प्रबंधित करें, ROM सेट ऑडिट करें, CHD फ़ाइलें कन्वर्ट करें, DAT संपादित करें, शॉर्टकट बनाएं, और बहुत कुछ।</value>
+  </data>
+  <data name="Tour_AnalogueTitle" xml:space="preserve">
+    <value>Analogue FPGA</value>
+  </data>
+  <data name="Tour_AnalogueDesc" xml:space="preserve">
+    <value>Analogue FPGA हार्डवेयर के लिए टूल: Pocket, Mega Sg, Nt/Super Nt, और आगामी 3D। अपने डिवाइस के लिए कोर, फ़र्मवेयर, और गेम लाइब्रेरी प्रबंधित करें।</value>
+  </data>
+  <data name="Tour_BigPictureTitle" xml:space="preserve">
+    <value>Big Picture Mode</value>
+  </data>
+  <data name="Tour_BigPictureDesc" xml:space="preserve">
+    <value>कंट्रोलर सपोर्ट, आर्टवर्क, प्ले ट्रैकिंग, और रेटिंग के साथ फुलस्क्रीन गेम लाइब्रेरी का आनंद लें। क्लासिक ग्रिड या मॉडर्न हीरो लेआउट में से चुनें।</value>
+  </data>
+  <data name="Tour_SettingsTitle" xml:space="preserve">
+    <value>सेटिंग्स</value>
+  </data>
+  <data name="Tour_SettingsDesc" xml:space="preserve">
+    <value>अपना अनुभव अनुकूलित करें: भाषा बदलें, Discord Rich Presence सक्षम करें, Big Picture Mode कॉन्फ़िगर करें, गेमपैड नियंत्रण सेट करें, और अपडेट जांचें।</value>
+  </data>
+  <data name="Tour_FinishTitle" xml:space="preserve">
+    <value>आप तैयार हैं!</value>
+  </data>
+  <data name="Tour_FinishDesc" xml:space="preserve">
+    <value>बस इतना ही! साइडबार में टूल एक्सप्लोर करना शुरू करें। यदि आपको पुनः जानकारी चाहिए तो आप सेटिंग्स से इस टूर को हमेशा पुनः शुरू कर सकते हैं। आनंद लें!</value>
+  </data>
+  <data name="Tour_SettingSectionTitle" xml:space="preserve">
+    <value>गाइडेड टूर</value>
+  </data>
+  <data name="Tour_SettingSectionDesc" xml:space="preserve">
+    <value>वह गाइडेड टूर फिर से चलाएं जो एप्लिकेशन की सभी सुविधाओं की व्याख्या करती है।</value>
+  </data>
+  <data name="Tour_RestartButton" xml:space="preserve">
+    <value>टूर पुनः शुरू करें</value>
+  </data>
+  <data name="Browser_SelectFolderTooltip" xml:space="preserve">
+    <value>Browse for a ROM folder to scan</value>
+  </data>
+  <data name="Browser_AddRomsTooltip" xml:space="preserve">
+    <value>Add ROM files to the current folder</value>
+  </data>
+  <data name="Browser_CopyToTooltip" xml:space="preserve">
+    <value>Copy selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_MoveToTooltip" xml:space="preserve">
+    <value>Move selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_DeleteTooltip" xml:space="preserve">
+    <value>Delete the selected ROMs</value>
+  </data>
+  <data name="Browser_OrganizeTooltip" xml:space="preserve">
+    <value>Organize ROMs into subfolders by system</value>
+  </data>
+  <data name="Browser_SendToRemoteTooltip" xml:space="preserve">
+    <value>Send selected ROMs to a remote device or cloud storage</value>
+  </data>
+  <data name="Browser_HostShareTooltip" xml:space="preserve">
+    <value>Host a local server to share ROMs on the network</value>
+  </data>
+  <data name="Browser_LaunchRetroArchTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in RetroArch</value>
+  </data>
+  <data name="Browser_LaunchMameTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in MAME</value>
+  </data>
+  <data name="Browser_LaunchMednafenTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in Mednafen</value>
+  </data>
+  <data name="Browser_BigPictureModeTooltip" xml:space="preserve">
+    <value>Enter full-screen Big Picture Mode for gamepad-friendly browsing</value>
+  </data>
+  <data name="MainWindow_SearchShortcut" xml:space="preserve">
+    <value>Search tools (Ctrl+F)</value>
+  </data>
+  <data name="BigPictureModern_AllGames" xml:space="preserve">
+    <value>सभी गेम</value>
+  </data>
+  <data name="BigPictureModern_EmptyCategory" xml:space="preserve">
+    <value>इस श्रेणी में अभी कोई गेम नहीं है</value>
+  </data>
+  <data name="BigPictureModern_EmptyLibrary" xml:space="preserve">
+    <value>आपकी लाइब्रेरी खाली है। शुरू करने के लिए ROM फ़ोल्डर ब्राउज़ करें।</value>
+  </data>
+  <data name="BigPictureModern_Favorites" xml:space="preserve">
+    <value>पसंदीदा</value>
+  </data>
+  <data name="BigPictureModern_LaunchWith" xml:space="preserve">
+    <value>{0} के साथ लॉन्च करें</value>
+  </data>
+  <data name="BigPictureModern_MostPlayed" xml:space="preserve">
+    <value>सबसे ज़्यादा खेले गए</value>
+  </data>
+  <data name="BigPictureModern_NoResults" xml:space="preserve">
+    <value>आपकी खोज से कोई गेम मेल नहीं खाता</value>
+  </data>
+  <data name="BigPictureModern_Plays" xml:space="preserve">
+    <value>{0} बार खेला गया</value>
+  </data>
+  <data name="BigPictureModern_RecentlyPlayed" xml:space="preserve">
+    <value>हाल ही में खेले गए</value>
+  </data>
+  <data name="BigPictureModern_SearchPlaceholder" xml:space="preserve">
+    <value>अपनी लाइब्रेरी खोजें...</value>
+  </data>
+  <data name="BigPictureModern_Spotlight" xml:space="preserve">
+    <value>स्पॉटलाइट</value>
+  </data>
+  <data name="BigPictureModern_TopRated" xml:space="preserve">
+    <value>शीर्ष रेटेड</value>
+  </data>
+  <data name="BigPicture_CopiedToClipboard" xml:space="preserve">
+    <value>पथ क्लिपबोर्ड पर कॉपी किया गया</value>
+  </data>
+  <data name="BigPicture_CopyFilePath" xml:space="preserve">
+    <value>फ़ाइल पथ कॉपी करें</value>
+  </data>
+  <data name="BigPicture_OpenFileLocation" xml:space="preserve">
+    <value>फ़ाइल स्थान खोलें</value>
+  </data>
+  <data name="BigPicture_SortPlayCount" xml:space="preserve">
+    <value>प्ले काउंट (अधिक → कम)</value>
+  </data>
+  <data name="Browser_ContextChecksum" xml:space="preserve">
+    <value>#️⃣ चेकसम गणना करें</value>
+  </data>
+  <data name="Browser_ContextGoodTools" xml:space="preserve">
+    <value>🏷️ GoodTools से पहचानें</value>
+  </data>
+  <data name="Browser_ContextHexView" xml:space="preserve">
+    <value>🔢 Hex व्यूअर में खोलें</value>
+  </data>
+  <data name="Browser_ContextInspect" xml:space="preserve">
+    <value>🔍 ROM इंस्पेक्टर में खोलें</value>
+  </data>
+  <data name="Browser_ContextOpenFolder" xml:space="preserve">
+    <value>📂 संलग्न फ़ोल्डर खोलें</value>
+  </data>
+  <data name="Browser_ContextOpenWith" xml:space="preserve">
+    <value>🚀 इसके साथ खोलें</value>
+  </data>
+  <data name="Browser_ContextPatch" xml:space="preserve">
+    <value>🩹 ROM पैच करें...</value>
+  </data>
+  <data name="Browser_ContextRename" xml:space="preserve">
+    <value>✏️ नाम बदलें...</value>
+  </data>
+  <data name="Browser_ContextTools" xml:space="preserve">
+    <value>🔧 उपकरण</value>
+  </data>
+  <data name="Browser_OpenFolderError" xml:space="preserve">
+    <value>फ़ोल्डर नहीं खोला जा सका: {0}</value>
+  </data>
+  <data name="Browser_RenameError" xml:space="preserve">
+    <value>नाम बदलना विफल: {0}</value>
+  </data>
+  <data name="Browser_RenamePromptTitle" xml:space="preserve">
+    <value>ROM का नाम बदलें</value>
+  </data>
+  <data name="Browser_RenameSuccess" xml:space="preserve">
+    <value>{0} में नाम बदला गया</value>
+  </data>
+  <data name="Checksum_Description" xml:space="preserve">
+    <value>ROM फ़ाइलों की अखंडता सत्यापित करने और डंप की पहचान करने के लिए CRC32, MD5, SHA-1 और SHA-256 चेकसम की गणना करें।</value>
+  </data>
+  <data name="Common_SelectFileTitle" xml:space="preserve">
+    <value>फ़ाइल चुनें</value>
+  </data>
+  <data name="Common_SelectOutputDirectoryTitle" xml:space="preserve">
+    <value>आउटपुट निर्देशिका चुनें</value>
+  </data>
+  <data name="Common_SelectRomDirectoryTitle" xml:space="preserve">
+    <value>ROM निर्देशिका चुनें</value>
+  </data>
+  <data name="Common_SelectRomFileTitle" xml:space="preserve">
+    <value>ROM फ़ाइल चुनें</value>
+  </data>
+  <data name="Comparer_Description" xml:space="preserve">
+    <value>आकार, सामग्री में अंतर की पहचान करने और पहला बेमेल ऑफ़सेट खोजने के लिए दो ROM फ़ाइलों की बाइट-बाइ-बाइट तुलना करें।</value>
+  </data>
+  <data name="GoodTools_NoCodesForFile" xml:space="preserve">
+    <value>कोई GoodTools कोड नहीं मिला।</value>
+  </data>
+  <data name="MameConfig_Artwork" xml:space="preserve">
+    <value>आर्टवर्क विकल्प</value>
+  </data>
+  <data name="MameConfig_AutoEnable" xml:space="preserve">
+    <value>स्वचालित इनपुट सक्षम विकल्प</value>
+  </data>
+  <data name="MameConfig_Bgfx" xml:space="preserve">
+    <value>BGFX पोस्ट-प्रोसेसिंग</value>
+  </data>
+  <data name="MameConfig_Communication" xml:space="preserve">
+    <value>संचार विकल्प</value>
+  </data>
+  <data name="MameConfig_ConfigFile" xml:space="preserve">
+    <value>कॉन्फ़िगरेशन फ़ाइल</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>आपके पास सहेजे नहीं गए परिवर्तन हैं। उन्हें छोड़कर जारी रखें?</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>सहेजे नहीं गए परिवर्तन</value>
+  </data>
+  <data name="MameConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>यह सभी सेटिंग्स को MAME डिफ़ॉल्ट पर रीसेट कर देगा। सहेजे नहीं गए परिवर्तन खो जाएंगे। जारी रखें?</value>
+  </data>
+  <data name="MameConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>डिफ़ॉल्ट पर रीसेट करें</value>
+  </data>
+  <data name="MameConfig_CoreInput" xml:space="preserve">
+    <value>मुख्य इनपुट विकल्प</value>
+  </data>
+  <data name="MameConfig_CoreMisc" xml:space="preserve">
+    <value>मुख्य विविध विकल्प</value>
+  </data>
+  <data name="MameConfig_CorePerformance" xml:space="preserve">
+    <value>मुख्य प्रदर्शन विकल्प</value>
+  </data>
+  <data name="MameConfig_CoreSound" xml:space="preserve">
+    <value>मुख्य ध्वनि विकल्प</value>
+  </data>
+  <data name="MameConfig_CoreVideo" xml:space="preserve">
+    <value>मुख्य वीडियो विकल्प</value>
+  </data>
+  <data name="MameConfig_CreateNew" xml:space="preserve">
+    <value>नया बनाएं</value>
+  </data>
+  <data name="MameConfig_Debugging" xml:space="preserve">
+    <value>डीबगिंग विकल्प</value>
+  </data>
+  <data name="MameConfig_DefaultsRestored" xml:space="preserve">
+    <value>सभी सेटिंग्स MAME डिफ़ॉल्ट पर रीसेट की गईं।</value>
+  </data>
+  <data name="MameConfig_Description" xml:space="preserve">
+    <value>MAME कॉन्फ़िगरेशन फ़ाइलें (mame.ini) लोड, संपादित और सहेजें। Windows, macOS और Linux के लिए सभी MAME सेटिंग्स का समर्थन करता है।</value>
+  </data>
+  <data name="MameConfig_HttpServer" xml:space="preserve">
+    <value>HTTP सर्वर विकल्प</value>
+  </data>
+  <data name="MameConfig_IniFileType" xml:space="preserve">
+    <value>MAME INI फ़ाइलें</value>
+  </data>
+  <data name="MameConfig_IniPlaceholder" xml:space="preserve">
+    <value>mame.ini का पथ...</value>
+  </data>
+  <data name="MameConfig_Language" xml:space="preserve">
+    <value>भाषा</value>
+  </data>
+  <data name="MameConfig_LoadError" xml:space="preserve">
+    <value>कॉन्फ़िगरेशन लोड करने में विफल: {0}</value>
+  </data>
+  <data name="MameConfig_Loaded" xml:space="preserve">
+    <value>{1} से {0} सेटिंग्स लोड की गईं</value>
+  </data>
+  <data name="MameConfig_NewCreated" xml:space="preserve">
+    <value>MAME डिफ़ॉल्ट के साथ नया कॉन्फ़िगरेशन बनाया गया। सहेजने का पथ: {0}</value>
+  </data>
+  <data name="MameConfig_NoIniFound" xml:space="preserve">
+    <value>mame.ini नहीं मिला। इसे खोजने के लिए ब्राउज़ का उपयोग करें, या डिफ़ॉल्ट के साथ एक बनाने के लिए नया बनाएं।</value>
+  </data>
+  <data name="MameConfig_OsdInput" xml:space="preserve">
+    <value>OSD इनपुट प्रदाता</value>
+  </data>
+  <data name="MameConfig_OsdSound" xml:space="preserve">
+    <value>OSD ध्वनि विकल्प</value>
+  </data>
+  <data name="MameConfig_OsdVideo" xml:space="preserve">
+    <value>OSD / त्वरित वीडियो</value>
+  </data>
+  <data name="MameConfig_OutputDirs" xml:space="preserve">
+    <value>आउटपुट निर्देशिकाएँ</value>
+  </data>
+  <data name="MameConfig_PerWindowVideo" xml:space="preserve">
+    <value>प्रति-विंडो वीडियो विकल्प</value>
+  </data>
+  <data name="MameConfig_ResetDefaults" xml:space="preserve">
+    <value>डिफ़ॉल्ट पर रीसेट करें</value>
+  </data>
+  <data name="MameConfig_Rotation" xml:space="preserve">
+    <value>रोटेशन विकल्प</value>
+  </data>
+  <data name="MameConfig_Save" xml:space="preserve">
+    <value>सहेजें</value>
+  </data>
+  <data name="MameConfig_SaveAs" xml:space="preserve">
+    <value>इस रूप में सहेजें...</value>
+  </data>
+  <data name="MameConfig_SaveDialogTitle" xml:space="preserve">
+    <value>MAME कॉन्फ़िगरेशन सहेजें</value>
+  </data>
+  <data name="MameConfig_SaveError" xml:space="preserve">
+    <value>कॉन्फ़िगरेशन सहेजने में विफल: {0}</value>
+  </data>
+  <data name="MameConfig_Saved" xml:space="preserve">
+    <value>कॉन्फ़िगरेशन {0} में सहेजा गया</value>
+  </data>
+  <data name="MameConfig_ScreenOptions" xml:space="preserve">
+    <value>स्क्रीन विकल्प</value>
+  </data>
+  <data name="MameConfig_Scripting" xml:space="preserve">
+    <value>स्क्रिप्टिंग / प्लगइन</value>
+  </data>
+  <data name="MameConfig_SearchPaths" xml:space="preserve">
+    <value>खोज पथ</value>
+  </data>
+  <data name="MameConfig_SearchPlaceholder" xml:space="preserve">
+    <value>नाम से सेटिंग्स फ़िल्टर करने के लिए टाइप करें (जैसे rompath, video, joystick...)</value>
+  </data>
+  <data name="MameConfig_SearchResults" xml:space="preserve">
+    <value>{1} में से {0} अनुभाग मेल खाते हैं</value>
+  </data>
+  <data name="MameConfig_SearchSettings" xml:space="preserve">
+    <value>सेटिंग्स खोजें</value>
+  </data>
+  <data name="MameConfig_SelectIniTitle" xml:space="preserve">
+    <value>MAME कॉन्फ़िगरेशन फ़ाइल चुनें</value>
+  </data>
+  <data name="MameConfig_StatePlayback" xml:space="preserve">
+    <value>स्थिति / प्लेबैक विकल्प</value>
+  </data>
+  <data name="MameConfig_TabInput" xml:space="preserve">
+    <value>इनपुट</value>
+  </data>
+  <data name="MameConfig_TabMisc" xml:space="preserve">
+    <value>विविध / उन्नत</value>
+  </data>
+  <data name="MameConfig_TabPaths" xml:space="preserve">
+    <value>पथ</value>
+  </data>
+  <data name="MameConfig_TabPerformance" xml:space="preserve">
+    <value>प्रदर्शन</value>
+  </data>
+  <data name="MameConfig_TabSound" xml:space="preserve">
+    <value>ध्वनि</value>
+  </data>
+  <data name="MameConfig_TabState" xml:space="preserve">
+    <value>स्थिति / प्लेबैक</value>
+  </data>
+  <data name="MameConfig_TabVideo" xml:space="preserve">
+    <value>वीडियो</value>
+  </data>
+  <data name="MameConfig_Title" xml:space="preserve">
+    <value>MAME कॉन्फ़िगरेटर</value>
+  </data>
+  <data name="MameConfig_UnsavedChanges" xml:space="preserve">
+    <value>● सहेजे नहीं गए परिवर्तन</value>
+  </data>
+  <data name="MameConfig_Vector" xml:space="preserve">
+    <value>वेक्टर विकल्प</value>
+  </data>
+  <data name="MednafenConfig_CfgFileType" xml:space="preserve">
+    <value>Mednafen कॉन्फ़िग फ़ाइलें (*.cfg)</value>
+  </data>
+  <data name="MednafenConfig_CfgPlaceholder" xml:space="preserve">
+    <value>mednafen.cfg का पथ...</value>
+  </data>
+  <data name="MednafenConfig_ConfigFile" xml:space="preserve">
+    <value>कॉन्फ़िगरेशन फ़ाइल</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>आपके पास सहेजे नहीं गए परिवर्तन हैं। उन्हें छोड़कर जारी रखें?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>सहेजे नहीं गए परिवर्तन</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>यह सभी सेटिंग्स को Mednafen डिफ़ॉल्ट पर रीसेट कर देगा। सहेजे नहीं गए परिवर्तन खो जाएंगे। जारी रखें?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>डिफ़ॉल्ट पर रीसेट करें</value>
+  </data>
+  <data name="MednafenConfig_CoreSettings" xml:space="preserve">
+    <value>मुख्य सेटिंग्स</value>
+  </data>
+  <data name="MednafenConfig_CpuAffinity" xml:space="preserve">
+    <value>CPU एफ़िनिटी</value>
+  </data>
+  <data name="MednafenConfig_CreateNew" xml:space="preserve">
+    <value>नया बनाएं</value>
+  </data>
+  <data name="MednafenConfig_DefaultsRestored" xml:space="preserve">
+    <value>सभी सेटिंग्स Mednafen डिफ़ॉल्ट पर पुनर्स्थापित की गईं।</value>
+  </data>
+  <data name="MednafenConfig_Description" xml:space="preserve">
+    <value>Mednafen कॉन्फ़िगरेशन फ़ाइलें (mednafen.cfg) लोड, संपादित और सहेजें। Windows, macOS और Linux के लिए सभी Mednafen सेटिंग्स का समर्थन करता है।</value>
+  </data>
+  <data name="MednafenConfig_DirectoryPaths" xml:space="preserve">
+    <value>निर्देशिका पथ</value>
+  </data>
+  <data name="MednafenConfig_FilenameFormats" xml:space="preserve">
+    <value>फ़ाइल नाम प्रारूप</value>
+  </data>
+  <data name="MednafenConfig_FpsDisplay" xml:space="preserve">
+    <value>FPS प्रदर्शन</value>
+  </data>
+  <data name="MednafenConfig_GoatShader" xml:space="preserve">
+    <value>Goat Shader सेटिंग्स</value>
+  </data>
+  <data name="MednafenConfig_InputSettings" xml:space="preserve">
+    <value>इनपुट सेटिंग्स</value>
+  </data>
+  <data name="MednafenConfig_LoadError" xml:space="preserve">
+    <value>कॉन्फ़िगरेशन लोड करने में विफल: {0}</value>
+  </data>
+  <data name="MednafenConfig_Loaded" xml:space="preserve">
+    <value>{1} से {0} सेटिंग्स लोड की गईं</value>
+  </data>
+  <data name="MednafenConfig_NetworkPlay" xml:space="preserve">
+    <value>नेटवर्क प्ले</value>
+  </data>
+  <data name="MednafenConfig_NewCreated" xml:space="preserve">
+    <value>{0} में नया डिफ़ॉल्ट कॉन्फ़िगरेशन बनाया गया</value>
+  </data>
+  <data name="MednafenConfig_NoCfgFound" xml:space="preserve">
+    <value>mednafen.cfg स्वचालित रूप से नहीं मिला। कृपया फ़ाइल को मैन्युअल रूप से ब्राउज़ करें।</value>
+  </data>
+  <data name="MednafenConfig_Osd" xml:space="preserve">
+    <value>ऑन-स्क्रीन डिस्प्ले</value>
+  </data>
+  <data name="MednafenConfig_PerSystemDescription" xml:space="preserve">
+    <value>प्रति एमुलेटेड सिस्टम वीडियो स्केलिंग, शेडर और डिस्प्ले सेटिंग्स कॉन्फ़िगर करें। सिस्टम स्विच करने या फ़ाइल सहेजने पर परिवर्तन सहेजे जाते हैं।</value>
+  </data>
+  <data name="MednafenConfig_QtRecord" xml:space="preserve">
+    <value>QuickTime रिकॉर्डिंग</value>
+  </data>
+  <data name="MednafenConfig_ResetDefaults" xml:space="preserve">
+    <value>डिफ़ॉल्ट पर रीसेट करें</value>
+  </data>
+  <data name="MednafenConfig_Save" xml:space="preserve">
+    <value>सहेजें</value>
+  </data>
+  <data name="MednafenConfig_SaveAs" xml:space="preserve">
+    <value>इस रूप में सहेजें</value>
+  </data>
+  <data name="MednafenConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Mednafen कॉन्फ़िगरेशन इस रूप में सहेजें</value>
+  </data>
+  <data name="MednafenConfig_SaveError" xml:space="preserve">
+    <value>कॉन्फ़िगरेशन सहेजने में विफल: {0}</value>
+  </data>
+  <data name="MednafenConfig_Saved" xml:space="preserve">
+    <value>कॉन्फ़िगरेशन {0} में सहेजा गया</value>
+  </data>
+  <data name="MednafenConfig_SearchPlaceholder" xml:space="preserve">
+    <value>नाम से सेटिंग्स फ़िल्टर करने के लिए टाइप करें (जैसे video, sound, shader...)</value>
+  </data>
+  <data name="MednafenConfig_SearchResults" xml:space="preserve">
+    <value>{1} में से {0} अनुभाग मेल खाते हैं</value>
+  </data>
+  <data name="MednafenConfig_SearchSettings" xml:space="preserve">
+    <value>सेटिंग्स खोजें</value>
+  </data>
+  <data name="MednafenConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Mednafen कॉन्फ़िगरेशन फ़ाइल चुनें</value>
+  </data>
+  <data name="MednafenConfig_SelectSystem" xml:space="preserve">
+    <value>सिस्टम चुनें</value>
+  </data>
+  <data name="MednafenConfig_SoundOutput" xml:space="preserve">
+    <value>ध्वनि आउटपुट</value>
+  </data>
+  <data name="MednafenConfig_SpeedSettings" xml:space="preserve">
+    <value>फ़ास्ट-फ़ॉरवर्ड / स्लो-फ़ॉरवर्ड</value>
+  </data>
+  <data name="MednafenConfig_SystemVideo" xml:space="preserve">
+    <value>सिस्टम वीडियो / स्केलिंग</value>
+  </data>
+  <data name="MednafenConfig_TabAdvanced" xml:space="preserve">
+    <value>उन्नत</value>
+  </data>
+  <data name="MednafenConfig_TabGeneral" xml:space="preserve">
+    <value>सामान्य</value>
+  </data>
+  <data name="MednafenConfig_TabInput" xml:space="preserve">
+    <value>इनपुट</value>
+  </data>
+  <data name="MednafenConfig_TabNetplay" xml:space="preserve">
+    <value>नेटप्ले</value>
+  </data>
+  <data name="MednafenConfig_TabPaths" xml:space="preserve">
+    <value>पथ</value>
+  </data>
+  <data name="MednafenConfig_TabPerSystem" xml:space="preserve">
+    <value>प्रति-सिस्टम</value>
+  </data>
+  <data name="MednafenConfig_TabSound" xml:space="preserve">
+    <value>ध्वनि</value>
+  </data>
+  <data name="MednafenConfig_TabVideo" xml:space="preserve">
+    <value>वीडियो</value>
+  </data>
+  <data name="MednafenConfig_TemporalBlur" xml:space="preserve">
+    <value>टेम्पोरल ब्लर</value>
+  </data>
+  <data name="MednafenConfig_Title" xml:space="preserve">
+    <value>Mednafen कॉन्फ़िगरेटर</value>
+  </data>
+  <data name="MednafenConfig_UnsavedChanges" xml:space="preserve">
+    <value>● सहेजे नहीं गए परिवर्तन</value>
+  </data>
+  <data name="MednafenConfig_VideoOutput" xml:space="preserve">
+    <value>वीडियो आउटपुट</value>
+  </data>
+  <data name="MetaScraper_SummaryBySystem" xml:space="preserve">
+    <value>सिस्टम के अनुसार सारांश:</value>
+  </data>
+  <data name="MetaScraper_SummaryStats" xml:space="preserve">
+    <value>मान्य: {0}, अमान्य: {1}, त्रुटियाँ: {2}</value>
+  </data>
+  <data name="Nav_MameConfigurator" xml:space="preserve">
+    <value>MAME कॉन्फ़िगरेटर</value>
+  </data>
+  <data name="Nav_MednafenConfigurator" xml:space="preserve">
+    <value>Mednafen कॉन्फ़िगरेटर</value>
+  </data>
+  <data name="Nav_NoResults" xml:space="preserve">
+    <value>कोई मेल खाने वाले उपकरण नहीं मिले।</value>
+  </data>
+  <data name="Nav_RetroArchConfigurator" xml:space="preserve">
+    <value>RetroArch कॉन्फ़िगरेटर</value>
+  </data>
+  <data name="Nav_SearchPlaceholder" xml:space="preserve">
+    <value>उपकरण खोजें...</value>
+  </data>
+  <data name="Patcher_Description" xml:space="preserve">
+    <value>अनुवाद, सुधार या संशोधन लागू करने के लिए ROM फ़ाइलों पर IPS, BPS या xdelta पैच लागू करें।</value>
+  </data>
+  <data name="RAConfig_AIService" xml:space="preserve">
+    <value>AI सेवा</value>
+  </data>
+  <data name="RAConfig_AccessibilityOptions" xml:space="preserve">
+    <value>सुगम्यता विकल्प</value>
+  </data>
+  <data name="RAConfig_AchievementDisplay" xml:space="preserve">
+    <value>उपलब्धि प्रदर्शन</value>
+  </data>
+  <data name="RAConfig_AchievementOptions" xml:space="preserve">
+    <value>RetroAchievements विकल्प</value>
+  </data>
+  <data name="RAConfig_AudioDriver" xml:space="preserve">
+    <value>ऑडियो ड्राइवर</value>
+  </data>
+  <data name="RAConfig_AudioSync" xml:space="preserve">
+    <value>ऑडियो सेटिंग्स</value>
+  </data>
+  <data name="RAConfig_CfgFileType" xml:space="preserve">
+    <value>RetroArch CFG फ़ाइलें</value>
+  </data>
+  <data name="RAConfig_CfgPlaceholder" xml:space="preserve">
+    <value>retroarch.cfg का पथ...</value>
+  </data>
+  <data name="RAConfig_ConfigFile" xml:space="preserve">
+    <value>कॉन्फ़िगरेशन फ़ाइल</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>आपके पास सहेजे नहीं गए परिवर्तन हैं। उन्हें छोड़कर जारी रखें?</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>सहेजे नहीं गए परिवर्तन</value>
+  </data>
+  <data name="RAConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>यह सभी सेटिंग्स को RetroArch डिफ़ॉल्ट पर रीसेट कर देगा। सहेजे नहीं गए परिवर्तन खो जाएंगे। जारी रखें?</value>
+  </data>
+  <data name="RAConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>डिफ़ॉल्ट पर रीसेट करें</value>
+  </data>
+  <data name="RAConfig_ContentPaths" xml:space="preserve">
+    <value>सामग्री और सेव पथ</value>
+  </data>
+  <data name="RAConfig_CoreOptions" xml:space="preserve">
+    <value>कोर विकल्प</value>
+  </data>
+  <data name="RAConfig_CorePaths" xml:space="preserve">
+    <value>कोर और सिस्टम पथ</value>
+  </data>
+  <data name="RAConfig_CreateNew" xml:space="preserve">
+    <value>नया बनाएं</value>
+  </data>
+  <data name="RAConfig_DefaultsRestored" xml:space="preserve">
+    <value>सभी सेटिंग्स RetroArch डिफ़ॉल्ट पर रीसेट की गईं।</value>
+  </data>
+  <data name="RAConfig_Description" xml:space="preserve">
+    <value>RetroArch कॉन्फ़िगरेशन फ़ाइलें (retroarch.cfg) लोड, संपादित और सहेजें। Windows, macOS और Linux के लिए सभी RetroArch सेटिंग्स का समर्थन करता है।</value>
+  </data>
+  <data name="RAConfig_FilterPaths" xml:space="preserve">
+    <value>फ़िल्टर, ओवरले और अन्य पथ</value>
+  </data>
+  <data name="RAConfig_FrameThrottle" xml:space="preserve">
+    <value>फ़्रेम थ्रॉटल विकल्प</value>
+  </data>
+  <data name="RAConfig_InputGeneral" xml:space="preserve">
+    <value>सामान्य इनपुट सेटिंग्स</value>
+  </data>
+  <data name="RAConfig_InputHotkeys" xml:space="preserve">
+    <value>हॉटकी बाइंडिंग</value>
+  </data>
+  <data name="RAConfig_LoadError" xml:space="preserve">
+    <value>कॉन्फ़िगरेशन लोड करने में विफल: {0}</value>
+  </data>
+  <data name="RAConfig_Loaded" xml:space="preserve">
+    <value>{1} से {0} सेटिंग्स लोड की गईं</value>
+  </data>
+  <data name="RAConfig_Logging" xml:space="preserve">
+    <value>लॉगिंग विकल्प</value>
+  </data>
+  <data name="RAConfig_MenuGeneral" xml:space="preserve">
+    <value>मेनू सेटिंग्स</value>
+  </data>
+  <data name="RAConfig_MenuTheme" xml:space="preserve">
+    <value>थीम और दिखावट</value>
+  </data>
+  <data name="RAConfig_MiscOptions" xml:space="preserve">
+    <value>विविध विकल्प</value>
+  </data>
+  <data name="RAConfig_Netplay" xml:space="preserve">
+    <value>नेटप्ले</value>
+  </data>
+  <data name="RAConfig_NetworkGeneral" xml:space="preserve">
+    <value>नेटवर्क सेटिंग्स</value>
+  </data>
+  <data name="RAConfig_NewCreated" xml:space="preserve">
+    <value>RetroArch डिफ़ॉल्ट के साथ नया कॉन्फ़िगरेशन बनाया गया। सहेजने का पथ: {0}</value>
+  </data>
+  <data name="RAConfig_NoCfgFound" xml:space="preserve">
+    <value>retroarch.cfg नहीं मिला। इसे खोजने के लिए ब्राउज़ का उपयोग करें, या डिफ़ॉल्ट के साथ एक बनाने के लिए नया बनाएं।</value>
+  </data>
+  <data name="RAConfig_Notifications" xml:space="preserve">
+    <value>सूचनाएँ</value>
+  </data>
+  <data name="RAConfig_OverlaySettings" xml:space="preserve">
+    <value>ओवरले सेटिंग्स</value>
+  </data>
+  <data name="RAConfig_RGUITheme" xml:space="preserve">
+    <value>RGUI थीम</value>
+  </data>
+  <data name="RAConfig_RecordingOptions" xml:space="preserve">
+    <value>रिकॉर्डिंग विकल्प</value>
+  </data>
+  <data name="RAConfig_ResetDefaults" xml:space="preserve">
+    <value>डिफ़ॉल्ट पर रीसेट करें</value>
+  </data>
+  <data name="RAConfig_Rewind" xml:space="preserve">
+    <value>रिवाइंड विकल्प</value>
+  </data>
+  <data name="RAConfig_Save" xml:space="preserve">
+    <value>सहेजें</value>
+  </data>
+  <data name="RAConfig_SaveAs" xml:space="preserve">
+    <value>इस रूप में सहेजें...</value>
+  </data>
+  <data name="RAConfig_SaveDialogTitle" xml:space="preserve">
+    <value>RetroArch कॉन्फ़िगरेशन सहेजें</value>
+  </data>
+  <data name="RAConfig_SaveError" xml:space="preserve">
+    <value>कॉन्फ़िगरेशन सहेजने में विफल: {0}</value>
+  </data>
+  <data name="RAConfig_SaveOptions" xml:space="preserve">
+    <value>सहेजें और स्थिति विकल्प</value>
+  </data>
+  <data name="RAConfig_Saved" xml:space="preserve">
+    <value>कॉन्फ़िगरेशन {0} में सहेजा गया</value>
+  </data>
+  <data name="RAConfig_SearchPlaceholder" xml:space="preserve">
+    <value>नाम से सेटिंग्स फ़िल्टर करने के लिए टाइप करें (जैसे video_driver, audio, netplay...)</value>
+  </data>
+  <data name="RAConfig_SearchSettings" xml:space="preserve">
+    <value>सेटिंग्स खोजें</value>
+  </data>
+  <data name="RAConfig_SelectCfgTitle" xml:space="preserve">
+    <value>RetroArch कॉन्फ़िगरेशन फ़ाइल चुनें</value>
+  </data>
+  <data name="RAConfig_TabAccessibility" xml:space="preserve">
+    <value>सुगम्यता</value>
+  </data>
+  <data name="RAConfig_TabAchievements" xml:space="preserve">
+    <value>उपलब्धियाँ</value>
+  </data>
+  <data name="RAConfig_TabAudio" xml:space="preserve">
+    <value>ऑडियो</value>
+  </data>
+  <data name="RAConfig_TabCore" xml:space="preserve">
+    <value>कोर / सहेजें</value>
+  </data>
+  <data name="RAConfig_TabFrameThrottle" xml:space="preserve">
+    <value>फ़्रेम थ्रॉटल</value>
+  </data>
+  <data name="RAConfig_TabInput" xml:space="preserve">
+    <value>इनपुट</value>
+  </data>
+  <data name="RAConfig_TabMenu" xml:space="preserve">
+    <value>मेनू / UI</value>
+  </data>
+  <data name="RAConfig_TabMisc" xml:space="preserve">
+    <value>विविध / लॉगिंग</value>
+  </data>
+  <data name="RAConfig_TabNetwork" xml:space="preserve">
+    <value>नेटवर्क</value>
+  </data>
+  <data name="RAConfig_TabOverlay" xml:space="preserve">
+    <value>ओवरले</value>
+  </data>
+  <data name="RAConfig_TabPaths" xml:space="preserve">
+    <value>पथ</value>
+  </data>
+  <data name="RAConfig_TabRecording" xml:space="preserve">
+    <value>रिकॉर्डिंग</value>
+  </data>
+  <data name="RAConfig_TabVideo" xml:space="preserve">
+    <value>वीडियो</value>
+  </data>
+  <data name="RAConfig_Title" xml:space="preserve">
+    <value>RetroArch कॉन्फ़िगरेटर</value>
+  </data>
+  <data name="RAConfig_UnsavedChanges" xml:space="preserve">
+    <value>● सहेजे नहीं गए परिवर्तन</value>
+  </data>
+  <data name="RAConfig_VideoAdvanced" xml:space="preserve">
+    <value>उन्नत वीडियो</value>
+  </data>
+  <data name="RAConfig_VideoDisplay" xml:space="preserve">
+    <value>डिस्प्ले सेटिंग्स</value>
+  </data>
+  <data name="RAConfig_VideoDriver" xml:space="preserve">
+    <value>वीडियो ड्राइवर</value>
+  </data>
+  <data name="RAConfig_VideoOSD" xml:space="preserve">
+    <value>OSD और स्क्रीनशॉट</value>
+  </data>
+  <data name="RAConfig_VideoScaling" xml:space="preserve">
+    <value>स्केलिंग और फ़िल्टरिंग</value>
+  </data>
+  <data name="RAConfig_VideoSync" xml:space="preserve">
+    <value>सिंक्रनाइज़ेशन</value>
+  </data>
+  <data name="Security_SingleNoFeatures" xml:space="preserve">
+    <value>✔ {0}: कोई सुरक्षा सुविधा नहीं मिली।</value>
+  </data>
+  <data name="Security_SingleResultDetected" xml:space="preserve">
+    <value>✔ {0}: {1} सुरक्षा सुविधा(एँ) मिली(ं)।</value>
+  </data>
+  <data name="Settings_BigPictureStyleClassic" xml:space="preserve">
+    <value>क्लासिक (कार्ड ग्रिड)</value>
+  </data>
+  <data name="Settings_BigPictureStyleLabel" xml:space="preserve">
+    <value>विज़ुअल शैली</value>
+  </data>
+  <data name="Settings_BigPictureStyleModern" xml:space="preserve">
+    <value>आधुनिक (हीरो + कैरोसेल)</value>
+  </data>
+  <data name="Settings_UpdateManagedByPackageManager" xml:space="preserve">
+    <value>अपडेट आपके सिस्टम पैकेज मैनेजर द्वारा प्रबंधित किए जाते हैं।</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImage" xml:space="preserve">
+    <value>इमेज बनाने की पुष्टि करें</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImageMessage" xml:space="preserve">
+    <value>{0} से पूर्ण डिस्क इमेज बनाएं? ड्राइव के आकार के आधार पर इसमें कुछ समय लग सकता है।</value>
+  </data>
 </root>

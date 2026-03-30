@@ -3,7 +3,7 @@
              xmlns:loc="clr-namespace:RetroMultiTools.Localization"
              x:Class="RetroMultiTools.Views.Mame.MameDatEditorView">
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-    <StackPanel Spacing="16" MaxWidth="700" HorizontalAlignment="Left">
+    <StackPanel Spacing="16">
         <TextBlock Text="{Binding [MameDatEditor_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
         <TextBlock Text="{Binding [MameDatEditor_Description], Source={x:Static loc:LocalizationManager.Instance}}"
                    Foreground="#A6ADC8" TextWrapping="Wrap"/>
@@ -95,7 +95,7 @@
                 </Grid>
 
                 <Button x:Name="ApplyGameButton" Content="{Binding [MameDatEditor_ApplyChanges], Source={x:Static loc:LocalizationManager.Instance}}"
-                        Click="ApplyGameButton_Click" Padding="12,6" HorizontalAlignment="Left"/>
+                        Click="ApplyGameButton_Click" Padding="12,6" HorizontalAlignment="Left" IsEnabled="False"/>
 
                 <!-- ROM List for selected game -->
                 <TextBlock Text="{Binding [MameDatEditor_RomList], Source={x:Static loc:LocalizationManager.Instance}}" FontWeight="SemiBold" Foreground="#CDD6F4" Margin="0,8,0,0"/>

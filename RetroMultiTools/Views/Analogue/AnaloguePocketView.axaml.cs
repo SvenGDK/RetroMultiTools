@@ -21,6 +21,7 @@ public partial class AnaloguePocketView : UserControl
     public AnaloguePocketView()
     {
         InitializeComponent();
+        DragDropHelper.EnableFileDrop(SdCardPathTextBox, acceptDirectories: true);
     }
 
     // ── SD Card Selection ──────────────────────────────────────────────

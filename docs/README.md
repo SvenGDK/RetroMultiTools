@@ -10,10 +10,10 @@ New to Retro Multi Tools? Start here.
 
 | Document | Description |
 |---|---|
-| [Installation](getting-started/installation.md) | Download and install on Windows, Linux, or macOS |
+| [Installation](getting-started/installation.md) | Download and install on Windows, Linux, macOS, or FreeBSD |
 | [First Steps](getting-started/first-steps.md) | Quick walkthrough to get up and running |
 
-Platform-specific guides are also available at the repository root: [Windows](../README.md#platform-guides) · [Linux](../LINUX.md) · [macOS](../macOS.md)
+Platform-specific guides are also available at the repository root: [Windows](../README.md#platform-guides) · [Linux](../LINUX.md) · [macOS](../macOS.md) · [FreeBSD](../FreeBSD.md)
 
 ---
 
@@ -41,6 +41,8 @@ Detailed documentation for every tool in the application.
 | [Verification & Analysis](features/verification-and-analysis.md) | Checksum Calculator, ROM Comparer, DAT Verifier, DAT Filter, Dump Verifier, Duplicate Finder, Batch ROM Hasher, Security & DRM Analysis, GoodTools Identifier |
 | [ROM Management](features/rom-management.md) | Header Export, SNES Header Tool, Batch Header Fixer, ROM Trimmer, ROM Renamer, Metadata Scraper, ROM Organizer |
 | [Cheats & Emulation](features/cheats-and-emulation.md) | Cheat Code Converter, Emulator Config Generator |
+| [Disc Tools](features/disc-tools.md) | Disc image burning, image creation from discs and files |
+| [USB Tools](features/usb-tools.md) | USB drive file explorer, formatting, image writing, and backup |
 
 ---
 

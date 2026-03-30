@@ -3,6 +3,7 @@ using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Utilities;
+using RetroMultiTools.Utilities.RomManagement;
 using RetroMultiTools.Utilities.Analogue;
 
 namespace RetroMultiTools.Views.Analogue;
@@ -17,6 +18,9 @@ public partial class AnalogueNtSuperNtView : UserControl
     public AnalogueNtSuperNtView()
     {
         InitializeComponent();
+        DragDropHelper.EnableFileDrop(SdCardPathTextBox, acceptDirectories: true);
+        DragDropHelper.EnableFileDrop(FontImageTextBox);
+        DragDropHelper.EnableFileDrop(NesRomTextBox, _ => RepairHeaderButton.IsEnabled = true);
     }
 
     private async void BrowseSdCard_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

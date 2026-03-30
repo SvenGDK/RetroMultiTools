@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Localization;
+using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.Mame;
 
 namespace RetroMultiTools.Views.Mame;
@@ -16,6 +17,9 @@ public partial class MameSetRebuilderView : UserControl
     public MameSetRebuilderView()
     {
         InitializeComponent();
+        DragDropHelper.EnableFileDrop(XmlFileTextBox, _ => UpdateRebuildButton());
+        DragDropHelper.EnableFileDrop(SourceDirTextBox, _ => UpdateRebuildButton(), acceptDirectories: true);
+        DragDropHelper.EnableFileDrop(OutputDirTextBox, _ => UpdateRebuildButton(), acceptDirectories: true);
     }
 
     private async void BrowseXml_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

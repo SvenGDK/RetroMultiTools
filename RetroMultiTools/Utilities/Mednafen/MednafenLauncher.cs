@@ -1,3 +1,4 @@
+using RetroMultiTools.Utilities.Integrations;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using RetroMultiTools.Services;
@@ -106,6 +107,16 @@ public static class MednafenLauncher
             string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             if (string.IsNullOrEmpty(homeDir))
                 return null;
+
+            // On Linux, check XDG_CONFIG_HOME first (newer Mednafen versions may use it)
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                string xdgConfig = Environment.GetEnvironmentVariable("XDG_CONFIG_HOME")
+                    ?? Path.Combine(homeDir, ".config");
+                string xdgMednafen = Path.Combine(xdgConfig, "mednafen");
+                if (Directory.Exists(xdgMednafen))
+                    return xdgMednafen;
+            }
 
             // Return the expected path even if the directory doesn't exist yet
             // so callers can create it on demand (e.g. on fresh installs).
@@ -293,11 +304,19 @@ public static class MednafenLauncher
         try
         {
             string url = GetDownloadUrl();
-            using var process = Process.Start(new ProcessStartInfo
+
+            ProcessStartInfo psi;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                FileName = url,
-                UseShellExecute = true
-            });
+                psi = new ProcessStartInfo { FileName = "xdg-open", UseShellExecute = false };
+                psi.ArgumentList.Add(url);
+            }
+            else
+            {
+                psi = new ProcessStartInfo { FileName = url, UseShellExecute = true };
+            }
+
+            using var process = Process.Start(psi);
             return true;
         }
         catch (InvalidOperationException)
@@ -368,7 +387,22 @@ public static class MednafenLauncher
         }
 
         // Try to find mednafen on the system PATH
-        return FindOnPath("mednafen");
+        string? pathFound = FindOnPath("mednafen");
+        if (pathFound != null)
+            return pathFound;
+
+        // Try Flatpak: user installation
+        string flatpakPath = Path.Combine(homeDir,
+            ".local", "share", "flatpak", "exports", "bin", "com.mednafen.Mednafen");
+        if (File.Exists(flatpakPath))
+            return flatpakPath;
+
+        // Try Flatpak: system-wide installation
+        const string systemFlatpakPath = "/var/lib/flatpak/exports/bin/com.mednafen.Mednafen";
+        if (File.Exists(systemFlatpakPath))
+            return systemFlatpakPath;
+
+        return null;
     }
 
     private static string? DetectMednafenMacOS()

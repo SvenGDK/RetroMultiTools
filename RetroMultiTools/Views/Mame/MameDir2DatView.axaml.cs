@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Localization;
+using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.Mame;
 
 namespace RetroMultiTools.Views.Mame;
@@ -16,6 +17,7 @@ public partial class MameDir2DatView : UserControl
     public MameDir2DatView()
     {
         InitializeComponent();
+        DragDropHelper.EnableFileDrop(RomDirTextBox, _ => UpdateButtons(), acceptDirectories: true);
     }
 
     private async void BrowseRomDir_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

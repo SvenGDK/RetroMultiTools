@@ -1,0 +1,203 @@
+using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Platform.Storage;
+using RetroMultiTools.Localization;
+using RetroMultiTools.Utilities;
+using RetroMultiTools.Utilities.RomManagement;
+
+namespace RetroMultiTools.Views.RomManagement;
+
+public partial class BatchHeaderFixerView : UserControl
+{
+    private static readonly IBrush StatusErrorBrush = new SolidColorBrush(Color.Parse("#F38BA8"));
+    private static readonly IBrush StatusSuccessBrush = new SolidColorBrush(Color.Parse("#A6E3A1"));
+    public BatchHeaderFixerView()
+    {
+        InitializeComponent();
+        OutputPathTextBox.TextChanged += (_, _) => UpdateFixButton();
+        DragDropHelper.EnableFileDrop(InputPathTextBox, _ =>
+        {
+            UpdateOutputPath();
+            UpdateFixButton();
+        }, acceptDirectories: true);
+    }
+
+    private void ModeRadio_Checked(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (InputLabel == null) return;
+        if (sender is not RadioButton rb || rb.IsChecked != true) return;
+
+        bool isBatch = sender == BatchModeRadio;
+        var loc = LocalizationManager.Instance;
+        InputLabel.Text = isBatch ? loc["Common_RomDirectory"] : loc["Common_RomFile"];
+        InputPathTextBox.Watermark = isBatch ? loc["HeaderFixer_SelectRomDirWatermark"] : loc["HeaderFixer_SelectRomFileWatermark"];
+        OutputLabel.Text = isBatch ? loc["Common_OutputDirectory"] : loc["Common_OutputFile"];
+        OutputPathTextBox.Watermark = isBatch ? loc["Common_OutputDirectoryWatermark"] : loc["Common_OutputFileWatermark"];
+        InputPathTextBox.Text = string.Empty;
+        OutputPathTextBox.Text = string.Empty;
+        StatusBorder.IsVisible = false;
+        DetailsBorder.IsVisible = false;
+        UpdateFixButton();
+    }
+
+    private async void BrowseInput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        bool isBatch = BatchModeRadio.IsChecked == true;
+
+        if (isBatch)
+        {
+            var path = await PickFolder(LocalizationManager.Instance["Common_SelectRomDirectoryTitle"]);
+            if (path == null) return;
+            InputPathTextBox.Text = path;
+        }
+        else
+        {
+            var path = await PickFile(LocalizationManager.Instance["Common_SelectRomFileTitle"],
+            [
+                new FilePickerFileType("Supported ROM Files") { Patterns = ["*.nes", "*.smc", "*.sfc", "*.gb", "*.gbc", "*.gba", "*.md", "*.gen", "*.sms", "*.gg", "*.z64", "*.n64", "*.v64", "*.32x", "*.a78", "*.lnx", "*.pce", "*.tg16", "*.vb", "*.vboy", "*.ngp", "*.ngc", "*.j64", "*.jag", "*.mx1", "*.mx2", "*.col", "*.cv", "*.sv", "*.nds", "*.int"] },
+                FilePickerFileTypes.All
+            ]);
+            if (path == null) return;
+            InputPathTextBox.Text = path;
+        }
+
+        UpdateOutputPath();
+        UpdateFixButton();
+    }
+
+    private void UpdateOutputPath()
+    {
+        if (string.IsNullOrEmpty(InputPathTextBox.Text)) return;
+
+        bool isBatch = BatchModeRadio.IsChecked == true;
+        if (isBatch)
+        {
+            OutputPathTextBox.Text = InputPathTextBox.Text + "_fixed";
+        }
+        else
+        {
+            string dir = Path.GetDirectoryName(InputPathTextBox.Text) ?? "";
+            string name = Path.GetFileNameWithoutExtension(InputPathTextBox.Text);
+            string ext = Path.GetExtension(InputPathTextBox.Text);
+            OutputPathTextBox.Text = Path.Combine(dir, name + "_fixed" + ext);
+        }
+    }
+
+    private void UpdateFixButton()
+    {
+        FixButton.IsEnabled = !string.IsNullOrEmpty(InputPathTextBox.Text) &&
+                              !string.IsNullOrEmpty(OutputPathTextBox.Text);
+    }
+
+    private async void BrowseOutput_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        var loc = LocalizationManager.Instance;
+        bool isBatch = BatchModeRadio.IsChecked == true;
+
+        if (isBatch)
+        {
+            var path = await PickFolder(LocalizationManager.Instance["Common_SelectOutputDirectoryTitle"]);
+            if (path != null) OutputPathTextBox.Text = path;
+        }
+        else
+        {
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel == null) return;
+
+            var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = loc["HeaderFixer_SaveDialogTitle"],
+                SuggestedFileName = Path.GetFileName(OutputPathTextBox.Text ?? "fixed.rom")
+            });
+
+            if (file != null)
+                OutputPathTextBox.Text = file.Path.LocalPath;
+        }
+    }
+
+    private async void FixButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        var loc = LocalizationManager.Instance;
+        string input = InputPathTextBox.Text ?? "";
+        string output = OutputPathTextBox.Text ?? "";
+
+        if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(output))
+        {
+            ShowStatus(loc["HeaderFixer_SelectInputOutput"], isError: true);
+            return;
+        }
+
+        FixButton.IsEnabled = false;
+        ProgressPanel.IsVisible = true;
+        StatusBorder.IsVisible = false;
+        DetailsBorder.IsVisible = false;
+
+        try
+        {
+            var progress = new Progress<string>(msg => ProgressText.Text = msg);
+            bool isBatch = BatchModeRadio.IsChecked == true;
+
+            if (isBatch)
+            {
+                var result = await BatchHeaderFixer.FixDirectoryAsync(input, output, progress);
+                ShowStatus(string.Format(loc["HeaderFixer_FixComplete"], result.Summary), isError: false);
+
+                if (result.Details.Count > 0)
+                {
+                    DetailsText.Text = string.Join("\n", result.Details);
+                    DetailsBorder.IsVisible = true;
+                }
+            }
+            else
+            {
+                string resultMsg = await BatchHeaderFixer.FixSingleAsync(input, output, progress);
+                ShowStatus(resultMsg, isError: false);
+            }
+        }
+        catch (Exception ex) when (ex is InvalidOperationException or IOException or UnauthorizedAccessException)
+        {
+            ShowStatus(string.Format(loc["Common_ErrorFormat"], ex.Message), isError: true);
+        }
+        finally
+        {
+            ProgressPanel.IsVisible = false;
+            FixButton.IsEnabled = true;
+        }
+    }
+
+    private void ShowStatus(string message, bool isError)
+    {
+        StatusText.Text = message;
+        StatusText.Foreground = isError ? StatusErrorBrush : StatusSuccessBrush;
+        StatusBorder.IsVisible = true;
+    }
+
+    private async Task<string?> PickFile(string title, FilePickerFileType[] filters)
+    {
+        var topLevel = TopLevel.GetTopLevel(this);
+        if (topLevel == null) return null;
+
+        var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+        {
+            Title = title,
+            AllowMultiple = false,
+            FileTypeFilter = filters
+        });
+
+        return files.Count > 0 ? files[0].Path.LocalPath : null;
+    }
+
+    private async Task<string?> PickFolder(string title)
+    {
+        var topLevel = TopLevel.GetTopLevel(this);
+        if (topLevel == null) return null;
+
+        var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+        {
+            Title = title,
+            AllowMultiple = false
+        });
+
+        return folders.Count > 0 ? folders[0].Path.LocalPath : null;
+    }
+}

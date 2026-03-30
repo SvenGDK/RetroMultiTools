@@ -6124,4 +6124,1204 @@ Run:notepad.exe</value>
   <data name="Settings_Clear" xml:space="preserve">
     <value>クリア</value>
   </data>
+  <data name="Nav_DiscTools" xml:space="preserve">
+    <value>ディスクツール</value>
+  </data>
+  <data name="DiscTools_Title" xml:space="preserve">
+    <value>ディスクツール</value>
+  </data>
+  <data name="DiscTools_Description" xml:space="preserve">
+    <value>ディスク イメージまたはファイルを光メディアに書き込み、物理ディスクまたはファイルからディスク イメージを作成します。 ISO、BIN/CUE、IMG、GDI、CDI、NRG、およびその他のゲーム システム ディスク フォーマットをサポートします。</value>
+  </data>
+  <data name="DiscTools_Operation" xml:space="preserve">
+    <value>手術：</value>
+  </data>
+  <data name="DiscTools_OpBurnImage" xml:space="preserve">
+    <value>イメージをディスクに書き込む</value>
+  </data>
+  <data name="DiscTools_OpBurnFiles" xml:space="preserve">
+    <value>ファイルをディスクに書き込む</value>
+  </data>
+  <data name="DiscTools_OpImageFromDisc" xml:space="preserve">
+    <value>ディスクからイメージを作成</value>
+  </data>
+  <data name="DiscTools_OpImageFromFiles" xml:space="preserve">
+    <value>ファイルから画像を作成</value>
+  </data>
+  <data name="DiscTools_Drive" xml:space="preserve">
+    <value>光学ドライブ:</value>
+  </data>
+  <data name="DiscTools_SelectDrive" xml:space="preserve">
+    <value>光学ドライブを選択してください...</value>
+  </data>
+  <data name="DiscTools_RefreshDrives" xml:space="preserve">
+    <value>リフレッシュ</value>
+  </data>
+  <data name="DiscTools_NoDrivesFound" xml:space="preserve">
+    <value>このシステムでは光学式ドライブが検出されませんでした。</value>
+  </data>
+  <data name="DiscTools_ImageFile" xml:space="preserve">
+    <value>画像ファイル:</value>
+  </data>
+  <data name="DiscTools_SelectImageFile" xml:space="preserve">
+    <value>ディスクイメージファイルを選択してください...</value>
+  </data>
+  <data name="DiscTools_ImageFiles" xml:space="preserve">
+    <value>ディスクイメージファイル</value>
+  </data>
+  <data name="DiscTools_FilesOrFolders" xml:space="preserve">
+    <value>ファイル/フォルダー:</value>
+  </data>
+  <data name="DiscTools_SelectFilesOrFolders" xml:space="preserve">
+    <value>書き込むファイルまたはフォルダーを選択してください...</value>
+  </data>
+  <data name="DiscTools_SelectFolder" xml:space="preserve">
+    <value>フォルダーを選択してください</value>
+  </data>
+  <data name="DiscTools_OutputFile" xml:space="preserve">
+    <value>出力画像ファイル:</value>
+  </data>
+  <data name="DiscTools_SelectOutputImage" xml:space="preserve">
+    <value>出力画像ファイルのパスを選択してください...</value>
+  </data>
+  <data name="DiscTools_VolumeLabel" xml:space="preserve">
+    <value>ボリュームラベル:</value>
+  </data>
+  <data name="DiscTools_VolumeLabelHint" xml:space="preserve">
+    <value>ディスクのボリューム ラベルを入力してください...</value>
+  </data>
+  <data name="DiscTools_WriteSpeed" xml:space="preserve">
+    <value>書き込み速度:</value>
+  </data>
+  <data name="DiscTools_SpeedAuto" xml:space="preserve">
+    <value>自動(最大)</value>
+  </data>
+  <data name="DiscTools_VerifyAfterBurn" xml:space="preserve">
+    <value>書き込んだ後に確認する</value>
+  </data>
+  <data name="DiscTools_Burn" xml:space="preserve">
+    <value>ディスクへの書き込み</value>
+  </data>
+  <data name="DiscTools_CreateImage" xml:space="preserve">
+    <value>画像の作成</value>
+  </data>
+  <data name="DiscTools_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="DiscTools_DetectingDrives" xml:space="preserve">
+    <value>光学ドライブを検出しています...</value>
+  </data>
+  <data name="DiscTools_DriveDetectError" xml:space="preserve">
+    <value>ドライブ検出エラー:{0}</value>
+  </data>
+  <data name="DiscTools_ImageNotFound" xml:space="preserve">
+    <value>画像ファイルが見つかりません。</value>
+  </data>
+  <data name="DiscTools_BurningImage" xml:space="preserve">
+    <value>書き込みイメージ：{0}</value>
+  </data>
+  <data name="DiscTools_BurningFiles" xml:space="preserve">
+    <value>{0} 項目をディスクに書き込みています...</value>
+  </data>
+  <data name="DiscTools_NoFilesSelected" xml:space="preserve">
+    <value>ファイルまたはフォルダーが選択されていません。</value>
+  </data>
+  <data name="DiscTools_OutputRequired" xml:space="preserve">
+    <value>出力ファイルのパスは必須です。</value>
+  </data>
+  <data name="DiscTools_ReadingDisc" xml:space="preserve">
+    <value>ディスクを読み取っています...</value>
+  </data>
+  <data name="DiscTools_CreatingImage" xml:space="preserve">
+    <value>イメージの作成:{0}</value>
+  </data>
+  <data name="DiscTools_WritingToDisc" xml:space="preserve">
+    <value>ディスクにデータを書き込んでいます...</value>
+  </data>
+  <data name="DiscTools_RunningTool" xml:space="preserve">
+    <value>{0} を実行中...</value>
+  </data>
+  <data name="DiscTools_BurnComplete" xml:space="preserve">
+    <value>✔ ディスクへの書き込みに成功しました。</value>
+  </data>
+  <data name="DiscTools_BurnFailed" xml:space="preserve">
+    <value>✘ 書き込み失敗:{0}</value>
+  </data>
+  <data name="DiscTools_ImageCreated" xml:space="preserve">
+    <value>✔ 作成した画像: {0} ({1})</value>
+  </data>
+  <data name="DiscTools_ImageCreateFailed" xml:space="preserve">
+    <value>✘ イメージの作成に失敗しました:{0}</value>
+  </data>
+  <data name="DiscTools_UnsupportedPlatform" xml:space="preserve">
+    <value>このプラットフォームはディスク操作をサポートしていません。</value>
+  </data>
+  <data name="DiscTools_NoBurnTool" xml:space="preserve">
+    <value>ディスク書き込みツールが見つかりません。 wodim、cdrecord、または xorrecord をインストールしてください。</value>
+  </data>
+  <data name="DiscTools_NoIsoTool" xml:space="preserve">
+    <value>ISO 作成ツールが見つかりません。 xorrisofs、genisoimage、または mkisofs をインストールしてください。</value>
+  </data>
+  <data name="DiscTools_IsoCreateFailed" xml:space="preserve">
+    <value>ISO の作成に失敗しました:{0}</value>
+  </data>
+  <data name="DiscTools_CreatingIso" xml:space="preserve">
+    <value>ISO イメージを作成しています...</value>
+  </data>
+  <data name="DiscTools_OperationCancelled" xml:space="preserve">
+    <value>操作はキャンセルされました。</value>
+  </data>
+  <data name="DiscTools_BrowseFolder" xml:space="preserve">
+    <value>フォルダの参照</value>
+  </data>
+  <data name="DiscTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>イメージ形式「{0}」はディスクに書き込むことができません。サポートされている形式: ISO、BIN/CUE、IMG、NRG、TOAST。</value>
+  </data>
+  <data name="DiscTools_Verifying" xml:space="preserve">
+    <value>ディスクを検証中...</value>
+  </data>
+  <data name="DiscTools_BurnCompleteVerifySkipped" xml:space="preserve">
+    <value>書き込みが正常に完了しました。検証を実行できませんでした。</value>
+  </data>
+  <data name="DiscTools_VerifyFailed" xml:space="preserve">
+    <value>書き込みは完了しましたが、検証に失敗しました。ディスク データがソース イメージと一致しません。</value>
+  </data>
+  <data name="DiscTools_IsoImageType" xml:space="preserve">
+    <value>ISO イメージ</value>
+  </data>
+  <data name="DiscTools_BinCueImageType" xml:space="preserve">
+    <value>BIN/CUE画像</value>
+  </data>
+  <data name="Nav_UsbTools" xml:space="preserve">
+    <value>USBツール</value>
+  </data>
+  <data name="UsbTools_Title" xml:space="preserve">
+    <value>USBツール</value>
+  </data>
+  <data name="UsbTools_Description" xml:space="preserve">
+    <value>USBドライブのフォーマット、イメージの書き込み、イメージの作成、ファイルの参照。</value>
+  </data>
+  <data name="UsbTools_Drive" xml:space="preserve">
+    <value>USBドライブ</value>
+  </data>
+  <data name="UsbTools_SelectDrive" xml:space="preserve">
+    <value>USBドライブを選択...</value>
+  </data>
+  <data name="UsbTools_RefreshDrives" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="UsbTools_DetectingDrives" xml:space="preserve">
+    <value>USBドライブを検出中...</value>
+  </data>
+  <data name="UsbTools_NoDrivesFound" xml:space="preserve">
+    <value>USBドライブが見つかりません。</value>
+  </data>
+  <data name="UsbTools_DriveDetectError" xml:space="preserve">
+    <value>ドライブの検出エラー: {0}</value>
+  </data>
+  <data name="UsbTools_NoDriveSelected" xml:space="preserve">
+    <value>USBドライブが選択されていません。</value>
+  </data>
+  <data name="UsbTools_UnsupportedPlatform" xml:space="preserve">
+    <value>この操作は現在のプラットフォームではサポートされていません。</value>
+  </data>
+  <data name="UsbTools_TabExplorer" xml:space="preserve">
+    <value>ファイルエクスプローラー</value>
+  </data>
+  <data name="UsbTools_TabFormat" xml:space="preserve">
+    <value>フォーマット</value>
+  </data>
+  <data name="UsbTools_TabWriteImage" xml:space="preserve">
+    <value>イメージの書き込み</value>
+  </data>
+  <data name="UsbTools_TabCreateImage" xml:space="preserve">
+    <value>イメージの作成</value>
+  </data>
+  <data name="UsbTools_NavigateUp" xml:space="preserve">
+    <value>上へ移動</value>
+  </data>
+  <data name="UsbTools_RefreshFiles" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="UsbTools_AddFiles" xml:space="preserve">
+    <value>ファイルを追加</value>
+  </data>
+  <data name="UsbTools_NewFolder" xml:space="preserve">
+    <value>新しいフォルダー</value>
+  </data>
+  <data name="UsbTools_Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="UsbTools_Move" xml:space="preserve">
+    <value>移動</value>
+  </data>
+  <data name="UsbTools_FileSystem" xml:space="preserve">
+    <value>ファイルシステム</value>
+  </data>
+  <data name="UsbTools_PartitionScheme" xml:space="preserve">
+    <value>パーティションスキーム</value>
+  </data>
+  <data name="UsbTools_VolumeLabel" xml:space="preserve">
+    <value>ボリュームラベル</value>
+  </data>
+  <data name="UsbTools_VolumeLabelHint" xml:space="preserve">
+    <value>ボリュームラベルを入力</value>
+  </data>
+  <data name="UsbTools_FormatWarning" xml:space="preserve">
+    <value>⚠ 警告: フォーマットすると、選択したUSBドライブのすべてのデータが消去されます。この操作は元に戻せません。</value>
+  </data>
+  <data name="UsbTools_Format" xml:space="preserve">
+    <value>USBドライブをフォーマット</value>
+  </data>
+  <data name="UsbTools_PreparingFormat" xml:space="preserve">
+    <value>フォーマットの準備中...</value>
+  </data>
+  <data name="UsbTools_Formatting" xml:space="preserve">
+    <value>{0} ({1}) にフォーマット中...</value>
+  </data>
+  <data name="UsbTools_FormatComplete" xml:space="preserve">
+    <value>USBドライブのフォーマットが完了しました。</value>
+  </data>
+  <data name="UsbTools_FormatFailed" xml:space="preserve">
+    <value>フォーマット失敗: {0}</value>
+  </data>
+  <data name="UsbTools_UnsupportedFileSystem" xml:space="preserve">
+    <value>サポートされていないファイルシステム: {0}</value>
+  </data>
+  <data name="UsbTools_NtfsMacWarning" xml:space="preserve">
+    <value>注意: macOSはNTFSフォーマットをネイティブにサポートしていません。代わりにExFATでフォーマットされました。</value>
+  </data>
+  <data name="UsbTools_ConfirmFormat" xml:space="preserve">
+    <value>フォーマットの確認</value>
+  </data>
+  <data name="UsbTools_ConfirmFormatMessage" xml:space="preserve">
+    <value>{0} をフォーマットしてもよろしいですか？すべてのデータが完全に消去されます。</value>
+  </data>
+  <data name="UsbTools_ImageFile" xml:space="preserve">
+    <value>イメージファイル</value>
+  </data>
+  <data name="UsbTools_SelectImageFile" xml:space="preserve">
+    <value>イメージファイルを選択...</value>
+  </data>
+  <data name="UsbTools_ImageFiles" xml:space="preserve">
+    <value>ディスクイメージファイル</value>
+  </data>
+  <data name="UsbTools_ImageNotFound" xml:space="preserve">
+    <value>イメージファイルが見つかりません。</value>
+  </data>
+  <data name="UsbTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>サポートされていないイメージ形式: {0}</value>
+  </data>
+  <data name="UsbTools_WriteWarning" xml:space="preserve">
+    <value>⚠ 警告: イメージを書き込むと、選択したUSBドライブのすべてのデータが消去されます。この操作は元に戻せません。</value>
+  </data>
+  <data name="UsbTools_WriteImage" xml:space="preserve">
+    <value>USBにイメージを書き込み</value>
+  </data>
+  <data name="UsbTools_WritingImage" xml:space="preserve">
+    <value>{0} をUSBドライブに書き込み中...</value>
+  </data>
+  <data name="UsbTools_WriteComplete" xml:space="preserve">
+    <value>USBドライブへのイメージの書き込みが完了しました。</value>
+  </data>
+  <data name="UsbTools_WriteFailed" xml:space="preserve">
+    <value>書き込み失敗: {0}</value>
+  </data>
+  <data name="UsbTools_ConfirmWrite" xml:space="preserve">
+    <value>書き込みの確認</value>
+  </data>
+  <data name="UsbTools_ConfirmWriteMessage" xml:space="preserve">
+    <value>{0} を {1} に書き込んでもよろしいですか？既存のデータはすべて完全に消去されます。</value>
+  </data>
+  <data name="UsbTools_OutputFile" xml:space="preserve">
+    <value>出力ファイル</value>
+  </data>
+  <data name="UsbTools_SelectOutputImage" xml:space="preserve">
+    <value>出力イメージの場所を選択...</value>
+  </data>
+  <data name="UsbTools_CreateImage" xml:space="preserve">
+    <value>USBからイメージを作成</value>
+  </data>
+  <data name="UsbTools_CreatingImage" xml:space="preserve">
+    <value>USBドライブからイメージを作成中...</value>
+  </data>
+  <data name="UsbTools_ImageCreated" xml:space="preserve">
+    <value>イメージが正常に作成されました: {0}</value>
+  </data>
+  <data name="UsbTools_ImageCreateFailed" xml:space="preserve">
+    <value>イメージの作成に失敗しました: {0}</value>
+  </data>
+  <data name="UsbTools_OutputRequired" xml:space="preserve">
+    <value>出力ファイルパスが必要です。</value>
+  </data>
+  <data name="UsbTools_ImgFileType" xml:space="preserve">
+    <value>IMGイメージ</value>
+  </data>
+  <data name="UsbTools_IsoFileType" xml:space="preserve">
+    <value>ISOイメージ</value>
+  </data>
+  <data name="UsbTools_OperationCancelled" xml:space="preserve">
+    <value>操作がキャンセルされました。</value>
+  </data>
+  <data name="UsbTools_FolderExists" xml:space="preserve">
+    <value>その名前のフォルダーは既に存在します。</value>
+  </data>
+  <data name="UsbTools_FolderCreated" xml:space="preserve">
+    <value>フォルダーが正常に作成されました。</value>
+  </data>
+  <data name="UsbTools_DeleteComplete" xml:space="preserve">
+    <value>正常に削除されました。</value>
+  </data>
+  <data name="UsbTools_EntryNotFound" xml:space="preserve">
+    <value>ファイルまたはフォルダーが見つかりません。</value>
+  </data>
+  <data name="UsbTools_DestinationExists" xml:space="preserve">
+    <value>同じ名前のアイテムが既に宛先に存在します。</value>
+  </data>
+  <data name="UsbTools_MoveComplete" xml:space="preserve">
+    <value>正常に移動されました。</value>
+  </data>
+  <data name="UsbTools_SelectMoveDestination" xml:space="preserve">
+    <value>宛先フォルダーを選択</value>
+  </data>
+  <data name="UsbTools_CopyingFile" xml:space="preserve">
+    <value>{0} をコピー中...</value>
+  </data>
+  <data name="UsbTools_AddComplete" xml:space="preserve">
+    <value>{0} 個のアイテムが正常に追加されました。</value>
+  </data>
+  <data name="UsbTools_ConfirmDelete" xml:space="preserve">
+    <value>削除の確認</value>
+  </data>
+  <data name="UsbTools_ConfirmDeleteMessage" xml:space="preserve">
+    <value>'{0}' を削除してもよろしいですか？この操作は元に戻せません。</value>
+  </data>
+  <data name="UsbTools_EnterFolderName" xml:space="preserve">
+    <value>フォルダー名を入力:</value>
+  </data>
+  <data name="UsbTools_FolderNameHint" xml:space="preserve">
+    <value>フォルダー名</value>
+  </data>
+  <data name="Tour_Skip" xml:space="preserve">
+    <value>ツアーをスキップ</value>
+  </data>
+  <data name="Tour_Back" xml:space="preserve">
+    <value>戻る</value>
+  </data>
+  <data name="Tour_Next" xml:space="preserve">
+    <value>次へ</value>
+  </data>
+  <data name="Tour_Finish" xml:space="preserve">
+    <value>始めましょう</value>
+  </data>
+  <data name="Tour_WelcomeTitle" xml:space="preserve">
+    <value>RetroMultiToolsへようこそ！</value>
+  </data>
+  <data name="Tour_WelcomeDesc" xml:space="preserve">
+    <value>レトロゲーム向けのオールインワンツールキット。このアプリでできることをすぐにご案内します。たった1分で完了します！</value>
+  </data>
+  <data name="Tour_SidebarTitle" xml:space="preserve">
+    <value>サイドバーナビゲーション</value>
+  </data>
+  <data name="Tour_SidebarDesc" xml:space="preserve">
+    <value>左側のサイドバーを使ってツールを切り替えます。ブラウジング、パッチ適用、分析などのカテゴリに整理されています。</value>
+  </data>
+  <data name="Tour_BrowserTitle" xml:space="preserve">
+    <value>ROMブラウザー</value>
+  </data>
+  <data name="Tour_BrowserDesc" xml:space="preserve">
+    <value>強力なファイルブラウザーでROMコレクションを閲覧します。ファイルの詳細を表示し、フォルダーを開いて、お探しのゲームをすばやく見つけることができます。</value>
+  </data>
+  <data name="Tour_InspectorTitle" xml:space="preserve">
+    <value>ROMインスペクター &amp; ヘックスビューアー</value>
+  </data>
+  <data name="Tour_InspectorDesc" xml:space="preserve">
+    <value>ROMファイルのヘッダーを検査し、内部メタデータを表示し、内蔵のヘックスビューアーで生バイトを調べます。上級ユーザーや開発者に最適です。</value>
+  </data>
+  <data name="Tour_PatchingTitle" xml:space="preserve">
+    <value>パッチ適用 &amp; 変換</value>
+  </data>
+  <data name="Tour_PatchingDesc" xml:space="preserve">
+    <value>IPS/BPS/UPSパッチを適用し、独自のパッチを作成し、ROMフォーマットを変換し、セーブファイルを変換し、N64バイトスワッピングを処理します — すべて一か所で。</value>
+  </data>
+  <data name="Tour_AnalysisTitle" xml:space="preserve">
+    <value>分析 &amp; 検証</value>
+  </data>
+  <data name="Tour_AnalysisDesc" xml:space="preserve">
+    <value>DATファイルに対してROMを検証し、チェックサムを計算し、重複を見つけ、フォルダー全体を一括ハッシュし、正確なコレクション管理のためにGoodToolsセットを識別します。</value>
+  </data>
+  <data name="Tour_HeadersTitle" xml:space="preserve">
+    <value>ヘッダー &amp; トリミング</value>
+  </data>
+  <data name="Tour_HeadersDesc" xml:space="preserve">
+    <value>ROMヘッダーをエクスポート、修正、または削除します。パッディングされたROMをトリムしてスペースを節約します。SNESヘッダー管理の専門ツールを含みます。</value>
+  </data>
+  <data name="Tour_UtilitiesTitle" xml:space="preserve">
+    <value>ユーティリティ</value>
+  </data>
+  <data name="Tour_UtilitiesDesc" xml:space="preserve">
+    <value>アーカイブを管理し、チートコードを適用し、ディスクイメージを操作し、エミュレーターを設定し、ゲームパッドボタンをマッピングし、メタデータをスクレイピングし、ROMファイルを整理・リネームし、USBデバイスを管理します。</value>
+  </data>
+  <data name="Tour_EmulatorsTitle" xml:space="preserve">
+    <value>エミュレーター統合</value>
+  </data>
+  <data name="Tour_EmulatorsDesc" xml:space="preserve">
+    <value>RetroArch、MAME、Mednafenとの深い統合。プレイリストの管理、ROMセットの監査、CHDファイルの変換、DATの編集、ショートカットの作成など。</value>
+  </data>
+  <data name="Tour_AnalogueTitle" xml:space="preserve">
+    <value>Analogue FPGA</value>
+  </data>
+  <data name="Tour_AnalogueDesc" xml:space="preserve">
+    <value>Analogue FPGAハードウェア向けツール：Pocket、Mega Sg、Nt/Super Nt、そして近日公開予定の3D。デバイスのコア、ファームウェア、ゲームライブラリを管理します。</value>
+  </data>
+  <data name="Tour_BigPictureTitle" xml:space="preserve">
+    <value>Big Picture Mode</value>
+  </data>
+  <data name="Tour_BigPictureDesc" xml:space="preserve">
+    <value>フルスクリーンのゲームライブラリでリラックスして楽しみましょう。コントローラーサポート、アートワーク、プレイ追跡、評価機能付き。クラシックグリッドまたはモダンヒーローレイアウトを選択できます。</value>
+  </data>
+  <data name="Tour_SettingsTitle" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Tour_SettingsDesc" xml:space="preserve">
+    <value>エクスペリエンスをカスタマイズ：言語の変更、Discord Rich Presenceの有効化、Big Picture Modeの設定、ゲームパッドコントロールの設定、アップデートの確認。</value>
+  </data>
+  <data name="Tour_FinishTitle" xml:space="preserve">
+    <value>準備完了！</value>
+  </data>
+  <data name="Tour_FinishDesc" xml:space="preserve">
+    <value>以上がすべてです！サイドバーのツールを探索してください。復習が必要な場合は、設定からいつでもこのツアーを再開できます。お楽しみください！</value>
+  </data>
+  <data name="Tour_SettingSectionTitle" xml:space="preserve">
+    <value>ガイドツアー</value>
+  </data>
+  <data name="Tour_SettingSectionDesc" xml:space="preserve">
+    <value>アプリケーションのすべての機能を説明するガイドツアーを再生します。</value>
+  </data>
+  <data name="Tour_RestartButton" xml:space="preserve">
+    <value>ツアーを再起動</value>
+  </data>
+  <data name="Browser_SelectFolderTooltip" xml:space="preserve">
+    <value>Browse for a ROM folder to scan</value>
+  </data>
+  <data name="Browser_AddRomsTooltip" xml:space="preserve">
+    <value>Add ROM files to the current folder</value>
+  </data>
+  <data name="Browser_CopyToTooltip" xml:space="preserve">
+    <value>Copy selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_MoveToTooltip" xml:space="preserve">
+    <value>Move selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_DeleteTooltip" xml:space="preserve">
+    <value>Delete the selected ROMs</value>
+  </data>
+  <data name="Browser_OrganizeTooltip" xml:space="preserve">
+    <value>Organize ROMs into subfolders by system</value>
+  </data>
+  <data name="Browser_SendToRemoteTooltip" xml:space="preserve">
+    <value>Send selected ROMs to a remote device or cloud storage</value>
+  </data>
+  <data name="Browser_HostShareTooltip" xml:space="preserve">
+    <value>Host a local server to share ROMs on the network</value>
+  </data>
+  <data name="Browser_LaunchRetroArchTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in RetroArch</value>
+  </data>
+  <data name="Browser_LaunchMameTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in MAME</value>
+  </data>
+  <data name="Browser_LaunchMednafenTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in Mednafen</value>
+  </data>
+  <data name="Browser_BigPictureModeTooltip" xml:space="preserve">
+    <value>Enter full-screen Big Picture Mode for gamepad-friendly browsing</value>
+  </data>
+  <data name="MainWindow_SearchShortcut" xml:space="preserve">
+    <value>Search tools (Ctrl+F)</value>
+  </data>
+  <data name="BigPictureModern_AllGames" xml:space="preserve">
+    <value>すべてのゲーム</value>
+  </data>
+  <data name="BigPictureModern_EmptyCategory" xml:space="preserve">
+    <value>このカテゴリにはまだゲームがありません</value>
+  </data>
+  <data name="BigPictureModern_EmptyLibrary" xml:space="preserve">
+    <value>ライブラリは空です。ROMフォルダを参照して始めましょう。</value>
+  </data>
+  <data name="BigPictureModern_Favorites" xml:space="preserve">
+    <value>お気に入り</value>
+  </data>
+  <data name="BigPictureModern_LaunchWith" xml:space="preserve">
+    <value>{0} で起動</value>
+  </data>
+  <data name="BigPictureModern_MostPlayed" xml:space="preserve">
+    <value>最もプレイされた</value>
+  </data>
+  <data name="BigPictureModern_NoResults" xml:space="preserve">
+    <value>検索に一致するゲームはありません</value>
+  </data>
+  <data name="BigPictureModern_Plays" xml:space="preserve">
+    <value>{0} 回プレイ</value>
+  </data>
+  <data name="BigPictureModern_RecentlyPlayed" xml:space="preserve">
+    <value>最近プレイした</value>
+  </data>
+  <data name="BigPictureModern_SearchPlaceholder" xml:space="preserve">
+    <value>ライブラリを検索...</value>
+  </data>
+  <data name="BigPictureModern_Spotlight" xml:space="preserve">
+    <value>スポットライト</value>
+  </data>
+  <data name="BigPictureModern_TopRated" xml:space="preserve">
+    <value>高評価</value>
+  </data>
+  <data name="BigPicture_CopiedToClipboard" xml:space="preserve">
+    <value>パスをクリップボードにコピーしました</value>
+  </data>
+  <data name="BigPicture_CopyFilePath" xml:space="preserve">
+    <value>ファイルパスをコピー</value>
+  </data>
+  <data name="BigPicture_OpenFileLocation" xml:space="preserve">
+    <value>ファイルの場所を開く</value>
+  </data>
+  <data name="BigPicture_SortPlayCount" xml:space="preserve">
+    <value>プレイ回数（多い→少ない）</value>
+  </data>
+  <data name="Browser_ContextChecksum" xml:space="preserve">
+    <value>#️⃣ チェックサムを計算</value>
+  </data>
+  <data name="Browser_ContextGoodTools" xml:space="preserve">
+    <value>🏷️ GoodToolsで識別</value>
+  </data>
+  <data name="Browser_ContextHexView" xml:space="preserve">
+    <value>🔢 Hexビューアで開く</value>
+  </data>
+  <data name="Browser_ContextInspect" xml:space="preserve">
+    <value>🔍 ROMインスペクタで開く</value>
+  </data>
+  <data name="Browser_ContextOpenFolder" xml:space="preserve">
+    <value>📂 格納フォルダを開く</value>
+  </data>
+  <data name="Browser_ContextOpenWith" xml:space="preserve">
+    <value>🚀 プログラムから開く</value>
+  </data>
+  <data name="Browser_ContextPatch" xml:space="preserve">
+    <value>🩹 ROMにパッチ...</value>
+  </data>
+  <data name="Browser_ContextRename" xml:space="preserve">
+    <value>✏️ 名前変更...</value>
+  </data>
+  <data name="Browser_ContextTools" xml:space="preserve">
+    <value>🔧 ツール</value>
+  </data>
+  <data name="Browser_OpenFolderError" xml:space="preserve">
+    <value>フォルダを開けませんでした: {0}</value>
+  </data>
+  <data name="Browser_RenameError" xml:space="preserve">
+    <value>名前の変更に失敗しました: {0}</value>
+  </data>
+  <data name="Browser_RenamePromptTitle" xml:space="preserve">
+    <value>ROMの名前変更</value>
+  </data>
+  <data name="Browser_RenameSuccess" xml:space="preserve">
+    <value>{0} に名前を変更しました</value>
+  </data>
+  <data name="Checksum_Description" xml:space="preserve">
+    <value>ROMファイルのCRC32、MD5、SHA-1、SHA-256チェックサムを計算して、整合性の検証とダンプの識別を行います。</value>
+  </data>
+  <data name="Common_SelectFileTitle" xml:space="preserve">
+    <value>ファイルを選択</value>
+  </data>
+  <data name="Common_SelectOutputDirectoryTitle" xml:space="preserve">
+    <value>出力ディレクトリを選択</value>
+  </data>
+  <data name="Common_SelectRomDirectoryTitle" xml:space="preserve">
+    <value>ROMディレクトリを選択</value>
+  </data>
+  <data name="Common_SelectRomFileTitle" xml:space="preserve">
+    <value>ROMファイルを選択</value>
+  </data>
+  <data name="Comparer_Description" xml:space="preserve">
+    <value>2つのROMファイルをバイト単位で比較し、サイズやコンテンツの違いを特定し、最初の不一致オフセットを見つけます。</value>
+  </data>
+  <data name="GoodTools_NoCodesForFile" xml:space="preserve">
+    <value>GoodToolsコードが見つかりません。</value>
+  </data>
+  <data name="MameConfig_Artwork" xml:space="preserve">
+    <value>アートワークオプション</value>
+  </data>
+  <data name="MameConfig_AutoEnable" xml:space="preserve">
+    <value>入力自動有効化オプション</value>
+  </data>
+  <data name="MameConfig_Bgfx" xml:space="preserve">
+    <value>BGFXポストプロセス</value>
+  </data>
+  <data name="MameConfig_Communication" xml:space="preserve">
+    <value>通信オプション</value>
+  </data>
+  <data name="MameConfig_ConfigFile" xml:space="preserve">
+    <value>設定ファイル</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>未保存の変更があります。破棄して続行しますか？</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>未保存の変更</value>
+  </data>
+  <data name="MameConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>すべての設定をMAMEのデフォルトにリセットします。未保存の変更は失われます。続行しますか？</value>
+  </data>
+  <data name="MameConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>デフォルトにリセット</value>
+  </data>
+  <data name="MameConfig_CoreInput" xml:space="preserve">
+    <value>コア入力オプション</value>
+  </data>
+  <data name="MameConfig_CoreMisc" xml:space="preserve">
+    <value>コアその他のオプション</value>
+  </data>
+  <data name="MameConfig_CorePerformance" xml:space="preserve">
+    <value>コアパフォーマンスオプション</value>
+  </data>
+  <data name="MameConfig_CoreSound" xml:space="preserve">
+    <value>コアサウンドオプション</value>
+  </data>
+  <data name="MameConfig_CoreVideo" xml:space="preserve">
+    <value>コアビデオオプション</value>
+  </data>
+  <data name="MameConfig_CreateNew" xml:space="preserve">
+    <value>新規作成</value>
+  </data>
+  <data name="MameConfig_Debugging" xml:space="preserve">
+    <value>デバッグオプション</value>
+  </data>
+  <data name="MameConfig_DefaultsRestored" xml:space="preserve">
+    <value>すべての設定がMAMEのデフォルトにリセットされました。</value>
+  </data>
+  <data name="MameConfig_Description" xml:space="preserve">
+    <value>MAME設定ファイル（mame.ini）の読み込み、編集、保存。Windows、macOS、Linux向けのすべてのMAME設定をサポートします。</value>
+  </data>
+  <data name="MameConfig_HttpServer" xml:space="preserve">
+    <value>HTTPサーバーオプション</value>
+  </data>
+  <data name="MameConfig_IniFileType" xml:space="preserve">
+    <value>MAME INIファイル</value>
+  </data>
+  <data name="MameConfig_IniPlaceholder" xml:space="preserve">
+    <value>mame.iniのパス...</value>
+  </data>
+  <data name="MameConfig_Language" xml:space="preserve">
+    <value>言語</value>
+  </data>
+  <data name="MameConfig_LoadError" xml:space="preserve">
+    <value>設定の読み込みに失敗しました: {0}</value>
+  </data>
+  <data name="MameConfig_Loaded" xml:space="preserve">
+    <value>{1} から {0} 個の設定を読み込みました</value>
+  </data>
+  <data name="MameConfig_NewCreated" xml:space="preserve">
+    <value>MAMEデフォルトで新しい設定が作成されました。保存先: {0}</value>
+  </data>
+  <data name="MameConfig_NoIniFound" xml:space="preserve">
+    <value>mame.iniが見つかりません。参照で場所を指定するか、新規作成でデフォルト設定を生成してください。</value>
+  </data>
+  <data name="MameConfig_OsdInput" xml:space="preserve">
+    <value>OSD入力プロバイダ</value>
+  </data>
+  <data name="MameConfig_OsdSound" xml:space="preserve">
+    <value>OSDサウンドオプション</value>
+  </data>
+  <data name="MameConfig_OsdVideo" xml:space="preserve">
+    <value>OSD / アクセラレートビデオ</value>
+  </data>
+  <data name="MameConfig_OutputDirs" xml:space="preserve">
+    <value>出力ディレクトリ</value>
+  </data>
+  <data name="MameConfig_PerWindowVideo" xml:space="preserve">
+    <value>ウィンドウごとのビデオオプション</value>
+  </data>
+  <data name="MameConfig_ResetDefaults" xml:space="preserve">
+    <value>デフォルトにリセット</value>
+  </data>
+  <data name="MameConfig_Rotation" xml:space="preserve">
+    <value>回転オプション</value>
+  </data>
+  <data name="MameConfig_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="MameConfig_SaveAs" xml:space="preserve">
+    <value>名前を付けて保存...</value>
+  </data>
+  <data name="MameConfig_SaveDialogTitle" xml:space="preserve">
+    <value>MAME設定を保存</value>
+  </data>
+  <data name="MameConfig_SaveError" xml:space="preserve">
+    <value>設定の保存に失敗しました: {0}</value>
+  </data>
+  <data name="MameConfig_Saved" xml:space="preserve">
+    <value>設定を {0} に保存しました</value>
+  </data>
+  <data name="MameConfig_ScreenOptions" xml:space="preserve">
+    <value>画面オプション</value>
+  </data>
+  <data name="MameConfig_Scripting" xml:space="preserve">
+    <value>スクリプト / プラグイン</value>
+  </data>
+  <data name="MameConfig_SearchPaths" xml:space="preserve">
+    <value>検索パス</value>
+  </data>
+  <data name="MameConfig_SearchPlaceholder" xml:space="preserve">
+    <value>名前で設定をフィルタ（例: rompath, video, joystick...）</value>
+  </data>
+  <data name="MameConfig_SearchResults" xml:space="preserve">
+    <value>{1} 中 {0} セクション一致</value>
+  </data>
+  <data name="MameConfig_SearchSettings" xml:space="preserve">
+    <value>設定を検索</value>
+  </data>
+  <data name="MameConfig_SelectIniTitle" xml:space="preserve">
+    <value>MAME設定ファイルを選択</value>
+  </data>
+  <data name="MameConfig_StatePlayback" xml:space="preserve">
+    <value>ステート / 再生オプション</value>
+  </data>
+  <data name="MameConfig_TabInput" xml:space="preserve">
+    <value>入力</value>
+  </data>
+  <data name="MameConfig_TabMisc" xml:space="preserve">
+    <value>その他 / 詳細</value>
+  </data>
+  <data name="MameConfig_TabPaths" xml:space="preserve">
+    <value>パス</value>
+  </data>
+  <data name="MameConfig_TabPerformance" xml:space="preserve">
+    <value>パフォーマンス</value>
+  </data>
+  <data name="MameConfig_TabSound" xml:space="preserve">
+    <value>サウンド</value>
+  </data>
+  <data name="MameConfig_TabState" xml:space="preserve">
+    <value>ステート / 再生</value>
+  </data>
+  <data name="MameConfig_TabVideo" xml:space="preserve">
+    <value>ビデオ</value>
+  </data>
+  <data name="MameConfig_Title" xml:space="preserve">
+    <value>MAMEコンフィグレータ</value>
+  </data>
+  <data name="MameConfig_UnsavedChanges" xml:space="preserve">
+    <value>● 未保存の変更</value>
+  </data>
+  <data name="MameConfig_Vector" xml:space="preserve">
+    <value>ベクターオプション</value>
+  </data>
+  <data name="MednafenConfig_CfgFileType" xml:space="preserve">
+    <value>Mednafen設定ファイル (*.cfg)</value>
+  </data>
+  <data name="MednafenConfig_CfgPlaceholder" xml:space="preserve">
+    <value>mednafen.cfgのパス...</value>
+  </data>
+  <data name="MednafenConfig_ConfigFile" xml:space="preserve">
+    <value>設定ファイル</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>未保存の変更があります。破棄して続行しますか？</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>未保存の変更</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>すべての設定をMednafenのデフォルトにリセットします。未保存の変更は失われます。続行しますか？</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>デフォルトにリセット</value>
+  </data>
+  <data name="MednafenConfig_CoreSettings" xml:space="preserve">
+    <value>コア設定</value>
+  </data>
+  <data name="MednafenConfig_CpuAffinity" xml:space="preserve">
+    <value>CPUアフィニティ</value>
+  </data>
+  <data name="MednafenConfig_CreateNew" xml:space="preserve">
+    <value>新規作成</value>
+  </data>
+  <data name="MednafenConfig_DefaultsRestored" xml:space="preserve">
+    <value>すべての設定がMednafenのデフォルトに復元されました。</value>
+  </data>
+  <data name="MednafenConfig_Description" xml:space="preserve">
+    <value>Mednafen設定ファイル（mednafen.cfg）の読み込み、編集、保存。Windows、macOS、Linux向けのすべてのMednafen設定をサポートします。</value>
+  </data>
+  <data name="MednafenConfig_DirectoryPaths" xml:space="preserve">
+    <value>ディレクトリパス</value>
+  </data>
+  <data name="MednafenConfig_FilenameFormats" xml:space="preserve">
+    <value>ファイル名フォーマット</value>
+  </data>
+  <data name="MednafenConfig_FpsDisplay" xml:space="preserve">
+    <value>FPS表示</value>
+  </data>
+  <data name="MednafenConfig_GoatShader" xml:space="preserve">
+    <value>Goat Shader設定</value>
+  </data>
+  <data name="MednafenConfig_InputSettings" xml:space="preserve">
+    <value>入力設定</value>
+  </data>
+  <data name="MednafenConfig_LoadError" xml:space="preserve">
+    <value>設定の読み込みに失敗しました: {0}</value>
+  </data>
+  <data name="MednafenConfig_Loaded" xml:space="preserve">
+    <value>{1} から {0} 個の設定を読み込みました</value>
+  </data>
+  <data name="MednafenConfig_NetworkPlay" xml:space="preserve">
+    <value>ネットワークプレイ</value>
+  </data>
+  <data name="MednafenConfig_NewCreated" xml:space="preserve">
+    <value>{0} に新しいデフォルト設定が作成されました</value>
+  </data>
+  <data name="MednafenConfig_NoCfgFound" xml:space="preserve">
+    <value>mednafen.cfgを自動検出できませんでした。手動でファイルを参照してください。</value>
+  </data>
+  <data name="MednafenConfig_Osd" xml:space="preserve">
+    <value>オンスクリーンディスプレイ</value>
+  </data>
+  <data name="MednafenConfig_PerSystemDescription" xml:space="preserve">
+    <value>エミュレートされたシステムごとにビデオスケーリング、シェーダー、表示設定を構成します。変更はシステム切替時またはファイル保存時に保存されます。</value>
+  </data>
+  <data name="MednafenConfig_QtRecord" xml:space="preserve">
+    <value>QuickTime録画</value>
+  </data>
+  <data name="MednafenConfig_ResetDefaults" xml:space="preserve">
+    <value>デフォルトにリセット</value>
+  </data>
+  <data name="MednafenConfig_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="MednafenConfig_SaveAs" xml:space="preserve">
+    <value>名前を付けて保存</value>
+  </data>
+  <data name="MednafenConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Mednafen設定を名前を付けて保存</value>
+  </data>
+  <data name="MednafenConfig_SaveError" xml:space="preserve">
+    <value>設定の保存に失敗しました: {0}</value>
+  </data>
+  <data name="MednafenConfig_Saved" xml:space="preserve">
+    <value>設定を {0} に保存しました</value>
+  </data>
+  <data name="MednafenConfig_SearchPlaceholder" xml:space="preserve">
+    <value>名前で設定をフィルタ（例: video, sound, shader...）</value>
+  </data>
+  <data name="MednafenConfig_SearchResults" xml:space="preserve">
+    <value>{1} 中 {0} セクション一致</value>
+  </data>
+  <data name="MednafenConfig_SearchSettings" xml:space="preserve">
+    <value>設定を検索</value>
+  </data>
+  <data name="MednafenConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Mednafen設定ファイルを選択</value>
+  </data>
+  <data name="MednafenConfig_SelectSystem" xml:space="preserve">
+    <value>システムを選択</value>
+  </data>
+  <data name="MednafenConfig_SoundOutput" xml:space="preserve">
+    <value>サウンド出力</value>
+  </data>
+  <data name="MednafenConfig_SpeedSettings" xml:space="preserve">
+    <value>早送り / スロー</value>
+  </data>
+  <data name="MednafenConfig_SystemVideo" xml:space="preserve">
+    <value>システムビデオ / スケーリング</value>
+  </data>
+  <data name="MednafenConfig_TabAdvanced" xml:space="preserve">
+    <value>詳細</value>
+  </data>
+  <data name="MednafenConfig_TabGeneral" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="MednafenConfig_TabInput" xml:space="preserve">
+    <value>入力</value>
+  </data>
+  <data name="MednafenConfig_TabNetplay" xml:space="preserve">
+    <value>ネットプレイ</value>
+  </data>
+  <data name="MednafenConfig_TabPaths" xml:space="preserve">
+    <value>パス</value>
+  </data>
+  <data name="MednafenConfig_TabPerSystem" xml:space="preserve">
+    <value>システム別</value>
+  </data>
+  <data name="MednafenConfig_TabSound" xml:space="preserve">
+    <value>サウンド</value>
+  </data>
+  <data name="MednafenConfig_TabVideo" xml:space="preserve">
+    <value>ビデオ</value>
+  </data>
+  <data name="MednafenConfig_TemporalBlur" xml:space="preserve">
+    <value>テンポラルブラー</value>
+  </data>
+  <data name="MednafenConfig_Title" xml:space="preserve">
+    <value>Mednafenコンフィグレータ</value>
+  </data>
+  <data name="MednafenConfig_UnsavedChanges" xml:space="preserve">
+    <value>● 未保存の変更</value>
+  </data>
+  <data name="MednafenConfig_VideoOutput" xml:space="preserve">
+    <value>ビデオ出力</value>
+  </data>
+  <data name="MetaScraper_SummaryBySystem" xml:space="preserve">
+    <value>システム別サマリー:</value>
+  </data>
+  <data name="MetaScraper_SummaryStats" xml:space="preserve">
+    <value>有効: {0}、無効: {1}、エラー: {2}</value>
+  </data>
+  <data name="Nav_MameConfigurator" xml:space="preserve">
+    <value>MAMEコンフィグレータ</value>
+  </data>
+  <data name="Nav_MednafenConfigurator" xml:space="preserve">
+    <value>Mednafenコンフィグレータ</value>
+  </data>
+  <data name="Nav_NoResults" xml:space="preserve">
+    <value>一致するツールが見つかりません。</value>
+  </data>
+  <data name="Nav_RetroArchConfigurator" xml:space="preserve">
+    <value>RetroArchコンフィグレータ</value>
+  </data>
+  <data name="Nav_SearchPlaceholder" xml:space="preserve">
+    <value>ツールを検索...</value>
+  </data>
+  <data name="Patcher_Description" xml:space="preserve">
+    <value>ROMファイルにIPS、BPS、またはxdeltaパッチを適用して、翻訳、修正、または変更を適用します。</value>
+  </data>
+  <data name="RAConfig_AIService" xml:space="preserve">
+    <value>AIサービス</value>
+  </data>
+  <data name="RAConfig_AccessibilityOptions" xml:space="preserve">
+    <value>アクセシビリティオプション</value>
+  </data>
+  <data name="RAConfig_AchievementDisplay" xml:space="preserve">
+    <value>実績表示</value>
+  </data>
+  <data name="RAConfig_AchievementOptions" xml:space="preserve">
+    <value>RetroAchievementsオプション</value>
+  </data>
+  <data name="RAConfig_AudioDriver" xml:space="preserve">
+    <value>オーディオドライバ</value>
+  </data>
+  <data name="RAConfig_AudioSync" xml:space="preserve">
+    <value>オーディオ設定</value>
+  </data>
+  <data name="RAConfig_CfgFileType" xml:space="preserve">
+    <value>RetroArch CFGファイル</value>
+  </data>
+  <data name="RAConfig_CfgPlaceholder" xml:space="preserve">
+    <value>retroarch.cfgのパス...</value>
+  </data>
+  <data name="RAConfig_ConfigFile" xml:space="preserve">
+    <value>設定ファイル</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>未保存の変更があります。破棄して続行しますか？</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>未保存の変更</value>
+  </data>
+  <data name="RAConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>すべての設定をRetroArchのデフォルトにリセットします。未保存の変更は失われます。続行しますか？</value>
+  </data>
+  <data name="RAConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>デフォルトにリセット</value>
+  </data>
+  <data name="RAConfig_ContentPaths" xml:space="preserve">
+    <value>コンテンツとセーブのパス</value>
+  </data>
+  <data name="RAConfig_CoreOptions" xml:space="preserve">
+    <value>コアオプション</value>
+  </data>
+  <data name="RAConfig_CorePaths" xml:space="preserve">
+    <value>コアとシステムのパス</value>
+  </data>
+  <data name="RAConfig_CreateNew" xml:space="preserve">
+    <value>新規作成</value>
+  </data>
+  <data name="RAConfig_DefaultsRestored" xml:space="preserve">
+    <value>すべての設定がRetroArchのデフォルトにリセットされました。</value>
+  </data>
+  <data name="RAConfig_Description" xml:space="preserve">
+    <value>RetroArch設定ファイル（retroarch.cfg）の読み込み、編集、保存。Windows、macOS、Linux向けのすべてのRetroArch設定をサポートします。</value>
+  </data>
+  <data name="RAConfig_FilterPaths" xml:space="preserve">
+    <value>フィルター、オーバーレイ等のパス</value>
+  </data>
+  <data name="RAConfig_FrameThrottle" xml:space="preserve">
+    <value>フレーム制限オプション</value>
+  </data>
+  <data name="RAConfig_InputGeneral" xml:space="preserve">
+    <value>一般入力設定</value>
+  </data>
+  <data name="RAConfig_InputHotkeys" xml:space="preserve">
+    <value>ホットキー設定</value>
+  </data>
+  <data name="RAConfig_LoadError" xml:space="preserve">
+    <value>設定の読み込みに失敗しました: {0}</value>
+  </data>
+  <data name="RAConfig_Loaded" xml:space="preserve">
+    <value>{1} から {0} 個の設定を読み込みました</value>
+  </data>
+  <data name="RAConfig_Logging" xml:space="preserve">
+    <value>ログオプション</value>
+  </data>
+  <data name="RAConfig_MenuGeneral" xml:space="preserve">
+    <value>メニュー設定</value>
+  </data>
+  <data name="RAConfig_MenuTheme" xml:space="preserve">
+    <value>テーマと外観</value>
+  </data>
+  <data name="RAConfig_MiscOptions" xml:space="preserve">
+    <value>その他のオプション</value>
+  </data>
+  <data name="RAConfig_Netplay" xml:space="preserve">
+    <value>ネットプレイ</value>
+  </data>
+  <data name="RAConfig_NetworkGeneral" xml:space="preserve">
+    <value>ネットワーク設定</value>
+  </data>
+  <data name="RAConfig_NewCreated" xml:space="preserve">
+    <value>RetroArchデフォルトで新しい設定が作成されました。保存先: {0}</value>
+  </data>
+  <data name="RAConfig_NoCfgFound" xml:space="preserve">
+    <value>retroarch.cfgが見つかりません。参照で場所を指定するか、新規作成でデフォルト設定を生成してください。</value>
+  </data>
+  <data name="RAConfig_Notifications" xml:space="preserve">
+    <value>通知</value>
+  </data>
+  <data name="RAConfig_OverlaySettings" xml:space="preserve">
+    <value>オーバーレイ設定</value>
+  </data>
+  <data name="RAConfig_RGUITheme" xml:space="preserve">
+    <value>RGUIテーマ</value>
+  </data>
+  <data name="RAConfig_RecordingOptions" xml:space="preserve">
+    <value>録画オプション</value>
+  </data>
+  <data name="RAConfig_ResetDefaults" xml:space="preserve">
+    <value>デフォルトにリセット</value>
+  </data>
+  <data name="RAConfig_Rewind" xml:space="preserve">
+    <value>巻き戻しオプション</value>
+  </data>
+  <data name="RAConfig_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="RAConfig_SaveAs" xml:space="preserve">
+    <value>名前を付けて保存...</value>
+  </data>
+  <data name="RAConfig_SaveDialogTitle" xml:space="preserve">
+    <value>RetroArch設定を保存</value>
+  </data>
+  <data name="RAConfig_SaveError" xml:space="preserve">
+    <value>設定の保存に失敗しました: {0}</value>
+  </data>
+  <data name="RAConfig_SaveOptions" xml:space="preserve">
+    <value>セーブとステートのオプション</value>
+  </data>
+  <data name="RAConfig_Saved" xml:space="preserve">
+    <value>設定を {0} に保存しました</value>
+  </data>
+  <data name="RAConfig_SearchPlaceholder" xml:space="preserve">
+    <value>名前で設定をフィルタ（例: video_driver, audio, netplay...）</value>
+  </data>
+  <data name="RAConfig_SearchSettings" xml:space="preserve">
+    <value>設定を検索</value>
+  </data>
+  <data name="RAConfig_SelectCfgTitle" xml:space="preserve">
+    <value>RetroArch設定ファイルを選択</value>
+  </data>
+  <data name="RAConfig_TabAccessibility" xml:space="preserve">
+    <value>アクセシビリティ</value>
+  </data>
+  <data name="RAConfig_TabAchievements" xml:space="preserve">
+    <value>実績</value>
+  </data>
+  <data name="RAConfig_TabAudio" xml:space="preserve">
+    <value>オーディオ</value>
+  </data>
+  <data name="RAConfig_TabCore" xml:space="preserve">
+    <value>コア / セーブ</value>
+  </data>
+  <data name="RAConfig_TabFrameThrottle" xml:space="preserve">
+    <value>フレーム制限</value>
+  </data>
+  <data name="RAConfig_TabInput" xml:space="preserve">
+    <value>入力</value>
+  </data>
+  <data name="RAConfig_TabMenu" xml:space="preserve">
+    <value>メニュー / UI</value>
+  </data>
+  <data name="RAConfig_TabMisc" xml:space="preserve">
+    <value>その他 / ログ</value>
+  </data>
+  <data name="RAConfig_TabNetwork" xml:space="preserve">
+    <value>ネットワーク</value>
+  </data>
+  <data name="RAConfig_TabOverlay" xml:space="preserve">
+    <value>オーバーレイ</value>
+  </data>
+  <data name="RAConfig_TabPaths" xml:space="preserve">
+    <value>パス</value>
+  </data>
+  <data name="RAConfig_TabRecording" xml:space="preserve">
+    <value>録画</value>
+  </data>
+  <data name="RAConfig_TabVideo" xml:space="preserve">
+    <value>ビデオ</value>
+  </data>
+  <data name="RAConfig_Title" xml:space="preserve">
+    <value>RetroArchコンフィグレータ</value>
+  </data>
+  <data name="RAConfig_UnsavedChanges" xml:space="preserve">
+    <value>● 未保存の変更</value>
+  </data>
+  <data name="RAConfig_VideoAdvanced" xml:space="preserve">
+    <value>ビデオ詳細</value>
+  </data>
+  <data name="RAConfig_VideoDisplay" xml:space="preserve">
+    <value>ディスプレイ設定</value>
+  </data>
+  <data name="RAConfig_VideoDriver" xml:space="preserve">
+    <value>ビデオドライバ</value>
+  </data>
+  <data name="RAConfig_VideoOSD" xml:space="preserve">
+    <value>OSDとスクリーンショット</value>
+  </data>
+  <data name="RAConfig_VideoScaling" xml:space="preserve">
+    <value>スケーリングとフィルタリング</value>
+  </data>
+  <data name="RAConfig_VideoSync" xml:space="preserve">
+    <value>同期</value>
+  </data>
+  <data name="Security_SingleNoFeatures" xml:space="preserve">
+    <value>✔ {0}: セキュリティ機能は検出されませんでした。</value>
+  </data>
+  <data name="Security_SingleResultDetected" xml:space="preserve">
+    <value>✔ {0}: {1} 個のセキュリティ機能が検出されました。</value>
+  </data>
+  <data name="Settings_BigPictureStyleClassic" xml:space="preserve">
+    <value>クラシック（カードグリッド）</value>
+  </data>
+  <data name="Settings_BigPictureStyleLabel" xml:space="preserve">
+    <value>ビジュアルスタイル</value>
+  </data>
+  <data name="Settings_BigPictureStyleModern" xml:space="preserve">
+    <value>モダン（ヒーロー + カルーセル）</value>
+  </data>
+  <data name="Settings_UpdateManagedByPackageManager" xml:space="preserve">
+    <value>アップデートはシステムのパッケージマネージャーによって管理されています。</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImage" xml:space="preserve">
+    <value>イメージ作成の確認</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImageMessage" xml:space="preserve">
+    <value>{0} からフルディスクイメージを作成しますか？ドライブのサイズによっては時間がかかる場合があります。</value>
+  </data>
 </root>

@@ -2,6 +2,7 @@ using System.IO.Compression;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using RetroMultiTools.Utilities;
+using RetroMultiTools.Utilities.Conversion;
 using SharpCompress.Archives;
 
 namespace RetroMultiTools.Detection;
@@ -179,7 +180,7 @@ public static class RomDetector
                 info.ErrorMessage = LocalizationManager.Instance["Detect_ErrorUnrecognizedExt"];
             }
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or NotSupportedException)
         {
             info.IsValid = false;
             info.ErrorMessage = ex.Message;
@@ -209,6 +210,11 @@ public static class RomDetector
         try
         {
             string? dir = Path.GetDirectoryName(cuePath);
+            // GetDirectoryName returns null for root paths or malformed inputs
+            // (e.g. a bare filename without any directory component).  In that
+            // case we cannot resolve the referenced data file, so bail out.
+            if (dir == null) return null;
+
             foreach (string line in File.ReadLines(cuePath))
             {
                 string trimmed = line.Trim();
@@ -219,7 +225,7 @@ public static class RomDetector
                     if (firstQuote >= 0 && lastQuote > firstQuote)
                     {
                         string fileName = trimmed.Substring(firstQuote + 1, lastQuote - firstQuote - 1);
-                        return dir != null ? Path.Combine(dir, fileName) : fileName;
+                        return Path.Combine(dir, fileName);
                     }
                 }
             }
@@ -514,7 +520,7 @@ public static class RomDetector
             info.IsValid = false;
             info.ErrorMessage = LocalizationManager.Instance["Detect_ErrorZipInvalid"];
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or NotSupportedException)
         {
             info.IsValid = false;
             info.ErrorMessage = ex.Message;

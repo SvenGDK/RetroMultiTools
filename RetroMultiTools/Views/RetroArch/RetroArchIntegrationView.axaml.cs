@@ -3,6 +3,7 @@ using Avalonia.Platform.Storage;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Services;
 using RetroMultiTools.Utilities;
+using RetroMultiTools.Views.GamepadKeyMapper;
 using RetroMultiTools.Utilities.RetroArch;
 using System.Runtime.InteropServices;
 
@@ -116,6 +117,7 @@ public partial class RetroArchIntegrationView : UserControl
     private void RetroArchPathTextBox_KeyDown(object? sender, Avalonia.Input.KeyEventArgs e)
     {
         if (e.Key != Avalonia.Input.Key.Enter) return;
+        e.Handled = true;
 
         string text = RetroArchPathTextBox.Text?.Trim() ?? string.Empty;
         if (string.IsNullOrEmpty(text))

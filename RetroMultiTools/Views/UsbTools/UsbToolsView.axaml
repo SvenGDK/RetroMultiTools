@@ -1,0 +1,217 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.UsbTools.UsbToolsView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16">
+        <TextBlock Text="{Binding [UsbTools_Title], Source={x:Static loc:LocalizationManager.Instance}}"
+                   FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [UsbTools_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- USB Drive Selection -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [UsbTools_Drive], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <ComboBox x:Name="DriveCombo" MinWidth="400" Padding="8,6"
+                          PlaceholderText="{Binding [UsbTools_SelectDrive], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <Button Grid.Column="1"
+                        Content="{Binding [UsbTools_RefreshDrives], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="RefreshDrives_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Tab Control for Operations -->
+        <TabControl x:Name="OperationTabs" Margin="0,8,0,0">
+
+            <!-- File Explorer Tab -->
+            <TabItem Header="{Binding [UsbTools_TabExplorer], Source={x:Static loc:LocalizationManager.Instance}}">
+                <StackPanel Spacing="8" Margin="0,8,0,0">
+                    <!-- Path Bar -->
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <Button x:Name="NavigateUpButton"
+                                Content="↑"
+                                Click="NavigateUp_Click"
+                                Padding="8,6" ToolTip.Tip="{Binding [UsbTools_NavigateUp], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                        <TextBox x:Name="CurrentPathTextBox" Grid.Column="1"
+                                 IsReadOnly="True" Padding="8,6" Margin="8,0"/>
+                        <Button Grid.Column="2"
+                                Content="{Binding [UsbTools_RefreshFiles], Source={x:Static loc:LocalizationManager.Instance}}"
+                                Click="RefreshFiles_Click"
+                                Padding="8,6"/>
+                    </Grid>
+
+                    <!-- Toolbar -->
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button x:Name="AddFilesButton"
+                                Content="{Binding [UsbTools_AddFiles], Source={x:Static loc:LocalizationManager.Instance}}"
+                                Click="AddFiles_Click" Padding="10,6"/>
+                        <Button x:Name="NewFolderButton"
+                                Content="{Binding [UsbTools_NewFolder], Source={x:Static loc:LocalizationManager.Instance}}"
+                                Click="NewFolder_Click" Padding="10,6"/>
+                        <Button x:Name="DeleteButton"
+                                Content="{Binding [UsbTools_Delete], Source={x:Static loc:LocalizationManager.Instance}}"
+                                Click="Delete_Click" Padding="10,6" IsEnabled="False"/>
+                        <Button x:Name="MoveButton"
+                                Content="{Binding [UsbTools_Move], Source={x:Static loc:LocalizationManager.Instance}}"
+                                Click="Move_Click" Padding="10,6" IsEnabled="False"/>
+                    </StackPanel>
+
+                    <!-- File List -->
+                    <Border Background="#181825" CornerRadius="6" Padding="4" MinHeight="300">
+                        <ListBox x:Name="FileListBox" MinHeight="290"
+                                 SelectionChanged="FileListBox_SelectionChanged"
+                                 DoubleTapped="FileListBox_DoubleTapped">
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem x:Name="ContextAddFiles"
+                                              Header="{Binding [UsbTools_AddFiles], Source={x:Static loc:LocalizationManager.Instance}}"
+                                              Click="AddFiles_Click"/>
+                                    <MenuItem x:Name="ContextNewFolder"
+                                              Header="{Binding [UsbTools_NewFolder], Source={x:Static loc:LocalizationManager.Instance}}"
+                                              Click="NewFolder_Click"/>
+                                    <Separator/>
+                                    <MenuItem x:Name="ContextDelete"
+                                              Header="{Binding [UsbTools_Delete], Source={x:Static loc:LocalizationManager.Instance}}"
+                                              Click="Delete_Click"/>
+                                    <MenuItem x:Name="ContextMove"
+                                              Header="{Binding [UsbTools_Move], Source={x:Static loc:LocalizationManager.Instance}}"
+                                              Click="Move_Click"/>
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                        </ListBox>
+                    </Border>
+                </StackPanel>
+            </TabItem>
+
+            <!-- Format Tab -->
+            <TabItem Header="{Binding [UsbTools_TabFormat], Source={x:Static loc:LocalizationManager.Instance}}">
+                <StackPanel Spacing="12" Margin="0,8,0,0">
+                    <!-- File System -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{Binding [UsbTools_FileSystem], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+                        <ComboBox x:Name="FileSystemCombo" SelectedIndex="1" MinWidth="200">
+                            <ComboBoxItem Content="FAT" Tag="FAT"/>
+                            <ComboBoxItem Content="FAT32" Tag="FAT32"/>
+                            <ComboBoxItem Content="exFAT" Tag="exFAT"/>
+                            <ComboBoxItem Content="NTFS" Tag="NTFS"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- Partition Scheme -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{Binding [UsbTools_PartitionScheme], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+                        <ComboBox x:Name="PartitionSchemeCombo" SelectedIndex="0" MinWidth="200">
+                            <ComboBoxItem Content="MBR" Tag="MBR"/>
+                            <ComboBoxItem Content="GPT" Tag="GPT"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- Volume Label -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{Binding [UsbTools_VolumeLabel], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+                        <TextBox x:Name="FormatVolumeLabelTextBox"
+                                 Watermark="{Binding [UsbTools_VolumeLabelHint], Source={x:Static loc:LocalizationManager.Instance}}"
+                                 Text="USB_DRIVE" Padding="8,6" MaxWidth="300" HorizontalAlignment="Left"/>
+                    </StackPanel>
+
+                    <!-- Warning -->
+                    <Border Background="#31263A" CornerRadius="6" Padding="12">
+                        <TextBlock Text="{Binding [UsbTools_FormatWarning], Source={x:Static loc:LocalizationManager.Instance}}"
+                                   Foreground="#F38BA8" TextWrapping="Wrap" FontWeight="SemiBold"/>
+                    </Border>
+
+                    <!-- Format Button -->
+                    <Button x:Name="FormatButton"
+                            Content="{Binding [UsbTools_Format], Source={x:Static loc:LocalizationManager.Instance}}"
+                            ToolTip.Tip="{Binding [UsbTools_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="FormatButton_Click"
+                            Padding="16,10" HorizontalAlignment="Left"
+                            IsEnabled="False"/>
+                </StackPanel>
+            </TabItem>
+
+            <!-- Write Image Tab -->
+            <TabItem Header="{Binding [UsbTools_TabWriteImage], Source={x:Static loc:LocalizationManager.Instance}}">
+                <StackPanel Spacing="12" Margin="0,8,0,0">
+                    <!-- Image File Selection -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{Binding [UsbTools_ImageFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBox x:Name="WriteImagePathTextBox" IsReadOnly="True"
+                                     Watermark="{Binding [UsbTools_SelectImageFile], Source={x:Static loc:LocalizationManager.Instance}}"
+                                     Padding="8,6"/>
+                            <Button Grid.Column="1"
+                                    Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}"
+                                    Click="BrowseWriteImage_Click"
+                                    Margin="8,0,0,0" Padding="12,6"/>
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Warning -->
+                    <Border Background="#31263A" CornerRadius="6" Padding="12">
+                        <TextBlock Text="{Binding [UsbTools_WriteWarning], Source={x:Static loc:LocalizationManager.Instance}}"
+                                   Foreground="#F38BA8" TextWrapping="Wrap" FontWeight="SemiBold"/>
+                    </Border>
+
+                    <!-- Write Button -->
+                    <Button x:Name="WriteImageButton"
+                            Content="{Binding [UsbTools_WriteImage], Source={x:Static loc:LocalizationManager.Instance}}"
+                            ToolTip.Tip="{Binding [UsbTools_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="WriteImageButton_Click"
+                            Padding="16,10" HorizontalAlignment="Left"
+                            IsEnabled="False"/>
+                </StackPanel>
+            </TabItem>
+
+            <!-- Create Image Tab -->
+            <TabItem Header="{Binding [UsbTools_TabCreateImage], Source={x:Static loc:LocalizationManager.Instance}}">
+                <StackPanel Spacing="12" Margin="0,8,0,0">
+                    <!-- Output File -->
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{Binding [UsbTools_OutputFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBox x:Name="CreateImageOutputTextBox"
+                                     Watermark="{Binding [UsbTools_SelectOutputImage], Source={x:Static loc:LocalizationManager.Instance}}"
+                                     Padding="8,6"/>
+                            <Button Grid.Column="1"
+                                    Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}"
+                                    Click="BrowseCreateImageOutput_Click"
+                                    Margin="8,0,0,0" Padding="12,6"/>
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Create Image Button -->
+                    <Button x:Name="CreateImageButton"
+                            Content="{Binding [UsbTools_CreateImage], Source={x:Static loc:LocalizationManager.Instance}}"
+                            ToolTip.Tip="{Binding [UsbTools_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                            Click="CreateImageButton_Click"
+                            Padding="16,10" HorizontalAlignment="Left"
+                            IsEnabled="False"/>
+                </StackPanel>
+            </TabItem>
+
+        </TabControl>
+
+        <!-- Cancel Button -->
+        <Button x:Name="CancelButton"
+                Content="{Binding [Common_Cancel], Source={x:Static loc:LocalizationManager.Instance}}"
+                Click="CancelButton_Click"
+                Padding="16,10" HorizontalAlignment="Left"
+                IsVisible="False"/>
+
+        <!-- Progress -->
+        <StackPanel x:Name="ProgressPanel" IsVisible="False" Spacing="4">
+            <ProgressBar IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+            <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+        </StackPanel>
+
+        <!-- Status -->
+        <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="#CDD6F4"/>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

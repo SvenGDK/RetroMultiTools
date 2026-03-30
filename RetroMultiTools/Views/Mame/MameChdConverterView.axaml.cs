@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Localization;
+using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.Mame;
 
 namespace RetroMultiTools.Views.Mame;
@@ -14,36 +15,39 @@ public partial class MameChdConverterView : UserControl
     public MameChdConverterView()
     {
         InitializeComponent();
+        OutputTextBox.TextChanged += (_, _) => UpdateConvertButton();
+        DragDropHelper.EnableFileDrop(InputTextBox, _ => UpdateConvertButton(), acceptDirectories: true);
     }
 
     private void OperationRadio_Checked(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (InputLabel == null) return;
-        if (sender is RadioButton rb && rb.IsChecked != true) return;
+        if (sender is not RadioButton rb || rb.IsChecked != true) return;
 
-        UpdateLabels();
+        UpdateLabels(overrideCompress: sender == CompressRadio);
         InputTextBox.Text = string.Empty;
         OutputTextBox.Text = string.Empty;
         StatusBorder.IsVisible = false;
+        OutputFormatCombo.SelectedIndex = 0;
         UpdateConvertButton();
     }
 
     private void ModeRadio_Checked(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (InputLabel == null) return;
-        if (sender is RadioButton rb && rb.IsChecked != true) return;
+        if (sender is not RadioButton rb || rb.IsChecked != true) return;
 
-        UpdateLabels();
+        UpdateLabels(overrideBatch: sender == BatchModeRadio);
         InputTextBox.Text = string.Empty;
         OutputTextBox.Text = string.Empty;
         StatusBorder.IsVisible = false;
         UpdateConvertButton();
     }
 
-    private void UpdateLabels()
+    private void UpdateLabels(bool? overrideCompress = null, bool? overrideBatch = null)
     {
-        bool isCompress = CompressRadio.IsChecked == true;
-        bool isBatch = BatchModeRadio.IsChecked == true;
+        bool isCompress = overrideCompress ?? (CompressRadio.IsChecked == true);
+        bool isBatch = overrideBatch ?? (BatchModeRadio.IsChecked == true);
 
         if (isCompress)
         {

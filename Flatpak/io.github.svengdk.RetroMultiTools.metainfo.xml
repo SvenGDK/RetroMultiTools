@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.svengdk.RetroMultiTools</id>
+
+  <name>Retro Multi Tools</name>
+  <summary>Manage, inspect, and patch retro game ROMs</summary>
+
+  <developer id="io.github.svengdk">
+    <name>SvenGDK</name>
+  </developer>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>BSD-2-Clause</project_license>
+
+  <url type="homepage">https://svengdk.github.io/RetroMultiTools/</url>
+  <url type="bugtracker">https://github.com/SvenGDK/RetroMultiTools/issues</url>
+  <url type="vcs-browser">https://github.com/SvenGDK/RetroMultiTools</url>
+
+  <description>
+    <p>
+      Retro Multi Tools is a cross-platform desktop utility for managing, inspecting, and
+      patching retro game ROMs. It supports 46 console and computer systems and provides
+      a comprehensive set of tools for ROM management, verification, conversion, and emulation.
+    </p>
+    <p>Key features include:</p>
+    <ul>
+      <li>ROM Browser with Big Picture Mode — fullscreen, controller-friendly ROM library with box art, favorites, and play statistics</li>
+      <li>ROM Inspector — detect system type, parse headers, and fetch artwork from the Libretro Thumbnails database</li>
+      <li>ROM Patcher — apply IPS, BPS, and xDelta/VCDIFF patches with full validation</li>
+      <li>Verification tools — checksum calculator, DAT verifier (No-Intro and TOSEC), dump verifier, duplicate finder, and batch ROM hasher</li>
+      <li>Conversion tools — N64 format converter, ROM format converter, save file converter, and archive manager</li>
+      <li>Cheat code converter — decode and encode Game Genie, Pro Action Replay, GameShark, and other cheat formats for 15+ systems</li>
+      <li>MAME integration — ROM set auditor, CHD verifier and converter, DAT editor, ROM set rebuilder, and Dir2Dat creator</li>
+      <li>RetroArch integration — playlist creator, shortcut creator, core downloader, and RetroAchievements writer</li>
+      <li>Disc tools — burn disc images, create ISOs from discs or folders</li>
+      <li>USB tools — format drives, write disk images, create backups</li>
+      <li>Analogue device support — Pocket, Mega SG, NT, and Super NT</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">io.github.svengdk.RetroMultiTools.desktop</launchable>
+
+  <branding>
+    <color type="primary" scheme_preference="light">#4a90d9</color>
+    <color type="primary" scheme_preference="dark">#1a5276</color>
+  </branding>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>Main application window with ROM browser</caption>
+      <image>https://raw.githubusercontent.com/SvenGDK/RetroMultiTools/v5.0.0/Screenshots/Screenshot.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Big Picture Mode — fullscreen ROM library</caption>
+      <image>https://raw.githubusercontent.com/SvenGDK/RetroMultiTools/v5.0.0/Screenshots/BigPictureMode.png</image>
+    </screenshot>
+  </screenshots>
+
+  <content_rating type="oars-1.1">
+    <content_attribute id="social-info">mild</content_attribute>
+  </content_rating>
+
+  <releases>
+    <release version="5.0.0" date="2026-03-29">
+      <description>
+        <p>Major release of Retro Multi Tools with workflow and packaging improvements.</p>
+      </description>
+    </release>
+    <release version="4.1.0" date="2025-12-01">
+      <description>
+        <p>Latest release of Retro Multi Tools.</p>
+      </description>
+    </release>
+  </releases>
+
+  <requires>
+    <display_length compare="ge">768</display_length>
+  </requires>
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>gamepad</control>
+  </supports>
+</component>

@@ -3,7 +3,7 @@
              xmlns:loc="clr-namespace:RetroMultiTools.Localization"
              x:Class="RetroMultiTools.Views.Mame.MameChdVerifierView">
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-    <StackPanel Spacing="16" MaxWidth="700" HorizontalAlignment="Left">
+    <StackPanel Spacing="16">
         <TextBlock Text="{Binding [MameChd_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
         <TextBlock Text="{Binding [MameChd_Description], Source={x:Static loc:LocalizationManager.Instance}}"
                    Foreground="#A6ADC8" TextWrapping="Wrap"/>
@@ -25,10 +25,10 @@
 
         <!-- File/Directory Selection -->
         <StackPanel Spacing="4">
-            <TextBlock x:Name="InputLabel" Text="{Binding [MameChd_ChdFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <TextBlock x:Name="InputLabel" Text="{Binding [MameChd_ChdFileLabel], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
             <Grid ColumnDefinitions="*,Auto">
                 <TextBox x:Name="InputTextBox" IsReadOnly="True"
-                         Watermark="{Binding [MameChd_SelectChd], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                         Watermark="{Binding [MameChd_SelectChdFile], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
                 <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseInput_Click"
                         Margin="8,0,0,0" Padding="12,6"/>
             </Grid>
@@ -36,6 +36,7 @@
 
         <!-- Verify Button -->
         <Button x:Name="VerifyButton" Content="{Binding [MameChd_Verify], Source={x:Static loc:LocalizationManager.Instance}}"
+                ToolTip.Tip="{Binding [MameChd_Description], Source={x:Static loc:LocalizationManager.Instance}}"
                 Click="VerifyButton_Click"
                 Padding="16,10" HorizontalAlignment="Left"
                 IsEnabled="False"/>

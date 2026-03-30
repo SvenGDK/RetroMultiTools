@@ -1,5 +1,6 @@
 using Avalonia;
 using RetroMultiTools.Utilities;
+using RetroMultiTools.Utilities.Integrations;
 
 namespace RetroMultiTools;
 

@@ -3,7 +3,7 @@
              xmlns:loc="clr-namespace:RetroMultiTools.Localization"
              x:Class="RetroMultiTools.Views.Analogue.AnalogueMegaSgView">
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-    <StackPanel Spacing="16" MaxWidth="700" HorizontalAlignment="Left">
+    <StackPanel Spacing="16">
         <TextBlock Text="{Binding [AnalogueMegaSg_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
         <TextBlock Text="{Binding [AnalogueMegaSg_Description], Source={x:Static loc:LocalizationManager.Instance}}"
                    Foreground="#A6ADC8" TextWrapping="Wrap"/>

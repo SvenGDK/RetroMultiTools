@@ -164,13 +164,21 @@ internal static class SDL2Interop
         if (!File.Exists(file)) return -1;
 
         int added = 0;
-        foreach (string raw in File.ReadLines(file))
+        try
         {
-            string line = raw.Trim();
-            if (line.Length == 0 || line[0] == '#') continue;
+            foreach (string raw in File.ReadLines(file))
+            {
+                string line = raw.Trim();
+                if (line.Length == 0 || line[0] == '#') continue;
 
-            int result = SDL_GameControllerAddMapping(line);
-            if (result >= 0) added++;
+                int result = SDL_GameControllerAddMapping(line);
+                if (result >= 0) added++;
+            }
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            System.Diagnostics.Trace.WriteLine(
+                $"[SDL2Interop] Error reading mappings from {file}: {ex.Message}");
         }
         return added;
     }
@@ -309,7 +317,15 @@ internal static class SDL2Interop
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     candidates = ["SDL2.dll"];
                 else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                    candidates = ["libSDL2-2.0.so.0", "libSDL2.so"];
+                    candidates =
+                    [
+                        "libSDL2-2.0.so.0",
+                        "libSDL2.so",
+                        // Flatpak runtime library paths
+                        "/app/lib/libSDL2-2.0.so.0",
+                        "/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0",
+                        "/usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0"
+                    ];
                 else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                     candidates = ["libSDL2.dylib", "libSDL2-2.0.0.dylib"];
                 else

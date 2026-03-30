@@ -6124,4 +6124,1204 @@ Run:notepad.exe</value>
   <data name="Settings_Clear" xml:space="preserve">
     <value>ล้าง</value>
   </data>
+  <data name="Nav_DiscTools" xml:space="preserve">
+    <value>เครื่องมือดิสก์</value>
+  </data>
+  <data name="DiscTools_Title" xml:space="preserve">
+    <value>เครื่องมือดิสก์</value>
+  </data>
+  <data name="DiscTools_Description" xml:space="preserve">
+    <value>เบิร์นดิสก์อิมเมจหรือไฟล์ลงในสื่อออปติคัล และสร้างดิสก์อิมเมจจากดิสก์หรือไฟล์จริง รองรับรูปแบบดิสก์ ISO, BIN/CUE, IMG, GDI, CDI, NRG และระบบเกมอื่นๆ</value>
+  </data>
+  <data name="DiscTools_Operation" xml:space="preserve">
+    <value>การดำเนินการ:</value>
+  </data>
+  <data name="DiscTools_OpBurnImage" xml:space="preserve">
+    <value>เขียนภาพลงแผ่นดิสก์</value>
+  </data>
+  <data name="DiscTools_OpBurnFiles" xml:space="preserve">
+    <value>เขียนไฟล์ลงแผ่นดิสก์</value>
+  </data>
+  <data name="DiscTools_OpImageFromDisc" xml:space="preserve">
+    <value>สร้างภาพจากแผ่นดิสก์</value>
+  </data>
+  <data name="DiscTools_OpImageFromFiles" xml:space="preserve">
+    <value>สร้างภาพจากไฟล์</value>
+  </data>
+  <data name="DiscTools_Drive" xml:space="preserve">
+    <value>ออปติคัลไดรฟ์:</value>
+  </data>
+  <data name="DiscTools_SelectDrive" xml:space="preserve">
+    <value>เลือกออปติคัลไดรฟ์...</value>
+  </data>
+  <data name="DiscTools_RefreshDrives" xml:space="preserve">
+    <value>รีเฟรช</value>
+  </data>
+  <data name="DiscTools_NoDrivesFound" xml:space="preserve">
+    <value>ไม่พบออปติคัลไดรฟ์บนระบบนี้</value>
+  </data>
+  <data name="DiscTools_ImageFile" xml:space="preserve">
+    <value>ไฟล์ภาพ:</value>
+  </data>
+  <data name="DiscTools_SelectImageFile" xml:space="preserve">
+    <value>เลือกไฟล์ภาพดิสก์...</value>
+  </data>
+  <data name="DiscTools_ImageFiles" xml:space="preserve">
+    <value>ไฟล์ภาพดิสก์</value>
+  </data>
+  <data name="DiscTools_FilesOrFolders" xml:space="preserve">
+    <value>ไฟล์/โฟลเดอร์:</value>
+  </data>
+  <data name="DiscTools_SelectFilesOrFolders" xml:space="preserve">
+    <value>เลือกไฟล์หรือโฟลเดอร์ที่จะเขียน...</value>
+  </data>
+  <data name="DiscTools_SelectFolder" xml:space="preserve">
+    <value>เลือกโฟลเดอร์</value>
+  </data>
+  <data name="DiscTools_OutputFile" xml:space="preserve">
+    <value>ไฟล์ภาพที่ส่งออก:</value>
+  </data>
+  <data name="DiscTools_SelectOutputImage" xml:space="preserve">
+    <value>เลือกเส้นทางไฟล์ภาพที่ส่งออก...</value>
+  </data>
+  <data name="DiscTools_VolumeLabel" xml:space="preserve">
+    <value>ป้ายกำกับปริมาณ:</value>
+  </data>
+  <data name="DiscTools_VolumeLabelHint" xml:space="preserve">
+    <value>ป้อนป้ายกำกับระดับเสียงสำหรับแผ่นดิสก์...</value>
+  </data>
+  <data name="DiscTools_WriteSpeed" xml:space="preserve">
+    <value>ความเร็วในการเขียน:</value>
+  </data>
+  <data name="DiscTools_SpeedAuto" xml:space="preserve">
+    <value>อัตโนมัติ (สูงสุด)</value>
+  </data>
+  <data name="DiscTools_VerifyAfterBurn" xml:space="preserve">
+    <value>ตรวจสอบหลังจากเขียน</value>
+  </data>
+  <data name="DiscTools_Burn" xml:space="preserve">
+    <value>เขียนลงแผ่นดิสก์</value>
+  </data>
+  <data name="DiscTools_CreateImage" xml:space="preserve">
+    <value>สร้างภาพ</value>
+  </data>
+  <data name="DiscTools_Cancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="DiscTools_DetectingDrives" xml:space="preserve">
+    <value>กำลังตรวจจับออปติคัลไดรฟ์...</value>
+  </data>
+  <data name="DiscTools_DriveDetectError" xml:space="preserve">
+    <value>เกิดข้อผิดพลาดในการตรวจหาไดรฟ์: {0}</value>
+  </data>
+  <data name="DiscTools_ImageNotFound" xml:space="preserve">
+    <value>ไม่พบไฟล์รูปภาพ</value>
+  </data>
+  <data name="DiscTools_BurningImage" xml:space="preserve">
+    <value>กำลังเขียนภาพ: {0}</value>
+  </data>
+  <data name="DiscTools_BurningFiles" xml:space="preserve">
+    <value>กำลังเขียนรายการ {0} ลงแผ่นดิสก์...</value>
+  </data>
+  <data name="DiscTools_NoFilesSelected" xml:space="preserve">
+    <value>ไม่ได้เลือกไฟล์หรือโฟลเดอร์</value>
+  </data>
+  <data name="DiscTools_OutputRequired" xml:space="preserve">
+    <value>จำเป็นต้องมีเส้นทางไฟล์เอาต์พุต</value>
+  </data>
+  <data name="DiscTools_ReadingDisc" xml:space="preserve">
+    <value>กำลังอ่านแผ่นดิสก์...</value>
+  </data>
+  <data name="DiscTools_CreatingImage" xml:space="preserve">
+    <value>การสร้างภาพ: {0}</value>
+  </data>
+  <data name="DiscTools_WritingToDisc" xml:space="preserve">
+    <value>กำลังเขียนข้อมูลลงแผ่นดิสก์...</value>
+  </data>
+  <data name="DiscTools_RunningTool" xml:space="preserve">
+    <value>กำลังรัน {0}...</value>
+  </data>
+  <data name="DiscTools_BurnComplete" xml:space="preserve">
+    <value>✔เขียนลงแผ่นดิสก์สำเร็จ</value>
+  </data>
+  <data name="DiscTools_BurnFailed" xml:space="preserve">
+    <value>✘ เขียนล้มเหลว: {0}</value>
+  </data>
+  <data name="DiscTools_ImageCreated" xml:space="preserve">
+    <value>✔ สร้างภาพ: {0} ({1})</value>
+  </data>
+  <data name="DiscTools_ImageCreateFailed" xml:space="preserve">
+    <value>✘ การสร้างภาพล้มเหลว: {0}</value>
+  </data>
+  <data name="DiscTools_UnsupportedPlatform" xml:space="preserve">
+    <value>แพลตฟอร์มนี้ไม่รองรับการทำงานของดิสก์</value>
+  </data>
+  <data name="DiscTools_NoBurnTool" xml:space="preserve">
+    <value>ไม่พบเครื่องมือเบิร์นแผ่นดิสก์ กรุณาติดตั้ง wodim, cdrecord หรือ xorrecord</value>
+  </data>
+  <data name="DiscTools_NoIsoTool" xml:space="preserve">
+    <value>ไม่พบเครื่องมือสร้าง ISO กรุณาติดตั้ง xorrisofs, genisoimage หรือ mkisofs</value>
+  </data>
+  <data name="DiscTools_IsoCreateFailed" xml:space="preserve">
+    <value>การสร้าง ISO ล้มเหลว: {0}</value>
+  </data>
+  <data name="DiscTools_CreatingIso" xml:space="preserve">
+    <value>กำลังสร้างอิมเมจ ISO...</value>
+  </data>
+  <data name="DiscTools_OperationCancelled" xml:space="preserve">
+    <value>การดำเนินการถูกยกเลิก</value>
+  </data>
+  <data name="DiscTools_BrowseFolder" xml:space="preserve">
+    <value>เรียกดูโฟลเดอร์</value>
+  </data>
+  <data name="DiscTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>รูปแบบภาพ '{0}' ไม่สามารถเบิร์นลงแผ่นดิสก์ได้ รูปแบบที่รองรับ: ISO, BIN/CUE, IMG, NRG, TOAST</value>
+  </data>
+  <data name="DiscTools_Verifying" xml:space="preserve">
+    <value>กำลังตรวจสอบดิสก์...</value>
+  </data>
+  <data name="DiscTools_BurnCompleteVerifySkipped" xml:space="preserve">
+    <value>เบิร์นสำเร็จแล้ว ไม่สามารถดำเนินการยืนยันได้</value>
+  </data>
+  <data name="DiscTools_VerifyFailed" xml:space="preserve">
+    <value>เบิร์นเสร็จสมบูรณ์แต่การตรวจสอบล้มเหลว: ข้อมูลดิสก์ไม่ตรงกับอิมเมจต้นฉบับ</value>
+  </data>
+  <data name="DiscTools_IsoImageType" xml:space="preserve">
+    <value>ภาพไอเอสโอ</value>
+  </data>
+  <data name="DiscTools_BinCueImageType" xml:space="preserve">
+    <value>รูปภาพถัง/คิว</value>
+  </data>
+  <data name="Nav_UsbTools" xml:space="preserve">
+    <value>เครื่องมือ USB</value>
+  </data>
+  <data name="UsbTools_Title" xml:space="preserve">
+    <value>เครื่องมือ USB</value>
+  </data>
+  <data name="UsbTools_Description" xml:space="preserve">
+    <value>ฟอร์แมต, เขียนอิมเมจไปยัง, สร้างอิมเมจจาก และเรียกดูไดรฟ์ USB</value>
+  </data>
+  <data name="UsbTools_Drive" xml:space="preserve">
+    <value>ไดรฟ์ USB</value>
+  </data>
+  <data name="UsbTools_SelectDrive" xml:space="preserve">
+    <value>เลือกไดรฟ์ USB...</value>
+  </data>
+  <data name="UsbTools_RefreshDrives" xml:space="preserve">
+    <value>รีเฟรช</value>
+  </data>
+  <data name="UsbTools_DetectingDrives" xml:space="preserve">
+    <value>กำลังตรวจหาไดรฟ์ USB...</value>
+  </data>
+  <data name="UsbTools_NoDrivesFound" xml:space="preserve">
+    <value>ไม่พบไดรฟ์ USB</value>
+  </data>
+  <data name="UsbTools_DriveDetectError" xml:space="preserve">
+    <value>เกิดข้อผิดพลาดในการตรวจหาไดรฟ์: {0}</value>
+  </data>
+  <data name="UsbTools_NoDriveSelected" xml:space="preserve">
+    <value>ไม่ได้เลือกไดรฟ์ USB</value>
+  </data>
+  <data name="UsbTools_UnsupportedPlatform" xml:space="preserve">
+    <value>การดำเนินการนี้ไม่รองรับบนแพลตฟอร์มปัจจุบัน</value>
+  </data>
+  <data name="UsbTools_TabExplorer" xml:space="preserve">
+    <value>ตัวสำรวจไฟล์</value>
+  </data>
+  <data name="UsbTools_TabFormat" xml:space="preserve">
+    <value>ฟอร์แมต</value>
+  </data>
+  <data name="UsbTools_TabWriteImage" xml:space="preserve">
+    <value>เขียนอิมเมจ</value>
+  </data>
+  <data name="UsbTools_TabCreateImage" xml:space="preserve">
+    <value>สร้างอิมเมจ</value>
+  </data>
+  <data name="UsbTools_NavigateUp" xml:space="preserve">
+    <value>นำทางขึ้น</value>
+  </data>
+  <data name="UsbTools_RefreshFiles" xml:space="preserve">
+    <value>รีเฟรช</value>
+  </data>
+  <data name="UsbTools_AddFiles" xml:space="preserve">
+    <value>เพิ่มไฟล์</value>
+  </data>
+  <data name="UsbTools_NewFolder" xml:space="preserve">
+    <value>โฟลเดอร์ใหม่</value>
+  </data>
+  <data name="UsbTools_Delete" xml:space="preserve">
+    <value>ลบ</value>
+  </data>
+  <data name="UsbTools_Move" xml:space="preserve">
+    <value>ย้าย</value>
+  </data>
+  <data name="UsbTools_FileSystem" xml:space="preserve">
+    <value>ระบบไฟล์</value>
+  </data>
+  <data name="UsbTools_PartitionScheme" xml:space="preserve">
+    <value>รูปแบบพาร์ติชัน</value>
+  </data>
+  <data name="UsbTools_VolumeLabel" xml:space="preserve">
+    <value>ป้ายชื่อวอลุ่ม</value>
+  </data>
+  <data name="UsbTools_VolumeLabelHint" xml:space="preserve">
+    <value>ป้อนป้ายชื่อวอลุ่ม</value>
+  </data>
+  <data name="UsbTools_FormatWarning" xml:space="preserve">
+    <value>⚠ คำเตือน: การฟอร์แมตจะลบข้อมูลทั้งหมดบนไดรฟ์ USB ที่เลือก การดำเนินการนี้ไม่สามารถย้อนกลับได้</value>
+  </data>
+  <data name="UsbTools_Format" xml:space="preserve">
+    <value>ฟอร์แมตไดรฟ์ USB</value>
+  </data>
+  <data name="UsbTools_PreparingFormat" xml:space="preserve">
+    <value>กำลังเตรียมฟอร์แมต...</value>
+  </data>
+  <data name="UsbTools_Formatting" xml:space="preserve">
+    <value>กำลังฟอร์แมตเป็น {0} ({1})...</value>
+  </data>
+  <data name="UsbTools_FormatComplete" xml:space="preserve">
+    <value>ฟอร์แมตไดรฟ์ USB สำเร็จ</value>
+  </data>
+  <data name="UsbTools_FormatFailed" xml:space="preserve">
+    <value>ฟอร์แมตล้มเหลว: {0}</value>
+  </data>
+  <data name="UsbTools_UnsupportedFileSystem" xml:space="preserve">
+    <value>ระบบไฟล์ที่ไม่รองรับ: {0}</value>
+  </data>
+  <data name="UsbTools_NtfsMacWarning" xml:space="preserve">
+    <value>หมายเหตุ: macOS ไม่รองรับการฟอร์แมต NTFS โดยกำเนิด ไดรฟ์ถูกฟอร์แมตเป็น ExFAT แทน</value>
+  </data>
+  <data name="UsbTools_ConfirmFormat" xml:space="preserve">
+    <value>ยืนยันการฟอร์แมต</value>
+  </data>
+  <data name="UsbTools_ConfirmFormatMessage" xml:space="preserve">
+    <value>คุณแน่ใจหรือไม่ว่าต้องการฟอร์แมต {0}? ข้อมูลทั้งหมดจะถูกลบอย่างถาวร</value>
+  </data>
+  <data name="UsbTools_ImageFile" xml:space="preserve">
+    <value>ไฟล์อิมเมจ</value>
+  </data>
+  <data name="UsbTools_SelectImageFile" xml:space="preserve">
+    <value>เลือกไฟล์อิมเมจ...</value>
+  </data>
+  <data name="UsbTools_ImageFiles" xml:space="preserve">
+    <value>ไฟล์อิมเมจดิสก์</value>
+  </data>
+  <data name="UsbTools_ImageNotFound" xml:space="preserve">
+    <value>ไม่พบไฟล์อิมเมจ</value>
+  </data>
+  <data name="UsbTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>รูปแบบอิมเมจที่ไม่รองรับ: {0}</value>
+  </data>
+  <data name="UsbTools_WriteWarning" xml:space="preserve">
+    <value>⚠ คำเตือน: การเขียนอิมเมจจะลบข้อมูลทั้งหมดบนไดรฟ์ USB ที่เลือก การดำเนินการนี้ไม่สามารถย้อนกลับได้</value>
+  </data>
+  <data name="UsbTools_WriteImage" xml:space="preserve">
+    <value>เขียนอิมเมจไปยัง USB</value>
+  </data>
+  <data name="UsbTools_WritingImage" xml:space="preserve">
+    <value>กำลังเขียน {0} ไปยังไดรฟ์ USB...</value>
+  </data>
+  <data name="UsbTools_WriteComplete" xml:space="preserve">
+    <value>เขียนอิมเมจไปยังไดรฟ์ USB สำเร็จ</value>
+  </data>
+  <data name="UsbTools_WriteFailed" xml:space="preserve">
+    <value>เขียนล้มเหลว: {0}</value>
+  </data>
+  <data name="UsbTools_ConfirmWrite" xml:space="preserve">
+    <value>ยืนยันการเขียน</value>
+  </data>
+  <data name="UsbTools_ConfirmWriteMessage" xml:space="preserve">
+    <value>คุณแน่ใจหรือไม่ว่าต้องการเขียน {0} ไปยัง {1}? ข้อมูลที่มีอยู่ทั้งหมดจะถูกลบอย่างถาวร</value>
+  </data>
+  <data name="UsbTools_OutputFile" xml:space="preserve">
+    <value>ไฟล์เอาต์พุต</value>
+  </data>
+  <data name="UsbTools_SelectOutputImage" xml:space="preserve">
+    <value>เลือกตำแหน่งอิมเมจเอาต์พุต...</value>
+  </data>
+  <data name="UsbTools_CreateImage" xml:space="preserve">
+    <value>สร้างอิมเมจจาก USB</value>
+  </data>
+  <data name="UsbTools_CreatingImage" xml:space="preserve">
+    <value>กำลังสร้างอิมเมจจากไดรฟ์ USB...</value>
+  </data>
+  <data name="UsbTools_ImageCreated" xml:space="preserve">
+    <value>สร้างอิมเมจสำเร็จ: {0}</value>
+  </data>
+  <data name="UsbTools_ImageCreateFailed" xml:space="preserve">
+    <value>สร้างอิมเมจล้มเหลว: {0}</value>
+  </data>
+  <data name="UsbTools_OutputRequired" xml:space="preserve">
+    <value>ต้องระบุเส้นทางไฟล์เอาต์พุต</value>
+  </data>
+  <data name="UsbTools_ImgFileType" xml:space="preserve">
+    <value>อิมเมจ IMG</value>
+  </data>
+  <data name="UsbTools_IsoFileType" xml:space="preserve">
+    <value>อิมเมจ ISO</value>
+  </data>
+  <data name="UsbTools_OperationCancelled" xml:space="preserve">
+    <value>การดำเนินการถูกยกเลิก</value>
+  </data>
+  <data name="UsbTools_FolderExists" xml:space="preserve">
+    <value>มีโฟลเดอร์ชื่อนั้นอยู่แล้ว</value>
+  </data>
+  <data name="UsbTools_FolderCreated" xml:space="preserve">
+    <value>สร้างโฟลเดอร์สำเร็จ</value>
+  </data>
+  <data name="UsbTools_DeleteComplete" xml:space="preserve">
+    <value>ลบสำเร็จ</value>
+  </data>
+  <data name="UsbTools_EntryNotFound" xml:space="preserve">
+    <value>ไม่พบไฟล์หรือโฟลเดอร์</value>
+  </data>
+  <data name="UsbTools_DestinationExists" xml:space="preserve">
+    <value>มีรายการที่มีชื่อเดียวกันอยู่แล้วที่ปลายทาง</value>
+  </data>
+  <data name="UsbTools_MoveComplete" xml:space="preserve">
+    <value>ย้ายสำเร็จ</value>
+  </data>
+  <data name="UsbTools_SelectMoveDestination" xml:space="preserve">
+    <value>เลือกโฟลเดอร์ปลายทาง</value>
+  </data>
+  <data name="UsbTools_CopyingFile" xml:space="preserve">
+    <value>กำลังคัดลอก {0}...</value>
+  </data>
+  <data name="UsbTools_AddComplete" xml:space="preserve">
+    <value>เพิ่ม {0} รายการสำเร็จ</value>
+  </data>
+  <data name="UsbTools_ConfirmDelete" xml:space="preserve">
+    <value>ยืนยันการลบ</value>
+  </data>
+  <data name="UsbTools_ConfirmDeleteMessage" xml:space="preserve">
+    <value>คุณแน่ใจหรือไม่ว่าต้องการลบ '{0}'? การดำเนินการนี้ไม่สามารถย้อนกลับได้</value>
+  </data>
+  <data name="UsbTools_EnterFolderName" xml:space="preserve">
+    <value>ป้อนชื่อโฟลเดอร์:</value>
+  </data>
+  <data name="UsbTools_FolderNameHint" xml:space="preserve">
+    <value>ชื่อโฟลเดอร์</value>
+  </data>
+  <data name="Tour_Skip" xml:space="preserve">
+    <value>ข้ามทัวร์</value>
+  </data>
+  <data name="Tour_Back" xml:space="preserve">
+    <value>ย้อนกลับ</value>
+  </data>
+  <data name="Tour_Next" xml:space="preserve">
+    <value>ถัดไป</value>
+  </data>
+  <data name="Tour_Finish" xml:space="preserve">
+    <value>เริ่มใช้งาน</value>
+  </data>
+  <data name="Tour_WelcomeTitle" xml:space="preserve">
+    <value>ยินดีต้อนรับสู่ RetroMultiTools!</value>
+  </data>
+  <data name="Tour_WelcomeDesc" xml:space="preserve">
+    <value>ชุดเครื่องมือครบวงจรสำหรับเกมย้อนยุค มาดูทุกอย่างที่แอปนี้ทำได้อย่างรวดเร็ว ใช้เวลาเพียงหนึ่งนาที!</value>
+  </data>
+  <data name="Tour_SidebarTitle" xml:space="preserve">
+    <value>การนำทางด้วยแถบด้านข้าง</value>
+  </data>
+  <data name="Tour_SidebarDesc" xml:space="preserve">
+    <value>ใช้แถบด้านข้างทางซ้ายเพื่อสลับระหว่างเครื่องมือ เครื่องมือถูกจัดเรียงตามหมวดหมู่ เช่น การเรียกดู การแพตช์ การวิเคราะห์ และอื่นๆ</value>
+  </data>
+  <data name="Tour_BrowserTitle" xml:space="preserve">
+    <value>เบราว์เซอร์ ROM</value>
+  </data>
+  <data name="Tour_BrowserDesc" xml:space="preserve">
+    <value>เรียกดูคอลเลกชัน ROM ของคุณด้วยเบราว์เซอร์ไฟล์ที่ทรงพลัง ดูรายละเอียดไฟล์ เปิดโฟลเดอร์ และค้นหาเกมที่คุณต้องการอย่างรวดเร็ว</value>
+  </data>
+  <data name="Tour_InspectorTitle" xml:space="preserve">
+    <value>ROM Inspector &amp; Hex Viewer</value>
+  </data>
+  <data name="Tour_InspectorDesc" xml:space="preserve">
+    <value>ตรวจสอบส่วนหัวของไฟล์ ROM ดูข้อมูลเมตาภายใน และตรวจสอบไบต์ดิบด้วย Hex Viewer ในตัว เหมาะสำหรับผู้ใช้ขั้นสูงและนักพัฒนา</value>
+  </data>
+  <data name="Tour_PatchingTitle" xml:space="preserve">
+    <value>การแพตช์ &amp; การแปลง</value>
+  </data>
+  <data name="Tour_PatchingDesc" xml:space="preserve">
+    <value>ใช้แพตช์ IPS/BPS/UPS สร้างแพตช์ของตัวเอง แปลงรูปแบบ ROM แปลงไฟล์เซฟ และจัดการการสลับไบต์ N64 — ทั้งหมดในที่เดียว</value>
+  </data>
+  <data name="Tour_AnalysisTitle" xml:space="preserve">
+    <value>การวิเคราะห์ &amp; การตรวจสอบ</value>
+  </data>
+  <data name="Tour_AnalysisDesc" xml:space="preserve">
+    <value>ตรวจสอบ ROM กับไฟล์ DAT คำนวณ checksum ค้นหารายการซ้ำ แฮชโฟลเดอร์ทั้งหมดแบบกลุ่ม และระบุชุด GoodTools เพื่อการจัดการคอลเลกชันที่แม่นยำ</value>
+  </data>
+  <data name="Tour_HeadersTitle" xml:space="preserve">
+    <value>ส่วนหัว &amp; การตัดแต่ง</value>
+  </data>
+  <data name="Tour_HeadersDesc" xml:space="preserve">
+    <value>ส่งออก แก้ไข หรือลบส่วนหัว ROM ตัดแต่ง ROM ที่มีการเพิ่มข้อมูลเพื่อประหยัดพื้นที่ รวมถึงเครื่องมือเฉพาะสำหรับการจัดการส่วนหัว SNES</value>
+  </data>
+  <data name="Tour_UtilitiesTitle" xml:space="preserve">
+    <value>ยูทิลิตี</value>
+  </data>
+  <data name="Tour_UtilitiesDesc" xml:space="preserve">
+    <value>จัดการไฟล์บีบอัด ใช้รหัสโกง ทำงานกับอิมเมจดิสก์ ตั้งค่าอีมูเลเตอร์ กำหนดปุ่มเกมแพด ดึงข้อมูลเมตา จัดระเบียบและเปลี่ยนชื่อไฟล์ ROM และจัดการอุปกรณ์ USB</value>
+  </data>
+  <data name="Tour_EmulatorsTitle" xml:space="preserve">
+    <value>การรวม Emulator</value>
+  </data>
+  <data name="Tour_EmulatorsDesc" xml:space="preserve">
+    <value>การรวมเชิงลึกกับ RetroArch, MAME และ Mednafen จัดการเพลย์ลิสต์ ตรวจสอบชุด ROM แปลงไฟล์ CHD แก้ไข DAT สร้างทางลัด และอื่นๆ</value>
+  </data>
+  <data name="Tour_AnalogueTitle" xml:space="preserve">
+    <value>Analogue FPGA</value>
+  </data>
+  <data name="Tour_AnalogueDesc" xml:space="preserve">
+    <value>เครื่องมือสำหรับฮาร์ดแวร์ Analogue FPGA: Pocket, Mega Sg, Nt/Super Nt และ 3D ที่กำลังจะมา จัดการคอร์ เฟิร์มแวร์ และไลบรารีเกมสำหรับอุปกรณ์ของคุณ</value>
+  </data>
+  <data name="Tour_BigPictureTitle" xml:space="preserve">
+    <value>Big Picture Mode</value>
+  </data>
+  <data name="Tour_BigPictureDesc" xml:space="preserve">
+    <value>ผ่อนคลายและสนุกกับไลบรารีเกมแบบเต็มหน้าจอที่รองรับคอนโทรลเลอร์ อาร์ตเวิร์ก การติดตามการเล่น และการให้คะแนน เลือกระหว่างเลย์เอาต์กริดแบบคลาสสิกหรือฮีโร่แบบโมเดิร์น</value>
+  </data>
+  <data name="Tour_SettingsTitle" xml:space="preserve">
+    <value>การตั้งค่า</value>
+  </data>
+  <data name="Tour_SettingsDesc" xml:space="preserve">
+    <value>ปรับแต่งประสบการณ์ของคุณ: เปลี่ยนภาษา เปิดใช้งาน Discord Rich Presence ตั้งค่า Big Picture Mode ตั้งค่าการควบคุมเกมแพด และตรวจสอบการอัปเดต</value>
+  </data>
+  <data name="Tour_FinishTitle" xml:space="preserve">
+    <value>พร้อมแล้ว!</value>
+  </data>
+  <data name="Tour_FinishDesc" xml:space="preserve">
+    <value>นั่นคือทั้งหมด! เริ่มสำรวจเครื่องมือในแถบด้านข้าง คุณสามารถเริ่มทัวร์นี้ใหม่ได้จากการตั้งค่าเสมอหากต้องการทบทวน สนุกกับการใช้งาน!</value>
+  </data>
+  <data name="Tour_SettingSectionTitle" xml:space="preserve">
+    <value>ทัวร์แนะนำ</value>
+  </data>
+  <data name="Tour_SettingSectionDesc" xml:space="preserve">
+    <value>เล่นทัวร์แนะนำที่อธิบายคุณสมบัติทั้งหมดของแอปพลิเคชันอีกครั้ง</value>
+  </data>
+  <data name="Tour_RestartButton" xml:space="preserve">
+    <value>เริ่มทัวร์ใหม่</value>
+  </data>
+  <data name="Browser_SelectFolderTooltip" xml:space="preserve">
+    <value>Browse for a ROM folder to scan</value>
+  </data>
+  <data name="Browser_AddRomsTooltip" xml:space="preserve">
+    <value>Add ROM files to the current folder</value>
+  </data>
+  <data name="Browser_CopyToTooltip" xml:space="preserve">
+    <value>Copy selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_MoveToTooltip" xml:space="preserve">
+    <value>Move selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_DeleteTooltip" xml:space="preserve">
+    <value>Delete the selected ROMs</value>
+  </data>
+  <data name="Browser_OrganizeTooltip" xml:space="preserve">
+    <value>Organize ROMs into subfolders by system</value>
+  </data>
+  <data name="Browser_SendToRemoteTooltip" xml:space="preserve">
+    <value>Send selected ROMs to a remote device or cloud storage</value>
+  </data>
+  <data name="Browser_HostShareTooltip" xml:space="preserve">
+    <value>Host a local server to share ROMs on the network</value>
+  </data>
+  <data name="Browser_LaunchRetroArchTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in RetroArch</value>
+  </data>
+  <data name="Browser_LaunchMameTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in MAME</value>
+  </data>
+  <data name="Browser_LaunchMednafenTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in Mednafen</value>
+  </data>
+  <data name="Browser_BigPictureModeTooltip" xml:space="preserve">
+    <value>Enter full-screen Big Picture Mode for gamepad-friendly browsing</value>
+  </data>
+  <data name="MainWindow_SearchShortcut" xml:space="preserve">
+    <value>Search tools (Ctrl+F)</value>
+  </data>
+  <data name="BigPictureModern_AllGames" xml:space="preserve">
+    <value>เกมทั้งหมด</value>
+  </data>
+  <data name="BigPictureModern_EmptyCategory" xml:space="preserve">
+    <value>ยังไม่มีเกมในหมวดหมู่นี้</value>
+  </data>
+  <data name="BigPictureModern_EmptyLibrary" xml:space="preserve">
+    <value>คลังของคุณว่างเปล่า เรียกดูโฟลเดอร์ ROM เพื่อเริ่มต้น</value>
+  </data>
+  <data name="BigPictureModern_Favorites" xml:space="preserve">
+    <value>รายการโปรด</value>
+  </data>
+  <data name="BigPictureModern_LaunchWith" xml:space="preserve">
+    <value>เปิดด้วย {0}</value>
+  </data>
+  <data name="BigPictureModern_MostPlayed" xml:space="preserve">
+    <value>เล่นมากที่สุด</value>
+  </data>
+  <data name="BigPictureModern_NoResults" xml:space="preserve">
+    <value>ไม่มีเกมที่ตรงกับการค้นหาของคุณ</value>
+  </data>
+  <data name="BigPictureModern_Plays" xml:space="preserve">
+    <value>เล่น {0} ครั้ง</value>
+  </data>
+  <data name="BigPictureModern_RecentlyPlayed" xml:space="preserve">
+    <value>เล่นล่าสุด</value>
+  </data>
+  <data name="BigPictureModern_SearchPlaceholder" xml:space="preserve">
+    <value>ค้นหาในคลังของคุณ...</value>
+  </data>
+  <data name="BigPictureModern_Spotlight" xml:space="preserve">
+    <value>เกมเด่น</value>
+  </data>
+  <data name="BigPictureModern_TopRated" xml:space="preserve">
+    <value>เรตติ้งสูงสุด</value>
+  </data>
+  <data name="BigPicture_CopiedToClipboard" xml:space="preserve">
+    <value>คัดลอกเส้นทางไปยังคลิปบอร์ดแล้ว</value>
+  </data>
+  <data name="BigPicture_CopyFilePath" xml:space="preserve">
+    <value>คัดลอกเส้นทางไฟล์</value>
+  </data>
+  <data name="BigPicture_OpenFileLocation" xml:space="preserve">
+    <value>เปิดตำแหน่งไฟล์</value>
+  </data>
+  <data name="BigPicture_SortPlayCount" xml:space="preserve">
+    <value>จำนวนครั้งที่เล่น (มาก → น้อย)</value>
+  </data>
+  <data name="Browser_ContextChecksum" xml:space="preserve">
+    <value>#️⃣ คำนวณ Checksum</value>
+  </data>
+  <data name="Browser_ContextGoodTools" xml:space="preserve">
+    <value>🏷️ ระบุด้วย GoodTools</value>
+  </data>
+  <data name="Browser_ContextHexView" xml:space="preserve">
+    <value>🔢 เปิดใน Hex Viewer</value>
+  </data>
+  <data name="Browser_ContextInspect" xml:space="preserve">
+    <value>🔍 เปิดใน ROM Inspector</value>
+  </data>
+  <data name="Browser_ContextOpenFolder" xml:space="preserve">
+    <value>📂 เปิดโฟลเดอร์ที่บรรจุ</value>
+  </data>
+  <data name="Browser_ContextOpenWith" xml:space="preserve">
+    <value>🚀 เปิดด้วย</value>
+  </data>
+  <data name="Browser_ContextPatch" xml:space="preserve">
+    <value>🩹 แพตช์ ROM...</value>
+  </data>
+  <data name="Browser_ContextRename" xml:space="preserve">
+    <value>✏️ เปลี่ยนชื่อ...</value>
+  </data>
+  <data name="Browser_ContextTools" xml:space="preserve">
+    <value>🔧 เครื่องมือ</value>
+  </data>
+  <data name="Browser_OpenFolderError" xml:space="preserve">
+    <value>ไม่สามารถเปิดโฟลเดอร์: {0}</value>
+  </data>
+  <data name="Browser_RenameError" xml:space="preserve">
+    <value>การเปลี่ยนชื่อล้มเหลว: {0}</value>
+  </data>
+  <data name="Browser_RenamePromptTitle" xml:space="preserve">
+    <value>เปลี่ยนชื่อ ROM</value>
+  </data>
+  <data name="Browser_RenameSuccess" xml:space="preserve">
+    <value>เปลี่ยนชื่อเป็น {0}</value>
+  </data>
+  <data name="Checksum_Description" xml:space="preserve">
+    <value>คำนวณ checksum CRC32, MD5, SHA-1 และ SHA-256 สำหรับไฟล์ ROM เพื่อตรวจสอบความสมบูรณ์และระบุดัมป์</value>
+  </data>
+  <data name="Common_SelectFileTitle" xml:space="preserve">
+    <value>เลือกไฟล์</value>
+  </data>
+  <data name="Common_SelectOutputDirectoryTitle" xml:space="preserve">
+    <value>เลือกไดเรกทอรีเอาต์พุต</value>
+  </data>
+  <data name="Common_SelectRomDirectoryTitle" xml:space="preserve">
+    <value>เลือกไดเรกทอรี ROM</value>
+  </data>
+  <data name="Common_SelectRomFileTitle" xml:space="preserve">
+    <value>เลือกไฟล์ ROM</value>
+  </data>
+  <data name="Comparer_Description" xml:space="preserve">
+    <value>เปรียบเทียบไฟล์ ROM สองไฟล์ทีละไบต์เพื่อระบุความแตกต่างของขนาด เนื้อหา และค้นหาตำแหน่งที่ไม่ตรงกันแรก</value>
+  </data>
+  <data name="GoodTools_NoCodesForFile" xml:space="preserve">
+    <value>ไม่พบรหัส GoodTools</value>
+  </data>
+  <data name="MameConfig_Artwork" xml:space="preserve">
+    <value>ตัวเลือกอาร์ตเวิร์ก</value>
+  </data>
+  <data name="MameConfig_AutoEnable" xml:space="preserve">
+    <value>ตัวเลือกเปิดใช้งานอินพุตอัตโนมัติ</value>
+  </data>
+  <data name="MameConfig_Bgfx" xml:space="preserve">
+    <value>การประมวลผลภายหลัง BGFX</value>
+  </data>
+  <data name="MameConfig_Communication" xml:space="preserve">
+    <value>ตัวเลือกการสื่อสาร</value>
+  </data>
+  <data name="MameConfig_ConfigFile" xml:space="preserve">
+    <value>ไฟล์การกำหนดค่า</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>คุณมีการเปลี่ยนแปลงที่ไม่ได้บันทึก ยกเลิกและดำเนินการต่อ?</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>การเปลี่ยนแปลงที่ไม่ได้บันทึก</value>
+  </data>
+  <data name="MameConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>การดำเนินการนี้จะรีเซ็ตการตั้งค่าทั้งหมดเป็นค่าเริ่มต้นของ MAME การเปลี่ยนแปลงที่ไม่ได้บันทึกจะสูญหาย ดำเนินการต่อ?</value>
+  </data>
+  <data name="MameConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>รีเซ็ตเป็นค่าเริ่มต้น</value>
+  </data>
+  <data name="MameConfig_CoreInput" xml:space="preserve">
+    <value>ตัวเลือกอินพุตหลัก</value>
+  </data>
+  <data name="MameConfig_CoreMisc" xml:space="preserve">
+    <value>ตัวเลือกเบ็ดเตล็ดหลัก</value>
+  </data>
+  <data name="MameConfig_CorePerformance" xml:space="preserve">
+    <value>ตัวเลือกประสิทธิภาพหลัก</value>
+  </data>
+  <data name="MameConfig_CoreSound" xml:space="preserve">
+    <value>ตัวเลือกเสียงหลัก</value>
+  </data>
+  <data name="MameConfig_CoreVideo" xml:space="preserve">
+    <value>ตัวเลือกวิดีโอหลัก</value>
+  </data>
+  <data name="MameConfig_CreateNew" xml:space="preserve">
+    <value>สร้างใหม่</value>
+  </data>
+  <data name="MameConfig_Debugging" xml:space="preserve">
+    <value>ตัวเลือกการดีบัก</value>
+  </data>
+  <data name="MameConfig_DefaultsRestored" xml:space="preserve">
+    <value>รีเซ็ตการตั้งค่าทั้งหมดเป็นค่าเริ่มต้นของ MAME แล้ว</value>
+  </data>
+  <data name="MameConfig_Description" xml:space="preserve">
+    <value>โหลด แก้ไข และบันทึกไฟล์การกำหนดค่า MAME (mame.ini) รองรับการตั้งค่า MAME ทั้งหมดสำหรับ Windows, macOS และ Linux</value>
+  </data>
+  <data name="MameConfig_HttpServer" xml:space="preserve">
+    <value>ตัวเลือกเซิร์ฟเวอร์ HTTP</value>
+  </data>
+  <data name="MameConfig_IniFileType" xml:space="preserve">
+    <value>ไฟล์ MAME INI</value>
+  </data>
+  <data name="MameConfig_IniPlaceholder" xml:space="preserve">
+    <value>เส้นทางไปยัง mame.ini...</value>
+  </data>
+  <data name="MameConfig_Language" xml:space="preserve">
+    <value>ภาษา</value>
+  </data>
+  <data name="MameConfig_LoadError" xml:space="preserve">
+    <value>โหลดการกำหนดค่าล้มเหลว: {0}</value>
+  </data>
+  <data name="MameConfig_Loaded" xml:space="preserve">
+    <value>โหลด {0} การตั้งค่าจาก {1}</value>
+  </data>
+  <data name="MameConfig_NewCreated" xml:space="preserve">
+    <value>สร้างการกำหนดค่าใหม่ด้วยค่าเริ่มต้น MAME แล้ว เส้นทางบันทึก: {0}</value>
+  </data>
+  <data name="MameConfig_NoIniFound" xml:space="preserve">
+    <value>ไม่พบ mame.ini ใช้เรียกดูเพื่อค้นหา หรือสร้างใหม่เพื่อสร้างด้วยค่าเริ่มต้น</value>
+  </data>
+  <data name="MameConfig_OsdInput" xml:space="preserve">
+    <value>ผู้ให้บริการอินพุต OSD</value>
+  </data>
+  <data name="MameConfig_OsdSound" xml:space="preserve">
+    <value>ตัวเลือกเสียง OSD</value>
+  </data>
+  <data name="MameConfig_OsdVideo" xml:space="preserve">
+    <value>OSD / วิดีโอเร่ง</value>
+  </data>
+  <data name="MameConfig_OutputDirs" xml:space="preserve">
+    <value>ไดเรกทอรีเอาต์พุต</value>
+  </data>
+  <data name="MameConfig_PerWindowVideo" xml:space="preserve">
+    <value>ตัวเลือกวิดีโอต่อหน้าต่าง</value>
+  </data>
+  <data name="MameConfig_ResetDefaults" xml:space="preserve">
+    <value>รีเซ็ตเป็นค่าเริ่มต้น</value>
+  </data>
+  <data name="MameConfig_Rotation" xml:space="preserve">
+    <value>ตัวเลือกการหมุน</value>
+  </data>
+  <data name="MameConfig_Save" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="MameConfig_SaveAs" xml:space="preserve">
+    <value>บันทึกเป็น...</value>
+  </data>
+  <data name="MameConfig_SaveDialogTitle" xml:space="preserve">
+    <value>บันทึกการกำหนดค่า MAME</value>
+  </data>
+  <data name="MameConfig_SaveError" xml:space="preserve">
+    <value>บันทึกการกำหนดค่าล้มเหลว: {0}</value>
+  </data>
+  <data name="MameConfig_Saved" xml:space="preserve">
+    <value>บันทึกการกำหนดค่าไปที่ {0}</value>
+  </data>
+  <data name="MameConfig_ScreenOptions" xml:space="preserve">
+    <value>ตัวเลือกหน้าจอ</value>
+  </data>
+  <data name="MameConfig_Scripting" xml:space="preserve">
+    <value>สคริปต์ / ปลั๊กอิน</value>
+  </data>
+  <data name="MameConfig_SearchPaths" xml:space="preserve">
+    <value>เส้นทางค้นหา</value>
+  </data>
+  <data name="MameConfig_SearchPlaceholder" xml:space="preserve">
+    <value>พิมพ์เพื่อกรองการตั้งค่าตามชื่อ (เช่น rompath, video, joystick...)</value>
+  </data>
+  <data name="MameConfig_SearchResults" xml:space="preserve">
+    <value>{0} จาก {1} ส่วนตรงกัน</value>
+  </data>
+  <data name="MameConfig_SearchSettings" xml:space="preserve">
+    <value>ค้นหาการตั้งค่า</value>
+  </data>
+  <data name="MameConfig_SelectIniTitle" xml:space="preserve">
+    <value>เลือกไฟล์การกำหนดค่า MAME</value>
+  </data>
+  <data name="MameConfig_StatePlayback" xml:space="preserve">
+    <value>ตัวเลือกสถานะ / การเล่น</value>
+  </data>
+  <data name="MameConfig_TabInput" xml:space="preserve">
+    <value>อินพุต</value>
+  </data>
+  <data name="MameConfig_TabMisc" xml:space="preserve">
+    <value>เบ็ดเตล็ด / ขั้นสูง</value>
+  </data>
+  <data name="MameConfig_TabPaths" xml:space="preserve">
+    <value>เส้นทาง</value>
+  </data>
+  <data name="MameConfig_TabPerformance" xml:space="preserve">
+    <value>ประสิทธิภาพ</value>
+  </data>
+  <data name="MameConfig_TabSound" xml:space="preserve">
+    <value>เสียง</value>
+  </data>
+  <data name="MameConfig_TabState" xml:space="preserve">
+    <value>สถานะ / การเล่น</value>
+  </data>
+  <data name="MameConfig_TabVideo" xml:space="preserve">
+    <value>วิดีโอ</value>
+  </data>
+  <data name="MameConfig_Title" xml:space="preserve">
+    <value>ตัวกำหนดค่า MAME</value>
+  </data>
+  <data name="MameConfig_UnsavedChanges" xml:space="preserve">
+    <value>● การเปลี่ยนแปลงที่ไม่ได้บันทึก</value>
+  </data>
+  <data name="MameConfig_Vector" xml:space="preserve">
+    <value>ตัวเลือกเวกเตอร์</value>
+  </data>
+  <data name="MednafenConfig_CfgFileType" xml:space="preserve">
+    <value>ไฟล์การกำหนดค่า Mednafen (*.cfg)</value>
+  </data>
+  <data name="MednafenConfig_CfgPlaceholder" xml:space="preserve">
+    <value>เส้นทางไปยัง mednafen.cfg...</value>
+  </data>
+  <data name="MednafenConfig_ConfigFile" xml:space="preserve">
+    <value>ไฟล์การกำหนดค่า</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>คุณมีการเปลี่ยนแปลงที่ไม่ได้บันทึก ยกเลิกและดำเนินการต่อ?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>การเปลี่ยนแปลงที่ไม่ได้บันทึก</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>การดำเนินการนี้จะรีเซ็ตการตั้งค่าทั้งหมดเป็นค่าเริ่มต้นของ Mednafen การเปลี่ยนแปลงที่ไม่ได้บันทึกจะสูญหาย ดำเนินการต่อ?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>รีเซ็ตเป็นค่าเริ่มต้น</value>
+  </data>
+  <data name="MednafenConfig_CoreSettings" xml:space="preserve">
+    <value>การตั้งค่าหลัก</value>
+  </data>
+  <data name="MednafenConfig_CpuAffinity" xml:space="preserve">
+    <value>ความสัมพันธ์ CPU</value>
+  </data>
+  <data name="MednafenConfig_CreateNew" xml:space="preserve">
+    <value>สร้างใหม่</value>
+  </data>
+  <data name="MednafenConfig_DefaultsRestored" xml:space="preserve">
+    <value>คืนค่าการตั้งค่าทั้งหมดเป็นค่าเริ่มต้นของ Mednafen แล้ว</value>
+  </data>
+  <data name="MednafenConfig_Description" xml:space="preserve">
+    <value>โหลด แก้ไข และบันทึกไฟล์การกำหนดค่า Mednafen (mednafen.cfg) รองรับการตั้งค่า Mednafen ทั้งหมดสำหรับ Windows, macOS และ Linux</value>
+  </data>
+  <data name="MednafenConfig_DirectoryPaths" xml:space="preserve">
+    <value>เส้นทางไดเรกทอรี</value>
+  </data>
+  <data name="MednafenConfig_FilenameFormats" xml:space="preserve">
+    <value>รูปแบบชื่อไฟล์</value>
+  </data>
+  <data name="MednafenConfig_FpsDisplay" xml:space="preserve">
+    <value>แสดง FPS</value>
+  </data>
+  <data name="MednafenConfig_GoatShader" xml:space="preserve">
+    <value>การตั้งค่า Goat Shader</value>
+  </data>
+  <data name="MednafenConfig_InputSettings" xml:space="preserve">
+    <value>การตั้งค่าอินพุต</value>
+  </data>
+  <data name="MednafenConfig_LoadError" xml:space="preserve">
+    <value>โหลดการกำหนดค่าล้มเหลว: {0}</value>
+  </data>
+  <data name="MednafenConfig_Loaded" xml:space="preserve">
+    <value>โหลด {0} การตั้งค่าจาก {1}</value>
+  </data>
+  <data name="MednafenConfig_NetworkPlay" xml:space="preserve">
+    <value>เล่นผ่านเครือข่าย</value>
+  </data>
+  <data name="MednafenConfig_NewCreated" xml:space="preserve">
+    <value>สร้างการกำหนดค่าเริ่มต้นใหม่ที่ {0}</value>
+  </data>
+  <data name="MednafenConfig_NoCfgFound" xml:space="preserve">
+    <value>ไม่สามารถตรวจจับ mednafen.cfg อัตโนมัติ กรุณาเรียกดูไฟล์ด้วยตนเอง</value>
+  </data>
+  <data name="MednafenConfig_Osd" xml:space="preserve">
+    <value>การแสดงผลบนหน้าจอ</value>
+  </data>
+  <data name="MednafenConfig_PerSystemDescription" xml:space="preserve">
+    <value>กำหนดค่าการปรับขนาดวิดีโอ เชเดอร์ และการตั้งค่าการแสดงผลต่อระบบจำลอง การเปลี่ยนแปลงจะถูกบันทึกเมื่อสลับระบบหรือบันทึกไฟล์</value>
+  </data>
+  <data name="MednafenConfig_QtRecord" xml:space="preserve">
+    <value>บันทึก QuickTime</value>
+  </data>
+  <data name="MednafenConfig_ResetDefaults" xml:space="preserve">
+    <value>รีเซ็ตเป็นค่าเริ่มต้น</value>
+  </data>
+  <data name="MednafenConfig_Save" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="MednafenConfig_SaveAs" xml:space="preserve">
+    <value>บันทึกเป็น</value>
+  </data>
+  <data name="MednafenConfig_SaveDialogTitle" xml:space="preserve">
+    <value>บันทึกการกำหนดค่า Mednafen เป็น</value>
+  </data>
+  <data name="MednafenConfig_SaveError" xml:space="preserve">
+    <value>บันทึกการกำหนดค่าล้มเหลว: {0}</value>
+  </data>
+  <data name="MednafenConfig_Saved" xml:space="preserve">
+    <value>บันทึกการกำหนดค่าไปที่ {0}</value>
+  </data>
+  <data name="MednafenConfig_SearchPlaceholder" xml:space="preserve">
+    <value>พิมพ์เพื่อกรองการตั้งค่าตามชื่อ (เช่น video, sound, shader...)</value>
+  </data>
+  <data name="MednafenConfig_SearchResults" xml:space="preserve">
+    <value>{0} จาก {1} ส่วนตรงกัน</value>
+  </data>
+  <data name="MednafenConfig_SearchSettings" xml:space="preserve">
+    <value>ค้นหาการตั้งค่า</value>
+  </data>
+  <data name="MednafenConfig_SelectCfgTitle" xml:space="preserve">
+    <value>เลือกไฟล์การกำหนดค่า Mednafen</value>
+  </data>
+  <data name="MednafenConfig_SelectSystem" xml:space="preserve">
+    <value>เลือกระบบ</value>
+  </data>
+  <data name="MednafenConfig_SoundOutput" xml:space="preserve">
+    <value>เอาต์พุตเสียง</value>
+  </data>
+  <data name="MednafenConfig_SpeedSettings" xml:space="preserve">
+    <value>กรอเดินหน้า / เดินหน้าช้า</value>
+  </data>
+  <data name="MednafenConfig_SystemVideo" xml:space="preserve">
+    <value>วิดีโอระบบ / การปรับขนาด</value>
+  </data>
+  <data name="MednafenConfig_TabAdvanced" xml:space="preserve">
+    <value>ขั้นสูง</value>
+  </data>
+  <data name="MednafenConfig_TabGeneral" xml:space="preserve">
+    <value>ทั่วไป</value>
+  </data>
+  <data name="MednafenConfig_TabInput" xml:space="preserve">
+    <value>อินพุต</value>
+  </data>
+  <data name="MednafenConfig_TabNetplay" xml:space="preserve">
+    <value>เล่นผ่านเครือข่าย</value>
+  </data>
+  <data name="MednafenConfig_TabPaths" xml:space="preserve">
+    <value>เส้นทาง</value>
+  </data>
+  <data name="MednafenConfig_TabPerSystem" xml:space="preserve">
+    <value>ต่อระบบ</value>
+  </data>
+  <data name="MednafenConfig_TabSound" xml:space="preserve">
+    <value>เสียง</value>
+  </data>
+  <data name="MednafenConfig_TabVideo" xml:space="preserve">
+    <value>วิดีโอ</value>
+  </data>
+  <data name="MednafenConfig_TemporalBlur" xml:space="preserve">
+    <value>การเบลอชั่วคราว</value>
+  </data>
+  <data name="MednafenConfig_Title" xml:space="preserve">
+    <value>ตัวกำหนดค่า Mednafen</value>
+  </data>
+  <data name="MednafenConfig_UnsavedChanges" xml:space="preserve">
+    <value>● การเปลี่ยนแปลงที่ไม่ได้บันทึก</value>
+  </data>
+  <data name="MednafenConfig_VideoOutput" xml:space="preserve">
+    <value>เอาต์พุตวิดีโอ</value>
+  </data>
+  <data name="MetaScraper_SummaryBySystem" xml:space="preserve">
+    <value>สรุปตามระบบ:</value>
+  </data>
+  <data name="MetaScraper_SummaryStats" xml:space="preserve">
+    <value>ถูกต้อง: {0}, ไม่ถูกต้อง: {1}, ข้อผิดพลาด: {2}</value>
+  </data>
+  <data name="Nav_MameConfigurator" xml:space="preserve">
+    <value>ตัวกำหนดค่า MAME</value>
+  </data>
+  <data name="Nav_MednafenConfigurator" xml:space="preserve">
+    <value>ตัวกำหนดค่า Mednafen</value>
+  </data>
+  <data name="Nav_NoResults" xml:space="preserve">
+    <value>ไม่พบเครื่องมือที่ตรงกัน</value>
+  </data>
+  <data name="Nav_RetroArchConfigurator" xml:space="preserve">
+    <value>ตัวกำหนดค่า RetroArch</value>
+  </data>
+  <data name="Nav_SearchPlaceholder" xml:space="preserve">
+    <value>ค้นหาเครื่องมือ...</value>
+  </data>
+  <data name="Patcher_Description" xml:space="preserve">
+    <value>ใช้แพตช์ IPS, BPS หรือ xdelta กับไฟล์ ROM เพื่อใช้การแปล การแก้ไข หรือการปรับเปลี่ยน</value>
+  </data>
+  <data name="RAConfig_AIService" xml:space="preserve">
+    <value>บริการ AI</value>
+  </data>
+  <data name="RAConfig_AccessibilityOptions" xml:space="preserve">
+    <value>ตัวเลือกการเข้าถึง</value>
+  </data>
+  <data name="RAConfig_AchievementDisplay" xml:space="preserve">
+    <value>แสดงความสำเร็จ</value>
+  </data>
+  <data name="RAConfig_AchievementOptions" xml:space="preserve">
+    <value>ตัวเลือก RetroAchievements</value>
+  </data>
+  <data name="RAConfig_AudioDriver" xml:space="preserve">
+    <value>ไดรเวอร์เสียง</value>
+  </data>
+  <data name="RAConfig_AudioSync" xml:space="preserve">
+    <value>การตั้งค่าเสียง</value>
+  </data>
+  <data name="RAConfig_CfgFileType" xml:space="preserve">
+    <value>ไฟล์ RetroArch CFG</value>
+  </data>
+  <data name="RAConfig_CfgPlaceholder" xml:space="preserve">
+    <value>เส้นทางไปยัง retroarch.cfg...</value>
+  </data>
+  <data name="RAConfig_ConfigFile" xml:space="preserve">
+    <value>ไฟล์การกำหนดค่า</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>คุณมีการเปลี่ยนแปลงที่ไม่ได้บันทึก ยกเลิกและดำเนินการต่อ?</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>การเปลี่ยนแปลงที่ไม่ได้บันทึก</value>
+  </data>
+  <data name="RAConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>การดำเนินการนี้จะรีเซ็ตการตั้งค่าทั้งหมดเป็นค่าเริ่มต้นของ RetroArch การเปลี่ยนแปลงที่ไม่ได้บันทึกจะสูญหาย ดำเนินการต่อ?</value>
+  </data>
+  <data name="RAConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>รีเซ็ตเป็นค่าเริ่มต้น</value>
+  </data>
+  <data name="RAConfig_ContentPaths" xml:space="preserve">
+    <value>เส้นทางเนื้อหาและบันทึก</value>
+  </data>
+  <data name="RAConfig_CoreOptions" xml:space="preserve">
+    <value>ตัวเลือกคอร์</value>
+  </data>
+  <data name="RAConfig_CorePaths" xml:space="preserve">
+    <value>เส้นทางคอร์และระบบ</value>
+  </data>
+  <data name="RAConfig_CreateNew" xml:space="preserve">
+    <value>สร้างใหม่</value>
+  </data>
+  <data name="RAConfig_DefaultsRestored" xml:space="preserve">
+    <value>รีเซ็ตการตั้งค่าทั้งหมดเป็นค่าเริ่มต้นของ RetroArch แล้ว</value>
+  </data>
+  <data name="RAConfig_Description" xml:space="preserve">
+    <value>โหลด แก้ไข และบันทึกไฟล์การกำหนดค่า RetroArch (retroarch.cfg) รองรับการตั้งค่า RetroArch ทั้งหมดสำหรับ Windows, macOS และ Linux</value>
+  </data>
+  <data name="RAConfig_FilterPaths" xml:space="preserve">
+    <value>เส้นทางฟิลเตอร์ โอเวอร์เลย์ และอื่นๆ</value>
+  </data>
+  <data name="RAConfig_FrameThrottle" xml:space="preserve">
+    <value>ตัวเลือกจำกัดเฟรม</value>
+  </data>
+  <data name="RAConfig_InputGeneral" xml:space="preserve">
+    <value>การตั้งค่าอินพุตทั่วไป</value>
+  </data>
+  <data name="RAConfig_InputHotkeys" xml:space="preserve">
+    <value>การผูกปุ่มลัด</value>
+  </data>
+  <data name="RAConfig_LoadError" xml:space="preserve">
+    <value>โหลดการกำหนดค่าล้มเหลว: {0}</value>
+  </data>
+  <data name="RAConfig_Loaded" xml:space="preserve">
+    <value>โหลด {0} การตั้งค่าจาก {1}</value>
+  </data>
+  <data name="RAConfig_Logging" xml:space="preserve">
+    <value>ตัวเลือกการบันทึกล็อก</value>
+  </data>
+  <data name="RAConfig_MenuGeneral" xml:space="preserve">
+    <value>การตั้งค่าเมนู</value>
+  </data>
+  <data name="RAConfig_MenuTheme" xml:space="preserve">
+    <value>ธีมและรูปลักษณ์</value>
+  </data>
+  <data name="RAConfig_MiscOptions" xml:space="preserve">
+    <value>ตัวเลือกเบ็ดเตล็ด</value>
+  </data>
+  <data name="RAConfig_Netplay" xml:space="preserve">
+    <value>เล่นผ่านเครือข่าย</value>
+  </data>
+  <data name="RAConfig_NetworkGeneral" xml:space="preserve">
+    <value>การตั้งค่าเครือข่าย</value>
+  </data>
+  <data name="RAConfig_NewCreated" xml:space="preserve">
+    <value>สร้างการกำหนดค่าใหม่ด้วยค่าเริ่มต้น RetroArch แล้ว เส้นทางบันทึก: {0}</value>
+  </data>
+  <data name="RAConfig_NoCfgFound" xml:space="preserve">
+    <value>ไม่พบ retroarch.cfg ใช้เรียกดูเพื่อค้นหา หรือสร้างใหม่เพื่อสร้างด้วยค่าเริ่มต้น</value>
+  </data>
+  <data name="RAConfig_Notifications" xml:space="preserve">
+    <value>การแจ้งเตือน</value>
+  </data>
+  <data name="RAConfig_OverlaySettings" xml:space="preserve">
+    <value>การตั้งค่าโอเวอร์เลย์</value>
+  </data>
+  <data name="RAConfig_RGUITheme" xml:space="preserve">
+    <value>ธีม RGUI</value>
+  </data>
+  <data name="RAConfig_RecordingOptions" xml:space="preserve">
+    <value>ตัวเลือกการบันทึก</value>
+  </data>
+  <data name="RAConfig_ResetDefaults" xml:space="preserve">
+    <value>รีเซ็ตเป็นค่าเริ่มต้น</value>
+  </data>
+  <data name="RAConfig_Rewind" xml:space="preserve">
+    <value>ตัวเลือกการกรอกลับ</value>
+  </data>
+  <data name="RAConfig_Save" xml:space="preserve">
+    <value>บันทึก</value>
+  </data>
+  <data name="RAConfig_SaveAs" xml:space="preserve">
+    <value>บันทึกเป็น...</value>
+  </data>
+  <data name="RAConfig_SaveDialogTitle" xml:space="preserve">
+    <value>บันทึกการกำหนดค่า RetroArch</value>
+  </data>
+  <data name="RAConfig_SaveError" xml:space="preserve">
+    <value>บันทึกการกำหนดค่าล้มเหลว: {0}</value>
+  </data>
+  <data name="RAConfig_SaveOptions" xml:space="preserve">
+    <value>ตัวเลือกบันทึกและสถานะ</value>
+  </data>
+  <data name="RAConfig_Saved" xml:space="preserve">
+    <value>บันทึกการกำหนดค่าไปที่ {0}</value>
+  </data>
+  <data name="RAConfig_SearchPlaceholder" xml:space="preserve">
+    <value>พิมพ์เพื่อกรองการตั้งค่าตามชื่อ (เช่น video_driver, audio, netplay...)</value>
+  </data>
+  <data name="RAConfig_SearchSettings" xml:space="preserve">
+    <value>ค้นหาการตั้งค่า</value>
+  </data>
+  <data name="RAConfig_SelectCfgTitle" xml:space="preserve">
+    <value>เลือกไฟล์การกำหนดค่า RetroArch</value>
+  </data>
+  <data name="RAConfig_TabAccessibility" xml:space="preserve">
+    <value>การเข้าถึง</value>
+  </data>
+  <data name="RAConfig_TabAchievements" xml:space="preserve">
+    <value>ความสำเร็จ</value>
+  </data>
+  <data name="RAConfig_TabAudio" xml:space="preserve">
+    <value>เสียง</value>
+  </data>
+  <data name="RAConfig_TabCore" xml:space="preserve">
+    <value>คอร์ / การบันทึก</value>
+  </data>
+  <data name="RAConfig_TabFrameThrottle" xml:space="preserve">
+    <value>จำกัดเฟรม</value>
+  </data>
+  <data name="RAConfig_TabInput" xml:space="preserve">
+    <value>อินพุต</value>
+  </data>
+  <data name="RAConfig_TabMenu" xml:space="preserve">
+    <value>เมนู / UI</value>
+  </data>
+  <data name="RAConfig_TabMisc" xml:space="preserve">
+    <value>เบ็ดเตล็ด / ล็อก</value>
+  </data>
+  <data name="RAConfig_TabNetwork" xml:space="preserve">
+    <value>เครือข่าย</value>
+  </data>
+  <data name="RAConfig_TabOverlay" xml:space="preserve">
+    <value>โอเวอร์เลย์</value>
+  </data>
+  <data name="RAConfig_TabPaths" xml:space="preserve">
+    <value>เส้นทาง</value>
+  </data>
+  <data name="RAConfig_TabRecording" xml:space="preserve">
+    <value>การบันทึก</value>
+  </data>
+  <data name="RAConfig_TabVideo" xml:space="preserve">
+    <value>วิดีโอ</value>
+  </data>
+  <data name="RAConfig_Title" xml:space="preserve">
+    <value>ตัวกำหนดค่า RetroArch</value>
+  </data>
+  <data name="RAConfig_UnsavedChanges" xml:space="preserve">
+    <value>● การเปลี่ยนแปลงที่ไม่ได้บันทึก</value>
+  </data>
+  <data name="RAConfig_VideoAdvanced" xml:space="preserve">
+    <value>วิดีโอขั้นสูง</value>
+  </data>
+  <data name="RAConfig_VideoDisplay" xml:space="preserve">
+    <value>การตั้งค่าการแสดงผล</value>
+  </data>
+  <data name="RAConfig_VideoDriver" xml:space="preserve">
+    <value>ไดรเวอร์วิดีโอ</value>
+  </data>
+  <data name="RAConfig_VideoOSD" xml:space="preserve">
+    <value>OSD และภาพหน้าจอ</value>
+  </data>
+  <data name="RAConfig_VideoScaling" xml:space="preserve">
+    <value>การปรับขนาดและการกรอง</value>
+  </data>
+  <data name="RAConfig_VideoSync" xml:space="preserve">
+    <value>การซิงโครไนซ์</value>
+  </data>
+  <data name="Security_SingleNoFeatures" xml:space="preserve">
+    <value>✔ {0}: ไม่พบคุณสมบัติด้านความปลอดภัย</value>
+  </data>
+  <data name="Security_SingleResultDetected" xml:space="preserve">
+    <value>✔ {0}: ตรวจพบคุณสมบัติด้านความปลอดภัย {1} รายการ</value>
+  </data>
+  <data name="Settings_BigPictureStyleClassic" xml:space="preserve">
+    <value>คลาสสิก (ตารางการ์ด)</value>
+  </data>
+  <data name="Settings_BigPictureStyleLabel" xml:space="preserve">
+    <value>รูปแบบภาพ</value>
+  </data>
+  <data name="Settings_BigPictureStyleModern" xml:space="preserve">
+    <value>ทันสมัย (ฮีโร่ + ม้าหมุน)</value>
+  </data>
+  <data name="Settings_UpdateManagedByPackageManager" xml:space="preserve">
+    <value>การอัปเดตจัดการโดยตัวจัดการแพ็กเกจของระบบ</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImage" xml:space="preserve">
+    <value>ยืนยันการสร้างอิมเมจ</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImageMessage" xml:space="preserve">
+    <value>สร้างอิมเมจดิสก์เต็มจาก {0}? อาจใช้เวลาสักครู่ขึ้นอยู่กับขนาดไดรฟ์</value>
+  </data>
 </root>

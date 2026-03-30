@@ -6124,4 +6124,1205 @@ Run:notepad.exe</value>
   <data name="Settings_Clear" xml:space="preserve">
     <value>مسح</value>
   </data>
+  <data name="Nav_DiscTools" xml:space="preserve">
+    <value>أدوات القرص</value>
+  </data>
+  <data name="DiscTools_Title" xml:space="preserve">
+    <value>أدوات القرص</value>
+  </data>
+  <data name="DiscTools_Description" xml:space="preserve">
+    <value>انسخ صور القرص أو الملفات على الوسائط الضوئية، وقم بإنشاء صور القرص من الأقراص أو الملفات الفعلية. يدعم ISO وBIN/CUE وIMG وGDI وCDI وNRG وتنسيقات أقراص نظام الألعاب الأخرى.</value>
+  </data>
+  <data name="DiscTools_Operation" xml:space="preserve">
+    <value>عملية:</value>
+  </data>
+  <data name="DiscTools_OpBurnImage" xml:space="preserve">
+    <value>كتابة الصورة على القرص</value>
+  </data>
+  <data name="DiscTools_OpBurnFiles" xml:space="preserve">
+    <value>كتابة الملفات على القرص</value>
+  </data>
+  <data name="DiscTools_OpImageFromDisc" xml:space="preserve">
+    <value>إنشاء صورة من القرص</value>
+  </data>
+  <data name="DiscTools_OpImageFromFiles" xml:space="preserve">
+    <value>إنشاء صورة من الملفات</value>
+  </data>
+  <data name="DiscTools_Drive" xml:space="preserve">
+    <value>محرك الأقراص الضوئية:</value>
+  </data>
+  <data name="DiscTools_SelectDrive" xml:space="preserve">
+    <value>حدد محرك الأقراص الضوئية...</value>
+  </data>
+  <data name="DiscTools_RefreshDrives" xml:space="preserve">
+    <value>ينعش</value>
+  </data>
+  <data name="DiscTools_NoDrivesFound" xml:space="preserve">
+    <value>لم يتم اكتشاف أي محركات أقراص ضوئية في هذا النظام.</value>
+  </data>
+  <data name="DiscTools_ImageFile" xml:space="preserve">
+    <value>ملف الصورة:</value>
+  </data>
+  <data name="DiscTools_SelectImageFile" xml:space="preserve">
+    <value>حدد ملف صورة القرص...</value>
+  </data>
+  <data name="DiscTools_ImageFiles" xml:space="preserve">
+    <value>ملفات صور القرص</value>
+  </data>
+  <data name="DiscTools_FilesOrFolders" xml:space="preserve">
+    <value>الملفات / المجلدات:</value>
+  </data>
+  <data name="DiscTools_SelectFilesOrFolders" xml:space="preserve">
+    <value>تحديد الملفات أو المجلدات للكتابة...</value>
+  </data>
+  <data name="DiscTools_SelectFolder" xml:space="preserve">
+    <value>حدد مجلدًا</value>
+  </data>
+  <data name="DiscTools_OutputFile" xml:space="preserve">
+    <value>ملف صورة الإخراج:</value>
+  </data>
+  <data name="DiscTools_SelectOutputImage" xml:space="preserve">
+    <value>تحديد مسار ملف الصورة الناتج...</value>
+  </data>
+  <data name="DiscTools_VolumeLabel" xml:space="preserve">
+    <value>تسمية الحجم:</value>
+  </data>
+  <data name="DiscTools_VolumeLabelHint" xml:space="preserve">
+    <value>أدخل تسمية مستوى الصوت للقرص...</value>
+  </data>
+  <data name="DiscTools_WriteSpeed" xml:space="preserve">
+    <value>سرعة الكتابة:</value>
+  </data>
+  <data name="DiscTools_SpeedAuto" xml:space="preserve">
+    <value>تلقائي (الحد الأقصى)</value>
+  </data>
+  <data name="DiscTools_VerifyAfterBurn" xml:space="preserve">
+    <value>التحقق بعد الكتابة</value>
+  </data>
+  <data name="DiscTools_Burn" xml:space="preserve">
+    <value>الكتابة على القرص</value>
+  </data>
+  <data name="DiscTools_CreateImage" xml:space="preserve">
+    <value>إنشاء صورة</value>
+  </data>
+  <data name="DiscTools_Cancel" xml:space="preserve">
+    <value>يلغي</value>
+  </data>
+  <data name="DiscTools_DetectingDrives" xml:space="preserve">
+    <value>الكشف عن محركات الأقراص الضوئية...</value>
+  </data>
+  <data name="DiscTools_DriveDetectError" xml:space="preserve">
+    <value>خطأ في اكتشاف محركات الأقراص: {0}</value>
+  </data>
+  <data name="DiscTools_ImageNotFound" xml:space="preserve">
+    <value>لم يتم العثور على ملف الصورة.</value>
+  </data>
+  <data name="DiscTools_BurningImage" xml:space="preserve">
+    <value>صورة الكتابة: {0}</value>
+  </data>
+  <data name="DiscTools_BurningFiles" xml:space="preserve">
+    <value>كتابة عنصر (عناصر) {0} إلى القرص...</value>
+  </data>
+  <data name="DiscTools_NoFilesSelected" xml:space="preserve">
+    <value>لم يتم تحديد أي ملفات أو مجلدات.</value>
+  </data>
+  <data name="DiscTools_OutputRequired" xml:space="preserve">
+    <value>مطلوب مسار ملف الإخراج.</value>
+  </data>
+  <data name="DiscTools_ReadingDisc" xml:space="preserve">
+    <value>قرص القراءة...</value>
+  </data>
+  <data name="DiscTools_CreatingImage" xml:space="preserve">
+    <value>إنشاء الصورة: {0}</value>
+  </data>
+  <data name="DiscTools_WritingToDisc" xml:space="preserve">
+    <value>كتابة البيانات على القرص...</value>
+  </data>
+  <data name="DiscTools_RunningTool" xml:space="preserve">
+    <value>جارٍ تشغيل {0}...</value>
+  </data>
+  <data name="DiscTools_BurnComplete" xml:space="preserve">
+    <value>✔ تمت الكتابة على القرص بنجاح.</value>
+  </data>
+  <data name="DiscTools_BurnFailed" xml:space="preserve">
+    <value>✘ فشلت الكتابة: {0}</value>
+  </data>
+  <data name="DiscTools_ImageCreated" xml:space="preserve">
+    <value>✔ تم إنشاء الصورة: {0} ({1})</value>
+  </data>
+  <data name="DiscTools_ImageCreateFailed" xml:space="preserve">
+    <value>✘ فشل إنشاء الصورة: {0}</value>
+  </data>
+  <data name="DiscTools_UnsupportedPlatform" xml:space="preserve">
+    <value>هذا النظام الأساسي غير مدعوم لعمليات القرص.</value>
+  </data>
+  <data name="DiscTools_NoBurnTool" xml:space="preserve">
+    <value>لم يتم العثور على أداة لحرق الأقراص. الرجاء تثبيت wodim أو cdrecord أو xorrecord.</value>
+  </data>
+  <data name="DiscTools_NoIsoTool" xml:space="preserve">
+    <value>لم يتم العثور على أداة إنشاء ISO. الرجاء تثبيت xorrisofs أو genisoimage أو mkisofs.</value>
+  </data>
+  <data name="DiscTools_IsoCreateFailed" xml:space="preserve">
+    <value>فشل إنشاء ISO: {0}</value>
+  </data>
+  <data name="DiscTools_CreatingIso" xml:space="preserve">
+    <value>إنشاء صورة ISO...</value>
+  </data>
+  <data name="DiscTools_OperationCancelled" xml:space="preserve">
+    <value>تم إلغاء العملية.</value>
+  </data>
+  <data name="DiscTools_BrowseFolder" xml:space="preserve">
+    <value>تصفح المجلد</value>
+  </data>
+  <data name="DiscTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>لا يمكن نسخ تنسيق الصورة &quot;{0}&quot; على القرص. الصيغ المدعومة: ISO، BIN/CUE، IMG، NRG، TOAST.</value>
+  </data>
+  <data name="DiscTools_Verifying" xml:space="preserve">
+    <value>جارٍ التحقق من القرص...</value>
+  </data>
+  <data name="DiscTools_BurnCompleteVerifySkipped" xml:space="preserve">
+    <value>اكتمل الحرق بنجاح. لا يمكن إجراء التحقق.</value>
+  </data>
+  <data name="DiscTools_VerifyFailed" xml:space="preserve">
+    <value>اكتمل النسخ ولكن فشل التحقق: بيانات القرص لا تتطابق مع الصورة المصدر.</value>
+  </data>
+  <data name="DiscTools_IsoImageType" xml:space="preserve">
+    <value>صورة ايزو</value>
+  </data>
+  <data name="DiscTools_BinCueImageType" xml:space="preserve">
+    <value>صورة BIN/CUE</value>
+  </data>
+  <data name="Nav_UsbTools" xml:space="preserve">
+    <value>أدوات USB</value>
+  </data>
+  <data name="UsbTools_Title" xml:space="preserve">
+    <value>أدوات USB</value>
+  </data>
+  <data name="UsbTools_Description" xml:space="preserve">
+    <value>تهيئة، كتابة صور على، إنشاء صور من، وتصفح محركات أقراص USB.</value>
+  </data>
+  <data name="UsbTools_Drive" xml:space="preserve">
+    <value>محرك أقراص USB</value>
+  </data>
+  <data name="UsbTools_SelectDrive" xml:space="preserve">
+    <value>اختر محرك أقراص USB...</value>
+  </data>
+  <data name="UsbTools_RefreshDrives" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="UsbTools_DetectingDrives" xml:space="preserve">
+    <value>جاري اكتشاف محركات أقراص USB...</value>
+  </data>
+  <data name="UsbTools_NoDrivesFound" xml:space="preserve">
+    <value>لم يتم العثور على محركات أقراص USB.</value>
+  </data>
+  <data name="UsbTools_DriveDetectError" xml:space="preserve">
+    <value>خطأ في اكتشاف محركات الأقراص: {0}</value>
+  </data>
+  <data name="UsbTools_NoDriveSelected" xml:space="preserve">
+    <value>لم يتم تحديد محرك أقراص USB.</value>
+  </data>
+  <data name="UsbTools_UnsupportedPlatform" xml:space="preserve">
+    <value>هذه العملية غير مدعومة على النظام الأساسي الحالي.</value>
+  </data>
+  <data name="UsbTools_TabExplorer" xml:space="preserve">
+    <value>مستكشف الملفات</value>
+  </data>
+  <data name="UsbTools_TabFormat" xml:space="preserve">
+    <value>تهيئة</value>
+  </data>
+  <data name="UsbTools_TabWriteImage" xml:space="preserve">
+    <value>كتابة صورة</value>
+  </data>
+  <data name="UsbTools_TabCreateImage" xml:space="preserve">
+    <value>إنشاء صورة</value>
+  </data>
+  <data name="UsbTools_NavigateUp" xml:space="preserve">
+    <value>الانتقال للأعلى</value>
+  </data>
+  <data name="UsbTools_RefreshFiles" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="UsbTools_AddFiles" xml:space="preserve">
+    <value>إضافة ملفات</value>
+  </data>
+  <data name="UsbTools_NewFolder" xml:space="preserve">
+    <value>مجلد جديد</value>
+  </data>
+  <data name="UsbTools_Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="UsbTools_Move" xml:space="preserve">
+    <value>نقل</value>
+  </data>
+  <data name="UsbTools_FileSystem" xml:space="preserve">
+    <value>نظام الملفات</value>
+  </data>
+  <data name="UsbTools_PartitionScheme" xml:space="preserve">
+    <value>مخطط التقسيم</value>
+  </data>
+  <data name="UsbTools_VolumeLabel" xml:space="preserve">
+    <value>تسمية وحدة التخزين</value>
+  </data>
+  <data name="UsbTools_VolumeLabelHint" xml:space="preserve">
+    <value>أدخل تسمية وحدة التخزين</value>
+  </data>
+  <data name="UsbTools_FormatWarning" xml:space="preserve">
+    <value>⚠ تحذير: ستؤدي التهيئة إلى مسح جميع البيانات الموجودة على محرك أقراص USB المحدد. لا يمكن التراجع عن هذا الإجراء.</value>
+  </data>
+  <data name="UsbTools_Format" xml:space="preserve">
+    <value>تهيئة محرك أقراص USB</value>
+  </data>
+  <data name="UsbTools_PreparingFormat" xml:space="preserve">
+    <value>جاري التحضير للتهيئة...</value>
+  </data>
+  <data name="UsbTools_Formatting" xml:space="preserve">
+    <value>جاري التهيئة إلى {0} ({1})...</value>
+  </data>
+  <data name="UsbTools_FormatComplete" xml:space="preserve">
+    <value>تمت تهيئة محرك أقراص USB بنجاح.</value>
+  </data>
+  <data name="UsbTools_FormatFailed" xml:space="preserve">
+    <value>فشلت التهيئة: {0}</value>
+  </data>
+  <data name="UsbTools_UnsupportedFileSystem" xml:space="preserve">
+    <value>نظام ملفات غير مدعوم: {0}</value>
+  </data>
+  <data name="UsbTools_NtfsMacWarning" xml:space="preserve">
+    <value>ملاحظة: لا يدعم macOS تهيئة NTFS بشكل أصلي. تمت تهيئة محرك الأقراص بتنسيق ExFAT بدلاً من ذلك.</value>
+  </data>
+  <data name="UsbTools_ConfirmFormat" xml:space="preserve">
+    <value>تأكيد التهيئة</value>
+  </data>
+  <data name="UsbTools_ConfirmFormatMessage" xml:space="preserve">
+    <value>هل أنت متأكد من أنك تريد تهيئة {0}؟ سيتم محو جميع البيانات نهائياً.</value>
+  </data>
+  <data name="UsbTools_ImageFile" xml:space="preserve">
+    <value>ملف صورة</value>
+  </data>
+  <data name="UsbTools_SelectImageFile" xml:space="preserve">
+    <value>اختر ملف صورة...</value>
+  </data>
+  <data name="UsbTools_ImageFiles" xml:space="preserve">
+    <value>ملفات صور القرص</value>
+  </data>
+  <data name="UsbTools_ImageNotFound" xml:space="preserve">
+    <value>لم يتم العثور على ملف الصورة.</value>
+  </data>
+  <data name="UsbTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>تنسيق صورة غير مدعوم: {0}</value>
+  </data>
+  <data name="UsbTools_WriteWarning" xml:space="preserve">
+    <value>⚠ تحذير: ستؤدي كتابة الصورة إلى مسح جميع البيانات الموجودة على محرك أقراص USB المحدد. لا يمكن التراجع عن هذا الإجراء.</value>
+  </data>
+  <data name="UsbTools_WriteImage" xml:space="preserve">
+    <value>كتابة صورة إلى USB</value>
+  </data>
+  <data name="UsbTools_WritingImage" xml:space="preserve">
+    <value>جاري كتابة {0} على محرك أقراص USB...</value>
+  </data>
+  <data name="UsbTools_WriteComplete" xml:space="preserve">
+    <value>تمت كتابة الصورة على محرك أقراص USB بنجاح.</value>
+  </data>
+  <data name="UsbTools_WriteFailed" xml:space="preserve">
+    <value>فشلت الكتابة: {0}</value>
+  </data>
+  <data name="UsbTools_ConfirmWrite" xml:space="preserve">
+    <value>تأكيد الكتابة</value>
+  </data>
+  <data name="UsbTools_ConfirmWriteMessage" xml:space="preserve">
+    <value>هل أنت متأكد من أنك تريد كتابة {0} على {1}؟ سيتم محو جميع البيانات الموجودة نهائياً.</value>
+  </data>
+  <data name="UsbTools_OutputFile" xml:space="preserve">
+    <value>ملف الإخراج</value>
+  </data>
+  <data name="UsbTools_SelectOutputImage" xml:space="preserve">
+    <value>اختر موقع صورة الإخراج...</value>
+  </data>
+  <data name="UsbTools_CreateImage" xml:space="preserve">
+    <value>إنشاء صورة من USB</value>
+  </data>
+  <data name="UsbTools_CreatingImage" xml:space="preserve">
+    <value>جاري إنشاء صورة من محرك أقراص USB...</value>
+  </data>
+  <data name="UsbTools_ImageCreated" xml:space="preserve">
+    <value>تم إنشاء الصورة بنجاح: {0}</value>
+  </data>
+  <data name="UsbTools_ImageCreateFailed" xml:space="preserve">
+    <value>فشل إنشاء الصورة: {0}</value>
+  </data>
+  <data name="UsbTools_OutputRequired" xml:space="preserve">
+    <value>مسار ملف الإخراج مطلوب.</value>
+  </data>
+  <data name="UsbTools_ImgFileType" xml:space="preserve">
+    <value>صورة IMG</value>
+  </data>
+  <data name="UsbTools_IsoFileType" xml:space="preserve">
+    <value>صورة ISO</value>
+  </data>
+  <data name="UsbTools_OperationCancelled" xml:space="preserve">
+    <value>تم إلغاء العملية.</value>
+  </data>
+  <data name="UsbTools_FolderExists" xml:space="preserve">
+    <value>يوجد مجلد بهذا الاسم بالفعل.</value>
+  </data>
+  <data name="UsbTools_FolderCreated" xml:space="preserve">
+    <value>تم إنشاء المجلد بنجاح.</value>
+  </data>
+  <data name="UsbTools_DeleteComplete" xml:space="preserve">
+    <value>تم الحذف بنجاح.</value>
+  </data>
+  <data name="UsbTools_EntryNotFound" xml:space="preserve">
+    <value>لم يتم العثور على الملف أو المجلد.</value>
+  </data>
+  <data name="UsbTools_DestinationExists" xml:space="preserve">
+    <value>يوجد عنصر بنفس الاسم بالفعل في الوجهة.</value>
+  </data>
+  <data name="UsbTools_MoveComplete" xml:space="preserve">
+    <value>تم النقل بنجاح.</value>
+  </data>
+  <data name="UsbTools_SelectMoveDestination" xml:space="preserve">
+    <value>اختر مجلد الوجهة</value>
+  </data>
+  <data name="UsbTools_CopyingFile" xml:space="preserve">
+    <value>جاري نسخ {0}...</value>
+  </data>
+  <data name="UsbTools_AddComplete" xml:space="preserve">
+    <value>تمت إضافة {0} عنصر(عناصر) بنجاح.</value>
+  </data>
+  <data name="UsbTools_ConfirmDelete" xml:space="preserve">
+    <value>تأكيد الحذف</value>
+  </data>
+  <data name="UsbTools_ConfirmDeleteMessage" xml:space="preserve">
+    <value>هل أنت متأكد من أنك تريد حذف '{0}'؟ لا يمكن التراجع عن هذا الإجراء.</value>
+  </data>
+  <data name="UsbTools_EnterFolderName" xml:space="preserve">
+    <value>أدخل اسم المجلد:</value>
+  </data>
+  <data name="UsbTools_FolderNameHint" xml:space="preserve">
+    <value>اسم المجلد</value>
+  </data>
+
+  <data name="Tour_Skip" xml:space="preserve">
+    <value>تخطي الجولة</value>
+  </data>
+  <data name="Tour_Back" xml:space="preserve">
+    <value>رجوع</value>
+  </data>
+  <data name="Tour_Next" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="Tour_Finish" xml:space="preserve">
+    <value>ابدأ الآن</value>
+  </data>
+  <data name="Tour_WelcomeTitle" xml:space="preserve">
+    <value>مرحباً بك في RetroMultiTools!</value>
+  </data>
+  <data name="Tour_WelcomeDesc" xml:space="preserve">
+    <value>مجموعة أدواتك الشاملة لألعاب الريترو. دعنا نأخذك في جولة سريعة حول كل ما يمكن لهذا التطبيق القيام به. لن تستغرق سوى دقيقة!</value>
+  </data>
+  <data name="Tour_SidebarTitle" xml:space="preserve">
+    <value>التنقل في الشريط الجانبي</value>
+  </data>
+  <data name="Tour_SidebarDesc" xml:space="preserve">
+    <value>استخدم الشريط الجانبي على اليسار للتبديل بين الأدوات. وهي مرتبة في فئات مثل التصفح والتصحيح والتحليل والمزيد.</value>
+  </data>
+  <data name="Tour_BrowserTitle" xml:space="preserve">
+    <value>متصفح ROM</value>
+  </data>
+  <data name="Tour_BrowserDesc" xml:space="preserve">
+    <value>تصفح مجموعة ROM الخاصة بك باستخدام متصفح ملفات قوي. اعرض تفاصيل الملفات وافتح المجلدات وابحث بسرعة عن الألعاب التي تبحث عنها.</value>
+  </data>
+  <data name="Tour_InspectorTitle" xml:space="preserve">
+    <value>فاحص ROM &amp; عارض Hex</value>
+  </data>
+  <data name="Tour_InspectorDesc" xml:space="preserve">
+    <value>افحص رؤوس ملفات ROM واعرض البيانات الوصفية الداخلية وافحص البايتات الخام باستخدام عارض hex المدمج. رائع للمستخدمين المتقدمين والمطورين.</value>
+  </data>
+  <data name="Tour_PatchingTitle" xml:space="preserve">
+    <value>التصحيح والتحويل</value>
+  </data>
+  <data name="Tour_PatchingDesc" xml:space="preserve">
+    <value>طبّق تصحيحات IPS/BPS/UPS وأنشئ تصحيحاتك الخاصة وحوّل صيغ ROM وحوّل ملفات الحفظ وتعامل مع تبديل البايت N64 — كل ذلك في مكان واحد.</value>
+  </data>
+  <data name="Tour_AnalysisTitle" xml:space="preserve">
+    <value>التحليل والتحقق</value>
+  </data>
+  <data name="Tour_AnalysisDesc" xml:space="preserve">
+    <value>تحقق من ROM الخاصة بك مقابل ملفات DAT واحسب المجاميع الاختبارية وابحث عن التكرارات وحدد تجزئة المجلدات بالكامل وتعرّف على مجموعات GoodTools لإدارة مجموعتك بدقة.</value>
+  </data>
+  <data name="Tour_HeadersTitle" xml:space="preserve">
+    <value>الرؤوس والتقليم</value>
+  </data>
+  <data name="Tour_HeadersDesc" xml:space="preserve">
+    <value>صدّر رؤوس ROM أو أصلحها أو احذفها. قلّم ملفات ROM المحشوة لتوفير المساحة. يتضمن أدوات متخصصة لإدارة رؤوس SNES.</value>
+  </data>
+  <data name="Tour_UtilitiesTitle" xml:space="preserve">
+    <value>الأدوات المساعدة</value>
+  </data>
+  <data name="Tour_UtilitiesDesc" xml:space="preserve">
+    <value>أدر الأرشيفات وطبّق رموز الغش واعمل مع صور الأقراص وهيّئ المحاكيات وعيّن أزرار لوحة الألعاب واكشط البيانات الوصفية ونظّم ملفات ROM وأعد تسميتها وأدر أجهزة USB.</value>
+  </data>
+  <data name="Tour_EmulatorsTitle" xml:space="preserve">
+    <value>تكامل المحاكي</value>
+  </data>
+  <data name="Tour_EmulatorsDesc" xml:space="preserve">
+    <value>تكامل عميق مع RetroArch و MAME و Mednafen. أدر قوائم التشغيل وافحص مجموعات ROM وحوّل ملفات CHD وعدّل ملفات DAT وأنشئ اختصارات والمزيد.</value>
+  </data>
+  <data name="Tour_AnalogueTitle" xml:space="preserve">
+    <value>Analogue FPGA</value>
+  </data>
+  <data name="Tour_AnalogueDesc" xml:space="preserve">
+    <value>أدوات لأجهزة Analogue FPGA: Pocket و Mega Sg و Nt/Super Nt والقادم 3D. أدر النوى والبرامج الثابتة ومكتبات الألعاب لأجهزتك.</value>
+  </data>
+  <data name="Tour_BigPictureTitle" xml:space="preserve">
+    <value>Big Picture Mode</value>
+  </data>
+  <data name="Tour_BigPictureDesc" xml:space="preserve">
+    <value>استرخِ واستمتع بمكتبة ألعاب بملء الشاشة مع دعم وحدة التحكم والأعمال الفنية وتتبع اللعب والتقييمات. اختر بين تخطيط الشبكة الكلاسيكي أو التخطيط الحديث البطولي.</value>
+  </data>
+  <data name="Tour_SettingsTitle" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
+  <data name="Tour_SettingsDesc" xml:space="preserve">
+    <value>خصّص تجربتك: غيّر اللغة وفعّل Discord Rich Presence وهيّئ Big Picture Mode واضبط عناصر التحكم بلوحة الألعاب وتحقق من التحديثات.</value>
+  </data>
+  <data name="Tour_FinishTitle" xml:space="preserve">
+    <value>أنت جاهز تماماً!</value>
+  </data>
+  <data name="Tour_FinishDesc" xml:space="preserve">
+    <value>هذا كل شيء! ابدأ في استكشاف الأدوات في الشريط الجانبي. يمكنك دائماً إعادة تشغيل هذه الجولة من الإعدادات إذا احتجت إلى مراجعة. استمتع!</value>
+  </data>
+  <data name="Tour_SettingSectionTitle" xml:space="preserve">
+    <value>الجولة الإرشادية</value>
+  </data>
+  <data name="Tour_SettingSectionDesc" xml:space="preserve">
+    <value>أعد تشغيل الجولة الإرشادية التي تشرح جميع ميزات التطبيق.</value>
+  </data>
+  <data name="Tour_RestartButton" xml:space="preserve">
+    <value>إعادة تشغيل الجولة</value>
+  </data>
+  <data name="Browser_SelectFolderTooltip" xml:space="preserve">
+    <value>Browse for a ROM folder to scan</value>
+  </data>
+  <data name="Browser_AddRomsTooltip" xml:space="preserve">
+    <value>Add ROM files to the current folder</value>
+  </data>
+  <data name="Browser_CopyToTooltip" xml:space="preserve">
+    <value>Copy selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_MoveToTooltip" xml:space="preserve">
+    <value>Move selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_DeleteTooltip" xml:space="preserve">
+    <value>Delete the selected ROMs</value>
+  </data>
+  <data name="Browser_OrganizeTooltip" xml:space="preserve">
+    <value>Organize ROMs into subfolders by system</value>
+  </data>
+  <data name="Browser_SendToRemoteTooltip" xml:space="preserve">
+    <value>Send selected ROMs to a remote device or cloud storage</value>
+  </data>
+  <data name="Browser_HostShareTooltip" xml:space="preserve">
+    <value>Host a local server to share ROMs on the network</value>
+  </data>
+  <data name="Browser_LaunchRetroArchTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in RetroArch</value>
+  </data>
+  <data name="Browser_LaunchMameTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in MAME</value>
+  </data>
+  <data name="Browser_LaunchMednafenTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in Mednafen</value>
+  </data>
+  <data name="Browser_BigPictureModeTooltip" xml:space="preserve">
+    <value>Enter full-screen Big Picture Mode for gamepad-friendly browsing</value>
+  </data>
+  <data name="MainWindow_SearchShortcut" xml:space="preserve">
+    <value>Search tools (Ctrl+F)</value>
+  </data>
+  <data name="BigPictureModern_AllGames" xml:space="preserve">
+    <value>جميع الألعاب</value>
+  </data>
+  <data name="BigPictureModern_EmptyCategory" xml:space="preserve">
+    <value>لا توجد ألعاب في هذه الفئة بعد</value>
+  </data>
+  <data name="BigPictureModern_EmptyLibrary" xml:space="preserve">
+    <value>مكتبتك فارغة. تصفح للعثور على مجلد ROM للبدء.</value>
+  </data>
+  <data name="BigPictureModern_Favorites" xml:space="preserve">
+    <value>المفضلة</value>
+  </data>
+  <data name="BigPictureModern_LaunchWith" xml:space="preserve">
+    <value>تشغيل باستخدام {0}</value>
+  </data>
+  <data name="BigPictureModern_MostPlayed" xml:space="preserve">
+    <value>الأكثر لعبًا</value>
+  </data>
+  <data name="BigPictureModern_NoResults" xml:space="preserve">
+    <value>لا توجد ألعاب تطابق بحثك</value>
+  </data>
+  <data name="BigPictureModern_Plays" xml:space="preserve">
+    <value>{0} مرات لعب</value>
+  </data>
+  <data name="BigPictureModern_RecentlyPlayed" xml:space="preserve">
+    <value>لعبت مؤخرًا</value>
+  </data>
+  <data name="BigPictureModern_SearchPlaceholder" xml:space="preserve">
+    <value>ابحث في مكتبتك...</value>
+  </data>
+  <data name="BigPictureModern_Spotlight" xml:space="preserve">
+    <value>تسليط الضوء</value>
+  </data>
+  <data name="BigPictureModern_TopRated" xml:space="preserve">
+    <value>الأعلى تقييمًا</value>
+  </data>
+  <data name="BigPicture_CopiedToClipboard" xml:space="preserve">
+    <value>تم نسخ المسار إلى الحافظة</value>
+  </data>
+  <data name="BigPicture_CopyFilePath" xml:space="preserve">
+    <value>نسخ مسار الملف</value>
+  </data>
+  <data name="BigPicture_OpenFileLocation" xml:space="preserve">
+    <value>فتح موقع الملف</value>
+  </data>
+  <data name="BigPicture_SortPlayCount" xml:space="preserve">
+    <value>عدد مرات اللعب (من الأعلى إلى الأدنى)</value>
+  </data>
+  <data name="Browser_ContextChecksum" xml:space="preserve">
+    <value>#️⃣ حساب المجموع الاختباري</value>
+  </data>
+  <data name="Browser_ContextGoodTools" xml:space="preserve">
+    <value>🏷️ التعرف باستخدام GoodTools</value>
+  </data>
+  <data name="Browser_ContextHexView" xml:space="preserve">
+    <value>🔢 فتح في عارض Hex</value>
+  </data>
+  <data name="Browser_ContextInspect" xml:space="preserve">
+    <value>🔍 فتح في فاحص ROM</value>
+  </data>
+  <data name="Browser_ContextOpenFolder" xml:space="preserve">
+    <value>📂 فتح المجلد المحتوي</value>
+  </data>
+  <data name="Browser_ContextOpenWith" xml:space="preserve">
+    <value>🚀 فتح باستخدام</value>
+  </data>
+  <data name="Browser_ContextPatch" xml:space="preserve">
+    <value>🩹 تصحيح ROM...</value>
+  </data>
+  <data name="Browser_ContextRename" xml:space="preserve">
+    <value>✏️ إعادة تسمية...</value>
+  </data>
+  <data name="Browser_ContextTools" xml:space="preserve">
+    <value>🔧 أدوات</value>
+  </data>
+  <data name="Browser_OpenFolderError" xml:space="preserve">
+    <value>تعذر فتح المجلد: {0}</value>
+  </data>
+  <data name="Browser_RenameError" xml:space="preserve">
+    <value>فشلت إعادة التسمية: {0}</value>
+  </data>
+  <data name="Browser_RenamePromptTitle" xml:space="preserve">
+    <value>إعادة تسمية ROM</value>
+  </data>
+  <data name="Browser_RenameSuccess" xml:space="preserve">
+    <value>تمت إعادة التسمية إلى {0}</value>
+  </data>
+  <data name="Checksum_Description" xml:space="preserve">
+    <value>حساب مجاميع CRC32 و MD5 و SHA-1 و SHA-256 الاختبارية لملفات ROM للتحقق من السلامة وتحديد النسخ.</value>
+  </data>
+  <data name="Common_SelectFileTitle" xml:space="preserve">
+    <value>اختيار ملف</value>
+  </data>
+  <data name="Common_SelectOutputDirectoryTitle" xml:space="preserve">
+    <value>اختيار مجلد الإخراج</value>
+  </data>
+  <data name="Common_SelectRomDirectoryTitle" xml:space="preserve">
+    <value>اختيار مجلد ROM</value>
+  </data>
+  <data name="Common_SelectRomFileTitle" xml:space="preserve">
+    <value>اختيار ملف ROM</value>
+  </data>
+  <data name="Comparer_Description" xml:space="preserve">
+    <value>مقارنة ملفي ROM بايت بايت لتحديد الاختلافات في الحجم والمحتوى وإيجاد أول إزاحة غير متطابقة.</value>
+  </data>
+  <data name="GoodTools_NoCodesForFile" xml:space="preserve">
+    <value>لم يتم العثور على أكواد GoodTools.</value>
+  </data>
+  <data name="MameConfig_Artwork" xml:space="preserve">
+    <value>خيارات العمل الفني</value>
+  </data>
+  <data name="MameConfig_AutoEnable" xml:space="preserve">
+    <value>خيارات التمكين التلقائي للإدخال</value>
+  </data>
+  <data name="MameConfig_Bgfx" xml:space="preserve">
+    <value>معالجة BGFX اللاحقة</value>
+  </data>
+  <data name="MameConfig_Communication" xml:space="preserve">
+    <value>خيارات الاتصال</value>
+  </data>
+  <data name="MameConfig_ConfigFile" xml:space="preserve">
+    <value>ملف التكوين</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>لديك تغييرات غير محفوظة. هل تريد تجاهلها والمتابعة؟</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>تغييرات غير محفوظة</value>
+  </data>
+  <data name="MameConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>سيؤدي هذا إلى إعادة تعيين جميع الإعدادات إلى إعدادات MAME الافتراضية. ستفقد أي تغييرات غير محفوظة. هل تريد المتابعة؟</value>
+  </data>
+  <data name="MameConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>إعادة التعيين إلى الافتراضي</value>
+  </data>
+  <data name="MameConfig_CoreInput" xml:space="preserve">
+    <value>خيارات الإدخال الأساسية</value>
+  </data>
+  <data name="MameConfig_CoreMisc" xml:space="preserve">
+    <value>خيارات متنوعة أساسية</value>
+  </data>
+  <data name="MameConfig_CorePerformance" xml:space="preserve">
+    <value>خيارات الأداء الأساسية</value>
+  </data>
+  <data name="MameConfig_CoreSound" xml:space="preserve">
+    <value>خيارات الصوت الأساسية</value>
+  </data>
+  <data name="MameConfig_CoreVideo" xml:space="preserve">
+    <value>خيارات الفيديو الأساسية</value>
+  </data>
+  <data name="MameConfig_CreateNew" xml:space="preserve">
+    <value>إنشاء جديد</value>
+  </data>
+  <data name="MameConfig_Debugging" xml:space="preserve">
+    <value>خيارات التصحيح</value>
+  </data>
+  <data name="MameConfig_DefaultsRestored" xml:space="preserve">
+    <value>تمت إعادة تعيين جميع الإعدادات إلى إعدادات MAME الافتراضية.</value>
+  </data>
+  <data name="MameConfig_Description" xml:space="preserve">
+    <value>تحميل وتحرير وحفظ ملفات تكوين MAME (mame.ini). يدعم جميع إعدادات MAME لأنظمة Windows و macOS و Linux.</value>
+  </data>
+  <data name="MameConfig_HttpServer" xml:space="preserve">
+    <value>خيارات خادم HTTP</value>
+  </data>
+  <data name="MameConfig_IniFileType" xml:space="preserve">
+    <value>ملفات MAME INI</value>
+  </data>
+  <data name="MameConfig_IniPlaceholder" xml:space="preserve">
+    <value>مسار mame.ini...</value>
+  </data>
+  <data name="MameConfig_Language" xml:space="preserve">
+    <value>اللغة</value>
+  </data>
+  <data name="MameConfig_LoadError" xml:space="preserve">
+    <value>فشل تحميل التكوين: {0}</value>
+  </data>
+  <data name="MameConfig_Loaded" xml:space="preserve">
+    <value>تم تحميل {0} إعدادات من {1}</value>
+  </data>
+  <data name="MameConfig_NewCreated" xml:space="preserve">
+    <value>تم إنشاء تكوين جديد بإعدادات MAME الافتراضية. مسار الحفظ: {0}</value>
+  </data>
+  <data name="MameConfig_NoIniFound" xml:space="preserve">
+    <value>لم يتم العثور على mame.ini. استخدم تصفح لتحديد موقعه، أو إنشاء جديد لإنشاء واحد بالإعدادات الافتراضية.</value>
+  </data>
+  <data name="MameConfig_OsdInput" xml:space="preserve">
+    <value>موفرو إدخال OSD</value>
+  </data>
+  <data name="MameConfig_OsdSound" xml:space="preserve">
+    <value>خيارات صوت OSD</value>
+  </data>
+  <data name="MameConfig_OsdVideo" xml:space="preserve">
+    <value>OSD / فيديو مسرّع</value>
+  </data>
+  <data name="MameConfig_OutputDirs" xml:space="preserve">
+    <value>مجلدات الإخراج</value>
+  </data>
+  <data name="MameConfig_PerWindowVideo" xml:space="preserve">
+    <value>خيارات الفيديو لكل نافذة</value>
+  </data>
+  <data name="MameConfig_ResetDefaults" xml:space="preserve">
+    <value>إعادة التعيين إلى الافتراضي</value>
+  </data>
+  <data name="MameConfig_Rotation" xml:space="preserve">
+    <value>خيارات التدوير</value>
+  </data>
+  <data name="MameConfig_Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="MameConfig_SaveAs" xml:space="preserve">
+    <value>حفظ باسم...</value>
+  </data>
+  <data name="MameConfig_SaveDialogTitle" xml:space="preserve">
+    <value>حفظ تكوين MAME</value>
+  </data>
+  <data name="MameConfig_SaveError" xml:space="preserve">
+    <value>فشل حفظ التكوين: {0}</value>
+  </data>
+  <data name="MameConfig_Saved" xml:space="preserve">
+    <value>تم حفظ التكوين في {0}</value>
+  </data>
+  <data name="MameConfig_ScreenOptions" xml:space="preserve">
+    <value>خيارات الشاشة</value>
+  </data>
+  <data name="MameConfig_Scripting" xml:space="preserve">
+    <value>البرمجة النصية / الإضافات</value>
+  </data>
+  <data name="MameConfig_SearchPaths" xml:space="preserve">
+    <value>مسارات البحث</value>
+  </data>
+  <data name="MameConfig_SearchPlaceholder" xml:space="preserve">
+    <value>اكتب لتصفية الإعدادات حسب الاسم (مثل rompath، video، joystick...)</value>
+  </data>
+  <data name="MameConfig_SearchResults" xml:space="preserve">
+    <value>{0} من {1} أقسام متطابقة</value>
+  </data>
+  <data name="MameConfig_SearchSettings" xml:space="preserve">
+    <value>بحث في الإعدادات</value>
+  </data>
+  <data name="MameConfig_SelectIniTitle" xml:space="preserve">
+    <value>اختيار ملف تكوين MAME</value>
+  </data>
+  <data name="MameConfig_StatePlayback" xml:space="preserve">
+    <value>خيارات الحالة / التشغيل</value>
+  </data>
+  <data name="MameConfig_TabInput" xml:space="preserve">
+    <value>الإدخال</value>
+  </data>
+  <data name="MameConfig_TabMisc" xml:space="preserve">
+    <value>متنوع / متقدم</value>
+  </data>
+  <data name="MameConfig_TabPaths" xml:space="preserve">
+    <value>المسارات</value>
+  </data>
+  <data name="MameConfig_TabPerformance" xml:space="preserve">
+    <value>الأداء</value>
+  </data>
+  <data name="MameConfig_TabSound" xml:space="preserve">
+    <value>الصوت</value>
+  </data>
+  <data name="MameConfig_TabState" xml:space="preserve">
+    <value>الحالة / التشغيل</value>
+  </data>
+  <data name="MameConfig_TabVideo" xml:space="preserve">
+    <value>الفيديو</value>
+  </data>
+  <data name="MameConfig_Title" xml:space="preserve">
+    <value>مُكوِّن MAME</value>
+  </data>
+  <data name="MameConfig_UnsavedChanges" xml:space="preserve">
+    <value>● تغييرات غير محفوظة</value>
+  </data>
+  <data name="MameConfig_Vector" xml:space="preserve">
+    <value>خيارات المتجهات</value>
+  </data>
+  <data name="MednafenConfig_CfgFileType" xml:space="preserve">
+    <value>ملفات تكوين Mednafen (*.cfg)</value>
+  </data>
+  <data name="MednafenConfig_CfgPlaceholder" xml:space="preserve">
+    <value>مسار mednafen.cfg...</value>
+  </data>
+  <data name="MednafenConfig_ConfigFile" xml:space="preserve">
+    <value>ملف التكوين</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>لديك تغييرات غير محفوظة. هل تريد تجاهلها والمتابعة؟</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>تغييرات غير محفوظة</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>سيؤدي هذا إلى إعادة تعيين جميع الإعدادات إلى إعدادات Mednafen الافتراضية. ستفقد أي تغييرات غير محفوظة. هل تريد المتابعة؟</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>إعادة التعيين إلى الافتراضي</value>
+  </data>
+  <data name="MednafenConfig_CoreSettings" xml:space="preserve">
+    <value>الإعدادات الأساسية</value>
+  </data>
+  <data name="MednafenConfig_CpuAffinity" xml:space="preserve">
+    <value>تقارب المعالج</value>
+  </data>
+  <data name="MednafenConfig_CreateNew" xml:space="preserve">
+    <value>إنشاء جديد</value>
+  </data>
+  <data name="MednafenConfig_DefaultsRestored" xml:space="preserve">
+    <value>تمت استعادة جميع الإعدادات إلى إعدادات Mednafen الافتراضية.</value>
+  </data>
+  <data name="MednafenConfig_Description" xml:space="preserve">
+    <value>تحميل وتحرير وحفظ ملفات تكوين Mednafen (mednafen.cfg). يدعم جميع إعدادات Mednafen لأنظمة Windows و macOS و Linux.</value>
+  </data>
+  <data name="MednafenConfig_DirectoryPaths" xml:space="preserve">
+    <value>مسارات المجلدات</value>
+  </data>
+  <data name="MednafenConfig_FilenameFormats" xml:space="preserve">
+    <value>تنسيقات أسماء الملفات</value>
+  </data>
+  <data name="MednafenConfig_FpsDisplay" xml:space="preserve">
+    <value>عرض معدل الإطارات</value>
+  </data>
+  <data name="MednafenConfig_GoatShader" xml:space="preserve">
+    <value>إعدادات Goat Shader</value>
+  </data>
+  <data name="MednafenConfig_InputSettings" xml:space="preserve">
+    <value>إعدادات الإدخال</value>
+  </data>
+  <data name="MednafenConfig_LoadError" xml:space="preserve">
+    <value>فشل تحميل التكوين: {0}</value>
+  </data>
+  <data name="MednafenConfig_Loaded" xml:space="preserve">
+    <value>تم تحميل {0} إعدادات من {1}</value>
+  </data>
+  <data name="MednafenConfig_NetworkPlay" xml:space="preserve">
+    <value>اللعب عبر الشبكة</value>
+  </data>
+  <data name="MednafenConfig_NewCreated" xml:space="preserve">
+    <value>تم إنشاء تكوين افتراضي جديد في {0}</value>
+  </data>
+  <data name="MednafenConfig_NoCfgFound" xml:space="preserve">
+    <value>تعذر الكشف التلقائي عن mednafen.cfg. يرجى تصفح الملف يدويًا.</value>
+  </data>
+  <data name="MednafenConfig_Osd" xml:space="preserve">
+    <value>العرض على الشاشة</value>
+  </data>
+  <data name="MednafenConfig_PerSystemDescription" xml:space="preserve">
+    <value>تكوين تحجيم الفيديو والتظليل وإعدادات العرض لكل نظام محاكى. يتم حفظ التغييرات عند تبديل الأنظمة أو حفظ الملف.</value>
+  </data>
+  <data name="MednafenConfig_QtRecord" xml:space="preserve">
+    <value>تسجيل QuickTime</value>
+  </data>
+  <data name="MednafenConfig_ResetDefaults" xml:space="preserve">
+    <value>إعادة التعيين إلى الافتراضي</value>
+  </data>
+  <data name="MednafenConfig_Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="MednafenConfig_SaveAs" xml:space="preserve">
+    <value>حفظ باسم</value>
+  </data>
+  <data name="MednafenConfig_SaveDialogTitle" xml:space="preserve">
+    <value>حفظ تكوين Mednafen باسم</value>
+  </data>
+  <data name="MednafenConfig_SaveError" xml:space="preserve">
+    <value>فشل حفظ التكوين: {0}</value>
+  </data>
+  <data name="MednafenConfig_Saved" xml:space="preserve">
+    <value>تم حفظ التكوين في {0}</value>
+  </data>
+  <data name="MednafenConfig_SearchPlaceholder" xml:space="preserve">
+    <value>اكتب لتصفية الإعدادات حسب الاسم (مثل video، sound، shader...)</value>
+  </data>
+  <data name="MednafenConfig_SearchResults" xml:space="preserve">
+    <value>{0} من {1} أقسام متطابقة</value>
+  </data>
+  <data name="MednafenConfig_SearchSettings" xml:space="preserve">
+    <value>بحث في الإعدادات</value>
+  </data>
+  <data name="MednafenConfig_SelectCfgTitle" xml:space="preserve">
+    <value>اختيار ملف تكوين Mednafen</value>
+  </data>
+  <data name="MednafenConfig_SelectSystem" xml:space="preserve">
+    <value>اختيار النظام</value>
+  </data>
+  <data name="MednafenConfig_SoundOutput" xml:space="preserve">
+    <value>إخراج الصوت</value>
+  </data>
+  <data name="MednafenConfig_SpeedSettings" xml:space="preserve">
+    <value>التقديم السريع / البطيء</value>
+  </data>
+  <data name="MednafenConfig_SystemVideo" xml:space="preserve">
+    <value>فيديو النظام / التحجيم</value>
+  </data>
+  <data name="MednafenConfig_TabAdvanced" xml:space="preserve">
+    <value>متقدم</value>
+  </data>
+  <data name="MednafenConfig_TabGeneral" xml:space="preserve">
+    <value>عام</value>
+  </data>
+  <data name="MednafenConfig_TabInput" xml:space="preserve">
+    <value>الإدخال</value>
+  </data>
+  <data name="MednafenConfig_TabNetplay" xml:space="preserve">
+    <value>اللعب الشبكي</value>
+  </data>
+  <data name="MednafenConfig_TabPaths" xml:space="preserve">
+    <value>المسارات</value>
+  </data>
+  <data name="MednafenConfig_TabPerSystem" xml:space="preserve">
+    <value>لكل نظام</value>
+  </data>
+  <data name="MednafenConfig_TabSound" xml:space="preserve">
+    <value>الصوت</value>
+  </data>
+  <data name="MednafenConfig_TabVideo" xml:space="preserve">
+    <value>الفيديو</value>
+  </data>
+  <data name="MednafenConfig_TemporalBlur" xml:space="preserve">
+    <value>ضبابية زمنية</value>
+  </data>
+  <data name="MednafenConfig_Title" xml:space="preserve">
+    <value>مُكوِّن Mednafen</value>
+  </data>
+  <data name="MednafenConfig_UnsavedChanges" xml:space="preserve">
+    <value>● تغييرات غير محفوظة</value>
+  </data>
+  <data name="MednafenConfig_VideoOutput" xml:space="preserve">
+    <value>إخراج الفيديو</value>
+  </data>
+  <data name="MetaScraper_SummaryBySystem" xml:space="preserve">
+    <value>ملخص حسب النظام:</value>
+  </data>
+  <data name="MetaScraper_SummaryStats" xml:space="preserve">
+    <value>صالح: {0}، غير صالح: {1}، أخطاء: {2}</value>
+  </data>
+  <data name="Nav_MameConfigurator" xml:space="preserve">
+    <value>مُكوِّن MAME</value>
+  </data>
+  <data name="Nav_MednafenConfigurator" xml:space="preserve">
+    <value>مُكوِّن Mednafen</value>
+  </data>
+  <data name="Nav_NoResults" xml:space="preserve">
+    <value>لم يتم العثور على أدوات مطابقة.</value>
+  </data>
+  <data name="Nav_RetroArchConfigurator" xml:space="preserve">
+    <value>مُكوِّن RetroArch</value>
+  </data>
+  <data name="Nav_SearchPlaceholder" xml:space="preserve">
+    <value>بحث في الأدوات...</value>
+  </data>
+  <data name="Patcher_Description" xml:space="preserve">
+    <value>تطبيق تصحيحات IPS أو BPS أو xdelta على ملفات ROM لتطبيق الترجمات أو الإصلاحات أو التعديلات.</value>
+  </data>
+  <data name="RAConfig_AIService" xml:space="preserve">
+    <value>خدمة الذكاء الاصطناعي</value>
+  </data>
+  <data name="RAConfig_AccessibilityOptions" xml:space="preserve">
+    <value>خيارات إمكانية الوصول</value>
+  </data>
+  <data name="RAConfig_AchievementDisplay" xml:space="preserve">
+    <value>عرض الإنجازات</value>
+  </data>
+  <data name="RAConfig_AchievementOptions" xml:space="preserve">
+    <value>خيارات RetroAchievements</value>
+  </data>
+  <data name="RAConfig_AudioDriver" xml:space="preserve">
+    <value>برنامج تشغيل الصوت</value>
+  </data>
+  <data name="RAConfig_AudioSync" xml:space="preserve">
+    <value>إعدادات الصوت</value>
+  </data>
+  <data name="RAConfig_CfgFileType" xml:space="preserve">
+    <value>ملفات RetroArch CFG</value>
+  </data>
+  <data name="RAConfig_CfgPlaceholder" xml:space="preserve">
+    <value>مسار retroarch.cfg...</value>
+  </data>
+  <data name="RAConfig_ConfigFile" xml:space="preserve">
+    <value>ملف التكوين</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>لديك تغييرات غير محفوظة. هل تريد تجاهلها والمتابعة؟</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>تغييرات غير محفوظة</value>
+  </data>
+  <data name="RAConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>سيؤدي هذا إلى إعادة تعيين جميع الإعدادات إلى إعدادات RetroArch الافتراضية. ستفقد أي تغييرات غير محفوظة. هل تريد المتابعة؟</value>
+  </data>
+  <data name="RAConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>إعادة التعيين إلى الافتراضي</value>
+  </data>
+  <data name="RAConfig_ContentPaths" xml:space="preserve">
+    <value>مسارات المحتوى والحفظ</value>
+  </data>
+  <data name="RAConfig_CoreOptions" xml:space="preserve">
+    <value>خيارات النواة</value>
+  </data>
+  <data name="RAConfig_CorePaths" xml:space="preserve">
+    <value>مسارات النواة والنظام</value>
+  </data>
+  <data name="RAConfig_CreateNew" xml:space="preserve">
+    <value>إنشاء جديد</value>
+  </data>
+  <data name="RAConfig_DefaultsRestored" xml:space="preserve">
+    <value>تمت إعادة تعيين جميع الإعدادات إلى إعدادات RetroArch الافتراضية.</value>
+  </data>
+  <data name="RAConfig_Description" xml:space="preserve">
+    <value>تحميل وتحرير وحفظ ملفات تكوين RetroArch (retroarch.cfg). يدعم جميع إعدادات RetroArch لأنظمة Windows و macOS و Linux.</value>
+  </data>
+  <data name="RAConfig_FilterPaths" xml:space="preserve">
+    <value>مسارات الفلاتر والتراكبات وغيرها</value>
+  </data>
+  <data name="RAConfig_FrameThrottle" xml:space="preserve">
+    <value>خيارات تحديد الإطارات</value>
+  </data>
+  <data name="RAConfig_InputGeneral" xml:space="preserve">
+    <value>إعدادات الإدخال العامة</value>
+  </data>
+  <data name="RAConfig_InputHotkeys" xml:space="preserve">
+    <value>اختصارات المفاتيح</value>
+  </data>
+  <data name="RAConfig_LoadError" xml:space="preserve">
+    <value>فشل تحميل التكوين: {0}</value>
+  </data>
+  <data name="RAConfig_Loaded" xml:space="preserve">
+    <value>تم تحميل {0} إعدادات من {1}</value>
+  </data>
+  <data name="RAConfig_Logging" xml:space="preserve">
+    <value>خيارات التسجيل</value>
+  </data>
+  <data name="RAConfig_MenuGeneral" xml:space="preserve">
+    <value>إعدادات القائمة</value>
+  </data>
+  <data name="RAConfig_MenuTheme" xml:space="preserve">
+    <value>السمة والمظهر</value>
+  </data>
+  <data name="RAConfig_MiscOptions" xml:space="preserve">
+    <value>خيارات متنوعة</value>
+  </data>
+  <data name="RAConfig_Netplay" xml:space="preserve">
+    <value>اللعب الشبكي</value>
+  </data>
+  <data name="RAConfig_NetworkGeneral" xml:space="preserve">
+    <value>إعدادات الشبكة</value>
+  </data>
+  <data name="RAConfig_NewCreated" xml:space="preserve">
+    <value>تم إنشاء تكوين جديد بإعدادات RetroArch الافتراضية. مسار الحفظ: {0}</value>
+  </data>
+  <data name="RAConfig_NoCfgFound" xml:space="preserve">
+    <value>لم يتم العثور على retroarch.cfg. استخدم تصفح لتحديد موقعه، أو إنشاء جديد لإنشاء واحد بالإعدادات الافتراضية.</value>
+  </data>
+  <data name="RAConfig_Notifications" xml:space="preserve">
+    <value>الإشعارات</value>
+  </data>
+  <data name="RAConfig_OverlaySettings" xml:space="preserve">
+    <value>إعدادات التراكب</value>
+  </data>
+  <data name="RAConfig_RGUITheme" xml:space="preserve">
+    <value>سمة RGUI</value>
+  </data>
+  <data name="RAConfig_RecordingOptions" xml:space="preserve">
+    <value>خيارات التسجيل</value>
+  </data>
+  <data name="RAConfig_ResetDefaults" xml:space="preserve">
+    <value>إعادة التعيين إلى الافتراضي</value>
+  </data>
+  <data name="RAConfig_Rewind" xml:space="preserve">
+    <value>خيارات الترجيع</value>
+  </data>
+  <data name="RAConfig_Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="RAConfig_SaveAs" xml:space="preserve">
+    <value>حفظ باسم...</value>
+  </data>
+  <data name="RAConfig_SaveDialogTitle" xml:space="preserve">
+    <value>حفظ تكوين RetroArch</value>
+  </data>
+  <data name="RAConfig_SaveError" xml:space="preserve">
+    <value>فشل حفظ التكوين: {0}</value>
+  </data>
+  <data name="RAConfig_SaveOptions" xml:space="preserve">
+    <value>خيارات الحفظ والحالة</value>
+  </data>
+  <data name="RAConfig_Saved" xml:space="preserve">
+    <value>تم حفظ التكوين في {0}</value>
+  </data>
+  <data name="RAConfig_SearchPlaceholder" xml:space="preserve">
+    <value>اكتب لتصفية الإعدادات حسب الاسم (مثل video_driver، audio، netplay...)</value>
+  </data>
+  <data name="RAConfig_SearchSettings" xml:space="preserve">
+    <value>بحث في الإعدادات</value>
+  </data>
+  <data name="RAConfig_SelectCfgTitle" xml:space="preserve">
+    <value>اختيار ملف تكوين RetroArch</value>
+  </data>
+  <data name="RAConfig_TabAccessibility" xml:space="preserve">
+    <value>إمكانية الوصول</value>
+  </data>
+  <data name="RAConfig_TabAchievements" xml:space="preserve">
+    <value>الإنجازات</value>
+  </data>
+  <data name="RAConfig_TabAudio" xml:space="preserve">
+    <value>الصوت</value>
+  </data>
+  <data name="RAConfig_TabCore" xml:space="preserve">
+    <value>النواة / الحفظ</value>
+  </data>
+  <data name="RAConfig_TabFrameThrottle" xml:space="preserve">
+    <value>تحديد الإطارات</value>
+  </data>
+  <data name="RAConfig_TabInput" xml:space="preserve">
+    <value>الإدخال</value>
+  </data>
+  <data name="RAConfig_TabMenu" xml:space="preserve">
+    <value>القائمة / الواجهة</value>
+  </data>
+  <data name="RAConfig_TabMisc" xml:space="preserve">
+    <value>متنوع / التسجيل</value>
+  </data>
+  <data name="RAConfig_TabNetwork" xml:space="preserve">
+    <value>الشبكة</value>
+  </data>
+  <data name="RAConfig_TabOverlay" xml:space="preserve">
+    <value>التراكب</value>
+  </data>
+  <data name="RAConfig_TabPaths" xml:space="preserve">
+    <value>المسارات</value>
+  </data>
+  <data name="RAConfig_TabRecording" xml:space="preserve">
+    <value>التسجيل</value>
+  </data>
+  <data name="RAConfig_TabVideo" xml:space="preserve">
+    <value>الفيديو</value>
+  </data>
+  <data name="RAConfig_Title" xml:space="preserve">
+    <value>مُكوِّن RetroArch</value>
+  </data>
+  <data name="RAConfig_UnsavedChanges" xml:space="preserve">
+    <value>● تغييرات غير محفوظة</value>
+  </data>
+  <data name="RAConfig_VideoAdvanced" xml:space="preserve">
+    <value>فيديو متقدم</value>
+  </data>
+  <data name="RAConfig_VideoDisplay" xml:space="preserve">
+    <value>إعدادات العرض</value>
+  </data>
+  <data name="RAConfig_VideoDriver" xml:space="preserve">
+    <value>برنامج تشغيل الفيديو</value>
+  </data>
+  <data name="RAConfig_VideoOSD" xml:space="preserve">
+    <value>OSD ولقطات الشاشة</value>
+  </data>
+  <data name="RAConfig_VideoScaling" xml:space="preserve">
+    <value>التحجيم والتصفية</value>
+  </data>
+  <data name="RAConfig_VideoSync" xml:space="preserve">
+    <value>المزامنة</value>
+  </data>
+  <data name="Security_SingleNoFeatures" xml:space="preserve">
+    <value>✔ {0}: لم يتم اكتشاف ميزات أمان.</value>
+  </data>
+  <data name="Security_SingleResultDetected" xml:space="preserve">
+    <value>✔ {0}: تم اكتشاف {1} ميزة(ميزات) أمان.</value>
+  </data>
+  <data name="Settings_BigPictureStyleClassic" xml:space="preserve">
+    <value>كلاسيكي (شبكة بطاقات)</value>
+  </data>
+  <data name="Settings_BigPictureStyleLabel" xml:space="preserve">
+    <value>النمط المرئي</value>
+  </data>
+  <data name="Settings_BigPictureStyleModern" xml:space="preserve">
+    <value>حديث (بطل + دوّار)</value>
+  </data>
+  <data name="Settings_UpdateManagedByPackageManager" xml:space="preserve">
+    <value>التحديثات تُدار بواسطة مدير حزم النظام.</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImage" xml:space="preserve">
+    <value>تأكيد إنشاء الصورة</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImageMessage" xml:space="preserve">
+    <value>إنشاء صورة قرص كاملة من {0}؟ قد يستغرق هذا وقتًا حسب حجم القرص.</value>
+  </data>
 </root>

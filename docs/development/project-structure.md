@@ -9,9 +9,13 @@ Overview of the repository layout and code architecture.
 ```
 RetroMultiTools/
 ├── docs/                          # Documentation
+│   ├── configuration/             # Settings & keyboard shortcuts
+│   ├── development/               # Developer documentation
 │   ├── features/                  # Feature documentation
-│   ├── reference/                 # Reference guides
-│   └── development/               # Developer documentation
+│   ├── getting-started/           # Installation & first steps
+│   ├── guides/                    # User guides
+│   ├── integrations/              # Integration guides
+│   └── reference/                 # Reference guides
 ├── RetroMultiTools/               # Main application project (Avalonia Desktop)
 │   ├── Detection/                 # ROM system detection
 │   ├── Localization/              # Language management
@@ -20,15 +24,37 @@ RetroMultiTools/
 │   ├── Services/                  # Application services
 │   ├── Utilities/                 # Core feature implementations
 │   │   ├── Analogue/              # Analogue device utilities (Pocket, Mega SG, 3D)
+│   │   ├── Browsing/              # Hex viewer and ROM browsing utilities
+│   │   ├── Cheats/                # Cheat code encoding and decoding
+│   │   ├── Conversion/            # Format conversion utilities (N64, ROM, save files, archives)
+│   │   ├── DiscTools/             # Disc image burning utilities
+│   │   ├── Emulation/             # Emulator configuration generation
 │   │   ├── GamepadKeyMapper/      # Gamepad-to-keyboard/mouse mapping engine
+│   │   ├── Integrations/          # Third-party service integrations (Discord)
 │   │   ├── Mame/                  # MAME arcade utilities (auditor, CHD, rebuilder)
 │   │   ├── Mednafen/              # Mednafen emulator launcher
-│   │   └── RetroArch/             # RetroArch integration utilities (launcher, cores, playlists)
+│   │   ├── Networking/            # Network transfer and ROM hosting services
+│   │   ├── Patching/              # ROM patching utilities (IPS, BPS, xDelta)
+│   │   ├── RetroArch/             # RetroArch integration utilities (launcher, cores, playlists)
+│   │   ├── RomManagement/         # ROM management utilities (renaming, organizing, trimming, headers)
+│   │   ├── UsbTools/              # USB device detection and formatting
+│   │   └── Verification/          # Verification and analysis utilities (checksums, DAT, duplicates)
 │   └── Views/                     # UI views (AXAML + code-behind)
 │       ├── Analogue/              # Analogue device views
+│       ├── Browsing/              # ROM browser, inspector, hex viewer, Big Picture views
+│       ├── CheatsAndEmulation/    # Cheat code and emulator config views
+│       ├── Conversion/            # Format conversion views
+│       ├── Dialogs/               # Shared dialog windows
+│       ├── DiscTools/             # Disc tools views
+│       ├── GamepadKeyMapper/      # Gamepad mapping views and wizards
 │       ├── Mame/                  # MAME tool views
 │       ├── Mednafen/              # Mednafen integration views
-│       └── RetroArch/             # RetroArch integration views
+│       ├── Patching/              # ROM patching views
+│       ├── RetroArch/             # RetroArch integration views
+│       ├── RomManagement/         # ROM management views
+│       ├── Settings/              # Settings views
+│       ├── UsbTools/              # USB tools views
+│       └── Verification/          # Verification and analysis views
 ├── RetroMultiTools.Updater/       # External updater project (Console)
 │   └── Program.cs                 # Update extraction and relaunch logic
 ├── RetroMultiTools.slnx           # Solution file
@@ -89,40 +115,98 @@ Utilities are organized into subdirectories by category:
 
 | File | Description |
 |---|---|
+| `AppBundleHelper.cs` | Resolves macOS `.app` bundle paths for emulators |
 | `AppUpdater.cs` | Checks GitHub Releases API for updates, downloads ZIPs, launches the external updater, and cleans up after updates |
-| `BatchHasher.cs` | Computes CRC32, MD5, SHA-1, and SHA-256 checksums for all ROMs in a directory with export to CSV, text, SFV, or MD5 sum |
-| `BatchHeaderFixer.cs` | Fixes ROM headers (checksums, validation) across all supported systems in batch |
-| `BpsPatcher.cs` | Applies BPS patches with full CRC32 validation of source, target, and patch data |
+| `FileUtils.cs` | Shared file I/O helper methods used by other utilities |
+| `ProcessHelper.cs` | Shared process execution and validation helpers |
+
+#### Utilities/Browsing/
+
+| File | Description |
+|---|---|
+| `HexViewer.cs` | Reads and formats ROM file contents for hexadecimal display with page-based navigation |
+
+#### Utilities/Cheats/
+
+| File | Description |
+|---|---|
 | `CheatCodeConverter.cs` | Encodes and decodes cheat codes for Game Genie, Pro Action Replay, GameShark, CodeBreaker, and more |
+
+#### Utilities/DiscTools/
+
+| File | Description |
+|---|---|
+| `DiscBurner.cs` | Burns disc images to optical media |
+
+#### Utilities/Emulation/
+
+| File | Description |
+|---|---|
+| `EmulatorConfigGenerator.cs` | Generates configuration files for RetroArch, Mesen, Snes9x, Project64, and other emulators |
+
+#### Utilities/Integrations/
+
+| File | Description |
+|---|---|
+| `DiscordRichPresence.cs` | Discord Rich Presence integration via IPC pipe — shows current game activity |
+
+#### Utilities/UsbTools/
+
+| File | Description |
+|---|---|
+| `UsbToolsHelper.cs` | USB device detection and formatting utilities |
+
+#### Utilities/Patching/
+
+| File | Description |
+|---|---|
+| `BpsPatcher.cs` | Applies BPS patches with full CRC32 validation of source, target, and patch data |
+| `IpsPatcher.cs` | Applies IPS patches with RLE support and optional truncation |
+| `PatchCreator.cs` | Creates IPS patches by comparing original and modified ROM files |
+| `XdeltaPatcher.cs` | Applies xDelta/VCDIFF patches (RFC 3284) with address cache and Adler-32 verification |
+
+#### Utilities/Verification/
+
+| File | Description |
+|---|---|
+| `BatchHasher.cs` | Computes CRC32, MD5, SHA-1, and SHA-256 checksums for all ROMs in a directory with export to CSV, text, SFV, or MD5 sum |
 | `ChecksumCalculator.cs` | Computes CRC32, MD5, SHA-1, and SHA-256 checksums for individual ROM files |
 | `DatFilter.cs` | Filters DAT file entries with category exclusion, region/language priority, and 1G1R deduplication |
 | `DatVerifier.cs` | Verifies ROM files against No-Intro and TOSEC DAT databases by CRC32, MD5, or SHA-1 |
-| `DiscordRichPresence.cs` | Discord Rich Presence integration via IPC pipe — shows current game activity |
 | `DumpVerifier.cs` | Checks ROM dump quality (overdumps, underdumps, blank regions, bad headers, size validation) |
 | `DuplicateFinder.cs` | Scans directories for duplicate ROM files by CRC32 hash and optionally deletes extra copies |
-| `EmulatorConfigGenerator.cs` | Generates configuration files for RetroArch, Mesen, Snes9x, Project64, and other emulators |
-| `FileUtils.cs` | Shared file I/O helper methods used by other utilities |
-| `GamepadMappingStorage.cs` | Persists and loads custom SDL2 controller mappings from disk |
 | `GoodToolsIdentifier.cs` | Identifies GoodTools labelling conventions (country, standard, and GoodGen codes) from ROM filenames |
-| `HexViewer.cs` | Reads and formats ROM file contents for hexadecimal display with page-based navigation |
-| `IpsPatcher.cs` | Applies IPS patches with RLE support and optional truncation |
-| `MetadataScraper.cs` | Scrapes header info, checksums, and system details from ROM files in bulk |
-| `N64FormatConverter.cs` | Converts between N64 ROM byte orders (.z64, .n64, .v64) |
-| `PatchCreator.cs` | Creates IPS patches by comparing original and modified ROM files |
-| `RemoteTransferService.cs` | Transfers files to remote targets via FTP, SFTP, WebDAV, Amazon S3, and cloud storage providers |
 | `RomComparer.cs` | Streaming byte-by-byte binary comparison of two ROM files |
+| `SecurityAnalyzer.cs` | Detects region locking, copy protection, and checksum integrity across all supported systems |
+
+#### Utilities/Conversion/
+
+| File | Description |
+|---|---|
+| `ArchiveManager.cs` | Unified archive manager: extract ROMs from ZIP/RAR/7z/GZip, create ZIP archives, single or batch |
+| `N64FormatConverter.cs` | Converts between N64 ROM byte orders (.z64, .n64, .v64) |
 | `RomFormatConverter.cs` | Adds/removes copier headers, converts disc images to CHD or RVZ format |
+| `SaveFileConverter.cs` | Converts save files between formats with endianness swap and padding options |
+| `SplitRomAssembler.cs` | Reassembles split ROM files (.001/.002, .part1/.part2, .z01/.z02) into a single file |
+
+#### Utilities/RomManagement/
+
+| File | Description |
+|---|---|
+| `BatchHeaderFixer.cs` | Fixes ROM headers (checksums, validation) across all supported systems in batch |
+| `MetadataScraper.cs` | Scrapes header info, checksums, and system details from ROM files in bulk |
 | `RomHeaderExporter.cs` | Exports ROM header information to text or CSV reports |
-| `RomHostingService.cs` | Built-in HTTP server for sharing ROMs on the local network |
 | `RomOrganizer.cs` | Sorts scanned ROMs into system-specific folders |
 | `RomRenamer.cs` | Renames ROM files based on header-detected titles and regions |
 | `RomTrimmer.cs` | Trims trailing padding bytes from ROM files with power-of-two alignment |
-| `SaveFileConverter.cs` | Converts save files between formats with endianness swap and padding options |
-| `SecurityAnalyzer.cs` | Detects region locking, copy protection, and checksum integrity across all supported systems |
 | `SnesHeaderTool.cs` | Detects, adds, and removes the 512-byte copier header from SNES ROM dumps |
-| `SplitRomAssembler.cs` | Reassembles split ROM files (.001/.002, .part1/.part2, .z01/.z02) into a single file |
-| `XdeltaPatcher.cs` | Applies xDelta/VCDIFF patches (RFC 3284) with address cache and Adler-32 verification |
-| `ArchiveManager.cs` | Unified archive manager: extract ROMs from ZIP/RAR/7z/GZip, create ZIP archives, single or batch |
+
+#### Utilities/Networking/
+
+| File | Description |
+|---|---|
+| `RemoteTransferService.cs` | Transfers files to remote targets via FTP, SFTP, WebDAV, Amazon S3, and cloud storage providers |
+| `RomHostingService.cs` | Built-in HTTP server for sharing ROMs on the local network |
 
 #### Utilities/Analogue/
 
@@ -138,6 +222,7 @@ Utilities are organized into subdirectories by category:
 |---|---|
 | `GamepadKeyMapperEngine.cs` | Core gamepad-to-keyboard/mouse mapping engine with profile and set management |
 | `GamepadKeyMapperModels.cs` | Data models for button mappings, profiles, mapping sets, and auto-profile rules |
+| `GamepadMappingStorage.cs` | Persists and loads custom SDL2 controller mappings from disk |
 | `ActiveWindowMonitor.cs` | Monitors the active window for auto-profile switching |
 | `InputSimulator.cs` | Simulates keyboard and mouse input on the host system |
 
@@ -194,13 +279,119 @@ Each feature has a pair of files:
 - `FeatureView.axaml` — XAML layout (Avalonia markup).
 - `FeatureView.axaml.cs` — code-behind with event handlers.
 
-Views are organized into subdirectories by category:
+Views are organized into subdirectories by feature category:
 
-- `Views/` — General ROM tool views (browser, inspector, patcher, checksum, etc.)
-- `Views/Analogue/` — Analogue device views (Pocket, Mega SG, NT/Super NT, 3D)
-- `Views/Mame/` — MAME tool views (auditor, CHD, rebuilder, Dir2Dat, DAT editor, integration)
-- `Views/Mednafen/` — Mednafen emulator integration view
-- `Views/RetroArch/` — RetroArch integration views (playlists, shortcuts, achievements)
+#### Views/Browsing/
+
+ROM browsing, inspection, hex viewing, and Big Picture views.
+
+- `RomBrowserView` — ROM browser with scanning, filtering, and artwork display
+- `RomInspectorView` — Detailed ROM file inspector
+- `HexViewerView` — Hexadecimal file viewer
+- `BigPictureView` — Big Picture Mode (gamepad-driven fullscreen UI)
+- `BigPictureModernView` — Modern-style Big Picture Mode UI
+- `HostRomsWindow` — ROM hosting server window
+- `SendToRemoteWindow` — Remote file transfer window
+- `OrganizeModeWindow` — ROM organize mode window
+
+#### Views/Patching/
+
+ROM patching and patch creation views.
+
+- `RomPatcherView` — Applies IPS, BPS, and xDelta patches to ROMs
+- `PatchCreatorView` — Creates IPS patches by comparing ROM files
+
+#### Views/Conversion/
+
+Format conversion and archive management views.
+
+- `N64ConverterView` — N64 ROM byte-order conversion
+- `RomFormatConverterView` — ROM format and header conversion
+- `SaveFileConverterView` — Save file format conversion
+- `ArchiveManagerView` — ZIP/RAR/7z archive extraction and creation
+- `SplitRomAssemblerView` — Split ROM reassembly
+
+#### Views/Verification/
+
+Verification, analysis, and integrity checking views.
+
+- `ChecksumCalculatorView` — CRC32, MD5, SHA-1, SHA-256 checksum calculator
+- `RomComparerView` — Binary ROM comparison
+- `DatVerifierView` — No-Intro/TOSEC DAT verification
+- `DatFilterView` — DAT file filtering and 1G1R deduplication
+- `DumpVerifierView` — ROM dump quality analysis
+- `DuplicateFinderView` — Duplicate ROM detection
+- `BatchHasherView` — Batch checksum computation and export
+- `SecurityAnalyzerView` — Region lock and copy protection detection
+- `GoodToolsIdentifierView` — GoodTools naming convention identification
+
+#### Views/RomManagement/
+
+ROM management, header editing, and metadata views.
+
+- `HeaderExporterView` — ROM header export to text/CSV
+- `SnesHeaderToolView` — SNES copier header detection and removal
+- `BatchHeaderFixerView` — Batch ROM header fixing
+- `RomTrimmerView` — ROM padding trimmer
+- `RomRenamerView` — ROM file renaming by header data
+- `MetadataScraperView` — ROM metadata scraping
+- `RomOrganizerView` — ROM sorting into system folders
+
+#### Views/CheatsAndEmulation/
+
+Cheat code and emulator configuration views.
+
+- `CheatCodeView` — Cheat code encoding and decoding
+- `EmulatorConfigView` — Emulator configuration file generation
+
+#### Views/DiscTools/
+
+Disc image tool views.
+
+- `DiscToolsView` — Disc image burning
+
+#### Views/UsbTools/
+
+USB device tool views.
+
+- `UsbToolsView` — USB device detection and formatting
+
+#### Views/GamepadKeyMapper/
+
+Gamepad mapping views and configuration wizards.
+
+- `GamepadKeyMapperView` — Gamepad-to-keyboard/mouse mapping configuration
+- `GamepadKeyMapperWizardWindow` — Guided gamepad mapping wizard
+- `GamepadMapperWindow` — SDL2 gamepad mapping tool
+
+#### Views/Settings/
+
+Application settings views.
+
+- `SettingsView` — Application settings and preferences
+
+#### Views/Dialogs/
+
+Shared dialog windows used across the application.
+
+- `ConfirmDialog` — Confirmation dialog
+- `NewFolderDialog` — New folder creation dialog
+
+#### Views/Analogue/
+
+Analogue device views (Pocket, Mega SG, NT/Super NT, 3D).
+
+#### Views/Mame/
+
+MAME tool views (auditor, CHD, rebuilder, Dir2Dat, DAT editor, integration).
+
+#### Views/Mednafen/
+
+Mednafen emulator integration view.
+
+#### Views/RetroArch/
+
+RetroArch integration views (playlists, shortcuts, achievements).
 
 Views handle:
 

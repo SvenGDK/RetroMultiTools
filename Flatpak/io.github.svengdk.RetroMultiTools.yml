@@ -1,0 +1,83 @@
+app-id: io.github.svengdk.RetroMultiTools
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.dotnet8
+
+command: retromultitools
+
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=x11
+  - --socket=wayland
+  - --device=dri
+  # Allow access to game controllers and joysticks
+  - --device=all
+  - --filesystem=home
+  # Removable media access for USB tools and disc operations
+  - --filesystem=/media:ro
+  - --filesystem=/run/media:ro
+  # Talk to the session bus for desktop integration
+  - --talk-name=org.freedesktop.Notifications
+
+build-options:
+  append-path: /usr/lib/sdk/dotnet8/bin
+  append-ld-library-path: /usr/lib/sdk/dotnet8/lib
+  env:
+    DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+    DOTNET_NOLOGO: 'true'
+
+modules:
+  - name: retromultitools
+    buildsystem: simple
+    build-options:
+      env:
+        DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+        DOTNET_NOLOGO: 'true'
+    build-commands:
+      # Build the main application and updater for the target architecture
+      - |
+        set -e
+        case "$FLATPAK_ARCH" in
+          x86_64)  DOTNET_RID=linux-x64 ;;
+          aarch64) DOTNET_RID=linux-arm64 ;;
+          *)       echo "Unsupported architecture: $FLATPAK_ARCH" >&2 && exit 1 ;;
+        esac
+        dotnet publish RetroMultiTools -c Release --self-contained -r "$DOTNET_RID" -o /app/lib/retromultitools --source nuget-sources
+        dotnet publish RetroMultiTools.Updater -c Release --self-contained -r "$DOTNET_RID" -o /tmp/updater --source nuget-sources
+      - cp /tmp/updater/RetroMultiTools.Updater* /app/lib/retromultitools/
+      # Install controller database for gamepad support
+      - install -Dm644 gamecontrollerdb.txt /app/lib/retromultitools/gamecontrollerdb.txt
+      # Install the launcher script
+      - install -Dm755 Flatpak/launch.sh /app/bin/retromultitools
+      # Install desktop file
+      - install -Dm644 Flatpak/io.github.svengdk.RetroMultiTools.desktop /app/share/applications/io.github.svengdk.RetroMultiTools.desktop
+      # Install metainfo
+      - install -Dm644 Flatpak/io.github.svengdk.RetroMultiTools.metainfo.xml /app/share/metainfo/io.github.svengdk.RetroMultiTools.metainfo.xml
+      # Install icon
+      - install -Dm644 Icon.png /app/share/icons/hicolor/512x512/apps/io.github.svengdk.RetroMultiTools.png
+      # Install license
+      - install -Dm644 LICENSE /app/share/licenses/io.github.svengdk.RetroMultiTools/LICENSE
+    sources:
+      - type: git
+        url: https://github.com/SvenGDK/RetroMultiTools.git
+        # Update to the release tag or commit SHA for each submission
+        tag: v5.0.0
+      # SDL game controller database for gamepad support.
+      # Update the sha256 before each submission:
+      #   curl -fsSL -o gamecontrollerdb.txt https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
+      #   sha256sum gamecontrollerdb.txt
+      - type: file
+        url: https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
+        sha256: aa659b847815f52dbc9e1f43e504661f012547875399562d11e7d031499ca570
+        dest-filename: gamecontrollerdb.txt
+      #
+      # NuGet sources must be generated with flatpak-dotnet-generator before building.
+      #
+      # Install:   pip install flatpak-dotnet-generator
+      # Generate:  flatpak-dotnet-generator --dotnet 8 nuget-sources.json RetroMultiTools.slnx
+      #
+      # Then uncomment the following source entry:
+      # - nuget-sources.json

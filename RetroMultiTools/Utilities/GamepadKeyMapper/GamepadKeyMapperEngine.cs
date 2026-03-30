@@ -83,12 +83,17 @@ public sealed class GamepadKeyMapperEngine : IDisposable
         }
     }
 
-    public GamepadMappingSet? ActiveSet =>
-        _activeProfile != null &&
-        _activeProfile.ActiveSetIndex >= 0 &&
-        _activeProfile.ActiveSetIndex < _activeProfile.Sets.Count
-            ? _activeProfile.Sets[_activeProfile.ActiveSetIndex]
-            : null;
+    public GamepadMappingSet? ActiveSet
+    {
+        get
+        {
+            var profile = _activeProfile;
+            if (profile == null) return null;
+            int idx = profile.ActiveSetIndex;
+            var sets = profile.Sets;
+            return idx >= 0 && idx < sets.Count ? sets[idx] : null;
+        }
+    }
 
     // ── Lifecycle ───────────────────────────────────────────────────────
 

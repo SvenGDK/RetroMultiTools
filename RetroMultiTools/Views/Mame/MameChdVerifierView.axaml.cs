@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using RetroMultiTools.Localization;
+using RetroMultiTools.Utilities;
 using RetroMultiTools.Utilities.Mame;
 
 namespace RetroMultiTools.Views.Mame;
@@ -13,12 +14,16 @@ public partial class MameChdVerifierView : UserControl
     public MameChdVerifierView()
     {
         InitializeComponent();
+        DragDropHelper.EnableFileDrop(InputTextBox, _ =>
+        {
+            VerifyButton.IsEnabled = !string.IsNullOrEmpty(InputTextBox.Text);
+        }, acceptDirectories: true);
     }
 
     private void ModeRadio_Checked(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (InputLabel == null) return;
-        if (sender is RadioButton rb && rb.IsChecked != true) return;
+        if (sender is not RadioButton rb || rb.IsChecked != true) return;
 
         bool isBatch = sender == BatchModeRadio;
         var loc = LocalizationManager.Instance;

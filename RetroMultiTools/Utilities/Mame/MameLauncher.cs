@@ -1,3 +1,4 @@
+using RetroMultiTools.Utilities.Integrations;
 using RetroMultiTools.Localization;
 using RetroMultiTools.Models;
 using RetroMultiTools.Services;
@@ -208,6 +209,7 @@ public static class MameLauncher
 
     /// <summary>
     /// Opens the MAME download page in the user's default browser.
+    /// On Linux, uses xdg-open for compatibility with Flatpak and other sandboxes.
     /// After installation, the user can use Auto-Detect or Browse to configure the path.
     /// </summary>
     public static bool OpenDownloadPage()
@@ -215,11 +217,19 @@ public static class MameLauncher
         try
         {
             string url = GetDownloadUrl();
-            using var process = Process.Start(new ProcessStartInfo
+
+            ProcessStartInfo psi;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                FileName = url,
-                UseShellExecute = true
-            });
+                psi = new ProcessStartInfo { FileName = "xdg-open", UseShellExecute = false };
+                psi.ArgumentList.Add(url);
+            }
+            else
+            {
+                psi = new ProcessStartInfo { FileName = url, UseShellExecute = true };
+            }
+
+            using var process = Process.Start(psi);
             return true;
         }
         catch (InvalidOperationException)

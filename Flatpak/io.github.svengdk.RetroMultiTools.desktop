@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Retro Multi Tools
+Comment=Multi platform utility for managing, inspecting, and patching retro game ROMs
+Exec=retromultitools %F
+Icon=io.github.svengdk.RetroMultiTools
+Terminal=false
+Type=Application
+Categories=Utility;Game;
+Keywords=ROM;retro;emulation;patch;MAME;RetroArch;cheat;gamepad;
+StartupNotify=true

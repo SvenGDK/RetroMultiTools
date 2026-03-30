@@ -6124,4 +6124,1204 @@ Run:notepad.exe</value>
   <data name="Settings_Clear" xml:space="preserve">
     <value>지우기</value>
   </data>
+  <data name="Nav_DiscTools" xml:space="preserve">
+    <value>디스크 도구</value>
+  </data>
+  <data name="DiscTools_Title" xml:space="preserve">
+    <value>디스크 도구</value>
+  </data>
+  <data name="DiscTools_Description" xml:space="preserve">
+    <value>디스크 이미지나 파일을 광학 미디어에 굽고 실제 디스크나 파일에서 디스크 이미지를 만듭니다. ISO, BIN/CUE, IMG, GDI, CDI, NRG 및 기타 게임 시스템 디스크 형식을 지원합니다.</value>
+  </data>
+  <data name="DiscTools_Operation" xml:space="preserve">
+    <value>작업:</value>
+  </data>
+  <data name="DiscTools_OpBurnImage" xml:space="preserve">
+    <value>디스크에 이미지 쓰기</value>
+  </data>
+  <data name="DiscTools_OpBurnFiles" xml:space="preserve">
+    <value>디스크에 파일 쓰기</value>
+  </data>
+  <data name="DiscTools_OpImageFromDisc" xml:space="preserve">
+    <value>디스크에서 이미지 생성</value>
+  </data>
+  <data name="DiscTools_OpImageFromFiles" xml:space="preserve">
+    <value>파일에서 이미지 생성</value>
+  </data>
+  <data name="DiscTools_Drive" xml:space="preserve">
+    <value>광학 드라이브:</value>
+  </data>
+  <data name="DiscTools_SelectDrive" xml:space="preserve">
+    <value>광학 드라이브를 선택하세요...</value>
+  </data>
+  <data name="DiscTools_RefreshDrives" xml:space="preserve">
+    <value>새로 고치다</value>
+  </data>
+  <data name="DiscTools_NoDrivesFound" xml:space="preserve">
+    <value>이 시스템에서 광학 드라이브가 감지되지 않습니다.</value>
+  </data>
+  <data name="DiscTools_ImageFile" xml:space="preserve">
+    <value>이미지 파일:</value>
+  </data>
+  <data name="DiscTools_SelectImageFile" xml:space="preserve">
+    <value>디스크 이미지 파일을 선택하세요...</value>
+  </data>
+  <data name="DiscTools_ImageFiles" xml:space="preserve">
+    <value>디스크 이미지 파일</value>
+  </data>
+  <data name="DiscTools_FilesOrFolders" xml:space="preserve">
+    <value>파일/폴더:</value>
+  </data>
+  <data name="DiscTools_SelectFilesOrFolders" xml:space="preserve">
+    <value>쓸 파일이나 폴더를 선택하세요...</value>
+  </data>
+  <data name="DiscTools_SelectFolder" xml:space="preserve">
+    <value>폴더 선택</value>
+  </data>
+  <data name="DiscTools_OutputFile" xml:space="preserve">
+    <value>출력 이미지 파일:</value>
+  </data>
+  <data name="DiscTools_SelectOutputImage" xml:space="preserve">
+    <value>출력 이미지 파일 경로 선택...</value>
+  </data>
+  <data name="DiscTools_VolumeLabel" xml:space="preserve">
+    <value>볼륨 라벨:</value>
+  </data>
+  <data name="DiscTools_VolumeLabelHint" xml:space="preserve">
+    <value>디스크의 볼륨 레이블을 입력하세요...</value>
+  </data>
+  <data name="DiscTools_WriteSpeed" xml:space="preserve">
+    <value>쓰기 속도:</value>
+  </data>
+  <data name="DiscTools_SpeedAuto" xml:space="preserve">
+    <value>자동(최대)</value>
+  </data>
+  <data name="DiscTools_VerifyAfterBurn" xml:space="preserve">
+    <value>작성 후 확인</value>
+  </data>
+  <data name="DiscTools_Burn" xml:space="preserve">
+    <value>디스크에 쓰기</value>
+  </data>
+  <data name="DiscTools_CreateImage" xml:space="preserve">
+    <value>이미지 생성</value>
+  </data>
+  <data name="DiscTools_Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="DiscTools_DetectingDrives" xml:space="preserve">
+    <value>광학 드라이브 감지 중...</value>
+  </data>
+  <data name="DiscTools_DriveDetectError" xml:space="preserve">
+    <value>드라이브 감지 오류: {0}</value>
+  </data>
+  <data name="DiscTools_ImageNotFound" xml:space="preserve">
+    <value>이미지 파일을 찾을 수 없습니다.</value>
+  </data>
+  <data name="DiscTools_BurningImage" xml:space="preserve">
+    <value>이미지 작성: {0}</value>
+  </data>
+  <data name="DiscTools_BurningFiles" xml:space="preserve">
+    <value>{0} 항목을 디스크에 쓰는 중...</value>
+  </data>
+  <data name="DiscTools_NoFilesSelected" xml:space="preserve">
+    <value>선택한 파일이나 폴더가 없습니다.</value>
+  </data>
+  <data name="DiscTools_OutputRequired" xml:space="preserve">
+    <value>출력 파일 경로가 필요합니다.</value>
+  </data>
+  <data name="DiscTools_ReadingDisc" xml:space="preserve">
+    <value>디스크를 읽는 중...</value>
+  </data>
+  <data name="DiscTools_CreatingImage" xml:space="preserve">
+    <value>이미지 생성: {0}</value>
+  </data>
+  <data name="DiscTools_WritingToDisc" xml:space="preserve">
+    <value>디스크에 데이터를 쓰는 중...</value>
+  </data>
+  <data name="DiscTools_RunningTool" xml:space="preserve">
+    <value>{0} 실행 중...</value>
+  </data>
+  <data name="DiscTools_BurnComplete" xml:space="preserve">
+    <value>✔ 디스크에 성공적으로 기록되었습니다.</value>
+  </data>
+  <data name="DiscTools_BurnFailed" xml:space="preserve">
+    <value>✘ 쓰기 실패: {0}</value>
+  </data>
+  <data name="DiscTools_ImageCreated" xml:space="preserve">
+    <value>✔ 생성된 이미지 : {0} ({1})</value>
+  </data>
+  <data name="DiscTools_ImageCreateFailed" xml:space="preserve">
+    <value>✘ 이미지 생성 실패: {0}</value>
+  </data>
+  <data name="DiscTools_UnsupportedPlatform" xml:space="preserve">
+    <value>이 플랫폼은 디스크 작업을 지원하지 않습니다.</value>
+  </data>
+  <data name="DiscTools_NoBurnTool" xml:space="preserve">
+    <value>디스크 굽기 도구를 찾을 수 없습니다. wodim, cdrecord 또는 xorrecord를 설치하세요.</value>
+  </data>
+  <data name="DiscTools_NoIsoTool" xml:space="preserve">
+    <value>ISO 생성 도구를 찾을 수 없습니다. xorrisofs, genisoimage 또는 mkisofs를 설치하십시오.</value>
+  </data>
+  <data name="DiscTools_IsoCreateFailed" xml:space="preserve">
+    <value>ISO 생성 실패: {0}</value>
+  </data>
+  <data name="DiscTools_CreatingIso" xml:space="preserve">
+    <value>ISO 이미지 생성 중...</value>
+  </data>
+  <data name="DiscTools_OperationCancelled" xml:space="preserve">
+    <value>작업이 취소되었습니다.</value>
+  </data>
+  <data name="DiscTools_BrowseFolder" xml:space="preserve">
+    <value>폴더 찾아보기</value>
+  </data>
+  <data name="DiscTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>'{0}' 이미지 형식은 디스크에 구울 수 없습니다. 지원되는 형식: ISO, BIN/CUE, IMG, NRG, TOAST.</value>
+  </data>
+  <data name="DiscTools_Verifying" xml:space="preserve">
+    <value>디스크 확인 중...</value>
+  </data>
+  <data name="DiscTools_BurnCompleteVerifySkipped" xml:space="preserve">
+    <value>굽기가 성공적으로 완료되었습니다. 확인을 수행할 수 없습니다.</value>
+  </data>
+  <data name="DiscTools_VerifyFailed" xml:space="preserve">
+    <value>굽기가 완료되었지만 확인에 실패했습니다. 디스크 데이터가 원본 이미지와 일치하지 않습니다.</value>
+  </data>
+  <data name="DiscTools_IsoImageType" xml:space="preserve">
+    <value>ISO 이미지</value>
+  </data>
+  <data name="DiscTools_BinCueImageType" xml:space="preserve">
+    <value>BIN/CUE 이미지</value>
+  </data>
+  <data name="Nav_UsbTools" xml:space="preserve">
+    <value>USB 도구</value>
+  </data>
+  <data name="UsbTools_Title" xml:space="preserve">
+    <value>USB 도구</value>
+  </data>
+  <data name="UsbTools_Description" xml:space="preserve">
+    <value>USB 드라이브 포맷, 이미지 쓰기, 이미지 생성 및 탐색.</value>
+  </data>
+  <data name="UsbTools_Drive" xml:space="preserve">
+    <value>USB 드라이브</value>
+  </data>
+  <data name="UsbTools_SelectDrive" xml:space="preserve">
+    <value>USB 드라이브 선택...</value>
+  </data>
+  <data name="UsbTools_RefreshDrives" xml:space="preserve">
+    <value>새로 고침</value>
+  </data>
+  <data name="UsbTools_DetectingDrives" xml:space="preserve">
+    <value>USB 드라이브 감지 중...</value>
+  </data>
+  <data name="UsbTools_NoDrivesFound" xml:space="preserve">
+    <value>USB 드라이브를 찾을 수 없습니다.</value>
+  </data>
+  <data name="UsbTools_DriveDetectError" xml:space="preserve">
+    <value>드라이브 감지 오류: {0}</value>
+  </data>
+  <data name="UsbTools_NoDriveSelected" xml:space="preserve">
+    <value>USB 드라이브가 선택되지 않았습니다.</value>
+  </data>
+  <data name="UsbTools_UnsupportedPlatform" xml:space="preserve">
+    <value>이 작업은 현재 플랫폼에서 지원되지 않습니다.</value>
+  </data>
+  <data name="UsbTools_TabExplorer" xml:space="preserve">
+    <value>파일 탐색기</value>
+  </data>
+  <data name="UsbTools_TabFormat" xml:space="preserve">
+    <value>포맷</value>
+  </data>
+  <data name="UsbTools_TabWriteImage" xml:space="preserve">
+    <value>이미지 쓰기</value>
+  </data>
+  <data name="UsbTools_TabCreateImage" xml:space="preserve">
+    <value>이미지 생성</value>
+  </data>
+  <data name="UsbTools_NavigateUp" xml:space="preserve">
+    <value>위로 이동</value>
+  </data>
+  <data name="UsbTools_RefreshFiles" xml:space="preserve">
+    <value>새로 고침</value>
+  </data>
+  <data name="UsbTools_AddFiles" xml:space="preserve">
+    <value>파일 추가</value>
+  </data>
+  <data name="UsbTools_NewFolder" xml:space="preserve">
+    <value>새 폴더</value>
+  </data>
+  <data name="UsbTools_Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="UsbTools_Move" xml:space="preserve">
+    <value>이동</value>
+  </data>
+  <data name="UsbTools_FileSystem" xml:space="preserve">
+    <value>파일 시스템</value>
+  </data>
+  <data name="UsbTools_PartitionScheme" xml:space="preserve">
+    <value>파티션 구성표</value>
+  </data>
+  <data name="UsbTools_VolumeLabel" xml:space="preserve">
+    <value>볼륨 레이블</value>
+  </data>
+  <data name="UsbTools_VolumeLabelHint" xml:space="preserve">
+    <value>볼륨 레이블 입력</value>
+  </data>
+  <data name="UsbTools_FormatWarning" xml:space="preserve">
+    <value>⚠ 경고: 포맷하면 선택한 USB 드라이브의 모든 데이터가 삭제됩니다. 이 작업은 취소할 수 없습니다.</value>
+  </data>
+  <data name="UsbTools_Format" xml:space="preserve">
+    <value>USB 드라이브 포맷</value>
+  </data>
+  <data name="UsbTools_PreparingFormat" xml:space="preserve">
+    <value>포맷 준비 중...</value>
+  </data>
+  <data name="UsbTools_Formatting" xml:space="preserve">
+    <value>{0} ({1})(으)로 포맷 중...</value>
+  </data>
+  <data name="UsbTools_FormatComplete" xml:space="preserve">
+    <value>USB 드라이브가 성공적으로 포맷되었습니다.</value>
+  </data>
+  <data name="UsbTools_FormatFailed" xml:space="preserve">
+    <value>포맷 실패: {0}</value>
+  </data>
+  <data name="UsbTools_UnsupportedFileSystem" xml:space="preserve">
+    <value>지원되지 않는 파일 시스템: {0}</value>
+  </data>
+  <data name="UsbTools_NtfsMacWarning" xml:space="preserve">
+    <value>참고: macOS는 기본적으로 NTFS 포맷을 지원하지 않습니다. 드라이브가 ExFAT으로 포맷되었습니다.</value>
+  </data>
+  <data name="UsbTools_ConfirmFormat" xml:space="preserve">
+    <value>포맷 확인</value>
+  </data>
+  <data name="UsbTools_ConfirmFormatMessage" xml:space="preserve">
+    <value>{0}을(를) 포맷하시겠습니까? 모든 데이터가 영구적으로 삭제됩니다.</value>
+  </data>
+  <data name="UsbTools_ImageFile" xml:space="preserve">
+    <value>이미지 파일</value>
+  </data>
+  <data name="UsbTools_SelectImageFile" xml:space="preserve">
+    <value>이미지 파일 선택...</value>
+  </data>
+  <data name="UsbTools_ImageFiles" xml:space="preserve">
+    <value>디스크 이미지 파일</value>
+  </data>
+  <data name="UsbTools_ImageNotFound" xml:space="preserve">
+    <value>이미지 파일을 찾을 수 없습니다.</value>
+  </data>
+  <data name="UsbTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>지원되지 않는 이미지 형식: {0}</value>
+  </data>
+  <data name="UsbTools_WriteWarning" xml:space="preserve">
+    <value>⚠ 경고: 이미지를 쓰면 선택한 USB 드라이브의 모든 데이터가 삭제됩니다. 이 작업은 취소할 수 없습니다.</value>
+  </data>
+  <data name="UsbTools_WriteImage" xml:space="preserve">
+    <value>USB에 이미지 쓰기</value>
+  </data>
+  <data name="UsbTools_WritingImage" xml:space="preserve">
+    <value>{0}을(를) USB 드라이브에 쓰는 중...</value>
+  </data>
+  <data name="UsbTools_WriteComplete" xml:space="preserve">
+    <value>USB 드라이브에 이미지가 성공적으로 기록되었습니다.</value>
+  </data>
+  <data name="UsbTools_WriteFailed" xml:space="preserve">
+    <value>쓰기 실패: {0}</value>
+  </data>
+  <data name="UsbTools_ConfirmWrite" xml:space="preserve">
+    <value>쓰기 확인</value>
+  </data>
+  <data name="UsbTools_ConfirmWriteMessage" xml:space="preserve">
+    <value>{0}을(를) {1}에 쓰시겠습니까? 기존의 모든 데이터가 영구적으로 삭제됩니다.</value>
+  </data>
+  <data name="UsbTools_OutputFile" xml:space="preserve">
+    <value>출력 파일</value>
+  </data>
+  <data name="UsbTools_SelectOutputImage" xml:space="preserve">
+    <value>출력 이미지 위치 선택...</value>
+  </data>
+  <data name="UsbTools_CreateImage" xml:space="preserve">
+    <value>USB에서 이미지 생성</value>
+  </data>
+  <data name="UsbTools_CreatingImage" xml:space="preserve">
+    <value>USB 드라이브에서 이미지 생성 중...</value>
+  </data>
+  <data name="UsbTools_ImageCreated" xml:space="preserve">
+    <value>이미지가 성공적으로 생성되었습니다: {0}</value>
+  </data>
+  <data name="UsbTools_ImageCreateFailed" xml:space="preserve">
+    <value>이미지 생성 실패: {0}</value>
+  </data>
+  <data name="UsbTools_OutputRequired" xml:space="preserve">
+    <value>출력 파일 경로가 필요합니다.</value>
+  </data>
+  <data name="UsbTools_ImgFileType" xml:space="preserve">
+    <value>IMG 이미지</value>
+  </data>
+  <data name="UsbTools_IsoFileType" xml:space="preserve">
+    <value>ISO 이미지</value>
+  </data>
+  <data name="UsbTools_OperationCancelled" xml:space="preserve">
+    <value>작업이 취소되었습니다.</value>
+  </data>
+  <data name="UsbTools_FolderExists" xml:space="preserve">
+    <value>해당 이름의 폴더가 이미 존재합니다.</value>
+  </data>
+  <data name="UsbTools_FolderCreated" xml:space="preserve">
+    <value>폴더가 성공적으로 생성되었습니다.</value>
+  </data>
+  <data name="UsbTools_DeleteComplete" xml:space="preserve">
+    <value>성공적으로 삭제되었습니다.</value>
+  </data>
+  <data name="UsbTools_EntryNotFound" xml:space="preserve">
+    <value>파일 또는 폴더를 찾을 수 없습니다.</value>
+  </data>
+  <data name="UsbTools_DestinationExists" xml:space="preserve">
+    <value>대상에 같은 이름의 항목이 이미 존재합니다.</value>
+  </data>
+  <data name="UsbTools_MoveComplete" xml:space="preserve">
+    <value>성공적으로 이동되었습니다.</value>
+  </data>
+  <data name="UsbTools_SelectMoveDestination" xml:space="preserve">
+    <value>대상 폴더 선택</value>
+  </data>
+  <data name="UsbTools_CopyingFile" xml:space="preserve">
+    <value>{0} 복사 중...</value>
+  </data>
+  <data name="UsbTools_AddComplete" xml:space="preserve">
+    <value>{0}개 항목이 성공적으로 추가되었습니다.</value>
+  </data>
+  <data name="UsbTools_ConfirmDelete" xml:space="preserve">
+    <value>삭제 확인</value>
+  </data>
+  <data name="UsbTools_ConfirmDeleteMessage" xml:space="preserve">
+    <value>'{0}'을(를) 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.</value>
+  </data>
+  <data name="UsbTools_EnterFolderName" xml:space="preserve">
+    <value>폴더 이름 입력:</value>
+  </data>
+  <data name="UsbTools_FolderNameHint" xml:space="preserve">
+    <value>폴더 이름</value>
+  </data>
+  <data name="Tour_Skip" xml:space="preserve">
+    <value>투어 건너뛰기</value>
+  </data>
+  <data name="Tour_Back" xml:space="preserve">
+    <value>뒤로</value>
+  </data>
+  <data name="Tour_Next" xml:space="preserve">
+    <value>다음</value>
+  </data>
+  <data name="Tour_Finish" xml:space="preserve">
+    <value>시작하기</value>
+  </data>
+  <data name="Tour_WelcomeTitle" xml:space="preserve">
+    <value>RetroMultiTools에 오신 것을 환영합니다!</value>
+  </data>
+  <data name="Tour_WelcomeDesc" xml:space="preserve">
+    <value>레트로 게임을 위한 올인원 툴킷입니다. 이 앱이 할 수 있는 모든 것을 빠르게 안내해 드리겠습니다. 1분도 안 걸립니다!</value>
+  </data>
+  <data name="Tour_SidebarTitle" xml:space="preserve">
+    <value>사이드바 탐색</value>
+  </data>
+  <data name="Tour_SidebarDesc" xml:space="preserve">
+    <value>왼쪽 사이드바를 사용하여 도구 간에 전환하세요. 브라우징, 패치, 분석 등의 카테고리로 구성되어 있습니다.</value>
+  </data>
+  <data name="Tour_BrowserTitle" xml:space="preserve">
+    <value>ROM 브라우저</value>
+  </data>
+  <data name="Tour_BrowserDesc" xml:space="preserve">
+    <value>강력한 파일 브라우저로 ROM 컬렉션을 탐색하세요. 파일 세부 정보를 보고, 폴더를 열고, 찾고 있는 게임을 빠르게 찾으세요.</value>
+  </data>
+  <data name="Tour_InspectorTitle" xml:space="preserve">
+    <value>ROM 인스펙터 &amp; 헥스 뷰어</value>
+  </data>
+  <data name="Tour_InspectorDesc" xml:space="preserve">
+    <value>ROM 파일 헤더를 검사하고, 내부 메타데이터를 보고, 내장 헥스 뷰어로 원시 바이트를 확인하세요. 고급 사용자와 개발자에게 유용합니다.</value>
+  </data>
+  <data name="Tour_PatchingTitle" xml:space="preserve">
+    <value>패치 적용 &amp; 변환</value>
+  </data>
+  <data name="Tour_PatchingDesc" xml:space="preserve">
+    <value>IPS/BPS/UPS 패치를 적용하고, 자체 패치를 만들고, ROM 포맷을 변환하고, 세이브 파일을 변환하고, N64 바이트 스와핑을 처리하세요 — 모두 한 곳에서.</value>
+  </data>
+  <data name="Tour_AnalysisTitle" xml:space="preserve">
+    <value>분석 &amp; 검증</value>
+  </data>
+  <data name="Tour_AnalysisDesc" xml:space="preserve">
+    <value>DAT 파일로 ROM을 검증하고, 체크섬을 계산하고, 중복을 찾고, 전체 폴더를 일괄 해시하고, 정확한 컬렉션 관리를 위해 GoodTools 세트를 식별하세요.</value>
+  </data>
+  <data name="Tour_HeadersTitle" xml:space="preserve">
+    <value>헤더 &amp; 트리밍</value>
+  </data>
+  <data name="Tour_HeadersDesc" xml:space="preserve">
+    <value>ROM 헤더를 내보내고, 수정하거나 제거하세요. 패딩된 ROM을 트림하여 공간을 절약하세요. SNES 헤더 관리를 위한 전문 도구가 포함되어 있습니다.</value>
+  </data>
+  <data name="Tour_UtilitiesTitle" xml:space="preserve">
+    <value>유틸리티</value>
+  </data>
+  <data name="Tour_UtilitiesDesc" xml:space="preserve">
+    <value>아카이브를 관리하고, 치트 코드를 적용하고, 디스크 이미지를 다루고, 에뮬레이터를 구성하고, 게임패드 버튼을 매핑하고, 메타데이터를 스크랩하고, ROM 파일을 정리 및 이름 변경하고, USB 장치를 관리하세요.</value>
+  </data>
+  <data name="Tour_EmulatorsTitle" xml:space="preserve">
+    <value>에뮬레이터 통합</value>
+  </data>
+  <data name="Tour_EmulatorsDesc" xml:space="preserve">
+    <value>RetroArch, MAME, Mednafen과의 심층 통합. 플레이리스트 관리, ROM 세트 감사, CHD 파일 변환, DAT 편집, 바로가기 생성 등.</value>
+  </data>
+  <data name="Tour_AnalogueTitle" xml:space="preserve">
+    <value>Analogue FPGA</value>
+  </data>
+  <data name="Tour_AnalogueDesc" xml:space="preserve">
+    <value>Analogue FPGA 하드웨어용 도구: Pocket, Mega Sg, Nt/Super Nt, 그리고 출시 예정인 3D. 기기의 코어, 펌웨어, 게임 라이브러리를 관리하세요.</value>
+  </data>
+  <data name="Tour_BigPictureTitle" xml:space="preserve">
+    <value>Big Picture Mode</value>
+  </data>
+  <data name="Tour_BigPictureDesc" xml:space="preserve">
+    <value>컨트롤러 지원, 아트워크, 플레이 추적, 평점이 포함된 전체 화면 게임 라이브러리를 편안하게 즐기세요. 클래식 그리드 또는 모던 히어로 레이아웃 중 선택하세요.</value>
+  </data>
+  <data name="Tour_SettingsTitle" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="Tour_SettingsDesc" xml:space="preserve">
+    <value>경험을 맞춤 설정하세요: 언어 변경, Discord Rich Presence 활성화, Big Picture Mode 구성, 게임패드 컨트롤 설정, 업데이트 확인.</value>
+  </data>
+  <data name="Tour_FinishTitle" xml:space="preserve">
+    <value>준비 완료!</value>
+  </data>
+  <data name="Tour_FinishDesc" xml:space="preserve">
+    <value>다 됐습니다! 사이드바의 도구를 탐색해 보세요. 복습이 필요하면 설정에서 언제든지 이 투어를 다시 시작할 수 있습니다. 즐기세요!</value>
+  </data>
+  <data name="Tour_SettingSectionTitle" xml:space="preserve">
+    <value>가이드 투어</value>
+  </data>
+  <data name="Tour_SettingSectionDesc" xml:space="preserve">
+    <value>애플리케이션의 모든 기능을 설명하는 가이드 투어를 다시 재생합니다.</value>
+  </data>
+  <data name="Tour_RestartButton" xml:space="preserve">
+    <value>투어 다시 시작</value>
+  </data>
+  <data name="Browser_SelectFolderTooltip" xml:space="preserve">
+    <value>Browse for a ROM folder to scan</value>
+  </data>
+  <data name="Browser_AddRomsTooltip" xml:space="preserve">
+    <value>Add ROM files to the current folder</value>
+  </data>
+  <data name="Browser_CopyToTooltip" xml:space="preserve">
+    <value>Copy selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_MoveToTooltip" xml:space="preserve">
+    <value>Move selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_DeleteTooltip" xml:space="preserve">
+    <value>Delete the selected ROMs</value>
+  </data>
+  <data name="Browser_OrganizeTooltip" xml:space="preserve">
+    <value>Organize ROMs into subfolders by system</value>
+  </data>
+  <data name="Browser_SendToRemoteTooltip" xml:space="preserve">
+    <value>Send selected ROMs to a remote device or cloud storage</value>
+  </data>
+  <data name="Browser_HostShareTooltip" xml:space="preserve">
+    <value>Host a local server to share ROMs on the network</value>
+  </data>
+  <data name="Browser_LaunchRetroArchTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in RetroArch</value>
+  </data>
+  <data name="Browser_LaunchMameTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in MAME</value>
+  </data>
+  <data name="Browser_LaunchMednafenTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in Mednafen</value>
+  </data>
+  <data name="Browser_BigPictureModeTooltip" xml:space="preserve">
+    <value>Enter full-screen Big Picture Mode for gamepad-friendly browsing</value>
+  </data>
+  <data name="MainWindow_SearchShortcut" xml:space="preserve">
+    <value>Search tools (Ctrl+F)</value>
+  </data>
+  <data name="BigPictureModern_AllGames" xml:space="preserve">
+    <value>모든 게임</value>
+  </data>
+  <data name="BigPictureModern_EmptyCategory" xml:space="preserve">
+    <value>이 카테고리에 아직 게임이 없습니다</value>
+  </data>
+  <data name="BigPictureModern_EmptyLibrary" xml:space="preserve">
+    <value>라이브러리가 비어 있습니다. ROM 폴더를 찾아서 시작하세요.</value>
+  </data>
+  <data name="BigPictureModern_Favorites" xml:space="preserve">
+    <value>즐겨찾기</value>
+  </data>
+  <data name="BigPictureModern_LaunchWith" xml:space="preserve">
+    <value>{0}(으)로 실행</value>
+  </data>
+  <data name="BigPictureModern_MostPlayed" xml:space="preserve">
+    <value>가장 많이 플레이한</value>
+  </data>
+  <data name="BigPictureModern_NoResults" xml:space="preserve">
+    <value>검색과 일치하는 게임이 없습니다</value>
+  </data>
+  <data name="BigPictureModern_Plays" xml:space="preserve">
+    <value>{0}회 플레이</value>
+  </data>
+  <data name="BigPictureModern_RecentlyPlayed" xml:space="preserve">
+    <value>최근 플레이한</value>
+  </data>
+  <data name="BigPictureModern_SearchPlaceholder" xml:space="preserve">
+    <value>라이브러리 검색...</value>
+  </data>
+  <data name="BigPictureModern_Spotlight" xml:space="preserve">
+    <value>스포트라이트</value>
+  </data>
+  <data name="BigPictureModern_TopRated" xml:space="preserve">
+    <value>최고 평점</value>
+  </data>
+  <data name="BigPicture_CopiedToClipboard" xml:space="preserve">
+    <value>경로가 클립보드에 복사됨</value>
+  </data>
+  <data name="BigPicture_CopyFilePath" xml:space="preserve">
+    <value>파일 경로 복사</value>
+  </data>
+  <data name="BigPicture_OpenFileLocation" xml:space="preserve">
+    <value>파일 위치 열기</value>
+  </data>
+  <data name="BigPicture_SortPlayCount" xml:space="preserve">
+    <value>플레이 횟수 (높음 → 낮음)</value>
+  </data>
+  <data name="Browser_ContextChecksum" xml:space="preserve">
+    <value>#️⃣ 체크섬 계산</value>
+  </data>
+  <data name="Browser_ContextGoodTools" xml:space="preserve">
+    <value>🏷️ GoodTools로 식별</value>
+  </data>
+  <data name="Browser_ContextHexView" xml:space="preserve">
+    <value>🔢 Hex 뷰어에서 열기</value>
+  </data>
+  <data name="Browser_ContextInspect" xml:space="preserve">
+    <value>🔍 ROM 인스펙터에서 열기</value>
+  </data>
+  <data name="Browser_ContextOpenFolder" xml:space="preserve">
+    <value>📂 포함 폴더 열기</value>
+  </data>
+  <data name="Browser_ContextOpenWith" xml:space="preserve">
+    <value>🚀 다른 프로그램으로 열기</value>
+  </data>
+  <data name="Browser_ContextPatch" xml:space="preserve">
+    <value>🩹 ROM 패치...</value>
+  </data>
+  <data name="Browser_ContextRename" xml:space="preserve">
+    <value>✏️ 이름 변경...</value>
+  </data>
+  <data name="Browser_ContextTools" xml:space="preserve">
+    <value>🔧 도구</value>
+  </data>
+  <data name="Browser_OpenFolderError" xml:space="preserve">
+    <value>폴더를 열 수 없습니다: {0}</value>
+  </data>
+  <data name="Browser_RenameError" xml:space="preserve">
+    <value>이름 변경 실패: {0}</value>
+  </data>
+  <data name="Browser_RenamePromptTitle" xml:space="preserve">
+    <value>ROM 이름 변경</value>
+  </data>
+  <data name="Browser_RenameSuccess" xml:space="preserve">
+    <value>{0}(으)로 이름 변경됨</value>
+  </data>
+  <data name="Checksum_Description" xml:space="preserve">
+    <value>ROM 파일의 무결성을 확인하고 덤프를 식별하기 위해 CRC32, MD5, SHA-1, SHA-256 체크섬을 계산합니다.</value>
+  </data>
+  <data name="Common_SelectFileTitle" xml:space="preserve">
+    <value>파일 선택</value>
+  </data>
+  <data name="Common_SelectOutputDirectoryTitle" xml:space="preserve">
+    <value>출력 디렉터리 선택</value>
+  </data>
+  <data name="Common_SelectRomDirectoryTitle" xml:space="preserve">
+    <value>ROM 디렉터리 선택</value>
+  </data>
+  <data name="Common_SelectRomFileTitle" xml:space="preserve">
+    <value>ROM 파일 선택</value>
+  </data>
+  <data name="Comparer_Description" xml:space="preserve">
+    <value>두 ROM 파일을 바이트 단위로 비교하여 크기, 내용의 차이를 식별하고 첫 번째 불일치 오프셋을 찾습니다.</value>
+  </data>
+  <data name="GoodTools_NoCodesForFile" xml:space="preserve">
+    <value>GoodTools 코드를 찾을 수 없습니다.</value>
+  </data>
+  <data name="MameConfig_Artwork" xml:space="preserve">
+    <value>아트워크 옵션</value>
+  </data>
+  <data name="MameConfig_AutoEnable" xml:space="preserve">
+    <value>입력 자동 활성화 옵션</value>
+  </data>
+  <data name="MameConfig_Bgfx" xml:space="preserve">
+    <value>BGFX 후처리</value>
+  </data>
+  <data name="MameConfig_Communication" xml:space="preserve">
+    <value>통신 옵션</value>
+  </data>
+  <data name="MameConfig_ConfigFile" xml:space="preserve">
+    <value>설정 파일</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>저장하지 않은 변경 사항이 있습니다. 취소하고 계속하시겠습니까?</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>저장하지 않은 변경 사항</value>
+  </data>
+  <data name="MameConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>모든 설정을 MAME 기본값으로 초기화합니다. 저장하지 않은 변경 사항은 손실됩니다. 계속하시겠습니까?</value>
+  </data>
+  <data name="MameConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>기본값으로 초기화</value>
+  </data>
+  <data name="MameConfig_CoreInput" xml:space="preserve">
+    <value>코어 입력 옵션</value>
+  </data>
+  <data name="MameConfig_CoreMisc" xml:space="preserve">
+    <value>코어 기타 옵션</value>
+  </data>
+  <data name="MameConfig_CorePerformance" xml:space="preserve">
+    <value>코어 성능 옵션</value>
+  </data>
+  <data name="MameConfig_CoreSound" xml:space="preserve">
+    <value>코어 사운드 옵션</value>
+  </data>
+  <data name="MameConfig_CoreVideo" xml:space="preserve">
+    <value>코어 비디오 옵션</value>
+  </data>
+  <data name="MameConfig_CreateNew" xml:space="preserve">
+    <value>새로 만들기</value>
+  </data>
+  <data name="MameConfig_Debugging" xml:space="preserve">
+    <value>디버깅 옵션</value>
+  </data>
+  <data name="MameConfig_DefaultsRestored" xml:space="preserve">
+    <value>모든 설정이 MAME 기본값으로 초기화되었습니다.</value>
+  </data>
+  <data name="MameConfig_Description" xml:space="preserve">
+    <value>MAME 설정 파일(mame.ini)을 로드, 편집, 저장합니다. Windows, macOS, Linux용 모든 MAME 설정을 지원합니다.</value>
+  </data>
+  <data name="MameConfig_HttpServer" xml:space="preserve">
+    <value>HTTP 서버 옵션</value>
+  </data>
+  <data name="MameConfig_IniFileType" xml:space="preserve">
+    <value>MAME INI 파일</value>
+  </data>
+  <data name="MameConfig_IniPlaceholder" xml:space="preserve">
+    <value>mame.ini 경로...</value>
+  </data>
+  <data name="MameConfig_Language" xml:space="preserve">
+    <value>언어</value>
+  </data>
+  <data name="MameConfig_LoadError" xml:space="preserve">
+    <value>설정 로드 실패: {0}</value>
+  </data>
+  <data name="MameConfig_Loaded" xml:space="preserve">
+    <value>{1}에서 {0}개의 설정을 로드함</value>
+  </data>
+  <data name="MameConfig_NewCreated" xml:space="preserve">
+    <value>MAME 기본값으로 새 설정이 생성되었습니다. 저장 경로: {0}</value>
+  </data>
+  <data name="MameConfig_NoIniFound" xml:space="preserve">
+    <value>mame.ini를 찾을 수 없습니다. 찾아보기를 사용하거나 새로 만들기로 기본값 설정을 생성하세요.</value>
+  </data>
+  <data name="MameConfig_OsdInput" xml:space="preserve">
+    <value>OSD 입력 공급자</value>
+  </data>
+  <data name="MameConfig_OsdSound" xml:space="preserve">
+    <value>OSD 사운드 옵션</value>
+  </data>
+  <data name="MameConfig_OsdVideo" xml:space="preserve">
+    <value>OSD / 가속 비디오</value>
+  </data>
+  <data name="MameConfig_OutputDirs" xml:space="preserve">
+    <value>출력 디렉터리</value>
+  </data>
+  <data name="MameConfig_PerWindowVideo" xml:space="preserve">
+    <value>윈도우별 비디오 옵션</value>
+  </data>
+  <data name="MameConfig_ResetDefaults" xml:space="preserve">
+    <value>기본값으로 초기화</value>
+  </data>
+  <data name="MameConfig_Rotation" xml:space="preserve">
+    <value>회전 옵션</value>
+  </data>
+  <data name="MameConfig_Save" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="MameConfig_SaveAs" xml:space="preserve">
+    <value>다른 이름으로 저장...</value>
+  </data>
+  <data name="MameConfig_SaveDialogTitle" xml:space="preserve">
+    <value>MAME 설정 저장</value>
+  </data>
+  <data name="MameConfig_SaveError" xml:space="preserve">
+    <value>설정 저장 실패: {0}</value>
+  </data>
+  <data name="MameConfig_Saved" xml:space="preserve">
+    <value>설정이 {0}에 저장됨</value>
+  </data>
+  <data name="MameConfig_ScreenOptions" xml:space="preserve">
+    <value>화면 옵션</value>
+  </data>
+  <data name="MameConfig_Scripting" xml:space="preserve">
+    <value>스크립팅 / 플러그인</value>
+  </data>
+  <data name="MameConfig_SearchPaths" xml:space="preserve">
+    <value>검색 경로</value>
+  </data>
+  <data name="MameConfig_SearchPlaceholder" xml:space="preserve">
+    <value>이름으로 설정 필터링 (예: rompath, video, joystick...)</value>
+  </data>
+  <data name="MameConfig_SearchResults" xml:space="preserve">
+    <value>{1}개 중 {0}개 섹션 일치</value>
+  </data>
+  <data name="MameConfig_SearchSettings" xml:space="preserve">
+    <value>설정 검색</value>
+  </data>
+  <data name="MameConfig_SelectIniTitle" xml:space="preserve">
+    <value>MAME 설정 파일 선택</value>
+  </data>
+  <data name="MameConfig_StatePlayback" xml:space="preserve">
+    <value>상태 / 재생 옵션</value>
+  </data>
+  <data name="MameConfig_TabInput" xml:space="preserve">
+    <value>입력</value>
+  </data>
+  <data name="MameConfig_TabMisc" xml:space="preserve">
+    <value>기타 / 고급</value>
+  </data>
+  <data name="MameConfig_TabPaths" xml:space="preserve">
+    <value>경로</value>
+  </data>
+  <data name="MameConfig_TabPerformance" xml:space="preserve">
+    <value>성능</value>
+  </data>
+  <data name="MameConfig_TabSound" xml:space="preserve">
+    <value>사운드</value>
+  </data>
+  <data name="MameConfig_TabState" xml:space="preserve">
+    <value>상태 / 재생</value>
+  </data>
+  <data name="MameConfig_TabVideo" xml:space="preserve">
+    <value>비디오</value>
+  </data>
+  <data name="MameConfig_Title" xml:space="preserve">
+    <value>MAME 설정 도구</value>
+  </data>
+  <data name="MameConfig_UnsavedChanges" xml:space="preserve">
+    <value>● 저장하지 않은 변경 사항</value>
+  </data>
+  <data name="MameConfig_Vector" xml:space="preserve">
+    <value>벡터 옵션</value>
+  </data>
+  <data name="MednafenConfig_CfgFileType" xml:space="preserve">
+    <value>Mednafen 설정 파일 (*.cfg)</value>
+  </data>
+  <data name="MednafenConfig_CfgPlaceholder" xml:space="preserve">
+    <value>mednafen.cfg 경로...</value>
+  </data>
+  <data name="MednafenConfig_ConfigFile" xml:space="preserve">
+    <value>설정 파일</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>저장하지 않은 변경 사항이 있습니다. 취소하고 계속하시겠습니까?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>저장하지 않은 변경 사항</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>모든 설정을 Mednafen 기본값으로 초기화합니다. 저장하지 않은 변경 사항은 손실됩니다. 계속하시겠습니까?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>기본값으로 초기화</value>
+  </data>
+  <data name="MednafenConfig_CoreSettings" xml:space="preserve">
+    <value>코어 설정</value>
+  </data>
+  <data name="MednafenConfig_CpuAffinity" xml:space="preserve">
+    <value>CPU 선호도</value>
+  </data>
+  <data name="MednafenConfig_CreateNew" xml:space="preserve">
+    <value>새로 만들기</value>
+  </data>
+  <data name="MednafenConfig_DefaultsRestored" xml:space="preserve">
+    <value>모든 설정이 Mednafen 기본값으로 복원되었습니다.</value>
+  </data>
+  <data name="MednafenConfig_Description" xml:space="preserve">
+    <value>Mednafen 설정 파일(mednafen.cfg)을 로드, 편집, 저장합니다. Windows, macOS, Linux용 모든 Mednafen 설정을 지원합니다.</value>
+  </data>
+  <data name="MednafenConfig_DirectoryPaths" xml:space="preserve">
+    <value>디렉터리 경로</value>
+  </data>
+  <data name="MednafenConfig_FilenameFormats" xml:space="preserve">
+    <value>파일명 형식</value>
+  </data>
+  <data name="MednafenConfig_FpsDisplay" xml:space="preserve">
+    <value>FPS 표시</value>
+  </data>
+  <data name="MednafenConfig_GoatShader" xml:space="preserve">
+    <value>Goat Shader 설정</value>
+  </data>
+  <data name="MednafenConfig_InputSettings" xml:space="preserve">
+    <value>입력 설정</value>
+  </data>
+  <data name="MednafenConfig_LoadError" xml:space="preserve">
+    <value>설정 로드 실패: {0}</value>
+  </data>
+  <data name="MednafenConfig_Loaded" xml:space="preserve">
+    <value>{1}에서 {0}개의 설정을 로드함</value>
+  </data>
+  <data name="MednafenConfig_NetworkPlay" xml:space="preserve">
+    <value>네트워크 플레이</value>
+  </data>
+  <data name="MednafenConfig_NewCreated" xml:space="preserve">
+    <value>{0}에 새 기본 설정이 생성되었습니다</value>
+  </data>
+  <data name="MednafenConfig_NoCfgFound" xml:space="preserve">
+    <value>mednafen.cfg를 자동으로 감지할 수 없습니다. 파일을 수동으로 찾아주세요.</value>
+  </data>
+  <data name="MednafenConfig_Osd" xml:space="preserve">
+    <value>온스크린 디스플레이</value>
+  </data>
+  <data name="MednafenConfig_PerSystemDescription" xml:space="preserve">
+    <value>에뮬레이션된 시스템별로 비디오 스케일링, 셰이더, 디스플레이 설정을 구성합니다. 시스템 전환 또는 파일 저장 시 변경 사항이 저장됩니다.</value>
+  </data>
+  <data name="MednafenConfig_QtRecord" xml:space="preserve">
+    <value>QuickTime 녹화</value>
+  </data>
+  <data name="MednafenConfig_ResetDefaults" xml:space="preserve">
+    <value>기본값으로 초기화</value>
+  </data>
+  <data name="MednafenConfig_Save" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="MednafenConfig_SaveAs" xml:space="preserve">
+    <value>다른 이름으로 저장</value>
+  </data>
+  <data name="MednafenConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Mednafen 설정 다른 이름으로 저장</value>
+  </data>
+  <data name="MednafenConfig_SaveError" xml:space="preserve">
+    <value>설정 저장 실패: {0}</value>
+  </data>
+  <data name="MednafenConfig_Saved" xml:space="preserve">
+    <value>설정이 {0}에 저장됨</value>
+  </data>
+  <data name="MednafenConfig_SearchPlaceholder" xml:space="preserve">
+    <value>이름으로 설정 필터링 (예: video, sound, shader...)</value>
+  </data>
+  <data name="MednafenConfig_SearchResults" xml:space="preserve">
+    <value>{1}개 중 {0}개 섹션 일치</value>
+  </data>
+  <data name="MednafenConfig_SearchSettings" xml:space="preserve">
+    <value>설정 검색</value>
+  </data>
+  <data name="MednafenConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Mednafen 설정 파일 선택</value>
+  </data>
+  <data name="MednafenConfig_SelectSystem" xml:space="preserve">
+    <value>시스템 선택</value>
+  </data>
+  <data name="MednafenConfig_SoundOutput" xml:space="preserve">
+    <value>사운드 출력</value>
+  </data>
+  <data name="MednafenConfig_SpeedSettings" xml:space="preserve">
+    <value>빨리 감기 / 느리게</value>
+  </data>
+  <data name="MednafenConfig_SystemVideo" xml:space="preserve">
+    <value>시스템 비디오 / 스케일링</value>
+  </data>
+  <data name="MednafenConfig_TabAdvanced" xml:space="preserve">
+    <value>고급</value>
+  </data>
+  <data name="MednafenConfig_TabGeneral" xml:space="preserve">
+    <value>일반</value>
+  </data>
+  <data name="MednafenConfig_TabInput" xml:space="preserve">
+    <value>입력</value>
+  </data>
+  <data name="MednafenConfig_TabNetplay" xml:space="preserve">
+    <value>넷플레이</value>
+  </data>
+  <data name="MednafenConfig_TabPaths" xml:space="preserve">
+    <value>경로</value>
+  </data>
+  <data name="MednafenConfig_TabPerSystem" xml:space="preserve">
+    <value>시스템별</value>
+  </data>
+  <data name="MednafenConfig_TabSound" xml:space="preserve">
+    <value>사운드</value>
+  </data>
+  <data name="MednafenConfig_TabVideo" xml:space="preserve">
+    <value>비디오</value>
+  </data>
+  <data name="MednafenConfig_TemporalBlur" xml:space="preserve">
+    <value>시간적 블러</value>
+  </data>
+  <data name="MednafenConfig_Title" xml:space="preserve">
+    <value>Mednafen 설정 도구</value>
+  </data>
+  <data name="MednafenConfig_UnsavedChanges" xml:space="preserve">
+    <value>● 저장하지 않은 변경 사항</value>
+  </data>
+  <data name="MednafenConfig_VideoOutput" xml:space="preserve">
+    <value>비디오 출력</value>
+  </data>
+  <data name="MetaScraper_SummaryBySystem" xml:space="preserve">
+    <value>시스템별 요약:</value>
+  </data>
+  <data name="MetaScraper_SummaryStats" xml:space="preserve">
+    <value>유효: {0}, 무효: {1}, 오류: {2}</value>
+  </data>
+  <data name="Nav_MameConfigurator" xml:space="preserve">
+    <value>MAME 설정 도구</value>
+  </data>
+  <data name="Nav_MednafenConfigurator" xml:space="preserve">
+    <value>Mednafen 설정 도구</value>
+  </data>
+  <data name="Nav_NoResults" xml:space="preserve">
+    <value>일치하는 도구를 찾을 수 없습니다.</value>
+  </data>
+  <data name="Nav_RetroArchConfigurator" xml:space="preserve">
+    <value>RetroArch 설정 도구</value>
+  </data>
+  <data name="Nav_SearchPlaceholder" xml:space="preserve">
+    <value>도구 검색...</value>
+  </data>
+  <data name="Patcher_Description" xml:space="preserve">
+    <value>ROM 파일에 IPS, BPS 또는 xdelta 패치를 적용하여 번역, 수정 또는 변경을 적용합니다.</value>
+  </data>
+  <data name="RAConfig_AIService" xml:space="preserve">
+    <value>AI 서비스</value>
+  </data>
+  <data name="RAConfig_AccessibilityOptions" xml:space="preserve">
+    <value>접근성 옵션</value>
+  </data>
+  <data name="RAConfig_AchievementDisplay" xml:space="preserve">
+    <value>업적 표시</value>
+  </data>
+  <data name="RAConfig_AchievementOptions" xml:space="preserve">
+    <value>RetroAchievements 옵션</value>
+  </data>
+  <data name="RAConfig_AudioDriver" xml:space="preserve">
+    <value>오디오 드라이버</value>
+  </data>
+  <data name="RAConfig_AudioSync" xml:space="preserve">
+    <value>오디오 설정</value>
+  </data>
+  <data name="RAConfig_CfgFileType" xml:space="preserve">
+    <value>RetroArch CFG 파일</value>
+  </data>
+  <data name="RAConfig_CfgPlaceholder" xml:space="preserve">
+    <value>retroarch.cfg 경로...</value>
+  </data>
+  <data name="RAConfig_ConfigFile" xml:space="preserve">
+    <value>설정 파일</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>저장하지 않은 변경 사항이 있습니다. 취소하고 계속하시겠습니까?</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>저장하지 않은 변경 사항</value>
+  </data>
+  <data name="RAConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>모든 설정을 RetroArch 기본값으로 초기화합니다. 저장하지 않은 변경 사항은 손실됩니다. 계속하시겠습니까?</value>
+  </data>
+  <data name="RAConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>기본값으로 초기화</value>
+  </data>
+  <data name="RAConfig_ContentPaths" xml:space="preserve">
+    <value>콘텐츠 및 저장 경로</value>
+  </data>
+  <data name="RAConfig_CoreOptions" xml:space="preserve">
+    <value>코어 옵션</value>
+  </data>
+  <data name="RAConfig_CorePaths" xml:space="preserve">
+    <value>코어 및 시스템 경로</value>
+  </data>
+  <data name="RAConfig_CreateNew" xml:space="preserve">
+    <value>새로 만들기</value>
+  </data>
+  <data name="RAConfig_DefaultsRestored" xml:space="preserve">
+    <value>모든 설정이 RetroArch 기본값으로 초기화되었습니다.</value>
+  </data>
+  <data name="RAConfig_Description" xml:space="preserve">
+    <value>RetroArch 설정 파일(retroarch.cfg)을 로드, 편집, 저장합니다. Windows, macOS, Linux용 모든 RetroArch 설정을 지원합니다.</value>
+  </data>
+  <data name="RAConfig_FilterPaths" xml:space="preserve">
+    <value>필터, 오버레이 및 기타 경로</value>
+  </data>
+  <data name="RAConfig_FrameThrottle" xml:space="preserve">
+    <value>프레임 제한 옵션</value>
+  </data>
+  <data name="RAConfig_InputGeneral" xml:space="preserve">
+    <value>일반 입력 설정</value>
+  </data>
+  <data name="RAConfig_InputHotkeys" xml:space="preserve">
+    <value>핫키 바인딩</value>
+  </data>
+  <data name="RAConfig_LoadError" xml:space="preserve">
+    <value>설정 로드 실패: {0}</value>
+  </data>
+  <data name="RAConfig_Loaded" xml:space="preserve">
+    <value>{1}에서 {0}개의 설정을 로드함</value>
+  </data>
+  <data name="RAConfig_Logging" xml:space="preserve">
+    <value>로깅 옵션</value>
+  </data>
+  <data name="RAConfig_MenuGeneral" xml:space="preserve">
+    <value>메뉴 설정</value>
+  </data>
+  <data name="RAConfig_MenuTheme" xml:space="preserve">
+    <value>테마 및 외관</value>
+  </data>
+  <data name="RAConfig_MiscOptions" xml:space="preserve">
+    <value>기타 옵션</value>
+  </data>
+  <data name="RAConfig_Netplay" xml:space="preserve">
+    <value>넷플레이</value>
+  </data>
+  <data name="RAConfig_NetworkGeneral" xml:space="preserve">
+    <value>네트워크 설정</value>
+  </data>
+  <data name="RAConfig_NewCreated" xml:space="preserve">
+    <value>RetroArch 기본값으로 새 설정이 생성되었습니다. 저장 경로: {0}</value>
+  </data>
+  <data name="RAConfig_NoCfgFound" xml:space="preserve">
+    <value>retroarch.cfg를 찾을 수 없습니다. 찾아보기를 사용하거나 새로 만들기로 기본값 설정을 생성하세요.</value>
+  </data>
+  <data name="RAConfig_Notifications" xml:space="preserve">
+    <value>알림</value>
+  </data>
+  <data name="RAConfig_OverlaySettings" xml:space="preserve">
+    <value>오버레이 설정</value>
+  </data>
+  <data name="RAConfig_RGUITheme" xml:space="preserve">
+    <value>RGUI 테마</value>
+  </data>
+  <data name="RAConfig_RecordingOptions" xml:space="preserve">
+    <value>녹화 옵션</value>
+  </data>
+  <data name="RAConfig_ResetDefaults" xml:space="preserve">
+    <value>기본값으로 초기화</value>
+  </data>
+  <data name="RAConfig_Rewind" xml:space="preserve">
+    <value>되감기 옵션</value>
+  </data>
+  <data name="RAConfig_Save" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="RAConfig_SaveAs" xml:space="preserve">
+    <value>다른 이름으로 저장...</value>
+  </data>
+  <data name="RAConfig_SaveDialogTitle" xml:space="preserve">
+    <value>RetroArch 설정 저장</value>
+  </data>
+  <data name="RAConfig_SaveError" xml:space="preserve">
+    <value>설정 저장 실패: {0}</value>
+  </data>
+  <data name="RAConfig_SaveOptions" xml:space="preserve">
+    <value>저장 및 상태 옵션</value>
+  </data>
+  <data name="RAConfig_Saved" xml:space="preserve">
+    <value>설정이 {0}에 저장됨</value>
+  </data>
+  <data name="RAConfig_SearchPlaceholder" xml:space="preserve">
+    <value>이름으로 설정 필터링 (예: video_driver, audio, netplay...)</value>
+  </data>
+  <data name="RAConfig_SearchSettings" xml:space="preserve">
+    <value>설정 검색</value>
+  </data>
+  <data name="RAConfig_SelectCfgTitle" xml:space="preserve">
+    <value>RetroArch 설정 파일 선택</value>
+  </data>
+  <data name="RAConfig_TabAccessibility" xml:space="preserve">
+    <value>접근성</value>
+  </data>
+  <data name="RAConfig_TabAchievements" xml:space="preserve">
+    <value>업적</value>
+  </data>
+  <data name="RAConfig_TabAudio" xml:space="preserve">
+    <value>오디오</value>
+  </data>
+  <data name="RAConfig_TabCore" xml:space="preserve">
+    <value>코어 / 저장</value>
+  </data>
+  <data name="RAConfig_TabFrameThrottle" xml:space="preserve">
+    <value>프레임 제한</value>
+  </data>
+  <data name="RAConfig_TabInput" xml:space="preserve">
+    <value>입력</value>
+  </data>
+  <data name="RAConfig_TabMenu" xml:space="preserve">
+    <value>메뉴 / UI</value>
+  </data>
+  <data name="RAConfig_TabMisc" xml:space="preserve">
+    <value>기타 / 로깅</value>
+  </data>
+  <data name="RAConfig_TabNetwork" xml:space="preserve">
+    <value>네트워크</value>
+  </data>
+  <data name="RAConfig_TabOverlay" xml:space="preserve">
+    <value>오버레이</value>
+  </data>
+  <data name="RAConfig_TabPaths" xml:space="preserve">
+    <value>경로</value>
+  </data>
+  <data name="RAConfig_TabRecording" xml:space="preserve">
+    <value>녹화</value>
+  </data>
+  <data name="RAConfig_TabVideo" xml:space="preserve">
+    <value>비디오</value>
+  </data>
+  <data name="RAConfig_Title" xml:space="preserve">
+    <value>RetroArch 설정 도구</value>
+  </data>
+  <data name="RAConfig_UnsavedChanges" xml:space="preserve">
+    <value>● 저장하지 않은 변경 사항</value>
+  </data>
+  <data name="RAConfig_VideoAdvanced" xml:space="preserve">
+    <value>고급 비디오</value>
+  </data>
+  <data name="RAConfig_VideoDisplay" xml:space="preserve">
+    <value>디스플레이 설정</value>
+  </data>
+  <data name="RAConfig_VideoDriver" xml:space="preserve">
+    <value>비디오 드라이버</value>
+  </data>
+  <data name="RAConfig_VideoOSD" xml:space="preserve">
+    <value>OSD 및 스크린샷</value>
+  </data>
+  <data name="RAConfig_VideoScaling" xml:space="preserve">
+    <value>스케일링 및 필터링</value>
+  </data>
+  <data name="RAConfig_VideoSync" xml:space="preserve">
+    <value>동기화</value>
+  </data>
+  <data name="Security_SingleNoFeatures" xml:space="preserve">
+    <value>✔ {0}: 보안 기능이 감지되지 않았습니다.</value>
+  </data>
+  <data name="Security_SingleResultDetected" xml:space="preserve">
+    <value>✔ {0}: {1}개의 보안 기능이 감지되었습니다.</value>
+  </data>
+  <data name="Settings_BigPictureStyleClassic" xml:space="preserve">
+    <value>클래식 (카드 그리드)</value>
+  </data>
+  <data name="Settings_BigPictureStyleLabel" xml:space="preserve">
+    <value>비주얼 스타일</value>
+  </data>
+  <data name="Settings_BigPictureStyleModern" xml:space="preserve">
+    <value>모던 (히어로 + 캐러셀)</value>
+  </data>
+  <data name="Settings_UpdateManagedByPackageManager" xml:space="preserve">
+    <value>업데이트는 시스템 패키지 관리자에 의해 관리됩니다.</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImage" xml:space="preserve">
+    <value>이미지 생성 확인</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImageMessage" xml:space="preserve">
+    <value>{0}에서 전체 디스크 이미지를 생성하시겠습니까? 드라이브 크기에 따라 시간이 걸릴 수 있습니다.</value>
+  </data>
 </root>

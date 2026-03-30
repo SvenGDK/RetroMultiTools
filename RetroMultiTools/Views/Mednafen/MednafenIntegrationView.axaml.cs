@@ -32,6 +32,7 @@ public partial class MednafenIntegrationView : UserControl
         else if (MednafenLauncher.IsMednafenAvailable())
         {
             string detected = MednafenLauncher.GetMednafenExecutablePath();
+            AppSettings.Instance.MednafenPath = detected;
             MednafenPathTextBox.Text = detected;
             MednafenStatusText.Text = LocalizationManager.Instance["Settings_MednafenAutoDetected"];
         }
@@ -110,6 +111,7 @@ public partial class MednafenIntegrationView : UserControl
     private void MednafenPathTextBox_KeyDown(object? sender, Avalonia.Input.KeyEventArgs e)
     {
         if (e.Key != Avalonia.Input.Key.Enter) return;
+        e.Handled = true;
 
         string text = MednafenPathTextBox.Text?.Trim() ?? string.Empty;
         if (string.IsNullOrEmpty(text))

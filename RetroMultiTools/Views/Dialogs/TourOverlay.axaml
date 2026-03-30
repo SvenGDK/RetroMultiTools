@@ -1,0 +1,93 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.Dialogs.TourOverlay"
+             IsVisible="False"
+             Focusable="True">
+    <!-- Full-window overlay: sits on top of all MainWindow content -->
+    <Panel>
+        <!-- Semi-transparent backdrop -->
+        <Border x:Name="Backdrop" Background="#CC000000" Opacity="0"/>
+
+        <!-- Tour card (centered) -->
+        <Border x:Name="TourCard"
+                Background="#1E1E2E"
+                CornerRadius="12"
+                Padding="32,28"
+                MaxWidth="520"
+                MinWidth="420"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                BoxShadow="0 8 32 0 #80000000"
+                Opacity="0"
+                RenderTransformOrigin="0.5,0.5">
+            <Border.RenderTransform>
+                <TranslateTransform Y="30"/>
+            </Border.RenderTransform>
+            <StackPanel Spacing="16">
+                <!-- Step icon -->
+                <Border x:Name="StepIconBorder"
+                        Width="56" Height="56"
+                        CornerRadius="28"
+                        Background="#89B4FA"
+                        HorizontalAlignment="Center">
+                    <PathIcon x:Name="StepIcon"
+                              Width="28" Height="28"
+                              Foreground="#1E1E2E"/>
+                </Border>
+
+                <!-- Step title -->
+                <TextBlock x:Name="StepTitle"
+                           FontSize="20" FontWeight="Bold"
+                           Foreground="#CDD6F4"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"/>
+
+                <!-- Step description -->
+                <TextBlock x:Name="StepDescription"
+                           FontSize="14"
+                           Foreground="#A6ADC8"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"
+                           MaxWidth="440"
+                           HorizontalAlignment="Center"/>
+
+                <!-- Step indicator dots -->
+                <StackPanel x:Name="StepDots"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Spacing="8"
+                            Margin="0,8,0,0"/>
+
+                <!-- Navigation buttons -->
+                <Grid ColumnDefinitions="*,Auto,Auto,Auto,*" Margin="0,8,0,0">
+                    <Button x:Name="SkipButton" Grid.Column="1"
+                            Padding="16,8"
+                            Foreground="#A6ADC8"
+                            Background="Transparent"
+                            Click="SkipButton_Click">
+                        <TextBlock x:Name="SkipButtonText"
+                                   Text="{Binding [Tour_Skip], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    </Button>
+                    <Button x:Name="BackButton" Grid.Column="2"
+                            Padding="16,8"
+                            Margin="8,0"
+                            Foreground="#CDD6F4"
+                            Click="BackButton_Click">
+                        <TextBlock x:Name="BackButtonText"
+                                   Text="{Binding [Tour_Back], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    </Button>
+                    <Button x:Name="NextButton" Grid.Column="3"
+                            Padding="20,8"
+                            Background="#89B4FA"
+                            Foreground="#1E1E2E"
+                            FontWeight="SemiBold"
+                            Click="NextButton_Click">
+                        <TextBlock x:Name="NextButtonText"
+                                   Text="{Binding [Tour_Next], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Panel>
+</UserControl>

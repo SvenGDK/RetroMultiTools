@@ -110,6 +110,7 @@ public partial class MameIntegrationView : UserControl
     private void MamePathTextBox_KeyDown(object? sender, Avalonia.Input.KeyEventArgs e)
     {
         if (e.Key != Avalonia.Input.Key.Enter) return;
+        e.Handled = true;
 
         string text = MamePathTextBox.Text?.Trim() ?? string.Empty;
         if (string.IsNullOrEmpty(text))

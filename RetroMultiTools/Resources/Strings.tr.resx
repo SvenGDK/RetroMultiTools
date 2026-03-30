@@ -6124,4 +6124,1205 @@ Run:notepad.exe</value>
   <data name="Settings_Clear" xml:space="preserve">
     <value>Temizle</value>
   </data>
+  <data name="Nav_DiscTools" xml:space="preserve">
+    <value>Disk Araçları</value>
+  </data>
+  <data name="DiscTools_Title" xml:space="preserve">
+    <value>Disk Araçları</value>
+  </data>
+  <data name="DiscTools_Description" xml:space="preserve">
+    <value>Disk görüntülerini veya dosyalarını optik ortama yazın ve fiziksel disklerden veya dosyalardan disk görüntüleri oluşturun. ISO, BIN/CUE, IMG, GDI, CDI, NRG ve diğer oyun sistemi disk formatlarını destekler.</value>
+  </data>
+  <data name="DiscTools_Operation" xml:space="preserve">
+    <value>Operasyon:</value>
+  </data>
+  <data name="DiscTools_OpBurnImage" xml:space="preserve">
+    <value>Görüntüyü Diske Yaz</value>
+  </data>
+  <data name="DiscTools_OpBurnFiles" xml:space="preserve">
+    <value>Dosyaları Diske Yaz</value>
+  </data>
+  <data name="DiscTools_OpImageFromDisc" xml:space="preserve">
+    <value>Diskten Görüntü Oluştur</value>
+  </data>
+  <data name="DiscTools_OpImageFromFiles" xml:space="preserve">
+    <value>Dosyalardan Resim Oluştur</value>
+  </data>
+  <data name="DiscTools_Drive" xml:space="preserve">
+    <value>Optik Sürücü:</value>
+  </data>
+  <data name="DiscTools_SelectDrive" xml:space="preserve">
+    <value>Bir optik sürücü seçin...</value>
+  </data>
+  <data name="DiscTools_RefreshDrives" xml:space="preserve">
+    <value>Yenile</value>
+  </data>
+  <data name="DiscTools_NoDrivesFound" xml:space="preserve">
+    <value>Bu sistemde hiçbir optik sürücü algılanmadı.</value>
+  </data>
+  <data name="DiscTools_ImageFile" xml:space="preserve">
+    <value>Görüntü Dosyası:</value>
+  </data>
+  <data name="DiscTools_SelectImageFile" xml:space="preserve">
+    <value>Bir disk görüntü dosyası seçin...</value>
+  </data>
+  <data name="DiscTools_ImageFiles" xml:space="preserve">
+    <value>Disk Görüntü Dosyaları</value>
+  </data>
+  <data name="DiscTools_FilesOrFolders" xml:space="preserve">
+    <value>Dosyalar / Klasörler:</value>
+  </data>
+  <data name="DiscTools_SelectFilesOrFolders" xml:space="preserve">
+    <value>Yazılacak dosya veya klasörleri seçin...</value>
+  </data>
+  <data name="DiscTools_SelectFolder" xml:space="preserve">
+    <value>Bir klasör seçin</value>
+  </data>
+  <data name="DiscTools_OutputFile" xml:space="preserve">
+    <value>Çıktı Görüntü Dosyası:</value>
+  </data>
+  <data name="DiscTools_SelectOutputImage" xml:space="preserve">
+    <value>Çıktı görüntü dosyası yolunu seçin...</value>
+  </data>
+  <data name="DiscTools_VolumeLabel" xml:space="preserve">
+    <value>Birim Etiketi:</value>
+  </data>
+  <data name="DiscTools_VolumeLabelHint" xml:space="preserve">
+    <value>Disk için bir birim etiketi girin...</value>
+  </data>
+  <data name="DiscTools_WriteSpeed" xml:space="preserve">
+    <value>Yazma Hızı:</value>
+  </data>
+  <data name="DiscTools_SpeedAuto" xml:space="preserve">
+    <value>Otomatik (Maks.)</value>
+  </data>
+  <data name="DiscTools_VerifyAfterBurn" xml:space="preserve">
+    <value>Yazdıktan sonra doğrulayın</value>
+  </data>
+  <data name="DiscTools_Burn" xml:space="preserve">
+    <value>Diske Yaz</value>
+  </data>
+  <data name="DiscTools_CreateImage" xml:space="preserve">
+    <value>Resim Oluştur</value>
+  </data>
+  <data name="DiscTools_Cancel" xml:space="preserve">
+    <value>İptal etmek</value>
+  </data>
+  <data name="DiscTools_DetectingDrives" xml:space="preserve">
+    <value>Optik sürücüler algılanıyor...</value>
+  </data>
+  <data name="DiscTools_DriveDetectError" xml:space="preserve">
+    <value>Sürücüler tespit edilirken hata oluştu: {0}</value>
+  </data>
+  <data name="DiscTools_ImageNotFound" xml:space="preserve">
+    <value>Resim dosyası bulunamadı.</value>
+  </data>
+  <data name="DiscTools_BurningImage" xml:space="preserve">
+    <value>Resim yazılıyor: {0}</value>
+  </data>
+  <data name="DiscTools_BurningFiles" xml:space="preserve">
+    <value>{0} öğe/öğeler diske yazılıyor...</value>
+  </data>
+  <data name="DiscTools_NoFilesSelected" xml:space="preserve">
+    <value>Hiçbir dosya veya klasör seçilmedi.</value>
+  </data>
+  <data name="DiscTools_OutputRequired" xml:space="preserve">
+    <value>Çıkış dosyası yolu gerekli.</value>
+  </data>
+  <data name="DiscTools_ReadingDisc" xml:space="preserve">
+    <value>Disk okunuyor...</value>
+  </data>
+  <data name="DiscTools_CreatingImage" xml:space="preserve">
+    <value>Resim oluşturuluyor: {0}</value>
+  </data>
+  <data name="DiscTools_WritingToDisc" xml:space="preserve">
+    <value>Diske veri yazılıyor...</value>
+  </data>
+  <data name="DiscTools_RunningTool" xml:space="preserve">
+    <value>{0} çalıştırılıyor...</value>
+  </data>
+  <data name="DiscTools_BurnComplete" xml:space="preserve">
+    <value>✔ Başarıyla diske yazıldı.</value>
+  </data>
+  <data name="DiscTools_BurnFailed" xml:space="preserve">
+    <value>✘ Yazma başarısız oldu: {0}</value>
+  </data>
+  <data name="DiscTools_ImageCreated" xml:space="preserve">
+    <value>✔ Oluşturulan resim: {0} ({1})</value>
+  </data>
+  <data name="DiscTools_ImageCreateFailed" xml:space="preserve">
+    <value>✘ Resim oluşturma başarısız oldu: {0}</value>
+  </data>
+  <data name="DiscTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Bu platform disk işlemleri için desteklenmemektedir.</value>
+  </data>
+  <data name="DiscTools_NoBurnTool" xml:space="preserve">
+    <value>Disk yazma aracı bulunamadı. Lütfen wodim, cdrecord veya xorrecord'u yükleyin.</value>
+  </data>
+  <data name="DiscTools_NoIsoTool" xml:space="preserve">
+    <value>ISO oluşturma aracı bulunamadı. Lütfen xorrisofs, genisoimage veya mkisofs'u yükleyin.</value>
+  </data>
+  <data name="DiscTools_IsoCreateFailed" xml:space="preserve">
+    <value>ISO oluşturma başarısız oldu: {0}</value>
+  </data>
+  <data name="DiscTools_CreatingIso" xml:space="preserve">
+    <value>ISO görüntüsü oluşturuluyor...</value>
+  </data>
+  <data name="DiscTools_OperationCancelled" xml:space="preserve">
+    <value>İşlem iptal edildi.</value>
+  </data>
+  <data name="DiscTools_BrowseFolder" xml:space="preserve">
+    <value>Klasöre Göz At</value>
+  </data>
+  <data name="DiscTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>'{0}' görüntü formatı diske yazılamaz. Desteklenen formatlar: ISO, BIN/CUE, IMG, NRG, TOAST.</value>
+  </data>
+  <data name="DiscTools_Verifying" xml:space="preserve">
+    <value>Disk doğrulanıyor...</value>
+  </data>
+  <data name="DiscTools_BurnCompleteVerifySkipped" xml:space="preserve">
+    <value>Yazma başarıyla tamamlandı. Doğrulama gerçekleştirilemedi.</value>
+  </data>
+  <data name="DiscTools_VerifyFailed" xml:space="preserve">
+    <value>Yazdırma tamamlandı ancak doğrulama başarısız oldu: disk verileri kaynak görüntüyle eşleşmiyor.</value>
+  </data>
+  <data name="DiscTools_IsoImageType" xml:space="preserve">
+    <value>ISO Görüntüsü</value>
+  </data>
+  <data name="DiscTools_BinCueImageType" xml:space="preserve">
+    <value>BIN/CUE Görüntüsü</value>
+  </data>
+  <data name="Nav_UsbTools" xml:space="preserve">
+    <value>USB Araçları</value>
+  </data>
+  <data name="UsbTools_Title" xml:space="preserve">
+    <value>USB Araçları</value>
+  </data>
+  <data name="UsbTools_Description" xml:space="preserve">
+    <value>USB sürücüleri biçimlendirin, görüntü yazın, görüntü oluşturun ve göz atın.</value>
+  </data>
+  <data name="UsbTools_Drive" xml:space="preserve">
+    <value>USB Sürücü</value>
+  </data>
+  <data name="UsbTools_SelectDrive" xml:space="preserve">
+    <value>Bir USB sürücü seçin...</value>
+  </data>
+  <data name="UsbTools_RefreshDrives" xml:space="preserve">
+    <value>Yenile</value>
+  </data>
+  <data name="UsbTools_DetectingDrives" xml:space="preserve">
+    <value>USB sürücüler algılanıyor...</value>
+  </data>
+  <data name="UsbTools_NoDrivesFound" xml:space="preserve">
+    <value>USB sürücü bulunamadı.</value>
+  </data>
+  <data name="UsbTools_DriveDetectError" xml:space="preserve">
+    <value>Sürücü algılama hatası: {0}</value>
+  </data>
+  <data name="UsbTools_NoDriveSelected" xml:space="preserve">
+    <value>USB sürücü seçilmedi.</value>
+  </data>
+  <data name="UsbTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Bu işlem mevcut platformda desteklenmiyor.</value>
+  </data>
+  <data name="UsbTools_TabExplorer" xml:space="preserve">
+    <value>Dosya Gezgini</value>
+  </data>
+  <data name="UsbTools_TabFormat" xml:space="preserve">
+    <value>Biçimlendir</value>
+  </data>
+  <data name="UsbTools_TabWriteImage" xml:space="preserve">
+    <value>Görüntü Yaz</value>
+  </data>
+  <data name="UsbTools_TabCreateImage" xml:space="preserve">
+    <value>Görüntü Oluştur</value>
+  </data>
+  <data name="UsbTools_NavigateUp" xml:space="preserve">
+    <value>Yukarı git</value>
+  </data>
+  <data name="UsbTools_RefreshFiles" xml:space="preserve">
+    <value>Yenile</value>
+  </data>
+  <data name="UsbTools_AddFiles" xml:space="preserve">
+    <value>Dosya Ekle</value>
+  </data>
+  <data name="UsbTools_NewFolder" xml:space="preserve">
+    <value>Yeni Klasör</value>
+  </data>
+  <data name="UsbTools_Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="UsbTools_Move" xml:space="preserve">
+    <value>Taşı</value>
+  </data>
+  <data name="UsbTools_FileSystem" xml:space="preserve">
+    <value>Dosya Sistemi</value>
+  </data>
+  <data name="UsbTools_PartitionScheme" xml:space="preserve">
+    <value>Bölüm Şeması</value>
+  </data>
+  <data name="UsbTools_VolumeLabel" xml:space="preserve">
+    <value>Birim Etiketi</value>
+  </data>
+  <data name="UsbTools_VolumeLabelHint" xml:space="preserve">
+    <value>Bir birim etiketi girin</value>
+  </data>
+  <data name="UsbTools_FormatWarning" xml:space="preserve">
+    <value>⚠ Uyarı: Biçimlendirme, seçilen USB sürücüdeki TÜM verileri silecektir. Bu işlem geri alınamaz.</value>
+  </data>
+  <data name="UsbTools_Format" xml:space="preserve">
+    <value>USB Sürücüyü Biçimlendir</value>
+  </data>
+  <data name="UsbTools_PreparingFormat" xml:space="preserve">
+    <value>Biçimlendirme hazırlanıyor...</value>
+  </data>
+  <data name="UsbTools_Formatting" xml:space="preserve">
+    <value>{0} ({1}) olarak biçimlendiriliyor...</value>
+  </data>
+  <data name="UsbTools_FormatComplete" xml:space="preserve">
+    <value>USB sürücü başarıyla biçimlendirildi.</value>
+  </data>
+  <data name="UsbTools_FormatFailed" xml:space="preserve">
+    <value>Biçimlendirme başarısız: {0}</value>
+  </data>
+  <data name="UsbTools_UnsupportedFileSystem" xml:space="preserve">
+    <value>Desteklenmeyen dosya sistemi: {0}</value>
+  </data>
+  <data name="UsbTools_NtfsMacWarning" xml:space="preserve">
+    <value>Not: macOS yerel olarak NTFS biçimlendirmesini desteklemez. Sürücü bunun yerine ExFAT olarak biçimlendirildi.</value>
+  </data>
+  <data name="UsbTools_ConfirmFormat" xml:space="preserve">
+    <value>Biçimlendirmeyi Onayla</value>
+  </data>
+  <data name="UsbTools_ConfirmFormatMessage" xml:space="preserve">
+    <value>{0} biçimlendirmek istediğinizden emin misiniz? Tüm veriler kalıcı olarak silinecektir.</value>
+  </data>
+  <data name="UsbTools_ImageFile" xml:space="preserve">
+    <value>Görüntü Dosyası</value>
+  </data>
+  <data name="UsbTools_SelectImageFile" xml:space="preserve">
+    <value>Bir görüntü dosyası seçin...</value>
+  </data>
+  <data name="UsbTools_ImageFiles" xml:space="preserve">
+    <value>Disk Görüntü Dosyaları</value>
+  </data>
+  <data name="UsbTools_ImageNotFound" xml:space="preserve">
+    <value>Görüntü dosyası bulunamadı.</value>
+  </data>
+  <data name="UsbTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>Desteklenmeyen görüntü biçimi: {0}</value>
+  </data>
+  <data name="UsbTools_WriteWarning" xml:space="preserve">
+    <value>⚠ Uyarı: Görüntü yazmak, seçilen USB sürücüdeki TÜM verileri silecektir. Bu işlem geri alınamaz.</value>
+  </data>
+  <data name="UsbTools_WriteImage" xml:space="preserve">
+    <value>USB'ye Görüntü Yaz</value>
+  </data>
+  <data name="UsbTools_WritingImage" xml:space="preserve">
+    <value>{0} USB sürücüye yazılıyor...</value>
+  </data>
+  <data name="UsbTools_WriteComplete" xml:space="preserve">
+    <value>Görüntü USB sürücüye başarıyla yazıldı.</value>
+  </data>
+  <data name="UsbTools_WriteFailed" xml:space="preserve">
+    <value>Yazma başarısız: {0}</value>
+  </data>
+  <data name="UsbTools_ConfirmWrite" xml:space="preserve">
+    <value>Yazmayı Onayla</value>
+  </data>
+  <data name="UsbTools_ConfirmWriteMessage" xml:space="preserve">
+    <value>{0} dosyasını {1} sürücüye yazmak istediğinizden emin misiniz? Mevcut tüm veriler kalıcı olarak silinecektir.</value>
+  </data>
+  <data name="UsbTools_OutputFile" xml:space="preserve">
+    <value>Çıktı Dosyası</value>
+  </data>
+  <data name="UsbTools_SelectOutputImage" xml:space="preserve">
+    <value>Çıktı görüntü konumunu seçin...</value>
+  </data>
+  <data name="UsbTools_CreateImage" xml:space="preserve">
+    <value>USB'den Görüntü Oluştur</value>
+  </data>
+  <data name="UsbTools_CreatingImage" xml:space="preserve">
+    <value>USB sürücüden görüntü oluşturuluyor...</value>
+  </data>
+  <data name="UsbTools_ImageCreated" xml:space="preserve">
+    <value>Görüntü başarıyla oluşturuldu: {0}</value>
+  </data>
+  <data name="UsbTools_ImageCreateFailed" xml:space="preserve">
+    <value>Görüntü oluşturma başarısız: {0}</value>
+  </data>
+  <data name="UsbTools_OutputRequired" xml:space="preserve">
+    <value>Çıktı dosya yolu gereklidir.</value>
+  </data>
+  <data name="UsbTools_ImgFileType" xml:space="preserve">
+    <value>IMG Görüntüsü</value>
+  </data>
+  <data name="UsbTools_IsoFileType" xml:space="preserve">
+    <value>ISO Görüntüsü</value>
+  </data>
+  <data name="UsbTools_OperationCancelled" xml:space="preserve">
+    <value>İşlem iptal edildi.</value>
+  </data>
+  <data name="UsbTools_FolderExists" xml:space="preserve">
+    <value>Bu adda bir klasör zaten mevcut.</value>
+  </data>
+  <data name="UsbTools_FolderCreated" xml:space="preserve">
+    <value>Klasör başarıyla oluşturuldu.</value>
+  </data>
+  <data name="UsbTools_DeleteComplete" xml:space="preserve">
+    <value>Başarıyla silindi.</value>
+  </data>
+  <data name="UsbTools_EntryNotFound" xml:space="preserve">
+    <value>Dosya veya klasör bulunamadı.</value>
+  </data>
+  <data name="UsbTools_DestinationExists" xml:space="preserve">
+    <value>Hedefte aynı ada sahip bir öğe zaten mevcut.</value>
+  </data>
+  <data name="UsbTools_MoveComplete" xml:space="preserve">
+    <value>Başarıyla taşındı.</value>
+  </data>
+  <data name="UsbTools_SelectMoveDestination" xml:space="preserve">
+    <value>Hedef klasörü seçin</value>
+  </data>
+  <data name="UsbTools_CopyingFile" xml:space="preserve">
+    <value>{0} kopyalanıyor...</value>
+  </data>
+  <data name="UsbTools_AddComplete" xml:space="preserve">
+    <value>{0} öğe başarıyla eklendi.</value>
+  </data>
+  <data name="UsbTools_ConfirmDelete" xml:space="preserve">
+    <value>Silmeyi Onayla</value>
+  </data>
+  <data name="UsbTools_ConfirmDeleteMessage" xml:space="preserve">
+    <value>'{0}' öğesini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</value>
+  </data>
+  <data name="UsbTools_EnterFolderName" xml:space="preserve">
+    <value>Klasör adını girin:</value>
+  </data>
+  <data name="UsbTools_FolderNameHint" xml:space="preserve">
+    <value>Klasör adı</value>
+  </data>
+
+  <data name="Tour_Skip" xml:space="preserve">
+    <value>Turu Atla</value>
+  </data>
+  <data name="Tour_Back" xml:space="preserve">
+    <value>Geri</value>
+  </data>
+  <data name="Tour_Next" xml:space="preserve">
+    <value>İleri</value>
+  </data>
+  <data name="Tour_Finish" xml:space="preserve">
+    <value>Başla</value>
+  </data>
+  <data name="Tour_WelcomeTitle" xml:space="preserve">
+    <value>RetroMultiTools'a Hoş Geldiniz!</value>
+  </data>
+  <data name="Tour_WelcomeDesc" xml:space="preserve">
+    <value>Retro oyunculuk için hepsi bir arada araç setiniz. Bu uygulamanın neler yapabileceğine dair size hızlı bir tur verelim. Sadece bir dakika sürer!</value>
+  </data>
+  <data name="Tour_SidebarTitle" xml:space="preserve">
+    <value>Kenar Çubuğu Gezintisi</value>
+  </data>
+  <data name="Tour_SidebarDesc" xml:space="preserve">
+    <value>Araçlar arasında geçiş yapmak için soldaki kenar çubuğunu kullanın. Bunlar tarama, yama uygulama, analiz ve daha fazlası gibi kategoriler halinde düzenlenmiştir.</value>
+  </data>
+  <data name="Tour_BrowserTitle" xml:space="preserve">
+    <value>ROM Tarayıcı</value>
+  </data>
+  <data name="Tour_BrowserDesc" xml:space="preserve">
+    <value>Güçlü bir dosya tarayıcısıyla ROM koleksiyonunuza göz atın. Dosya ayrıntılarını görüntüleyin, klasörleri açın ve aradığınız oyunları hızla bulun.</value>
+  </data>
+  <data name="Tour_InspectorTitle" xml:space="preserve">
+    <value>ROM Denetçisi &amp; Hex Görüntüleyici</value>
+  </data>
+  <data name="Tour_InspectorDesc" xml:space="preserve">
+    <value>ROM dosya başlıklarını inceleyin, dahili meta verileri görüntüleyin ve yerleşik hex görüntüleyiciyle ham baytları inceleyin. İleri düzey kullanıcılar ve geliştiriciler için harika.</value>
+  </data>
+  <data name="Tour_PatchingTitle" xml:space="preserve">
+    <value>Yama &amp; Dönüştürme</value>
+  </data>
+  <data name="Tour_PatchingDesc" xml:space="preserve">
+    <value>IPS/BPS/UPS yamaları uygulayın, kendi yamalarınızı oluşturun, ROM formatlarını dönüştürün, kayıt dosyalarını dönüştürün ve N64 bayt takasını yönetin — hepsi tek bir yerde.</value>
+  </data>
+  <data name="Tour_AnalysisTitle" xml:space="preserve">
+    <value>Analiz &amp; Doğrulama</value>
+  </data>
+  <data name="Tour_AnalysisDesc" xml:space="preserve">
+    <value>ROM'larınızı DAT dosyalarına göre doğrulayın, sağlama toplamlarını hesaplayın, kopyaları bulun, klasörlerin tamamını toplu olarak hash'leyin ve doğru koleksiyon yönetimi için GoodTools setlerini tanımlayın.</value>
+  </data>
+  <data name="Tour_HeadersTitle" xml:space="preserve">
+    <value>Başlıklar &amp; Kırpma</value>
+  </data>
+  <data name="Tour_HeadersDesc" xml:space="preserve">
+    <value>ROM başlıklarını dışa aktarın, düzeltin veya kaldırın. Yer kazanmak için dolgulu ROM'ları kırpın. SNES başlık yönetimi için özel araçlar içerir.</value>
+  </data>
+  <data name="Tour_UtilitiesTitle" xml:space="preserve">
+    <value>Araçlar</value>
+  </data>
+  <data name="Tour_UtilitiesDesc" xml:space="preserve">
+    <value>Arşivleri yönetin, hile kodları uygulayın, disk görüntüleriyle çalışın, emülatörleri yapılandırın, gamepad düğmelerini eşleştirin, meta verileri kazıyın, ROM dosyalarınızı düzenleyip yeniden adlandırın ve USB cihazları yönetin.</value>
+  </data>
+  <data name="Tour_EmulatorsTitle" xml:space="preserve">
+    <value>Emülatör Entegrasyonu</value>
+  </data>
+  <data name="Tour_EmulatorsDesc" xml:space="preserve">
+    <value>RetroArch, MAME ve Mednafen ile derin entegrasyon. Oynatma listelerini yönetin, ROM setlerini denetleyin, CHD dosyalarını dönüştürün, DAT'ları düzenleyin, kısayollar oluşturun ve daha fazlası.</value>
+  </data>
+  <data name="Tour_AnalogueTitle" xml:space="preserve">
+    <value>Analogue FPGA</value>
+  </data>
+  <data name="Tour_AnalogueDesc" xml:space="preserve">
+    <value>Analogue FPGA donanımı için araçlar: Pocket, Mega Sg, Nt/Super Nt ve yakında çıkacak 3D. Cihazlarınız için çekirdekleri, ürün yazılımını ve oyun kitaplıklarını yönetin.</value>
+  </data>
+  <data name="Tour_BigPictureTitle" xml:space="preserve">
+    <value>Big Picture Mode</value>
+  </data>
+  <data name="Tour_BigPictureDesc" xml:space="preserve">
+    <value>Kontrolör desteği, kapak resimleri, oyun takibi ve derecelendirmelerle tam ekran oyun kitaplığının keyfini çıkarın. Klasik ızgara veya Modern kahraman düzeni arasında seçim yapın.</value>
+  </data>
+  <data name="Tour_SettingsTitle" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="Tour_SettingsDesc" xml:space="preserve">
+    <value>Deneyiminizi özelleştirin: dili değiştirin, Discord Rich Presence'ı etkinleştirin, Big Picture Mode'u yapılandırın, gamepad kontrollerini ayarlayın ve güncellemeleri kontrol edin.</value>
+  </data>
+  <data name="Tour_FinishTitle" xml:space="preserve">
+    <value>Hazırsınız!</value>
+  </data>
+  <data name="Tour_FinishDesc" xml:space="preserve">
+    <value>Hepsi bu kadar! Kenar çubuğundaki araçları keşfetmeye başlayın. Tekrar görmek isterseniz bu turu Ayarlar'dan her zaman yeniden başlatabilirsiniz. İyi eğlenceler!</value>
+  </data>
+  <data name="Tour_SettingSectionTitle" xml:space="preserve">
+    <value>Rehberli Tur</value>
+  </data>
+  <data name="Tour_SettingSectionDesc" xml:space="preserve">
+    <value>Uygulamanın tüm özelliklerini açıklayan rehberli turu yeniden oynatın.</value>
+  </data>
+  <data name="Tour_RestartButton" xml:space="preserve">
+    <value>Turu Yeniden Başlat</value>
+  </data>
+  <data name="Browser_SelectFolderTooltip" xml:space="preserve">
+    <value>Browse for a ROM folder to scan</value>
+  </data>
+  <data name="Browser_AddRomsTooltip" xml:space="preserve">
+    <value>Add ROM files to the current folder</value>
+  </data>
+  <data name="Browser_CopyToTooltip" xml:space="preserve">
+    <value>Copy selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_MoveToTooltip" xml:space="preserve">
+    <value>Move selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_DeleteTooltip" xml:space="preserve">
+    <value>Delete the selected ROMs</value>
+  </data>
+  <data name="Browser_OrganizeTooltip" xml:space="preserve">
+    <value>Organize ROMs into subfolders by system</value>
+  </data>
+  <data name="Browser_SendToRemoteTooltip" xml:space="preserve">
+    <value>Send selected ROMs to a remote device or cloud storage</value>
+  </data>
+  <data name="Browser_HostShareTooltip" xml:space="preserve">
+    <value>Host a local server to share ROMs on the network</value>
+  </data>
+  <data name="Browser_LaunchRetroArchTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in RetroArch</value>
+  </data>
+  <data name="Browser_LaunchMameTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in MAME</value>
+  </data>
+  <data name="Browser_LaunchMednafenTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in Mednafen</value>
+  </data>
+  <data name="Browser_BigPictureModeTooltip" xml:space="preserve">
+    <value>Enter full-screen Big Picture Mode for gamepad-friendly browsing</value>
+  </data>
+  <data name="MainWindow_SearchShortcut" xml:space="preserve">
+    <value>Search tools (Ctrl+F)</value>
+  </data>
+  <data name="BigPictureModern_AllGames" xml:space="preserve">
+    <value>Tüm Oyunlar</value>
+  </data>
+  <data name="BigPictureModern_EmptyCategory" xml:space="preserve">
+    <value>Bu kategoride henüz oyun yok</value>
+  </data>
+  <data name="BigPictureModern_EmptyLibrary" xml:space="preserve">
+    <value>Kütüphaneniz boş. Başlamak için bir ROM klasörüne göz atın.</value>
+  </data>
+  <data name="BigPictureModern_Favorites" xml:space="preserve">
+    <value>Favoriler</value>
+  </data>
+  <data name="BigPictureModern_LaunchWith" xml:space="preserve">
+    <value>{0} ile başlat</value>
+  </data>
+  <data name="BigPictureModern_MostPlayed" xml:space="preserve">
+    <value>En Çok Oynanan</value>
+  </data>
+  <data name="BigPictureModern_NoResults" xml:space="preserve">
+    <value>Aramanızla eşleşen oyun bulunamadı</value>
+  </data>
+  <data name="BigPictureModern_Plays" xml:space="preserve">
+    <value>{0} oynama</value>
+  </data>
+  <data name="BigPictureModern_RecentlyPlayed" xml:space="preserve">
+    <value>Son Oynanan</value>
+  </data>
+  <data name="BigPictureModern_SearchPlaceholder" xml:space="preserve">
+    <value>Kütüphanenizde arayın...</value>
+  </data>
+  <data name="BigPictureModern_Spotlight" xml:space="preserve">
+    <value>Öne Çıkan</value>
+  </data>
+  <data name="BigPictureModern_TopRated" xml:space="preserve">
+    <value>En Yüksek Puan</value>
+  </data>
+  <data name="BigPicture_CopiedToClipboard" xml:space="preserve">
+    <value>Yol panoya kopyalandı</value>
+  </data>
+  <data name="BigPicture_CopyFilePath" xml:space="preserve">
+    <value>Dosya Yolunu Kopyala</value>
+  </data>
+  <data name="BigPicture_OpenFileLocation" xml:space="preserve">
+    <value>Dosya Konumunu Aç</value>
+  </data>
+  <data name="BigPicture_SortPlayCount" xml:space="preserve">
+    <value>Oynama Sayısı (Yüksek → Düşük)</value>
+  </data>
+  <data name="Browser_ContextChecksum" xml:space="preserve">
+    <value>#️⃣ Sağlama Toplamı Hesapla</value>
+  </data>
+  <data name="Browser_ContextGoodTools" xml:space="preserve">
+    <value>🏷️ GoodTools ile Tanımla</value>
+  </data>
+  <data name="Browser_ContextHexView" xml:space="preserve">
+    <value>🔢 Hex Görüntüleyicide Aç</value>
+  </data>
+  <data name="Browser_ContextInspect" xml:space="preserve">
+    <value>🔍 ROM Denetçisinde Aç</value>
+  </data>
+  <data name="Browser_ContextOpenFolder" xml:space="preserve">
+    <value>📂 İçeren Klasörü Aç</value>
+  </data>
+  <data name="Browser_ContextOpenWith" xml:space="preserve">
+    <value>🚀 Birlikte Aç</value>
+  </data>
+  <data name="Browser_ContextPatch" xml:space="preserve">
+    <value>🩹 ROM Yamala...</value>
+  </data>
+  <data name="Browser_ContextRename" xml:space="preserve">
+    <value>✏️ Yeniden Adlandır...</value>
+  </data>
+  <data name="Browser_ContextTools" xml:space="preserve">
+    <value>🔧 Araçlar</value>
+  </data>
+  <data name="Browser_OpenFolderError" xml:space="preserve">
+    <value>Klasör açılamadı: {0}</value>
+  </data>
+  <data name="Browser_RenameError" xml:space="preserve">
+    <value>Yeniden adlandırma başarısız: {0}</value>
+  </data>
+  <data name="Browser_RenamePromptTitle" xml:space="preserve">
+    <value>ROM Yeniden Adlandır</value>
+  </data>
+  <data name="Browser_RenameSuccess" xml:space="preserve">
+    <value>{0} olarak yeniden adlandırıldı</value>
+  </data>
+  <data name="Checksum_Description" xml:space="preserve">
+    <value>Bütünlüğü doğrulamak ve dökümleri tanımlamak için ROM dosyalarının CRC32, MD5, SHA-1 ve SHA-256 sağlama toplamlarını hesaplayın.</value>
+  </data>
+  <data name="Common_SelectFileTitle" xml:space="preserve">
+    <value>Dosya Seç</value>
+  </data>
+  <data name="Common_SelectOutputDirectoryTitle" xml:space="preserve">
+    <value>Çıktı Dizini Seç</value>
+  </data>
+  <data name="Common_SelectRomDirectoryTitle" xml:space="preserve">
+    <value>ROM Dizini Seç</value>
+  </data>
+  <data name="Common_SelectRomFileTitle" xml:space="preserve">
+    <value>ROM Dosyası Seç</value>
+  </data>
+  <data name="Comparer_Description" xml:space="preserve">
+    <value>Boyut, içerik farklılıklarını belirlemek ve ilk uyumsuz konumu bulmak için iki ROM dosyasını bayt bayt karşılaştırın.</value>
+  </data>
+  <data name="GoodTools_NoCodesForFile" xml:space="preserve">
+    <value>GoodTools kodu bulunamadı.</value>
+  </data>
+  <data name="MameConfig_Artwork" xml:space="preserve">
+    <value>Çizim Seçenekleri</value>
+  </data>
+  <data name="MameConfig_AutoEnable" xml:space="preserve">
+    <value>Girdi Otomatik Etkinleştirme Seçenekleri</value>
+  </data>
+  <data name="MameConfig_Bgfx" xml:space="preserve">
+    <value>BGFX Son İşleme</value>
+  </data>
+  <data name="MameConfig_Communication" xml:space="preserve">
+    <value>İletişim Seçenekleri</value>
+  </data>
+  <data name="MameConfig_ConfigFile" xml:space="preserve">
+    <value>Yapılandırma Dosyası</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Kaydedilmemiş değişiklikleriniz var. İptal edip devam edilsin mi?</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Kaydedilmemiş Değişiklikler</value>
+  </data>
+  <data name="MameConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Bu işlem tüm ayarları MAME varsayılanlarına sıfırlayacak. Kaydedilmemiş değişiklikler kaybolacak. Devam edilsin mi?</value>
+  </data>
+  <data name="MameConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Varsayılanlara Sıfırla</value>
+  </data>
+  <data name="MameConfig_CoreInput" xml:space="preserve">
+    <value>Çekirdek Girdi Seçenekleri</value>
+  </data>
+  <data name="MameConfig_CoreMisc" xml:space="preserve">
+    <value>Çekirdek Çeşitli Seçenekler</value>
+  </data>
+  <data name="MameConfig_CorePerformance" xml:space="preserve">
+    <value>Çekirdek Performans Seçenekleri</value>
+  </data>
+  <data name="MameConfig_CoreSound" xml:space="preserve">
+    <value>Çekirdek Ses Seçenekleri</value>
+  </data>
+  <data name="MameConfig_CoreVideo" xml:space="preserve">
+    <value>Çekirdek Video Seçenekleri</value>
+  </data>
+  <data name="MameConfig_CreateNew" xml:space="preserve">
+    <value>Yeni Oluştur</value>
+  </data>
+  <data name="MameConfig_Debugging" xml:space="preserve">
+    <value>Hata Ayıklama Seçenekleri</value>
+  </data>
+  <data name="MameConfig_DefaultsRestored" xml:space="preserve">
+    <value>Tüm ayarlar MAME varsayılanlarına sıfırlandı.</value>
+  </data>
+  <data name="MameConfig_Description" xml:space="preserve">
+    <value>MAME yapılandırma dosyalarını (mame.ini) yükleyin, düzenleyin ve kaydedin. Windows, macOS ve Linux için tüm MAME ayarlarını destekler.</value>
+  </data>
+  <data name="MameConfig_HttpServer" xml:space="preserve">
+    <value>HTTP Sunucu Seçenekleri</value>
+  </data>
+  <data name="MameConfig_IniFileType" xml:space="preserve">
+    <value>MAME INI Dosyaları</value>
+  </data>
+  <data name="MameConfig_IniPlaceholder" xml:space="preserve">
+    <value>mame.ini yolu...</value>
+  </data>
+  <data name="MameConfig_Language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="MameConfig_LoadError" xml:space="preserve">
+    <value>Yapılandırma yüklenemedi: {0}</value>
+  </data>
+  <data name="MameConfig_Loaded" xml:space="preserve">
+    <value>{1} konumundan {0} ayar yüklendi</value>
+  </data>
+  <data name="MameConfig_NewCreated" xml:space="preserve">
+    <value>MAME varsayılanlarıyla yeni yapılandırma oluşturuldu. Kayıt yolu: {0}</value>
+  </data>
+  <data name="MameConfig_NoIniFound" xml:space="preserve">
+    <value>mame.ini bulunamadı. Bulmak için Göz At'ı kullanın veya varsayılanlarla oluşturmak için Yeni Oluştur'u seçin.</value>
+  </data>
+  <data name="MameConfig_OsdInput" xml:space="preserve">
+    <value>OSD Girdi Sağlayıcıları</value>
+  </data>
+  <data name="MameConfig_OsdSound" xml:space="preserve">
+    <value>OSD Ses Seçenekleri</value>
+  </data>
+  <data name="MameConfig_OsdVideo" xml:space="preserve">
+    <value>OSD / Hızlandırılmış Video</value>
+  </data>
+  <data name="MameConfig_OutputDirs" xml:space="preserve">
+    <value>Çıktı Dizinleri</value>
+  </data>
+  <data name="MameConfig_PerWindowVideo" xml:space="preserve">
+    <value>Pencere Başına Video Seçenekleri</value>
+  </data>
+  <data name="MameConfig_ResetDefaults" xml:space="preserve">
+    <value>Varsayılanlara Sıfırla</value>
+  </data>
+  <data name="MameConfig_Rotation" xml:space="preserve">
+    <value>Döndürme Seçenekleri</value>
+  </data>
+  <data name="MameConfig_Save" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="MameConfig_SaveAs" xml:space="preserve">
+    <value>Farklı Kaydet...</value>
+  </data>
+  <data name="MameConfig_SaveDialogTitle" xml:space="preserve">
+    <value>MAME Yapılandırmasını Kaydet</value>
+  </data>
+  <data name="MameConfig_SaveError" xml:space="preserve">
+    <value>Yapılandırma kaydedilemedi: {0}</value>
+  </data>
+  <data name="MameConfig_Saved" xml:space="preserve">
+    <value>Yapılandırma {0} konumuna kaydedildi</value>
+  </data>
+  <data name="MameConfig_ScreenOptions" xml:space="preserve">
+    <value>Ekran Seçenekleri</value>
+  </data>
+  <data name="MameConfig_Scripting" xml:space="preserve">
+    <value>Betik / Eklentiler</value>
+  </data>
+  <data name="MameConfig_SearchPaths" xml:space="preserve">
+    <value>Arama Yolları</value>
+  </data>
+  <data name="MameConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Ayarları ada göre filtrelemek için yazın (ör. rompath, video, joystick...)</value>
+  </data>
+  <data name="MameConfig_SearchResults" xml:space="preserve">
+    <value>{1} bölümden {0} eşleşiyor</value>
+  </data>
+  <data name="MameConfig_SearchSettings" xml:space="preserve">
+    <value>Ayarları Ara</value>
+  </data>
+  <data name="MameConfig_SelectIniTitle" xml:space="preserve">
+    <value>MAME Yapılandırma Dosyası Seç</value>
+  </data>
+  <data name="MameConfig_StatePlayback" xml:space="preserve">
+    <value>Durum / Oynatma Seçenekleri</value>
+  </data>
+  <data name="MameConfig_TabInput" xml:space="preserve">
+    <value>Girdi</value>
+  </data>
+  <data name="MameConfig_TabMisc" xml:space="preserve">
+    <value>Çeşitli / Gelişmiş</value>
+  </data>
+  <data name="MameConfig_TabPaths" xml:space="preserve">
+    <value>Yollar</value>
+  </data>
+  <data name="MameConfig_TabPerformance" xml:space="preserve">
+    <value>Performans</value>
+  </data>
+  <data name="MameConfig_TabSound" xml:space="preserve">
+    <value>Ses</value>
+  </data>
+  <data name="MameConfig_TabState" xml:space="preserve">
+    <value>Durum / Oynatma</value>
+  </data>
+  <data name="MameConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="MameConfig_Title" xml:space="preserve">
+    <value>MAME Yapılandırıcı</value>
+  </data>
+  <data name="MameConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Kaydedilmemiş değişiklikler</value>
+  </data>
+  <data name="MameConfig_Vector" xml:space="preserve">
+    <value>Vektör Seçenekleri</value>
+  </data>
+  <data name="MednafenConfig_CfgFileType" xml:space="preserve">
+    <value>Mednafen Yapılandırma Dosyaları (*.cfg)</value>
+  </data>
+  <data name="MednafenConfig_CfgPlaceholder" xml:space="preserve">
+    <value>mednafen.cfg yolu...</value>
+  </data>
+  <data name="MednafenConfig_ConfigFile" xml:space="preserve">
+    <value>Yapılandırma Dosyası</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Kaydedilmemiş değişiklikleriniz var. İptal edip devam edilsin mi?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Kaydedilmemiş Değişiklikler</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Bu işlem tüm ayarları Mednafen varsayılanlarına sıfırlayacak. Kaydedilmemiş değişiklikler kaybolacak. Devam edilsin mi?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Varsayılanlara Sıfırla</value>
+  </data>
+  <data name="MednafenConfig_CoreSettings" xml:space="preserve">
+    <value>Çekirdek Ayarlar</value>
+  </data>
+  <data name="MednafenConfig_CpuAffinity" xml:space="preserve">
+    <value>CPU Benzeşimi</value>
+  </data>
+  <data name="MednafenConfig_CreateNew" xml:space="preserve">
+    <value>Yeni Oluştur</value>
+  </data>
+  <data name="MednafenConfig_DefaultsRestored" xml:space="preserve">
+    <value>Tüm ayarlar Mednafen varsayılanlarına geri yüklendi.</value>
+  </data>
+  <data name="MednafenConfig_Description" xml:space="preserve">
+    <value>Mednafen yapılandırma dosyalarını (mednafen.cfg) yükleyin, düzenleyin ve kaydedin. Windows, macOS ve Linux için tüm Mednafen ayarlarını destekler.</value>
+  </data>
+  <data name="MednafenConfig_DirectoryPaths" xml:space="preserve">
+    <value>Dizin Yolları</value>
+  </data>
+  <data name="MednafenConfig_FilenameFormats" xml:space="preserve">
+    <value>Dosya Adı Biçimleri</value>
+  </data>
+  <data name="MednafenConfig_FpsDisplay" xml:space="preserve">
+    <value>FPS Görüntüleme</value>
+  </data>
+  <data name="MednafenConfig_GoatShader" xml:space="preserve">
+    <value>Goat Shader Ayarları</value>
+  </data>
+  <data name="MednafenConfig_InputSettings" xml:space="preserve">
+    <value>Girdi Ayarları</value>
+  </data>
+  <data name="MednafenConfig_LoadError" xml:space="preserve">
+    <value>Yapılandırma yüklenemedi: {0}</value>
+  </data>
+  <data name="MednafenConfig_Loaded" xml:space="preserve">
+    <value>{1} konumundan {0} ayar yüklendi</value>
+  </data>
+  <data name="MednafenConfig_NetworkPlay" xml:space="preserve">
+    <value>Ağ Oyunu</value>
+  </data>
+  <data name="MednafenConfig_NewCreated" xml:space="preserve">
+    <value>{0} konumunda yeni varsayılan yapılandırma oluşturuldu</value>
+  </data>
+  <data name="MednafenConfig_NoCfgFound" xml:space="preserve">
+    <value>mednafen.cfg otomatik olarak algılanamadı. Lütfen dosyaya elle göz atın.</value>
+  </data>
+  <data name="MednafenConfig_Osd" xml:space="preserve">
+    <value>Ekran Üstü Görüntü</value>
+  </data>
+  <data name="MednafenConfig_PerSystemDescription" xml:space="preserve">
+    <value>Emüle edilen sistem başına video ölçekleme, gölgelendirici ve görüntü ayarlarını yapılandırın. Değişiklikler sistem değiştirildiğinde veya dosya kaydedildiğinde kaydedilir.</value>
+  </data>
+  <data name="MednafenConfig_QtRecord" xml:space="preserve">
+    <value>QuickTime Kaydı</value>
+  </data>
+  <data name="MednafenConfig_ResetDefaults" xml:space="preserve">
+    <value>Varsayılanlara Sıfırla</value>
+  </data>
+  <data name="MednafenConfig_Save" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="MednafenConfig_SaveAs" xml:space="preserve">
+    <value>Farklı Kaydet</value>
+  </data>
+  <data name="MednafenConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Mednafen Yapılandırmasını Farklı Kaydet</value>
+  </data>
+  <data name="MednafenConfig_SaveError" xml:space="preserve">
+    <value>Yapılandırma kaydedilemedi: {0}</value>
+  </data>
+  <data name="MednafenConfig_Saved" xml:space="preserve">
+    <value>Yapılandırma {0} konumuna kaydedildi</value>
+  </data>
+  <data name="MednafenConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Ayarları ada göre filtrelemek için yazın (ör. video, sound, shader...)</value>
+  </data>
+  <data name="MednafenConfig_SearchResults" xml:space="preserve">
+    <value>{1} bölümden {0} eşleşiyor</value>
+  </data>
+  <data name="MednafenConfig_SearchSettings" xml:space="preserve">
+    <value>Ayarları Ara</value>
+  </data>
+  <data name="MednafenConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Mednafen Yapılandırma Dosyası Seç</value>
+  </data>
+  <data name="MednafenConfig_SelectSystem" xml:space="preserve">
+    <value>Sistem Seç</value>
+  </data>
+  <data name="MednafenConfig_SoundOutput" xml:space="preserve">
+    <value>Ses Çıkışı</value>
+  </data>
+  <data name="MednafenConfig_SpeedSettings" xml:space="preserve">
+    <value>Hızlı İleri / Yavaş İleri</value>
+  </data>
+  <data name="MednafenConfig_SystemVideo" xml:space="preserve">
+    <value>Sistem Videosu / Ölçekleme</value>
+  </data>
+  <data name="MednafenConfig_TabAdvanced" xml:space="preserve">
+    <value>Gelişmiş</value>
+  </data>
+  <data name="MednafenConfig_TabGeneral" xml:space="preserve">
+    <value>Genel</value>
+  </data>
+  <data name="MednafenConfig_TabInput" xml:space="preserve">
+    <value>Girdi</value>
+  </data>
+  <data name="MednafenConfig_TabNetplay" xml:space="preserve">
+    <value>Ağ Oyunu</value>
+  </data>
+  <data name="MednafenConfig_TabPaths" xml:space="preserve">
+    <value>Yollar</value>
+  </data>
+  <data name="MednafenConfig_TabPerSystem" xml:space="preserve">
+    <value>Sistem Başına</value>
+  </data>
+  <data name="MednafenConfig_TabSound" xml:space="preserve">
+    <value>Ses</value>
+  </data>
+  <data name="MednafenConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="MednafenConfig_TemporalBlur" xml:space="preserve">
+    <value>Zamansal Bulanıklık</value>
+  </data>
+  <data name="MednafenConfig_Title" xml:space="preserve">
+    <value>Mednafen Yapılandırıcı</value>
+  </data>
+  <data name="MednafenConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Kaydedilmemiş değişiklikler</value>
+  </data>
+  <data name="MednafenConfig_VideoOutput" xml:space="preserve">
+    <value>Video Çıkışı</value>
+  </data>
+  <data name="MetaScraper_SummaryBySystem" xml:space="preserve">
+    <value>Sisteme göre özet:</value>
+  </data>
+  <data name="MetaScraper_SummaryStats" xml:space="preserve">
+    <value>Geçerli: {0}, Geçersiz: {1}, Hatalar: {2}</value>
+  </data>
+  <data name="Nav_MameConfigurator" xml:space="preserve">
+    <value>MAME Yapılandırıcı</value>
+  </data>
+  <data name="Nav_MednafenConfigurator" xml:space="preserve">
+    <value>Mednafen Yapılandırıcı</value>
+  </data>
+  <data name="Nav_NoResults" xml:space="preserve">
+    <value>Eşleşen araç bulunamadı.</value>
+  </data>
+  <data name="Nav_RetroArchConfigurator" xml:space="preserve">
+    <value>RetroArch Yapılandırıcı</value>
+  </data>
+  <data name="Nav_SearchPlaceholder" xml:space="preserve">
+    <value>Araç ara...</value>
+  </data>
+  <data name="Patcher_Description" xml:space="preserve">
+    <value>Çeviriler, düzeltmeler veya değişiklikler uygulamak için ROM dosyalarına IPS, BPS veya xdelta yamaları uygulayın.</value>
+  </data>
+  <data name="RAConfig_AIService" xml:space="preserve">
+    <value>AI Hizmeti</value>
+  </data>
+  <data name="RAConfig_AccessibilityOptions" xml:space="preserve">
+    <value>Erişilebilirlik Seçenekleri</value>
+  </data>
+  <data name="RAConfig_AchievementDisplay" xml:space="preserve">
+    <value>Başarı Görüntüleme</value>
+  </data>
+  <data name="RAConfig_AchievementOptions" xml:space="preserve">
+    <value>RetroAchievements Seçenekleri</value>
+  </data>
+  <data name="RAConfig_AudioDriver" xml:space="preserve">
+    <value>Ses Sürücüsü</value>
+  </data>
+  <data name="RAConfig_AudioSync" xml:space="preserve">
+    <value>Ses Ayarları</value>
+  </data>
+  <data name="RAConfig_CfgFileType" xml:space="preserve">
+    <value>RetroArch CFG Dosyaları</value>
+  </data>
+  <data name="RAConfig_CfgPlaceholder" xml:space="preserve">
+    <value>retroarch.cfg yolu...</value>
+  </data>
+  <data name="RAConfig_ConfigFile" xml:space="preserve">
+    <value>Yapılandırma Dosyası</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Kaydedilmemiş değişiklikleriniz var. İptal edip devam edilsin mi?</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Kaydedilmemiş Değişiklikler</value>
+  </data>
+  <data name="RAConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Bu işlem tüm ayarları RetroArch varsayılanlarına sıfırlayacak. Kaydedilmemiş değişiklikler kaybolacak. Devam edilsin mi?</value>
+  </data>
+  <data name="RAConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Varsayılanlara Sıfırla</value>
+  </data>
+  <data name="RAConfig_ContentPaths" xml:space="preserve">
+    <value>İçerik ve Kayıt Yolları</value>
+  </data>
+  <data name="RAConfig_CoreOptions" xml:space="preserve">
+    <value>Çekirdek Seçenekleri</value>
+  </data>
+  <data name="RAConfig_CorePaths" xml:space="preserve">
+    <value>Çekirdek ve Sistem Yolları</value>
+  </data>
+  <data name="RAConfig_CreateNew" xml:space="preserve">
+    <value>Yeni Oluştur</value>
+  </data>
+  <data name="RAConfig_DefaultsRestored" xml:space="preserve">
+    <value>Tüm ayarlar RetroArch varsayılanlarına sıfırlandı.</value>
+  </data>
+  <data name="RAConfig_Description" xml:space="preserve">
+    <value>RetroArch yapılandırma dosyalarını (retroarch.cfg) yükleyin, düzenleyin ve kaydedin. Windows, macOS ve Linux için tüm RetroArch ayarlarını destekler.</value>
+  </data>
+  <data name="RAConfig_FilterPaths" xml:space="preserve">
+    <value>Filtre, Kaplama ve Diğer Yollar</value>
+  </data>
+  <data name="RAConfig_FrameThrottle" xml:space="preserve">
+    <value>Kare Hızı Sınırlama Seçenekleri</value>
+  </data>
+  <data name="RAConfig_InputGeneral" xml:space="preserve">
+    <value>Genel Girdi Ayarları</value>
+  </data>
+  <data name="RAConfig_InputHotkeys" xml:space="preserve">
+    <value>Kısayol Tuşları</value>
+  </data>
+  <data name="RAConfig_LoadError" xml:space="preserve">
+    <value>Yapılandırma yüklenemedi: {0}</value>
+  </data>
+  <data name="RAConfig_Loaded" xml:space="preserve">
+    <value>{1} konumundan {0} ayar yüklendi</value>
+  </data>
+  <data name="RAConfig_Logging" xml:space="preserve">
+    <value>Günlükleme Seçenekleri</value>
+  </data>
+  <data name="RAConfig_MenuGeneral" xml:space="preserve">
+    <value>Menü Ayarları</value>
+  </data>
+  <data name="RAConfig_MenuTheme" xml:space="preserve">
+    <value>Tema ve Görünüm</value>
+  </data>
+  <data name="RAConfig_MiscOptions" xml:space="preserve">
+    <value>Çeşitli Seçenekler</value>
+  </data>
+  <data name="RAConfig_Netplay" xml:space="preserve">
+    <value>Ağ Oyunu</value>
+  </data>
+  <data name="RAConfig_NetworkGeneral" xml:space="preserve">
+    <value>Ağ Ayarları</value>
+  </data>
+  <data name="RAConfig_NewCreated" xml:space="preserve">
+    <value>RetroArch varsayılanlarıyla yeni yapılandırma oluşturuldu. Kayıt yolu: {0}</value>
+  </data>
+  <data name="RAConfig_NoCfgFound" xml:space="preserve">
+    <value>retroarch.cfg bulunamadı. Bulmak için Göz At'ı kullanın veya varsayılanlarla oluşturmak için Yeni Oluştur'u seçin.</value>
+  </data>
+  <data name="RAConfig_Notifications" xml:space="preserve">
+    <value>Bildirimler</value>
+  </data>
+  <data name="RAConfig_OverlaySettings" xml:space="preserve">
+    <value>Kaplama Ayarları</value>
+  </data>
+  <data name="RAConfig_RGUITheme" xml:space="preserve">
+    <value>RGUI Teması</value>
+  </data>
+  <data name="RAConfig_RecordingOptions" xml:space="preserve">
+    <value>Kayıt Seçenekleri</value>
+  </data>
+  <data name="RAConfig_ResetDefaults" xml:space="preserve">
+    <value>Varsayılanlara Sıfırla</value>
+  </data>
+  <data name="RAConfig_Rewind" xml:space="preserve">
+    <value>Geri Sarma Seçenekleri</value>
+  </data>
+  <data name="RAConfig_Save" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="RAConfig_SaveAs" xml:space="preserve">
+    <value>Farklı Kaydet...</value>
+  </data>
+  <data name="RAConfig_SaveDialogTitle" xml:space="preserve">
+    <value>RetroArch Yapılandırmasını Kaydet</value>
+  </data>
+  <data name="RAConfig_SaveError" xml:space="preserve">
+    <value>Yapılandırma kaydedilemedi: {0}</value>
+  </data>
+  <data name="RAConfig_SaveOptions" xml:space="preserve">
+    <value>Kaydetme ve Durum Seçenekleri</value>
+  </data>
+  <data name="RAConfig_Saved" xml:space="preserve">
+    <value>Yapılandırma {0} konumuna kaydedildi</value>
+  </data>
+  <data name="RAConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Ayarları ada göre filtrelemek için yazın (ör. video_driver, audio, netplay...)</value>
+  </data>
+  <data name="RAConfig_SearchSettings" xml:space="preserve">
+    <value>Ayarları Ara</value>
+  </data>
+  <data name="RAConfig_SelectCfgTitle" xml:space="preserve">
+    <value>RetroArch Yapılandırma Dosyası Seç</value>
+  </data>
+  <data name="RAConfig_TabAccessibility" xml:space="preserve">
+    <value>Erişilebilirlik</value>
+  </data>
+  <data name="RAConfig_TabAchievements" xml:space="preserve">
+    <value>Başarılar</value>
+  </data>
+  <data name="RAConfig_TabAudio" xml:space="preserve">
+    <value>Ses</value>
+  </data>
+  <data name="RAConfig_TabCore" xml:space="preserve">
+    <value>Çekirdek / Kaydetme</value>
+  </data>
+  <data name="RAConfig_TabFrameThrottle" xml:space="preserve">
+    <value>Kare Hızı Sınırlama</value>
+  </data>
+  <data name="RAConfig_TabInput" xml:space="preserve">
+    <value>Girdi</value>
+  </data>
+  <data name="RAConfig_TabMenu" xml:space="preserve">
+    <value>Menü / Arayüz</value>
+  </data>
+  <data name="RAConfig_TabMisc" xml:space="preserve">
+    <value>Çeşitli / Günlük</value>
+  </data>
+  <data name="RAConfig_TabNetwork" xml:space="preserve">
+    <value>Ağ</value>
+  </data>
+  <data name="RAConfig_TabOverlay" xml:space="preserve">
+    <value>Kaplama</value>
+  </data>
+  <data name="RAConfig_TabPaths" xml:space="preserve">
+    <value>Yollar</value>
+  </data>
+  <data name="RAConfig_TabRecording" xml:space="preserve">
+    <value>Kayıt</value>
+  </data>
+  <data name="RAConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="RAConfig_Title" xml:space="preserve">
+    <value>RetroArch Yapılandırıcı</value>
+  </data>
+  <data name="RAConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Kaydedilmemiş değişiklikler</value>
+  </data>
+  <data name="RAConfig_VideoAdvanced" xml:space="preserve">
+    <value>Gelişmiş Video</value>
+  </data>
+  <data name="RAConfig_VideoDisplay" xml:space="preserve">
+    <value>Görüntü Ayarları</value>
+  </data>
+  <data name="RAConfig_VideoDriver" xml:space="preserve">
+    <value>Video Sürücüsü</value>
+  </data>
+  <data name="RAConfig_VideoOSD" xml:space="preserve">
+    <value>OSD ve Ekran Görüntüleri</value>
+  </data>
+  <data name="RAConfig_VideoScaling" xml:space="preserve">
+    <value>Ölçekleme ve Filtreleme</value>
+  </data>
+  <data name="RAConfig_VideoSync" xml:space="preserve">
+    <value>Senkronizasyon</value>
+  </data>
+  <data name="Security_SingleNoFeatures" xml:space="preserve">
+    <value>✔ {0}: Güvenlik özelliği algılanmadı.</value>
+  </data>
+  <data name="Security_SingleResultDetected" xml:space="preserve">
+    <value>✔ {0}: {1} güvenlik özelliği algılandı.</value>
+  </data>
+  <data name="Settings_BigPictureStyleClassic" xml:space="preserve">
+    <value>Klasik (Kart Izgarası)</value>
+  </data>
+  <data name="Settings_BigPictureStyleLabel" xml:space="preserve">
+    <value>Görsel stil</value>
+  </data>
+  <data name="Settings_BigPictureStyleModern" xml:space="preserve">
+    <value>Modern (Kahraman + Döner)</value>
+  </data>
+  <data name="Settings_UpdateManagedByPackageManager" xml:space="preserve">
+    <value>Güncellemeler sistem paket yöneticiniz tarafından yönetilmektedir.</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImage" xml:space="preserve">
+    <value>İmaj Oluşturmayı Onayla</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImageMessage" xml:space="preserve">
+    <value>{0} konumundan tam disk imajı oluşturulsun mu? Sürücü boyutuna bağlı olarak biraz zaman alabilir.</value>
+  </data>
 </root>

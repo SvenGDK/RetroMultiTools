@@ -6124,4 +6124,1205 @@ Run:notepad.exe</value>
   <data name="Settings_Clear" xml:space="preserve">
     <value>Borrar</value>
   </data>
+  <data name="Nav_DiscTools" xml:space="preserve">
+    <value>Herramientas de disco</value>
+  </data>
+  <data name="DiscTools_Title" xml:space="preserve">
+    <value>Herramientas de disco</value>
+  </data>
+  <data name="DiscTools_Description" xml:space="preserve">
+    <value>Grabe imágenes de discos o archivos en medios ópticos y cree imágenes de discos a partir de discos o archivos físicos. Admite formatos de disco ISO, BIN/CUE, IMG, GDI, CDI, NRG y otros sistemas de juegos.</value>
+  </data>
+  <data name="DiscTools_Operation" xml:space="preserve">
+    <value>Operación:</value>
+  </data>
+  <data name="DiscTools_OpBurnImage" xml:space="preserve">
+    <value>Escribir imagen en disco</value>
+  </data>
+  <data name="DiscTools_OpBurnFiles" xml:space="preserve">
+    <value>Escribir archivos en el disco</value>
+  </data>
+  <data name="DiscTools_OpImageFromDisc" xml:space="preserve">
+    <value>Crear imagen desde el disco</value>
+  </data>
+  <data name="DiscTools_OpImageFromFiles" xml:space="preserve">
+    <value>Crear imagen a partir de archivos</value>
+  </data>
+  <data name="DiscTools_Drive" xml:space="preserve">
+    <value>Unidad óptica:</value>
+  </data>
+  <data name="DiscTools_SelectDrive" xml:space="preserve">
+    <value>Seleccione una unidad óptica...</value>
+  </data>
+  <data name="DiscTools_RefreshDrives" xml:space="preserve">
+    <value>Refrescar</value>
+  </data>
+  <data name="DiscTools_NoDrivesFound" xml:space="preserve">
+    <value>No se detectaron unidades ópticas en este sistema.</value>
+  </data>
+  <data name="DiscTools_ImageFile" xml:space="preserve">
+    <value>Archivo de imagen:</value>
+  </data>
+  <data name="DiscTools_SelectImageFile" xml:space="preserve">
+    <value>Seleccione un archivo de imagen de disco...</value>
+  </data>
+  <data name="DiscTools_ImageFiles" xml:space="preserve">
+    <value>Archivos de imagen de disco</value>
+  </data>
+  <data name="DiscTools_FilesOrFolders" xml:space="preserve">
+    <value>Archivos/Carpetas:</value>
+  </data>
+  <data name="DiscTools_SelectFilesOrFolders" xml:space="preserve">
+    <value>Seleccione archivos o carpetas para escribir...</value>
+  </data>
+  <data name="DiscTools_SelectFolder" xml:space="preserve">
+    <value>Seleccione una carpeta</value>
+  </data>
+  <data name="DiscTools_OutputFile" xml:space="preserve">
+    <value>Archivo de imagen de salida:</value>
+  </data>
+  <data name="DiscTools_SelectOutputImage" xml:space="preserve">
+    <value>Seleccione la ruta del archivo de imagen de salida...</value>
+  </data>
+  <data name="DiscTools_VolumeLabel" xml:space="preserve">
+    <value>Etiqueta de volumen:</value>
+  </data>
+  <data name="DiscTools_VolumeLabelHint" xml:space="preserve">
+    <value>Introduzca una etiqueta de volumen para el disco...</value>
+  </data>
+  <data name="DiscTools_WriteSpeed" xml:space="preserve">
+    <value>Velocidad de escritura:</value>
+  </data>
+  <data name="DiscTools_SpeedAuto" xml:space="preserve">
+    <value>Automático (máx.)</value>
+  </data>
+  <data name="DiscTools_VerifyAfterBurn" xml:space="preserve">
+    <value>Verificar después de escribir</value>
+  </data>
+  <data name="DiscTools_Burn" xml:space="preserve">
+    <value>Escribir en disco</value>
+  </data>
+  <data name="DiscTools_CreateImage" xml:space="preserve">
+    <value>Crear imagen</value>
+  </data>
+  <data name="DiscTools_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="DiscTools_DetectingDrives" xml:space="preserve">
+    <value>Detectando unidades ópticas...</value>
+  </data>
+  <data name="DiscTools_DriveDetectError" xml:space="preserve">
+    <value>Error al detectar unidades: {0}</value>
+  </data>
+  <data name="DiscTools_ImageNotFound" xml:space="preserve">
+    <value>Archivo de imagen no encontrado.</value>
+  </data>
+  <data name="DiscTools_BurningImage" xml:space="preserve">
+    <value>Imagen de escritura: {0}</value>
+  </data>
+  <data name="DiscTools_BurningFiles" xml:space="preserve">
+    <value>Escribiendo elementos {0} en el disco...</value>
+  </data>
+  <data name="DiscTools_NoFilesSelected" xml:space="preserve">
+    <value>No se seleccionaron archivos ni carpetas.</value>
+  </data>
+  <data name="DiscTools_OutputRequired" xml:space="preserve">
+    <value>Se requiere la ruta del archivo de salida.</value>
+  </data>
+  <data name="DiscTools_ReadingDisc" xml:space="preserve">
+    <value>Leyendo disco...</value>
+  </data>
+  <data name="DiscTools_CreatingImage" xml:space="preserve">
+    <value>Creando imagen: {0}</value>
+  </data>
+  <data name="DiscTools_WritingToDisc" xml:space="preserve">
+    <value>Escribiendo datos en el disco...</value>
+  </data>
+  <data name="DiscTools_RunningTool" xml:space="preserve">
+    <value>Ejecutando {0}...</value>
+  </data>
+  <data name="DiscTools_BurnComplete" xml:space="preserve">
+    <value>✔ Escrito correctamente en el disco.</value>
+  </data>
+  <data name="DiscTools_BurnFailed" xml:space="preserve">
+    <value>✘ Error de escritura: {0}</value>
+  </data>
+  <data name="DiscTools_ImageCreated" xml:space="preserve">
+    <value>✔ Imagen creada: {0} ({1})</value>
+  </data>
+  <data name="DiscTools_ImageCreateFailed" xml:space="preserve">
+    <value>✘ Error al crear la imagen: {0}</value>
+  </data>
+  <data name="DiscTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Esta plataforma no es compatible con operaciones de disco.</value>
+  </data>
+  <data name="DiscTools_NoBurnTool" xml:space="preserve">
+    <value>No se encontró ninguna herramienta de grabación de discos. Instale wodim, cdrecord o xorrecord.</value>
+  </data>
+  <data name="DiscTools_NoIsoTool" xml:space="preserve">
+    <value>No se encontró ninguna herramienta de creación de ISO. Instale xorrisofs, genisoimage o mkisofs.</value>
+  </data>
+  <data name="DiscTools_IsoCreateFailed" xml:space="preserve">
+    <value>Error al crear ISO: {0}</value>
+  </data>
+  <data name="DiscTools_CreatingIso" xml:space="preserve">
+    <value>Creando imagen ISO...</value>
+  </data>
+  <data name="DiscTools_OperationCancelled" xml:space="preserve">
+    <value>Operación cancelada.</value>
+  </data>
+  <data name="DiscTools_BrowseFolder" xml:space="preserve">
+    <value>Explorar carpeta</value>
+  </data>
+  <data name="DiscTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>El formato de imagen '{0}' no se puede grabar en el disco. Formatos soportados: ISO, BIN/CUE, IMG, NRG, TOAST.</value>
+  </data>
+  <data name="DiscTools_Verifying" xml:space="preserve">
+    <value>Verificando disco...</value>
+  </data>
+  <data name="DiscTools_BurnCompleteVerifySkipped" xml:space="preserve">
+    <value>La grabación se completó con éxito. No se pudo realizar la verificación.</value>
+  </data>
+  <data name="DiscTools_VerifyFailed" xml:space="preserve">
+    <value>Grabación completada pero la verificación falló: los datos del disco no coinciden con la imagen de origen.</value>
+  </data>
+  <data name="DiscTools_IsoImageType" xml:space="preserve">
+    <value>Imagen ISO</value>
+  </data>
+  <data name="DiscTools_BinCueImageType" xml:space="preserve">
+    <value>Imagen BIN/CUE</value>
+  </data>
+  <data name="Nav_UsbTools" xml:space="preserve">
+    <value>Herramientas USB</value>
+  </data>
+  <data name="UsbTools_Title" xml:space="preserve">
+    <value>Herramientas USB</value>
+  </data>
+  <data name="UsbTools_Description" xml:space="preserve">
+    <value>Formatear, escribir imágenes en, crear imágenes de y explorar unidades USB.</value>
+  </data>
+  <data name="UsbTools_Drive" xml:space="preserve">
+    <value>Unidad USB</value>
+  </data>
+  <data name="UsbTools_SelectDrive" xml:space="preserve">
+    <value>Seleccionar una unidad USB...</value>
+  </data>
+  <data name="UsbTools_RefreshDrives" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="UsbTools_DetectingDrives" xml:space="preserve">
+    <value>Detectando unidades USB...</value>
+  </data>
+  <data name="UsbTools_NoDrivesFound" xml:space="preserve">
+    <value>No se encontraron unidades USB.</value>
+  </data>
+  <data name="UsbTools_DriveDetectError" xml:space="preserve">
+    <value>Error al detectar unidades: {0}</value>
+  </data>
+  <data name="UsbTools_NoDriveSelected" xml:space="preserve">
+    <value>No se ha seleccionado ninguna unidad USB.</value>
+  </data>
+  <data name="UsbTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Esta operación no es compatible con la plataforma actual.</value>
+  </data>
+  <data name="UsbTools_TabExplorer" xml:space="preserve">
+    <value>Explorador de archivos</value>
+  </data>
+  <data name="UsbTools_TabFormat" xml:space="preserve">
+    <value>Formatear</value>
+  </data>
+  <data name="UsbTools_TabWriteImage" xml:space="preserve">
+    <value>Escribir imagen</value>
+  </data>
+  <data name="UsbTools_TabCreateImage" xml:space="preserve">
+    <value>Crear imagen</value>
+  </data>
+  <data name="UsbTools_NavigateUp" xml:space="preserve">
+    <value>Navegar hacia arriba</value>
+  </data>
+  <data name="UsbTools_RefreshFiles" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="UsbTools_AddFiles" xml:space="preserve">
+    <value>Agregar archivos</value>
+  </data>
+  <data name="UsbTools_NewFolder" xml:space="preserve">
+    <value>Nueva carpeta</value>
+  </data>
+  <data name="UsbTools_Delete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="UsbTools_Move" xml:space="preserve">
+    <value>Mover</value>
+  </data>
+  <data name="UsbTools_FileSystem" xml:space="preserve">
+    <value>Sistema de archivos</value>
+  </data>
+  <data name="UsbTools_PartitionScheme" xml:space="preserve">
+    <value>Esquema de partición</value>
+  </data>
+  <data name="UsbTools_VolumeLabel" xml:space="preserve">
+    <value>Etiqueta de volumen</value>
+  </data>
+  <data name="UsbTools_VolumeLabelHint" xml:space="preserve">
+    <value>Introduzca una etiqueta de volumen</value>
+  </data>
+  <data name="UsbTools_FormatWarning" xml:space="preserve">
+    <value>⚠ Advertencia: El formateo borrará TODOS los datos de la unidad USB seleccionada. Esta acción no se puede deshacer.</value>
+  </data>
+  <data name="UsbTools_Format" xml:space="preserve">
+    <value>Formatear unidad USB</value>
+  </data>
+  <data name="UsbTools_PreparingFormat" xml:space="preserve">
+    <value>Preparando el formateo...</value>
+  </data>
+  <data name="UsbTools_Formatting" xml:space="preserve">
+    <value>Formateando a {0} ({1})...</value>
+  </data>
+  <data name="UsbTools_FormatComplete" xml:space="preserve">
+    <value>Unidad USB formateada correctamente.</value>
+  </data>
+  <data name="UsbTools_FormatFailed" xml:space="preserve">
+    <value>Error de formateo: {0}</value>
+  </data>
+  <data name="UsbTools_UnsupportedFileSystem" xml:space="preserve">
+    <value>Sistema de archivos no compatible: {0}</value>
+  </data>
+  <data name="UsbTools_NtfsMacWarning" xml:space="preserve">
+    <value>Nota: macOS no admite el formateo NTFS de forma nativa. La unidad se formateó como ExFAT en su lugar.</value>
+  </data>
+  <data name="UsbTools_ConfirmFormat" xml:space="preserve">
+    <value>Confirmar formateo</value>
+  </data>
+  <data name="UsbTools_ConfirmFormatMessage" xml:space="preserve">
+    <value>¿Está seguro de que desea formatear {0}? Todos los datos se borrarán permanentemente.</value>
+  </data>
+  <data name="UsbTools_ImageFile" xml:space="preserve">
+    <value>Archivo de imagen</value>
+  </data>
+  <data name="UsbTools_SelectImageFile" xml:space="preserve">
+    <value>Seleccionar un archivo de imagen...</value>
+  </data>
+  <data name="UsbTools_ImageFiles" xml:space="preserve">
+    <value>Archivos de imagen de disco</value>
+  </data>
+  <data name="UsbTools_ImageNotFound" xml:space="preserve">
+    <value>Archivo de imagen no encontrado.</value>
+  </data>
+  <data name="UsbTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>Formato de imagen no compatible: {0}</value>
+  </data>
+  <data name="UsbTools_WriteWarning" xml:space="preserve">
+    <value>⚠ Advertencia: Escribir una imagen borrará TODOS los datos de la unidad USB seleccionada. Esta acción no se puede deshacer.</value>
+  </data>
+  <data name="UsbTools_WriteImage" xml:space="preserve">
+    <value>Escribir imagen en USB</value>
+  </data>
+  <data name="UsbTools_WritingImage" xml:space="preserve">
+    <value>Escribiendo {0} en la unidad USB...</value>
+  </data>
+  <data name="UsbTools_WriteComplete" xml:space="preserve">
+    <value>Imagen escrita correctamente en la unidad USB.</value>
+  </data>
+  <data name="UsbTools_WriteFailed" xml:space="preserve">
+    <value>Error de escritura: {0}</value>
+  </data>
+  <data name="UsbTools_ConfirmWrite" xml:space="preserve">
+    <value>Confirmar escritura</value>
+  </data>
+  <data name="UsbTools_ConfirmWriteMessage" xml:space="preserve">
+    <value>¿Está seguro de que desea escribir {0} en {1}? Todos los datos existentes se borrarán permanentemente.</value>
+  </data>
+  <data name="UsbTools_OutputFile" xml:space="preserve">
+    <value>Archivo de salida</value>
+  </data>
+  <data name="UsbTools_SelectOutputImage" xml:space="preserve">
+    <value>Seleccionar ubicación de imagen de salida...</value>
+  </data>
+  <data name="UsbTools_CreateImage" xml:space="preserve">
+    <value>Crear imagen desde USB</value>
+  </data>
+  <data name="UsbTools_CreatingImage" xml:space="preserve">
+    <value>Creando imagen desde la unidad USB...</value>
+  </data>
+  <data name="UsbTools_ImageCreated" xml:space="preserve">
+    <value>Imagen creada correctamente: {0}</value>
+  </data>
+  <data name="UsbTools_ImageCreateFailed" xml:space="preserve">
+    <value>Error al crear la imagen: {0}</value>
+  </data>
+  <data name="UsbTools_OutputRequired" xml:space="preserve">
+    <value>Se requiere la ruta del archivo de salida.</value>
+  </data>
+  <data name="UsbTools_ImgFileType" xml:space="preserve">
+    <value>Imagen IMG</value>
+  </data>
+  <data name="UsbTools_IsoFileType" xml:space="preserve">
+    <value>Imagen ISO</value>
+  </data>
+  <data name="UsbTools_OperationCancelled" xml:space="preserve">
+    <value>Operación cancelada.</value>
+  </data>
+  <data name="UsbTools_FolderExists" xml:space="preserve">
+    <value>Ya existe una carpeta con ese nombre.</value>
+  </data>
+  <data name="UsbTools_FolderCreated" xml:space="preserve">
+    <value>Carpeta creada correctamente.</value>
+  </data>
+  <data name="UsbTools_DeleteComplete" xml:space="preserve">
+    <value>Eliminado correctamente.</value>
+  </data>
+  <data name="UsbTools_EntryNotFound" xml:space="preserve">
+    <value>No se encontró el archivo o la carpeta.</value>
+  </data>
+  <data name="UsbTools_DestinationExists" xml:space="preserve">
+    <value>Ya existe un elemento con el mismo nombre en el destino.</value>
+  </data>
+  <data name="UsbTools_MoveComplete" xml:space="preserve">
+    <value>Movido correctamente.</value>
+  </data>
+  <data name="UsbTools_SelectMoveDestination" xml:space="preserve">
+    <value>Seleccionar carpeta de destino</value>
+  </data>
+  <data name="UsbTools_CopyingFile" xml:space="preserve">
+    <value>Copiando {0}...</value>
+  </data>
+  <data name="UsbTools_AddComplete" xml:space="preserve">
+    <value>{0} elemento(s) agregado(s) correctamente.</value>
+  </data>
+  <data name="UsbTools_ConfirmDelete" xml:space="preserve">
+    <value>Confirmar eliminación</value>
+  </data>
+  <data name="UsbTools_ConfirmDeleteMessage" xml:space="preserve">
+    <value>¿Está seguro de que desea eliminar '{0}'? Esta acción no se puede deshacer.</value>
+  </data>
+  <data name="UsbTools_EnterFolderName" xml:space="preserve">
+    <value>Introduzca el nombre de la carpeta:</value>
+  </data>
+  <data name="UsbTools_FolderNameHint" xml:space="preserve">
+    <value>Nombre de la carpeta</value>
+  </data>
+
+  <data name="Tour_Skip" xml:space="preserve">
+    <value>Omitir tour</value>
+  </data>
+  <data name="Tour_Back" xml:space="preserve">
+    <value>Atrás</value>
+  </data>
+  <data name="Tour_Next" xml:space="preserve">
+    <value>Siguiente</value>
+  </data>
+  <data name="Tour_Finish" xml:space="preserve">
+    <value>Comenzar</value>
+  </data>
+  <data name="Tour_WelcomeTitle" xml:space="preserve">
+    <value>¡Bienvenido a RetroMultiTools!</value>
+  </data>
+  <data name="Tour_WelcomeDesc" xml:space="preserve">
+    <value>Tu kit de herramientas todo en uno para el juego retro. Permítenos darte un recorrido rápido por todo lo que puede hacer esta aplicación. ¡Solo toma un minuto!</value>
+  </data>
+  <data name="Tour_SidebarTitle" xml:space="preserve">
+    <value>Navegación lateral</value>
+  </data>
+  <data name="Tour_SidebarDesc" xml:space="preserve">
+    <value>Usa la barra lateral de la izquierda para cambiar entre herramientas. Están organizadas en categorías como exploración, parcheo, análisis y más.</value>
+  </data>
+  <data name="Tour_BrowserTitle" xml:space="preserve">
+    <value>Explorador de ROMs</value>
+  </data>
+  <data name="Tour_BrowserDesc" xml:space="preserve">
+    <value>Explora tu colección de ROMs con un potente explorador de archivos. Consulta detalles de archivos, abre carpetas y encuentra rápidamente los juegos que buscas.</value>
+  </data>
+  <data name="Tour_InspectorTitle" xml:space="preserve">
+    <value>Inspector de ROM &amp; Visor Hex</value>
+  </data>
+  <data name="Tour_InspectorDesc" xml:space="preserve">
+    <value>Inspecciona encabezados de archivos ROM, visualiza metadatos internos y examina bytes sin procesar con el visor hex integrado. Ideal para usuarios avanzados y desarrolladores.</value>
+  </data>
+  <data name="Tour_PatchingTitle" xml:space="preserve">
+    <value>Parcheo &amp; Conversión</value>
+  </data>
+  <data name="Tour_PatchingDesc" xml:space="preserve">
+    <value>Aplica parches IPS/BPS/UPS, crea tus propios parches, convierte formatos ROM, convierte archivos de guardado y gestiona el byte-swapping de N64 — todo en un solo lugar.</value>
+  </data>
+  <data name="Tour_AnalysisTitle" xml:space="preserve">
+    <value>Análisis &amp; Verificación</value>
+  </data>
+  <data name="Tour_AnalysisDesc" xml:space="preserve">
+    <value>Verifica tus ROMs con archivos DAT, calcula sumas de verificación, encuentra duplicados, hashea carpetas completas e identifica sets de GoodTools para una gestión precisa de la colección.</value>
+  </data>
+  <data name="Tour_HeadersTitle" xml:space="preserve">
+    <value>Encabezados &amp; Recorte</value>
+  </data>
+  <data name="Tour_HeadersDesc" xml:space="preserve">
+    <value>Exporta, corrige o elimina encabezados de ROM. Recorta ROMs con relleno para ahorrar espacio. Incluye herramientas especializadas para la gestión de encabezados SNES.</value>
+  </data>
+  <data name="Tour_UtilitiesTitle" xml:space="preserve">
+    <value>Utilidades</value>
+  </data>
+  <data name="Tour_UtilitiesDesc" xml:space="preserve">
+    <value>Gestiona archivos comprimidos, aplica códigos de trucos, trabaja con imágenes de disco, configura emuladores, mapea botones de gamepad, obtén metadatos, organiza y renombra tus ROMs, y gestiona dispositivos USB.</value>
+  </data>
+  <data name="Tour_EmulatorsTitle" xml:space="preserve">
+    <value>Integración de emuladores</value>
+  </data>
+  <data name="Tour_EmulatorsDesc" xml:space="preserve">
+    <value>Integración profunda con RetroArch, MAME y Mednafen. Gestiona listas de reproducción, audita sets de ROM, convierte archivos CHD, edita DATs, crea accesos directos y más.</value>
+  </data>
+  <data name="Tour_AnalogueTitle" xml:space="preserve">
+    <value>Analogue FPGA</value>
+  </data>
+  <data name="Tour_AnalogueDesc" xml:space="preserve">
+    <value>Herramientas para hardware Analogue FPGA: Pocket, Mega Sg, Nt/Super Nt y el próximo 3D. Gestiona cores, firmware y bibliotecas de juegos para tus dispositivos.</value>
+  </data>
+  <data name="Tour_BigPictureTitle" xml:space="preserve">
+    <value>Big Picture Mode</value>
+  </data>
+  <data name="Tour_BigPictureDesc" xml:space="preserve">
+    <value>Recuéstate y disfruta de una biblioteca de juegos en pantalla completa con soporte para mando, artwork, seguimiento de partidas y valoraciones. Elige entre el diseño clásico de cuadrícula o el moderno diseño hero.</value>
+  </data>
+  <data name="Tour_SettingsTitle" xml:space="preserve">
+    <value>Ajustes</value>
+  </data>
+  <data name="Tour_SettingsDesc" xml:space="preserve">
+    <value>Personaliza tu experiencia: cambia el idioma, activa Discord Rich Presence, configura Big Picture Mode, configura los controles del gamepad y busca actualizaciones.</value>
+  </data>
+  <data name="Tour_FinishTitle" xml:space="preserve">
+    <value>¡Todo listo!</value>
+  </data>
+  <data name="Tour_FinishDesc" xml:space="preserve">
+    <value>¡Eso es todo! Comienza a explorar las herramientas en la barra lateral. Siempre puedes reiniciar este tour desde Ajustes si necesitas un repaso. ¡Disfruta!</value>
+  </data>
+  <data name="Tour_SettingSectionTitle" xml:space="preserve">
+    <value>Tour guiado</value>
+  </data>
+  <data name="Tour_SettingSectionDesc" xml:space="preserve">
+    <value>Reproduce el tour guiado que explica todas las funciones de la aplicación.</value>
+  </data>
+  <data name="Tour_RestartButton" xml:space="preserve">
+    <value>Reiniciar tour</value>
+  </data>
+  <data name="Browser_SelectFolderTooltip" xml:space="preserve">
+    <value>Browse for a ROM folder to scan</value>
+  </data>
+  <data name="Browser_AddRomsTooltip" xml:space="preserve">
+    <value>Add ROM files to the current folder</value>
+  </data>
+  <data name="Browser_CopyToTooltip" xml:space="preserve">
+    <value>Copy selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_MoveToTooltip" xml:space="preserve">
+    <value>Move selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_DeleteTooltip" xml:space="preserve">
+    <value>Delete the selected ROMs</value>
+  </data>
+  <data name="Browser_OrganizeTooltip" xml:space="preserve">
+    <value>Organize ROMs into subfolders by system</value>
+  </data>
+  <data name="Browser_SendToRemoteTooltip" xml:space="preserve">
+    <value>Send selected ROMs to a remote device or cloud storage</value>
+  </data>
+  <data name="Browser_HostShareTooltip" xml:space="preserve">
+    <value>Host a local server to share ROMs on the network</value>
+  </data>
+  <data name="Browser_LaunchRetroArchTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in RetroArch</value>
+  </data>
+  <data name="Browser_LaunchMameTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in MAME</value>
+  </data>
+  <data name="Browser_LaunchMednafenTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in Mednafen</value>
+  </data>
+  <data name="Browser_BigPictureModeTooltip" xml:space="preserve">
+    <value>Enter full-screen Big Picture Mode for gamepad-friendly browsing</value>
+  </data>
+  <data name="MainWindow_SearchShortcut" xml:space="preserve">
+    <value>Search tools (Ctrl+F)</value>
+  </data>
+  <data name="BigPictureModern_AllGames" xml:space="preserve">
+    <value>Todos los juegos</value>
+  </data>
+  <data name="BigPictureModern_EmptyCategory" xml:space="preserve">
+    <value>Aún no hay juegos en esta categoría</value>
+  </data>
+  <data name="BigPictureModern_EmptyLibrary" xml:space="preserve">
+    <value>Tu biblioteca está vacía. Explora una carpeta de ROMs para comenzar.</value>
+  </data>
+  <data name="BigPictureModern_Favorites" xml:space="preserve">
+    <value>Favoritos</value>
+  </data>
+  <data name="BigPictureModern_LaunchWith" xml:space="preserve">
+    <value>Iniciar con {0}</value>
+  </data>
+  <data name="BigPictureModern_MostPlayed" xml:space="preserve">
+    <value>Más jugados</value>
+  </data>
+  <data name="BigPictureModern_NoResults" xml:space="preserve">
+    <value>Ningún juego coincide con tu búsqueda</value>
+  </data>
+  <data name="BigPictureModern_Plays" xml:space="preserve">
+    <value>{0} partidas</value>
+  </data>
+  <data name="BigPictureModern_RecentlyPlayed" xml:space="preserve">
+    <value>Jugados recientemente</value>
+  </data>
+  <data name="BigPictureModern_SearchPlaceholder" xml:space="preserve">
+    <value>Buscar en tu biblioteca...</value>
+  </data>
+  <data name="BigPictureModern_Spotlight" xml:space="preserve">
+    <value>Destacados</value>
+  </data>
+  <data name="BigPictureModern_TopRated" xml:space="preserve">
+    <value>Mejor valorados</value>
+  </data>
+  <data name="BigPicture_CopiedToClipboard" xml:space="preserve">
+    <value>Ruta copiada al portapapeles</value>
+  </data>
+  <data name="BigPicture_CopyFilePath" xml:space="preserve">
+    <value>Copiar ruta del archivo</value>
+  </data>
+  <data name="BigPicture_OpenFileLocation" xml:space="preserve">
+    <value>Abrir ubicación del archivo</value>
+  </data>
+  <data name="BigPicture_SortPlayCount" xml:space="preserve">
+    <value>Veces jugado (Mayor → Menor)</value>
+  </data>
+  <data name="Browser_ContextChecksum" xml:space="preserve">
+    <value>#️⃣ Calcular suma de verificación</value>
+  </data>
+  <data name="Browser_ContextGoodTools" xml:space="preserve">
+    <value>🏷️ Identificar con GoodTools</value>
+  </data>
+  <data name="Browser_ContextHexView" xml:space="preserve">
+    <value>🔢 Abrir en visor Hex</value>
+  </data>
+  <data name="Browser_ContextInspect" xml:space="preserve">
+    <value>🔍 Abrir en inspector de ROM</value>
+  </data>
+  <data name="Browser_ContextOpenFolder" xml:space="preserve">
+    <value>📂 Abrir carpeta contenedora</value>
+  </data>
+  <data name="Browser_ContextOpenWith" xml:space="preserve">
+    <value>🚀 Abrir con</value>
+  </data>
+  <data name="Browser_ContextPatch" xml:space="preserve">
+    <value>🩹 Parchear ROM...</value>
+  </data>
+  <data name="Browser_ContextRename" xml:space="preserve">
+    <value>✏️ Renombrar...</value>
+  </data>
+  <data name="Browser_ContextTools" xml:space="preserve">
+    <value>🔧 Herramientas</value>
+  </data>
+  <data name="Browser_OpenFolderError" xml:space="preserve">
+    <value>No se pudo abrir la carpeta: {0}</value>
+  </data>
+  <data name="Browser_RenameError" xml:space="preserve">
+    <value>Error al renombrar: {0}</value>
+  </data>
+  <data name="Browser_RenamePromptTitle" xml:space="preserve">
+    <value>Renombrar ROM</value>
+  </data>
+  <data name="Browser_RenameSuccess" xml:space="preserve">
+    <value>Renombrado a {0}</value>
+  </data>
+  <data name="Checksum_Description" xml:space="preserve">
+    <value>Calcula sumas de verificación CRC32, MD5, SHA-1 y SHA-256 para archivos ROM para verificar la integridad e identificar volcados.</value>
+  </data>
+  <data name="Common_SelectFileTitle" xml:space="preserve">
+    <value>Seleccionar archivo</value>
+  </data>
+  <data name="Common_SelectOutputDirectoryTitle" xml:space="preserve">
+    <value>Seleccionar directorio de salida</value>
+  </data>
+  <data name="Common_SelectRomDirectoryTitle" xml:space="preserve">
+    <value>Seleccionar directorio de ROMs</value>
+  </data>
+  <data name="Common_SelectRomFileTitle" xml:space="preserve">
+    <value>Seleccionar archivo ROM</value>
+  </data>
+  <data name="Comparer_Description" xml:space="preserve">
+    <value>Compara dos archivos ROM byte a byte para identificar diferencias en tamaño, contenido y encontrar el primer desplazamiento no coincidente.</value>
+  </data>
+  <data name="GoodTools_NoCodesForFile" xml:space="preserve">
+    <value>No se encontraron códigos de GoodTools.</value>
+  </data>
+  <data name="MameConfig_Artwork" xml:space="preserve">
+    <value>Opciones de artwork</value>
+  </data>
+  <data name="MameConfig_AutoEnable" xml:space="preserve">
+    <value>Opciones de activación automática de entrada</value>
+  </data>
+  <data name="MameConfig_Bgfx" xml:space="preserve">
+    <value>Post-procesado BGFX</value>
+  </data>
+  <data name="MameConfig_Communication" xml:space="preserve">
+    <value>Opciones de comunicación</value>
+  </data>
+  <data name="MameConfig_ConfigFile" xml:space="preserve">
+    <value>Archivo de configuración</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Tiene cambios sin guardar. ¿Descartarlos y continuar?</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Cambios sin guardar</value>
+  </data>
+  <data name="MameConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Esto restablecerá todas las opciones a los valores predeterminados de MAME. Se perderán los cambios sin guardar. ¿Continuar?</value>
+  </data>
+  <data name="MameConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Restablecer valores predeterminados</value>
+  </data>
+  <data name="MameConfig_CoreInput" xml:space="preserve">
+    <value>Opciones de entrada principales</value>
+  </data>
+  <data name="MameConfig_CoreMisc" xml:space="preserve">
+    <value>Opciones diversas principales</value>
+  </data>
+  <data name="MameConfig_CorePerformance" xml:space="preserve">
+    <value>Opciones de rendimiento principales</value>
+  </data>
+  <data name="MameConfig_CoreSound" xml:space="preserve">
+    <value>Opciones de sonido principales</value>
+  </data>
+  <data name="MameConfig_CoreVideo" xml:space="preserve">
+    <value>Opciones de vídeo principales</value>
+  </data>
+  <data name="MameConfig_CreateNew" xml:space="preserve">
+    <value>Crear nuevo</value>
+  </data>
+  <data name="MameConfig_Debugging" xml:space="preserve">
+    <value>Opciones de depuración</value>
+  </data>
+  <data name="MameConfig_DefaultsRestored" xml:space="preserve">
+    <value>Todas las opciones restablecidas a los valores predeterminados de MAME.</value>
+  </data>
+  <data name="MameConfig_Description" xml:space="preserve">
+    <value>Carga, edita y guarda archivos de configuración de MAME (mame.ini). Compatible con todas las opciones de MAME para Windows, macOS y Linux.</value>
+  </data>
+  <data name="MameConfig_HttpServer" xml:space="preserve">
+    <value>Opciones del servidor HTTP</value>
+  </data>
+  <data name="MameConfig_IniFileType" xml:space="preserve">
+    <value>Archivos INI de MAME</value>
+  </data>
+  <data name="MameConfig_IniPlaceholder" xml:space="preserve">
+    <value>Ruta a mame.ini...</value>
+  </data>
+  <data name="MameConfig_Language" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="MameConfig_LoadError" xml:space="preserve">
+    <value>Error al cargar la configuración: {0}</value>
+  </data>
+  <data name="MameConfig_Loaded" xml:space="preserve">
+    <value>Se cargaron {0} opciones desde {1}</value>
+  </data>
+  <data name="MameConfig_NewCreated" xml:space="preserve">
+    <value>Nueva configuración creada con valores predeterminados de MAME. Ruta de guardado: {0}</value>
+  </data>
+  <data name="MameConfig_NoIniFound" xml:space="preserve">
+    <value>No se encontró mame.ini. Use Examinar para localizarlo o Crear nuevo para generar uno con valores predeterminados.</value>
+  </data>
+  <data name="MameConfig_OsdInput" xml:space="preserve">
+    <value>Proveedores de entrada OSD</value>
+  </data>
+  <data name="MameConfig_OsdSound" xml:space="preserve">
+    <value>Opciones de sonido OSD</value>
+  </data>
+  <data name="MameConfig_OsdVideo" xml:space="preserve">
+    <value>OSD / Vídeo acelerado</value>
+  </data>
+  <data name="MameConfig_OutputDirs" xml:space="preserve">
+    <value>Directorios de salida</value>
+  </data>
+  <data name="MameConfig_PerWindowVideo" xml:space="preserve">
+    <value>Opciones de vídeo por ventana</value>
+  </data>
+  <data name="MameConfig_ResetDefaults" xml:space="preserve">
+    <value>Restablecer valores predeterminados</value>
+  </data>
+  <data name="MameConfig_Rotation" xml:space="preserve">
+    <value>Opciones de rotación</value>
+  </data>
+  <data name="MameConfig_Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="MameConfig_SaveAs" xml:space="preserve">
+    <value>Guardar como...</value>
+  </data>
+  <data name="MameConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Guardar configuración de MAME</value>
+  </data>
+  <data name="MameConfig_SaveError" xml:space="preserve">
+    <value>Error al guardar la configuración: {0}</value>
+  </data>
+  <data name="MameConfig_Saved" xml:space="preserve">
+    <value>Configuración guardada en {0}</value>
+  </data>
+  <data name="MameConfig_ScreenOptions" xml:space="preserve">
+    <value>Opciones de pantalla</value>
+  </data>
+  <data name="MameConfig_Scripting" xml:space="preserve">
+    <value>Scripting / Plugins</value>
+  </data>
+  <data name="MameConfig_SearchPaths" xml:space="preserve">
+    <value>Rutas de búsqueda</value>
+  </data>
+  <data name="MameConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Escriba para filtrar opciones por nombre (ej. rompath, video, joystick...)</value>
+  </data>
+  <data name="MameConfig_SearchResults" xml:space="preserve">
+    <value>{0} de {1} secciones coinciden</value>
+  </data>
+  <data name="MameConfig_SearchSettings" xml:space="preserve">
+    <value>Buscar opciones</value>
+  </data>
+  <data name="MameConfig_SelectIniTitle" xml:space="preserve">
+    <value>Seleccionar archivo de configuración de MAME</value>
+  </data>
+  <data name="MameConfig_StatePlayback" xml:space="preserve">
+    <value>Opciones de estado / reproducción</value>
+  </data>
+  <data name="MameConfig_TabInput" xml:space="preserve">
+    <value>Entrada</value>
+  </data>
+  <data name="MameConfig_TabMisc" xml:space="preserve">
+    <value>Varios / Avanzado</value>
+  </data>
+  <data name="MameConfig_TabPaths" xml:space="preserve">
+    <value>Rutas</value>
+  </data>
+  <data name="MameConfig_TabPerformance" xml:space="preserve">
+    <value>Rendimiento</value>
+  </data>
+  <data name="MameConfig_TabSound" xml:space="preserve">
+    <value>Sonido</value>
+  </data>
+  <data name="MameConfig_TabState" xml:space="preserve">
+    <value>Estado / Reproducción</value>
+  </data>
+  <data name="MameConfig_TabVideo" xml:space="preserve">
+    <value>Vídeo</value>
+  </data>
+  <data name="MameConfig_Title" xml:space="preserve">
+    <value>Configurador de MAME</value>
+  </data>
+  <data name="MameConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Cambios sin guardar</value>
+  </data>
+  <data name="MameConfig_Vector" xml:space="preserve">
+    <value>Opciones de vectores</value>
+  </data>
+  <data name="MednafenConfig_CfgFileType" xml:space="preserve">
+    <value>Archivos de configuración Mednafen (*.cfg)</value>
+  </data>
+  <data name="MednafenConfig_CfgPlaceholder" xml:space="preserve">
+    <value>Ruta a mednafen.cfg...</value>
+  </data>
+  <data name="MednafenConfig_ConfigFile" xml:space="preserve">
+    <value>Archivo de configuración</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Tiene cambios sin guardar. ¿Descartarlos y continuar?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Cambios sin guardar</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Esto restablecerá todas las opciones a los valores predeterminados de Mednafen. Se perderán los cambios sin guardar. ¿Continuar?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Restablecer valores predeterminados</value>
+  </data>
+  <data name="MednafenConfig_CoreSettings" xml:space="preserve">
+    <value>Configuración principal</value>
+  </data>
+  <data name="MednafenConfig_CpuAffinity" xml:space="preserve">
+    <value>Afinidad de CPU</value>
+  </data>
+  <data name="MednafenConfig_CreateNew" xml:space="preserve">
+    <value>Crear nuevo</value>
+  </data>
+  <data name="MednafenConfig_DefaultsRestored" xml:space="preserve">
+    <value>Todas las opciones restauradas a los valores predeterminados de Mednafen.</value>
+  </data>
+  <data name="MednafenConfig_Description" xml:space="preserve">
+    <value>Carga, edita y guarda archivos de configuración de Mednafen (mednafen.cfg). Compatible con todas las opciones de Mednafen para Windows, macOS y Linux.</value>
+  </data>
+  <data name="MednafenConfig_DirectoryPaths" xml:space="preserve">
+    <value>Rutas de directorios</value>
+  </data>
+  <data name="MednafenConfig_FilenameFormats" xml:space="preserve">
+    <value>Formatos de nombres de archivo</value>
+  </data>
+  <data name="MednafenConfig_FpsDisplay" xml:space="preserve">
+    <value>Visualización de FPS</value>
+  </data>
+  <data name="MednafenConfig_GoatShader" xml:space="preserve">
+    <value>Configuración de Goat Shader</value>
+  </data>
+  <data name="MednafenConfig_InputSettings" xml:space="preserve">
+    <value>Configuración de entrada</value>
+  </data>
+  <data name="MednafenConfig_LoadError" xml:space="preserve">
+    <value>Error al cargar la configuración: {0}</value>
+  </data>
+  <data name="MednafenConfig_Loaded" xml:space="preserve">
+    <value>Se cargaron {0} opciones desde {1}</value>
+  </data>
+  <data name="MednafenConfig_NetworkPlay" xml:space="preserve">
+    <value>Juego en red</value>
+  </data>
+  <data name="MednafenConfig_NewCreated" xml:space="preserve">
+    <value>Nueva configuración predeterminada creada en {0}</value>
+  </data>
+  <data name="MednafenConfig_NoCfgFound" xml:space="preserve">
+    <value>No se pudo detectar mednafen.cfg automáticamente. Por favor, busque el archivo manualmente.</value>
+  </data>
+  <data name="MednafenConfig_Osd" xml:space="preserve">
+    <value>Visualización en pantalla</value>
+  </data>
+  <data name="MednafenConfig_PerSystemDescription" xml:space="preserve">
+    <value>Configure el escalado de vídeo, shaders y opciones de visualización por sistema emulado. Los cambios se guardan al cambiar de sistema o al guardar el archivo.</value>
+  </data>
+  <data name="MednafenConfig_QtRecord" xml:space="preserve">
+    <value>Grabación QuickTime</value>
+  </data>
+  <data name="MednafenConfig_ResetDefaults" xml:space="preserve">
+    <value>Restablecer valores predeterminados</value>
+  </data>
+  <data name="MednafenConfig_Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="MednafenConfig_SaveAs" xml:space="preserve">
+    <value>Guardar como</value>
+  </data>
+  <data name="MednafenConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Guardar configuración de Mednafen como</value>
+  </data>
+  <data name="MednafenConfig_SaveError" xml:space="preserve">
+    <value>Error al guardar la configuración: {0}</value>
+  </data>
+  <data name="MednafenConfig_Saved" xml:space="preserve">
+    <value>Configuración guardada en {0}</value>
+  </data>
+  <data name="MednafenConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Escriba para filtrar opciones por nombre (ej. video, sound, shader...)</value>
+  </data>
+  <data name="MednafenConfig_SearchResults" xml:space="preserve">
+    <value>{0} de {1} secciones coinciden</value>
+  </data>
+  <data name="MednafenConfig_SearchSettings" xml:space="preserve">
+    <value>Buscar opciones</value>
+  </data>
+  <data name="MednafenConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Seleccionar archivo de configuración de Mednafen</value>
+  </data>
+  <data name="MednafenConfig_SelectSystem" xml:space="preserve">
+    <value>Seleccionar sistema</value>
+  </data>
+  <data name="MednafenConfig_SoundOutput" xml:space="preserve">
+    <value>Salida de sonido</value>
+  </data>
+  <data name="MednafenConfig_SpeedSettings" xml:space="preserve">
+    <value>Avance rápido / Cámara lenta</value>
+  </data>
+  <data name="MednafenConfig_SystemVideo" xml:space="preserve">
+    <value>Vídeo del sistema / Escalado</value>
+  </data>
+  <data name="MednafenConfig_TabAdvanced" xml:space="preserve">
+    <value>Avanzado</value>
+  </data>
+  <data name="MednafenConfig_TabGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="MednafenConfig_TabInput" xml:space="preserve">
+    <value>Entrada</value>
+  </data>
+  <data name="MednafenConfig_TabNetplay" xml:space="preserve">
+    <value>Juego en red</value>
+  </data>
+  <data name="MednafenConfig_TabPaths" xml:space="preserve">
+    <value>Rutas</value>
+  </data>
+  <data name="MednafenConfig_TabPerSystem" xml:space="preserve">
+    <value>Por sistema</value>
+  </data>
+  <data name="MednafenConfig_TabSound" xml:space="preserve">
+    <value>Sonido</value>
+  </data>
+  <data name="MednafenConfig_TabVideo" xml:space="preserve">
+    <value>Vídeo</value>
+  </data>
+  <data name="MednafenConfig_TemporalBlur" xml:space="preserve">
+    <value>Desenfoque temporal</value>
+  </data>
+  <data name="MednafenConfig_Title" xml:space="preserve">
+    <value>Configurador de Mednafen</value>
+  </data>
+  <data name="MednafenConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Cambios sin guardar</value>
+  </data>
+  <data name="MednafenConfig_VideoOutput" xml:space="preserve">
+    <value>Salida de vídeo</value>
+  </data>
+  <data name="MetaScraper_SummaryBySystem" xml:space="preserve">
+    <value>Resumen por sistema:</value>
+  </data>
+  <data name="MetaScraper_SummaryStats" xml:space="preserve">
+    <value>Válidos: {0}, Inválidos: {1}, Errores: {2}</value>
+  </data>
+  <data name="Nav_MameConfigurator" xml:space="preserve">
+    <value>Configurador de MAME</value>
+  </data>
+  <data name="Nav_MednafenConfigurator" xml:space="preserve">
+    <value>Configurador de Mednafen</value>
+  </data>
+  <data name="Nav_NoResults" xml:space="preserve">
+    <value>No se encontraron herramientas coincidentes.</value>
+  </data>
+  <data name="Nav_RetroArchConfigurator" xml:space="preserve">
+    <value>Configurador de RetroArch</value>
+  </data>
+  <data name="Nav_SearchPlaceholder" xml:space="preserve">
+    <value>Buscar herramientas...</value>
+  </data>
+  <data name="Patcher_Description" xml:space="preserve">
+    <value>Aplica parches IPS, BPS o xdelta a archivos ROM para aplicar traducciones, correcciones o modificaciones.</value>
+  </data>
+  <data name="RAConfig_AIService" xml:space="preserve">
+    <value>Servicio de IA</value>
+  </data>
+  <data name="RAConfig_AccessibilityOptions" xml:space="preserve">
+    <value>Opciones de accesibilidad</value>
+  </data>
+  <data name="RAConfig_AchievementDisplay" xml:space="preserve">
+    <value>Visualización de logros</value>
+  </data>
+  <data name="RAConfig_AchievementOptions" xml:space="preserve">
+    <value>Opciones de RetroAchievements</value>
+  </data>
+  <data name="RAConfig_AudioDriver" xml:space="preserve">
+    <value>Controlador de audio</value>
+  </data>
+  <data name="RAConfig_AudioSync" xml:space="preserve">
+    <value>Configuración de audio</value>
+  </data>
+  <data name="RAConfig_CfgFileType" xml:space="preserve">
+    <value>Archivos CFG de RetroArch</value>
+  </data>
+  <data name="RAConfig_CfgPlaceholder" xml:space="preserve">
+    <value>Ruta a retroarch.cfg...</value>
+  </data>
+  <data name="RAConfig_ConfigFile" xml:space="preserve">
+    <value>Archivo de configuración</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Tiene cambios sin guardar. ¿Descartarlos y continuar?</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Cambios sin guardar</value>
+  </data>
+  <data name="RAConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Esto restablecerá todas las opciones a los valores predeterminados de RetroArch. Se perderán los cambios sin guardar. ¿Continuar?</value>
+  </data>
+  <data name="RAConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Restablecer valores predeterminados</value>
+  </data>
+  <data name="RAConfig_ContentPaths" xml:space="preserve">
+    <value>Rutas de contenido y guardado</value>
+  </data>
+  <data name="RAConfig_CoreOptions" xml:space="preserve">
+    <value>Opciones del núcleo</value>
+  </data>
+  <data name="RAConfig_CorePaths" xml:space="preserve">
+    <value>Rutas del núcleo y sistema</value>
+  </data>
+  <data name="RAConfig_CreateNew" xml:space="preserve">
+    <value>Crear nuevo</value>
+  </data>
+  <data name="RAConfig_DefaultsRestored" xml:space="preserve">
+    <value>Todas las opciones restablecidas a los valores predeterminados de RetroArch.</value>
+  </data>
+  <data name="RAConfig_Description" xml:space="preserve">
+    <value>Carga, edita y guarda archivos de configuración de RetroArch (retroarch.cfg). Compatible con todas las opciones de RetroArch para Windows, macOS y Linux.</value>
+  </data>
+  <data name="RAConfig_FilterPaths" xml:space="preserve">
+    <value>Rutas de filtros, overlays y otros</value>
+  </data>
+  <data name="RAConfig_FrameThrottle" xml:space="preserve">
+    <value>Opciones de limitación de fotogramas</value>
+  </data>
+  <data name="RAConfig_InputGeneral" xml:space="preserve">
+    <value>Configuración general de entrada</value>
+  </data>
+  <data name="RAConfig_InputHotkeys" xml:space="preserve">
+    <value>Asignación de teclas rápidas</value>
+  </data>
+  <data name="RAConfig_LoadError" xml:space="preserve">
+    <value>Error al cargar la configuración: {0}</value>
+  </data>
+  <data name="RAConfig_Loaded" xml:space="preserve">
+    <value>Se cargaron {0} opciones desde {1}</value>
+  </data>
+  <data name="RAConfig_Logging" xml:space="preserve">
+    <value>Opciones de registro</value>
+  </data>
+  <data name="RAConfig_MenuGeneral" xml:space="preserve">
+    <value>Configuración del menú</value>
+  </data>
+  <data name="RAConfig_MenuTheme" xml:space="preserve">
+    <value>Tema y apariencia</value>
+  </data>
+  <data name="RAConfig_MiscOptions" xml:space="preserve">
+    <value>Opciones diversas</value>
+  </data>
+  <data name="RAConfig_Netplay" xml:space="preserve">
+    <value>Juego en red</value>
+  </data>
+  <data name="RAConfig_NetworkGeneral" xml:space="preserve">
+    <value>Configuración de red</value>
+  </data>
+  <data name="RAConfig_NewCreated" xml:space="preserve">
+    <value>Nueva configuración creada con valores predeterminados de RetroArch. Ruta de guardado: {0}</value>
+  </data>
+  <data name="RAConfig_NoCfgFound" xml:space="preserve">
+    <value>No se encontró retroarch.cfg. Use Examinar para localizarlo o Crear nuevo para generar uno con valores predeterminados.</value>
+  </data>
+  <data name="RAConfig_Notifications" xml:space="preserve">
+    <value>Notificaciones</value>
+  </data>
+  <data name="RAConfig_OverlaySettings" xml:space="preserve">
+    <value>Configuración de overlay</value>
+  </data>
+  <data name="RAConfig_RGUITheme" xml:space="preserve">
+    <value>Tema RGUI</value>
+  </data>
+  <data name="RAConfig_RecordingOptions" xml:space="preserve">
+    <value>Opciones de grabación</value>
+  </data>
+  <data name="RAConfig_ResetDefaults" xml:space="preserve">
+    <value>Restablecer valores predeterminados</value>
+  </data>
+  <data name="RAConfig_Rewind" xml:space="preserve">
+    <value>Opciones de rebobinado</value>
+  </data>
+  <data name="RAConfig_Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="RAConfig_SaveAs" xml:space="preserve">
+    <value>Guardar como...</value>
+  </data>
+  <data name="RAConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Guardar configuración de RetroArch</value>
+  </data>
+  <data name="RAConfig_SaveError" xml:space="preserve">
+    <value>Error al guardar la configuración: {0}</value>
+  </data>
+  <data name="RAConfig_SaveOptions" xml:space="preserve">
+    <value>Opciones de guardado y estado</value>
+  </data>
+  <data name="RAConfig_Saved" xml:space="preserve">
+    <value>Configuración guardada en {0}</value>
+  </data>
+  <data name="RAConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Escriba para filtrar opciones por nombre (ej. video_driver, audio, netplay...)</value>
+  </data>
+  <data name="RAConfig_SearchSettings" xml:space="preserve">
+    <value>Buscar opciones</value>
+  </data>
+  <data name="RAConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Seleccionar archivo de configuración de RetroArch</value>
+  </data>
+  <data name="RAConfig_TabAccessibility" xml:space="preserve">
+    <value>Accesibilidad</value>
+  </data>
+  <data name="RAConfig_TabAchievements" xml:space="preserve">
+    <value>Logros</value>
+  </data>
+  <data name="RAConfig_TabAudio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="RAConfig_TabCore" xml:space="preserve">
+    <value>Núcleo / Guardado</value>
+  </data>
+  <data name="RAConfig_TabFrameThrottle" xml:space="preserve">
+    <value>Limitación de fotogramas</value>
+  </data>
+  <data name="RAConfig_TabInput" xml:space="preserve">
+    <value>Entrada</value>
+  </data>
+  <data name="RAConfig_TabMenu" xml:space="preserve">
+    <value>Menú / UI</value>
+  </data>
+  <data name="RAConfig_TabMisc" xml:space="preserve">
+    <value>Varios / Registro</value>
+  </data>
+  <data name="RAConfig_TabNetwork" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="RAConfig_TabOverlay" xml:space="preserve">
+    <value>Overlay</value>
+  </data>
+  <data name="RAConfig_TabPaths" xml:space="preserve">
+    <value>Rutas</value>
+  </data>
+  <data name="RAConfig_TabRecording" xml:space="preserve">
+    <value>Grabación</value>
+  </data>
+  <data name="RAConfig_TabVideo" xml:space="preserve">
+    <value>Vídeo</value>
+  </data>
+  <data name="RAConfig_Title" xml:space="preserve">
+    <value>Configurador de RetroArch</value>
+  </data>
+  <data name="RAConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Cambios sin guardar</value>
+  </data>
+  <data name="RAConfig_VideoAdvanced" xml:space="preserve">
+    <value>Vídeo avanzado</value>
+  </data>
+  <data name="RAConfig_VideoDisplay" xml:space="preserve">
+    <value>Configuración de pantalla</value>
+  </data>
+  <data name="RAConfig_VideoDriver" xml:space="preserve">
+    <value>Controlador de vídeo</value>
+  </data>
+  <data name="RAConfig_VideoOSD" xml:space="preserve">
+    <value>OSD y capturas de pantalla</value>
+  </data>
+  <data name="RAConfig_VideoScaling" xml:space="preserve">
+    <value>Escalado y filtrado</value>
+  </data>
+  <data name="RAConfig_VideoSync" xml:space="preserve">
+    <value>Sincronización</value>
+  </data>
+  <data name="Security_SingleNoFeatures" xml:space="preserve">
+    <value>✔ {0}: No se detectaron características de seguridad.</value>
+  </data>
+  <data name="Security_SingleResultDetected" xml:space="preserve">
+    <value>✔ {0}: Se detectaron {1} característica(s) de seguridad.</value>
+  </data>
+  <data name="Settings_BigPictureStyleClassic" xml:space="preserve">
+    <value>Clásico (cuadrícula de tarjetas)</value>
+  </data>
+  <data name="Settings_BigPictureStyleLabel" xml:space="preserve">
+    <value>Estilo visual</value>
+  </data>
+  <data name="Settings_BigPictureStyleModern" xml:space="preserve">
+    <value>Moderno (héroe + carrusel)</value>
+  </data>
+  <data name="Settings_UpdateManagedByPackageManager" xml:space="preserve">
+    <value>Las actualizaciones son administradas por el gestor de paquetes de su sistema.</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImage" xml:space="preserve">
+    <value>Confirmar creación de imagen</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImageMessage" xml:space="preserve">
+    <value>¿Crear una imagen completa del disco de {0}? Esto puede tardar dependiendo del tamaño del disco.</value>
+  </data>
 </root>

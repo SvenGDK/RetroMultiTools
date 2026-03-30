@@ -6124,4 +6124,1205 @@ Run:notepad.exe</value>
   <data name="Settings_Clear" xml:space="preserve">
     <value>Очистить</value>
   </data>
+  <data name="Nav_DiscTools" xml:space="preserve">
+    <value>Дисковые инструменты</value>
+  </data>
+  <data name="DiscTools_Title" xml:space="preserve">
+    <value>Дисковые инструменты</value>
+  </data>
+  <data name="DiscTools_Description" xml:space="preserve">
+    <value>Записывайте образы дисков или файлы на оптические носители и создавайте образы дисков из физических дисков или файлов. Поддерживает ISO, BIN/CUE, IMG, GDI, CDI, NRG и другие форматы дисков игровой системы.</value>
+  </data>
+  <data name="DiscTools_Operation" xml:space="preserve">
+    <value>Операция:</value>
+  </data>
+  <data name="DiscTools_OpBurnImage" xml:space="preserve">
+    <value>Записать образ на диск</value>
+  </data>
+  <data name="DiscTools_OpBurnFiles" xml:space="preserve">
+    <value>Запись файлов на диск</value>
+  </data>
+  <data name="DiscTools_OpImageFromDisc" xml:space="preserve">
+    <value>Создать образ с диска</value>
+  </data>
+  <data name="DiscTools_OpImageFromFiles" xml:space="preserve">
+    <value>Создать изображение из файлов</value>
+  </data>
+  <data name="DiscTools_Drive" xml:space="preserve">
+    <value>Оптический привод:</value>
+  </data>
+  <data name="DiscTools_SelectDrive" xml:space="preserve">
+    <value>Выберите оптический привод...</value>
+  </data>
+  <data name="DiscTools_RefreshDrives" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="DiscTools_NoDrivesFound" xml:space="preserve">
+    <value>В этой системе не обнаружены оптические приводы.</value>
+  </data>
+  <data name="DiscTools_ImageFile" xml:space="preserve">
+    <value>Файл изображения:</value>
+  </data>
+  <data name="DiscTools_SelectImageFile" xml:space="preserve">
+    <value>Выберите файл образа диска...</value>
+  </data>
+  <data name="DiscTools_ImageFiles" xml:space="preserve">
+    <value>Файлы образов дисков</value>
+  </data>
+  <data name="DiscTools_FilesOrFolders" xml:space="preserve">
+    <value>Файлы/Папки:</value>
+  </data>
+  <data name="DiscTools_SelectFilesOrFolders" xml:space="preserve">
+    <value>Выберите файлы или папки для записи...</value>
+  </data>
+  <data name="DiscTools_SelectFolder" xml:space="preserve">
+    <value>Выберите папку</value>
+  </data>
+  <data name="DiscTools_OutputFile" xml:space="preserve">
+    <value>Выходной файл изображения:</value>
+  </data>
+  <data name="DiscTools_SelectOutputImage" xml:space="preserve">
+    <value>Выберите путь к файлу выходного изображения...</value>
+  </data>
+  <data name="DiscTools_VolumeLabel" xml:space="preserve">
+    <value>Метка тома:</value>
+  </data>
+  <data name="DiscTools_VolumeLabelHint" xml:space="preserve">
+    <value>Введите метку тома для диска...</value>
+  </data>
+  <data name="DiscTools_WriteSpeed" xml:space="preserve">
+    <value>Скорость записи:</value>
+  </data>
+  <data name="DiscTools_SpeedAuto" xml:space="preserve">
+    <value>Автоматический (Макс.)</value>
+  </data>
+  <data name="DiscTools_VerifyAfterBurn" xml:space="preserve">
+    <value>Подтвердите после написания</value>
+  </data>
+  <data name="DiscTools_Burn" xml:space="preserve">
+    <value>Запись на диск</value>
+  </data>
+  <data name="DiscTools_CreateImage" xml:space="preserve">
+    <value>Создать изображение</value>
+  </data>
+  <data name="DiscTools_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="DiscTools_DetectingDrives" xml:space="preserve">
+    <value>Обнаружение оптических приводов...</value>
+  </data>
+  <data name="DiscTools_DriveDetectError" xml:space="preserve">
+    <value>Ошибка обнаружения дисков: {0}</value>
+  </data>
+  <data name="DiscTools_ImageNotFound" xml:space="preserve">
+    <value>Файл изображения не найден.</value>
+  </data>
+  <data name="DiscTools_BurningImage" xml:space="preserve">
+    <value>Запись изображения: {0}</value>
+  </data>
+  <data name="DiscTools_BurningFiles" xml:space="preserve">
+    <value>Запись элементов {0} на диск...</value>
+  </data>
+  <data name="DiscTools_NoFilesSelected" xml:space="preserve">
+    <value>Файлы и папки не выбраны.</value>
+  </data>
+  <data name="DiscTools_OutputRequired" xml:space="preserve">
+    <value>Укажите путь к выходному файлу.</value>
+  </data>
+  <data name="DiscTools_ReadingDisc" xml:space="preserve">
+    <value>Чтение диска...</value>
+  </data>
+  <data name="DiscTools_CreatingImage" xml:space="preserve">
+    <value>Создание образа: {0}</value>
+  </data>
+  <data name="DiscTools_WritingToDisc" xml:space="preserve">
+    <value>Запись данных на диск...</value>
+  </data>
+  <data name="DiscTools_RunningTool" xml:space="preserve">
+    <value>Запуск {0}...</value>
+  </data>
+  <data name="DiscTools_BurnComplete" xml:space="preserve">
+    <value>✔ Успешно записано на диск.</value>
+  </data>
+  <data name="DiscTools_BurnFailed" xml:space="preserve">
+    <value>✘ Ошибка записи: {0}.</value>
+  </data>
+  <data name="DiscTools_ImageCreated" xml:space="preserve">
+    <value>✔ Создано изображение: {0} ({1})</value>
+  </data>
+  <data name="DiscTools_ImageCreateFailed" xml:space="preserve">
+    <value>✘ Не удалось создать образ: {0}.</value>
+  </data>
+  <data name="DiscTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Эта платформа не поддерживается для операций с дисками.</value>
+  </data>
+  <data name="DiscTools_NoBurnTool" xml:space="preserve">
+    <value>Инструмент для записи дисков не найден. Пожалуйста, установите wodim, cdrecord или xorrecord.</value>
+  </data>
+  <data name="DiscTools_NoIsoTool" xml:space="preserve">
+    <value>Инструмент создания ISO не найден. Пожалуйста, установите xorrisofs, genisoimage или mkisofs.</value>
+  </data>
+  <data name="DiscTools_IsoCreateFailed" xml:space="preserve">
+    <value>Не удалось создать ISO: {0}.</value>
+  </data>
+  <data name="DiscTools_CreatingIso" xml:space="preserve">
+    <value>Создание ISO-образа...</value>
+  </data>
+  <data name="DiscTools_OperationCancelled" xml:space="preserve">
+    <value>Операция отменена.</value>
+  </data>
+  <data name="DiscTools_BrowseFolder" xml:space="preserve">
+    <value>Обзор папки</value>
+  </data>
+  <data name="DiscTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>Образ формата «{0}» невозможно записать на диск. Поддерживаемые форматы: ISO, BIN/CUE, IMG, NRG, TOAST.</value>
+  </data>
+  <data name="DiscTools_Verifying" xml:space="preserve">
+    <value>Проверка диска...</value>
+  </data>
+  <data name="DiscTools_BurnCompleteVerifySkipped" xml:space="preserve">
+    <value>Запись завершена успешно. Не удалось выполнить проверку.</value>
+  </data>
+  <data name="DiscTools_VerifyFailed" xml:space="preserve">
+    <value>Запись завершена, но проверка не удалась: данные диска не соответствуют исходному образу.</value>
+  </data>
+  <data name="DiscTools_IsoImageType" xml:space="preserve">
+    <value>ISO-образ</value>
+  </data>
+  <data name="DiscTools_BinCueImageType" xml:space="preserve">
+    <value>Изображение BIN/CUE</value>
+  </data>
+  <data name="Nav_UsbTools" xml:space="preserve">
+    <value>Инструменты USB</value>
+  </data>
+  <data name="UsbTools_Title" xml:space="preserve">
+    <value>Инструменты USB</value>
+  </data>
+  <data name="UsbTools_Description" xml:space="preserve">
+    <value>Форматирование, запись образов на, создание образов с и просмотр USB-накопителей.</value>
+  </data>
+  <data name="UsbTools_Drive" xml:space="preserve">
+    <value>USB-накопитель</value>
+  </data>
+  <data name="UsbTools_SelectDrive" xml:space="preserve">
+    <value>Выберите USB-накопитель...</value>
+  </data>
+  <data name="UsbTools_RefreshDrives" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="UsbTools_DetectingDrives" xml:space="preserve">
+    <value>Обнаружение USB-накопителей...</value>
+  </data>
+  <data name="UsbTools_NoDrivesFound" xml:space="preserve">
+    <value>USB-накопители не найдены.</value>
+  </data>
+  <data name="UsbTools_DriveDetectError" xml:space="preserve">
+    <value>Ошибка обнаружения накопителей: {0}</value>
+  </data>
+  <data name="UsbTools_NoDriveSelected" xml:space="preserve">
+    <value>USB-накопитель не выбран.</value>
+  </data>
+  <data name="UsbTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Эта операция не поддерживается на текущей платформе.</value>
+  </data>
+  <data name="UsbTools_TabExplorer" xml:space="preserve">
+    <value>Проводник</value>
+  </data>
+  <data name="UsbTools_TabFormat" xml:space="preserve">
+    <value>Форматирование</value>
+  </data>
+  <data name="UsbTools_TabWriteImage" xml:space="preserve">
+    <value>Запись образа</value>
+  </data>
+  <data name="UsbTools_TabCreateImage" xml:space="preserve">
+    <value>Создание образа</value>
+  </data>
+  <data name="UsbTools_NavigateUp" xml:space="preserve">
+    <value>Перейти вверх</value>
+  </data>
+  <data name="UsbTools_RefreshFiles" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="UsbTools_AddFiles" xml:space="preserve">
+    <value>Добавить файлы</value>
+  </data>
+  <data name="UsbTools_NewFolder" xml:space="preserve">
+    <value>Новая папка</value>
+  </data>
+  <data name="UsbTools_Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="UsbTools_Move" xml:space="preserve">
+    <value>Переместить</value>
+  </data>
+  <data name="UsbTools_FileSystem" xml:space="preserve">
+    <value>Файловая система</value>
+  </data>
+  <data name="UsbTools_PartitionScheme" xml:space="preserve">
+    <value>Схема разделов</value>
+  </data>
+  <data name="UsbTools_VolumeLabel" xml:space="preserve">
+    <value>Метка тома</value>
+  </data>
+  <data name="UsbTools_VolumeLabelHint" xml:space="preserve">
+    <value>Введите метку тома</value>
+  </data>
+  <data name="UsbTools_FormatWarning" xml:space="preserve">
+    <value>⚠ Внимание: Форматирование удалит ВСЕ данные на выбранном USB-накопителе. Это действие нельзя отменить.</value>
+  </data>
+  <data name="UsbTools_Format" xml:space="preserve">
+    <value>Форматировать USB-накопитель</value>
+  </data>
+  <data name="UsbTools_PreparingFormat" xml:space="preserve">
+    <value>Подготовка к форматированию...</value>
+  </data>
+  <data name="UsbTools_Formatting" xml:space="preserve">
+    <value>Форматирование в {0} ({1})...</value>
+  </data>
+  <data name="UsbTools_FormatComplete" xml:space="preserve">
+    <value>USB-накопитель успешно отформатирован.</value>
+  </data>
+  <data name="UsbTools_FormatFailed" xml:space="preserve">
+    <value>Ошибка форматирования: {0}</value>
+  </data>
+  <data name="UsbTools_UnsupportedFileSystem" xml:space="preserve">
+    <value>Неподдерживаемая файловая система: {0}</value>
+  </data>
+  <data name="UsbTools_NtfsMacWarning" xml:space="preserve">
+    <value>Примечание: macOS не поддерживает форматирование NTFS. Накопитель был отформатирован в ExFAT.</value>
+  </data>
+  <data name="UsbTools_ConfirmFormat" xml:space="preserve">
+    <value>Подтвердить форматирование</value>
+  </data>
+  <data name="UsbTools_ConfirmFormatMessage" xml:space="preserve">
+    <value>Вы уверены, что хотите отформатировать {0}? Все данные будут безвозвратно удалены.</value>
+  </data>
+  <data name="UsbTools_ImageFile" xml:space="preserve">
+    <value>Файл образа</value>
+  </data>
+  <data name="UsbTools_SelectImageFile" xml:space="preserve">
+    <value>Выберите файл образа...</value>
+  </data>
+  <data name="UsbTools_ImageFiles" xml:space="preserve">
+    <value>Файлы образов дисков</value>
+  </data>
+  <data name="UsbTools_ImageNotFound" xml:space="preserve">
+    <value>Файл образа не найден.</value>
+  </data>
+  <data name="UsbTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>Неподдерживаемый формат образа: {0}</value>
+  </data>
+  <data name="UsbTools_WriteWarning" xml:space="preserve">
+    <value>⚠ Внимание: Запись образа удалит ВСЕ данные на выбранном USB-накопителе. Это действие нельзя отменить.</value>
+  </data>
+  <data name="UsbTools_WriteImage" xml:space="preserve">
+    <value>Записать образ на USB</value>
+  </data>
+  <data name="UsbTools_WritingImage" xml:space="preserve">
+    <value>Запись {0} на USB-накопитель...</value>
+  </data>
+  <data name="UsbTools_WriteComplete" xml:space="preserve">
+    <value>Образ успешно записан на USB-накопитель.</value>
+  </data>
+  <data name="UsbTools_WriteFailed" xml:space="preserve">
+    <value>Ошибка записи: {0}</value>
+  </data>
+  <data name="UsbTools_ConfirmWrite" xml:space="preserve">
+    <value>Подтвердить запись</value>
+  </data>
+  <data name="UsbTools_ConfirmWriteMessage" xml:space="preserve">
+    <value>Вы уверены, что хотите записать {0} на {1}? Все существующие данные будут безвозвратно удалены.</value>
+  </data>
+  <data name="UsbTools_OutputFile" xml:space="preserve">
+    <value>Выходной файл</value>
+  </data>
+  <data name="UsbTools_SelectOutputImage" xml:space="preserve">
+    <value>Выберите расположение выходного образа...</value>
+  </data>
+  <data name="UsbTools_CreateImage" xml:space="preserve">
+    <value>Создать образ с USB</value>
+  </data>
+  <data name="UsbTools_CreatingImage" xml:space="preserve">
+    <value>Создание образа с USB-накопителя...</value>
+  </data>
+  <data name="UsbTools_ImageCreated" xml:space="preserve">
+    <value>Образ успешно создан: {0}</value>
+  </data>
+  <data name="UsbTools_ImageCreateFailed" xml:space="preserve">
+    <value>Ошибка создания образа: {0}</value>
+  </data>
+  <data name="UsbTools_OutputRequired" xml:space="preserve">
+    <value>Необходимо указать путь к выходному файлу.</value>
+  </data>
+  <data name="UsbTools_ImgFileType" xml:space="preserve">
+    <value>Образ IMG</value>
+  </data>
+  <data name="UsbTools_IsoFileType" xml:space="preserve">
+    <value>Образ ISO</value>
+  </data>
+  <data name="UsbTools_OperationCancelled" xml:space="preserve">
+    <value>Операция отменена.</value>
+  </data>
+  <data name="UsbTools_FolderExists" xml:space="preserve">
+    <value>Папка с таким именем уже существует.</value>
+  </data>
+  <data name="UsbTools_FolderCreated" xml:space="preserve">
+    <value>Папка успешно создана.</value>
+  </data>
+  <data name="UsbTools_DeleteComplete" xml:space="preserve">
+    <value>Успешно удалено.</value>
+  </data>
+  <data name="UsbTools_EntryNotFound" xml:space="preserve">
+    <value>Файл или папка не найдены.</value>
+  </data>
+  <data name="UsbTools_DestinationExists" xml:space="preserve">
+    <value>Элемент с таким именем уже существует в месте назначения.</value>
+  </data>
+  <data name="UsbTools_MoveComplete" xml:space="preserve">
+    <value>Успешно перемещено.</value>
+  </data>
+  <data name="UsbTools_SelectMoveDestination" xml:space="preserve">
+    <value>Выберите папку назначения</value>
+  </data>
+  <data name="UsbTools_CopyingFile" xml:space="preserve">
+    <value>Копирование {0}...</value>
+  </data>
+  <data name="UsbTools_AddComplete" xml:space="preserve">
+    <value>Успешно добавлено элементов: {0}.</value>
+  </data>
+  <data name="UsbTools_ConfirmDelete" xml:space="preserve">
+    <value>Подтвердить удаление</value>
+  </data>
+  <data name="UsbTools_ConfirmDeleteMessage" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить '{0}'? Это действие нельзя отменить.</value>
+  </data>
+  <data name="UsbTools_EnterFolderName" xml:space="preserve">
+    <value>Введите имя папки:</value>
+  </data>
+  <data name="UsbTools_FolderNameHint" xml:space="preserve">
+    <value>Имя папки</value>
+  </data>
+
+  <data name="Tour_Skip" xml:space="preserve">
+    <value>Пропустить тур</value>
+  </data>
+  <data name="Tour_Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="Tour_Next" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="Tour_Finish" xml:space="preserve">
+    <value>Начать</value>
+  </data>
+  <data name="Tour_WelcomeTitle" xml:space="preserve">
+    <value>Добро пожаловать в RetroMultiTools!</value>
+  </data>
+  <data name="Tour_WelcomeDesc" xml:space="preserve">
+    <value>Ваш универсальный инструментарий для ретро-игр. Позвольте нам провести краткий тур по всем возможностям этого приложения. Это займёт всего минуту!</value>
+  </data>
+  <data name="Tour_SidebarTitle" xml:space="preserve">
+    <value>Навигация по боковой панели</value>
+  </data>
+  <data name="Tour_SidebarDesc" xml:space="preserve">
+    <value>Используйте боковую панель слева для переключения между инструментами. Они организованы по категориям: просмотр, патчинг, анализ и другие.</value>
+  </data>
+  <data name="Tour_BrowserTitle" xml:space="preserve">
+    <value>Браузер ROM</value>
+  </data>
+  <data name="Tour_BrowserDesc" xml:space="preserve">
+    <value>Просматривайте свою коллекцию ROM с помощью мощного файлового браузера. Просматривайте сведения о файлах, открывайте папки и быстро находите нужные игры.</value>
+  </data>
+  <data name="Tour_InspectorTitle" xml:space="preserve">
+    <value>Инспектор ROM &amp; Hex-просмотрщик</value>
+  </data>
+  <data name="Tour_InspectorDesc" xml:space="preserve">
+    <value>Просматривайте заголовки файлов ROM, внутренние метаданные и необработанные байты с помощью встроенного hex-просмотрщика. Отлично подходит для опытных пользователей и разработчиков.</value>
+  </data>
+  <data name="Tour_PatchingTitle" xml:space="preserve">
+    <value>Патчинг &amp; Конвертация</value>
+  </data>
+  <data name="Tour_PatchingDesc" xml:space="preserve">
+    <value>Применяйте патчи IPS/BPS/UPS, создавайте собственные патчи, конвертируйте форматы ROM, конвертируйте файлы сохранений и обрабатывайте побайтовую перестановку N64 — всё в одном месте.</value>
+  </data>
+  <data name="Tour_AnalysisTitle" xml:space="preserve">
+    <value>Анализ &amp; Проверка</value>
+  </data>
+  <data name="Tour_AnalysisDesc" xml:space="preserve">
+    <value>Проверяйте ROM по файлам DAT, вычисляйте контрольные суммы, находите дубликаты, вычисляйте хэши целых папок и идентифицируйте наборы GoodTools для точного управления коллекцией.</value>
+  </data>
+  <data name="Tour_HeadersTitle" xml:space="preserve">
+    <value>Заголовки &amp; Обрезка</value>
+  </data>
+  <data name="Tour_HeadersDesc" xml:space="preserve">
+    <value>Экспортируйте, исправляйте или удаляйте заголовки ROM. Обрезайте дополненные ROM для экономии места. Включает специализированные инструменты для управления заголовками SNES.</value>
+  </data>
+  <data name="Tour_UtilitiesTitle" xml:space="preserve">
+    <value>Утилиты</value>
+  </data>
+  <data name="Tour_UtilitiesDesc" xml:space="preserve">
+    <value>Управляйте архивами, применяйте чит-коды, работайте с образами дисков, настраивайте эмуляторы, назначайте кнопки геймпада, скрейпируйте метаданные, организовывайте и переименовывайте файлы ROM, а также управляйте USB-устройствами.</value>
+  </data>
+  <data name="Tour_EmulatorsTitle" xml:space="preserve">
+    <value>Интеграция эмуляторов</value>
+  </data>
+  <data name="Tour_EmulatorsDesc" xml:space="preserve">
+    <value>Глубокая интеграция с RetroArch, MAME и Mednafen. Управляйте плейлистами, проверяйте наборы ROM, конвертируйте файлы CHD, редактируйте DAT, создавайте ярлыки и многое другое.</value>
+  </data>
+  <data name="Tour_AnalogueTitle" xml:space="preserve">
+    <value>Analogue FPGA</value>
+  </data>
+  <data name="Tour_AnalogueDesc" xml:space="preserve">
+    <value>Инструменты для оборудования Analogue FPGA: Pocket, Mega Sg, Nt/Super Nt и готовящегося 3D. Управляйте ядрами, прошивками и игровыми библиотеками для ваших устройств.</value>
+  </data>
+  <data name="Tour_BigPictureTitle" xml:space="preserve">
+    <value>Big Picture Mode</value>
+  </data>
+  <data name="Tour_BigPictureDesc" xml:space="preserve">
+    <value>Откиньтесь на спинку кресла и наслаждайтесь полноэкранной игровой библиотекой с поддержкой контроллера, обложками, отслеживанием игр и оценками. Выбирайте между классической сеткой или современным макетом с главным изображением.</value>
+  </data>
+  <data name="Tour_SettingsTitle" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Tour_SettingsDesc" xml:space="preserve">
+    <value>Настройте работу приложения: смените язык, включите Discord Rich Presence, настройте Big Picture Mode, задайте управление геймпадом и проверьте наличие обновлений.</value>
+  </data>
+  <data name="Tour_FinishTitle" xml:space="preserve">
+    <value>Всё готово!</value>
+  </data>
+  <data name="Tour_FinishDesc" xml:space="preserve">
+    <value>Вот и всё! Начните изучать инструменты в боковой панели. Вы всегда можете перезапустить этот тур из раздела Настройки, если вам понадобится повторение. Приятного использования!</value>
+  </data>
+  <data name="Tour_SettingSectionTitle" xml:space="preserve">
+    <value>Обзорный тур</value>
+  </data>
+  <data name="Tour_SettingSectionDesc" xml:space="preserve">
+    <value>Повторно запустите обзорный тур, объясняющий все функции приложения.</value>
+  </data>
+  <data name="Tour_RestartButton" xml:space="preserve">
+    <value>Перезапустить тур</value>
+  </data>
+  <data name="Browser_SelectFolderTooltip" xml:space="preserve">
+    <value>Browse for a ROM folder to scan</value>
+  </data>
+  <data name="Browser_AddRomsTooltip" xml:space="preserve">
+    <value>Add ROM files to the current folder</value>
+  </data>
+  <data name="Browser_CopyToTooltip" xml:space="preserve">
+    <value>Copy selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_MoveToTooltip" xml:space="preserve">
+    <value>Move selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_DeleteTooltip" xml:space="preserve">
+    <value>Delete the selected ROMs</value>
+  </data>
+  <data name="Browser_OrganizeTooltip" xml:space="preserve">
+    <value>Organize ROMs into subfolders by system</value>
+  </data>
+  <data name="Browser_SendToRemoteTooltip" xml:space="preserve">
+    <value>Send selected ROMs to a remote device or cloud storage</value>
+  </data>
+  <data name="Browser_HostShareTooltip" xml:space="preserve">
+    <value>Host a local server to share ROMs on the network</value>
+  </data>
+  <data name="Browser_LaunchRetroArchTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in RetroArch</value>
+  </data>
+  <data name="Browser_LaunchMameTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in MAME</value>
+  </data>
+  <data name="Browser_LaunchMednafenTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in Mednafen</value>
+  </data>
+  <data name="Browser_BigPictureModeTooltip" xml:space="preserve">
+    <value>Enter full-screen Big Picture Mode for gamepad-friendly browsing</value>
+  </data>
+  <data name="MainWindow_SearchShortcut" xml:space="preserve">
+    <value>Search tools (Ctrl+F)</value>
+  </data>
+  <data name="BigPictureModern_AllGames" xml:space="preserve">
+    <value>Все игры</value>
+  </data>
+  <data name="BigPictureModern_EmptyCategory" xml:space="preserve">
+    <value>В этой категории пока нет игр</value>
+  </data>
+  <data name="BigPictureModern_EmptyLibrary" xml:space="preserve">
+    <value>Ваша библиотека пуста. Откройте папку с ROM-файлами, чтобы начать.</value>
+  </data>
+  <data name="BigPictureModern_Favorites" xml:space="preserve">
+    <value>Избранное</value>
+  </data>
+  <data name="BigPictureModern_LaunchWith" xml:space="preserve">
+    <value>Запустить в {0}</value>
+  </data>
+  <data name="BigPictureModern_MostPlayed" xml:space="preserve">
+    <value>Самые играемые</value>
+  </data>
+  <data name="BigPictureModern_NoResults" xml:space="preserve">
+    <value>Нет игр, соответствующих вашему запросу</value>
+  </data>
+  <data name="BigPictureModern_Plays" xml:space="preserve">
+    <value>{0} запусков</value>
+  </data>
+  <data name="BigPictureModern_RecentlyPlayed" xml:space="preserve">
+    <value>Недавно сыгранные</value>
+  </data>
+  <data name="BigPictureModern_SearchPlaceholder" xml:space="preserve">
+    <value>Поиск в библиотеке...</value>
+  </data>
+  <data name="BigPictureModern_Spotlight" xml:space="preserve">
+    <value>В центре внимания</value>
+  </data>
+  <data name="BigPictureModern_TopRated" xml:space="preserve">
+    <value>Лучшие по рейтингу</value>
+  </data>
+  <data name="BigPicture_CopiedToClipboard" xml:space="preserve">
+    <value>Путь скопирован в буфер обмена</value>
+  </data>
+  <data name="BigPicture_CopyFilePath" xml:space="preserve">
+    <value>Копировать путь к файлу</value>
+  </data>
+  <data name="BigPicture_OpenFileLocation" xml:space="preserve">
+    <value>Открыть расположение файла</value>
+  </data>
+  <data name="BigPicture_SortPlayCount" xml:space="preserve">
+    <value>Кол-во запусков (по убыванию)</value>
+  </data>
+  <data name="Browser_ContextChecksum" xml:space="preserve">
+    <value>#️⃣ Рассчитать контрольную сумму</value>
+  </data>
+  <data name="Browser_ContextGoodTools" xml:space="preserve">
+    <value>🏷️ Определить через GoodTools</value>
+  </data>
+  <data name="Browser_ContextHexView" xml:space="preserve">
+    <value>🔢 Открыть в Hex-просмотрщике</value>
+  </data>
+  <data name="Browser_ContextInspect" xml:space="preserve">
+    <value>🔍 Открыть в инспекторе ROM</value>
+  </data>
+  <data name="Browser_ContextOpenFolder" xml:space="preserve">
+    <value>📂 Открыть содержащую папку</value>
+  </data>
+  <data name="Browser_ContextOpenWith" xml:space="preserve">
+    <value>🚀 Открыть с помощью</value>
+  </data>
+  <data name="Browser_ContextPatch" xml:space="preserve">
+    <value>🩹 Пропатчить ROM...</value>
+  </data>
+  <data name="Browser_ContextRename" xml:space="preserve">
+    <value>✏️ Переименовать...</value>
+  </data>
+  <data name="Browser_ContextTools" xml:space="preserve">
+    <value>🔧 Инструменты</value>
+  </data>
+  <data name="Browser_OpenFolderError" xml:space="preserve">
+    <value>Не удалось открыть папку: {0}</value>
+  </data>
+  <data name="Browser_RenameError" xml:space="preserve">
+    <value>Ошибка переименования: {0}</value>
+  </data>
+  <data name="Browser_RenamePromptTitle" xml:space="preserve">
+    <value>Переименовать ROM</value>
+  </data>
+  <data name="Browser_RenameSuccess" xml:space="preserve">
+    <value>Переименовано в {0}</value>
+  </data>
+  <data name="Checksum_Description" xml:space="preserve">
+    <value>Рассчитайте контрольные суммы CRC32, MD5, SHA-1 и SHA-256 для ROM-файлов, чтобы проверить целостность и идентифицировать дампы.</value>
+  </data>
+  <data name="Common_SelectFileTitle" xml:space="preserve">
+    <value>Выбрать файл</value>
+  </data>
+  <data name="Common_SelectOutputDirectoryTitle" xml:space="preserve">
+    <value>Выбрать выходной каталог</value>
+  </data>
+  <data name="Common_SelectRomDirectoryTitle" xml:space="preserve">
+    <value>Выбрать каталог ROM</value>
+  </data>
+  <data name="Common_SelectRomFileTitle" xml:space="preserve">
+    <value>Выбрать файл ROM</value>
+  </data>
+  <data name="Comparer_Description" xml:space="preserve">
+    <value>Сравнение двух ROM-файлов побайтно для выявления различий в размере, содержимом и нахождения первого несовпадающего смещения.</value>
+  </data>
+  <data name="GoodTools_NoCodesForFile" xml:space="preserve">
+    <value>Коды GoodTools не найдены.</value>
+  </data>
+  <data name="MameConfig_Artwork" xml:space="preserve">
+    <value>Параметры оформления</value>
+  </data>
+  <data name="MameConfig_AutoEnable" xml:space="preserve">
+    <value>Параметры автоматического включения ввода</value>
+  </data>
+  <data name="MameConfig_Bgfx" xml:space="preserve">
+    <value>Постобработка BGFX</value>
+  </data>
+  <data name="MameConfig_Communication" xml:space="preserve">
+    <value>Параметры связи</value>
+  </data>
+  <data name="MameConfig_ConfigFile" xml:space="preserve">
+    <value>Файл конфигурации</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Есть несохранённые изменения. Отменить их и продолжить?</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Несохранённые изменения</value>
+  </data>
+  <data name="MameConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Все настройки будут сброшены до значений по умолчанию MAME. Несохранённые изменения будут потеряны. Продолжить?</value>
+  </data>
+  <data name="MameConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Сбросить до значений по умолчанию</value>
+  </data>
+  <data name="MameConfig_CoreInput" xml:space="preserve">
+    <value>Основные параметры ввода</value>
+  </data>
+  <data name="MameConfig_CoreMisc" xml:space="preserve">
+    <value>Основные разные параметры</value>
+  </data>
+  <data name="MameConfig_CorePerformance" xml:space="preserve">
+    <value>Основные параметры производительности</value>
+  </data>
+  <data name="MameConfig_CoreSound" xml:space="preserve">
+    <value>Основные параметры звука</value>
+  </data>
+  <data name="MameConfig_CoreVideo" xml:space="preserve">
+    <value>Основные параметры видео</value>
+  </data>
+  <data name="MameConfig_CreateNew" xml:space="preserve">
+    <value>Создать новый</value>
+  </data>
+  <data name="MameConfig_Debugging" xml:space="preserve">
+    <value>Параметры отладки</value>
+  </data>
+  <data name="MameConfig_DefaultsRestored" xml:space="preserve">
+    <value>Все настройки сброшены до значений по умолчанию MAME.</value>
+  </data>
+  <data name="MameConfig_Description" xml:space="preserve">
+    <value>Загрузка, редактирование и сохранение файлов конфигурации MAME (mame.ini). Поддержка всех настроек MAME для Windows, macOS и Linux.</value>
+  </data>
+  <data name="MameConfig_HttpServer" xml:space="preserve">
+    <value>Параметры HTTP-сервера</value>
+  </data>
+  <data name="MameConfig_IniFileType" xml:space="preserve">
+    <value>Файлы MAME INI</value>
+  </data>
+  <data name="MameConfig_IniPlaceholder" xml:space="preserve">
+    <value>Путь к mame.ini...</value>
+  </data>
+  <data name="MameConfig_Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="MameConfig_LoadError" xml:space="preserve">
+    <value>Не удалось загрузить конфигурацию: {0}</value>
+  </data>
+  <data name="MameConfig_Loaded" xml:space="preserve">
+    <value>Загружено {0} настроек из {1}</value>
+  </data>
+  <data name="MameConfig_NewCreated" xml:space="preserve">
+    <value>Создана новая конфигурация со значениями по умолчанию MAME. Путь сохранения: {0}</value>
+  </data>
+  <data name="MameConfig_NoIniFound" xml:space="preserve">
+    <value>Файл mame.ini не найден. Используйте «Обзор», чтобы найти его, или «Создать новый» для создания со значениями по умолчанию.</value>
+  </data>
+  <data name="MameConfig_OsdInput" xml:space="preserve">
+    <value>Поставщики ввода OSD</value>
+  </data>
+  <data name="MameConfig_OsdSound" xml:space="preserve">
+    <value>Параметры звука OSD</value>
+  </data>
+  <data name="MameConfig_OsdVideo" xml:space="preserve">
+    <value>OSD / Аппаратное ускорение видео</value>
+  </data>
+  <data name="MameConfig_OutputDirs" xml:space="preserve">
+    <value>Выходные каталоги</value>
+  </data>
+  <data name="MameConfig_PerWindowVideo" xml:space="preserve">
+    <value>Параметры видео для каждого окна</value>
+  </data>
+  <data name="MameConfig_ResetDefaults" xml:space="preserve">
+    <value>Сбросить до значений по умолчанию</value>
+  </data>
+  <data name="MameConfig_Rotation" xml:space="preserve">
+    <value>Параметры вращения</value>
+  </data>
+  <data name="MameConfig_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="MameConfig_SaveAs" xml:space="preserve">
+    <value>Сохранить как...</value>
+  </data>
+  <data name="MameConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Сохранить конфигурацию MAME</value>
+  </data>
+  <data name="MameConfig_SaveError" xml:space="preserve">
+    <value>Не удалось сохранить конфигурацию: {0}</value>
+  </data>
+  <data name="MameConfig_Saved" xml:space="preserve">
+    <value>Конфигурация сохранена в {0}</value>
+  </data>
+  <data name="MameConfig_ScreenOptions" xml:space="preserve">
+    <value>Параметры экрана</value>
+  </data>
+  <data name="MameConfig_Scripting" xml:space="preserve">
+    <value>Скрипты / Плагины</value>
+  </data>
+  <data name="MameConfig_SearchPaths" xml:space="preserve">
+    <value>Пути поиска</value>
+  </data>
+  <data name="MameConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Введите для фильтрации настроек по имени (напр. rompath, video, joystick...)</value>
+  </data>
+  <data name="MameConfig_SearchResults" xml:space="preserve">
+    <value>{0} из {1} разделов совпадают</value>
+  </data>
+  <data name="MameConfig_SearchSettings" xml:space="preserve">
+    <value>Поиск настроек</value>
+  </data>
+  <data name="MameConfig_SelectIniTitle" xml:space="preserve">
+    <value>Выберите файл конфигурации MAME</value>
+  </data>
+  <data name="MameConfig_StatePlayback" xml:space="preserve">
+    <value>Параметры состояния / воспроизведения</value>
+  </data>
+  <data name="MameConfig_TabInput" xml:space="preserve">
+    <value>Ввод</value>
+  </data>
+  <data name="MameConfig_TabMisc" xml:space="preserve">
+    <value>Разное / Дополнительно</value>
+  </data>
+  <data name="MameConfig_TabPaths" xml:space="preserve">
+    <value>Пути</value>
+  </data>
+  <data name="MameConfig_TabPerformance" xml:space="preserve">
+    <value>Производительность</value>
+  </data>
+  <data name="MameConfig_TabSound" xml:space="preserve">
+    <value>Звук</value>
+  </data>
+  <data name="MameConfig_TabState" xml:space="preserve">
+    <value>Состояние / Воспроизведение</value>
+  </data>
+  <data name="MameConfig_TabVideo" xml:space="preserve">
+    <value>Видео</value>
+  </data>
+  <data name="MameConfig_Title" xml:space="preserve">
+    <value>Конфигуратор MAME</value>
+  </data>
+  <data name="MameConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Несохранённые изменения</value>
+  </data>
+  <data name="MameConfig_Vector" xml:space="preserve">
+    <value>Векторные параметры</value>
+  </data>
+  <data name="MednafenConfig_CfgFileType" xml:space="preserve">
+    <value>Файлы конфигурации Mednafen (*.cfg)</value>
+  </data>
+  <data name="MednafenConfig_CfgPlaceholder" xml:space="preserve">
+    <value>Путь к mednafen.cfg...</value>
+  </data>
+  <data name="MednafenConfig_ConfigFile" xml:space="preserve">
+    <value>Файл конфигурации</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Есть несохранённые изменения. Отменить их и продолжить?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Несохранённые изменения</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Все настройки будут сброшены до значений по умолчанию Mednafen. Несохранённые изменения будут потеряны. Продолжить?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Сбросить до значений по умолчанию</value>
+  </data>
+  <data name="MednafenConfig_CoreSettings" xml:space="preserve">
+    <value>Основные настройки</value>
+  </data>
+  <data name="MednafenConfig_CpuAffinity" xml:space="preserve">
+    <value>Привязка к ЦП</value>
+  </data>
+  <data name="MednafenConfig_CreateNew" xml:space="preserve">
+    <value>Создать новый</value>
+  </data>
+  <data name="MednafenConfig_DefaultsRestored" xml:space="preserve">
+    <value>Все настройки восстановлены до значений по умолчанию Mednafen.</value>
+  </data>
+  <data name="MednafenConfig_Description" xml:space="preserve">
+    <value>Загрузка, редактирование и сохранение файлов конфигурации Mednafen (mednafen.cfg). Поддержка всех настроек Mednafen для Windows, macOS и Linux.</value>
+  </data>
+  <data name="MednafenConfig_DirectoryPaths" xml:space="preserve">
+    <value>Пути каталогов</value>
+  </data>
+  <data name="MednafenConfig_FilenameFormats" xml:space="preserve">
+    <value>Форматы имён файлов</value>
+  </data>
+  <data name="MednafenConfig_FpsDisplay" xml:space="preserve">
+    <value>Отображение FPS</value>
+  </data>
+  <data name="MednafenConfig_GoatShader" xml:space="preserve">
+    <value>Настройки Goat Shader</value>
+  </data>
+  <data name="MednafenConfig_InputSettings" xml:space="preserve">
+    <value>Настройки ввода</value>
+  </data>
+  <data name="MednafenConfig_LoadError" xml:space="preserve">
+    <value>Не удалось загрузить конфигурацию: {0}</value>
+  </data>
+  <data name="MednafenConfig_Loaded" xml:space="preserve">
+    <value>Загружено {0} настроек из {1}</value>
+  </data>
+  <data name="MednafenConfig_NetworkPlay" xml:space="preserve">
+    <value>Сетевая игра</value>
+  </data>
+  <data name="MednafenConfig_NewCreated" xml:space="preserve">
+    <value>Новая конфигурация по умолчанию создана в {0}</value>
+  </data>
+  <data name="MednafenConfig_NoCfgFound" xml:space="preserve">
+    <value>Не удалось автоматически обнаружить mednafen.cfg. Найдите файл вручную.</value>
+  </data>
+  <data name="MednafenConfig_Osd" xml:space="preserve">
+    <value>Экранное отображение</value>
+  </data>
+  <data name="MednafenConfig_PerSystemDescription" xml:space="preserve">
+    <value>Настройка масштабирования видео, шейдеров и параметров отображения для каждой эмулируемой системы. Изменения сохраняются при переключении систем или сохранении файла.</value>
+  </data>
+  <data name="MednafenConfig_QtRecord" xml:space="preserve">
+    <value>Запись QuickTime</value>
+  </data>
+  <data name="MednafenConfig_ResetDefaults" xml:space="preserve">
+    <value>Сбросить до значений по умолчанию</value>
+  </data>
+  <data name="MednafenConfig_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="MednafenConfig_SaveAs" xml:space="preserve">
+    <value>Сохранить как</value>
+  </data>
+  <data name="MednafenConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Сохранить конфигурацию Mednafen как</value>
+  </data>
+  <data name="MednafenConfig_SaveError" xml:space="preserve">
+    <value>Не удалось сохранить конфигурацию: {0}</value>
+  </data>
+  <data name="MednafenConfig_Saved" xml:space="preserve">
+    <value>Конфигурация сохранена в {0}</value>
+  </data>
+  <data name="MednafenConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Введите для фильтрации настроек по имени (напр. video, sound, shader...)</value>
+  </data>
+  <data name="MednafenConfig_SearchResults" xml:space="preserve">
+    <value>{0} из {1} разделов совпадают</value>
+  </data>
+  <data name="MednafenConfig_SearchSettings" xml:space="preserve">
+    <value>Поиск настроек</value>
+  </data>
+  <data name="MednafenConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Выберите файл конфигурации Mednafen</value>
+  </data>
+  <data name="MednafenConfig_SelectSystem" xml:space="preserve">
+    <value>Выбрать систему</value>
+  </data>
+  <data name="MednafenConfig_SoundOutput" xml:space="preserve">
+    <value>Вывод звука</value>
+  </data>
+  <data name="MednafenConfig_SpeedSettings" xml:space="preserve">
+    <value>Ускоренная / замедленная перемотка</value>
+  </data>
+  <data name="MednafenConfig_SystemVideo" xml:space="preserve">
+    <value>Видео системы / Масштабирование</value>
+  </data>
+  <data name="MednafenConfig_TabAdvanced" xml:space="preserve">
+    <value>Дополнительно</value>
+  </data>
+  <data name="MednafenConfig_TabGeneral" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="MednafenConfig_TabInput" xml:space="preserve">
+    <value>Ввод</value>
+  </data>
+  <data name="MednafenConfig_TabNetplay" xml:space="preserve">
+    <value>Сетевая игра</value>
+  </data>
+  <data name="MednafenConfig_TabPaths" xml:space="preserve">
+    <value>Пути</value>
+  </data>
+  <data name="MednafenConfig_TabPerSystem" xml:space="preserve">
+    <value>По системам</value>
+  </data>
+  <data name="MednafenConfig_TabSound" xml:space="preserve">
+    <value>Звук</value>
+  </data>
+  <data name="MednafenConfig_TabVideo" xml:space="preserve">
+    <value>Видео</value>
+  </data>
+  <data name="MednafenConfig_TemporalBlur" xml:space="preserve">
+    <value>Временное размытие</value>
+  </data>
+  <data name="MednafenConfig_Title" xml:space="preserve">
+    <value>Конфигуратор Mednafen</value>
+  </data>
+  <data name="MednafenConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Несохранённые изменения</value>
+  </data>
+  <data name="MednafenConfig_VideoOutput" xml:space="preserve">
+    <value>Вывод видео</value>
+  </data>
+  <data name="MetaScraper_SummaryBySystem" xml:space="preserve">
+    <value>Сводка по системам:</value>
+  </data>
+  <data name="MetaScraper_SummaryStats" xml:space="preserve">
+    <value>Валидных: {0}, невалидных: {1}, ошибок: {2}</value>
+  </data>
+  <data name="Nav_MameConfigurator" xml:space="preserve">
+    <value>Конфигуратор MAME</value>
+  </data>
+  <data name="Nav_MednafenConfigurator" xml:space="preserve">
+    <value>Конфигуратор Mednafen</value>
+  </data>
+  <data name="Nav_NoResults" xml:space="preserve">
+    <value>Подходящие инструменты не найдены.</value>
+  </data>
+  <data name="Nav_RetroArchConfigurator" xml:space="preserve">
+    <value>Конфигуратор RetroArch</value>
+  </data>
+  <data name="Nav_SearchPlaceholder" xml:space="preserve">
+    <value>Поиск инструментов...</value>
+  </data>
+  <data name="Patcher_Description" xml:space="preserve">
+    <value>Применение патчей IPS, BPS или xdelta к ROM-файлам для перевода, исправлений или модификаций.</value>
+  </data>
+  <data name="RAConfig_AIService" xml:space="preserve">
+    <value>Служба ИИ</value>
+  </data>
+  <data name="RAConfig_AccessibilityOptions" xml:space="preserve">
+    <value>Параметры специальных возможностей</value>
+  </data>
+  <data name="RAConfig_AchievementDisplay" xml:space="preserve">
+    <value>Отображение достижений</value>
+  </data>
+  <data name="RAConfig_AchievementOptions" xml:space="preserve">
+    <value>Параметры RetroAchievements</value>
+  </data>
+  <data name="RAConfig_AudioDriver" xml:space="preserve">
+    <value>Аудиодрайвер</value>
+  </data>
+  <data name="RAConfig_AudioSync" xml:space="preserve">
+    <value>Настройки звука</value>
+  </data>
+  <data name="RAConfig_CfgFileType" xml:space="preserve">
+    <value>Файлы RetroArch CFG</value>
+  </data>
+  <data name="RAConfig_CfgPlaceholder" xml:space="preserve">
+    <value>Путь к retroarch.cfg...</value>
+  </data>
+  <data name="RAConfig_ConfigFile" xml:space="preserve">
+    <value>Файл конфигурации</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Есть несохранённые изменения. Отменить их и продолжить?</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Несохранённые изменения</value>
+  </data>
+  <data name="RAConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Все настройки будут сброшены до значений по умолчанию RetroArch. Несохранённые изменения будут потеряны. Продолжить?</value>
+  </data>
+  <data name="RAConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Сбросить до значений по умолчанию</value>
+  </data>
+  <data name="RAConfig_ContentPaths" xml:space="preserve">
+    <value>Пути к контенту и сохранениям</value>
+  </data>
+  <data name="RAConfig_CoreOptions" xml:space="preserve">
+    <value>Параметры ядра</value>
+  </data>
+  <data name="RAConfig_CorePaths" xml:space="preserve">
+    <value>Пути к ядрам и системе</value>
+  </data>
+  <data name="RAConfig_CreateNew" xml:space="preserve">
+    <value>Создать новый</value>
+  </data>
+  <data name="RAConfig_DefaultsRestored" xml:space="preserve">
+    <value>Все настройки сброшены до значений по умолчанию RetroArch.</value>
+  </data>
+  <data name="RAConfig_Description" xml:space="preserve">
+    <value>Загрузка, редактирование и сохранение файлов конфигурации RetroArch (retroarch.cfg). Поддержка всех настроек RetroArch для Windows, macOS и Linux.</value>
+  </data>
+  <data name="RAConfig_FilterPaths" xml:space="preserve">
+    <value>Пути к фильтрам, оверлеям и другим</value>
+  </data>
+  <data name="RAConfig_FrameThrottle" xml:space="preserve">
+    <value>Параметры ограничения кадров</value>
+  </data>
+  <data name="RAConfig_InputGeneral" xml:space="preserve">
+    <value>Общие настройки ввода</value>
+  </data>
+  <data name="RAConfig_InputHotkeys" xml:space="preserve">
+    <value>Привязки горячих клавиш</value>
+  </data>
+  <data name="RAConfig_LoadError" xml:space="preserve">
+    <value>Не удалось загрузить конфигурацию: {0}</value>
+  </data>
+  <data name="RAConfig_Loaded" xml:space="preserve">
+    <value>Загружено {0} настроек из {1}</value>
+  </data>
+  <data name="RAConfig_Logging" xml:space="preserve">
+    <value>Параметры журналирования</value>
+  </data>
+  <data name="RAConfig_MenuGeneral" xml:space="preserve">
+    <value>Настройки меню</value>
+  </data>
+  <data name="RAConfig_MenuTheme" xml:space="preserve">
+    <value>Тема и оформление</value>
+  </data>
+  <data name="RAConfig_MiscOptions" xml:space="preserve">
+    <value>Разные параметры</value>
+  </data>
+  <data name="RAConfig_Netplay" xml:space="preserve">
+    <value>Сетевая игра</value>
+  </data>
+  <data name="RAConfig_NetworkGeneral" xml:space="preserve">
+    <value>Сетевые настройки</value>
+  </data>
+  <data name="RAConfig_NewCreated" xml:space="preserve">
+    <value>Создана новая конфигурация со значениями по умолчанию RetroArch. Путь сохранения: {0}</value>
+  </data>
+  <data name="RAConfig_NoCfgFound" xml:space="preserve">
+    <value>Файл retroarch.cfg не найден. Используйте «Обзор», чтобы найти его, или «Создать новый» для создания со значениями по умолчанию.</value>
+  </data>
+  <data name="RAConfig_Notifications" xml:space="preserve">
+    <value>Уведомления</value>
+  </data>
+  <data name="RAConfig_OverlaySettings" xml:space="preserve">
+    <value>Настройки оверлея</value>
+  </data>
+  <data name="RAConfig_RGUITheme" xml:space="preserve">
+    <value>Тема RGUI</value>
+  </data>
+  <data name="RAConfig_RecordingOptions" xml:space="preserve">
+    <value>Параметры записи</value>
+  </data>
+  <data name="RAConfig_ResetDefaults" xml:space="preserve">
+    <value>Сбросить до значений по умолчанию</value>
+  </data>
+  <data name="RAConfig_Rewind" xml:space="preserve">
+    <value>Параметры перемотки</value>
+  </data>
+  <data name="RAConfig_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="RAConfig_SaveAs" xml:space="preserve">
+    <value>Сохранить как...</value>
+  </data>
+  <data name="RAConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Сохранить конфигурацию RetroArch</value>
+  </data>
+  <data name="RAConfig_SaveError" xml:space="preserve">
+    <value>Не удалось сохранить конфигурацию: {0}</value>
+  </data>
+  <data name="RAConfig_SaveOptions" xml:space="preserve">
+    <value>Параметры сохранения и состояний</value>
+  </data>
+  <data name="RAConfig_Saved" xml:space="preserve">
+    <value>Конфигурация сохранена в {0}</value>
+  </data>
+  <data name="RAConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Введите для фильтрации настроек по имени (напр. video_driver, audio, netplay...)</value>
+  </data>
+  <data name="RAConfig_SearchSettings" xml:space="preserve">
+    <value>Поиск настроек</value>
+  </data>
+  <data name="RAConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Выберите файл конфигурации RetroArch</value>
+  </data>
+  <data name="RAConfig_TabAccessibility" xml:space="preserve">
+    <value>Специальные возможности</value>
+  </data>
+  <data name="RAConfig_TabAchievements" xml:space="preserve">
+    <value>Достижения</value>
+  </data>
+  <data name="RAConfig_TabAudio" xml:space="preserve">
+    <value>Аудио</value>
+  </data>
+  <data name="RAConfig_TabCore" xml:space="preserve">
+    <value>Ядро / Сохранение</value>
+  </data>
+  <data name="RAConfig_TabFrameThrottle" xml:space="preserve">
+    <value>Ограничение кадров</value>
+  </data>
+  <data name="RAConfig_TabInput" xml:space="preserve">
+    <value>Ввод</value>
+  </data>
+  <data name="RAConfig_TabMenu" xml:space="preserve">
+    <value>Меню / Интерфейс</value>
+  </data>
+  <data name="RAConfig_TabMisc" xml:space="preserve">
+    <value>Разное / Журнал</value>
+  </data>
+  <data name="RAConfig_TabNetwork" xml:space="preserve">
+    <value>Сеть</value>
+  </data>
+  <data name="RAConfig_TabOverlay" xml:space="preserve">
+    <value>Оверлей</value>
+  </data>
+  <data name="RAConfig_TabPaths" xml:space="preserve">
+    <value>Пути</value>
+  </data>
+  <data name="RAConfig_TabRecording" xml:space="preserve">
+    <value>Запись</value>
+  </data>
+  <data name="RAConfig_TabVideo" xml:space="preserve">
+    <value>Видео</value>
+  </data>
+  <data name="RAConfig_Title" xml:space="preserve">
+    <value>Конфигуратор RetroArch</value>
+  </data>
+  <data name="RAConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Несохранённые изменения</value>
+  </data>
+  <data name="RAConfig_VideoAdvanced" xml:space="preserve">
+    <value>Дополнительное видео</value>
+  </data>
+  <data name="RAConfig_VideoDisplay" xml:space="preserve">
+    <value>Настройки дисплея</value>
+  </data>
+  <data name="RAConfig_VideoDriver" xml:space="preserve">
+    <value>Видеодрайвер</value>
+  </data>
+  <data name="RAConfig_VideoOSD" xml:space="preserve">
+    <value>OSD и снимки экрана</value>
+  </data>
+  <data name="RAConfig_VideoScaling" xml:space="preserve">
+    <value>Масштабирование и фильтрация</value>
+  </data>
+  <data name="RAConfig_VideoSync" xml:space="preserve">
+    <value>Синхронизация</value>
+  </data>
+  <data name="Security_SingleNoFeatures" xml:space="preserve">
+    <value>✔ {0}: Функции безопасности не обнаружены.</value>
+  </data>
+  <data name="Security_SingleResultDetected" xml:space="preserve">
+    <value>✔ {0}: Обнаружено функций безопасности: {1}.</value>
+  </data>
+  <data name="Settings_BigPictureStyleClassic" xml:space="preserve">
+    <value>Классический (сетка карточек)</value>
+  </data>
+  <data name="Settings_BigPictureStyleLabel" xml:space="preserve">
+    <value>Визуальный стиль</value>
+  </data>
+  <data name="Settings_BigPictureStyleModern" xml:space="preserve">
+    <value>Современный (герой + карусель)</value>
+  </data>
+  <data name="Settings_UpdateManagedByPackageManager" xml:space="preserve">
+    <value>Обновления управляются менеджером пакетов вашей системы.</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImage" xml:space="preserve">
+    <value>Подтвердить создание образа</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImageMessage" xml:space="preserve">
+    <value>Создать полный образ диска с {0}? Это может занять некоторое время в зависимости от размера диска.</value>
+  </data>
 </root>

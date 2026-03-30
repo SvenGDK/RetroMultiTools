@@ -16,10 +16,16 @@ public partial class MameDatEditorView : UserControl
 
     private DatDocument? _datDoc;
     private List<DatGameEntry> _displayedGames = [];
+    private DatGameEntry? _selectedGame;
 
     public MameDatEditorView()
     {
         InitializeComponent();
+        GameNameTextBox.TextChanged += (_, _) => UpdateApplyGameButton();
+        GameDescTextBox.TextChanged += (_, _) => UpdateApplyGameButton();
+        GameYearTextBox.TextChanged += (_, _) => UpdateApplyGameButton();
+        GameMfgTextBox.TextChanged += (_, _) => UpdateApplyGameButton();
+        GameCloneOfTextBox.TextChanged += (_, _) => UpdateApplyGameButton();
     }
 
     private async void BrowseDat_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -117,6 +123,7 @@ public partial class MameDatEditorView : UserControl
         GameListBorder.IsVisible = true;
         GameDetailBorder.IsVisible = false;
         RemoveGameButton.IsEnabled = false;
+        _selectedGame = null;
     }
 
     private void SearchButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -147,8 +154,11 @@ public partial class MameDatEditorView : UserControl
         {
             GameDetailBorder.IsVisible = false;
             RemoveGameButton.IsEnabled = false;
+            _selectedGame = null;
             return;
         }
+
+        _selectedGame = game;
 
         // Populate game detail fields
         GameNameTextBox.Text = game.Name;
@@ -181,6 +191,23 @@ public partial class MameDatEditorView : UserControl
         RomListText.Text = romLines.ToString();
         GameDetailBorder.IsVisible = true;
         RemoveGameButton.IsEnabled = true;
+        ApplyGameButton.IsEnabled = false;
+    }
+
+    private void UpdateApplyGameButton()
+    {
+        if (_selectedGame == null)
+        {
+            ApplyGameButton.IsEnabled = false;
+            return;
+        }
+
+        ApplyGameButton.IsEnabled =
+            GameNameTextBox.Text != (_selectedGame.Name ?? "") ||
+            GameDescTextBox.Text != (_selectedGame.Description ?? "") ||
+            GameYearTextBox.Text != (_selectedGame.Year ?? "") ||
+            GameMfgTextBox.Text != (_selectedGame.Manufacturer ?? "") ||
+            GameCloneOfTextBox.Text != (_selectedGame.CloneOf ?? "");
     }
 
     private void ApplyGameButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -207,6 +234,8 @@ public partial class MameDatEditorView : UserControl
         RefreshGameList(SearchTextBox.Text);
         UpdateDatInfo();
         ShowStatus(string.Format(loc["MameDatEditor_GameUpdated"], game.Name), isError: false);
+        _selectedGame = game;
+        ApplyGameButton.IsEnabled = false;
     }
 
     private void AddGameButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

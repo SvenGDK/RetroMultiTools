@@ -6124,4 +6124,1204 @@ Run:notepad.exe</value>
   <data name="Settings_Clear" xml:space="preserve">
     <value>Xóa</value>
   </data>
+  <data name="Nav_DiscTools" xml:space="preserve">
+    <value>Công cụ đĩa</value>
+  </data>
+  <data name="DiscTools_Title" xml:space="preserve">
+    <value>Công cụ đĩa</value>
+  </data>
+  <data name="DiscTools_Description" xml:space="preserve">
+    <value>Ghi hình ảnh đĩa hoặc tập tin vào phương tiện quang học và tạo hình ảnh đĩa từ đĩa hoặc tập tin vật lý. Hỗ trợ ISO, BIN/CUE, IMG, GDI, CDI, NRG và các định dạng đĩa hệ thống chơi game khác.</value>
+  </data>
+  <data name="DiscTools_Operation" xml:space="preserve">
+    <value>Hoạt động:</value>
+  </data>
+  <data name="DiscTools_OpBurnImage" xml:space="preserve">
+    <value>Ghi hình ảnh vào đĩa</value>
+  </data>
+  <data name="DiscTools_OpBurnFiles" xml:space="preserve">
+    <value>Ghi tập tin vào đĩa</value>
+  </data>
+  <data name="DiscTools_OpImageFromDisc" xml:space="preserve">
+    <value>Tạo hình ảnh từ đĩa</value>
+  </data>
+  <data name="DiscTools_OpImageFromFiles" xml:space="preserve">
+    <value>Tạo hình ảnh từ tập tin</value>
+  </data>
+  <data name="DiscTools_Drive" xml:space="preserve">
+    <value>Ổ đĩa quang:</value>
+  </data>
+  <data name="DiscTools_SelectDrive" xml:space="preserve">
+    <value>Chọn ổ đĩa quang...</value>
+  </data>
+  <data name="DiscTools_RefreshDrives" xml:space="preserve">
+    <value>Làm cho khỏe lại</value>
+  </data>
+  <data name="DiscTools_NoDrivesFound" xml:space="preserve">
+    <value>Không có ổ đĩa quang nào được phát hiện trên hệ thống này.</value>
+  </data>
+  <data name="DiscTools_ImageFile" xml:space="preserve">
+    <value>Tệp hình ảnh:</value>
+  </data>
+  <data name="DiscTools_SelectImageFile" xml:space="preserve">
+    <value>Chọn tập tin ảnh đĩa...</value>
+  </data>
+  <data name="DiscTools_ImageFiles" xml:space="preserve">
+    <value>Tập tin ảnh đĩa</value>
+  </data>
+  <data name="DiscTools_FilesOrFolders" xml:space="preserve">
+    <value>Tập tin/Thư mục:</value>
+  </data>
+  <data name="DiscTools_SelectFilesOrFolders" xml:space="preserve">
+    <value>Chọn tập tin hoặc thư mục để ghi...</value>
+  </data>
+  <data name="DiscTools_SelectFolder" xml:space="preserve">
+    <value>Chọn một thư mục</value>
+  </data>
+  <data name="DiscTools_OutputFile" xml:space="preserve">
+    <value>Tệp hình ảnh đầu ra:</value>
+  </data>
+  <data name="DiscTools_SelectOutputImage" xml:space="preserve">
+    <value>Chọn đường dẫn file ảnh đầu ra...</value>
+  </data>
+  <data name="DiscTools_VolumeLabel" xml:space="preserve">
+    <value>Nhãn khối lượng:</value>
+  </data>
+  <data name="DiscTools_VolumeLabelHint" xml:space="preserve">
+    <value>Nhập nhãn ổ đĩa cho đĩa...</value>
+  </data>
+  <data name="DiscTools_WriteSpeed" xml:space="preserve">
+    <value>Tốc độ ghi:</value>
+  </data>
+  <data name="DiscTools_SpeedAuto" xml:space="preserve">
+    <value>Tự động (Tối đa)</value>
+  </data>
+  <data name="DiscTools_VerifyAfterBurn" xml:space="preserve">
+    <value>Xác minh sau khi viết</value>
+  </data>
+  <data name="DiscTools_Burn" xml:space="preserve">
+    <value>Ghi vào đĩa</value>
+  </data>
+  <data name="DiscTools_CreateImage" xml:space="preserve">
+    <value>Tạo hình ảnh</value>
+  </data>
+  <data name="DiscTools_Cancel" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="DiscTools_DetectingDrives" xml:space="preserve">
+    <value>Đang phát hiện ổ đĩa quang...</value>
+  </data>
+  <data name="DiscTools_DriveDetectError" xml:space="preserve">
+    <value>Lỗi phát hiện ổ đĩa: {0}</value>
+  </data>
+  <data name="DiscTools_ImageNotFound" xml:space="preserve">
+    <value>Không tìm thấy tập tin hình ảnh.</value>
+  </data>
+  <data name="DiscTools_BurningImage" xml:space="preserve">
+    <value>Viết hình ảnh: {0}</value>
+  </data>
+  <data name="DiscTools_BurningFiles" xml:space="preserve">
+    <value>Đang ghi (các) mục {0} vào đĩa...</value>
+  </data>
+  <data name="DiscTools_NoFilesSelected" xml:space="preserve">
+    <value>Không có tập tin hoặc thư mục nào được chọn.</value>
+  </data>
+  <data name="DiscTools_OutputRequired" xml:space="preserve">
+    <value>Đường dẫn tập tin đầu ra là bắt buộc.</value>
+  </data>
+  <data name="DiscTools_ReadingDisc" xml:space="preserve">
+    <value>Đọc đĩa...</value>
+  </data>
+  <data name="DiscTools_CreatingImage" xml:space="preserve">
+    <value>Tạo hình ảnh: {0}</value>
+  </data>
+  <data name="DiscTools_WritingToDisc" xml:space="preserve">
+    <value>Ghi dữ liệu vào đĩa...</value>
+  </data>
+  <data name="DiscTools_RunningTool" xml:space="preserve">
+    <value>Đang chạy {0}...</value>
+  </data>
+  <data name="DiscTools_BurnComplete" xml:space="preserve">
+    <value>✔ Ghi thành công vào đĩa.</value>
+  </data>
+  <data name="DiscTools_BurnFailed" xml:space="preserve">
+    <value>✘ Ghi không thành công: {0}</value>
+  </data>
+  <data name="DiscTools_ImageCreated" xml:space="preserve">
+    <value>✔ Hình ảnh được tạo: {0} ({1})</value>
+  </data>
+  <data name="DiscTools_ImageCreateFailed" xml:space="preserve">
+    <value>✘ Tạo hình ảnh không thành công: {0}</value>
+  </data>
+  <data name="DiscTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Nền tảng này không được hỗ trợ cho các hoạt động của đĩa.</value>
+  </data>
+  <data name="DiscTools_NoBurnTool" xml:space="preserve">
+    <value>Không tìm thấy công cụ ghi đĩa. Vui lòng cài đặt wodim, cdrecord hoặc xorrecord.</value>
+  </data>
+  <data name="DiscTools_NoIsoTool" xml:space="preserve">
+    <value>Không tìm thấy công cụ tạo ISO. Vui lòng cài đặt xorrisofs, genisoimage hoặc mkisofs.</value>
+  </data>
+  <data name="DiscTools_IsoCreateFailed" xml:space="preserve">
+    <value>Tạo ISO không thành công: {0}</value>
+  </data>
+  <data name="DiscTools_CreatingIso" xml:space="preserve">
+    <value>Đang tạo ảnh ISO...</value>
+  </data>
+  <data name="DiscTools_OperationCancelled" xml:space="preserve">
+    <value>Hoạt động bị hủy bỏ.</value>
+  </data>
+  <data name="DiscTools_BrowseFolder" xml:space="preserve">
+    <value>Duyệt thư mục</value>
+  </data>
+  <data name="DiscTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>Không thể ghi định dạng hình ảnh '{0}' vào đĩa. Các định dạng được hỗ trợ: ISO, BIN/CUE, IMG, NRG, TOAST.</value>
+  </data>
+  <data name="DiscTools_Verifying" xml:space="preserve">
+    <value>Đang xác minh đĩa...</value>
+  </data>
+  <data name="DiscTools_BurnCompleteVerifySkipped" xml:space="preserve">
+    <value>Ghi hoàn tất thành công. Không thể thực hiện xác minh.</value>
+  </data>
+  <data name="DiscTools_VerifyFailed" xml:space="preserve">
+    <value>Quá trình ghi hoàn tất nhưng xác minh không thành công: dữ liệu đĩa không khớp với hình ảnh nguồn.</value>
+  </data>
+  <data name="DiscTools_IsoImageType" xml:space="preserve">
+    <value>Hình ảnh ISO</value>
+  </data>
+  <data name="DiscTools_BinCueImageType" xml:space="preserve">
+    <value>Hình ảnh BIN/CUE</value>
+  </data>
+  <data name="Nav_UsbTools" xml:space="preserve">
+    <value>Công cụ USB</value>
+  </data>
+  <data name="UsbTools_Title" xml:space="preserve">
+    <value>Công cụ USB</value>
+  </data>
+  <data name="UsbTools_Description" xml:space="preserve">
+    <value>Định dạng, ghi ảnh vào, tạo ảnh từ và duyệt ổ USB.</value>
+  </data>
+  <data name="UsbTools_Drive" xml:space="preserve">
+    <value>Ổ USB</value>
+  </data>
+  <data name="UsbTools_SelectDrive" xml:space="preserve">
+    <value>Chọn ổ USB...</value>
+  </data>
+  <data name="UsbTools_RefreshDrives" xml:space="preserve">
+    <value>Làm mới</value>
+  </data>
+  <data name="UsbTools_DetectingDrives" xml:space="preserve">
+    <value>Đang phát hiện ổ USB...</value>
+  </data>
+  <data name="UsbTools_NoDrivesFound" xml:space="preserve">
+    <value>Không tìm thấy ổ USB nào.</value>
+  </data>
+  <data name="UsbTools_DriveDetectError" xml:space="preserve">
+    <value>Lỗi phát hiện ổ đĩa: {0}</value>
+  </data>
+  <data name="UsbTools_NoDriveSelected" xml:space="preserve">
+    <value>Chưa chọn ổ USB nào.</value>
+  </data>
+  <data name="UsbTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Thao tác này không được hỗ trợ trên nền tảng hiện tại.</value>
+  </data>
+  <data name="UsbTools_TabExplorer" xml:space="preserve">
+    <value>Trình duyệt tệp</value>
+  </data>
+  <data name="UsbTools_TabFormat" xml:space="preserve">
+    <value>Định dạng</value>
+  </data>
+  <data name="UsbTools_TabWriteImage" xml:space="preserve">
+    <value>Ghi ảnh</value>
+  </data>
+  <data name="UsbTools_TabCreateImage" xml:space="preserve">
+    <value>Tạo ảnh</value>
+  </data>
+  <data name="UsbTools_NavigateUp" xml:space="preserve">
+    <value>Điều hướng lên</value>
+  </data>
+  <data name="UsbTools_RefreshFiles" xml:space="preserve">
+    <value>Làm mới</value>
+  </data>
+  <data name="UsbTools_AddFiles" xml:space="preserve">
+    <value>Thêm tệp</value>
+  </data>
+  <data name="UsbTools_NewFolder" xml:space="preserve">
+    <value>Thư mục mới</value>
+  </data>
+  <data name="UsbTools_Delete" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="UsbTools_Move" xml:space="preserve">
+    <value>Di chuyển</value>
+  </data>
+  <data name="UsbTools_FileSystem" xml:space="preserve">
+    <value>Hệ thống tệp</value>
+  </data>
+  <data name="UsbTools_PartitionScheme" xml:space="preserve">
+    <value>Sơ đồ phân vùng</value>
+  </data>
+  <data name="UsbTools_VolumeLabel" xml:space="preserve">
+    <value>Nhãn ổ đĩa</value>
+  </data>
+  <data name="UsbTools_VolumeLabelHint" xml:space="preserve">
+    <value>Nhập nhãn ổ đĩa</value>
+  </data>
+  <data name="UsbTools_FormatWarning" xml:space="preserve">
+    <value>⚠ Cảnh báo: Định dạng sẽ xóa TẤT CẢ dữ liệu trên ổ USB đã chọn. Thao tác này không thể hoàn tác.</value>
+  </data>
+  <data name="UsbTools_Format" xml:space="preserve">
+    <value>Định dạng ổ USB</value>
+  </data>
+  <data name="UsbTools_PreparingFormat" xml:space="preserve">
+    <value>Đang chuẩn bị định dạng...</value>
+  </data>
+  <data name="UsbTools_Formatting" xml:space="preserve">
+    <value>Đang định dạng sang {0} ({1})...</value>
+  </data>
+  <data name="UsbTools_FormatComplete" xml:space="preserve">
+    <value>Định dạng ổ USB thành công.</value>
+  </data>
+  <data name="UsbTools_FormatFailed" xml:space="preserve">
+    <value>Định dạng thất bại: {0}</value>
+  </data>
+  <data name="UsbTools_UnsupportedFileSystem" xml:space="preserve">
+    <value>Hệ thống tệp không được hỗ trợ: {0}</value>
+  </data>
+  <data name="UsbTools_NtfsMacWarning" xml:space="preserve">
+    <value>Lưu ý: macOS không hỗ trợ định dạng NTFS nguyên bản. Ổ đĩa đã được định dạng là ExFAT thay thế.</value>
+  </data>
+  <data name="UsbTools_ConfirmFormat" xml:space="preserve">
+    <value>Xác nhận định dạng</value>
+  </data>
+  <data name="UsbTools_ConfirmFormatMessage" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn định dạng {0} không? Tất cả dữ liệu sẽ bị xóa vĩnh viễn.</value>
+  </data>
+  <data name="UsbTools_ImageFile" xml:space="preserve">
+    <value>Tệp ảnh</value>
+  </data>
+  <data name="UsbTools_SelectImageFile" xml:space="preserve">
+    <value>Chọn tệp ảnh...</value>
+  </data>
+  <data name="UsbTools_ImageFiles" xml:space="preserve">
+    <value>Tệp ảnh đĩa</value>
+  </data>
+  <data name="UsbTools_ImageNotFound" xml:space="preserve">
+    <value>Không tìm thấy tệp ảnh.</value>
+  </data>
+  <data name="UsbTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>Định dạng ảnh không được hỗ trợ: {0}</value>
+  </data>
+  <data name="UsbTools_WriteWarning" xml:space="preserve">
+    <value>⚠ Cảnh báo: Ghi ảnh sẽ xóa TẤT CẢ dữ liệu trên ổ USB đã chọn. Thao tác này không thể hoàn tác.</value>
+  </data>
+  <data name="UsbTools_WriteImage" xml:space="preserve">
+    <value>Ghi ảnh vào USB</value>
+  </data>
+  <data name="UsbTools_WritingImage" xml:space="preserve">
+    <value>Đang ghi {0} vào ổ USB...</value>
+  </data>
+  <data name="UsbTools_WriteComplete" xml:space="preserve">
+    <value>Ghi ảnh vào ổ USB thành công.</value>
+  </data>
+  <data name="UsbTools_WriteFailed" xml:space="preserve">
+    <value>Ghi thất bại: {0}</value>
+  </data>
+  <data name="UsbTools_ConfirmWrite" xml:space="preserve">
+    <value>Xác nhận ghi</value>
+  </data>
+  <data name="UsbTools_ConfirmWriteMessage" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn ghi {0} vào {1} không? Tất cả dữ liệu hiện có sẽ bị xóa vĩnh viễn.</value>
+  </data>
+  <data name="UsbTools_OutputFile" xml:space="preserve">
+    <value>Tệp đầu ra</value>
+  </data>
+  <data name="UsbTools_SelectOutputImage" xml:space="preserve">
+    <value>Chọn vị trí ảnh đầu ra...</value>
+  </data>
+  <data name="UsbTools_CreateImage" xml:space="preserve">
+    <value>Tạo ảnh từ USB</value>
+  </data>
+  <data name="UsbTools_CreatingImage" xml:space="preserve">
+    <value>Đang tạo ảnh từ ổ USB...</value>
+  </data>
+  <data name="UsbTools_ImageCreated" xml:space="preserve">
+    <value>Tạo ảnh thành công: {0}</value>
+  </data>
+  <data name="UsbTools_ImageCreateFailed" xml:space="preserve">
+    <value>Tạo ảnh thất bại: {0}</value>
+  </data>
+  <data name="UsbTools_OutputRequired" xml:space="preserve">
+    <value>Đường dẫn tệp đầu ra là bắt buộc.</value>
+  </data>
+  <data name="UsbTools_ImgFileType" xml:space="preserve">
+    <value>Ảnh IMG</value>
+  </data>
+  <data name="UsbTools_IsoFileType" xml:space="preserve">
+    <value>Ảnh ISO</value>
+  </data>
+  <data name="UsbTools_OperationCancelled" xml:space="preserve">
+    <value>Thao tác đã bị hủy.</value>
+  </data>
+  <data name="UsbTools_FolderExists" xml:space="preserve">
+    <value>Một thư mục với tên đó đã tồn tại.</value>
+  </data>
+  <data name="UsbTools_FolderCreated" xml:space="preserve">
+    <value>Tạo thư mục thành công.</value>
+  </data>
+  <data name="UsbTools_DeleteComplete" xml:space="preserve">
+    <value>Đã xóa thành công.</value>
+  </data>
+  <data name="UsbTools_EntryNotFound" xml:space="preserve">
+    <value>Không tìm thấy tệp hoặc thư mục.</value>
+  </data>
+  <data name="UsbTools_DestinationExists" xml:space="preserve">
+    <value>Một mục có cùng tên đã tồn tại ở đích.</value>
+  </data>
+  <data name="UsbTools_MoveComplete" xml:space="preserve">
+    <value>Đã di chuyển thành công.</value>
+  </data>
+  <data name="UsbTools_SelectMoveDestination" xml:space="preserve">
+    <value>Chọn thư mục đích</value>
+  </data>
+  <data name="UsbTools_CopyingFile" xml:space="preserve">
+    <value>Đang sao chép {0}...</value>
+  </data>
+  <data name="UsbTools_AddComplete" xml:space="preserve">
+    <value>Đã thêm thành công {0} mục.</value>
+  </data>
+  <data name="UsbTools_ConfirmDelete" xml:space="preserve">
+    <value>Xác nhận xóa</value>
+  </data>
+  <data name="UsbTools_ConfirmDeleteMessage" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn xóa '{0}' không? Thao tác này không thể hoàn tác.</value>
+  </data>
+  <data name="UsbTools_EnterFolderName" xml:space="preserve">
+    <value>Nhập tên thư mục:</value>
+  </data>
+  <data name="UsbTools_FolderNameHint" xml:space="preserve">
+    <value>Tên thư mục</value>
+  </data>
+  <data name="Tour_Skip" xml:space="preserve">
+    <value>Bỏ qua Tour</value>
+  </data>
+  <data name="Tour_Back" xml:space="preserve">
+    <value>Quay lại</value>
+  </data>
+  <data name="Tour_Next" xml:space="preserve">
+    <value>Tiếp theo</value>
+  </data>
+  <data name="Tour_Finish" xml:space="preserve">
+    <value>Bắt đầu</value>
+  </data>
+  <data name="Tour_WelcomeTitle" xml:space="preserve">
+    <value>Chào mừng đến với RetroMultiTools!</value>
+  </data>
+  <data name="Tour_WelcomeDesc" xml:space="preserve">
+    <value>Bộ công cụ tất cả trong một dành cho trò chơi cổ điển. Hãy để chúng tôi giới thiệu nhanh về tất cả những gì ứng dụng này có thể làm. Chỉ mất một phút!</value>
+  </data>
+  <data name="Tour_SidebarTitle" xml:space="preserve">
+    <value>Điều hướng thanh bên</value>
+  </data>
+  <data name="Tour_SidebarDesc" xml:space="preserve">
+    <value>Sử dụng thanh bên bên trái để chuyển đổi giữa các công cụ. Chúng được sắp xếp thành các danh mục như duyệt, vá lỗi, phân tích và nhiều hơn nữa.</value>
+  </data>
+  <data name="Tour_BrowserTitle" xml:space="preserve">
+    <value>Trình duyệt ROM</value>
+  </data>
+  <data name="Tour_BrowserDesc" xml:space="preserve">
+    <value>Duyệt bộ sưu tập ROM của bạn với trình duyệt tệp mạnh mẽ. Xem chi tiết tệp, mở thư mục và tìm kiếm trò chơi bạn muốn một cách nhanh chóng.</value>
+  </data>
+  <data name="Tour_InspectorTitle" xml:space="preserve">
+    <value>ROM Inspector &amp; Hex Viewer</value>
+  </data>
+  <data name="Tour_InspectorDesc" xml:space="preserve">
+    <value>Kiểm tra tiêu đề tệp ROM, xem siêu dữ liệu nội bộ và kiểm tra các byte thô với Hex Viewer tích hợp. Tuyệt vời cho người dùng nâng cao và nhà phát triển.</value>
+  </data>
+  <data name="Tour_PatchingTitle" xml:space="preserve">
+    <value>Vá lỗi &amp; Chuyển đổi</value>
+  </data>
+  <data name="Tour_PatchingDesc" xml:space="preserve">
+    <value>Áp dụng các bản vá IPS/BPS/UPS, tạo bản vá của riêng bạn, chuyển đổi định dạng ROM, chuyển đổi tệp lưu và xử lý hoán đổi byte N64 — tất cả trong một nơi.</value>
+  </data>
+  <data name="Tour_AnalysisTitle" xml:space="preserve">
+    <value>Phân tích &amp; Xác minh</value>
+  </data>
+  <data name="Tour_AnalysisDesc" xml:space="preserve">
+    <value>Xác minh ROM dựa trên tệp DAT, tính toán checksum, tìm bản sao, băm hàng loạt toàn bộ thư mục và nhận dạng bộ GoodTools để quản lý bộ sưu tập chính xác.</value>
+  </data>
+  <data name="Tour_HeadersTitle" xml:space="preserve">
+    <value>Tiêu đề &amp; Cắt bớt</value>
+  </data>
+  <data name="Tour_HeadersDesc" xml:space="preserve">
+    <value>Xuất, sửa hoặc xóa tiêu đề ROM. Cắt bớt các ROM đệm để tiết kiệm dung lượng. Bao gồm các công cụ chuyên dụng để quản lý tiêu đề SNES.</value>
+  </data>
+  <data name="Tour_UtilitiesTitle" xml:space="preserve">
+    <value>Tiện ích</value>
+  </data>
+  <data name="Tour_UtilitiesDesc" xml:space="preserve">
+    <value>Quản lý tệp nén, áp dụng mã gian lận, làm việc với ảnh đĩa, cấu hình trình giả lập, ánh xạ nút tay cầm, thu thập siêu dữ liệu, tổ chức và đổi tên tệp ROM, và quản lý thiết bị USB.</value>
+  </data>
+  <data name="Tour_EmulatorsTitle" xml:space="preserve">
+    <value>Tích hợp Emulator</value>
+  </data>
+  <data name="Tour_EmulatorsDesc" xml:space="preserve">
+    <value>Tích hợp sâu với RetroArch, MAME và Mednafen. Quản lý danh sách phát, kiểm tra bộ ROM, chuyển đổi tệp CHD, chỉnh sửa DAT, tạo phím tắt và nhiều hơn nữa.</value>
+  </data>
+  <data name="Tour_AnalogueTitle" xml:space="preserve">
+    <value>Analogue FPGA</value>
+  </data>
+  <data name="Tour_AnalogueDesc" xml:space="preserve">
+    <value>Công cụ cho phần cứng Analogue FPGA: Pocket, Mega Sg, Nt/Super Nt và 3D sắp ra mắt. Quản lý lõi, firmware và thư viện trò chơi cho thiết bị của bạn.</value>
+  </data>
+  <data name="Tour_BigPictureTitle" xml:space="preserve">
+    <value>Big Picture Mode</value>
+  </data>
+  <data name="Tour_BigPictureDesc" xml:space="preserve">
+    <value>Thư giãn và thưởng thức thư viện trò chơi toàn màn hình với hỗ trợ tay cầm, hình ảnh nghệ thuật, theo dõi thời gian chơi và xếp hạng. Chọn giữa bố cục lưới Cổ điển hoặc Anh hùng Hiện đại.</value>
+  </data>
+  <data name="Tour_SettingsTitle" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="Tour_SettingsDesc" xml:space="preserve">
+    <value>Tùy chỉnh trải nghiệm của bạn: thay đổi ngôn ngữ, bật Discord Rich Presence, cấu hình Big Picture Mode, thiết lập điều khiển tay cầm và kiểm tra cập nhật.</value>
+  </data>
+  <data name="Tour_FinishTitle" xml:space="preserve">
+    <value>Bạn đã sẵn sàng!</value>
+  </data>
+  <data name="Tour_FinishDesc" xml:space="preserve">
+    <value>Đó là tất cả! Bắt đầu khám phá các công cụ trong thanh bên. Bạn luôn có thể khởi động lại tour này từ Cài đặt nếu cần ôn lại. Chúc bạn thú vị!</value>
+  </data>
+  <data name="Tour_SettingSectionTitle" xml:space="preserve">
+    <value>Tour hướng dẫn</value>
+  </data>
+  <data name="Tour_SettingSectionDesc" xml:space="preserve">
+    <value>Phát lại tour hướng dẫn giải thích tất cả các tính năng của ứng dụng.</value>
+  </data>
+  <data name="Tour_RestartButton" xml:space="preserve">
+    <value>Khởi động lại Tour</value>
+  </data>
+  <data name="Browser_SelectFolderTooltip" xml:space="preserve">
+    <value>Browse for a ROM folder to scan</value>
+  </data>
+  <data name="Browser_AddRomsTooltip" xml:space="preserve">
+    <value>Add ROM files to the current folder</value>
+  </data>
+  <data name="Browser_CopyToTooltip" xml:space="preserve">
+    <value>Copy selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_MoveToTooltip" xml:space="preserve">
+    <value>Move selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_DeleteTooltip" xml:space="preserve">
+    <value>Delete the selected ROMs</value>
+  </data>
+  <data name="Browser_OrganizeTooltip" xml:space="preserve">
+    <value>Organize ROMs into subfolders by system</value>
+  </data>
+  <data name="Browser_SendToRemoteTooltip" xml:space="preserve">
+    <value>Send selected ROMs to a remote device or cloud storage</value>
+  </data>
+  <data name="Browser_HostShareTooltip" xml:space="preserve">
+    <value>Host a local server to share ROMs on the network</value>
+  </data>
+  <data name="Browser_LaunchRetroArchTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in RetroArch</value>
+  </data>
+  <data name="Browser_LaunchMameTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in MAME</value>
+  </data>
+  <data name="Browser_LaunchMednafenTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in Mednafen</value>
+  </data>
+  <data name="Browser_BigPictureModeTooltip" xml:space="preserve">
+    <value>Enter full-screen Big Picture Mode for gamepad-friendly browsing</value>
+  </data>
+  <data name="MainWindow_SearchShortcut" xml:space="preserve">
+    <value>Search tools (Ctrl+F)</value>
+  </data>
+  <data name="BigPictureModern_AllGames" xml:space="preserve">
+    <value>Tất cả trò chơi</value>
+  </data>
+  <data name="BigPictureModern_EmptyCategory" xml:space="preserve">
+    <value>Chưa có trò chơi nào trong danh mục này</value>
+  </data>
+  <data name="BigPictureModern_EmptyLibrary" xml:space="preserve">
+    <value>Thư viện của bạn trống. Duyệt thư mục ROM để bắt đầu.</value>
+  </data>
+  <data name="BigPictureModern_Favorites" xml:space="preserve">
+    <value>Yêu thích</value>
+  </data>
+  <data name="BigPictureModern_LaunchWith" xml:space="preserve">
+    <value>Khởi chạy với {0}</value>
+  </data>
+  <data name="BigPictureModern_MostPlayed" xml:space="preserve">
+    <value>Chơi nhiều nhất</value>
+  </data>
+  <data name="BigPictureModern_NoResults" xml:space="preserve">
+    <value>Không có trò chơi nào khớp với tìm kiếm của bạn</value>
+  </data>
+  <data name="BigPictureModern_Plays" xml:space="preserve">
+    <value>{0} lần chơi</value>
+  </data>
+  <data name="BigPictureModern_RecentlyPlayed" xml:space="preserve">
+    <value>Chơi gần đây</value>
+  </data>
+  <data name="BigPictureModern_SearchPlaceholder" xml:space="preserve">
+    <value>Tìm kiếm trong thư viện...</value>
+  </data>
+  <data name="BigPictureModern_Spotlight" xml:space="preserve">
+    <value>Nổi bật</value>
+  </data>
+  <data name="BigPictureModern_TopRated" xml:space="preserve">
+    <value>Đánh giá cao nhất</value>
+  </data>
+  <data name="BigPicture_CopiedToClipboard" xml:space="preserve">
+    <value>Đã sao chép đường dẫn vào bảng tạm</value>
+  </data>
+  <data name="BigPicture_CopyFilePath" xml:space="preserve">
+    <value>Sao chép đường dẫn tệp</value>
+  </data>
+  <data name="BigPicture_OpenFileLocation" xml:space="preserve">
+    <value>Mở vị trí tệp</value>
+  </data>
+  <data name="BigPicture_SortPlayCount" xml:space="preserve">
+    <value>Số lần chơi (Cao → Thấp)</value>
+  </data>
+  <data name="Browser_ContextChecksum" xml:space="preserve">
+    <value>#️⃣ Tính Checksum</value>
+  </data>
+  <data name="Browser_ContextGoodTools" xml:space="preserve">
+    <value>🏷️ Nhận dạng bằng GoodTools</value>
+  </data>
+  <data name="Browser_ContextHexView" xml:space="preserve">
+    <value>🔢 Mở trong Hex Viewer</value>
+  </data>
+  <data name="Browser_ContextInspect" xml:space="preserve">
+    <value>🔍 Mở trong ROM Inspector</value>
+  </data>
+  <data name="Browser_ContextOpenFolder" xml:space="preserve">
+    <value>📂 Mở thư mục chứa</value>
+  </data>
+  <data name="Browser_ContextOpenWith" xml:space="preserve">
+    <value>🚀 Mở bằng</value>
+  </data>
+  <data name="Browser_ContextPatch" xml:space="preserve">
+    <value>🩹 Vá ROM...</value>
+  </data>
+  <data name="Browser_ContextRename" xml:space="preserve">
+    <value>✏️ Đổi tên...</value>
+  </data>
+  <data name="Browser_ContextTools" xml:space="preserve">
+    <value>🔧 Công cụ</value>
+  </data>
+  <data name="Browser_OpenFolderError" xml:space="preserve">
+    <value>Không thể mở thư mục: {0}</value>
+  </data>
+  <data name="Browser_RenameError" xml:space="preserve">
+    <value>Đổi tên thất bại: {0}</value>
+  </data>
+  <data name="Browser_RenamePromptTitle" xml:space="preserve">
+    <value>Đổi tên ROM</value>
+  </data>
+  <data name="Browser_RenameSuccess" xml:space="preserve">
+    <value>Đã đổi tên thành {0}</value>
+  </data>
+  <data name="Checksum_Description" xml:space="preserve">
+    <value>Tính checksum CRC32, MD5, SHA-1 và SHA-256 cho tệp ROM để xác minh tính toàn vẹn và nhận dạng bản sao.</value>
+  </data>
+  <data name="Common_SelectFileTitle" xml:space="preserve">
+    <value>Chọn tệp</value>
+  </data>
+  <data name="Common_SelectOutputDirectoryTitle" xml:space="preserve">
+    <value>Chọn thư mục đầu ra</value>
+  </data>
+  <data name="Common_SelectRomDirectoryTitle" xml:space="preserve">
+    <value>Chọn thư mục ROM</value>
+  </data>
+  <data name="Common_SelectRomFileTitle" xml:space="preserve">
+    <value>Chọn tệp ROM</value>
+  </data>
+  <data name="Comparer_Description" xml:space="preserve">
+    <value>So sánh hai tệp ROM theo từng byte để xác định sự khác biệt về kích thước, nội dung và tìm vị trí không khớp đầu tiên.</value>
+  </data>
+  <data name="GoodTools_NoCodesForFile" xml:space="preserve">
+    <value>Không tìm thấy mã GoodTools.</value>
+  </data>
+  <data name="MameConfig_Artwork" xml:space="preserve">
+    <value>Tùy chọn đồ họa</value>
+  </data>
+  <data name="MameConfig_AutoEnable" xml:space="preserve">
+    <value>Tùy chọn tự động kích hoạt đầu vào</value>
+  </data>
+  <data name="MameConfig_Bgfx" xml:space="preserve">
+    <value>Hậu xử lý BGFX</value>
+  </data>
+  <data name="MameConfig_Communication" xml:space="preserve">
+    <value>Tùy chọn giao tiếp</value>
+  </data>
+  <data name="MameConfig_ConfigFile" xml:space="preserve">
+    <value>Tệp cấu hình</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Bạn có thay đổi chưa lưu. Hủy bỏ và tiếp tục?</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Thay đổi chưa lưu</value>
+  </data>
+  <data name="MameConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Thao tác này sẽ đặt lại tất cả cài đặt về mặc định MAME. Các thay đổi chưa lưu sẽ bị mất. Tiếp tục?</value>
+  </data>
+  <data name="MameConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Đặt lại về mặc định</value>
+  </data>
+  <data name="MameConfig_CoreInput" xml:space="preserve">
+    <value>Tùy chọn đầu vào chính</value>
+  </data>
+  <data name="MameConfig_CoreMisc" xml:space="preserve">
+    <value>Tùy chọn khác chính</value>
+  </data>
+  <data name="MameConfig_CorePerformance" xml:space="preserve">
+    <value>Tùy chọn hiệu suất chính</value>
+  </data>
+  <data name="MameConfig_CoreSound" xml:space="preserve">
+    <value>Tùy chọn âm thanh chính</value>
+  </data>
+  <data name="MameConfig_CoreVideo" xml:space="preserve">
+    <value>Tùy chọn video chính</value>
+  </data>
+  <data name="MameConfig_CreateNew" xml:space="preserve">
+    <value>Tạo mới</value>
+  </data>
+  <data name="MameConfig_Debugging" xml:space="preserve">
+    <value>Tùy chọn gỡ lỗi</value>
+  </data>
+  <data name="MameConfig_DefaultsRestored" xml:space="preserve">
+    <value>Tất cả cài đặt đã được đặt lại về mặc định MAME.</value>
+  </data>
+  <data name="MameConfig_Description" xml:space="preserve">
+    <value>Tải, chỉnh sửa và lưu tệp cấu hình MAME (mame.ini). Hỗ trợ tất cả cài đặt MAME cho Windows, macOS và Linux.</value>
+  </data>
+  <data name="MameConfig_HttpServer" xml:space="preserve">
+    <value>Tùy chọn máy chủ HTTP</value>
+  </data>
+  <data name="MameConfig_IniFileType" xml:space="preserve">
+    <value>Tệp MAME INI</value>
+  </data>
+  <data name="MameConfig_IniPlaceholder" xml:space="preserve">
+    <value>Đường dẫn đến mame.ini...</value>
+  </data>
+  <data name="MameConfig_Language" xml:space="preserve">
+    <value>Ngôn ngữ</value>
+  </data>
+  <data name="MameConfig_LoadError" xml:space="preserve">
+    <value>Không thể tải cấu hình: {0}</value>
+  </data>
+  <data name="MameConfig_Loaded" xml:space="preserve">
+    <value>Đã tải {0} cài đặt từ {1}</value>
+  </data>
+  <data name="MameConfig_NewCreated" xml:space="preserve">
+    <value>Đã tạo cấu hình mới với mặc định MAME. Đường dẫn lưu: {0}</value>
+  </data>
+  <data name="MameConfig_NoIniFound" xml:space="preserve">
+    <value>Không tìm thấy mame.ini. Sử dụng Duyệt để tìm hoặc Tạo mới để tạo với giá trị mặc định.</value>
+  </data>
+  <data name="MameConfig_OsdInput" xml:space="preserve">
+    <value>Nhà cung cấp đầu vào OSD</value>
+  </data>
+  <data name="MameConfig_OsdSound" xml:space="preserve">
+    <value>Tùy chọn âm thanh OSD</value>
+  </data>
+  <data name="MameConfig_OsdVideo" xml:space="preserve">
+    <value>OSD / Video tăng tốc</value>
+  </data>
+  <data name="MameConfig_OutputDirs" xml:space="preserve">
+    <value>Thư mục đầu ra</value>
+  </data>
+  <data name="MameConfig_PerWindowVideo" xml:space="preserve">
+    <value>Tùy chọn video theo cửa sổ</value>
+  </data>
+  <data name="MameConfig_ResetDefaults" xml:space="preserve">
+    <value>Đặt lại về mặc định</value>
+  </data>
+  <data name="MameConfig_Rotation" xml:space="preserve">
+    <value>Tùy chọn xoay</value>
+  </data>
+  <data name="MameConfig_Save" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="MameConfig_SaveAs" xml:space="preserve">
+    <value>Lưu thành...</value>
+  </data>
+  <data name="MameConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Lưu cấu hình MAME</value>
+  </data>
+  <data name="MameConfig_SaveError" xml:space="preserve">
+    <value>Không thể lưu cấu hình: {0}</value>
+  </data>
+  <data name="MameConfig_Saved" xml:space="preserve">
+    <value>Đã lưu cấu hình tại {0}</value>
+  </data>
+  <data name="MameConfig_ScreenOptions" xml:space="preserve">
+    <value>Tùy chọn màn hình</value>
+  </data>
+  <data name="MameConfig_Scripting" xml:space="preserve">
+    <value>Kịch bản / Plugin</value>
+  </data>
+  <data name="MameConfig_SearchPaths" xml:space="preserve">
+    <value>Đường dẫn tìm kiếm</value>
+  </data>
+  <data name="MameConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Nhập để lọc cài đặt theo tên (vd: rompath, video, joystick...)</value>
+  </data>
+  <data name="MameConfig_SearchResults" xml:space="preserve">
+    <value>{0} trong {1} phần khớp</value>
+  </data>
+  <data name="MameConfig_SearchSettings" xml:space="preserve">
+    <value>Tìm kiếm cài đặt</value>
+  </data>
+  <data name="MameConfig_SelectIniTitle" xml:space="preserve">
+    <value>Chọn tệp cấu hình MAME</value>
+  </data>
+  <data name="MameConfig_StatePlayback" xml:space="preserve">
+    <value>Tùy chọn trạng thái / phát lại</value>
+  </data>
+  <data name="MameConfig_TabInput" xml:space="preserve">
+    <value>Đầu vào</value>
+  </data>
+  <data name="MameConfig_TabMisc" xml:space="preserve">
+    <value>Khác / Nâng cao</value>
+  </data>
+  <data name="MameConfig_TabPaths" xml:space="preserve">
+    <value>Đường dẫn</value>
+  </data>
+  <data name="MameConfig_TabPerformance" xml:space="preserve">
+    <value>Hiệu suất</value>
+  </data>
+  <data name="MameConfig_TabSound" xml:space="preserve">
+    <value>Âm thanh</value>
+  </data>
+  <data name="MameConfig_TabState" xml:space="preserve">
+    <value>Trạng thái / Phát lại</value>
+  </data>
+  <data name="MameConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="MameConfig_Title" xml:space="preserve">
+    <value>Trình cấu hình MAME</value>
+  </data>
+  <data name="MameConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Thay đổi chưa lưu</value>
+  </data>
+  <data name="MameConfig_Vector" xml:space="preserve">
+    <value>Tùy chọn vector</value>
+  </data>
+  <data name="MednafenConfig_CfgFileType" xml:space="preserve">
+    <value>Tệp cấu hình Mednafen (*.cfg)</value>
+  </data>
+  <data name="MednafenConfig_CfgPlaceholder" xml:space="preserve">
+    <value>Đường dẫn đến mednafen.cfg...</value>
+  </data>
+  <data name="MednafenConfig_ConfigFile" xml:space="preserve">
+    <value>Tệp cấu hình</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Bạn có thay đổi chưa lưu. Hủy bỏ và tiếp tục?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Thay đổi chưa lưu</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Thao tác này sẽ đặt lại tất cả cài đặt về mặc định Mednafen. Các thay đổi chưa lưu sẽ bị mất. Tiếp tục?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Đặt lại về mặc định</value>
+  </data>
+  <data name="MednafenConfig_CoreSettings" xml:space="preserve">
+    <value>Cài đặt chính</value>
+  </data>
+  <data name="MednafenConfig_CpuAffinity" xml:space="preserve">
+    <value>Liên kết CPU</value>
+  </data>
+  <data name="MednafenConfig_CreateNew" xml:space="preserve">
+    <value>Tạo mới</value>
+  </data>
+  <data name="MednafenConfig_DefaultsRestored" xml:space="preserve">
+    <value>Tất cả cài đặt đã được khôi phục về mặc định Mednafen.</value>
+  </data>
+  <data name="MednafenConfig_Description" xml:space="preserve">
+    <value>Tải, chỉnh sửa và lưu tệp cấu hình Mednafen (mednafen.cfg). Hỗ trợ tất cả cài đặt Mednafen cho Windows, macOS và Linux.</value>
+  </data>
+  <data name="MednafenConfig_DirectoryPaths" xml:space="preserve">
+    <value>Đường dẫn thư mục</value>
+  </data>
+  <data name="MednafenConfig_FilenameFormats" xml:space="preserve">
+    <value>Định dạng tên tệp</value>
+  </data>
+  <data name="MednafenConfig_FpsDisplay" xml:space="preserve">
+    <value>Hiển thị FPS</value>
+  </data>
+  <data name="MednafenConfig_GoatShader" xml:space="preserve">
+    <value>Cài đặt Goat Shader</value>
+  </data>
+  <data name="MednafenConfig_InputSettings" xml:space="preserve">
+    <value>Cài đặt đầu vào</value>
+  </data>
+  <data name="MednafenConfig_LoadError" xml:space="preserve">
+    <value>Không thể tải cấu hình: {0}</value>
+  </data>
+  <data name="MednafenConfig_Loaded" xml:space="preserve">
+    <value>Đã tải {0} cài đặt từ {1}</value>
+  </data>
+  <data name="MednafenConfig_NetworkPlay" xml:space="preserve">
+    <value>Chơi qua mạng</value>
+  </data>
+  <data name="MednafenConfig_NewCreated" xml:space="preserve">
+    <value>Đã tạo cấu hình mặc định mới tại {0}</value>
+  </data>
+  <data name="MednafenConfig_NoCfgFound" xml:space="preserve">
+    <value>Không thể tự động phát hiện mednafen.cfg. Vui lòng duyệt đến tệp thủ công.</value>
+  </data>
+  <data name="MednafenConfig_Osd" xml:space="preserve">
+    <value>Hiển thị trên màn hình</value>
+  </data>
+  <data name="MednafenConfig_PerSystemDescription" xml:space="preserve">
+    <value>Cấu hình thu phóng video, shader và cài đặt hiển thị cho từng hệ thống giả lập. Thay đổi được lưu khi chuyển hệ thống hoặc lưu tệp.</value>
+  </data>
+  <data name="MednafenConfig_QtRecord" xml:space="preserve">
+    <value>Ghi QuickTime</value>
+  </data>
+  <data name="MednafenConfig_ResetDefaults" xml:space="preserve">
+    <value>Đặt lại về mặc định</value>
+  </data>
+  <data name="MednafenConfig_Save" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="MednafenConfig_SaveAs" xml:space="preserve">
+    <value>Lưu thành</value>
+  </data>
+  <data name="MednafenConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Lưu cấu hình Mednafen thành</value>
+  </data>
+  <data name="MednafenConfig_SaveError" xml:space="preserve">
+    <value>Không thể lưu cấu hình: {0}</value>
+  </data>
+  <data name="MednafenConfig_Saved" xml:space="preserve">
+    <value>Đã lưu cấu hình tại {0}</value>
+  </data>
+  <data name="MednafenConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Nhập để lọc cài đặt theo tên (vd: video, sound, shader...)</value>
+  </data>
+  <data name="MednafenConfig_SearchResults" xml:space="preserve">
+    <value>{0} trong {1} phần khớp</value>
+  </data>
+  <data name="MednafenConfig_SearchSettings" xml:space="preserve">
+    <value>Tìm kiếm cài đặt</value>
+  </data>
+  <data name="MednafenConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Chọn tệp cấu hình Mednafen</value>
+  </data>
+  <data name="MednafenConfig_SelectSystem" xml:space="preserve">
+    <value>Chọn hệ thống</value>
+  </data>
+  <data name="MednafenConfig_SoundOutput" xml:space="preserve">
+    <value>Đầu ra âm thanh</value>
+  </data>
+  <data name="MednafenConfig_SpeedSettings" xml:space="preserve">
+    <value>Tua nhanh / Tua chậm</value>
+  </data>
+  <data name="MednafenConfig_SystemVideo" xml:space="preserve">
+    <value>Video hệ thống / Thu phóng</value>
+  </data>
+  <data name="MednafenConfig_TabAdvanced" xml:space="preserve">
+    <value>Nâng cao</value>
+  </data>
+  <data name="MednafenConfig_TabGeneral" xml:space="preserve">
+    <value>Chung</value>
+  </data>
+  <data name="MednafenConfig_TabInput" xml:space="preserve">
+    <value>Đầu vào</value>
+  </data>
+  <data name="MednafenConfig_TabNetplay" xml:space="preserve">
+    <value>Chơi qua mạng</value>
+  </data>
+  <data name="MednafenConfig_TabPaths" xml:space="preserve">
+    <value>Đường dẫn</value>
+  </data>
+  <data name="MednafenConfig_TabPerSystem" xml:space="preserve">
+    <value>Theo hệ thống</value>
+  </data>
+  <data name="MednafenConfig_TabSound" xml:space="preserve">
+    <value>Âm thanh</value>
+  </data>
+  <data name="MednafenConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="MednafenConfig_TemporalBlur" xml:space="preserve">
+    <value>Làm mờ thời gian</value>
+  </data>
+  <data name="MednafenConfig_Title" xml:space="preserve">
+    <value>Trình cấu hình Mednafen</value>
+  </data>
+  <data name="MednafenConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Thay đổi chưa lưu</value>
+  </data>
+  <data name="MednafenConfig_VideoOutput" xml:space="preserve">
+    <value>Đầu ra video</value>
+  </data>
+  <data name="MetaScraper_SummaryBySystem" xml:space="preserve">
+    <value>Tóm tắt theo hệ thống:</value>
+  </data>
+  <data name="MetaScraper_SummaryStats" xml:space="preserve">
+    <value>Hợp lệ: {0}, Không hợp lệ: {1}, Lỗi: {2}</value>
+  </data>
+  <data name="Nav_MameConfigurator" xml:space="preserve">
+    <value>Trình cấu hình MAME</value>
+  </data>
+  <data name="Nav_MednafenConfigurator" xml:space="preserve">
+    <value>Trình cấu hình Mednafen</value>
+  </data>
+  <data name="Nav_NoResults" xml:space="preserve">
+    <value>Không tìm thấy công cụ phù hợp.</value>
+  </data>
+  <data name="Nav_RetroArchConfigurator" xml:space="preserve">
+    <value>Trình cấu hình RetroArch</value>
+  </data>
+  <data name="Nav_SearchPlaceholder" xml:space="preserve">
+    <value>Tìm kiếm công cụ...</value>
+  </data>
+  <data name="Patcher_Description" xml:space="preserve">
+    <value>Áp dụng bản vá IPS, BPS hoặc xdelta cho tệp ROM để áp dụng bản dịch, sửa lỗi hoặc sửa đổi.</value>
+  </data>
+  <data name="RAConfig_AIService" xml:space="preserve">
+    <value>Dịch vụ AI</value>
+  </data>
+  <data name="RAConfig_AccessibilityOptions" xml:space="preserve">
+    <value>Tùy chọn trợ năng</value>
+  </data>
+  <data name="RAConfig_AchievementDisplay" xml:space="preserve">
+    <value>Hiển thị thành tựu</value>
+  </data>
+  <data name="RAConfig_AchievementOptions" xml:space="preserve">
+    <value>Tùy chọn RetroAchievements</value>
+  </data>
+  <data name="RAConfig_AudioDriver" xml:space="preserve">
+    <value>Trình điều khiển âm thanh</value>
+  </data>
+  <data name="RAConfig_AudioSync" xml:space="preserve">
+    <value>Cài đặt âm thanh</value>
+  </data>
+  <data name="RAConfig_CfgFileType" xml:space="preserve">
+    <value>Tệp RetroArch CFG</value>
+  </data>
+  <data name="RAConfig_CfgPlaceholder" xml:space="preserve">
+    <value>Đường dẫn đến retroarch.cfg...</value>
+  </data>
+  <data name="RAConfig_ConfigFile" xml:space="preserve">
+    <value>Tệp cấu hình</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Bạn có thay đổi chưa lưu. Hủy bỏ và tiếp tục?</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Thay đổi chưa lưu</value>
+  </data>
+  <data name="RAConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Thao tác này sẽ đặt lại tất cả cài đặt về mặc định RetroArch. Các thay đổi chưa lưu sẽ bị mất. Tiếp tục?</value>
+  </data>
+  <data name="RAConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Đặt lại về mặc định</value>
+  </data>
+  <data name="RAConfig_ContentPaths" xml:space="preserve">
+    <value>Đường dẫn nội dung và lưu</value>
+  </data>
+  <data name="RAConfig_CoreOptions" xml:space="preserve">
+    <value>Tùy chọn lõi</value>
+  </data>
+  <data name="RAConfig_CorePaths" xml:space="preserve">
+    <value>Đường dẫn lõi và hệ thống</value>
+  </data>
+  <data name="RAConfig_CreateNew" xml:space="preserve">
+    <value>Tạo mới</value>
+  </data>
+  <data name="RAConfig_DefaultsRestored" xml:space="preserve">
+    <value>Tất cả cài đặt đã được đặt lại về mặc định RetroArch.</value>
+  </data>
+  <data name="RAConfig_Description" xml:space="preserve">
+    <value>Tải, chỉnh sửa và lưu tệp cấu hình RetroArch (retroarch.cfg). Hỗ trợ tất cả cài đặt RetroArch cho Windows, macOS và Linux.</value>
+  </data>
+  <data name="RAConfig_FilterPaths" xml:space="preserve">
+    <value>Đường dẫn bộ lọc, lớp phủ và khác</value>
+  </data>
+  <data name="RAConfig_FrameThrottle" xml:space="preserve">
+    <value>Tùy chọn giới hạn khung hình</value>
+  </data>
+  <data name="RAConfig_InputGeneral" xml:space="preserve">
+    <value>Cài đặt đầu vào chung</value>
+  </data>
+  <data name="RAConfig_InputHotkeys" xml:space="preserve">
+    <value>Phím tắt</value>
+  </data>
+  <data name="RAConfig_LoadError" xml:space="preserve">
+    <value>Không thể tải cấu hình: {0}</value>
+  </data>
+  <data name="RAConfig_Loaded" xml:space="preserve">
+    <value>Đã tải {0} cài đặt từ {1}</value>
+  </data>
+  <data name="RAConfig_Logging" xml:space="preserve">
+    <value>Tùy chọn ghi nhật ký</value>
+  </data>
+  <data name="RAConfig_MenuGeneral" xml:space="preserve">
+    <value>Cài đặt menu</value>
+  </data>
+  <data name="RAConfig_MenuTheme" xml:space="preserve">
+    <value>Giao diện và hình thức</value>
+  </data>
+  <data name="RAConfig_MiscOptions" xml:space="preserve">
+    <value>Tùy chọn khác</value>
+  </data>
+  <data name="RAConfig_Netplay" xml:space="preserve">
+    <value>Chơi qua mạng</value>
+  </data>
+  <data name="RAConfig_NetworkGeneral" xml:space="preserve">
+    <value>Cài đặt mạng</value>
+  </data>
+  <data name="RAConfig_NewCreated" xml:space="preserve">
+    <value>Đã tạo cấu hình mới với mặc định RetroArch. Đường dẫn lưu: {0}</value>
+  </data>
+  <data name="RAConfig_NoCfgFound" xml:space="preserve">
+    <value>Không tìm thấy retroarch.cfg. Sử dụng Duyệt để tìm hoặc Tạo mới để tạo với giá trị mặc định.</value>
+  </data>
+  <data name="RAConfig_Notifications" xml:space="preserve">
+    <value>Thông báo</value>
+  </data>
+  <data name="RAConfig_OverlaySettings" xml:space="preserve">
+    <value>Cài đặt lớp phủ</value>
+  </data>
+  <data name="RAConfig_RGUITheme" xml:space="preserve">
+    <value>Giao diện RGUI</value>
+  </data>
+  <data name="RAConfig_RecordingOptions" xml:space="preserve">
+    <value>Tùy chọn ghi</value>
+  </data>
+  <data name="RAConfig_ResetDefaults" xml:space="preserve">
+    <value>Đặt lại về mặc định</value>
+  </data>
+  <data name="RAConfig_Rewind" xml:space="preserve">
+    <value>Tùy chọn tua lại</value>
+  </data>
+  <data name="RAConfig_Save" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="RAConfig_SaveAs" xml:space="preserve">
+    <value>Lưu thành...</value>
+  </data>
+  <data name="RAConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Lưu cấu hình RetroArch</value>
+  </data>
+  <data name="RAConfig_SaveError" xml:space="preserve">
+    <value>Không thể lưu cấu hình: {0}</value>
+  </data>
+  <data name="RAConfig_SaveOptions" xml:space="preserve">
+    <value>Tùy chọn lưu và trạng thái</value>
+  </data>
+  <data name="RAConfig_Saved" xml:space="preserve">
+    <value>Đã lưu cấu hình tại {0}</value>
+  </data>
+  <data name="RAConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Nhập để lọc cài đặt theo tên (vd: video_driver, audio, netplay...)</value>
+  </data>
+  <data name="RAConfig_SearchSettings" xml:space="preserve">
+    <value>Tìm kiếm cài đặt</value>
+  </data>
+  <data name="RAConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Chọn tệp cấu hình RetroArch</value>
+  </data>
+  <data name="RAConfig_TabAccessibility" xml:space="preserve">
+    <value>Trợ năng</value>
+  </data>
+  <data name="RAConfig_TabAchievements" xml:space="preserve">
+    <value>Thành tựu</value>
+  </data>
+  <data name="RAConfig_TabAudio" xml:space="preserve">
+    <value>Âm thanh</value>
+  </data>
+  <data name="RAConfig_TabCore" xml:space="preserve">
+    <value>Lõi / Lưu</value>
+  </data>
+  <data name="RAConfig_TabFrameThrottle" xml:space="preserve">
+    <value>Giới hạn khung hình</value>
+  </data>
+  <data name="RAConfig_TabInput" xml:space="preserve">
+    <value>Đầu vào</value>
+  </data>
+  <data name="RAConfig_TabMenu" xml:space="preserve">
+    <value>Menu / Giao diện</value>
+  </data>
+  <data name="RAConfig_TabMisc" xml:space="preserve">
+    <value>Khác / Nhật ký</value>
+  </data>
+  <data name="RAConfig_TabNetwork" xml:space="preserve">
+    <value>Mạng</value>
+  </data>
+  <data name="RAConfig_TabOverlay" xml:space="preserve">
+    <value>Lớp phủ</value>
+  </data>
+  <data name="RAConfig_TabPaths" xml:space="preserve">
+    <value>Đường dẫn</value>
+  </data>
+  <data name="RAConfig_TabRecording" xml:space="preserve">
+    <value>Ghi</value>
+  </data>
+  <data name="RAConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="RAConfig_Title" xml:space="preserve">
+    <value>Trình cấu hình RetroArch</value>
+  </data>
+  <data name="RAConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Thay đổi chưa lưu</value>
+  </data>
+  <data name="RAConfig_VideoAdvanced" xml:space="preserve">
+    <value>Video nâng cao</value>
+  </data>
+  <data name="RAConfig_VideoDisplay" xml:space="preserve">
+    <value>Cài đặt hiển thị</value>
+  </data>
+  <data name="RAConfig_VideoDriver" xml:space="preserve">
+    <value>Trình điều khiển video</value>
+  </data>
+  <data name="RAConfig_VideoOSD" xml:space="preserve">
+    <value>OSD và ảnh chụp màn hình</value>
+  </data>
+  <data name="RAConfig_VideoScaling" xml:space="preserve">
+    <value>Thu phóng và lọc</value>
+  </data>
+  <data name="RAConfig_VideoSync" xml:space="preserve">
+    <value>Đồng bộ hóa</value>
+  </data>
+  <data name="Security_SingleNoFeatures" xml:space="preserve">
+    <value>✔ {0}: Không phát hiện tính năng bảo mật nào.</value>
+  </data>
+  <data name="Security_SingleResultDetected" xml:space="preserve">
+    <value>✔ {0}: Phát hiện {1} tính năng bảo mật.</value>
+  </data>
+  <data name="Settings_BigPictureStyleClassic" xml:space="preserve">
+    <value>Cổ điển (Lưới thẻ)</value>
+  </data>
+  <data name="Settings_BigPictureStyleLabel" xml:space="preserve">
+    <value>Phong cách hiển thị</value>
+  </data>
+  <data name="Settings_BigPictureStyleModern" xml:space="preserve">
+    <value>Hiện đại (Hero + Carousel)</value>
+  </data>
+  <data name="Settings_UpdateManagedByPackageManager" xml:space="preserve">
+    <value>Cập nhật được quản lý bởi trình quản lý gói hệ thống.</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImage" xml:space="preserve">
+    <value>Xác nhận tạo ảnh đĩa</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImageMessage" xml:space="preserve">
+    <value>Tạo ảnh đĩa đầy đủ từ {0}? Quá trình này có thể mất một lúc tùy thuộc vào kích thước ổ đĩa.</value>
+  </data>
 </root>

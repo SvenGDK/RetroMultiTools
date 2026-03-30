@@ -6124,4 +6124,1204 @@ Run:notepad.exe</value>
   <data name="Settings_Clear" xml:space="preserve">
     <value>Hapus</value>
   </data>
+  <data name="Nav_DiscTools" xml:space="preserve">
+    <value>Alat Disk</value>
+  </data>
+  <data name="DiscTools_Title" xml:space="preserve">
+    <value>Alat Disk</value>
+  </data>
+  <data name="DiscTools_Description" xml:space="preserve">
+    <value>Bakar gambar atau file disk ke media optik, dan buat gambar disk dari disk atau file fisik. Mendukung ISO, BIN/CUE, IMG, GDI, CDI, NRG, dan format disk sistem permainan lainnya.</value>
+  </data>
+  <data name="DiscTools_Operation" xml:space="preserve">
+    <value>Operasi:</value>
+  </data>
+  <data name="DiscTools_OpBurnImage" xml:space="preserve">
+    <value>Tulis Gambar ke Disk</value>
+  </data>
+  <data name="DiscTools_OpBurnFiles" xml:space="preserve">
+    <value>Tulis File ke Disk</value>
+  </data>
+  <data name="DiscTools_OpImageFromDisc" xml:space="preserve">
+    <value>Buat Gambar dari Disk</value>
+  </data>
+  <data name="DiscTools_OpImageFromFiles" xml:space="preserve">
+    <value>Buat Gambar dari File</value>
+  </data>
+  <data name="DiscTools_Drive" xml:space="preserve">
+    <value>Penggerak Optik:</value>
+  </data>
+  <data name="DiscTools_SelectDrive" xml:space="preserve">
+    <value>Pilih drive optik...</value>
+  </data>
+  <data name="DiscTools_RefreshDrives" xml:space="preserve">
+    <value>Menyegarkan</value>
+  </data>
+  <data name="DiscTools_NoDrivesFound" xml:space="preserve">
+    <value>Tidak ada drive optik yang terdeteksi pada sistem ini.</value>
+  </data>
+  <data name="DiscTools_ImageFile" xml:space="preserve">
+    <value>Berkas Gambar:</value>
+  </data>
+  <data name="DiscTools_SelectImageFile" xml:space="preserve">
+    <value>Pilih file gambar disk...</value>
+  </data>
+  <data name="DiscTools_ImageFiles" xml:space="preserve">
+    <value>File Gambar Disk</value>
+  </data>
+  <data name="DiscTools_FilesOrFolders" xml:space="preserve">
+    <value>File/Folder:</value>
+  </data>
+  <data name="DiscTools_SelectFilesOrFolders" xml:space="preserve">
+    <value>Pilih file atau folder untuk ditulis...</value>
+  </data>
+  <data name="DiscTools_SelectFolder" xml:space="preserve">
+    <value>Pilih folder</value>
+  </data>
+  <data name="DiscTools_OutputFile" xml:space="preserve">
+    <value>File Gambar Keluaran:</value>
+  </data>
+  <data name="DiscTools_SelectOutputImage" xml:space="preserve">
+    <value>Pilih jalur file gambar keluaran...</value>
+  </data>
+  <data name="DiscTools_VolumeLabel" xml:space="preserve">
+    <value>Label Volume:</value>
+  </data>
+  <data name="DiscTools_VolumeLabelHint" xml:space="preserve">
+    <value>Masukkan label volume untuk disk...</value>
+  </data>
+  <data name="DiscTools_WriteSpeed" xml:space="preserve">
+    <value>Kecepatan Tulis:</value>
+  </data>
+  <data name="DiscTools_SpeedAuto" xml:space="preserve">
+    <value>Otomatis (Maks)</value>
+  </data>
+  <data name="DiscTools_VerifyAfterBurn" xml:space="preserve">
+    <value>Verifikasi setelah menulis</value>
+  </data>
+  <data name="DiscTools_Burn" xml:space="preserve">
+    <value>Menulis ke Disk</value>
+  </data>
+  <data name="DiscTools_CreateImage" xml:space="preserve">
+    <value>Buat Gambar</value>
+  </data>
+  <data name="DiscTools_Cancel" xml:space="preserve">
+    <value>Membatalkan</value>
+  </data>
+  <data name="DiscTools_DetectingDrives" xml:space="preserve">
+    <value>Mendeteksi drive optik...</value>
+  </data>
+  <data name="DiscTools_DriveDetectError" xml:space="preserve">
+    <value>Kesalahan saat mendeteksi drive: {0}</value>
+  </data>
+  <data name="DiscTools_ImageNotFound" xml:space="preserve">
+    <value>File gambar tidak ditemukan.</value>
+  </data>
+  <data name="DiscTools_BurningImage" xml:space="preserve">
+    <value>Gambar tulisan: {0}</value>
+  </data>
+  <data name="DiscTools_BurningFiles" xml:space="preserve">
+    <value>Menulis item {0} ke disk...</value>
+  </data>
+  <data name="DiscTools_NoFilesSelected" xml:space="preserve">
+    <value>Tidak ada file atau folder yang dipilih.</value>
+  </data>
+  <data name="DiscTools_OutputRequired" xml:space="preserve">
+    <value>Jalur file keluaran diperlukan.</value>
+  </data>
+  <data name="DiscTools_ReadingDisc" xml:space="preserve">
+    <value>Membaca disk...</value>
+  </data>
+  <data name="DiscTools_CreatingImage" xml:space="preserve">
+    <value>Membuat gambar: {0}</value>
+  </data>
+  <data name="DiscTools_WritingToDisc" xml:space="preserve">
+    <value>Menulis data ke disk...</value>
+  </data>
+  <data name="DiscTools_RunningTool" xml:space="preserve">
+    <value>Menjalankan {0}...</value>
+  </data>
+  <data name="DiscTools_BurnComplete" xml:space="preserve">
+    <value>✔ Berhasil ditulis ke disk.</value>
+  </data>
+  <data name="DiscTools_BurnFailed" xml:space="preserve">
+    <value>✘ Gagal menulis: {0}</value>
+  </data>
+  <data name="DiscTools_ImageCreated" xml:space="preserve">
+    <value>✔ Gambar dibuat: {0} ({1})</value>
+  </data>
+  <data name="DiscTools_ImageCreateFailed" xml:space="preserve">
+    <value>✘ Pembuatan gambar gagal: {0}</value>
+  </data>
+  <data name="DiscTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Platform ini tidak didukung untuk pengoperasian disk.</value>
+  </data>
+  <data name="DiscTools_NoBurnTool" xml:space="preserve">
+    <value>Tidak ditemukan alat pembakar disk. Silakan instal wodim, cdrecord, atau xorrecord.</value>
+  </data>
+  <data name="DiscTools_NoIsoTool" xml:space="preserve">
+    <value>Tidak ada alat pembuatan ISO yang ditemukan. Silahkan install xorrisofs, genisoimage, atau mkisofs.</value>
+  </data>
+  <data name="DiscTools_IsoCreateFailed" xml:space="preserve">
+    <value>Pembuatan ISO gagal: {0}</value>
+  </data>
+  <data name="DiscTools_CreatingIso" xml:space="preserve">
+    <value>Membuat gambar ISO...</value>
+  </data>
+  <data name="DiscTools_OperationCancelled" xml:space="preserve">
+    <value>Operasi dibatalkan.</value>
+  </data>
+  <data name="DiscTools_BrowseFolder" xml:space="preserve">
+    <value>Telusuri Folder</value>
+  </data>
+  <data name="DiscTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>Format gambar '{0}' tidak dapat dibakar ke disk. Format yang didukung: ISO, BIN/CUE, IMG, NRG, TOAST.</value>
+  </data>
+  <data name="DiscTools_Verifying" xml:space="preserve">
+    <value>Memverifikasi disk...</value>
+  </data>
+  <data name="DiscTools_BurnCompleteVerifySkipped" xml:space="preserve">
+    <value>Pembakaran berhasil diselesaikan. Verifikasi tidak dapat dilakukan.</value>
+  </data>
+  <data name="DiscTools_VerifyFailed" xml:space="preserve">
+    <value>Pembakaran selesai tetapi verifikasi gagal: data disk tidak cocok dengan gambar sumber.</value>
+  </data>
+  <data name="DiscTools_IsoImageType" xml:space="preserve">
+    <value>Gambar ISO</value>
+  </data>
+  <data name="DiscTools_BinCueImageType" xml:space="preserve">
+    <value>Gambar BIN/ISYARAT</value>
+  </data>
+  <data name="Nav_UsbTools" xml:space="preserve">
+    <value>Alat USB</value>
+  </data>
+  <data name="UsbTools_Title" xml:space="preserve">
+    <value>Alat USB</value>
+  </data>
+  <data name="UsbTools_Description" xml:space="preserve">
+    <value>Format, tulis image ke, buat image dari, dan jelajahi drive USB.</value>
+  </data>
+  <data name="UsbTools_Drive" xml:space="preserve">
+    <value>Drive USB</value>
+  </data>
+  <data name="UsbTools_SelectDrive" xml:space="preserve">
+    <value>Pilih drive USB...</value>
+  </data>
+  <data name="UsbTools_RefreshDrives" xml:space="preserve">
+    <value>Segarkan</value>
+  </data>
+  <data name="UsbTools_DetectingDrives" xml:space="preserve">
+    <value>Mendeteksi drive USB...</value>
+  </data>
+  <data name="UsbTools_NoDrivesFound" xml:space="preserve">
+    <value>Tidak ada drive USB yang ditemukan.</value>
+  </data>
+  <data name="UsbTools_DriveDetectError" xml:space="preserve">
+    <value>Kesalahan mendeteksi drive: {0}</value>
+  </data>
+  <data name="UsbTools_NoDriveSelected" xml:space="preserve">
+    <value>Tidak ada drive USB yang dipilih.</value>
+  </data>
+  <data name="UsbTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Operasi ini tidak didukung pada platform saat ini.</value>
+  </data>
+  <data name="UsbTools_TabExplorer" xml:space="preserve">
+    <value>Penjelajah File</value>
+  </data>
+  <data name="UsbTools_TabFormat" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="UsbTools_TabWriteImage" xml:space="preserve">
+    <value>Tulis Image</value>
+  </data>
+  <data name="UsbTools_TabCreateImage" xml:space="preserve">
+    <value>Buat Image</value>
+  </data>
+  <data name="UsbTools_NavigateUp" xml:space="preserve">
+    <value>Navigasi ke atas</value>
+  </data>
+  <data name="UsbTools_RefreshFiles" xml:space="preserve">
+    <value>Segarkan</value>
+  </data>
+  <data name="UsbTools_AddFiles" xml:space="preserve">
+    <value>Tambah File</value>
+  </data>
+  <data name="UsbTools_NewFolder" xml:space="preserve">
+    <value>Folder Baru</value>
+  </data>
+  <data name="UsbTools_Delete" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="UsbTools_Move" xml:space="preserve">
+    <value>Pindahkan</value>
+  </data>
+  <data name="UsbTools_FileSystem" xml:space="preserve">
+    <value>Sistem File</value>
+  </data>
+  <data name="UsbTools_PartitionScheme" xml:space="preserve">
+    <value>Skema Partisi</value>
+  </data>
+  <data name="UsbTools_VolumeLabel" xml:space="preserve">
+    <value>Label Volume</value>
+  </data>
+  <data name="UsbTools_VolumeLabelHint" xml:space="preserve">
+    <value>Masukkan label volume</value>
+  </data>
+  <data name="UsbTools_FormatWarning" xml:space="preserve">
+    <value>⚠ Peringatan: Memformat akan menghapus SEMUA data di drive USB yang dipilih. Tindakan ini tidak dapat dibatalkan.</value>
+  </data>
+  <data name="UsbTools_Format" xml:space="preserve">
+    <value>Format Drive USB</value>
+  </data>
+  <data name="UsbTools_PreparingFormat" xml:space="preserve">
+    <value>Mempersiapkan format...</value>
+  </data>
+  <data name="UsbTools_Formatting" xml:space="preserve">
+    <value>Memformat ke {0} ({1})...</value>
+  </data>
+  <data name="UsbTools_FormatComplete" xml:space="preserve">
+    <value>Drive USB berhasil diformat.</value>
+  </data>
+  <data name="UsbTools_FormatFailed" xml:space="preserve">
+    <value>Format gagal: {0}</value>
+  </data>
+  <data name="UsbTools_UnsupportedFileSystem" xml:space="preserve">
+    <value>Sistem file tidak didukung: {0}</value>
+  </data>
+  <data name="UsbTools_NtfsMacWarning" xml:space="preserve">
+    <value>Catatan: macOS tidak mendukung pemformatan NTFS secara native. Drive diformat sebagai ExFAT sebagai gantinya.</value>
+  </data>
+  <data name="UsbTools_ConfirmFormat" xml:space="preserve">
+    <value>Konfirmasi Format</value>
+  </data>
+  <data name="UsbTools_ConfirmFormatMessage" xml:space="preserve">
+    <value>Apakah Anda yakin ingin memformat {0}? Semua data akan dihapus secara permanen.</value>
+  </data>
+  <data name="UsbTools_ImageFile" xml:space="preserve">
+    <value>File Image</value>
+  </data>
+  <data name="UsbTools_SelectImageFile" xml:space="preserve">
+    <value>Pilih file image...</value>
+  </data>
+  <data name="UsbTools_ImageFiles" xml:space="preserve">
+    <value>File Image Disk</value>
+  </data>
+  <data name="UsbTools_ImageNotFound" xml:space="preserve">
+    <value>File image tidak ditemukan.</value>
+  </data>
+  <data name="UsbTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>Format image tidak didukung: {0}</value>
+  </data>
+  <data name="UsbTools_WriteWarning" xml:space="preserve">
+    <value>⚠ Peringatan: Menulis image akan menghapus SEMUA data di drive USB yang dipilih. Tindakan ini tidak dapat dibatalkan.</value>
+  </data>
+  <data name="UsbTools_WriteImage" xml:space="preserve">
+    <value>Tulis Image ke USB</value>
+  </data>
+  <data name="UsbTools_WritingImage" xml:space="preserve">
+    <value>Menulis {0} ke drive USB...</value>
+  </data>
+  <data name="UsbTools_WriteComplete" xml:space="preserve">
+    <value>Image berhasil ditulis ke drive USB.</value>
+  </data>
+  <data name="UsbTools_WriteFailed" xml:space="preserve">
+    <value>Penulisan gagal: {0}</value>
+  </data>
+  <data name="UsbTools_ConfirmWrite" xml:space="preserve">
+    <value>Konfirmasi Penulisan</value>
+  </data>
+  <data name="UsbTools_ConfirmWriteMessage" xml:space="preserve">
+    <value>Apakah Anda yakin ingin menulis {0} ke {1}? Semua data yang ada akan dihapus secara permanen.</value>
+  </data>
+  <data name="UsbTools_OutputFile" xml:space="preserve">
+    <value>File Output</value>
+  </data>
+  <data name="UsbTools_SelectOutputImage" xml:space="preserve">
+    <value>Pilih lokasi image output...</value>
+  </data>
+  <data name="UsbTools_CreateImage" xml:space="preserve">
+    <value>Buat Image dari USB</value>
+  </data>
+  <data name="UsbTools_CreatingImage" xml:space="preserve">
+    <value>Membuat image dari drive USB...</value>
+  </data>
+  <data name="UsbTools_ImageCreated" xml:space="preserve">
+    <value>Image berhasil dibuat: {0}</value>
+  </data>
+  <data name="UsbTools_ImageCreateFailed" xml:space="preserve">
+    <value>Pembuatan image gagal: {0}</value>
+  </data>
+  <data name="UsbTools_OutputRequired" xml:space="preserve">
+    <value>Jalur file output diperlukan.</value>
+  </data>
+  <data name="UsbTools_ImgFileType" xml:space="preserve">
+    <value>Image IMG</value>
+  </data>
+  <data name="UsbTools_IsoFileType" xml:space="preserve">
+    <value>Image ISO</value>
+  </data>
+  <data name="UsbTools_OperationCancelled" xml:space="preserve">
+    <value>Operasi dibatalkan.</value>
+  </data>
+  <data name="UsbTools_FolderExists" xml:space="preserve">
+    <value>Folder dengan nama tersebut sudah ada.</value>
+  </data>
+  <data name="UsbTools_FolderCreated" xml:space="preserve">
+    <value>Folder berhasil dibuat.</value>
+  </data>
+  <data name="UsbTools_DeleteComplete" xml:space="preserve">
+    <value>Berhasil dihapus.</value>
+  </data>
+  <data name="UsbTools_EntryNotFound" xml:space="preserve">
+    <value>File atau folder tidak ditemukan.</value>
+  </data>
+  <data name="UsbTools_DestinationExists" xml:space="preserve">
+    <value>Item dengan nama yang sama sudah ada di tujuan.</value>
+  </data>
+  <data name="UsbTools_MoveComplete" xml:space="preserve">
+    <value>Berhasil dipindahkan.</value>
+  </data>
+  <data name="UsbTools_SelectMoveDestination" xml:space="preserve">
+    <value>Pilih folder tujuan</value>
+  </data>
+  <data name="UsbTools_CopyingFile" xml:space="preserve">
+    <value>Menyalin {0}...</value>
+  </data>
+  <data name="UsbTools_AddComplete" xml:space="preserve">
+    <value>{0} item berhasil ditambahkan.</value>
+  </data>
+  <data name="UsbTools_ConfirmDelete" xml:space="preserve">
+    <value>Konfirmasi Hapus</value>
+  </data>
+  <data name="UsbTools_ConfirmDeleteMessage" xml:space="preserve">
+    <value>Apakah Anda yakin ingin menghapus '{0}'? Tindakan ini tidak dapat dibatalkan.</value>
+  </data>
+  <data name="UsbTools_EnterFolderName" xml:space="preserve">
+    <value>Masukkan nama folder:</value>
+  </data>
+  <data name="UsbTools_FolderNameHint" xml:space="preserve">
+    <value>Nama folder</value>
+  </data>
+  <data name="Tour_Skip" xml:space="preserve">
+    <value>Lewati Tur</value>
+  </data>
+  <data name="Tour_Back" xml:space="preserve">
+    <value>Kembali</value>
+  </data>
+  <data name="Tour_Next" xml:space="preserve">
+    <value>Berikutnya</value>
+  </data>
+  <data name="Tour_Finish" xml:space="preserve">
+    <value>Mulai</value>
+  </data>
+  <data name="Tour_WelcomeTitle" xml:space="preserve">
+    <value>Selamat Datang di RetroMultiTools!</value>
+  </data>
+  <data name="Tour_WelcomeDesc" xml:space="preserve">
+    <value>Perangkat lengkap serba ada untuk gaming retro. Mari kami berikan tur singkat tentang semua yang bisa dilakukan aplikasi ini. Hanya butuh satu menit!</value>
+  </data>
+  <data name="Tour_SidebarTitle" xml:space="preserve">
+    <value>Navigasi Sidebar</value>
+  </data>
+  <data name="Tour_SidebarDesc" xml:space="preserve">
+    <value>Gunakan sidebar di sebelah kiri untuk beralih antar alat. Alat-alat diorganisir ke dalam kategori seperti penjelajahan, patching, analisis, dan lainnya.</value>
+  </data>
+  <data name="Tour_BrowserTitle" xml:space="preserve">
+    <value>Browser ROM</value>
+  </data>
+  <data name="Tour_BrowserDesc" xml:space="preserve">
+    <value>Jelajahi koleksi ROM Anda dengan browser file yang canggih. Lihat detail file, buka folder, dan temukan game yang Anda cari dengan cepat.</value>
+  </data>
+  <data name="Tour_InspectorTitle" xml:space="preserve">
+    <value>ROM Inspector &amp; Hex Viewer</value>
+  </data>
+  <data name="Tour_InspectorDesc" xml:space="preserve">
+    <value>Periksa header file ROM, lihat metadata internal, dan periksa byte mentah dengan Hex Viewer bawaan. Sangat berguna bagi pengguna tingkat lanjut dan pengembang.</value>
+  </data>
+  <data name="Tour_PatchingTitle" xml:space="preserve">
+    <value>Patching &amp; Konversi</value>
+  </data>
+  <data name="Tour_PatchingDesc" xml:space="preserve">
+    <value>Terapkan patch IPS/BPS/UPS, buat patch Anda sendiri, konversi format ROM, konversi file save, dan tangani byte-swapping N64 — semua dalam satu tempat.</value>
+  </data>
+  <data name="Tour_AnalysisTitle" xml:space="preserve">
+    <value>Analisis &amp; Verifikasi</value>
+  </data>
+  <data name="Tour_AnalysisDesc" xml:space="preserve">
+    <value>Verifikasi ROM terhadap file DAT, hitung checksum, temukan duplikat, hash seluruh folder secara massal, dan identifikasi set GoodTools untuk manajemen koleksi yang akurat.</value>
+  </data>
+  <data name="Tour_HeadersTitle" xml:space="preserve">
+    <value>Header &amp; Trimming</value>
+  </data>
+  <data name="Tour_HeadersDesc" xml:space="preserve">
+    <value>Ekspor, perbaiki, atau hapus header ROM. Trim ROM yang dipadding untuk menghemat ruang. Termasuk alat khusus untuk manajemen header SNES.</value>
+  </data>
+  <data name="Tour_UtilitiesTitle" xml:space="preserve">
+    <value>Utilitas</value>
+  </data>
+  <data name="Tour_UtilitiesDesc" xml:space="preserve">
+    <value>Kelola arsip, terapkan kode cheat, kerjakan image disc, konfigurasikan emulator, petakan tombol gamepad, scrape metadata, atur dan ganti nama file ROM, dan kelola perangkat USB.</value>
+  </data>
+  <data name="Tour_EmulatorsTitle" xml:space="preserve">
+    <value>Integrasi Emulator</value>
+  </data>
+  <data name="Tour_EmulatorsDesc" xml:space="preserve">
+    <value>Integrasi mendalam dengan RetroArch, MAME, dan Mednafen. Kelola playlist, audit set ROM, konversi file CHD, edit DAT, buat pintasan, dan lainnya.</value>
+  </data>
+  <data name="Tour_AnalogueTitle" xml:space="preserve">
+    <value>Analogue FPGA</value>
+  </data>
+  <data name="Tour_AnalogueDesc" xml:space="preserve">
+    <value>Alat untuk perangkat keras Analogue FPGA: Pocket, Mega Sg, Nt/Super Nt, dan 3D yang akan segera hadir. Kelola core, firmware, dan perpustakaan game untuk perangkat Anda.</value>
+  </data>
+  <data name="Tour_BigPictureTitle" xml:space="preserve">
+    <value>Big Picture Mode</value>
+  </data>
+  <data name="Tour_BigPictureDesc" xml:space="preserve">
+    <value>Bersantai dan nikmati perpustakaan game layar penuh dengan dukungan controller, artwork, pelacakan bermain, dan rating. Pilih antara tata letak grid Klasik atau hero Modern.</value>
+  </data>
+  <data name="Tour_SettingsTitle" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="Tour_SettingsDesc" xml:space="preserve">
+    <value>Sesuaikan pengalaman Anda: ganti bahasa, aktifkan Discord Rich Presence, konfigurasikan Big Picture Mode, atur kontrol gamepad, dan periksa pembaruan.</value>
+  </data>
+  <data name="Tour_FinishTitle" xml:space="preserve">
+    <value>Anda Siap!</value>
+  </data>
+  <data name="Tour_FinishDesc" xml:space="preserve">
+    <value>Itulah semuanya! Mulai jelajahi alat-alat di sidebar. Anda selalu dapat memulai ulang tur ini dari Pengaturan jika perlu menyegarkan ingatan. Selamat menikmati!</value>
+  </data>
+  <data name="Tour_SettingSectionTitle" xml:space="preserve">
+    <value>Tur Terpandu</value>
+  </data>
+  <data name="Tour_SettingSectionDesc" xml:space="preserve">
+    <value>Putar ulang tur terpandu yang menjelaskan semua fitur aplikasi.</value>
+  </data>
+  <data name="Tour_RestartButton" xml:space="preserve">
+    <value>Mulai Ulang Tur</value>
+  </data>
+  <data name="Browser_SelectFolderTooltip" xml:space="preserve">
+    <value>Browse for a ROM folder to scan</value>
+  </data>
+  <data name="Browser_AddRomsTooltip" xml:space="preserve">
+    <value>Add ROM files to the current folder</value>
+  </data>
+  <data name="Browser_CopyToTooltip" xml:space="preserve">
+    <value>Copy selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_MoveToTooltip" xml:space="preserve">
+    <value>Move selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_DeleteTooltip" xml:space="preserve">
+    <value>Delete the selected ROMs</value>
+  </data>
+  <data name="Browser_OrganizeTooltip" xml:space="preserve">
+    <value>Organize ROMs into subfolders by system</value>
+  </data>
+  <data name="Browser_SendToRemoteTooltip" xml:space="preserve">
+    <value>Send selected ROMs to a remote device or cloud storage</value>
+  </data>
+  <data name="Browser_HostShareTooltip" xml:space="preserve">
+    <value>Host a local server to share ROMs on the network</value>
+  </data>
+  <data name="Browser_LaunchRetroArchTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in RetroArch</value>
+  </data>
+  <data name="Browser_LaunchMameTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in MAME</value>
+  </data>
+  <data name="Browser_LaunchMednafenTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in Mednafen</value>
+  </data>
+  <data name="Browser_BigPictureModeTooltip" xml:space="preserve">
+    <value>Enter full-screen Big Picture Mode for gamepad-friendly browsing</value>
+  </data>
+  <data name="MainWindow_SearchShortcut" xml:space="preserve">
+    <value>Search tools (Ctrl+F)</value>
+  </data>
+  <data name="BigPictureModern_AllGames" xml:space="preserve">
+    <value>Semua Game</value>
+  </data>
+  <data name="BigPictureModern_EmptyCategory" xml:space="preserve">
+    <value>Belum ada game di kategori ini</value>
+  </data>
+  <data name="BigPictureModern_EmptyLibrary" xml:space="preserve">
+    <value>Pustaka Anda kosong. Telusuri folder ROM untuk memulai.</value>
+  </data>
+  <data name="BigPictureModern_Favorites" xml:space="preserve">
+    <value>Favorit</value>
+  </data>
+  <data name="BigPictureModern_LaunchWith" xml:space="preserve">
+    <value>Jalankan dengan {0}</value>
+  </data>
+  <data name="BigPictureModern_MostPlayed" xml:space="preserve">
+    <value>Paling Sering Dimainkan</value>
+  </data>
+  <data name="BigPictureModern_NoResults" xml:space="preserve">
+    <value>Tidak ada game yang cocok dengan pencarian Anda</value>
+  </data>
+  <data name="BigPictureModern_Plays" xml:space="preserve">
+    <value>{0} kali dimainkan</value>
+  </data>
+  <data name="BigPictureModern_RecentlyPlayed" xml:space="preserve">
+    <value>Baru Dimainkan</value>
+  </data>
+  <data name="BigPictureModern_SearchPlaceholder" xml:space="preserve">
+    <value>Cari di pustaka Anda...</value>
+  </data>
+  <data name="BigPictureModern_Spotlight" xml:space="preserve">
+    <value>Sorotan</value>
+  </data>
+  <data name="BigPictureModern_TopRated" xml:space="preserve">
+    <value>Nilai Tertinggi</value>
+  </data>
+  <data name="BigPicture_CopiedToClipboard" xml:space="preserve">
+    <value>Path disalin ke clipboard</value>
+  </data>
+  <data name="BigPicture_CopyFilePath" xml:space="preserve">
+    <value>Salin Path File</value>
+  </data>
+  <data name="BigPicture_OpenFileLocation" xml:space="preserve">
+    <value>Buka Lokasi File</value>
+  </data>
+  <data name="BigPicture_SortPlayCount" xml:space="preserve">
+    <value>Jumlah Dimainkan (Tinggi → Rendah)</value>
+  </data>
+  <data name="Browser_ContextChecksum" xml:space="preserve">
+    <value>#️⃣ Hitung Checksum</value>
+  </data>
+  <data name="Browser_ContextGoodTools" xml:space="preserve">
+    <value>🏷️ Identifikasi dengan GoodTools</value>
+  </data>
+  <data name="Browser_ContextHexView" xml:space="preserve">
+    <value>🔢 Buka di Hex Viewer</value>
+  </data>
+  <data name="Browser_ContextInspect" xml:space="preserve">
+    <value>🔍 Buka di ROM Inspector</value>
+  </data>
+  <data name="Browser_ContextOpenFolder" xml:space="preserve">
+    <value>📂 Buka Folder Berisi</value>
+  </data>
+  <data name="Browser_ContextOpenWith" xml:space="preserve">
+    <value>🚀 Buka Dengan</value>
+  </data>
+  <data name="Browser_ContextPatch" xml:space="preserve">
+    <value>🩹 Patch ROM...</value>
+  </data>
+  <data name="Browser_ContextRename" xml:space="preserve">
+    <value>✏️ Ubah Nama...</value>
+  </data>
+  <data name="Browser_ContextTools" xml:space="preserve">
+    <value>🔧 Alat</value>
+  </data>
+  <data name="Browser_OpenFolderError" xml:space="preserve">
+    <value>Tidak dapat membuka folder: {0}</value>
+  </data>
+  <data name="Browser_RenameError" xml:space="preserve">
+    <value>Gagal mengubah nama: {0}</value>
+  </data>
+  <data name="Browser_RenamePromptTitle" xml:space="preserve">
+    <value>Ubah Nama ROM</value>
+  </data>
+  <data name="Browser_RenameSuccess" xml:space="preserve">
+    <value>Diubah namanya menjadi {0}</value>
+  </data>
+  <data name="Checksum_Description" xml:space="preserve">
+    <value>Hitung checksum CRC32, MD5, SHA-1, dan SHA-256 untuk file ROM guna memverifikasi integritas dan mengidentifikasi dump.</value>
+  </data>
+  <data name="Common_SelectFileTitle" xml:space="preserve">
+    <value>Pilih File</value>
+  </data>
+  <data name="Common_SelectOutputDirectoryTitle" xml:space="preserve">
+    <value>Pilih Direktori Output</value>
+  </data>
+  <data name="Common_SelectRomDirectoryTitle" xml:space="preserve">
+    <value>Pilih Direktori ROM</value>
+  </data>
+  <data name="Common_SelectRomFileTitle" xml:space="preserve">
+    <value>Pilih File ROM</value>
+  </data>
+  <data name="Comparer_Description" xml:space="preserve">
+    <value>Bandingkan dua file ROM byte demi byte untuk mengidentifikasi perbedaan ukuran, konten, dan menemukan offset ketidakcocokan pertama.</value>
+  </data>
+  <data name="GoodTools_NoCodesForFile" xml:space="preserve">
+    <value>Tidak ditemukan kode GoodTools.</value>
+  </data>
+  <data name="MameConfig_Artwork" xml:space="preserve">
+    <value>Opsi Artwork</value>
+  </data>
+  <data name="MameConfig_AutoEnable" xml:space="preserve">
+    <value>Opsi Aktifkan Otomatis Input</value>
+  </data>
+  <data name="MameConfig_Bgfx" xml:space="preserve">
+    <value>Post-Processing BGFX</value>
+  </data>
+  <data name="MameConfig_Communication" xml:space="preserve">
+    <value>Opsi Komunikasi</value>
+  </data>
+  <data name="MameConfig_ConfigFile" xml:space="preserve">
+    <value>File Konfigurasi</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Anda memiliki perubahan yang belum disimpan. Buang dan lanjutkan?</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Perubahan Belum Disimpan</value>
+  </data>
+  <data name="MameConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Ini akan mengatur ulang semua pengaturan ke default MAME. Perubahan yang belum disimpan akan hilang. Lanjutkan?</value>
+  </data>
+  <data name="MameConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Atur Ulang ke Default</value>
+  </data>
+  <data name="MameConfig_CoreInput" xml:space="preserve">
+    <value>Opsi Input Inti</value>
+  </data>
+  <data name="MameConfig_CoreMisc" xml:space="preserve">
+    <value>Opsi Lain-lain Inti</value>
+  </data>
+  <data name="MameConfig_CorePerformance" xml:space="preserve">
+    <value>Opsi Performa Inti</value>
+  </data>
+  <data name="MameConfig_CoreSound" xml:space="preserve">
+    <value>Opsi Suara Inti</value>
+  </data>
+  <data name="MameConfig_CoreVideo" xml:space="preserve">
+    <value>Opsi Video Inti</value>
+  </data>
+  <data name="MameConfig_CreateNew" xml:space="preserve">
+    <value>Buat Baru</value>
+  </data>
+  <data name="MameConfig_Debugging" xml:space="preserve">
+    <value>Opsi Debugging</value>
+  </data>
+  <data name="MameConfig_DefaultsRestored" xml:space="preserve">
+    <value>Semua pengaturan diatur ulang ke default MAME.</value>
+  </data>
+  <data name="MameConfig_Description" xml:space="preserve">
+    <value>Muat, edit, dan simpan file konfigurasi MAME (mame.ini). Mendukung semua pengaturan MAME untuk Windows, macOS, dan Linux.</value>
+  </data>
+  <data name="MameConfig_HttpServer" xml:space="preserve">
+    <value>Opsi Server HTTP</value>
+  </data>
+  <data name="MameConfig_IniFileType" xml:space="preserve">
+    <value>File INI MAME</value>
+  </data>
+  <data name="MameConfig_IniPlaceholder" xml:space="preserve">
+    <value>Path ke mame.ini...</value>
+  </data>
+  <data name="MameConfig_Language" xml:space="preserve">
+    <value>Bahasa</value>
+  </data>
+  <data name="MameConfig_LoadError" xml:space="preserve">
+    <value>Gagal memuat konfigurasi: {0}</value>
+  </data>
+  <data name="MameConfig_Loaded" xml:space="preserve">
+    <value>Dimuat {0} pengaturan dari {1}</value>
+  </data>
+  <data name="MameConfig_NewCreated" xml:space="preserve">
+    <value>Konfigurasi baru dibuat dengan default MAME. Path simpan: {0}</value>
+  </data>
+  <data name="MameConfig_NoIniFound" xml:space="preserve">
+    <value>mame.ini tidak ditemukan. Gunakan Telusuri untuk menemukannya, atau Buat Baru untuk membuatnya dengan default.</value>
+  </data>
+  <data name="MameConfig_OsdInput" xml:space="preserve">
+    <value>Penyedia Input OSD</value>
+  </data>
+  <data name="MameConfig_OsdSound" xml:space="preserve">
+    <value>Opsi Suara OSD</value>
+  </data>
+  <data name="MameConfig_OsdVideo" xml:space="preserve">
+    <value>OSD / Video Terakselerasi</value>
+  </data>
+  <data name="MameConfig_OutputDirs" xml:space="preserve">
+    <value>Direktori Output</value>
+  </data>
+  <data name="MameConfig_PerWindowVideo" xml:space="preserve">
+    <value>Opsi Video Per-Jendela</value>
+  </data>
+  <data name="MameConfig_ResetDefaults" xml:space="preserve">
+    <value>Atur Ulang ke Default</value>
+  </data>
+  <data name="MameConfig_Rotation" xml:space="preserve">
+    <value>Opsi Rotasi</value>
+  </data>
+  <data name="MameConfig_Save" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="MameConfig_SaveAs" xml:space="preserve">
+    <value>Simpan Sebagai...</value>
+  </data>
+  <data name="MameConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Simpan Konfigurasi MAME</value>
+  </data>
+  <data name="MameConfig_SaveError" xml:space="preserve">
+    <value>Gagal menyimpan konfigurasi: {0}</value>
+  </data>
+  <data name="MameConfig_Saved" xml:space="preserve">
+    <value>Konfigurasi disimpan ke {0}</value>
+  </data>
+  <data name="MameConfig_ScreenOptions" xml:space="preserve">
+    <value>Opsi Layar</value>
+  </data>
+  <data name="MameConfig_Scripting" xml:space="preserve">
+    <value>Skripting / Plugin</value>
+  </data>
+  <data name="MameConfig_SearchPaths" xml:space="preserve">
+    <value>Path Pencarian</value>
+  </data>
+  <data name="MameConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Ketik untuk memfilter pengaturan berdasarkan nama (mis. rompath, video, joystick...)</value>
+  </data>
+  <data name="MameConfig_SearchResults" xml:space="preserve">
+    <value>{0} dari {1} bagian cocok</value>
+  </data>
+  <data name="MameConfig_SearchSettings" xml:space="preserve">
+    <value>Cari Pengaturan</value>
+  </data>
+  <data name="MameConfig_SelectIniTitle" xml:space="preserve">
+    <value>Pilih File Konfigurasi MAME</value>
+  </data>
+  <data name="MameConfig_StatePlayback" xml:space="preserve">
+    <value>Opsi State / Playback</value>
+  </data>
+  <data name="MameConfig_TabInput" xml:space="preserve">
+    <value>Input</value>
+  </data>
+  <data name="MameConfig_TabMisc" xml:space="preserve">
+    <value>Lain-lain / Lanjutan</value>
+  </data>
+  <data name="MameConfig_TabPaths" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="MameConfig_TabPerformance" xml:space="preserve">
+    <value>Performa</value>
+  </data>
+  <data name="MameConfig_TabSound" xml:space="preserve">
+    <value>Suara</value>
+  </data>
+  <data name="MameConfig_TabState" xml:space="preserve">
+    <value>State / Playback</value>
+  </data>
+  <data name="MameConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="MameConfig_Title" xml:space="preserve">
+    <value>Konfigurator MAME</value>
+  </data>
+  <data name="MameConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Perubahan belum disimpan</value>
+  </data>
+  <data name="MameConfig_Vector" xml:space="preserve">
+    <value>Opsi Vektor</value>
+  </data>
+  <data name="MednafenConfig_CfgFileType" xml:space="preserve">
+    <value>File Konfigurasi Mednafen (*.cfg)</value>
+  </data>
+  <data name="MednafenConfig_CfgPlaceholder" xml:space="preserve">
+    <value>Path ke mednafen.cfg...</value>
+  </data>
+  <data name="MednafenConfig_ConfigFile" xml:space="preserve">
+    <value>File Konfigurasi</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Anda memiliki perubahan yang belum disimpan. Buang dan lanjutkan?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Perubahan Belum Disimpan</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Ini akan mengatur ulang semua pengaturan ke default Mednafen. Perubahan yang belum disimpan akan hilang. Lanjutkan?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Atur Ulang ke Default</value>
+  </data>
+  <data name="MednafenConfig_CoreSettings" xml:space="preserve">
+    <value>Pengaturan Inti</value>
+  </data>
+  <data name="MednafenConfig_CpuAffinity" xml:space="preserve">
+    <value>Afinitas CPU</value>
+  </data>
+  <data name="MednafenConfig_CreateNew" xml:space="preserve">
+    <value>Buat Baru</value>
+  </data>
+  <data name="MednafenConfig_DefaultsRestored" xml:space="preserve">
+    <value>Semua pengaturan dikembalikan ke default Mednafen.</value>
+  </data>
+  <data name="MednafenConfig_Description" xml:space="preserve">
+    <value>Muat, edit, dan simpan file konfigurasi Mednafen (mednafen.cfg). Mendukung semua pengaturan Mednafen untuk Windows, macOS, dan Linux.</value>
+  </data>
+  <data name="MednafenConfig_DirectoryPaths" xml:space="preserve">
+    <value>Path Direktori</value>
+  </data>
+  <data name="MednafenConfig_FilenameFormats" xml:space="preserve">
+    <value>Format Nama File</value>
+  </data>
+  <data name="MednafenConfig_FpsDisplay" xml:space="preserve">
+    <value>Tampilan FPS</value>
+  </data>
+  <data name="MednafenConfig_GoatShader" xml:space="preserve">
+    <value>Pengaturan Goat Shader</value>
+  </data>
+  <data name="MednafenConfig_InputSettings" xml:space="preserve">
+    <value>Pengaturan Input</value>
+  </data>
+  <data name="MednafenConfig_LoadError" xml:space="preserve">
+    <value>Gagal memuat konfigurasi: {0}</value>
+  </data>
+  <data name="MednafenConfig_Loaded" xml:space="preserve">
+    <value>Dimuat {0} pengaturan dari {1}</value>
+  </data>
+  <data name="MednafenConfig_NetworkPlay" xml:space="preserve">
+    <value>Bermain Jaringan</value>
+  </data>
+  <data name="MednafenConfig_NewCreated" xml:space="preserve">
+    <value>Konfigurasi default baru dibuat di {0}</value>
+  </data>
+  <data name="MednafenConfig_NoCfgFound" xml:space="preserve">
+    <value>Tidak dapat mendeteksi mednafen.cfg secara otomatis. Silakan telusuri file secara manual.</value>
+  </data>
+  <data name="MednafenConfig_Osd" xml:space="preserve">
+    <value>Tampilan di Layar</value>
+  </data>
+  <data name="MednafenConfig_PerSystemDescription" xml:space="preserve">
+    <value>Konfigurasikan penskalaan video, shader, dan pengaturan tampilan per sistem yang diemulasi. Perubahan disimpan saat beralih sistem atau menyimpan file.</value>
+  </data>
+  <data name="MednafenConfig_QtRecord" xml:space="preserve">
+    <value>Perekaman QuickTime</value>
+  </data>
+  <data name="MednafenConfig_ResetDefaults" xml:space="preserve">
+    <value>Atur Ulang ke Default</value>
+  </data>
+  <data name="MednafenConfig_Save" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="MednafenConfig_SaveAs" xml:space="preserve">
+    <value>Simpan Sebagai</value>
+  </data>
+  <data name="MednafenConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Simpan Konfigurasi Mednafen Sebagai</value>
+  </data>
+  <data name="MednafenConfig_SaveError" xml:space="preserve">
+    <value>Gagal menyimpan konfigurasi: {0}</value>
+  </data>
+  <data name="MednafenConfig_Saved" xml:space="preserve">
+    <value>Konfigurasi disimpan ke {0}</value>
+  </data>
+  <data name="MednafenConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Ketik untuk memfilter pengaturan berdasarkan nama (mis. video, sound, shader...)</value>
+  </data>
+  <data name="MednafenConfig_SearchResults" xml:space="preserve">
+    <value>{0} dari {1} bagian cocok</value>
+  </data>
+  <data name="MednafenConfig_SearchSettings" xml:space="preserve">
+    <value>Cari Pengaturan</value>
+  </data>
+  <data name="MednafenConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Pilih File Konfigurasi Mednafen</value>
+  </data>
+  <data name="MednafenConfig_SelectSystem" xml:space="preserve">
+    <value>Pilih Sistem</value>
+  </data>
+  <data name="MednafenConfig_SoundOutput" xml:space="preserve">
+    <value>Output Suara</value>
+  </data>
+  <data name="MednafenConfig_SpeedSettings" xml:space="preserve">
+    <value>Percepat / Perlambat</value>
+  </data>
+  <data name="MednafenConfig_SystemVideo" xml:space="preserve">
+    <value>Video Sistem / Penskalaan</value>
+  </data>
+  <data name="MednafenConfig_TabAdvanced" xml:space="preserve">
+    <value>Lanjutan</value>
+  </data>
+  <data name="MednafenConfig_TabGeneral" xml:space="preserve">
+    <value>Umum</value>
+  </data>
+  <data name="MednafenConfig_TabInput" xml:space="preserve">
+    <value>Input</value>
+  </data>
+  <data name="MednafenConfig_TabNetplay" xml:space="preserve">
+    <value>Bermain Jaringan</value>
+  </data>
+  <data name="MednafenConfig_TabPaths" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="MednafenConfig_TabPerSystem" xml:space="preserve">
+    <value>Per-Sistem</value>
+  </data>
+  <data name="MednafenConfig_TabSound" xml:space="preserve">
+    <value>Suara</value>
+  </data>
+  <data name="MednafenConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="MednafenConfig_TemporalBlur" xml:space="preserve">
+    <value>Blur Temporal</value>
+  </data>
+  <data name="MednafenConfig_Title" xml:space="preserve">
+    <value>Konfigurator Mednafen</value>
+  </data>
+  <data name="MednafenConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Perubahan belum disimpan</value>
+  </data>
+  <data name="MednafenConfig_VideoOutput" xml:space="preserve">
+    <value>Output Video</value>
+  </data>
+  <data name="MetaScraper_SummaryBySystem" xml:space="preserve">
+    <value>Ringkasan per sistem:</value>
+  </data>
+  <data name="MetaScraper_SummaryStats" xml:space="preserve">
+    <value>Valid: {0}, Tidak Valid: {1}, Error: {2}</value>
+  </data>
+  <data name="Nav_MameConfigurator" xml:space="preserve">
+    <value>Konfigurator MAME</value>
+  </data>
+  <data name="Nav_MednafenConfigurator" xml:space="preserve">
+    <value>Konfigurator Mednafen</value>
+  </data>
+  <data name="Nav_NoResults" xml:space="preserve">
+    <value>Tidak ditemukan alat yang cocok.</value>
+  </data>
+  <data name="Nav_RetroArchConfigurator" xml:space="preserve">
+    <value>Konfigurator RetroArch</value>
+  </data>
+  <data name="Nav_SearchPlaceholder" xml:space="preserve">
+    <value>Cari alat...</value>
+  </data>
+  <data name="Patcher_Description" xml:space="preserve">
+    <value>Terapkan patch IPS, BPS, atau xdelta ke file ROM untuk menerapkan terjemahan, perbaikan, atau modifikasi.</value>
+  </data>
+  <data name="RAConfig_AIService" xml:space="preserve">
+    <value>Layanan AI</value>
+  </data>
+  <data name="RAConfig_AccessibilityOptions" xml:space="preserve">
+    <value>Opsi Aksesibilitas</value>
+  </data>
+  <data name="RAConfig_AchievementDisplay" xml:space="preserve">
+    <value>Tampilan Achievement</value>
+  </data>
+  <data name="RAConfig_AchievementOptions" xml:space="preserve">
+    <value>Opsi RetroAchievements</value>
+  </data>
+  <data name="RAConfig_AudioDriver" xml:space="preserve">
+    <value>Driver Audio</value>
+  </data>
+  <data name="RAConfig_AudioSync" xml:space="preserve">
+    <value>Pengaturan Audio</value>
+  </data>
+  <data name="RAConfig_CfgFileType" xml:space="preserve">
+    <value>File CFG RetroArch</value>
+  </data>
+  <data name="RAConfig_CfgPlaceholder" xml:space="preserve">
+    <value>Path ke retroarch.cfg...</value>
+  </data>
+  <data name="RAConfig_ConfigFile" xml:space="preserve">
+    <value>File Konfigurasi</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Anda memiliki perubahan yang belum disimpan. Buang dan lanjutkan?</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Perubahan Belum Disimpan</value>
+  </data>
+  <data name="RAConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Ini akan mengatur ulang semua pengaturan ke default RetroArch. Perubahan yang belum disimpan akan hilang. Lanjutkan?</value>
+  </data>
+  <data name="RAConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Atur Ulang ke Default</value>
+  </data>
+  <data name="RAConfig_ContentPaths" xml:space="preserve">
+    <value>Path Konten &amp; Simpan</value>
+  </data>
+  <data name="RAConfig_CoreOptions" xml:space="preserve">
+    <value>Opsi Core</value>
+  </data>
+  <data name="RAConfig_CorePaths" xml:space="preserve">
+    <value>Path Core &amp; Sistem</value>
+  </data>
+  <data name="RAConfig_CreateNew" xml:space="preserve">
+    <value>Buat Baru</value>
+  </data>
+  <data name="RAConfig_DefaultsRestored" xml:space="preserve">
+    <value>Semua pengaturan diatur ulang ke default RetroArch.</value>
+  </data>
+  <data name="RAConfig_Description" xml:space="preserve">
+    <value>Muat, edit, dan simpan file konfigurasi RetroArch (retroarch.cfg). Mendukung semua pengaturan RetroArch untuk Windows, macOS, dan Linux.</value>
+  </data>
+  <data name="RAConfig_FilterPaths" xml:space="preserve">
+    <value>Path Filter, Overlay &amp; Lainnya</value>
+  </data>
+  <data name="RAConfig_FrameThrottle" xml:space="preserve">
+    <value>Opsi Pembatasan Frame</value>
+  </data>
+  <data name="RAConfig_InputGeneral" xml:space="preserve">
+    <value>Pengaturan Input Umum</value>
+  </data>
+  <data name="RAConfig_InputHotkeys" xml:space="preserve">
+    <value>Binding Hotkey</value>
+  </data>
+  <data name="RAConfig_LoadError" xml:space="preserve">
+    <value>Gagal memuat konfigurasi: {0}</value>
+  </data>
+  <data name="RAConfig_Loaded" xml:space="preserve">
+    <value>Dimuat {0} pengaturan dari {1}</value>
+  </data>
+  <data name="RAConfig_Logging" xml:space="preserve">
+    <value>Opsi Logging</value>
+  </data>
+  <data name="RAConfig_MenuGeneral" xml:space="preserve">
+    <value>Pengaturan Menu</value>
+  </data>
+  <data name="RAConfig_MenuTheme" xml:space="preserve">
+    <value>Tema &amp; Tampilan</value>
+  </data>
+  <data name="RAConfig_MiscOptions" xml:space="preserve">
+    <value>Opsi Lain-lain</value>
+  </data>
+  <data name="RAConfig_Netplay" xml:space="preserve">
+    <value>Bermain Jaringan</value>
+  </data>
+  <data name="RAConfig_NetworkGeneral" xml:space="preserve">
+    <value>Pengaturan Jaringan</value>
+  </data>
+  <data name="RAConfig_NewCreated" xml:space="preserve">
+    <value>Konfigurasi baru dibuat dengan default RetroArch. Path simpan: {0}</value>
+  </data>
+  <data name="RAConfig_NoCfgFound" xml:space="preserve">
+    <value>retroarch.cfg tidak ditemukan. Gunakan Telusuri untuk menemukannya, atau Buat Baru untuk membuatnya dengan default.</value>
+  </data>
+  <data name="RAConfig_Notifications" xml:space="preserve">
+    <value>Notifikasi</value>
+  </data>
+  <data name="RAConfig_OverlaySettings" xml:space="preserve">
+    <value>Pengaturan Overlay</value>
+  </data>
+  <data name="RAConfig_RGUITheme" xml:space="preserve">
+    <value>Tema RGUI</value>
+  </data>
+  <data name="RAConfig_RecordingOptions" xml:space="preserve">
+    <value>Opsi Perekaman</value>
+  </data>
+  <data name="RAConfig_ResetDefaults" xml:space="preserve">
+    <value>Atur Ulang ke Default</value>
+  </data>
+  <data name="RAConfig_Rewind" xml:space="preserve">
+    <value>Opsi Mundur</value>
+  </data>
+  <data name="RAConfig_Save" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="RAConfig_SaveAs" xml:space="preserve">
+    <value>Simpan Sebagai...</value>
+  </data>
+  <data name="RAConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Simpan Konfigurasi RetroArch</value>
+  </data>
+  <data name="RAConfig_SaveError" xml:space="preserve">
+    <value>Gagal menyimpan konfigurasi: {0}</value>
+  </data>
+  <data name="RAConfig_SaveOptions" xml:space="preserve">
+    <value>Opsi Simpan &amp; State</value>
+  </data>
+  <data name="RAConfig_Saved" xml:space="preserve">
+    <value>Konfigurasi disimpan ke {0}</value>
+  </data>
+  <data name="RAConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Ketik untuk memfilter pengaturan berdasarkan nama (mis. video_driver, audio, netplay...)</value>
+  </data>
+  <data name="RAConfig_SearchSettings" xml:space="preserve">
+    <value>Cari Pengaturan</value>
+  </data>
+  <data name="RAConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Pilih File Konfigurasi RetroArch</value>
+  </data>
+  <data name="RAConfig_TabAccessibility" xml:space="preserve">
+    <value>Aksesibilitas</value>
+  </data>
+  <data name="RAConfig_TabAchievements" xml:space="preserve">
+    <value>Achievement</value>
+  </data>
+  <data name="RAConfig_TabAudio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="RAConfig_TabCore" xml:space="preserve">
+    <value>Core / Simpan</value>
+  </data>
+  <data name="RAConfig_TabFrameThrottle" xml:space="preserve">
+    <value>Pembatasan Frame</value>
+  </data>
+  <data name="RAConfig_TabInput" xml:space="preserve">
+    <value>Input</value>
+  </data>
+  <data name="RAConfig_TabMenu" xml:space="preserve">
+    <value>Menu / UI</value>
+  </data>
+  <data name="RAConfig_TabMisc" xml:space="preserve">
+    <value>Lain-lain / Logging</value>
+  </data>
+  <data name="RAConfig_TabNetwork" xml:space="preserve">
+    <value>Jaringan</value>
+  </data>
+  <data name="RAConfig_TabOverlay" xml:space="preserve">
+    <value>Overlay</value>
+  </data>
+  <data name="RAConfig_TabPaths" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="RAConfig_TabRecording" xml:space="preserve">
+    <value>Perekaman</value>
+  </data>
+  <data name="RAConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="RAConfig_Title" xml:space="preserve">
+    <value>Konfigurator RetroArch</value>
+  </data>
+  <data name="RAConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Perubahan belum disimpan</value>
+  </data>
+  <data name="RAConfig_VideoAdvanced" xml:space="preserve">
+    <value>Video Lanjutan</value>
+  </data>
+  <data name="RAConfig_VideoDisplay" xml:space="preserve">
+    <value>Pengaturan Tampilan</value>
+  </data>
+  <data name="RAConfig_VideoDriver" xml:space="preserve">
+    <value>Driver Video</value>
+  </data>
+  <data name="RAConfig_VideoOSD" xml:space="preserve">
+    <value>OSD &amp; Screenshot</value>
+  </data>
+  <data name="RAConfig_VideoScaling" xml:space="preserve">
+    <value>Penskalaan &amp; Pemfilteran</value>
+  </data>
+  <data name="RAConfig_VideoSync" xml:space="preserve">
+    <value>Sinkronisasi</value>
+  </data>
+  <data name="Security_SingleNoFeatures" xml:space="preserve">
+    <value>✔ {0}: Tidak ada fitur keamanan yang terdeteksi.</value>
+  </data>
+  <data name="Security_SingleResultDetected" xml:space="preserve">
+    <value>✔ {0}: {1} fitur keamanan terdeteksi.</value>
+  </data>
+  <data name="Settings_BigPictureStyleClassic" xml:space="preserve">
+    <value>Klasik (Grid Kartu)</value>
+  </data>
+  <data name="Settings_BigPictureStyleLabel" xml:space="preserve">
+    <value>Gaya visual</value>
+  </data>
+  <data name="Settings_BigPictureStyleModern" xml:space="preserve">
+    <value>Modern (Hero + Carousel)</value>
+  </data>
+  <data name="Settings_UpdateManagedByPackageManager" xml:space="preserve">
+    <value>Pembaruan dikelola oleh manajer paket sistem Anda.</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImage" xml:space="preserve">
+    <value>Konfirmasi Buat Image</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImageMessage" xml:space="preserve">
+    <value>Buat image disk penuh dari {0}? Ini mungkin memerlukan waktu tergantung ukuran drive.</value>
+  </data>
 </root>

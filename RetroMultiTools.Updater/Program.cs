@@ -218,6 +218,12 @@ internal static class Program
         if (!normalizedTargetDir.EndsWith(Path.DirectorySeparatorChar))
             normalizedTargetDir += Path.DirectorySeparatorChar;
 
+        // Use case-insensitive comparison on Windows/macOS (case-preserving
+        // filesystems) and case-sensitive on Linux.
+        var pathComparison = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
+            ? StringComparison.Ordinal
+            : StringComparison.OrdinalIgnoreCase;
+
         using var archive = ZipFile.OpenRead(zipPath);
         int totalEntries = archive.Entries.Count(e => !string.IsNullOrEmpty(e.Name));
         int extractedCount = 0;
@@ -232,7 +238,7 @@ internal static class Program
             string destPath = Path.GetFullPath(Path.Combine(targetDir, entry.FullName));
 
             // Security: ensure we don't write outside the target directory
-            if (!destPath.StartsWith(normalizedTargetDir, StringComparison.OrdinalIgnoreCase))
+            if (!destPath.StartsWith(normalizedTargetDir, pathComparison))
             {
                 Log($"  Skipping entry outside target: {entry.FullName}");
                 continue;
@@ -240,7 +246,11 @@ internal static class Program
 
             // Skip replacing files that belong to the running updater process;
             // extract them as .new files to be swapped by the main app on next launch.
-            if (ownFiles.Contains(entry.Name))
+            // Only defer root-level entries — files in subdirectories with the same
+            // name are not part of the updater and should be extracted normally.
+            // ZIP archives always use forward slashes as path separators.
+            bool isRootEntry = !entry.FullName.Contains('/');
+            if (isRootEntry && ownFiles.Contains(entry.Name))
             {
                 TryExtractAs(entry, destPath + ".new");
                 deferredCount++;
@@ -318,12 +328,14 @@ internal static class Program
                 action();
                 return;
             }
-            catch (IOException) when (i < maxRetries - 1)
+            catch (IOException ex) when (i < maxRetries - 1)
             {
+                Log($"  Retry {i + 1}/{maxRetries} after IOException: {ex.Message}");
                 Thread.Sleep(500 * (i + 1));
             }
-            catch (UnauthorizedAccessException) when (i < maxRetries - 1)
+            catch (UnauthorizedAccessException ex) when (i < maxRetries - 1)
             {
+                Log($"  Retry {i + 1}/{maxRetries} after UnauthorizedAccessException: {ex.Message}");
                 Thread.Sleep(500 * (i + 1));
             }
         }
@@ -339,8 +351,8 @@ internal static class Program
     {
         try
         {
-            if (Directory.Exists(path) && Directory.GetFileSystemEntries(path).Length == 0)
-                Directory.Delete(path, recursive: false);
+            if (Directory.Exists(path))
+                Directory.Delete(path, recursive: true);
         }
         catch { /* best-effort cleanup */ }
     }

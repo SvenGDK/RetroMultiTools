@@ -1,5 +1,6 @@
 using RetroMultiTools.Localization;
 using RetroMultiTools.Services;
+using RetroMultiTools.Utilities.Conversion;
 
 namespace RetroMultiTools.Utilities.Mame;
 
@@ -38,7 +39,7 @@ public static class MameChdConverter
         string chdmanPath = FindChdmanOrThrow();
 
         string command = GetCompressCommand(ext);
-        string args = BuildCompressArgs(command, inputPath, chdOutput, options);
+        string[] args = BuildCompressArgs(command, inputPath, chdOutput, options);
 
         var result = new ChdConvertResult
         {
@@ -91,7 +92,7 @@ public static class MameChdConverter
 
         string chdmanPath = FindChdmanOrThrow();
 
-        string args = BuildDecompressArgs(inputPath, correctedOutput, options);
+        string[] args = BuildDecompressArgs(inputPath, correctedOutput, options);
 
         var result = new ChdConvertResult
         {
@@ -262,13 +263,13 @@ public static class MameChdConverter
         };
     }
 
-    private static string BuildCompressArgs(string command, string inputPath, string outputPath, ChdCompressOptions options)
+    private static string[] BuildCompressArgs(string command, string inputPath, string outputPath, ChdCompressOptions options)
     {
         var args = new List<string>
         {
             command,
-            "-i", $"\"{inputPath}\"",
-            "-o", $"\"{outputPath}\""
+            "-i", inputPath,
+            "-o", outputPath
         };
 
         if (command == "createraw")
@@ -293,10 +294,10 @@ public static class MameChdConverter
         if (options.Force)
             args.Add("-f");
 
-        return string.Join(" ", args);
+        return args.ToArray();
     }
 
-    private static string BuildDecompressArgs(string inputPath, string outputPath, ChdDecompressOptions options)
+    private static string[] BuildDecompressArgs(string inputPath, string outputPath, ChdDecompressOptions options)
     {
         string command = options.OutputFormat switch
         {
@@ -308,14 +309,14 @@ public static class MameChdConverter
         var args = new List<string>
         {
             command,
-            "-i", $"\"{inputPath}\"",
-            "-o", $"\"{outputPath}\""
+            "-i", inputPath,
+            "-o", outputPath
         };
 
         if (options.Force)
             args.Add("-f");
 
-        return string.Join(" ", args);
+        return args.ToArray();
     }
 
     private static string GetDecompressExtension(ChdOutputFormat format) => format switch

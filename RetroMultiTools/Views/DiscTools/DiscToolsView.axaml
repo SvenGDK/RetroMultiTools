@@ -1,0 +1,125 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:RetroMultiTools.Localization"
+             x:Class="RetroMultiTools.Views.DiscTools.DiscToolsView">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16">
+        <TextBlock Text="{Binding [DiscTools_Title], Source={x:Static loc:LocalizationManager.Instance}}" FontSize="18" FontWeight="Bold" Foreground="#CDD6F4"/>
+        <TextBlock Text="{Binding [DiscTools_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                   Foreground="#A6ADC8" TextWrapping="Wrap"/>
+
+        <!-- Operation Selection -->
+        <StackPanel Spacing="4">
+            <TextBlock Text="{Binding [DiscTools_Operation], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <RadioButton x:Name="BurnImageRadio" Content="{Binding [DiscTools_OpBurnImage], Source={x:Static loc:LocalizationManager.Instance}}"
+                             GroupName="DiscToolsOperation"
+                             IsChecked="True" Foreground="#CDD6F4"
+                             IsCheckedChanged="OperationRadio_Checked"/>
+                <RadioButton x:Name="BurnFilesRadio" Content="{Binding [DiscTools_OpBurnFiles], Source={x:Static loc:LocalizationManager.Instance}}"
+                             GroupName="DiscToolsOperation"
+                             Foreground="#CDD6F4"
+                             IsCheckedChanged="OperationRadio_Checked"/>
+                <RadioButton x:Name="ImageFromDiscRadio" Content="{Binding [DiscTools_OpImageFromDisc], Source={x:Static loc:LocalizationManager.Instance}}"
+                             GroupName="DiscToolsOperation"
+                             Foreground="#CDD6F4"
+                             IsCheckedChanged="OperationRadio_Checked"/>
+                <RadioButton x:Name="ImageFromFilesRadio" Content="{Binding [DiscTools_OpImageFromFiles], Source={x:Static loc:LocalizationManager.Instance}}"
+                             GroupName="DiscToolsOperation"
+                             Foreground="#CDD6F4"
+                             IsCheckedChanged="OperationRadio_Checked"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Drive Selection (for burn and image-from-disc operations) -->
+        <StackPanel x:Name="DrivePanel" Spacing="4">
+            <TextBlock Text="{Binding [DiscTools_Drive], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <ComboBox x:Name="DriveCombo" MinWidth="300" Padding="8,6"
+                          PlaceholderText="{Binding [DiscTools_SelectDrive], Source={x:Static loc:LocalizationManager.Instance}}"/>
+                <Button Grid.Column="1" Content="{Binding [DiscTools_RefreshDrives], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="RefreshDrives_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Input Selection -->
+        <StackPanel x:Name="InputPanel" Spacing="4">
+            <TextBlock x:Name="InputLabel" Text="{Binding [DiscTools_ImageFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto,Auto">
+                <TextBox x:Name="InputPathTextBox" IsReadOnly="True"
+                         Watermark="{Binding [DiscTools_SelectImageFile], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseInput_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+                <Button x:Name="BrowseFolderButton" Grid.Column="2" Content="{Binding [DiscTools_BrowseFolder], Source={x:Static loc:LocalizationManager.Instance}}"
+                        Click="BrowseInputFolder_Click"
+                        Margin="8,0,0,0" Padding="12,6" IsVisible="False"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Output Selection (for create image operations) -->
+        <StackPanel x:Name="OutputPanel" Spacing="4" IsVisible="False">
+            <TextBlock x:Name="OutputLabel" Text="{Binding [DiscTools_OutputFile], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="OutputPathTextBox" Watermark="{Binding [Common_OutputPath], Source={x:Static loc:LocalizationManager.Instance}}" Padding="8,6"/>
+                <Button Grid.Column="1" Content="{Binding [Common_Browse], Source={x:Static loc:LocalizationManager.Instance}}" Click="BrowseOutput_Click"
+                        Margin="8,0,0,0" Padding="12,6"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Volume Label (for burn files and create image from files) -->
+        <StackPanel x:Name="VolumeLabelPanel" Spacing="4" IsVisible="False">
+            <TextBlock Text="{Binding [DiscTools_VolumeLabel], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <TextBox x:Name="VolumeLabelTextBox" Watermark="{Binding [DiscTools_VolumeLabelHint], Source={x:Static loc:LocalizationManager.Instance}}"
+                     Text="RETRO_DISC" Padding="8,6" MaxWidth="300" HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <!-- Write Speed -->
+        <StackPanel x:Name="SpeedPanel" Spacing="4">
+            <TextBlock Text="{Binding [DiscTools_WriteSpeed], Source={x:Static loc:LocalizationManager.Instance}}" Foreground="#A6ADC8"/>
+            <ComboBox x:Name="SpeedCombo" SelectedIndex="0" MinWidth="200">
+                <ComboBoxItem Content="{Binding [DiscTools_SpeedAuto], Source={x:Static loc:LocalizationManager.Instance}}" Tag="0"/>
+                <ComboBoxItem Content="1x" Tag="1"/>
+                <ComboBoxItem Content="2x" Tag="2"/>
+                <ComboBoxItem Content="4x" Tag="4"/>
+                <ComboBoxItem Content="8x" Tag="8"/>
+                <ComboBoxItem Content="16x" Tag="16"/>
+                <ComboBoxItem Content="24x" Tag="24"/>
+                <ComboBoxItem Content="32x" Tag="32"/>
+                <ComboBoxItem Content="48x" Tag="48"/>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- Verify after burn -->
+        <StackPanel x:Name="VerifyPanel" Spacing="4">
+            <CheckBox x:Name="VerifyCheckBox" Content="{Binding [DiscTools_VerifyAfterBurn], Source={x:Static loc:LocalizationManager.Instance}}"
+                      IsChecked="False" Foreground="#CDD6F4"/>
+        </StackPanel>
+
+        <!-- Action Button -->
+        <Button x:Name="ActionButton" Content="{Binding [DiscTools_Burn], Source={x:Static loc:LocalizationManager.Instance}}"
+                ToolTip.Tip="{Binding [DiscTools_Description], Source={x:Static loc:LocalizationManager.Instance}}"
+                Click="ActionButton_Click"
+                Padding="16,10" HorizontalAlignment="Left"
+                IsEnabled="False"/>
+
+        <!-- Cancel Button -->
+        <Button x:Name="CancelButton" Content="{Binding [DiscTools_Cancel], Source={x:Static loc:LocalizationManager.Instance}}"
+                Click="CancelButton_Click"
+                Padding="16,10" HorizontalAlignment="Left"
+                IsVisible="False"/>
+
+        <!-- Progress -->
+        <StackPanel x:Name="ProgressPanel" IsVisible="False" Spacing="4">
+            <ProgressBar IsIndeterminate="True" Height="4" Foreground="#89B4FA"/>
+            <TextBlock x:Name="ProgressText" Foreground="#A6ADC8" FontSize="12"/>
+        </StackPanel>
+
+        <!-- Status -->
+        <Border x:Name="StatusBorder" Background="#181825" CornerRadius="6" Padding="12"
+                IsVisible="False">
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" Foreground="#CDD6F4"/>
+        </Border>
+    </StackPanel>
+    </ScrollViewer>
+</UserControl>

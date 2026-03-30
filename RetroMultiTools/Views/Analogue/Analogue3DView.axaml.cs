@@ -22,6 +22,7 @@ public partial class Analogue3DView : UserControl
     public Analogue3DView()
     {
         InitializeComponent();
+        DragDropHelper.EnableFileDrop(SdCardPathTextBox, acceptDirectories: true);
     }
 
     // ── SD Card Selection ──────────────────────────────────────────────

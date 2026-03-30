@@ -6124,4 +6124,1205 @@ Run:notepad.exe</value>
   <data name="Settings_Clear" xml:space="preserve">
     <value>Vymazat</value>
   </data>
+  <data name="Nav_DiscTools" xml:space="preserve">
+    <value>Diskové nástroje</value>
+  </data>
+  <data name="DiscTools_Title" xml:space="preserve">
+    <value>Diskové nástroje</value>
+  </data>
+  <data name="DiscTools_Description" xml:space="preserve">
+    <value>Vypalujte obrazy disků nebo soubory na optická média a vytvářejte obrazy disků z fyzických disků nebo souborů. Podporuje formáty disků ISO, BIN/CUE, IMG, GDI, CDI, NRG a další herní systémy.</value>
+  </data>
+  <data name="DiscTools_Operation" xml:space="preserve">
+    <value>Operace:</value>
+  </data>
+  <data name="DiscTools_OpBurnImage" xml:space="preserve">
+    <value>Zápis obrázku na disk</value>
+  </data>
+  <data name="DiscTools_OpBurnFiles" xml:space="preserve">
+    <value>Zápis souborů na disk</value>
+  </data>
+  <data name="DiscTools_OpImageFromDisc" xml:space="preserve">
+    <value>Vytvořit obrázek z disku</value>
+  </data>
+  <data name="DiscTools_OpImageFromFiles" xml:space="preserve">
+    <value>Vytvořit obrázek ze souborů</value>
+  </data>
+  <data name="DiscTools_Drive" xml:space="preserve">
+    <value>Optická mechanika:</value>
+  </data>
+  <data name="DiscTools_SelectDrive" xml:space="preserve">
+    <value>Vyberte optickou mechaniku...</value>
+  </data>
+  <data name="DiscTools_RefreshDrives" xml:space="preserve">
+    <value>Obnovit</value>
+  </data>
+  <data name="DiscTools_NoDrivesFound" xml:space="preserve">
+    <value>V tomto systému nebyly zjištěny žádné optické jednotky.</value>
+  </data>
+  <data name="DiscTools_ImageFile" xml:space="preserve">
+    <value>Soubor obrázku:</value>
+  </data>
+  <data name="DiscTools_SelectImageFile" xml:space="preserve">
+    <value>Vyberte soubor obrazu disku...</value>
+  </data>
+  <data name="DiscTools_ImageFiles" xml:space="preserve">
+    <value>Obrazové soubory disku</value>
+  </data>
+  <data name="DiscTools_FilesOrFolders" xml:space="preserve">
+    <value>Soubory/složky:</value>
+  </data>
+  <data name="DiscTools_SelectFilesOrFolders" xml:space="preserve">
+    <value>Vyberte soubory nebo složky pro zápis...</value>
+  </data>
+  <data name="DiscTools_SelectFolder" xml:space="preserve">
+    <value>Vyberte složku</value>
+  </data>
+  <data name="DiscTools_OutputFile" xml:space="preserve">
+    <value>Výstupní soubor obrázku:</value>
+  </data>
+  <data name="DiscTools_SelectOutputImage" xml:space="preserve">
+    <value>Vyberte cestu k výstupnímu souboru obrázku...</value>
+  </data>
+  <data name="DiscTools_VolumeLabel" xml:space="preserve">
+    <value>Označení svazku:</value>
+  </data>
+  <data name="DiscTools_VolumeLabelHint" xml:space="preserve">
+    <value>Zadejte jmenovku svazku pro disk...</value>
+  </data>
+  <data name="DiscTools_WriteSpeed" xml:space="preserve">
+    <value>Rychlost zápisu:</value>
+  </data>
+  <data name="DiscTools_SpeedAuto" xml:space="preserve">
+    <value>Automaticky (max.)</value>
+  </data>
+  <data name="DiscTools_VerifyAfterBurn" xml:space="preserve">
+    <value>Po napsání ověřte</value>
+  </data>
+  <data name="DiscTools_Burn" xml:space="preserve">
+    <value>Zápis na disk</value>
+  </data>
+  <data name="DiscTools_CreateImage" xml:space="preserve">
+    <value>Vytvořit obrázek</value>
+  </data>
+  <data name="DiscTools_Cancel" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="DiscTools_DetectingDrives" xml:space="preserve">
+    <value>Detekce optických jednotek...</value>
+  </data>
+  <data name="DiscTools_DriveDetectError" xml:space="preserve">
+    <value>Chyba při zjišťování jednotek: {0}</value>
+  </data>
+  <data name="DiscTools_ImageNotFound" xml:space="preserve">
+    <value>Soubor obrázku nebyl nalezen.</value>
+  </data>
+  <data name="DiscTools_BurningImage" xml:space="preserve">
+    <value>Zápis obrázku: {0}</value>
+  </data>
+  <data name="DiscTools_BurningFiles" xml:space="preserve">
+    <value>Zápis položek {0} na disk...</value>
+  </data>
+  <data name="DiscTools_NoFilesSelected" xml:space="preserve">
+    <value>Nejsou vybrány žádné soubory ani složky.</value>
+  </data>
+  <data name="DiscTools_OutputRequired" xml:space="preserve">
+    <value>Je vyžadována cesta k výstupnímu souboru.</value>
+  </data>
+  <data name="DiscTools_ReadingDisc" xml:space="preserve">
+    <value>Čtení disku...</value>
+  </data>
+  <data name="DiscTools_CreatingImage" xml:space="preserve">
+    <value>Vytváření obrázku: {0}</value>
+  </data>
+  <data name="DiscTools_WritingToDisc" xml:space="preserve">
+    <value>Zápis dat na disk...</value>
+  </data>
+  <data name="DiscTools_RunningTool" xml:space="preserve">
+    <value>Spuštění {0}...</value>
+  </data>
+  <data name="DiscTools_BurnComplete" xml:space="preserve">
+    <value>✔ Úspěšný zápis na disk.</value>
+  </data>
+  <data name="DiscTools_BurnFailed" xml:space="preserve">
+    <value>✘ Zápis se nezdařil: {0}</value>
+  </data>
+  <data name="DiscTools_ImageCreated" xml:space="preserve">
+    <value>✔ Vytvořený obrázek: {0} ({1})</value>
+  </data>
+  <data name="DiscTools_ImageCreateFailed" xml:space="preserve">
+    <value>✘ Vytvoření obrázku se nezdařilo: {0}</value>
+  </data>
+  <data name="DiscTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Tato platforma není podporována pro operace s disky.</value>
+  </data>
+  <data name="DiscTools_NoBurnTool" xml:space="preserve">
+    <value>Nebyl nalezen žádný nástroj pro vypalování disků. Nainstalujte si prosím wodim, cdrecord nebo xorrecord.</value>
+  </data>
+  <data name="DiscTools_NoIsoTool" xml:space="preserve">
+    <value>Nebyl nalezen žádný nástroj pro vytváření ISO. Nainstalujte prosím xorrisofs, genisoimage nebo mkisofs.</value>
+  </data>
+  <data name="DiscTools_IsoCreateFailed" xml:space="preserve">
+    <value>Vytvoření ISO se nezdařilo: {0}</value>
+  </data>
+  <data name="DiscTools_CreatingIso" xml:space="preserve">
+    <value>Vytváření ISO obrazu...</value>
+  </data>
+  <data name="DiscTools_OperationCancelled" xml:space="preserve">
+    <value>Operace zrušena.</value>
+  </data>
+  <data name="DiscTools_BrowseFolder" xml:space="preserve">
+    <value>Procházet složku</value>
+  </data>
+  <data name="DiscTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>Formát obrazu „{0}“ nelze vypálit na disk. Podporované formáty: ISO, BIN/CUE, IMG, NRG, TOAST.</value>
+  </data>
+  <data name="DiscTools_Verifying" xml:space="preserve">
+    <value>Ověřování disku...</value>
+  </data>
+  <data name="DiscTools_BurnCompleteVerifySkipped" xml:space="preserve">
+    <value>Vypalování úspěšně dokončeno. Ověření nebylo možné provést.</value>
+  </data>
+  <data name="DiscTools_VerifyFailed" xml:space="preserve">
+    <value>Vypalování dokončeno, ale ověření se nezdařilo: data disku neodpovídají zdrojovému obrazu.</value>
+  </data>
+  <data name="DiscTools_IsoImageType" xml:space="preserve">
+    <value>Obraz ISO</value>
+  </data>
+  <data name="DiscTools_BinCueImageType" xml:space="preserve">
+    <value>Obrázek BIN/CUE</value>
+  </data>
+  <data name="Nav_UsbTools" xml:space="preserve">
+    <value>Nástroje USB</value>
+  </data>
+  <data name="UsbTools_Title" xml:space="preserve">
+    <value>Nástroje USB</value>
+  </data>
+  <data name="UsbTools_Description" xml:space="preserve">
+    <value>Formátování, zápis obrazů na, vytváření obrazů z a procházení USB disků.</value>
+  </data>
+  <data name="UsbTools_Drive" xml:space="preserve">
+    <value>USB disk</value>
+  </data>
+  <data name="UsbTools_SelectDrive" xml:space="preserve">
+    <value>Vyberte USB disk...</value>
+  </data>
+  <data name="UsbTools_RefreshDrives" xml:space="preserve">
+    <value>Obnovit</value>
+  </data>
+  <data name="UsbTools_DetectingDrives" xml:space="preserve">
+    <value>Detekce USB disků...</value>
+  </data>
+  <data name="UsbTools_NoDrivesFound" xml:space="preserve">
+    <value>Nebyly nalezeny žádné USB disky.</value>
+  </data>
+  <data name="UsbTools_DriveDetectError" xml:space="preserve">
+    <value>Chyba při detekci disků: {0}</value>
+  </data>
+  <data name="UsbTools_NoDriveSelected" xml:space="preserve">
+    <value>Nebyl vybrán žádný USB disk.</value>
+  </data>
+  <data name="UsbTools_UnsupportedPlatform" xml:space="preserve">
+    <value>Tato operace není na aktuální platformě podporována.</value>
+  </data>
+  <data name="UsbTools_TabExplorer" xml:space="preserve">
+    <value>Průzkumník souborů</value>
+  </data>
+  <data name="UsbTools_TabFormat" xml:space="preserve">
+    <value>Formátování</value>
+  </data>
+  <data name="UsbTools_TabWriteImage" xml:space="preserve">
+    <value>Zápis obrazu</value>
+  </data>
+  <data name="UsbTools_TabCreateImage" xml:space="preserve">
+    <value>Vytvoření obrazu</value>
+  </data>
+  <data name="UsbTools_NavigateUp" xml:space="preserve">
+    <value>Přejít nahoru</value>
+  </data>
+  <data name="UsbTools_RefreshFiles" xml:space="preserve">
+    <value>Obnovit</value>
+  </data>
+  <data name="UsbTools_AddFiles" xml:space="preserve">
+    <value>Přidat soubory</value>
+  </data>
+  <data name="UsbTools_NewFolder" xml:space="preserve">
+    <value>Nová složka</value>
+  </data>
+  <data name="UsbTools_Delete" xml:space="preserve">
+    <value>Smazat</value>
+  </data>
+  <data name="UsbTools_Move" xml:space="preserve">
+    <value>Přesunout</value>
+  </data>
+  <data name="UsbTools_FileSystem" xml:space="preserve">
+    <value>Souborový systém</value>
+  </data>
+  <data name="UsbTools_PartitionScheme" xml:space="preserve">
+    <value>Schéma oddílů</value>
+  </data>
+  <data name="UsbTools_VolumeLabel" xml:space="preserve">
+    <value>Jmenovka svazku</value>
+  </data>
+  <data name="UsbTools_VolumeLabelHint" xml:space="preserve">
+    <value>Zadejte jmenovku svazku</value>
+  </data>
+  <data name="UsbTools_FormatWarning" xml:space="preserve">
+    <value>⚠ Upozornění: Formátování vymaže VŠECHNA data na vybraném USB disku. Tuto akci nelze vrátit zpět.</value>
+  </data>
+  <data name="UsbTools_Format" xml:space="preserve">
+    <value>Formátovat USB disk</value>
+  </data>
+  <data name="UsbTools_PreparingFormat" xml:space="preserve">
+    <value>Příprava formátování...</value>
+  </data>
+  <data name="UsbTools_Formatting" xml:space="preserve">
+    <value>Formátování na {0} ({1})...</value>
+  </data>
+  <data name="UsbTools_FormatComplete" xml:space="preserve">
+    <value>USB disk byl úspěšně naformátován.</value>
+  </data>
+  <data name="UsbTools_FormatFailed" xml:space="preserve">
+    <value>Formátování selhalo: {0}</value>
+  </data>
+  <data name="UsbTools_UnsupportedFileSystem" xml:space="preserve">
+    <value>Nepodporovaný souborový systém: {0}</value>
+  </data>
+  <data name="UsbTools_NtfsMacWarning" xml:space="preserve">
+    <value>Poznámka: macOS nepodporuje nativní formátování NTFS. Disk byl naformátován jako ExFAT.</value>
+  </data>
+  <data name="UsbTools_ConfirmFormat" xml:space="preserve">
+    <value>Potvrdit formátování</value>
+  </data>
+  <data name="UsbTools_ConfirmFormatMessage" xml:space="preserve">
+    <value>Opravdu chcete naformátovat {0}? Všechna data budou trvale vymazána.</value>
+  </data>
+  <data name="UsbTools_ImageFile" xml:space="preserve">
+    <value>Soubor obrazu</value>
+  </data>
+  <data name="UsbTools_SelectImageFile" xml:space="preserve">
+    <value>Vyberte soubor obrazu...</value>
+  </data>
+  <data name="UsbTools_ImageFiles" xml:space="preserve">
+    <value>Soubory diskových obrazů</value>
+  </data>
+  <data name="UsbTools_ImageNotFound" xml:space="preserve">
+    <value>Soubor obrazu nebyl nalezen.</value>
+  </data>
+  <data name="UsbTools_UnsupportedImageFormat" xml:space="preserve">
+    <value>Nepodporovaný formát obrazu: {0}</value>
+  </data>
+  <data name="UsbTools_WriteWarning" xml:space="preserve">
+    <value>⚠ Upozornění: Zápis obrazu vymaže VŠECHNA data na vybraném USB disku. Tuto akci nelze vrátit zpět.</value>
+  </data>
+  <data name="UsbTools_WriteImage" xml:space="preserve">
+    <value>Zapsat obraz na USB</value>
+  </data>
+  <data name="UsbTools_WritingImage" xml:space="preserve">
+    <value>Zapisování {0} na USB disk...</value>
+  </data>
+  <data name="UsbTools_WriteComplete" xml:space="preserve">
+    <value>Obraz byl úspěšně zapsán na USB disk.</value>
+  </data>
+  <data name="UsbTools_WriteFailed" xml:space="preserve">
+    <value>Zápis selhal: {0}</value>
+  </data>
+  <data name="UsbTools_ConfirmWrite" xml:space="preserve">
+    <value>Potvrdit zápis</value>
+  </data>
+  <data name="UsbTools_ConfirmWriteMessage" xml:space="preserve">
+    <value>Opravdu chcete zapsat {0} na {1}? Všechna existující data budou trvale vymazána.</value>
+  </data>
+  <data name="UsbTools_OutputFile" xml:space="preserve">
+    <value>Výstupní soubor</value>
+  </data>
+  <data name="UsbTools_SelectOutputImage" xml:space="preserve">
+    <value>Vyberte umístění výstupního obrazu...</value>
+  </data>
+  <data name="UsbTools_CreateImage" xml:space="preserve">
+    <value>Vytvořit obraz z USB</value>
+  </data>
+  <data name="UsbTools_CreatingImage" xml:space="preserve">
+    <value>Vytváření obrazu z USB disku...</value>
+  </data>
+  <data name="UsbTools_ImageCreated" xml:space="preserve">
+    <value>Obraz úspěšně vytvořen: {0}</value>
+  </data>
+  <data name="UsbTools_ImageCreateFailed" xml:space="preserve">
+    <value>Vytvoření obrazu selhalo: {0}</value>
+  </data>
+  <data name="UsbTools_OutputRequired" xml:space="preserve">
+    <value>Cesta výstupního souboru je povinná.</value>
+  </data>
+  <data name="UsbTools_ImgFileType" xml:space="preserve">
+    <value>Obraz IMG</value>
+  </data>
+  <data name="UsbTools_IsoFileType" xml:space="preserve">
+    <value>Obraz ISO</value>
+  </data>
+  <data name="UsbTools_OperationCancelled" xml:space="preserve">
+    <value>Operace byla zrušena.</value>
+  </data>
+  <data name="UsbTools_FolderExists" xml:space="preserve">
+    <value>Složka s tímto názvem již existuje.</value>
+  </data>
+  <data name="UsbTools_FolderCreated" xml:space="preserve">
+    <value>Složka byla úspěšně vytvořena.</value>
+  </data>
+  <data name="UsbTools_DeleteComplete" xml:space="preserve">
+    <value>Úspěšně smazáno.</value>
+  </data>
+  <data name="UsbTools_EntryNotFound" xml:space="preserve">
+    <value>Soubor nebo složka nebyla nalezena.</value>
+  </data>
+  <data name="UsbTools_DestinationExists" xml:space="preserve">
+    <value>Položka se stejným názvem již v cíli existuje.</value>
+  </data>
+  <data name="UsbTools_MoveComplete" xml:space="preserve">
+    <value>Úspěšně přesunuto.</value>
+  </data>
+  <data name="UsbTools_SelectMoveDestination" xml:space="preserve">
+    <value>Vyberte cílovou složku</value>
+  </data>
+  <data name="UsbTools_CopyingFile" xml:space="preserve">
+    <value>Kopírování {0}...</value>
+  </data>
+  <data name="UsbTools_AddComplete" xml:space="preserve">
+    <value>{0} položek úspěšně přidáno.</value>
+  </data>
+  <data name="UsbTools_ConfirmDelete" xml:space="preserve">
+    <value>Potvrdit smazání</value>
+  </data>
+  <data name="UsbTools_ConfirmDeleteMessage" xml:space="preserve">
+    <value>Opravdu chcete smazat '{0}'? Tuto akci nelze vrátit zpět.</value>
+  </data>
+  <data name="UsbTools_EnterFolderName" xml:space="preserve">
+    <value>Zadejte název složky:</value>
+  </data>
+  <data name="UsbTools_FolderNameHint" xml:space="preserve">
+    <value>Název složky</value>
+  </data>
+
+  <data name="Tour_Skip" xml:space="preserve">
+    <value>Přeskočit prohlídku</value>
+  </data>
+  <data name="Tour_Back" xml:space="preserve">
+    <value>Zpět</value>
+  </data>
+  <data name="Tour_Next" xml:space="preserve">
+    <value>Další</value>
+  </data>
+  <data name="Tour_Finish" xml:space="preserve">
+    <value>Začít</value>
+  </data>
+  <data name="Tour_WelcomeTitle" xml:space="preserve">
+    <value>Vítejte v RetroMultiTools!</value>
+  </data>
+  <data name="Tour_WelcomeDesc" xml:space="preserve">
+    <value>Váš univerzální nástroj pro retro hraní. Nechte nás vám rychle ukázat vše, co tato aplikace umí. Zabere to jen minutu!</value>
+  </data>
+  <data name="Tour_SidebarTitle" xml:space="preserve">
+    <value>Navigace v postranním panelu</value>
+  </data>
+  <data name="Tour_SidebarDesc" xml:space="preserve">
+    <value>Pomocí postranního panelu vlevo přepínáte mezi nástroji. Jsou rozděleny do kategorií jako procházení, záplatování, analýza a další.</value>
+  </data>
+  <data name="Tour_BrowserTitle" xml:space="preserve">
+    <value>Prohlížeč ROM</value>
+  </data>
+  <data name="Tour_BrowserDesc" xml:space="preserve">
+    <value>Procházejte svou sbírku ROM pomocí výkonného prohlížeče souborů. Zobrazujte detaily souborů, otevírejte složky a rychle vyhledávejte hry.</value>
+  </data>
+  <data name="Tour_InspectorTitle" xml:space="preserve">
+    <value>Inspektor ROM &amp; hex prohlížeč</value>
+  </data>
+  <data name="Tour_InspectorDesc" xml:space="preserve">
+    <value>Prohlédněte si záhlaví souborů ROM, zobrazujte interní metadata a zkoumejte surové bajty pomocí vestavěného hex prohlížeče. Skvělé pro pokročilé uživatele a vývojáře.</value>
+  </data>
+  <data name="Tour_PatchingTitle" xml:space="preserve">
+    <value>Záplatování &amp; konverze</value>
+  </data>
+  <data name="Tour_PatchingDesc" xml:space="preserve">
+    <value>Aplikujte záplaty IPS/BPS/UPS, vytvářejte vlastní záplaty, konvertujte formáty ROM, převádějte soubory uložených her a řešte prohazování bajtů N64 — vše na jednom místě.</value>
+  </data>
+  <data name="Tour_AnalysisTitle" xml:space="preserve">
+    <value>Analýza &amp; ověřování</value>
+  </data>
+  <data name="Tour_AnalysisDesc" xml:space="preserve">
+    <value>Ověřujte ROM oproti souborům DAT, počítejte kontrolní součty, vyhledávejte duplicity, hromadně hashujte celé složky a identifikujte sady GoodTools pro přesnou správu sbírky.</value>
+  </data>
+  <data name="Tour_HeadersTitle" xml:space="preserve">
+    <value>Záhlaví &amp; ořezávání</value>
+  </data>
+  <data name="Tour_HeadersDesc" xml:space="preserve">
+    <value>Exportujte, opravujte nebo odstraňujte záhlaví ROM. Ořezávejte doplněné ROM pro úsporu místa. Zahrnuje specializované nástroje pro správu záhlaví SNES.</value>
+  </data>
+  <data name="Tour_UtilitiesTitle" xml:space="preserve">
+    <value>Nástroje</value>
+  </data>
+  <data name="Tour_UtilitiesDesc" xml:space="preserve">
+    <value>Spravujte archivy, aplikujte cheatové kódy, pracujte s obrazy disků, konfigurujte emulátory, mapujte tlačítka gamepadu, načítejte metadata, organizujte a přejmenovávejte soubory ROM a spravujte USB zařízení.</value>
+  </data>
+  <data name="Tour_EmulatorsTitle" xml:space="preserve">
+    <value>Integrace emulátorů</value>
+  </data>
+  <data name="Tour_EmulatorsDesc" xml:space="preserve">
+    <value>Hluboká integrace s RetroArch, MAME a Mednafen. Spravujte přehrávací seznamy, kontrolujte sady ROM, konvertujte soubory CHD, upravujte soubory DAT, vytvářejte zkratky a další.</value>
+  </data>
+  <data name="Tour_AnalogueTitle" xml:space="preserve">
+    <value>Analogue FPGA</value>
+  </data>
+  <data name="Tour_AnalogueDesc" xml:space="preserve">
+    <value>Nástroje pro hardware Analogue FPGA: Pocket, Mega Sg, Nt/Super Nt a připravovaný 3D. Spravujte jádra, firmware a herní knihovny pro svá zařízení.</value>
+  </data>
+  <data name="Tour_BigPictureTitle" xml:space="preserve">
+    <value>Big Picture Mode</value>
+  </data>
+  <data name="Tour_BigPictureDesc" xml:space="preserve">
+    <value>Pohodlně si užívejte herní knihovnu na celou obrazovku s podporou ovladačů, grafikami, sledováním hraní a hodnoceními. Vybírejte mezi klasickým mřížkovým nebo moderním rozvržením s hlavním prvkem.</value>
+  </data>
+  <data name="Tour_SettingsTitle" xml:space="preserve">
+    <value>Nastavení</value>
+  </data>
+  <data name="Tour_SettingsDesc" xml:space="preserve">
+    <value>Přizpůsobte si zážitek: změňte jazyk, povolte Discord Rich Presence, nastavte Big Picture Mode, konfigurujte ovládání gamepadu a zkontrolujte aktualizace.</value>
+  </data>
+  <data name="Tour_FinishTitle" xml:space="preserve">
+    <value>Vše je připraveno!</value>
+  </data>
+  <data name="Tour_FinishDesc" xml:space="preserve">
+    <value>To je vše! Začněte prozkoumávat nástroje v postranním panelu. Tuto prohlídku můžete kdykoli znovu spustit z Nastavení, pokud potřebujete oživení. Užívejte si!</value>
+  </data>
+  <data name="Tour_SettingSectionTitle" xml:space="preserve">
+    <value>Průvodce prohlídkou</value>
+  </data>
+  <data name="Tour_SettingSectionDesc" xml:space="preserve">
+    <value>Znovu spusťte průvodce, který vysvětluje všechny funkce aplikace.</value>
+  </data>
+  <data name="Tour_RestartButton" xml:space="preserve">
+    <value>Restartovat prohlídku</value>
+  </data>
+  <data name="Browser_SelectFolderTooltip" xml:space="preserve">
+    <value>Browse for a ROM folder to scan</value>
+  </data>
+  <data name="Browser_AddRomsTooltip" xml:space="preserve">
+    <value>Add ROM files to the current folder</value>
+  </data>
+  <data name="Browser_CopyToTooltip" xml:space="preserve">
+    <value>Copy selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_MoveToTooltip" xml:space="preserve">
+    <value>Move selected ROMs to another folder</value>
+  </data>
+  <data name="Browser_DeleteTooltip" xml:space="preserve">
+    <value>Delete the selected ROMs</value>
+  </data>
+  <data name="Browser_OrganizeTooltip" xml:space="preserve">
+    <value>Organize ROMs into subfolders by system</value>
+  </data>
+  <data name="Browser_SendToRemoteTooltip" xml:space="preserve">
+    <value>Send selected ROMs to a remote device or cloud storage</value>
+  </data>
+  <data name="Browser_HostShareTooltip" xml:space="preserve">
+    <value>Host a local server to share ROMs on the network</value>
+  </data>
+  <data name="Browser_LaunchRetroArchTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in RetroArch</value>
+  </data>
+  <data name="Browser_LaunchMameTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in MAME</value>
+  </data>
+  <data name="Browser_LaunchMednafenTooltip" xml:space="preserve">
+    <value>Launch the selected ROM in Mednafen</value>
+  </data>
+  <data name="Browser_BigPictureModeTooltip" xml:space="preserve">
+    <value>Enter full-screen Big Picture Mode for gamepad-friendly browsing</value>
+  </data>
+  <data name="MainWindow_SearchShortcut" xml:space="preserve">
+    <value>Search tools (Ctrl+F)</value>
+  </data>
+  <data name="BigPictureModern_AllGames" xml:space="preserve">
+    <value>Všechny hry</value>
+  </data>
+  <data name="BigPictureModern_EmptyCategory" xml:space="preserve">
+    <value>V této kategorii zatím nejsou žádné hry</value>
+  </data>
+  <data name="BigPictureModern_EmptyLibrary" xml:space="preserve">
+    <value>Vaše knihovna je prázdná. Procházejte složku ROM a začněte.</value>
+  </data>
+  <data name="BigPictureModern_Favorites" xml:space="preserve">
+    <value>Oblíbené</value>
+  </data>
+  <data name="BigPictureModern_LaunchWith" xml:space="preserve">
+    <value>Spustit pomocí {0}</value>
+  </data>
+  <data name="BigPictureModern_MostPlayed" xml:space="preserve">
+    <value>Nejhranější</value>
+  </data>
+  <data name="BigPictureModern_NoResults" xml:space="preserve">
+    <value>Žádné hry neodpovídají vašemu hledání</value>
+  </data>
+  <data name="BigPictureModern_Plays" xml:space="preserve">
+    <value>{0} spuštění</value>
+  </data>
+  <data name="BigPictureModern_RecentlyPlayed" xml:space="preserve">
+    <value>Nedávno hrané</value>
+  </data>
+  <data name="BigPictureModern_SearchPlaceholder" xml:space="preserve">
+    <value>Prohledat knihovnu...</value>
+  </data>
+  <data name="BigPictureModern_Spotlight" xml:space="preserve">
+    <value>Doporučené</value>
+  </data>
+  <data name="BigPictureModern_TopRated" xml:space="preserve">
+    <value>Nejlépe hodnocené</value>
+  </data>
+  <data name="BigPicture_CopiedToClipboard" xml:space="preserve">
+    <value>Cesta zkopírována do schránky</value>
+  </data>
+  <data name="BigPicture_CopyFilePath" xml:space="preserve">
+    <value>Kopírovat cestu k souboru</value>
+  </data>
+  <data name="BigPicture_OpenFileLocation" xml:space="preserve">
+    <value>Otevřít umístění souboru</value>
+  </data>
+  <data name="BigPicture_SortPlayCount" xml:space="preserve">
+    <value>Počet spuštění (od nejvyššího)</value>
+  </data>
+  <data name="Browser_ContextChecksum" xml:space="preserve">
+    <value>#️⃣ Vypočítat kontrolní součet</value>
+  </data>
+  <data name="Browser_ContextGoodTools" xml:space="preserve">
+    <value>🏷️ Identifikovat pomocí GoodTools</value>
+  </data>
+  <data name="Browser_ContextHexView" xml:space="preserve">
+    <value>🔢 Otevřít v Hex prohlížeči</value>
+  </data>
+  <data name="Browser_ContextInspect" xml:space="preserve">
+    <value>🔍 Otevřít v ROM inspektoru</value>
+  </data>
+  <data name="Browser_ContextOpenFolder" xml:space="preserve">
+    <value>📂 Otevřít nadřazenou složku</value>
+  </data>
+  <data name="Browser_ContextOpenWith" xml:space="preserve">
+    <value>🚀 Otevřít pomocí</value>
+  </data>
+  <data name="Browser_ContextPatch" xml:space="preserve">
+    <value>🩹 Záplatovat ROM...</value>
+  </data>
+  <data name="Browser_ContextRename" xml:space="preserve">
+    <value>✏️ Přejmenovat...</value>
+  </data>
+  <data name="Browser_ContextTools" xml:space="preserve">
+    <value>🔧 Nástroje</value>
+  </data>
+  <data name="Browser_OpenFolderError" xml:space="preserve">
+    <value>Nelze otevřít složku: {0}</value>
+  </data>
+  <data name="Browser_RenameError" xml:space="preserve">
+    <value>Přejmenování selhalo: {0}</value>
+  </data>
+  <data name="Browser_RenamePromptTitle" xml:space="preserve">
+    <value>Přejmenovat ROM</value>
+  </data>
+  <data name="Browser_RenameSuccess" xml:space="preserve">
+    <value>Přejmenováno na {0}</value>
+  </data>
+  <data name="Checksum_Description" xml:space="preserve">
+    <value>Vypočítejte kontrolní součty CRC32, MD5, SHA-1 a SHA-256 pro soubory ROM k ověření integrity a identifikaci dumpů.</value>
+  </data>
+  <data name="Common_SelectFileTitle" xml:space="preserve">
+    <value>Vybrat soubor</value>
+  </data>
+  <data name="Common_SelectOutputDirectoryTitle" xml:space="preserve">
+    <value>Vybrat výstupní adresář</value>
+  </data>
+  <data name="Common_SelectRomDirectoryTitle" xml:space="preserve">
+    <value>Vybrat adresář ROM</value>
+  </data>
+  <data name="Common_SelectRomFileTitle" xml:space="preserve">
+    <value>Vybrat soubor ROM</value>
+  </data>
+  <data name="Comparer_Description" xml:space="preserve">
+    <value>Porovnejte dva soubory ROM bajt po bajtu pro identifikaci rozdílů ve velikosti, obsahu a nalezení prvního nesouhlasného offsetu.</value>
+  </data>
+  <data name="GoodTools_NoCodesForFile" xml:space="preserve">
+    <value>Nebyly nalezeny žádné kódy GoodTools.</value>
+  </data>
+  <data name="MameConfig_Artwork" xml:space="preserve">
+    <value>Možnosti grafiky</value>
+  </data>
+  <data name="MameConfig_AutoEnable" xml:space="preserve">
+    <value>Možnosti automatického povolení vstupu</value>
+  </data>
+  <data name="MameConfig_Bgfx" xml:space="preserve">
+    <value>BGFX post-processing</value>
+  </data>
+  <data name="MameConfig_Communication" xml:space="preserve">
+    <value>Možnosti komunikace</value>
+  </data>
+  <data name="MameConfig_ConfigFile" xml:space="preserve">
+    <value>Konfigurační soubor</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Máte neuložené změny. Zahodit je a pokračovat?</value>
+  </data>
+  <data name="MameConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Neuložené změny</value>
+  </data>
+  <data name="MameConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Toto obnoví všechna nastavení na výchozí hodnoty MAME. Všechny neuložené změny budou ztraceny. Pokračovat?</value>
+  </data>
+  <data name="MameConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Obnovit výchozí hodnoty</value>
+  </data>
+  <data name="MameConfig_CoreInput" xml:space="preserve">
+    <value>Základní možnosti vstupu</value>
+  </data>
+  <data name="MameConfig_CoreMisc" xml:space="preserve">
+    <value>Základní různé možnosti</value>
+  </data>
+  <data name="MameConfig_CorePerformance" xml:space="preserve">
+    <value>Základní možnosti výkonu</value>
+  </data>
+  <data name="MameConfig_CoreSound" xml:space="preserve">
+    <value>Základní možnosti zvuku</value>
+  </data>
+  <data name="MameConfig_CoreVideo" xml:space="preserve">
+    <value>Základní možnosti videa</value>
+  </data>
+  <data name="MameConfig_CreateNew" xml:space="preserve">
+    <value>Vytvořit nový</value>
+  </data>
+  <data name="MameConfig_Debugging" xml:space="preserve">
+    <value>Možnosti ladění</value>
+  </data>
+  <data name="MameConfig_DefaultsRestored" xml:space="preserve">
+    <value>Všechna nastavení obnovena na výchozí hodnoty MAME.</value>
+  </data>
+  <data name="MameConfig_Description" xml:space="preserve">
+    <value>Načtěte, upravte a uložte konfigurační soubory MAME (mame.ini). Podporuje všechna nastavení MAME pro Windows, macOS a Linux.</value>
+  </data>
+  <data name="MameConfig_HttpServer" xml:space="preserve">
+    <value>Možnosti HTTP serveru</value>
+  </data>
+  <data name="MameConfig_IniFileType" xml:space="preserve">
+    <value>Soubory MAME INI</value>
+  </data>
+  <data name="MameConfig_IniPlaceholder" xml:space="preserve">
+    <value>Cesta k mame.ini...</value>
+  </data>
+  <data name="MameConfig_Language" xml:space="preserve">
+    <value>Jazyk</value>
+  </data>
+  <data name="MameConfig_LoadError" xml:space="preserve">
+    <value>Načtení konfigurace selhalo: {0}</value>
+  </data>
+  <data name="MameConfig_Loaded" xml:space="preserve">
+    <value>Načteno {0} nastavení z {1}</value>
+  </data>
+  <data name="MameConfig_NewCreated" xml:space="preserve">
+    <value>Vytvořena nová konfigurace s výchozími hodnotami MAME. Cesta uložení: {0}</value>
+  </data>
+  <data name="MameConfig_NoIniFound" xml:space="preserve">
+    <value>Soubor mame.ini nebyl nalezen. Použijte Procházet k jeho vyhledání nebo Vytvořit nový pro vytvoření s výchozími hodnotami.</value>
+  </data>
+  <data name="MameConfig_OsdInput" xml:space="preserve">
+    <value>Poskytovatelé vstupu OSD</value>
+  </data>
+  <data name="MameConfig_OsdSound" xml:space="preserve">
+    <value>Možnosti zvuku OSD</value>
+  </data>
+  <data name="MameConfig_OsdVideo" xml:space="preserve">
+    <value>OSD / Akcelerované video</value>
+  </data>
+  <data name="MameConfig_OutputDirs" xml:space="preserve">
+    <value>Výstupní adresáře</value>
+  </data>
+  <data name="MameConfig_PerWindowVideo" xml:space="preserve">
+    <value>Možnosti videa pro každé okno</value>
+  </data>
+  <data name="MameConfig_ResetDefaults" xml:space="preserve">
+    <value>Obnovit výchozí hodnoty</value>
+  </data>
+  <data name="MameConfig_Rotation" xml:space="preserve">
+    <value>Možnosti rotace</value>
+  </data>
+  <data name="MameConfig_Save" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="MameConfig_SaveAs" xml:space="preserve">
+    <value>Uložit jako...</value>
+  </data>
+  <data name="MameConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Uložit konfiguraci MAME</value>
+  </data>
+  <data name="MameConfig_SaveError" xml:space="preserve">
+    <value>Uložení konfigurace selhalo: {0}</value>
+  </data>
+  <data name="MameConfig_Saved" xml:space="preserve">
+    <value>Konfigurace uložena do {0}</value>
+  </data>
+  <data name="MameConfig_ScreenOptions" xml:space="preserve">
+    <value>Možnosti obrazovky</value>
+  </data>
+  <data name="MameConfig_Scripting" xml:space="preserve">
+    <value>Skriptování / Pluginy</value>
+  </data>
+  <data name="MameConfig_SearchPaths" xml:space="preserve">
+    <value>Cesty pro vyhledávání</value>
+  </data>
+  <data name="MameConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Zadejte pro filtrování nastavení podle názvu (např. rompath, video, joystick...)</value>
+  </data>
+  <data name="MameConfig_SearchResults" xml:space="preserve">
+    <value>{0} z {1} sekcí odpovídá</value>
+  </data>
+  <data name="MameConfig_SearchSettings" xml:space="preserve">
+    <value>Hledat nastavení</value>
+  </data>
+  <data name="MameConfig_SelectIniTitle" xml:space="preserve">
+    <value>Vybrat konfigurační soubor MAME</value>
+  </data>
+  <data name="MameConfig_StatePlayback" xml:space="preserve">
+    <value>Možnosti stavu / přehrávání</value>
+  </data>
+  <data name="MameConfig_TabInput" xml:space="preserve">
+    <value>Vstup</value>
+  </data>
+  <data name="MameConfig_TabMisc" xml:space="preserve">
+    <value>Různé / Pokročilé</value>
+  </data>
+  <data name="MameConfig_TabPaths" xml:space="preserve">
+    <value>Cesty</value>
+  </data>
+  <data name="MameConfig_TabPerformance" xml:space="preserve">
+    <value>Výkon</value>
+  </data>
+  <data name="MameConfig_TabSound" xml:space="preserve">
+    <value>Zvuk</value>
+  </data>
+  <data name="MameConfig_TabState" xml:space="preserve">
+    <value>Stav / Přehrávání</value>
+  </data>
+  <data name="MameConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="MameConfig_Title" xml:space="preserve">
+    <value>Konfigurátor MAME</value>
+  </data>
+  <data name="MameConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Neuložené změny</value>
+  </data>
+  <data name="MameConfig_Vector" xml:space="preserve">
+    <value>Možnosti vektorů</value>
+  </data>
+  <data name="MednafenConfig_CfgFileType" xml:space="preserve">
+    <value>Konfigurační soubory Mednafen (*.cfg)</value>
+  </data>
+  <data name="MednafenConfig_CfgPlaceholder" xml:space="preserve">
+    <value>Cesta k mednafen.cfg...</value>
+  </data>
+  <data name="MednafenConfig_ConfigFile" xml:space="preserve">
+    <value>Konfigurační soubor</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Máte neuložené změny. Zahodit je a pokračovat?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Neuložené změny</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Toto obnoví všechna nastavení na výchozí hodnoty Mednafen. Všechny neuložené změny budou ztraceny. Pokračovat?</value>
+  </data>
+  <data name="MednafenConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Obnovit výchozí hodnoty</value>
+  </data>
+  <data name="MednafenConfig_CoreSettings" xml:space="preserve">
+    <value>Základní nastavení</value>
+  </data>
+  <data name="MednafenConfig_CpuAffinity" xml:space="preserve">
+    <value>Afinita procesoru</value>
+  </data>
+  <data name="MednafenConfig_CreateNew" xml:space="preserve">
+    <value>Vytvořit nový</value>
+  </data>
+  <data name="MednafenConfig_DefaultsRestored" xml:space="preserve">
+    <value>Všechna nastavení obnovena na výchozí hodnoty Mednafen.</value>
+  </data>
+  <data name="MednafenConfig_Description" xml:space="preserve">
+    <value>Načtěte, upravte a uložte konfigurační soubory Mednafen (mednafen.cfg). Podporuje všechna nastavení Mednafen pro Windows, macOS a Linux.</value>
+  </data>
+  <data name="MednafenConfig_DirectoryPaths" xml:space="preserve">
+    <value>Cesty adresářů</value>
+  </data>
+  <data name="MednafenConfig_FilenameFormats" xml:space="preserve">
+    <value>Formáty názvů souborů</value>
+  </data>
+  <data name="MednafenConfig_FpsDisplay" xml:space="preserve">
+    <value>Zobrazení FPS</value>
+  </data>
+  <data name="MednafenConfig_GoatShader" xml:space="preserve">
+    <value>Nastavení Goat Shader</value>
+  </data>
+  <data name="MednafenConfig_InputSettings" xml:space="preserve">
+    <value>Nastavení vstupu</value>
+  </data>
+  <data name="MednafenConfig_LoadError" xml:space="preserve">
+    <value>Načtení konfigurace selhalo: {0}</value>
+  </data>
+  <data name="MednafenConfig_Loaded" xml:space="preserve">
+    <value>Načteno {0} nastavení z {1}</value>
+  </data>
+  <data name="MednafenConfig_NetworkPlay" xml:space="preserve">
+    <value>Síťová hra</value>
+  </data>
+  <data name="MednafenConfig_NewCreated" xml:space="preserve">
+    <value>Vytvořena nová výchozí konfigurace v {0}</value>
+  </data>
+  <data name="MednafenConfig_NoCfgFound" xml:space="preserve">
+    <value>Nelze automaticky detekovat mednafen.cfg. Prosím vyhledejte soubor ručně.</value>
+  </data>
+  <data name="MednafenConfig_Osd" xml:space="preserve">
+    <value>Zobrazení na obrazovce</value>
+  </data>
+  <data name="MednafenConfig_PerSystemDescription" xml:space="preserve">
+    <value>Nakonfigurujte škálování videa, shadery a nastavení zobrazení pro každý emulovaný systém. Změny se uloží při přepnutí systému nebo uložení souboru.</value>
+  </data>
+  <data name="MednafenConfig_QtRecord" xml:space="preserve">
+    <value>Nahrávání QuickTime</value>
+  </data>
+  <data name="MednafenConfig_ResetDefaults" xml:space="preserve">
+    <value>Obnovit výchozí hodnoty</value>
+  </data>
+  <data name="MednafenConfig_Save" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="MednafenConfig_SaveAs" xml:space="preserve">
+    <value>Uložit jako</value>
+  </data>
+  <data name="MednafenConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Uložit konfiguraci Mednafen jako</value>
+  </data>
+  <data name="MednafenConfig_SaveError" xml:space="preserve">
+    <value>Uložení konfigurace selhalo: {0}</value>
+  </data>
+  <data name="MednafenConfig_Saved" xml:space="preserve">
+    <value>Konfigurace uložena do {0}</value>
+  </data>
+  <data name="MednafenConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Zadejte pro filtrování nastavení podle názvu (např. video, sound, shader...)</value>
+  </data>
+  <data name="MednafenConfig_SearchResults" xml:space="preserve">
+    <value>{0} z {1} sekcí odpovídá</value>
+  </data>
+  <data name="MednafenConfig_SearchSettings" xml:space="preserve">
+    <value>Hledat nastavení</value>
+  </data>
+  <data name="MednafenConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Vybrat konfigurační soubor Mednafen</value>
+  </data>
+  <data name="MednafenConfig_SelectSystem" xml:space="preserve">
+    <value>Vybrat systém</value>
+  </data>
+  <data name="MednafenConfig_SoundOutput" xml:space="preserve">
+    <value>Výstup zvuku</value>
+  </data>
+  <data name="MednafenConfig_SpeedSettings" xml:space="preserve">
+    <value>Rychlý / Pomalý posun</value>
+  </data>
+  <data name="MednafenConfig_SystemVideo" xml:space="preserve">
+    <value>Video systému / Škálování</value>
+  </data>
+  <data name="MednafenConfig_TabAdvanced" xml:space="preserve">
+    <value>Pokročilé</value>
+  </data>
+  <data name="MednafenConfig_TabGeneral" xml:space="preserve">
+    <value>Obecné</value>
+  </data>
+  <data name="MednafenConfig_TabInput" xml:space="preserve">
+    <value>Vstup</value>
+  </data>
+  <data name="MednafenConfig_TabNetplay" xml:space="preserve">
+    <value>Síťová hra</value>
+  </data>
+  <data name="MednafenConfig_TabPaths" xml:space="preserve">
+    <value>Cesty</value>
+  </data>
+  <data name="MednafenConfig_TabPerSystem" xml:space="preserve">
+    <value>Podle systému</value>
+  </data>
+  <data name="MednafenConfig_TabSound" xml:space="preserve">
+    <value>Zvuk</value>
+  </data>
+  <data name="MednafenConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="MednafenConfig_TemporalBlur" xml:space="preserve">
+    <value>Časové rozmazání</value>
+  </data>
+  <data name="MednafenConfig_Title" xml:space="preserve">
+    <value>Konfigurátor Mednafen</value>
+  </data>
+  <data name="MednafenConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Neuložené změny</value>
+  </data>
+  <data name="MednafenConfig_VideoOutput" xml:space="preserve">
+    <value>Výstup videa</value>
+  </data>
+  <data name="MetaScraper_SummaryBySystem" xml:space="preserve">
+    <value>Souhrn podle systému:</value>
+  </data>
+  <data name="MetaScraper_SummaryStats" xml:space="preserve">
+    <value>Platné: {0}, Neplatné: {1}, Chyby: {2}</value>
+  </data>
+  <data name="Nav_MameConfigurator" xml:space="preserve">
+    <value>Konfigurátor MAME</value>
+  </data>
+  <data name="Nav_MednafenConfigurator" xml:space="preserve">
+    <value>Konfigurátor Mednafen</value>
+  </data>
+  <data name="Nav_NoResults" xml:space="preserve">
+    <value>Nebyly nalezeny žádné odpovídající nástroje.</value>
+  </data>
+  <data name="Nav_RetroArchConfigurator" xml:space="preserve">
+    <value>Konfigurátor RetroArch</value>
+  </data>
+  <data name="Nav_SearchPlaceholder" xml:space="preserve">
+    <value>Hledat nástroje...</value>
+  </data>
+  <data name="Patcher_Description" xml:space="preserve">
+    <value>Aplikujte záplaty IPS, BPS nebo xdelta na soubory ROM pro překlady, opravy nebo úpravy.</value>
+  </data>
+  <data name="RAConfig_AIService" xml:space="preserve">
+    <value>Služba AI</value>
+  </data>
+  <data name="RAConfig_AccessibilityOptions" xml:space="preserve">
+    <value>Možnosti přístupnosti</value>
+  </data>
+  <data name="RAConfig_AchievementDisplay" xml:space="preserve">
+    <value>Zobrazení úspěchů</value>
+  </data>
+  <data name="RAConfig_AchievementOptions" xml:space="preserve">
+    <value>Možnosti RetroAchievements</value>
+  </data>
+  <data name="RAConfig_AudioDriver" xml:space="preserve">
+    <value>Ovladač zvuku</value>
+  </data>
+  <data name="RAConfig_AudioSync" xml:space="preserve">
+    <value>Nastavení zvuku</value>
+  </data>
+  <data name="RAConfig_CfgFileType" xml:space="preserve">
+    <value>Soubory RetroArch CFG</value>
+  </data>
+  <data name="RAConfig_CfgPlaceholder" xml:space="preserve">
+    <value>Cesta k retroarch.cfg...</value>
+  </data>
+  <data name="RAConfig_ConfigFile" xml:space="preserve">
+    <value>Konfigurační soubor</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardMessage" xml:space="preserve">
+    <value>Máte neuložené změny. Zahodit je a pokračovat?</value>
+  </data>
+  <data name="RAConfig_ConfirmDiscardTitle" xml:space="preserve">
+    <value>Neuložené změny</value>
+  </data>
+  <data name="RAConfig_ConfirmResetMessage" xml:space="preserve">
+    <value>Toto obnoví všechna nastavení na výchozí hodnoty RetroArch. Všechny neuložené změny budou ztraceny. Pokračovat?</value>
+  </data>
+  <data name="RAConfig_ConfirmResetTitle" xml:space="preserve">
+    <value>Obnovit výchozí hodnoty</value>
+  </data>
+  <data name="RAConfig_ContentPaths" xml:space="preserve">
+    <value>Cesty k obsahu a uloženým stavům</value>
+  </data>
+  <data name="RAConfig_CoreOptions" xml:space="preserve">
+    <value>Možnosti jádra</value>
+  </data>
+  <data name="RAConfig_CorePaths" xml:space="preserve">
+    <value>Cesty k jádru a systému</value>
+  </data>
+  <data name="RAConfig_CreateNew" xml:space="preserve">
+    <value>Vytvořit nový</value>
+  </data>
+  <data name="RAConfig_DefaultsRestored" xml:space="preserve">
+    <value>Všechna nastavení obnovena na výchozí hodnoty RetroArch.</value>
+  </data>
+  <data name="RAConfig_Description" xml:space="preserve">
+    <value>Načtěte, upravte a uložte konfigurační soubory RetroArch (retroarch.cfg). Podporuje všechna nastavení RetroArch pro Windows, macOS a Linux.</value>
+  </data>
+  <data name="RAConfig_FilterPaths" xml:space="preserve">
+    <value>Cesty k filtrům, překryvům a dalším</value>
+  </data>
+  <data name="RAConfig_FrameThrottle" xml:space="preserve">
+    <value>Možnosti omezení snímků</value>
+  </data>
+  <data name="RAConfig_InputGeneral" xml:space="preserve">
+    <value>Obecná nastavení vstupu</value>
+  </data>
+  <data name="RAConfig_InputHotkeys" xml:space="preserve">
+    <value>Klávesové zkratky</value>
+  </data>
+  <data name="RAConfig_LoadError" xml:space="preserve">
+    <value>Načtení konfigurace selhalo: {0}</value>
+  </data>
+  <data name="RAConfig_Loaded" xml:space="preserve">
+    <value>Načteno {0} nastavení z {1}</value>
+  </data>
+  <data name="RAConfig_Logging" xml:space="preserve">
+    <value>Možnosti logování</value>
+  </data>
+  <data name="RAConfig_MenuGeneral" xml:space="preserve">
+    <value>Nastavení nabídky</value>
+  </data>
+  <data name="RAConfig_MenuTheme" xml:space="preserve">
+    <value>Téma a vzhled</value>
+  </data>
+  <data name="RAConfig_MiscOptions" xml:space="preserve">
+    <value>Různé možnosti</value>
+  </data>
+  <data name="RAConfig_Netplay" xml:space="preserve">
+    <value>Síťová hra</value>
+  </data>
+  <data name="RAConfig_NetworkGeneral" xml:space="preserve">
+    <value>Nastavení sítě</value>
+  </data>
+  <data name="RAConfig_NewCreated" xml:space="preserve">
+    <value>Vytvořena nová konfigurace s výchozími hodnotami RetroArch. Cesta uložení: {0}</value>
+  </data>
+  <data name="RAConfig_NoCfgFound" xml:space="preserve">
+    <value>Soubor retroarch.cfg nebyl nalezen. Použijte Procházet k jeho vyhledání nebo Vytvořit nový pro vytvoření s výchozími hodnotami.</value>
+  </data>
+  <data name="RAConfig_Notifications" xml:space="preserve">
+    <value>Oznámení</value>
+  </data>
+  <data name="RAConfig_OverlaySettings" xml:space="preserve">
+    <value>Nastavení překryvu</value>
+  </data>
+  <data name="RAConfig_RGUITheme" xml:space="preserve">
+    <value>Téma RGUI</value>
+  </data>
+  <data name="RAConfig_RecordingOptions" xml:space="preserve">
+    <value>Možnosti nahrávání</value>
+  </data>
+  <data name="RAConfig_ResetDefaults" xml:space="preserve">
+    <value>Obnovit výchozí hodnoty</value>
+  </data>
+  <data name="RAConfig_Rewind" xml:space="preserve">
+    <value>Možnosti přetáčení</value>
+  </data>
+  <data name="RAConfig_Save" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="RAConfig_SaveAs" xml:space="preserve">
+    <value>Uložit jako...</value>
+  </data>
+  <data name="RAConfig_SaveDialogTitle" xml:space="preserve">
+    <value>Uložit konfiguraci RetroArch</value>
+  </data>
+  <data name="RAConfig_SaveError" xml:space="preserve">
+    <value>Uložení konfigurace selhalo: {0}</value>
+  </data>
+  <data name="RAConfig_SaveOptions" xml:space="preserve">
+    <value>Možnosti ukládání a stavu</value>
+  </data>
+  <data name="RAConfig_Saved" xml:space="preserve">
+    <value>Konfigurace uložena do {0}</value>
+  </data>
+  <data name="RAConfig_SearchPlaceholder" xml:space="preserve">
+    <value>Zadejte pro filtrování nastavení podle názvu (např. video_driver, audio, netplay...)</value>
+  </data>
+  <data name="RAConfig_SearchSettings" xml:space="preserve">
+    <value>Hledat nastavení</value>
+  </data>
+  <data name="RAConfig_SelectCfgTitle" xml:space="preserve">
+    <value>Vybrat konfigurační soubor RetroArch</value>
+  </data>
+  <data name="RAConfig_TabAccessibility" xml:space="preserve">
+    <value>Přístupnost</value>
+  </data>
+  <data name="RAConfig_TabAchievements" xml:space="preserve">
+    <value>Úspěchy</value>
+  </data>
+  <data name="RAConfig_TabAudio" xml:space="preserve">
+    <value>Zvuk</value>
+  </data>
+  <data name="RAConfig_TabCore" xml:space="preserve">
+    <value>Jádro / Ukládání</value>
+  </data>
+  <data name="RAConfig_TabFrameThrottle" xml:space="preserve">
+    <value>Omezení snímků</value>
+  </data>
+  <data name="RAConfig_TabInput" xml:space="preserve">
+    <value>Vstup</value>
+  </data>
+  <data name="RAConfig_TabMenu" xml:space="preserve">
+    <value>Nabídka / UI</value>
+  </data>
+  <data name="RAConfig_TabMisc" xml:space="preserve">
+    <value>Různé / Logování</value>
+  </data>
+  <data name="RAConfig_TabNetwork" xml:space="preserve">
+    <value>Síť</value>
+  </data>
+  <data name="RAConfig_TabOverlay" xml:space="preserve">
+    <value>Překryv</value>
+  </data>
+  <data name="RAConfig_TabPaths" xml:space="preserve">
+    <value>Cesty</value>
+  </data>
+  <data name="RAConfig_TabRecording" xml:space="preserve">
+    <value>Nahrávání</value>
+  </data>
+  <data name="RAConfig_TabVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="RAConfig_Title" xml:space="preserve">
+    <value>Konfigurátor RetroArch</value>
+  </data>
+  <data name="RAConfig_UnsavedChanges" xml:space="preserve">
+    <value>● Neuložené změny</value>
+  </data>
+  <data name="RAConfig_VideoAdvanced" xml:space="preserve">
+    <value>Pokročilé video</value>
+  </data>
+  <data name="RAConfig_VideoDisplay" xml:space="preserve">
+    <value>Nastavení zobrazení</value>
+  </data>
+  <data name="RAConfig_VideoDriver" xml:space="preserve">
+    <value>Ovladač videa</value>
+  </data>
+  <data name="RAConfig_VideoOSD" xml:space="preserve">
+    <value>OSD a snímky obrazovky</value>
+  </data>
+  <data name="RAConfig_VideoScaling" xml:space="preserve">
+    <value>Škálování a filtrování</value>
+  </data>
+  <data name="RAConfig_VideoSync" xml:space="preserve">
+    <value>Synchronizace</value>
+  </data>
+  <data name="Security_SingleNoFeatures" xml:space="preserve">
+    <value>✔ {0}: Nebyly detekovány žádné bezpečnostní funkce.</value>
+  </data>
+  <data name="Security_SingleResultDetected" xml:space="preserve">
+    <value>✔ {0}: Detekováno {1} bezpečnostních funkcí.</value>
+  </data>
+  <data name="Settings_BigPictureStyleClassic" xml:space="preserve">
+    <value>Klasický (mřížka karet)</value>
+  </data>
+  <data name="Settings_BigPictureStyleLabel" xml:space="preserve">
+    <value>Vizuální styl</value>
+  </data>
+  <data name="Settings_BigPictureStyleModern" xml:space="preserve">
+    <value>Moderní (hrdina + karusel)</value>
+  </data>
+  <data name="Settings_UpdateManagedByPackageManager" xml:space="preserve">
+    <value>Aktualizace jsou spravovány správcem balíčků vašeho systému.</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImage" xml:space="preserve">
+    <value>Potvrdit vytvoření obrazu</value>
+  </data>
+  <data name="UsbTools_ConfirmCreateImageMessage" xml:space="preserve">
+    <value>Vytvořit úplný obraz disku z {0}? Toto může chvíli trvat v závislosti na velikosti disku.</value>
+  </data>
 </root>
