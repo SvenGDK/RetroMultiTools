@@ -51,19 +51,18 @@ modules:
       # Install controller database for gamepad support
       - install -Dm644 gamecontrollerdb.txt /app/lib/retromultitools/gamecontrollerdb.txt
       # Install the launcher script
-      - install -Dm755 Flatpak/launch.sh /app/bin/retromultitools
+      - install -Dm755 launch.sh /app/bin/retromultitools
       # Install desktop file
-      - install -Dm644 Flatpak/io.github.svengdk.RetroMultiTools.desktop /app/share/applications/io.github.svengdk.RetroMultiTools.desktop
+      - install -Dm644 io.github.svengdk.RetroMultiTools.desktop /app/share/applications/io.github.svengdk.RetroMultiTools.desktop
       # Install metainfo
-      - install -Dm644 Flatpak/io.github.svengdk.RetroMultiTools.metainfo.xml /app/share/metainfo/io.github.svengdk.RetroMultiTools.metainfo.xml
+      - install -Dm644 io.github.svengdk.RetroMultiTools.metainfo.xml /app/share/metainfo/io.github.svengdk.RetroMultiTools.metainfo.xml
       # Install icon
-      - install -Dm644 Icon.png /app/share/icons/hicolor/512x512/apps/io.github.svengdk.RetroMultiTools.png
+      - install -Dm644 io.github.svengdk.RetroMultiTools.png /app/share/icons/hicolor/512x512/apps/io.github.svengdk.RetroMultiTools.png
       # Install license
       - install -Dm644 LICENSE /app/share/licenses/io.github.svengdk.RetroMultiTools/LICENSE
     sources:
       - type: git
         url: https://github.com/SvenGDK/RetroMultiTools.git
-        # Update to the release tag or commit SHA for each submission
         tag: v5.0.0
       # SDL game controller database for gamepad support.
       # Update the sha256 before each submission:
