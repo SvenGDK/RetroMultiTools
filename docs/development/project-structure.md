@@ -1,3 +1,10 @@
+---
+layout: default
+title: Project Structure
+parent: Development
+nav_order: 2
+---
+
 # Project Structure
 
 Overview of the repository layout and code architecture.

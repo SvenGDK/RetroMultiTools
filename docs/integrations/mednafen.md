@@ -1,3 +1,10 @@
+---
+layout: default
+title: Mednafen
+parent: Integrations
+nav_order: 3
+---
+
 # Mednafen
 
 Integration with the [Mednafen](https://mednafen.github.io/) multi-system emulator.

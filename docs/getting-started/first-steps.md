@@ -1,3 +1,10 @@
+---
+layout: default
+title: First Steps
+parent: Getting Started
+nav_order: 2
+---
+
 # First Steps
 
 A quick walkthrough for getting started with Retro Multi Tools after installation.

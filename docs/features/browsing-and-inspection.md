@@ -1,3 +1,10 @@
+---
+layout: default
+title: Browsing & Inspection
+parent: Features
+nav_order: 1
+---
+
 # Browsing & Inspection
 
 Tools for exploring your ROM collection, viewing ROM details, and inspecting file contents.

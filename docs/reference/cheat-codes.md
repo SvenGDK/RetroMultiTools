@@ -1,3 +1,10 @@
+---
+layout: default
+title: Cheat Codes
+parent: Reference
+nav_order: 2
+---
+
 # Cheat Code Reference
 
 Detailed reference for all cheat code formats supported by the Cheat Code Converter.

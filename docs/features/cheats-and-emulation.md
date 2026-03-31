@@ -1,3 +1,10 @@
+---
+layout: default
+title: Cheats & Emulation
+parent: Features
+nav_order: 6
+---
+
 # Cheats & Emulation
 
 Tools for converting cheat codes and generating emulator configuration files.

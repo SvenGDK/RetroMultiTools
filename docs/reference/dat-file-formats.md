@@ -1,3 +1,10 @@
+---
+layout: default
+title: DAT File Formats
+parent: Reference
+nav_order: 3
+---
+
 # DAT File Formats
 
 Reference for the DAT file formats supported by the DAT Verifier and DAT Filter.

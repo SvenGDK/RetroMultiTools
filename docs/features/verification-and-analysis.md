@@ -1,3 +1,10 @@
+---
+layout: default
+title: Verification & Analysis
+parent: Features
+nav_order: 4
+---
+
 # Verification & Analysis
 
 Tools for verifying ROM integrity, detecting duplicates, and analyzing security features.

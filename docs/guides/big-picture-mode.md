@@ -1,3 +1,10 @@
+---
+layout: default
+title: Big Picture Mode
+parent: User Guides
+nav_order: 2
+---
+
 # Big Picture Mode Guide
 
 A fullscreen, controller-friendly interface for browsing and launching ROMs, designed for couch gaming.

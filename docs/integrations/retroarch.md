@@ -1,3 +1,10 @@
+---
+layout: default
+title: RetroArch
+parent: Integrations
+nav_order: 1
+---
+
 # RetroArch Integration
 
 Configuration, core management, playlists, shortcuts, and achievements for RetroArch.

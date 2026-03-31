@@ -1,3 +1,10 @@
+---
+layout: default
+title: Supported Systems
+parent: Reference
+nav_order: 1
+---
+
 # Supported Systems
 
 Retro Multi Tools supports ROMs from the following 46 console and computer systems.

@@ -1,3 +1,10 @@
+---
+layout: default
+title: Patching
+parent: Features
+nav_order: 2
+---
+
 # Patching
 
 Tools for applying and creating ROM patches.

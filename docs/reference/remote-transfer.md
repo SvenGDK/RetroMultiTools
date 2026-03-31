@@ -1,3 +1,10 @@
+---
+layout: default
+title: Remote Transfer Protocols
+parent: Reference
+nav_order: 5
+---
+
 # Remote Transfer Protocols
 
 Reference for the remote file transfer protocols supported by the Send to Remote feature.

@@ -1,3 +1,9 @@
+---
+layout: default
+title: Troubleshooting
+nav_order: 9
+---
+
 # Troubleshooting
 
 Common issues and solutions for Retro Multi Tools.

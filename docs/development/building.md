@@ -1,3 +1,10 @@
+---
+layout: default
+title: Building from Source
+parent: Development
+nav_order: 1
+---
+
 # Building from Source
 
 Instructions for building and running Retro Multi Tools from source code.

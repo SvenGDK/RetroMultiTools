@@ -1,3 +1,10 @@
+---
+layout: default
+title: ROM Management
+parent: Features
+nav_order: 5
+---
+
 # ROM Management
 
 Tools for exporting, fixing, trimming, renaming, and scraping ROM metadata.

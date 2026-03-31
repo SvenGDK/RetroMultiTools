@@ -21,18 +21,12 @@ gh_edit_link: false
 # Heading anchor links
 heading_anchors: true
 
-# Navigation defaults — only the landing page appears in the sidebar;
-# all other pages are reached through the links on that page.
+# Page defaults
 defaults:
   - scope:
       path: ""
     values:
       layout: default
-      nav_exclude: true
-  - scope:
-      path: "index.md"
-    values:
-      nav_exclude: false
 
 exclude:
   - README.md

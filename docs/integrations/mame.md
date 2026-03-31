@@ -1,3 +1,10 @@
+---
+layout: default
+title: MAME
+parent: Integrations
+nav_order: 2
+---
+
 # MAME Integration
 
 Tools for auditing, rebuilding, and managing MAME ROM sets, CHD files, and audio samples.

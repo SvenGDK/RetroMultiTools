@@ -1,3 +1,10 @@
+---
+layout: default
+title: USB Tools
+parent: Features
+nav_order: 8
+---
+
 # USB Tools
 
 Manage USB drives with a built-in file explorer, drive formatter, image writer, and image creator.

@@ -1,3 +1,10 @@
+---
+layout: default
+title: Settings
+parent: Configuration
+nav_order: 1
+---
+
 # Settings
 
 Application settings for Retro Multi Tools: language, updates, system tray, and emulator paths.

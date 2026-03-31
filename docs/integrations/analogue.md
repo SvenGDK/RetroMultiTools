@@ -1,3 +1,10 @@
+---
+layout: default
+title: Analogue Hardware
+parent: Integrations
+nav_order: 4
+---
+
 # Analogue Hardware
 
 Manage Analogue FPGA consoles: Pocket, Mega SG, NT / Super NT, and 3D.

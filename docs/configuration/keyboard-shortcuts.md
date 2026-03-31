@@ -1,3 +1,10 @@
+---
+layout: default
+title: Keyboard Shortcuts
+parent: Configuration
+nav_order: 2
+---
+
 # Keyboard Shortcuts
 
 All keyboard shortcuts available in Retro Multi Tools.

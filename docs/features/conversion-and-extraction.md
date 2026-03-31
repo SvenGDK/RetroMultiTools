@@ -1,3 +1,10 @@
+---
+layout: default
+title: Conversion & Extraction
+parent: Features
+nav_order: 3
+---
+
 # Conversion & Extraction
 
 Tools for converting ROM formats, extracting archives, and assembling split files.

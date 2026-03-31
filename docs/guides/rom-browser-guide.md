@@ -1,3 +1,10 @@
+---
+layout: default
+title: ROM Browser Guide
+parent: User Guides
+nav_order: 1
+---
+
 # ROM Browser & RetroArch Integration — User Guide
 
 A step-by-step guide to browsing, managing, and launching your ROM collection with the ROM Browser and RetroArch.

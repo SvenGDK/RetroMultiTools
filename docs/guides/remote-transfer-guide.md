@@ -1,3 +1,10 @@
+---
+layout: default
+title: Remote Transfer Guide
+parent: User Guides
+nav_order: 3
+---
+
 # Remote Transfer & Sharing Guide
 
 How to send ROM files to remote targets and share them on the local network.

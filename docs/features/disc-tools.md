@@ -1,3 +1,10 @@
+---
+layout: default
+title: Disc Tools
+parent: Features
+nav_order: 7
+---
+
 # Disc Tools
 
 Burn disc images, create images from discs, and build ISO files — all cross-platform.
