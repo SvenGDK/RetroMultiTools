@@ -432,8 +432,9 @@ jobs:
       - name: Validate AppStream metainfo
         run: |
           sudo apt-get update -y
-          sudo apt-get install -y appstream
+          sudo apt-get install -y appstream desktop-file-utils
           appstreamcli validate --no-net Flatpak/io.github.svengdk.RetroMultiTools.metainfo.xml
+          desktop-file-validate Flatpak/io.github.svengdk.RetroMultiTools.desktop
 
       - name: Create Flatpak
         run: |
@@ -478,7 +479,7 @@ jobs:
           [Context]
           shared=ipc;network;
           sockets=x11;wayland;
-          devices=dri;
+          devices=dri;all;
           filesystems=home;/media:ro;/run/media:ro;
 
           [Session Bus Policy]

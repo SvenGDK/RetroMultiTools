@@ -6,7 +6,7 @@
   <summary>Manage, inspect, and patch retro game ROMs</summary>
 
   <developer id="io.github.svengdk">
-    <name>SvenGDK</name>
+    <name translate="no">SvenGDK</name>
   </developer>
 
   <metadata_license>CC0-1.0</metadata_license>
@@ -15,6 +15,7 @@
   <url type="homepage">https://svengdk.github.io/RetroMultiTools/</url>
   <url type="bugtracker">https://github.com/SvenGDK/RetroMultiTools/issues</url>
   <url type="vcs-browser">https://github.com/SvenGDK/RetroMultiTools</url>
+  <url type="contribute">https://github.com/SvenGDK/RetroMultiTools</url>
 
   <description>
     <p>

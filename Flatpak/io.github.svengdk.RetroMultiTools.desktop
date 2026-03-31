@@ -8,3 +8,5 @@ Type=Application
 Categories=Utility;Game;
 Keywords=ROM;retro;emulation;patch;MAME;RetroArch;cheat;gamepad;
 StartupNotify=true
+StartupWMClass=io.github.svengdk.RetroMultiTools
+SingleMainWindow=true

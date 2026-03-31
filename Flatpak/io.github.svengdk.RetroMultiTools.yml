@@ -74,10 +74,10 @@ modules:
         sha256: aa659b847815f52dbc9e1f43e504661f012547875399562d11e7d031499ca570
         dest-filename: gamecontrollerdb.txt
       #
-      # NuGet sources must be generated with flatpak-dotnet-generator before building.
+      # NuGet offline sources (required for Flathub -- no network during build).
       #
-      # Install:   pip install flatpak-dotnet-generator
-      # Generate:  flatpak-dotnet-generator --dotnet 8 nuget-sources.json RetroMultiTools.slnx
+      # Regenerate before each submission:
+      #   python3 flatpak-dotnet-generator.py nuget-sources.json RetroMultiTools.slnx
+      #   (from https://github.com/flatpak/flatpak-builder-tools/tree/master/dotnet)
       #
-      # Then uncomment the following source entry:
-      # - nuget-sources.json
+      - Flatpak/nuget-sources.json
