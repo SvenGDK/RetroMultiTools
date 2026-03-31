@@ -64,19 +64,5 @@ modules:
       - type: git
         url: https://github.com/SvenGDK/RetroMultiTools.git
         tag: v5.0.0
-      # SDL game controller database for gamepad support.
-      # Update the sha256 before each submission:
-      #   curl -fsSL -o gamecontrollerdb.txt https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
-      #   sha256sum gamecontrollerdb.txt
-      - type: file
-        url: https://raw.githubusercontent.com/gabomdq/SDL_GameControllerDB/master/gamecontrollerdb.txt
-        sha256: aa659b847815f52dbc9e1f43e504661f012547875399562d11e7d031499ca570
-        dest-filename: gamecontrollerdb.txt
-      #
-      # NuGet offline sources (required for Flathub -- no network during build).
-      #
-      # Regenerate before each submission:
-      #   python3 flatpak-dotnet-generator.py nuget-sources.json RetroMultiTools.slnx
-      #   (from https://github.com/flatpak/flatpak-builder-tools/tree/master/dotnet)
-      #
-      - Flatpak/nuget-sources.json
+      # NuGet offline sources
+      - nuget-sources.json
